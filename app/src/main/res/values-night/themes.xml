@@ -13,8 +13,8 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
-        <item name="android:windowBackground">@color/darkGrey</item>
-        <item name="popupMenuBackground">@color/darkGrey</item>
+        <item name="android:windowBackground">@color/background</item>
+        <item name="popupMenuBackground">@color/background</item>
         <item name="android:textColor">@color/white</item>
     </style>
 </resources>

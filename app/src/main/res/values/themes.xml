@@ -12,7 +12,8 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
-        <item name="popupMenuBackground">@color/white</item>
+        <item name="android:windowBackground">@color/background</item>
+        <item name="popupMenuBackground">@color/background</item>
     </style>
 
     <style name="Theme.InvestView.NoActionBar">
