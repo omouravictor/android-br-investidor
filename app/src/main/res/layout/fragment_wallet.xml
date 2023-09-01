@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:tabIndicatorColor="@color/white"
         app:tabSelectedTextColor="@color/white"
-        app:tabTextColor="@color/white50perc" />
+        app:tabTextColor="@color/grey" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager2"
