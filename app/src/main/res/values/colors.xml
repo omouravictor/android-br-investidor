@@ -2,6 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="white70perc">#B3FFFFFF</color>
     <color name="grey">#737373</color>
 
     <!-- Day/Night colors -->
