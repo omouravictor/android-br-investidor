@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.ui.home
+package com.omouravictor.invest_view.ui.portfolio
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,16 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
-import com.omouravictor.invest_view.databinding.FragmentHomeBinding
+import com.omouravictor.invest_view.databinding.FragmentPortfolioBinding
 import com.omouravictor.invest_view.ui.base.ViewPagerAdapter
 import com.omouravictor.invest_view.ui.cryptos.CryptosFragment
 import com.omouravictor.invest_view.ui.currencies.CurrenciesFragment
 import com.omouravictor.invest_view.ui.details.DetailsFragment
 import com.omouravictor.invest_view.ui.stocks.StocksFragment
 
-class HomeFragment : Fragment() {
+class PortfolioFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentPortfolioBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -23,7 +23,7 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentPortfolioBinding.inflate(inflater, container, false)
         return binding.root
     }
 
