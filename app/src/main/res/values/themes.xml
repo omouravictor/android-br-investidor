@@ -25,4 +25,9 @@
     <style name="Theme.InvestView.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.InvestView.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="Theme.InvestView.TabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+    </style>
+
 </resources>
