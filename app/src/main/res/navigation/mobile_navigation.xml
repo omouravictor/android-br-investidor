@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_portfolio">
+    app:startDestination="@+id/nav_wallet">
 
     <fragment
-        android:id="@+id/nav_portfolio"
-        android:name="com.omouravictor.invest_view.ui.portfolio.PortfolioFragment"
+        android:id="@+id/nav_wallet"
+        android:name="com.omouravictor.invest_view.ui.wallet.WalletFragment"
         android:label="@string/menu_portfolio"
-        tools:layout="@layout/fragment_portfolio" />
+        tools:layout="@layout/fragment_wallet" />
 
     <fragment
         android:id="@+id/nav_gallery"
