@@ -9,7 +9,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Theme.Investview.AppBarOverlay"
+        android:theme="@style/Theme.InvestView.AppBarOverlay"
         app:elevation="0dp">
 
         <androidx.appcompat.widget.Toolbar
@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/Theme.Investview.PopupOverlay" />
+            app:popupTheme="@style/Theme.InvestView.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
