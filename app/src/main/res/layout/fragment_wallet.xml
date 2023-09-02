@@ -7,7 +7,7 @@
     tools:context=".ui.wallet.WalletFragment">
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout"
+        android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/black"
@@ -20,12 +20,12 @@
         app:tabTextColor="@color/grey" />
 
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewPager2"
+        android:id="@+id/view_pager_2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/tab_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

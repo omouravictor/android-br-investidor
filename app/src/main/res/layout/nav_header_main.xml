@@ -13,7 +13,7 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/image_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/nav_header_desc"
@@ -29,9 +29,9 @@
         android:textColor="@color/white" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/nav_header_subtitle"
-        android:textColor="@color/white70perc" />
+        android:textColor="@color/white_70_perc" />
 </LinearLayout>
