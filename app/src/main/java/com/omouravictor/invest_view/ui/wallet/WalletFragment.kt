@@ -7,11 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import com.omouravictor.invest_view.databinding.FragmentWalletBinding
+import com.omouravictor.invest_view.ui.assets.AssetsFragment
 import com.omouravictor.invest_view.ui.base.ViewPagerAdapter
-import com.omouravictor.invest_view.ui.cryptos.CryptosFragment
 import com.omouravictor.invest_view.ui.currencies.CurrenciesFragment
 import com.omouravictor.invest_view.ui.details.DetailsFragment
-import com.omouravictor.invest_view.ui.stocks.StocksFragment
 
 class WalletFragment : Fragment() {
 
@@ -31,8 +30,7 @@ class WalletFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = ViewPagerAdapter(requireActivity()).apply {
-            addFragment(StocksFragment(), "Ações")
-            addFragment(CryptosFragment(), "Criptos")
+            addFragment(AssetsFragment(), "Ativos")
             addFragment(CurrenciesFragment(), "Moedas")
             addFragment(DetailsFragment(), "Detalhes")
         }
