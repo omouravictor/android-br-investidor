@@ -8,9 +8,5 @@
             android:id="@+id/nav_wallet"
             android:icon="@drawable/ic_wallet"
             android:title="@string/menu_portfolio" />
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_gallery"
-            android:title="@string/menu_gallery" />
     </group>
 </menu>
