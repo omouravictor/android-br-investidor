@@ -2,8 +2,10 @@ package com.omouravictor.invest_view
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -17,6 +19,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         val navView: NavigationView = binding.navView
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
-        val navController = navHostFragment.navController
+        navController = navHostFragment.navController
 
         appBarConfiguration = AppBarConfiguration(
             setOf(R.id.nav_wallet),
@@ -40,8 +43,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main, menu)
+        menuInflater.inflate(R.menu.main_options_menu, menu)
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_add -> {
+//                navController.navigate()
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onSupportNavigateUp(): Boolean {

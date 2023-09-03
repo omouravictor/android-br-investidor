@@ -6,6 +6,7 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_add">Add</string>
+    <string name="action_settings">Configurações</string>
 
-    <string name="menu_portfolio">Carteira</string>
+    <string name="menu_wallet">Carteira</string>
 </resources>
