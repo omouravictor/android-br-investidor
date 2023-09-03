@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.ui.details
+package com.omouravictor.invest_view.ui.wallet.assets
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,28 +6,28 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.omouravictor.invest_view.databinding.FragmentDetailsBinding
+import com.omouravictor.invest_view.databinding.FragmentAssetsBinding
 
-class DetailsFragment : Fragment() {
+class AssetsFragment : Fragment() {
 
-    private var _binding: FragmentDetailsBinding? = null
+    private var _binding: FragmentAssetsBinding? = null
     private val binding get() = _binding!!
-    private val detailsViewModel: DetailsViewModel by viewModels()
+    private val assetsViewModel: AssetsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentDetailsBinding.inflate(inflater, container, false)
+        _binding = FragmentAssetsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        detailsViewModel.text.observe(viewLifecycleOwner) {
-            binding.textDetails.text = it
+        assetsViewModel.text.observe(viewLifecycleOwner) {
+            binding.textAssets.text = it
         }
     }
 

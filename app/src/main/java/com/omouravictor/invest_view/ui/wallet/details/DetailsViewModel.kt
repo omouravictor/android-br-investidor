@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.ui.details
+package com.omouravictor.invest_view.ui.wallet.details
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

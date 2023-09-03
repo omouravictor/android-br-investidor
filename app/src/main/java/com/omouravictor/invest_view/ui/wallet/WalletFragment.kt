@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import com.omouravictor.invest_view.databinding.FragmentWalletBinding
-import com.omouravictor.invest_view.ui.assets.AssetsFragment
+import com.omouravictor.invest_view.ui.wallet.assets.AssetsFragment
 import com.omouravictor.invest_view.ui.base.ViewPagerAdapter
-import com.omouravictor.invest_view.ui.currencies.CurrenciesFragment
-import com.omouravictor.invest_view.ui.details.DetailsFragment
+import com.omouravictor.invest_view.ui.wallet.currencies.CurrenciesFragment
+import com.omouravictor.invest_view.ui.wallet.details.DetailsFragment
 
 class WalletFragment : Fragment() {
 
