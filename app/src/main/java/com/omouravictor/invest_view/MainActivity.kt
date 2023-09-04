@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
 
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.nav_wallet),
+            setOf(R.id.menu_item_wallet),
             drawerLayout
         )
 
@@ -43,13 +43,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main_options_menu, menu)
+        menuInflater.inflate(R.menu.options_menu_main, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_add -> {
+            R.id.menu_item_add -> {
 //                navController.navigate()
             }
         }
