@@ -11,7 +11,7 @@
         android:label="@string/menu_wallet"
         tools:layout="@layout/fragment_wallet">
         <action
-            android:id="@+id/navigate_to_new_record"
+            android:id="@+id/wallet_fragment_to_new_record_fragment"
             app:destination="@id/nav_new_record" />
     </fragment>
 

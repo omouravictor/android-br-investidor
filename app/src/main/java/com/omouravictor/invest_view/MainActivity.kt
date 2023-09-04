@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.options_menu_add -> {
-                navController.navigate(R.id.navigate_to_new_record)
+                navController.navigate(R.id.wallet_fragment_to_new_record_fragment)
             }
         }
 
