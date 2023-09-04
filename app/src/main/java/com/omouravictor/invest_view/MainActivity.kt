@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
 
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.menu_item_wallet),
+            setOf(R.id.menu_nav_wallet),
             drawerLayout
         )
 
