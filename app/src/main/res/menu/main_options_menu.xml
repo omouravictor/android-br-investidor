@@ -6,9 +6,4 @@
         android:icon="@drawable/ic_add"
         android:title="@string/option_menu_add"
         app:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/options_menu_settings"
-        android:title="@string/option_menu_settings"
-        app:showAsAction="never" />
 </menu>
