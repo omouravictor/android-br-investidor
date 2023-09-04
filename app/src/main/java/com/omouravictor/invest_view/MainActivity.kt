@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
 
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.menu_nav_wallet),
+            setOf(R.id.nav_menu_wallet),
             drawerLayout
         )
 
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu_item_add -> {
+            R.id.options_menu_add -> {
 //                navController.navigate()
             }
         }
