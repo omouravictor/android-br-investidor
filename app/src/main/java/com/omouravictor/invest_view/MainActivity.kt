@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
 
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.nav_wallet),
+            setOf(R.id.nav_fragment_wallet),
             drawerLayout
         )
 
@@ -50,7 +50,6 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.options_menu_add -> {
-                navController.navigate(R.id.wallet_fragment_to_new_record_fragment)
             }
         }
 
