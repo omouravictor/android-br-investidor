@@ -1,5 +1,6 @@
 package com.omouravictor.invest_view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -13,6 +14,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import com.omouravictor.invest_view.databinding.ActivityMainBinding
+import com.omouravictor.invest_view.ui.new_record.NewRecordActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -48,6 +50,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.add_option -> {
+                startActivity(Intent(this, NewRecordActivity::class.java))
             }
         }
 
