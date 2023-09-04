@@ -5,8 +5,9 @@
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_add">Add</string>
-    <string name="action_settings">Configurações</string>
+    <string name="option_menu_add">Add</string>
+    <string name="option_menu_settings">Configurações</string>
 
     <string name="menu_wallet">Carteira</string>
+    <string name="new_record_label">Novo registro</string>
 </resources>

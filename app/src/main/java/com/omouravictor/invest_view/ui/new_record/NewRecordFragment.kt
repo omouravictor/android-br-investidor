@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.ui.add
+package com.omouravictor.invest_view.ui.new_record
 
 import android.os.Bundle
 import android.view.LayoutInflater

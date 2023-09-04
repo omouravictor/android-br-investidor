@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.ui.add
+package com.omouravictor.invest_view.ui.new_record
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
