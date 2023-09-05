@@ -22,5 +22,5 @@
         android:background="@color/background"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/main_nav_header"
-        app:menu="@menu/side_nav_bar_menu" />
+        app:menu="@menu/main_nav_menu" />
 </androidx.drawerlayout.widget.DrawerLayout>

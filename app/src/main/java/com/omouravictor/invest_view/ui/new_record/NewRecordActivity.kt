@@ -14,12 +14,12 @@ class NewRecordActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNewRecordBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_new_record)
+        setContentView(binding.root)
 
         val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_new_record) as NavHostFragment
         val navController = navHostFragment.navController
-        navController.setGraph(R.navigation.nav_wallet)
+        navController.setGraph(R.navigation.new_record_nav)
 
         setupActionBarWithNavController(navController)
     }
