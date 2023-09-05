@@ -1,9 +1,10 @@
 package com.omouravictor.invest_view.ui.new_record
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.omouravictor.invest_view.R
-import com.omouravictor.invest_view.databinding.ActivityMainBinding
 import com.omouravictor.invest_view.databinding.ActivityNewRecordBinding
 
 class NewRecordActivity : AppCompatActivity() {
@@ -14,5 +15,12 @@ class NewRecordActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityNewRecordBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_new_record)
+
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
+        val navController = navHostFragment.navController
+        navController.setGraph(R.navigation.nav_wallet)
+
+        setupActionBarWithNavController(navController)
     }
 }
