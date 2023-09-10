@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Theme.InvestView" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.InvestView" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/black</item>
         <item name="colorPrimaryVariant">@color/black</item>
@@ -15,11 +15,6 @@
         <item name="android:windowBackground">@color/background</item>
         <item name="android:textColor">@color/black</item>
         <item name="popupMenuBackground">@color/background</item>
-    </style>
-
-    <style name="Theme.InvestView.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="Theme.InvestView.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
