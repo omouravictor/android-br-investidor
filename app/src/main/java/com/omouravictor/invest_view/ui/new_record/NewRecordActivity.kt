@@ -12,7 +12,6 @@ import com.omouravictor.invest_view.databinding.ActivityNewRecordBinding
 
 class NewRecordActivity : AppCompatActivity() {
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityNewRecordBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
