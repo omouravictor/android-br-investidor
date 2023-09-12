@@ -37,11 +37,11 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.nav_fragment_wallet -> {
-                    setupToolbarMenu(hasAdd = true)
+                    setupToolbarMenu(hasAdd = true, hasSave = false)
                 }
 
                 R.id.nav_fragment_new_record -> {
-                    setupToolbarMenu(hasAdd = false)
+                    setupToolbarMenu(hasAdd = false, hasSave = true)
                 }
             }
         }
@@ -53,6 +53,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_options_menu, menu)
         return true
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+        menu.findItem(R.id.save_item).isVisible = false
+        return super.onPrepareOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -70,8 +75,9 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    private fun setupToolbarMenu(hasAdd: Boolean = false) {
-        binding.appBarMain.includeToolbar.toolbar.menu.findItem(R.id.add_item)?.isVisible =
-            hasAdd
+    private fun setupToolbarMenu(hasAdd: Boolean = false, hasSave: Boolean = false) {
+        val menu = binding.appBarMain.includeToolbar.toolbar.menu
+        menu.findItem(R.id.add_item)?.isVisible = hasAdd
+        menu.findItem(R.id.save_item)?.isVisible = hasSave
     }
 }
