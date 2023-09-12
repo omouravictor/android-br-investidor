@@ -10,5 +10,5 @@
     <string name="option_menu_settings">Configurações</string>
 
     <string name="label_wallet">Carteira</string>
-    <string name="label_new_record">Novo registro</string>
+    <string name="label_add">Adicionar</string>
 </resources>

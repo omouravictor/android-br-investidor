@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
                     setupToolbarMenu(hasAdd = true, hasSave = false)
                 }
 
-                R.id.nav_fragment_new_record -> {
+                R.id.nav_fragment_add -> {
                     setupToolbarMenu(hasAdd = false, hasSave = true)
                 }
             }
@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.add_item -> {
-                navController.navigate(R.id.action_nav_fragment_wallet_to_nav_fragment_new_record)
+                navController.navigate(R.id.action_nav_fragment_wallet_to_nav_fragment_add)
             }
         }
 
