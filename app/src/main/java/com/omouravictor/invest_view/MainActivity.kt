@@ -1,6 +1,5 @@
 package com.omouravictor.invest_view
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -13,7 +12,6 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.omouravictor.invest_view.databinding.ActivityMainBinding
-import com.omouravictor.invest_view.ui.new_record.NewRecordActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,6 +34,18 @@ class MainActivity : AppCompatActivity() {
             binding.drawerLayout
         )
 
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.nav_fragment_wallet -> {
+                    setupToolbarMenu(hasAdd = true)
+                }
+
+                R.id.nav_fragment_new_record -> {
+                    setupToolbarMenu(hasAdd = false)
+                }
+            }
+        }
+
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.navView.setupWithNavController(navController)
     }
@@ -47,8 +57,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.add_option -> {
-                startActivity(Intent(this, NewRecordActivity::class.java))
+            R.id.add_item -> {
+                navController.navigate(R.id.action_nav_fragment_wallet_to_nav_fragment_new_record)
             }
         }
 
@@ -58,5 +68,10 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    private fun setupToolbarMenu(hasAdd: Boolean = false) {
+        binding.appBarMain.includeToolbar.toolbar.menu.findItem(R.id.add_item)?.isVisible =
+            hasAdd
     }
 }

@@ -9,6 +9,16 @@
         android:id="@+id/nav_fragment_wallet"
         android:name="com.omouravictor.invest_view.ui.wallet.WalletFragment"
         android:label="@string/label_wallet"
-        tools:layout="@layout/fragment_wallet" />
+        tools:layout="@layout/fragment_wallet">
+        <action
+            android:id="@+id/action_nav_fragment_wallet_to_nav_fragment_new_record"
+            app:destination="@id/nav_fragment_new_record" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_fragment_new_record"
+        android:name="com.omouravictor.invest_view.ui.new_record.NewRecordFragment"
+        android:label="@string/label_new_record"
+        tools:layout="@layout/fragment_new_record" />
 
 </navigation>
