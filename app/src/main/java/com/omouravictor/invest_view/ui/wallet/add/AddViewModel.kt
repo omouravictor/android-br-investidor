@@ -1,10 +1,10 @@
-package com.omouravictor.invest_view.ui.new_record
+package com.omouravictor.invest_view.ui.wallet.add
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class NewRecordViewModel : ViewModel() {
+class AddViewModel : ViewModel() {
     private val _text = MutableLiveData<String>().apply {
         value = "This is new record Fragment"
     }

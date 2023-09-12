@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.ui.new_record
+package com.omouravictor.invest_view.ui.wallet.add
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,14 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
-import com.omouravictor.invest_view.databinding.FragmentNewRecordBinding
+import com.omouravictor.invest_view.databinding.FragmentAddBinding
 import com.omouravictor.invest_view.ui.base.ViewPagerAdapter
 import com.omouravictor.invest_view.ui.wallet.assets.AssetsFragment
 import com.omouravictor.invest_view.ui.wallet.coins.CoinsFragment
 
-class NewRecordFragment : Fragment() {
+class AddFragment : Fragment() {
 
-    private var _binding: FragmentNewRecordBinding? = null
+    private var _binding: FragmentAddBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -21,7 +21,7 @@ class NewRecordFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentNewRecordBinding.inflate(inflater, container, false)
+        _binding = FragmentAddBinding.inflate(inflater, container, false)
         return binding.root
     }
 

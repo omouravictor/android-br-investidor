@@ -17,8 +17,8 @@
 
     <fragment
         android:id="@+id/nav_fragment_new_record"
-        android:name="com.omouravictor.invest_view.ui.new_record.NewRecordFragment"
+        android:name="com.omouravictor.invest_view.ui.wallet.add.AddFragment"
         android:label="@string/label_new_record"
-        tools:layout="@layout/fragment_new_record" />
+        tools:layout="@layout/fragment_add" />
 
 </navigation>
