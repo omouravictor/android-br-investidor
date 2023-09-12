@@ -56,7 +56,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
-        menu.findItem(R.id.save_item).isVisible = false
+        when (navController.currentDestination?.id) {
+            R.id.nav_fragment_wallet -> setupToolbarMenu(hasAdd = true, hasSave = false)
+            R.id.nav_fragment_add -> setupToolbarMenu(hasAdd = false, hasSave = true)
+        }
         return super.onPrepareOptionsMenu(menu)
     }
 
