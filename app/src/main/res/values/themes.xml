@@ -15,6 +15,7 @@
         <item name="android:windowBackground">@color/background</item>
         <item name="android:textColor">@color/black</item>
         <item name="popupMenuBackground">@color/background</item>
+        <item name="actionMenuTextAppearance">@style/MyMenuTextAppearance</item>
     </style>
 
     <style name="Theme.InvestView.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -23,6 +24,10 @@
 
     <style name="MyTabTextAppearance" parent="TextAppearance.Design.Tab">
         <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="MyMenuTextAppearance" parent="android:TextAppearance.Material.Widget.ActionBar.Menu">
+        <item name="android:textAllCaps">false</item>
     </style>
 
 </resources>
