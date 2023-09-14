@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
                     setupToolbarMenu(hasAdd = true, hasSave = false)
                 }
 
-                R.id.nav_fragment_add -> {
+                R.id.nav_fragment_new_record -> {
                     setupToolbarMenu(hasAdd = false, hasSave = true)
                 }
             }
@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
         when (navController.currentDestination?.id) {
             R.id.nav_fragment_wallet -> setupToolbarMenu(hasAdd = true, hasSave = false)
-            R.id.nav_fragment_add -> setupToolbarMenu(hasAdd = false, hasSave = true)
+            R.id.nav_fragment_new_record -> setupToolbarMenu(hasAdd = false, hasSave = true)
         }
         return super.onPrepareOptionsMenu(menu)
     }
@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.add_item -> {
-                navController.navigate(R.id.action_nav_fragment_wallet_to_nav_fragment_add)
+                navController.navigate(R.id.action_fragment_wallet_to_fragment_new_record)
             }
         }
 

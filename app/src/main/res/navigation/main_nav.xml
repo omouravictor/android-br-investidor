@@ -11,14 +11,14 @@
         android:label="@string/label_wallet"
         tools:layout="@layout/fragment_wallet">
         <action
-            android:id="@+id/action_nav_fragment_wallet_to_nav_fragment_add"
-            app:destination="@id/nav_fragment_add" />
+            android:id="@+id/action_fragment_wallet_to_fragment_new_record"
+            app:destination="@id/nav_fragment_new_record" />
     </fragment>
 
     <fragment
-        android:id="@+id/nav_fragment_add"
-        android:name="com.omouravictor.invest_view.ui.wallet.add.AddFragment"
+        android:id="@+id/nav_fragment_new_record"
+        android:name="com.omouravictor.invest_view.ui.wallet.new_record.NewRecordFragment"
         android:label="@string/label_add"
-        tools:layout="@layout/fragment_add" />
+        tools:layout="@layout/fragment_new_record" />
 
 </navigation>

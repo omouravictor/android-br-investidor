@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.ui.wallet.add
+package com.omouravictor.invest_view.ui.wallet.new_record
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,14 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
-import com.omouravictor.invest_view.databinding.FragmentAddBinding
+import com.omouravictor.invest_view.databinding.FragmentNewRecordBinding
 import com.omouravictor.invest_view.ui.base.ViewPagerAdapter
-import com.omouravictor.invest_view.ui.wallet.assets.AssetsFragment
-import com.omouravictor.invest_view.ui.wallet.coins.CoinsFragment
 
-class AddFragment : Fragment() {
+class NewRecordFragment : Fragment() {
 
-    private var _binding: FragmentAddBinding? = null
+    private var _binding: FragmentNewRecordBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -21,7 +19,7 @@ class AddFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAddBinding.inflate(inflater, container, false)
+        _binding = FragmentNewRecordBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -29,8 +27,8 @@ class AddFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = ViewPagerAdapter(requireActivity()).apply {
-            addFragment(AssetsFragment(), "Ativo")
-            addFragment(CoinsFragment(), "Moeda")
+            addFragment(NewAssetFragment(), "Ativo")
+            addFragment(NewCoinFragment(), "Moeda")
         }
         val tittles = adapter.getTittles()
 
