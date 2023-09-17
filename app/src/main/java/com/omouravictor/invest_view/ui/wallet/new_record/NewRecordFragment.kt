@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import com.omouravictor.invest_view.databinding.FragmentNewRecordBinding
 import com.omouravictor.invest_view.ui.base.ViewPagerAdapter
+import com.omouravictor.invest_view.ui.wallet.new_record.asset.SelectAssetTypeFragment
+import com.omouravictor.invest_view.ui.wallet.new_record.coin.NewCoinFragment
 
 class NewRecordFragment : Fragment() {
 
@@ -27,7 +29,7 @@ class NewRecordFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = ViewPagerAdapter(requireActivity()).apply {
-            addFragment(NewAssetFragment(), "Ativo")
+            addFragment(SelectAssetTypeFragment(), "Ativo")
             addFragment(NewCoinFragment(), "Moeda")
         }
         val tittles = adapter.getTittles()

@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.ui.wallet.new_record
+package com.omouravictor.invest_view.ui.wallet.new_record.coin
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

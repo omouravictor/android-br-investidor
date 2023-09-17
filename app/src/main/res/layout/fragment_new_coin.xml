@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/padding"
-    tools:context=".ui.wallet.new_record.NewCoinFragment">
+    tools:context=".ui.wallet.new_record.coin.NewCoinFragment">
 
     <TextView
         android:layout_width="match_parent"
