@@ -8,5 +8,7 @@
     <color name="yellow">#FFEB3B</color>
 
     <!-- Day/Night colors -->
+    <color name="primary">@color/black</color>
+    <color name="blackWhite20">#32000000</color>
     <color name="background">@color/white</color>
 </resources>

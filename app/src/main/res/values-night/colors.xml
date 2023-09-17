@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Day/Night colors -->
+    <color name="primary">@color/white</color>
+    <color name="blackWhite20">#34FFFFFF</color>
     <color name="background">#272727</color>
 </resources>
