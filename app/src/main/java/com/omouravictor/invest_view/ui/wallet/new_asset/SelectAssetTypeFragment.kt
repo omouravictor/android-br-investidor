@@ -27,7 +27,7 @@ class SelectAssetTypeFragment : Fragment() {
         val items = listOf("Ações", "BDRs", "Fundos", "Renda Fixa", "Criptomoedas")
 
         binding.recyclerView.apply {
-            adapter = SelectAssetTypeAdapter(items)
+            adapter = AssetTypeAdapter(items)
             layoutManager = LinearLayoutManager(context)
         }
     }

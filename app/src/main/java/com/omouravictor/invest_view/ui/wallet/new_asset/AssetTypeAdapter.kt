@@ -6,8 +6,8 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.omouravictor.invest_view.databinding.ItemListBinding
 
-class SelectAssetTypeAdapter(private val items: List<String>) :
-    RecyclerView.Adapter<SelectAssetTypeAdapter.ViewHolder>() {
+class AssetTypeAdapter(private val items: List<String>) :
+    RecyclerView.Adapter<AssetTypeAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
