@@ -5,7 +5,7 @@
     <color name="white_70_perc">#B3FFFFFF</color>
     <color name="grey">#737373</color>
     <color name="light_grey">#C5C5C5</color>
-    <color name="yellow">#FFEB3B</color>
+    <color name="green">#00C853</color>
 
     <!-- Day/Night colors -->
     <color name="primary">@color/black</color>
