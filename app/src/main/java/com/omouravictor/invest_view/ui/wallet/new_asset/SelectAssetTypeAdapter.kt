@@ -1,17 +1,17 @@
-package com.omouravictor.invest_view.ui.wallet.new_record.asset
+package com.omouravictor.invest_view.ui.wallet.new_asset
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.omouravictor.invest_view.databinding.ItemListAssetTypeBinding
+import com.omouravictor.invest_view.databinding.ItemListBinding
 
 class SelectAssetTypeAdapter(private val items: List<String>) :
     RecyclerView.Adapter<SelectAssetTypeAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
-            ItemListAssetTypeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -24,11 +24,11 @@ class SelectAssetTypeAdapter(private val items: List<String>) :
         return items.size
     }
 
-    inner class ViewHolder(private val binding: ItemListAssetTypeBinding) :
+    inner class ViewHolder(private val binding: ItemListBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: String) {
-            binding.tvAssetType.text = item
+            binding.tvItemName.text = item
 
             itemView.setOnClickListener {
                 Toast.makeText(itemView.context, item, Toast.LENGTH_SHORT).show()
