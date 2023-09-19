@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentSelectAssetTypeBinding
 
 class SelectAssetTypeFragment : Fragment() {
@@ -24,7 +25,10 @@ class SelectAssetTypeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val items = listOf("Ações", "BDRs", "Fundos", "Renda Fixa", "Criptomoedas")
+        val items = listOf(
+            AssetTypeUiModel("Ações", R.drawable.stockgraph_svgrepo_com),
+            AssetTypeUiModel("Fundos Imobiliários", R.drawable.stockgraph_svgrepo_com),
+        )
 
         binding.recyclerView.apply {
             adapter = AssetTypeAdapter(items)

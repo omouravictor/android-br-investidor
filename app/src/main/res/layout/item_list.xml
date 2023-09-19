@@ -6,13 +6,23 @@
     android:paddingHorizontal="@dimen/horizontal_padding"
     tools:context=".ui.wallet.new_asset.SelectAssetTypeFragment">
 
+    <ImageView
+        android:id="@+id/iv_item_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_item_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_item_name"
+        tools:src="@drawable/stockgraph_svgrepo_com" />
+
     <TextView
         android:id="@+id/tv_item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/vertical_padding"
+        android:layout_marginStart="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/iv_arrow_forward"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_item_icon"
         app:layout_constraintTop_toTopOf="@+id/iv_arrow_forward"
         tools:text="Ações" />
 
@@ -33,6 +43,6 @@
         android:background="@color/blackWhite20"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/iv_arrow_forward"
-        app:layout_constraintStart_toStartOf="@+id/tv_item_name" />
+        app:layout_constraintStart_toStartOf="@+id/iv_item_icon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
