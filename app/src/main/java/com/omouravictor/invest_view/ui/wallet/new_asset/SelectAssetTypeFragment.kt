@@ -27,8 +27,8 @@ class SelectAssetTypeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val items = listOf(
-            ItemListUiModel("Ações", R.drawable.ic_stock),
-            ItemListUiModel("Fundos Imobiliários", R.drawable.ic_stock),
+            ItemListUiModel("Ações", R.drawable.ic_money),
+            ItemListUiModel("Fundos Imobiliários", R.drawable.ic_money),
         )
 
         binding.recyclerView.apply {
