@@ -5,8 +5,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.omouravictor.invest_view.databinding.ItemListBinding
+import com.omouravictor.invest_view.ui.base.ItemListUiModel
 
-class AssetTypeAdapter(private val items: List<AssetTypeUiModel>) :
+class AssetTypeAdapter(private val items: List<ItemListUiModel>) :
     RecyclerView.Adapter<AssetTypeAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,7 +28,7 @@ class AssetTypeAdapter(private val items: List<AssetTypeUiModel>) :
     inner class ViewHolder(private val binding: ItemListBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(assetType: AssetTypeUiModel) {
+        fun bind(assetType: ItemListUiModel) {
             binding.tvItemName.text = assetType.name
             binding.ivItemIcon.setImageResource(assetType.icon)
 

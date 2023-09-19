@@ -13,7 +13,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/tv_item_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tv_item_name"
-        tools:src="@drawable/ic_stock_item" />
+        tools:src="@drawable/ic_stock" />
 
     <TextView
         android:id="@+id/tv_item_name"
