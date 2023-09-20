@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setSupportActionBar(binding.appBarMain.includeToolbar.toolbar)
+        setSupportActionBar(binding.toolbar)
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupToolbarMenu(hasAdd: Boolean = false, hasSave: Boolean = false) {
-        val menu = binding.appBarMain.includeToolbar.toolbar.menu
+        val menu = binding.toolbar.menu
         menu.findItem(R.id.add_item)?.isVisible = hasAdd
         menu.findItem(R.id.save_item)?.isVisible = hasSave
     }
