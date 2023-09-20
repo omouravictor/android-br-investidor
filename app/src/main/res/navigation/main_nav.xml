@@ -12,11 +12,11 @@
         tools:layout="@layout/fragment_wallet">
         <action
             android:id="@+id/action_fragment_wallet_to_fragment_select_asset_type"
-            app:destination="@id/nav_fragment_new_record" />
+            app:destination="@id/fragment_select_asset_type" />
     </fragment>
 
     <fragment
-        android:id="@+id/nav_fragment_new_record"
+        android:id="@+id/fragment_select_asset_type"
         android:name="com.omouravictor.invest_view.ui.wallet.new_asset.SelectAssetTypeFragment"
         android:label="@string/label_new_asset"
         tools:layout="@layout/fragment_select_asset_type" />
