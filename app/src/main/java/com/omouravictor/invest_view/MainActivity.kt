@@ -37,11 +37,11 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.nav_fragment_wallet -> {
-                    setupToolbarMenu(hasAdd = true, hasSave = false)
+                    setupToolbarMenu(isWalletSection = true)
                 }
 
                 R.id.fragment_select_asset_type -> {
-                    setupToolbarMenu(hasAdd = false, hasSave = true)
+                    setupToolbarMenu(isNewAssetSection = true)
                 }
             }
         }
@@ -57,8 +57,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
         when (navController.currentDestination?.id) {
-            R.id.nav_fragment_wallet -> setupToolbarMenu(hasAdd = true, hasSave = false)
-            R.id.fragment_select_asset_type -> setupToolbarMenu(hasAdd = false, hasSave = true)
+            R.id.nav_fragment_wallet -> setupToolbarMenu(isWalletSection = true)
+            R.id.fragment_select_asset_type -> setupToolbarMenu(isNewAssetSection = true)
         }
         return super.onPrepareOptionsMenu(menu)
     }
@@ -78,9 +78,12 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    private fun setupToolbarMenu(hasAdd: Boolean = false, hasSave: Boolean = false) {
+    private fun setupToolbarMenu(
+        isWalletSection: Boolean = false,
+        isNewAssetSection: Boolean = false
+    ) {
         val menu = binding.toolbar.menu
-        menu.findItem(R.id.add_item)?.isVisible = hasAdd
-        menu.findItem(R.id.save_item)?.isVisible = hasSave
+        menu.setGroupVisible(R.id.wallet_group, isWalletSection)
+        menu.setGroupVisible(R.id.new_asset_group, isNewAssetSection)
     }
 }

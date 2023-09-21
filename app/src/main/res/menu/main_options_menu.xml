@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
-        android:id="@+id/add_item"
-        android:icon="@drawable/ic_add"
-        android:title="@string/option_menu_add"
-        app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/save_item"
-        android:title="@string/option_menu_save"
-        app:showAsAction="always" />
+    <group android:id="@+id/wallet_group">
+        <item
+            android:id="@+id/add_item"
+            android:icon="@drawable/ic_add"
+            android:title="@string/option_menu_add"
+            app:showAsAction="ifRoom" />
+    </group>
+    <group android:id="@+id/new_asset_group">
+        <item
+            android:id="@+id/save_item"
+            android:title="@string/option_menu_save"
+            app:showAsAction="always" />
+    </group>
 </menu>
