@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -36,13 +37,8 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.nav_fragment_wallet -> {
-                    setupToolbarMenu(isWalletSection = true)
-                }
-
-                R.id.fragment_select_asset_type -> {
-                    setupToolbarMenu(isNewAssetSection = true)
-                }
+                R.id.nav_fragment_wallet -> handleWalletDestination()
+                R.id.fragment_select_asset_type -> handleSelectAssetTypeDestination()
             }
         }
 
@@ -57,9 +53,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
         when (navController.currentDestination?.id) {
-            R.id.nav_fragment_wallet -> setupToolbarMenu(isWalletSection = true)
-            R.id.fragment_select_asset_type -> setupToolbarMenu(isNewAssetSection = true)
-            R.id.fragment_select_asset -> setupToolbarMenu(isNewAssetSection = true)
+            R.id.nav_fragment_wallet -> setupToolbarMenu(walletGroupVisible = true)
+            R.id.fragment_select_asset_type -> setupToolbarMenu(newAssetGroupVisible = true)
+            R.id.fragment_select_asset -> setupToolbarMenu(newAssetGroupVisible = true)
         }
         return super.onPrepareOptionsMenu(menu)
     }
@@ -80,11 +76,25 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupToolbarMenu(
-        isWalletSection: Boolean = false,
-        isNewAssetSection: Boolean = false
+        walletGroupVisible: Boolean = false,
+        newAssetGroupVisible: Boolean = false
     ) {
         val menu = binding.toolbar.menu
-        menu.setGroupVisible(R.id.wallet_group, isWalletSection)
-        menu.setGroupVisible(R.id.new_asset_group, isNewAssetSection)
+        menu.setGroupVisible(R.id.wallet_group, walletGroupVisible)
+        menu.setGroupVisible(R.id.new_asset_group, newAssetGroupVisible)
+    }
+
+    private fun setupDrawerLayout(lockMode: Int) {
+        binding.drawerLayout.setDrawerLockMode(lockMode)
+    }
+
+    private fun handleWalletDestination() {
+        setupToolbarMenu(walletGroupVisible = true)
+        setupDrawerLayout(DrawerLayout.LOCK_MODE_UNLOCKED)
+    }
+
+    private fun handleSelectAssetTypeDestination() {
+        setupToolbarMenu(newAssetGroupVisible = true)
+        setupDrawerLayout(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
     }
 }
