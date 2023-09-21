@@ -4,14 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.omouravictor.invest_view.databinding.ItemListBinding
+import com.omouravictor.invest_view.databinding.ItemListAssetTypeBinding
 
 class AssetTypeAdapter(private val items: List<String>) :
     RecyclerView.Adapter<AssetTypeAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
-            ItemListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemListAssetTypeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -24,11 +24,11 @@ class AssetTypeAdapter(private val items: List<String>) :
         return items.size
     }
 
-    inner class ViewHolder(private val binding: ItemListBinding) :
+    inner class ViewHolder(private val binding: ItemListAssetTypeBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(assetType: String) {
-            binding.tvItemName.text = assetType
+            binding.tvAssetType.text = assetType
 
             itemView.setOnClickListener {
                 Toast.makeText(itemView.context, assetType, Toast.LENGTH_SHORT).show()
