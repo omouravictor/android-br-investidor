@@ -5,9 +5,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.omouravictor.invest_view.databinding.ItemListBinding
-import com.omouravictor.invest_view.ui.base.ItemListUiModel
 
-class AssetTypeAdapter(private val items: List<ItemListUiModel>) :
+class AssetTypeAdapter(private val items: List<String>) :
     RecyclerView.Adapter<AssetTypeAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,12 +27,11 @@ class AssetTypeAdapter(private val items: List<ItemListUiModel>) :
     inner class ViewHolder(private val binding: ItemListBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(assetType: ItemListUiModel) {
-            binding.tvItemName.text = assetType.name
-            binding.ivItemIcon.setImageResource(assetType.icon)
+        fun bind(assetType: String) {
+            binding.tvItemName.text = assetType
 
             itemView.setOnClickListener {
-                Toast.makeText(itemView.context, assetType.name, Toast.LENGTH_SHORT).show()
+                Toast.makeText(itemView.context, assetType, Toast.LENGTH_SHORT).show()
             }
         }
     }
