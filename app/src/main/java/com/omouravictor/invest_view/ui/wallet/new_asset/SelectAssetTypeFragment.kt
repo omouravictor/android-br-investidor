@@ -32,9 +32,8 @@ class SelectAssetTypeFragment : Fragment() {
             adapter = AssetTypeAdapter(
                 assetTypes = items,
                 onClickItem = {
-                    findNavController().navigate(
-                        R.id.action_fragment_select_asset_type_to_fragment_select_asset
-                    )
+                    findNavController()
+                        .navigate(R.id.action_fragment_select_asset_type_to_fragment_select_asset)
                 }
             )
             layoutManager = LinearLayoutManager(context)
