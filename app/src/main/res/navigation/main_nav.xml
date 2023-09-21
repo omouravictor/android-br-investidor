@@ -19,6 +19,16 @@
         android:id="@+id/fragment_select_asset_type"
         android:name="com.omouravictor.invest_view.ui.wallet.new_asset.SelectAssetTypeFragment"
         android:label="@string/label_new_asset"
-        tools:layout="@layout/fragment_select_asset_type" />
+        tools:layout="@layout/fragment_select_asset_type" >
+        <action
+            android:id="@+id/action_fragment_select_asset_type_to_fragment_select_asset"
+            app:destination="@id/fragment_select_asset" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_select_asset"
+        android:name="com.omouravictor.invest_view.ui.wallet.new_asset.SelectAssetFragment"
+        android:label="@string/label_new_asset"
+        tools:layout="@layout/fragment_select_asset" />
 
 </navigation>

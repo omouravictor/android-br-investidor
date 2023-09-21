@@ -59,6 +59,7 @@ class MainActivity : AppCompatActivity() {
         when (navController.currentDestination?.id) {
             R.id.nav_fragment_wallet -> setupToolbarMenu(isWalletSection = true)
             R.id.fragment_select_asset_type -> setupToolbarMenu(isNewAssetSection = true)
+            R.id.fragment_select_asset -> setupToolbarMenu(isNewAssetSection = true)
         }
         return super.onPrepareOptionsMenu(menu)
     }

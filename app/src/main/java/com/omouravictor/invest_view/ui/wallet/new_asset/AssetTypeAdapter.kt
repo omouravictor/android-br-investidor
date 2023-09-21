@@ -2,11 +2,13 @@ package com.omouravictor.invest_view.ui.wallet.new_asset
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.omouravictor.invest_view.databinding.ItemListAssetTypeBinding
 
-class AssetTypeAdapter(private val items: List<String>) :
+class AssetTypeAdapter(
+    private val assetTypes: List<String>,
+    private val onClickItem: () -> Unit
+) :
     RecyclerView.Adapter<AssetTypeAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -16,12 +18,12 @@ class AssetTypeAdapter(private val items: List<String>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = items[position]
+        val item = assetTypes[position]
         holder.bind(item)
     }
 
     override fun getItemCount(): Int {
-        return items.size
+        return assetTypes.size
     }
 
     inner class ViewHolder(private val binding: ItemListAssetTypeBinding) :
@@ -29,10 +31,8 @@ class AssetTypeAdapter(private val items: List<String>) :
 
         fun bind(assetType: String) {
             binding.tvAssetType.text = assetType
-
-            itemView.setOnClickListener {
-                Toast.makeText(itemView.context, assetType, Toast.LENGTH_SHORT).show()
-            }
+            itemView.setOnClickListener { onClickItem() }
         }
+
     }
 }
