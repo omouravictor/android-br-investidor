@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.omouravictor.invest_view.databinding.FragmentSelectAssetBinding
-import com.omouravictor.invest_view.databinding.FragmentSelectAssetTypeBinding
 
 class SelectAssetFragment : Fragment() {
 
@@ -24,6 +23,16 @@ class SelectAssetFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val items = listOf("KGWD11", "JFUH11", "ASLK11")
+
+        binding.recyclerView.apply {
+            adapter = AssetAdapter(
+                assets = items,
+                onClickItem = {}
+            )
+            layoutManager = LinearLayoutManager(context)
+        }
     }
 
     override fun onDestroyView() {
