@@ -42,7 +42,7 @@
         android:id="@+id/v_line"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:background="@color/blackWhite20"
+        android:background="@color/blackWhite10"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/iv_arrow_forward"
         app:layout_constraintStart_toStartOf="@+id/iv_circle" />

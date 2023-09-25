@@ -2,7 +2,7 @@
 <resources>
     <!-- Day/Night colors -->
     <color name="primary">@color/white</color>
-    <color name="blackWhite20">#34FFFFFF</color>
+    <color name="blackWhite10">#19FFFFFF</color>
     <color name="background">#202020</color>
     <color name="background_asset_item">#252525</color>
 </resources>
