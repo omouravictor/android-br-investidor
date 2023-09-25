@@ -1,5 +1,6 @@
 package com.omouravictor.invest_view.ui.wallet.new_asset
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,7 +27,20 @@ class SelectAssetTypeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val items = listOf("Fundos Imobiliários")
+        val items = listOf(
+            AssetTypeUiModel(
+                name = "Fundos Imobiliários",
+                circleColor = R.color.green
+            ),
+            AssetTypeUiModel(
+                name = "Ações",
+                circleColor = R.color.red
+            ),
+            AssetTypeUiModel(
+                name = "ETFs",
+                circleColor = R.color.yellow
+            ),
+        )
 
         binding.recyclerView.apply {
             adapter = AssetTypeAdapter(

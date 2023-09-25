@@ -7,11 +7,11 @@
     android:paddingHorizontal="@dimen/default_padding"
     tools:context=".ui.wallet.new_asset.SelectAssetTypeFragment">
 
-    <ImageView
-        android:id="@+id/iv_money"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_money"
+    <View
+        android:id="@+id/iv_circle"
+        android:layout_width="8dp"
+        android:layout_height="8dp"
+        android:background="@drawable/ic_circle"
         app:layout_constraintBottom_toBottomOf="@+id/tv_asset_type"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tv_asset_type" />
@@ -24,7 +24,7 @@
         android:layout_marginStart="16dp"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/iv_arrow_forward"
-        app:layout_constraintStart_toEndOf="@+id/iv_money"
+        app:layout_constraintStart_toEndOf="@+id/iv_circle"
         app:layout_constraintTop_toTopOf="@+id/iv_arrow_forward"
         tools:text="Ações" />
 
@@ -45,6 +45,6 @@
         android:background="@color/blackWhite20"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/iv_arrow_forward"
-        app:layout_constraintStart_toStartOf="@+id/iv_money" />
+        app:layout_constraintStart_toStartOf="@+id/iv_circle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
