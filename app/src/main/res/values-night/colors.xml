@@ -3,5 +3,6 @@
     <!-- Day/Night colors -->
     <color name="primary">@color/white</color>
     <color name="blackWhite20">#34FFFFFF</color>
-    <color name="background">#272727</color>
+    <color name="background">#202020</color>
+    <color name="background_asset_item">#1E1E1E</color>
 </resources>

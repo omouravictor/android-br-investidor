@@ -24,7 +24,21 @@ class SelectAssetFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val items = listOf("KGWD11", "JFUH11", "ASLK11")
+        val items = listOf(
+            "KGWD11",
+            "JFUH11",
+            "ASLK11",
+            "ASLK11",
+            "ASLK11",
+            "ASLK11",
+            "ASLK11",
+            "ASLK11",
+            "ASLK11",
+            "ASLK11",
+            "ASLK11",
+            "ASLK11",
+            "ASLK11",
+        )
 
         binding.recyclerView.apply {
             adapter = AssetAdapter(

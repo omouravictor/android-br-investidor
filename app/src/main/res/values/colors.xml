@@ -11,4 +11,5 @@
     <color name="primary">@color/black</color>
     <color name="blackWhite20">#32000000</color>
     <color name="background">@color/white</color>
+    <color name="background_asset_item">@color/white</color>
 </resources>
