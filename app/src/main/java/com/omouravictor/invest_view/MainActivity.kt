@@ -55,8 +55,8 @@ class MainActivity : AppCompatActivity() {
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
         when (navController.currentDestination?.id) {
             R.id.fragment_wallet -> setupToolbarMenu(walletGroupVisible = true)
-            R.id.fragment_select_asset_type -> setupToolbarMenu(newAssetGroupVisible = true)
-            R.id.fragment_select_asset -> setupToolbarMenu(newAssetGroupVisible = true)
+            R.id.fragment_select_asset_type -> setupToolbarMenu(saveItemVisible = true)
+            R.id.fragment_select_asset -> setupToolbarMenu(saveItemVisible = true)
         }
         return super.onPrepareOptionsMenu(menu)
     }
@@ -76,11 +76,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupToolbarMenu(
         walletGroupVisible: Boolean = false,
-        newAssetGroupVisible: Boolean = false
+        saveItemVisible: Boolean = false
     ) {
         val menu = binding.toolbar.menu
         menu.setGroupVisible(R.id.wallet_group, walletGroupVisible)
-        menu.setGroupVisible(R.id.new_asset_group, newAssetGroupVisible)
+        menu.findItem(R.id.save_item)?.isVisible = saveItemVisible
     }
 
     private fun setupDrawerLayout(lockMode: Int) {
@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleSelectAssetTypeDestination() {
-        setupToolbarMenu(newAssetGroupVisible = true)
+        setupToolbarMenu(saveItemVisible = true)
         setupDrawerLayout(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
     }
 }
