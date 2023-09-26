@@ -85,9 +85,7 @@ class MainActivity : AppCompatActivity() {
         menu.setGroupVisible(R.id.new_asset_group, newAssetGroupVisible)
     }
 
-    private fun setupDrawerLayout(lockMode: Int) {
-        binding.drawerLayout.setDrawerLockMode(lockMode)
-    }
+    private fun setupDrawerLayout(lockMode: Int) = binding.drawerLayout.setDrawerLockMode(lockMode)
 
     private fun handleWalletDestination() {
         setupToolbarMenu(walletGroupVisible = true)

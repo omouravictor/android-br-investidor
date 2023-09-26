@@ -28,7 +28,10 @@ class WalletFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupTabLayoutWithViewPager2()
+    }
 
+    private fun setupTabLayoutWithViewPager2() {
         val fragments = listOf(
             Pair(AssetsFragment(), "Ativos"),
             Pair(CoinsFragment(), "Moedas"),
