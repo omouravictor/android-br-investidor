@@ -13,6 +13,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.omouravictor.invest_view.databinding.ActivityMainBinding
+import com.omouravictor.invest_view.ui.wallet.WalletFragmentDirections
 
 class MainActivity : AppCompatActivity() {
 
@@ -63,7 +64,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.add_item -> {
-                navController.navigate(R.id.action_wallet_to_select_asset_type)
+                navController.navigate(WalletFragmentDirections.actionWalletToSelectAssetType())
             }
         }
 

@@ -29,17 +29,16 @@ class WalletFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = ViewPagerAdapter(requireActivity()).apply {
-            addFragment(AssetsFragment(), "Ativos")
-            addFragment(CoinsFragment(), "Moedas")
-            addFragment(DetailsFragment(), "Detalhes")
-        }
-        val tittles = adapter.getTittles()
+        val fragments = listOf(
+            Pair(AssetsFragment(), "Ativos"),
+            Pair(CoinsFragment(), "Moedas"),
+            Pair(DetailsFragment(), "Detalhes")
+        )
 
-        binding.viewPager2.adapter = adapter
+        binding.viewPager2.adapter = ViewPagerAdapter(requireActivity(), fragments)
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager2) { tab, position ->
-            tab.text = tittles[position]
+            tab.text = fragments[position].second
         }.attach()
     }
 
