@@ -24,14 +24,18 @@ class SelectAssetFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val assetType = arguments?.getString("name")!!
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = assetType
+        setupSupportActionBar()
         setupRecyclerView()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setupSupportActionBar() {
+        val assetType = arguments?.getString("assetTypeName")!!
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = assetType
     }
 
     private fun setupRecyclerView() {

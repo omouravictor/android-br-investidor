@@ -31,7 +31,7 @@
         android:label="@string/label_new_asset"
         tools:layout="@layout/fragment_select_asset">
         <argument
-            android:name="name"
+            android:name="assetTypeName"
             app:argType="string" />
     </fragment>
 
