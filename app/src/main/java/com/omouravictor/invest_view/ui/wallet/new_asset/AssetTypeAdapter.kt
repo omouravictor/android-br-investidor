@@ -8,7 +8,7 @@ import com.omouravictor.invest_view.databinding.ItemListAssetTypeBinding
 
 class AssetTypeAdapter(
     private val assetTypes: List<AssetTypeUiModel>,
-    private val onClickItem: () -> Unit
+    private val onClickItem: (AssetTypeUiModel) -> Unit
 ) :
     RecyclerView.Adapter<AssetTypeAdapter.ViewHolder>() {
 
@@ -34,7 +34,7 @@ class AssetTypeAdapter(
             binding.tvAssetType.text = assetType.name
             binding.ivCircle.backgroundTintList =
                 ContextCompat.getColorStateList(itemView.context, assetType.circleColor)
-            itemView.setOnClickListener { onClickItem() }
+            itemView.setOnClickListener { onClickItem(assetType) }
         }
 
     }

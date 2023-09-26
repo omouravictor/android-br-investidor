@@ -11,7 +11,7 @@
         android:label="@string/label_wallet"
         tools:layout="@layout/fragment_wallet">
         <action
-            android:id="@+id/action_fragment_wallet_to_fragment_select_asset_type"
+            android:id="@+id/action_wallet_to_select_asset_type"
             app:destination="@id/fragment_select_asset_type" />
     </fragment>
 
@@ -19,9 +19,9 @@
         android:id="@+id/fragment_select_asset_type"
         android:name="com.omouravictor.invest_view.ui.wallet.new_asset.SelectAssetTypeFragment"
         android:label="@string/label_new_asset"
-        tools:layout="@layout/fragment_select_asset_type" >
+        tools:layout="@layout/fragment_select_asset_type">
         <action
-            android:id="@+id/action_fragment_select_asset_type_to_fragment_select_asset"
+            android:id="@+id/action_select_asset_type_to_select_asset"
             app:destination="@id/fragment_select_asset" />
     </fragment>
 
@@ -29,6 +29,10 @@
         android:id="@+id/fragment_select_asset"
         android:name="com.omouravictor.invest_view.ui.wallet.new_asset.SelectAssetFragment"
         android:label="@string/label_new_asset"
-        tools:layout="@layout/fragment_select_asset" />
+        tools:layout="@layout/fragment_select_asset">
+        <argument
+            android:name="assetType"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

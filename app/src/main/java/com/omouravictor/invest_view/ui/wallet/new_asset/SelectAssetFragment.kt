@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.omouravictor.invest_view.databinding.FragmentSelectAssetBinding
@@ -23,6 +24,9 @@ class SelectAssetFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val assetType = arguments?.getString("assetType")!!
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = assetType
 
         val items = listOf(
             "KGWD11",

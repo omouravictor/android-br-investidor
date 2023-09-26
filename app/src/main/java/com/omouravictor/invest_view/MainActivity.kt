@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.add_item -> {
-                navController.navigate(R.id.action_fragment_wallet_to_fragment_select_asset_type)
+                navController.navigate(R.id.action_wallet_to_select_asset_type)
             }
         }
 

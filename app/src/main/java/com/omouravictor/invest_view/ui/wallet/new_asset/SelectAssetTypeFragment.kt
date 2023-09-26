@@ -1,6 +1,5 @@
 package com.omouravictor.invest_view.ui.wallet.new_asset
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -45,9 +44,10 @@ class SelectAssetTypeFragment : Fragment() {
         binding.recyclerView.apply {
             adapter = AssetTypeAdapter(
                 assetTypes = items,
-                onClickItem = {
-                    findNavController()
-                        .navigate(R.id.action_fragment_select_asset_type_to_fragment_select_asset)
+                onClickItem = { assetType ->
+                    val action = SelectAssetTypeFragmentDirections
+                        .actionSelectAssetTypeToSelectAsset(assetType.name)
+                    findNavController().navigate(action)
                 }
             )
             layoutManager = LinearLayoutManager(context)
