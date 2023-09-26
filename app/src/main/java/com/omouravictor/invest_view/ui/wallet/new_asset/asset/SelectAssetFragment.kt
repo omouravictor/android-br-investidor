@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.ui.wallet.new_asset
+package com.omouravictor.invest_view.ui.wallet.new_asset.asset
 
 import android.os.Bundle
 import android.view.LayoutInflater

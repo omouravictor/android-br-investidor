@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/selector_item_list_asset_type"
     android:paddingHorizontal="@dimen/default_padding"
-    tools:context=".ui.wallet.new_asset.SelectAssetTypeFragment">
+    tools:context=".ui.wallet.new_asset.asset_type.SelectAssetTypeFragment">
 
     <View
         android:id="@+id/iv_circle"
