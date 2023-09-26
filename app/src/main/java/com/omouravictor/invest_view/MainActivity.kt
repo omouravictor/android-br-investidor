@@ -63,9 +63,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.add_item -> {
-                navController.navigate(WalletFragmentDirections.actionWalletToSelectAssetType())
-            }
+            R.id.add_item -> navController.navigate(WalletFragmentDirections.walletFragmentToSelectAssetTypeFragment())
         }
 
         return super.onOptionsItemSelected(item)
@@ -85,7 +83,9 @@ class MainActivity : AppCompatActivity() {
         menu.setGroupVisible(R.id.new_asset_group, newAssetGroupVisible)
     }
 
-    private fun setupDrawerLayout(lockMode: Int) = binding.drawerLayout.setDrawerLockMode(lockMode)
+    private fun setupDrawerLayout(lockMode: Int) {
+        binding.drawerLayout.setDrawerLockMode(lockMode)
+    }
 
     private fun handleWalletDestination() {
         setupToolbarMenu(walletGroupVisible = true)

@@ -11,7 +11,7 @@
         android:label="@string/label_wallet"
         tools:layout="@layout/fragment_wallet">
         <action
-            android:id="@+id/action_wallet_to_select_asset_type"
+            android:id="@+id/wallet_fragment_to_select_asset_type_fragment"
             app:destination="@id/fragment_select_asset_type" />
     </fragment>
 
@@ -21,7 +21,7 @@
         android:label="@string/label_new_asset"
         tools:layout="@layout/fragment_select_asset_type">
         <action
-            android:id="@+id/action_select_asset_type_to_select_asset"
+            android:id="@+id/select_asset_type_fragment_to_select_asset_fragment"
             app:destination="@id/fragment_select_asset" />
     </fragment>
 
@@ -31,7 +31,7 @@
         android:label="@string/label_new_asset"
         tools:layout="@layout/fragment_select_asset">
         <argument
-            android:name="assetType"
+            android:name="name"
             app:argType="string" />
     </fragment>
 

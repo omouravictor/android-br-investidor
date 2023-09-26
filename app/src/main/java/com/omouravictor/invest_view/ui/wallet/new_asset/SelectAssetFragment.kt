@@ -24,38 +24,33 @@ class SelectAssetFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val assetType = arguments?.getString("assetType")!!
+        val assetType = arguments?.getString("name")!!
         (requireActivity() as AppCompatActivity).supportActionBar?.title = assetType
-
-        val items = listOf(
-            "KGWD11",
-            "JFUH11",
-            "ASLK11",
-            "ASLK11",
-            "ASLK11",
-            "ASLK11",
-            "ASLK11",
-            "ASLK11",
-            "ASLK11",
-            "ASLK11",
-            "ASLK11",
-            "ASLK11",
-            "ASLK11",
-        )
-
-        binding.recyclerView.apply {
-            adapter = AssetAdapter(
-                assets = items,
-                onClickItem = {}
-            )
-            layoutManager = LinearLayoutManager(context)
-        }
+        setupRecyclerView()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setupRecyclerView() {
+        val assets = listOf(
+            AssetUiModel(name = "PETR4", companyName = "Petrobras", cost = 25.0F),
+            AssetUiModel(name = "VALE3", companyName = "Vale", cost = 100.0F)
+        )
+
+        binding.recyclerView.apply {
+            adapter = AssetAdapter(
+                items = assets,
+                onClickItem = { assetAdapterOnClickItem(it) }
+            )
+            layoutManager = LinearLayoutManager(context)
+        }
+    }
+
+    private fun assetAdapterOnClickItem(asset: AssetUiModel) {
+
     }
 
 }

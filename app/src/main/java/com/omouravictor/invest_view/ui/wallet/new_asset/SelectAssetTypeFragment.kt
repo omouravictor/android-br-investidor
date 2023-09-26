@@ -25,38 +25,33 @@ class SelectAssetTypeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val items = listOf(
-            AssetTypeUiModel(
-                name = "Fundos Imobiliários",
-                circleColor = R.color.green
-            ),
-            AssetTypeUiModel(
-                name = "Ações",
-                circleColor = R.color.red
-            ),
-            AssetTypeUiModel(
-                name = "ETFs",
-                circleColor = R.color.yellow
-            ),
-        )
-
-        binding.recyclerView.apply {
-            adapter = AssetTypeAdapter(
-                assetTypes = items,
-                onClickItem = { assetType ->
-                    val action = SelectAssetTypeFragmentDirections
-                        .actionSelectAssetTypeToSelectAsset(assetType.name)
-                    findNavController().navigate(action)
-                }
-            )
-            layoutManager = LinearLayoutManager(context)
-        }
+        setupRecyclerView()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setupRecyclerView() {
+        val assetTypes = listOf(
+            AssetTypeUiModel(name = "Fundos Imobiliários", color = R.color.green),
+            AssetTypeUiModel(name = "Ações", color = R.color.red),
+        )
+
+        binding.recyclerView.apply {
+            adapter = AssetTypeAdapter(
+                items = assetTypes,
+                onClickItem = { assetTypeAdapterOnClickItem(it) }
+            )
+            layoutManager = LinearLayoutManager(context)
+        }
+    }
+
+    private fun assetTypeAdapterOnClickItem(assetType: AssetTypeUiModel) {
+        findNavController().navigate(
+            SelectAssetTypeFragmentDirections.selectAssetTypeFragmentToSelectAssetFragment(assetType.name)
+        )
     }
 
 }

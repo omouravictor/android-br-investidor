@@ -1,6 +1,8 @@
 package com.omouravictor.invest_view.ui.wallet.new_asset
 
-data class AssetTypeUiModel(
+data class AssetUiModel(
     val name: String,
-    val color: Int
+    val companyName: String,
+    val cost: Float
 )
+
