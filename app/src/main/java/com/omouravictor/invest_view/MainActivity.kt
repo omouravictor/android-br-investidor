@@ -39,7 +39,11 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.fragment_wallet -> handleWalletDestination()
-                R.id.fragment_select_asset_type -> handleSelectAssetTypeDestination()
+                R.id.fragment_select_asset -> handleSelectAssetDestination()
+                else -> {
+                    clearToolbarMenu()
+                    setupDrawerLayout(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+                }
             }
         }
 
@@ -55,7 +59,7 @@ class MainActivity : AppCompatActivity() {
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
         when (navController.currentDestination?.id) {
             R.id.fragment_wallet -> setupToolbarMenu(walletGroupVisible = true)
-            R.id.fragment_select_asset_type -> setupToolbarMenu(saveItemVisible = true)
+            R.id.fragment_select_asset_type -> clearToolbarMenu()
             R.id.fragment_select_asset -> setupToolbarMenu(saveItemVisible = true)
         }
         return super.onPrepareOptionsMenu(menu)
@@ -72,6 +76,12 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    private fun clearToolbarMenu() {
+        val menu = binding.toolbar.menu
+        menu.setGroupVisible(R.id.wallet_group, false)
+        menu.findItem(R.id.save_item)?.isVisible = false
     }
 
     private fun setupToolbarMenu(
@@ -92,8 +102,7 @@ class MainActivity : AppCompatActivity() {
         setupDrawerLayout(DrawerLayout.LOCK_MODE_UNLOCKED)
     }
 
-    private fun handleSelectAssetTypeDestination() {
+    private fun handleSelectAssetDestination() {
         setupToolbarMenu(saveItemVisible = true)
-        setupDrawerLayout(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
     }
 }
