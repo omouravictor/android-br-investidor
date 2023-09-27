@@ -6,6 +6,13 @@
     android:orientation="vertical"
     tools:context=".ui.wallet.new_asset.asset.SelectAssetFragment">
 
+    <EditText
+        android:id="@+id/et_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:hint="Pesquise" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"

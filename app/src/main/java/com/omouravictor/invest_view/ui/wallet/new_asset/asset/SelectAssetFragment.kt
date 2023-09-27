@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.omouravictor.invest_view.databinding.FragmentSelectAssetBinding
+import com.omouravictor.invest_view.ui.wallet.new_asset.asset_type.SelectAssetTypeFragmentDirections
 
 class SelectAssetFragment : Fragment() {
 
@@ -54,7 +56,9 @@ class SelectAssetFragment : Fragment() {
     }
 
     private fun assetAdapterOnClickItem(asset: AssetUiModel) {
-
+        findNavController().navigate(
+            SelectAssetFragmentDirections.selectAssetFragmentToSaveAssetFragment()
+        )
     }
 
 }
