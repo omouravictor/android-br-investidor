@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/selector_item_list_asset_type"
-    android:paddingHorizontal="@dimen/default_padding"
+    android:paddingHorizontal="16dp"
     tools:context=".ui.wallet.new_asset.asset_type.SelectAssetTypeFragment">
 
     <View
