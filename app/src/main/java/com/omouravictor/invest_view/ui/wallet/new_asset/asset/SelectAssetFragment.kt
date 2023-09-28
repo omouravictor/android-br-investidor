@@ -43,6 +43,16 @@ class SelectAssetFragment : Fragment() {
     private fun setupRecyclerView() {
         val assets = listOf(
             AssetUiModel(name = "PETR4", companyName = "Petrobras", cost = 25.0F),
+            AssetUiModel(name = "VALE3", companyName = "Vale", cost = 100.0F),
+            AssetUiModel(name = "VALE3", companyName = "Vale", cost = 100.0F),
+            AssetUiModel(name = "VALE3", companyName = "Vale", cost = 100.0F),
+            AssetUiModel(name = "VALE3", companyName = "Vale", cost = 100.0F),
+            AssetUiModel(name = "VALE3", companyName = "Vale", cost = 100.0F),
+            AssetUiModel(name = "VALE3", companyName = "Vale", cost = 100.0F),
+            AssetUiModel(name = "VALE3", companyName = "Vale", cost = 100.0F),
+            AssetUiModel(name = "VALE3", companyName = "Vale", cost = 100.0F),
+            AssetUiModel(name = "VALE3", companyName = "Vale", cost = 100.0F),
+            AssetUiModel(name = "VALE3", companyName = "Vale", cost = 100.0F),
             AssetUiModel(name = "VALE3", companyName = "Vale", cost = 100.0F)
         )
 

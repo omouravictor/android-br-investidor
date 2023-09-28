@@ -6,7 +6,7 @@
     android:layout_marginHorizontal="8dp"
     android:layout_marginBottom="8dp"
     app:cardCornerRadius="5dp"
-    app:cardElevation="@dimen/default_elevation"
+    app:cardElevation="2dp"
     tools:context=".ui.wallet.new_asset.asset_type.SelectAssetTypeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,7 +22,8 @@
             android:src="@drawable/ic_wallet"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/yellow" />
 
         <TextView
             android:id="@+id/tv_asset_name"
