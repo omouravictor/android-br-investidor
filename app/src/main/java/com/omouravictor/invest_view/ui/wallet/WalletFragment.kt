@@ -10,7 +10,6 @@ import com.omouravictor.invest_view.databinding.FragmentWalletBinding
 import com.omouravictor.invest_view.ui.base.ViewPagerAdapter
 import com.omouravictor.invest_view.ui.wallet.assets.AssetsFragment
 import com.omouravictor.invest_view.ui.wallet.coins.CoinsFragment
-import com.omouravictor.invest_view.ui.wallet.details.DetailsFragment
 
 class WalletFragment : Fragment() {
 
