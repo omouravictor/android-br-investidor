@@ -32,14 +32,6 @@
         <argument
             android:name="assetTypeName"
             app:argType="string" />
-        <action
-            android:id="@+id/select_asset_fragment_to_save_asset_fragment"
-            app:destination="@id/fragment_save_asset" />
     </fragment>
-
-    <fragment
-        android:id="@+id/fragment_save_asset"
-        android:name="com.omouravictor.invest_view.ui.wallet.new_asset.asset.SaveAssetFragment"
-        tools:layout="@layout/fragment_save_asset" />
 
 </navigation>

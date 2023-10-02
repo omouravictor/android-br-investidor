@@ -1,36 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:paddingHorizontal="16dp"
+    android:paddingTop="24dp"
     tools:context=".ui.wallet.new_asset.asset.SelectAssetFragment">
 
-    <com.google.android.material.card.MaterialCardView
+    <TextView
+        android:id="@+id/tvTittleAssetSymbol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Código do ativo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <AutoCompleteTextView
+        android:id="@+id/acAssetSymbol"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:imeOptions="actionNext"
+        android:inputType="textAutoComplete"
+        app:layout_constraintStart_toStartOf="@+id/tvTittleAssetSymbol"
+        app:layout_constraintTop_toBottomOf="@+id/tvTittleAssetSymbol"
+        app:layout_constraintWidth_percent="0.45"
+        tools:text="MXRF11" />
+
+    <TextView
+        android:id="@+id/tvTittleQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Quantidade"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etQuantity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="@+id/tvTittleQuantity"
+        app:layout_constraintTop_toBottomOf="@+id/tvTittleQuantity"
+        app:layout_constraintWidth_percent="0.45"
+        tools:text="100" />
+
+    <TextView
+        android:id="@+id/tvTittleTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Total Investido (opcional)"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/acAssetSymbol" />
+
+    <EditText
+        android:id="@+id/etTotal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
-        android:layout_marginVertical="8dp"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="2dp">
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvTittleTotal"
+        app:layout_constraintTop_toBottomOf="@+id/tvTittleTotal"
+        tools:text="500" />
 
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/searchView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:iconifiedByDefault="false"
-            app:queryBackground="@android:color/transparent"
-            app:queryHint="Pesquise aqui..." />
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:paddingTop="8dp"
-        tools:listitem="@layout/item_list_asset" />
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

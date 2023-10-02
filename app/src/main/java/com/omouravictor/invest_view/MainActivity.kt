@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.fragment_wallet -> handleWalletDestination()
-                R.id.fragment_save_asset -> handleSaveAssetDestination()
+                R.id.fragment_select_asset -> handleSelectAssetDestination()
                 else -> {
                     clearToolbarMenu()
                     setupDrawerLayout(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
         when (navController.currentDestination?.id) {
             R.id.fragment_wallet -> setupToolbarMenu(walletGroupVisible = true)
-            R.id.fragment_save_asset -> setupToolbarMenu(saveItemVisible = true)
+            R.id.fragment_select_asset -> setupToolbarMenu(saveItemVisible = true)
             else -> clearToolbarMenu()
         }
         return super.onPrepareOptionsMenu(menu)
@@ -102,7 +102,7 @@ class MainActivity : AppCompatActivity() {
         setupDrawerLayout(DrawerLayout.LOCK_MODE_UNLOCKED)
     }
 
-    private fun handleSaveAssetDestination() {
+    private fun handleSelectAssetDestination() {
         setupToolbarMenu(saveItemVisible = true)
     }
 }
