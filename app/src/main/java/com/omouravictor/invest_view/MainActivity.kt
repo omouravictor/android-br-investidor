@@ -34,14 +34,14 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
 
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.fragment_wallet),
+            setOf(R.id.fragmentWallet),
             binding.drawerLayout
         )
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.fragment_wallet -> handleWalletDestination()
-                R.id.fragment_save_asset -> handleSelectAssetDestination()
+                R.id.fragmentWallet -> handleWalletDestination()
+                R.id.fragmentCreateAsset -> handleSelectAssetDestination()
                 else -> handleDefaultDestination()
             }
         }
@@ -57,9 +57,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
         when (navController.currentDestination?.id) {
-            R.id.fragment_wallet -> setupToolbarMenu(walletGroupVisible = true)
+            R.id.fragmentWallet -> setupToolbarMenu(walletGroupVisible = true)
 
-            R.id.fragment_save_asset -> setupToolbarMenu(
+            R.id.fragmentCreateAsset -> setupToolbarMenu(
                 saveItemVisible = true,
                 saveItemEnabled = isSaveItemEnabled
             )

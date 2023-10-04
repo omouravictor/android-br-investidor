@@ -7,9 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.omouravictor.invest_view.databinding.ItemListAssetTypeBinding
 
 class AssetTypeAdapter(
-    private val items: List<AssetTypeUiModel>,
-    private val onClickItem: (AssetTypeUiModel) -> Unit
+    private val items: List<AssetTypeUiModel>
 ) : RecyclerView.Adapter<AssetTypeAdapter.ViewHolder>() {
+
+    var onClickItem: (AssetTypeUiModel) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
@@ -29,9 +30,13 @@ class AssetTypeAdapter(
 
         fun bind(assetType: AssetTypeUiModel) {
             binding.tvAssetType.text = assetType.name
+
             binding.ivCircle.backgroundTintList =
                 getColorStateList(itemView.context, assetType.color)
-            itemView.setOnClickListener { onClickItem(assetType) }
+
+            itemView.setOnClickListener {
+                onClickItem(assetType)
+            }
         }
 
     }

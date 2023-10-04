@@ -38,19 +38,19 @@ class SelectAssetTypeFragment : Fragment() {
             AssetTypeUiModel(name = "Fundos Imobiliários", color = R.color.green),
             AssetTypeUiModel(name = "Ações", color = R.color.red),
         )
+        val assetTypeAdapter = AssetTypeAdapter(assetTypes).apply {
+            onClickItem = { navigateToCreateAssetFragment(it) }
+        }
 
         binding.recyclerView.apply {
-            adapter = AssetTypeAdapter(
-                items = assetTypes,
-                onClickItem = { assetTypeAdapterOnClickItem(it) }
-            )
+            adapter = assetTypeAdapter
             layoutManager = LinearLayoutManager(context)
         }
     }
 
-    private fun assetTypeAdapterOnClickItem(assetType: AssetTypeUiModel) {
+    private fun navigateToCreateAssetFragment(assetType: AssetTypeUiModel) {
         findNavController().navigate(
-            SelectAssetTypeFragmentDirections.selectAssetTypeFragmentToSelectAssetFragment(assetType.name)
+            SelectAssetTypeFragmentDirections.selectAssetTypeFragmentToCreateAssetFragment(assetType.name)
         )
     }
 

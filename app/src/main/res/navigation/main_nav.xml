@@ -3,32 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@+id/fragment_wallet">
+    app:startDestination="@+id/fragmentWallet">
 
     <fragment
-        android:id="@+id/fragment_wallet"
+        android:id="@+id/fragmentWallet"
         android:name="com.omouravictor.invest_view.ui.wallet.WalletFragment"
         android:label="@string/label_wallet"
         tools:layout="@layout/fragment_wallet">
         <action
-            android:id="@+id/wallet_fragment_to_select_asset_type_fragment"
-            app:destination="@id/fragment_select_asset_type" />
+            android:id="@+id/walletFragmentToSelectAssetTypeFragment"
+            app:destination="@id/fragmentSelectAssetType" />
     </fragment>
 
     <fragment
-        android:id="@+id/fragment_select_asset_type"
+        android:id="@+id/fragmentSelectAssetType"
         android:name="com.omouravictor.invest_view.ui.wallet.new_asset.asset_type.SelectAssetTypeFragment"
         android:label="@string/label_new_asset"
         tools:layout="@layout/fragment_select_asset_type">
         <action
-            android:id="@+id/select_asset_type_fragment_to_select_asset_fragment"
-            app:destination="@id/fragment_save_asset" />
+            android:id="@+id/selectAssetTypeFragmentToCreateAssetFragment"
+            app:destination="@id/fragmentCreateAsset" />
     </fragment>
 
     <fragment
-        android:id="@+id/fragment_save_asset"
-        android:name="com.omouravictor.invest_view.ui.wallet.new_asset.asset.SaveAssetFragment"
-        tools:layout="@layout/fragment_save_asset">
+        android:id="@+id/fragmentCreateAsset"
+        android:name="com.omouravictor.invest_view.ui.wallet.new_asset.asset.CreateAssetFragment"
+        tools:layout="@layout/fragment_create_asset">
         <argument
             android:name="assetTypeName"
             app:argType="string" />

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:paddingHorizontal="16dp"
     android:paddingTop="24dp"
-    tools:context=".ui.wallet.new_asset.asset.SaveAssetFragment">
+    tools:context=".ui.wallet.new_asset.asset.CreateAssetFragment">
 
     <TextView
         android:id="@+id/tvTittleAssetSymbol"

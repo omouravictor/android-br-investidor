@@ -5,7 +5,7 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/fragment_wallet"
+            android:id="@+id/fragmentWallet"
             android:icon="@drawable/ic_wallet"
             android:title="@string/label_wallet" />
     </group>
