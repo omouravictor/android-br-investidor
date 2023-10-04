@@ -4,7 +4,8 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.drawerlayout.widget.DrawerLayout
+import androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED
+import androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -41,10 +42,7 @@ class MainActivity : AppCompatActivity() {
             when (destination.id) {
                 R.id.fragment_wallet -> handleWalletDestination()
                 R.id.fragment_select_asset -> handleSelectAssetDestination()
-                else -> {
-                    hideToolbarMenu()
-                    setupDrawerLayout(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-                }
+                else -> handleDefaultDestination()
             }
         }
 
@@ -112,10 +110,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleWalletDestination() {
         setupToolbarMenu(walletGroupVisible = true)
-        setupDrawerLayout(DrawerLayout.LOCK_MODE_UNLOCKED)
+        setupDrawerLayout(LOCK_MODE_UNLOCKED)
     }
 
     private fun handleSelectAssetDestination() {
         setupToolbarMenu(saveItemVisible = true)
+    }
+
+    private fun handleDefaultDestination() {
+        hideToolbarMenu()
+        setupDrawerLayout(LOCK_MODE_LOCKED_CLOSED)
     }
 }
