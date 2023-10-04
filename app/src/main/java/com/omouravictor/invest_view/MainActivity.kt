@@ -1,6 +1,8 @@
 package com.omouravictor.invest_view
 
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -82,9 +84,23 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    fun enableSaveItem(isEnabled: Boolean) {
-        isSaveItemEnabled = isEnabled
-        binding.toolbar.menu.findItem(R.id.save_item)?.isEnabled = isSaveItemEnabled
+    fun setupSaveItemMenu(saveItemEnabled: Boolean) {
+        isSaveItemEnabled = saveItemEnabled
+
+        binding.toolbar.menu.findItem(R.id.save_item)?.apply {
+            isEnabled = isSaveItemEnabled
+
+            val textColor =
+                if (isSaveItemEnabled) getColor(R.color.green) else getColor(R.color.darkGray)
+
+            title = getColoredText(this.title.toString(), textColor)
+        }
+    }
+
+    private fun getColoredText(text: String, color: Int): SpannableString {
+        val spannableString = SpannableString(text)
+        spannableString.setSpan(ForegroundColorSpan(color), 0, spannableString.length, 0)
+        return spannableString
     }
 
     private fun hideToolbarMenu() {
@@ -101,7 +117,7 @@ class MainActivity : AppCompatActivity() {
         val menu = binding.toolbar.menu
         menu.setGroupVisible(R.id.wallet_group, walletGroupVisible)
         menu.findItem(R.id.save_item)?.isVisible = saveItemVisible
-        menu.findItem(R.id.save_item)?.isEnabled = saveItemEnabled
+        setupSaveItemMenu(saveItemEnabled)
     }
 
     private fun setupDrawerLayout(lockMode: Int) {

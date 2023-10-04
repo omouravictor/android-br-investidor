@@ -44,7 +44,7 @@ class CreateAssetFragment : Fragment() {
         val isQuantityNotEmpty = binding.etQuantity.text.isNotEmpty()
 
         if (activity is MainActivity)
-            activity.enableSaveItem(isSymbolNotEmpty && isQuantityNotEmpty)
+            activity.setupSaveItemMenu(isSymbolNotEmpty && isQuantityNotEmpty)
     }
 
 }

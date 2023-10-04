@@ -11,7 +11,6 @@
 
     <item
         android:id="@+id/save_item"
-        android:enabled="false"
         android:title="@string/option_menu_save"
         app:showAsAction="always" />
 </menu>
