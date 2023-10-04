@@ -60,7 +60,12 @@ class MainActivity : AppCompatActivity() {
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
         when (navController.currentDestination?.id) {
             R.id.fragment_wallet -> setupToolbarMenu(walletGroupVisible = true)
-            R.id.fragment_select_asset -> setupToolbarMenu(saveItemVisible = true)
+
+            R.id.fragment_select_asset -> setupToolbarMenu(
+                saveItemVisible = true,
+                saveItemEnabled = isSaveItemEnabled
+            )
+
             else -> clearToolbarMenu()
         }
         return super.onPrepareOptionsMenu(menu)
@@ -92,12 +97,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupToolbarMenu(
         walletGroupVisible: Boolean = false,
-        saveItemVisible: Boolean = false
+        saveItemVisible: Boolean = false,
+        saveItemEnabled: Boolean = false
     ) {
         val menu = binding.toolbar.menu
         menu.setGroupVisible(R.id.wallet_group, walletGroupVisible)
         menu.findItem(R.id.save_item)?.isVisible = saveItemVisible
-        menu.findItem(R.id.save_item)?.isEnabled = isSaveItemEnabled
+        menu.findItem(R.id.save_item)?.isEnabled = saveItemEnabled
     }
 
     private fun setupDrawerLayout(lockMode: Int) {
