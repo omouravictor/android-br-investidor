@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+    private var isSaveItemEnabled = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,6 +79,11 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
+    fun enableSaveItem(isEnabled: Boolean) {
+        isSaveItemEnabled = isEnabled
+        binding.toolbar.menu.findItem(R.id.save_item)?.isEnabled = isSaveItemEnabled
+    }
+
     private fun clearToolbarMenu() {
         val menu = binding.toolbar.menu
         menu.setGroupVisible(R.id.wallet_group, false)
@@ -91,6 +97,7 @@ class MainActivity : AppCompatActivity() {
         val menu = binding.toolbar.menu
         menu.setGroupVisible(R.id.wallet_group, walletGroupVisible)
         menu.findItem(R.id.save_item)?.isVisible = saveItemVisible
+        menu.findItem(R.id.save_item)?.isEnabled = isSaveItemEnabled
     }
 
     private fun setupDrawerLayout(lockMode: Int) {
