@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:hint="XXXX00"
         android:imeOptions="actionNext"
-        android:inputType="textAutoComplete"
+        android:inputType="textAutoComplete|textCapCharacters"
         app:layout_constraintStart_toStartOf="@+id/tvTittleAssetSymbol"
         app:layout_constraintTop_toBottomOf="@+id/tvTittleAssetSymbol"
         app:layout_constraintWidth_percent="0.45" />
@@ -59,7 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="R$ 100,00"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvTittleTotal"
         app:layout_constraintTop_toBottomOf="@+id/tvTittleTotal" />
