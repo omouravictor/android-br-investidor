@@ -20,30 +20,30 @@
         android:id="@+id/acAssetSymbol"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:hint="XXXX00"
         android:imeOptions="actionNext"
         android:inputType="textAutoComplete"
         app:layout_constraintStart_toStartOf="@+id/tvTittleAssetSymbol"
         app:layout_constraintTop_toBottomOf="@+id/tvTittleAssetSymbol"
-        app:layout_constraintWidth_percent="0.45"
-        tools:text="MXRF11" />
+        app:layout_constraintWidth_percent="0.45" />
 
     <TextView
         android:id="@+id/tvTittleQuantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Quantidade"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/etQuantity"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/etQuantity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:hint="10"
         android:inputType="number"
-        app:layout_constraintEnd_toEndOf="@+id/tvTittleQuantity"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTittleQuantity"
-        app:layout_constraintWidth_percent="0.45"
-        tools:text="100" />
+        app:layout_constraintWidth_percent="0.45" />
 
     <TextView
         android:id="@+id/tvTittleTotal"
@@ -58,10 +58,10 @@
         android:id="@+id/etTotal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="R$ 100,00"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvTittleTotal"
-        app:layout_constraintTop_toBottomOf="@+id/tvTittleTotal"
-        tools:text="500" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTittleTotal" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
