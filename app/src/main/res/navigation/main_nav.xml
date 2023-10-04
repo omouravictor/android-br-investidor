@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/fragmentSelectAssetType"
-        android:name="com.omouravictor.invest_view.ui.wallet.new_asset.asset_type.SelectAssetTypeFragment"
+        android:name="com.omouravictor.invest_view.ui.wallet.new_asset.SelectAssetTypeFragment"
         android:label="@string/label_new_asset"
         tools:layout="@layout/fragment_select_asset_type">
         <action
@@ -27,7 +27,7 @@
 
     <fragment
         android:id="@+id/fragmentCreateAsset"
-        android:name="com.omouravictor.invest_view.ui.wallet.new_asset.asset.CreateAssetFragment"
+        android:name="com.omouravictor.invest_view.ui.wallet.new_asset.CreateAssetFragment"
         tools:layout="@layout/fragment_create_asset">
         <argument
             android:name="assetTypeName"
