@@ -5,11 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.omouravictor.invest_view.MainActivity
 import com.omouravictor.invest_view.databinding.FragmentSelectAssetBinding
-import com.omouravictor.invest_view.ui.wallet.new_asset.asset_type.SelectAssetTypeFragmentDirections
 
 class SelectAssetFragment : Fragment() {
 
@@ -26,8 +25,12 @@ class SelectAssetFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupSupportActionBar()
-        setupRecyclerView()
+
+        val assetType = arguments?.getString("assetTypeName")!!
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = assetType
+
+        binding.etQuantity.doAfterTextChanged { checkAndEnableSaveItem() }
+        binding.acAssetSymbol.doAfterTextChanged { checkAndEnableSaveItem() }
     }
 
     override fun onDestroyView() {
@@ -35,40 +38,13 @@ class SelectAssetFragment : Fragment() {
         _binding = null
     }
 
-    private fun setupSupportActionBar() {
-        val assetType = arguments?.getString("assetTypeName")!!
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = assetType
-    }
+    private fun checkAndEnableSaveItem() {
+        val activity = requireActivity()
+        val isSymbolNotEmpty = binding.acAssetSymbol.text.isNotEmpty()
+        val isQuantityNotEmpty = binding.etQuantity.text.isNotEmpty()
 
-    private fun setupRecyclerView() {
-        val assets = listOf(
-            AssetUiModel(name = "PETR4", companyName = "Petrobras", cost = 25.0F),
-            AssetUiModel(name = "VALE3", companyName = "Vale", cost = 100.0F),
-            AssetUiModel(name = "VALE3", companyName = "Vale", cost = 100.0F),
-            AssetUiModel(name = "VALE3", companyName = "Vale", cost = 100.0F),
-            AssetUiModel(name = "VALE3", companyName = "Vale", cost = 100.0F),
-            AssetUiModel(name = "VALE3", companyName = "Vale", cost = 100.0F),
-            AssetUiModel(name = "VALE3", companyName = "Vale", cost = 100.0F),
-            AssetUiModel(name = "VALE3", companyName = "Vale", cost = 100.0F),
-            AssetUiModel(name = "VALE3", companyName = "Vale", cost = 100.0F),
-            AssetUiModel(name = "VALE3", companyName = "Vale", cost = 100.0F),
-            AssetUiModel(name = "VALE3", companyName = "Vale", cost = 100.0F),
-            AssetUiModel(name = "VALE3", companyName = "Vale", cost = 100.0F)
-        )
-
-        binding.recyclerView.apply {
-            adapter = AssetAdapter(
-                items = assets,
-                onClickItem = { assetAdapterOnClickItem(it) }
-            )
-            layoutManager = LinearLayoutManager(context)
-        }
-    }
-
-    private fun assetAdapterOnClickItem(asset: AssetUiModel) {
-        findNavController().navigate(
-            SelectAssetFragmentDirections.selectAssetFragmentToSaveAssetFragment()
-        )
+        if (activity is MainActivity)
+            activity.enableSaveItem(isSymbolNotEmpty && isQuantityNotEmpty)
     }
 
 }
