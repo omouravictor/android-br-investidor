@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.fragment_wallet -> handleWalletDestination()
                 R.id.fragment_select_asset -> handleSelectAssetDestination()
                 else -> {
-                    clearToolbarMenu()
+                    hideToolbarMenu()
                     setupDrawerLayout(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
                 }
             }
@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
                 saveItemEnabled = isSaveItemEnabled
             )
 
-            else -> clearToolbarMenu()
+            else -> hideToolbarMenu()
         }
         return super.onPrepareOptionsMenu(menu)
     }
@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
         binding.toolbar.menu.findItem(R.id.save_item)?.isEnabled = isSaveItemEnabled
     }
 
-    private fun clearToolbarMenu() {
+    private fun hideToolbarMenu() {
         val menu = binding.toolbar.menu
         menu.setGroupVisible(R.id.wallet_group, false)
         menu.findItem(R.id.save_item)?.isVisible = false
