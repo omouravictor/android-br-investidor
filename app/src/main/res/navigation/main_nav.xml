@@ -22,13 +22,13 @@
         tools:layout="@layout/fragment_select_asset_type">
         <action
             android:id="@+id/select_asset_type_fragment_to_select_asset_fragment"
-            app:destination="@id/fragment_select_asset" />
+            app:destination="@id/fragment_save_asset" />
     </fragment>
 
     <fragment
-        android:id="@+id/fragment_select_asset"
-        android:name="com.omouravictor.invest_view.ui.wallet.new_asset.asset.SelectAssetFragment"
-        tools:layout="@layout/fragment_select_asset">
+        android:id="@+id/fragment_save_asset"
+        android:name="com.omouravictor.invest_view.ui.wallet.new_asset.asset.SaveAssetFragment"
+        tools:layout="@layout/fragment_save_asset">
         <argument
             android:name="assetTypeName"
             app:argType="string" />

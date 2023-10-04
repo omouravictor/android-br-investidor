@@ -8,18 +8,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import com.omouravictor.invest_view.MainActivity
-import com.omouravictor.invest_view.databinding.FragmentSelectAssetBinding
+import com.omouravictor.invest_view.databinding.FragmentSaveAssetBinding
 
-class SelectAssetFragment : Fragment() {
+class SaveAssetFragment : Fragment() {
 
-    private var _binding: FragmentSelectAssetBinding? = null
+    private var _binding: FragmentSaveAssetBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSelectAssetBinding.inflate(inflater, container, false)
+        _binding = FragmentSaveAssetBinding.inflate(inflater, container, false)
         return binding.root
     }
 

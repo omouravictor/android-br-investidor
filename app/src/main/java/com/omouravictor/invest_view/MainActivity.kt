@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.fragment_wallet -> handleWalletDestination()
-                R.id.fragment_select_asset -> handleSelectAssetDestination()
+                R.id.fragment_save_asset -> handleSelectAssetDestination()
                 else -> handleDefaultDestination()
             }
         }
@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
         when (navController.currentDestination?.id) {
             R.id.fragment_wallet -> setupToolbarMenu(walletGroupVisible = true)
 
-            R.id.fragment_select_asset -> setupToolbarMenu(
+            R.id.fragment_save_asset -> setupToolbarMenu(
                 saveItemVisible = true,
                 saveItemEnabled = isSaveItemEnabled
             )
