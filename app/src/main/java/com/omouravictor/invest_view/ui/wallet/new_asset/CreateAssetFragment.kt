@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
@@ -25,12 +26,13 @@ class CreateAssetFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val activity = requireActivity()
 
-        val assetType = arguments?.getString("assetTypeName")!!
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = assetType
+        setupSupportActionBarTittle(activity as AppCompatActivity)
 
-        binding.etQuantity.doAfterTextChanged { checkAndEnableSaveItem() }
-        binding.acAssetSymbol.doAfterTextChanged { checkAndEnableSaveItem() }
+        when (activity) {
+            is MainActivity -> handleMainActivity(activity)
+        }
     }
 
     override fun onDestroyView() {
@@ -38,13 +40,26 @@ class CreateAssetFragment : Fragment() {
         _binding = null
     }
 
-    private fun checkAndEnableSaveItem() {
-        val activity = requireActivity()
-        val isSymbolNotEmpty = binding.acAssetSymbol.text.isNotEmpty()
-        val isQuantityNotEmpty = binding.etQuantity.text.isNotEmpty()
+    private fun setupSupportActionBarTittle(activity: AppCompatActivity) {
+        val assetType = arguments?.getString("assetTypeName") ?: ""
+        activity.supportActionBar?.title = assetType
+    }
 
-        if (activity is MainActivity)
-            activity.setupSaveItemMenu(isSymbolNotEmpty && isQuantityNotEmpty)
+    private fun areRequiredFieldsNotEmpty() =
+        binding.acAssetSymbol.text.isNotEmpty() && binding.etQuantity.text.isNotEmpty()
+
+    private fun handleMainActivity(mainActivity: MainActivity) {
+        mainActivity.saveItemClickAction = {
+            Toast.makeText(activity, "Save item", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.acAssetSymbol.doAfterTextChanged {
+            mainActivity.setupSaveItemMenu(areRequiredFieldsNotEmpty())
+        }
+
+        binding.etQuantity.doAfterTextChanged {
+            mainActivity.setupSaveItemMenu(areRequiredFieldsNotEmpty())
+        }
     }
 
 }
