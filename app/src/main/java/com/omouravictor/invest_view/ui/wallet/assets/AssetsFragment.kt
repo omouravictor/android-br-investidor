@@ -5,14 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import com.omouravictor.invest_view.databinding.FragmentAssetsBinding
 
 class AssetsFragment : Fragment() {
 
     private var _binding: FragmentAssetsBinding? = null
     private val binding get() = _binding!!
-    private val assetsViewModel: AssetsViewModel by viewModels()
+    private val assetsViewModel: AssetsViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,

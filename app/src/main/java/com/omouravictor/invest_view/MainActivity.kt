@@ -91,13 +91,12 @@ class MainActivity : AppCompatActivity() {
 
         binding.toolbar.menu.findItem(R.id.save_item)?.apply {
             isEnabled = isSaveItemEnabled
-
-            val textColor =
-                if (isSaveItemEnabled) getColor(R.color.green) else getColor(R.color.darkGray)
-
-            title = getColoredText(this.title.toString(), textColor)
+            title = getColoredText(title.toString(), getSaveItemTextColor())
         }
     }
+
+    private fun getSaveItemTextColor() =
+        if (isSaveItemEnabled) getColor(R.color.green) else getColor(R.color.darkGray)
 
     private fun getColoredText(text: String, color: Int): SpannableString {
         val spannableString = SpannableString(text)
