@@ -8,5 +8,5 @@ import kotlinx.parcelize.Parcelize
 data class AssetTypeUiModel(
     val assetType: AssetTypes,
     val description: String,
-    val color: ColorStateList?
+    val color: ColorStateList
 ) : Parcelable

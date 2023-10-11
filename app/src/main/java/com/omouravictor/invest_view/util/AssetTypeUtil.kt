@@ -12,12 +12,12 @@ object AssetTypeUtil {
         AssetTypeUiModel(
             assetType = AssetTypes.STOCKS,
             description = context.getString(R.string.stocks),
-            color = getColorStateList(context, R.color.green)
+            color = getColorStateList(context, R.color.green)!!
         ),
         AssetTypeUiModel(
             assetType = AssetTypes.REAL_ESTATE_FUNDS,
             description = context.getString(R.string.real_estate_funds),
-            color = getColorStateList(context, R.color.blue)
+            color = getColorStateList(context, R.color.blue)!!
         )
     )
 
