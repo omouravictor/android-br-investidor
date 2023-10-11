@@ -2,15 +2,13 @@ package com.omouravictor.invest_view.ui.wallet.new_asset
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.getColorStateList
 import androidx.recyclerview.widget.RecyclerView
 import com.omouravictor.invest_view.databinding.ItemListAssetTypeBinding
 
 class AssetTypeAdapter(
-    private val items: List<AssetTypeUiModel>
+    private val items: List<AssetTypeUiModel>,
+    private val onClickItem: (AssetTypeUiModel) -> Unit
 ) : RecyclerView.Adapter<AssetTypeAdapter.ViewHolder>() {
-
-    var onClickItem: (AssetTypeUiModel) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
@@ -31,12 +29,9 @@ class AssetTypeAdapter(
         fun bind(assetType: AssetTypeUiModel) {
             binding.tvAssetType.text = assetType.description
 
-            binding.ivCircle.backgroundTintList =
-                getColorStateList(itemView.context, assetType.color)
+            binding.ivCircle.backgroundTintList = assetType.color
 
-            itemView.setOnClickListener {
-                onClickItem(assetType)
-            }
+            itemView.setOnClickListener { onClickItem(assetType) }
         }
 
     }
