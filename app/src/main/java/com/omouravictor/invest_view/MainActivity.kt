@@ -1,8 +1,6 @@
 package com.omouravictor.invest_view
 
 import android.os.Bundle
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -87,20 +85,7 @@ class MainActivity : AppCompatActivity() {
 
     fun setupSaveItemMenu(saveItemEnabled: Boolean) {
         isSaveItemEnabled = saveItemEnabled
-
-        binding.toolbar.menu.findItem(R.id.save_item)?.apply {
-            isEnabled = isSaveItemEnabled
-            title = getColoredText(title.toString(), getSaveItemTextColor())
-        }
-    }
-
-    private fun getSaveItemTextColor() =
-        if (isSaveItemEnabled) getColor(R.color.green) else getColor(R.color.darkGray)
-
-    private fun getColoredText(text: String, color: Int): SpannableString {
-        val spannableString = SpannableString(text)
-        spannableString.setSpan(ForegroundColorSpan(color), 0, spannableString.length, 0)
-        return spannableString
+        binding.toolbar.menu.findItem(R.id.save_item)?.isEnabled = isSaveItemEnabled
     }
 
     private fun hideToolbarMenu() {
