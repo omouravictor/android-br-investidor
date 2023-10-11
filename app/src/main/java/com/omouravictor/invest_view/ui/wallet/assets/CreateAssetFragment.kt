@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.getColorStateList
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.omouravictor.invest_view.MainActivity
+import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentCreateAssetBinding
 
 class CreateAssetFragment : Fragment() {
@@ -32,10 +35,11 @@ class CreateAssetFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as AppCompatActivity).supportActionBar?.title = assetTypeUiModelArg.description
+        (requireActivity() as AppCompatActivity).supportActionBar?.title =
+            assetTypeUiModelArg.description
 
-        when (activity) {
-            is MainActivity -> handleMainActivity(activity as MainActivity)
+        if (requireActivity() is MainActivity) {
+            handleMainActivity(requireActivity() as MainActivity)
         }
     }
 
@@ -44,20 +48,42 @@ class CreateAssetFragment : Fragment() {
         _binding = null
     }
 
-    private fun areRequiredFieldsNotEmpty() =
-        binding.acAssetSymbol.text.isNotEmpty() && binding.etQuantity.text.isNotEmpty()
-
     private fun handleMainActivity(mainActivity: MainActivity) {
         mainActivity.saveItemClickAction = {
             Toast.makeText(activity, "Save item", Toast.LENGTH_SHORT).show()
         }
 
-        binding.acAssetSymbol.doAfterTextChanged {
-            mainActivity.setupSaveItemMenu(areRequiredFieldsNotEmpty())
-        }
+        setupAfterTextChangedOnFields(
+            { mainActivity.setupSaveItemMenu(areRequiredFieldsNotEmpty()) },
+            binding.acAssetSymbol,
+            binding.etQuantity
+        )
 
-        binding.etQuantity.doAfterTextChanged {
-            mainActivity.setupSaveItemMenu(areRequiredFieldsNotEmpty())
+        setupFocusChangeOnFields(binding.acAssetSymbol, binding.etQuantity, binding.etTotal)
+    }
+
+    private fun setupAfterTextChangedOnFields(
+        doAfterTextChangedFunction: () -> Unit,
+        vararg editTexts: EditText
+    ) {
+        editTexts.forEach { editText ->
+            editText.doAfterTextChanged {
+                doAfterTextChangedFunction()
+            }
+        }
+    }
+
+    private fun areRequiredFieldsNotEmpty() =
+        binding.acAssetSymbol.text.isNotEmpty() && binding.etQuantity.text.isNotEmpty()
+
+    private fun setupFocusChangeOnFields(vararg editTexts: EditText) {
+        editTexts.forEach { editText ->
+            editText.setOnFocusChangeListener { v, hasFocus ->
+                v.backgroundTintList = if (hasFocus)
+                    assetTypeUiModelArg.color
+                else
+                    getColorStateList(requireContext(), R.color.gray)
+            }
         }
     }
 
