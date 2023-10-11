@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.getColorStateList
 import androidx.core.widget.doAfterTextChanged
@@ -49,10 +48,6 @@ class CreateAssetFragment : Fragment() {
     }
 
     private fun handleMainActivity(mainActivity: MainActivity) {
-        mainActivity.saveItemClickAction = {
-            Toast.makeText(activity, "Save item", Toast.LENGTH_SHORT).show()
-        }
-
         setupAfterTextChangedOnFields(
             { mainActivity.setupSaveItemMenu(areRequiredFieldsNotEmpty()) },
             binding.acAssetSymbol,

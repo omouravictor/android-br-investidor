@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
     private var isSaveItemEnabled = false
-    var saveItemClickAction: () -> Unit = {}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,7 +74,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.add_item -> navController.navigate(WalletFragmentDirections.navToSelectAssetTypeFragment())
-            R.id.save_item -> saveItemClickAction()
+            R.id.save_item -> navController.popBackStack(R.id.fragmentWallet, false)
         }
 
         return super.onOptionsItemSelected(item)
