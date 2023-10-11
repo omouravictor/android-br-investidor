@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentSelectAssetTypeBinding
+import com.omouravictor.invest_view.ui.wallet.AssetCodes
 
 class SelectAssetTypeFragment : Fragment() {
 
@@ -35,8 +36,16 @@ class SelectAssetTypeFragment : Fragment() {
 
     private fun setupRecyclerView() {
         val assetTypes = listOf(
-            AssetTypeUiModel(name = getString(R.string.real_estate_funds), color = R.color.green),
-            AssetTypeUiModel(name = getString(R.string.stocks), color = R.color.red),
+            AssetTypeUiModel(
+                code = AssetCodes.REAL_ESTATE_FUNDS,
+                name = getString(R.string.real_estate_funds),
+                color = R.color.green
+            ),
+            AssetTypeUiModel(
+                code = AssetCodes.STOCKS,
+                name = getString(R.string.stocks),
+                color = R.color.red
+            )
         )
         val assetTypeAdapter = AssetTypeAdapter(assetTypes).apply {
             onClickItem = { navigateToCreateAssetFragment(it) }
@@ -50,7 +59,7 @@ class SelectAssetTypeFragment : Fragment() {
 
     private fun navigateToCreateAssetFragment(assetType: AssetTypeUiModel) {
         findNavController().navigate(
-            SelectAssetTypeFragmentDirections.selectAssetTypeFragmentToCreateAssetFragment(assetType.name)
+            SelectAssetTypeFragmentDirections.navToCreateAssetFragment(assetType)
         )
     }
 

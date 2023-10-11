@@ -29,23 +29,20 @@ class CreateAssetFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val activity = requireActivity()
 
-        setupSupportActionBarTittle(activity as AppCompatActivity)
+        val assetTypeUiModel =
+            CreateAssetFragmentArgs.fromBundle(requireArguments()).assetTypeUiModel
+
+        (activity as AppCompatActivity).supportActionBar?.title = assetTypeUiModel.name
 
         when (activity) {
-            is MainActivity -> handleMainActivity(activity)
+            is MainActivity -> handleMainActivity(activity as MainActivity)
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun setupSupportActionBarTittle(activity: AppCompatActivity) {
-        val assetType = arguments?.getString("assetTypeName") ?: ""
-        activity.supportActionBar?.title = assetType
     }
 
     private fun areRequiredFieldsNotEmpty() =

@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.add_item -> navController.navigate(WalletFragmentDirections.walletFragmentToSelectAssetTypeFragment())
+            R.id.add_item -> navController.navigate(WalletFragmentDirections.navToSelectAssetTypeFragment())
             R.id.save_item -> saveItemClickAction()
         }
 
