@@ -18,6 +18,9 @@ class CreateAssetFragment : Fragment() {
     private var _binding: FragmentCreateAssetBinding? = null
     private val binding get() = _binding!!
     private val assetsViewModel: AssetsViewModel by activityViewModels()
+    private val assetTypeUiModelArg by lazy {
+        CreateAssetFragmentArgs.fromBundle(requireArguments()).assetTypeUiModel
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,10 +33,7 @@ class CreateAssetFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val assetTypeUiModel =
-            CreateAssetFragmentArgs.fromBundle(requireArguments()).assetTypeUiModel
-
-        (activity as AppCompatActivity).supportActionBar?.title = assetTypeUiModel.description
+        (activity as AppCompatActivity).supportActionBar?.title = assetTypeUiModelArg.description
 
         when (activity) {
             is MainActivity -> handleMainActivity(activity as MainActivity)
