@@ -3,8 +3,8 @@ package com.omouravictor.invest_view.util
 import android.content.Context
 import androidx.core.content.ContextCompat.getColorStateList
 import com.omouravictor.invest_view.R
-import com.omouravictor.invest_view.ui.wallet.AssetTypes
-import com.omouravictor.invest_view.ui.wallet.new_asset.AssetTypeUiModel
+import com.omouravictor.invest_view.ui.wallet.asset_type.AssetTypeUiModel
+import com.omouravictor.invest_view.ui.wallet.asset_type.AssetTypes
 
 object AssetTypeUtil {
 

@@ -1,8 +1,7 @@
-package com.omouravictor.invest_view.ui.wallet.new_asset
+package com.omouravictor.invest_view.ui.wallet.asset_type
 
 import android.content.res.ColorStateList
 import android.os.Parcelable
-import com.omouravictor.invest_view.ui.wallet.AssetTypes
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

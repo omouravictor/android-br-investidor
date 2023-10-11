@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.ui.wallet.new_asset
+package com.omouravictor.invest_view.ui.wallet.assets
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.omouravictor.invest_view.MainActivity
 import com.omouravictor.invest_view.databinding.FragmentCreateAssetBinding
-import com.omouravictor.invest_view.ui.wallet.assets.AssetsViewModel
 
 class CreateAssetFragment : Fragment() {
 
