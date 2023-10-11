@@ -33,7 +33,7 @@ class CreateAssetFragment : Fragment() {
         val assetTypeUiModel =
             CreateAssetFragmentArgs.fromBundle(requireArguments()).assetTypeUiModel
 
-        (activity as AppCompatActivity).supportActionBar?.title = assetTypeUiModel.name
+        (activity as AppCompatActivity).supportActionBar?.title = assetTypeUiModel.description
 
         when (activity) {
             is MainActivity -> handleMainActivity(activity as MainActivity)

@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentSelectAssetTypeBinding
-import com.omouravictor.invest_view.ui.wallet.AssetCodes
+import com.omouravictor.invest_view.ui.wallet.AssetTypes
 
 class SelectAssetTypeFragment : Fragment() {
 
@@ -37,13 +37,13 @@ class SelectAssetTypeFragment : Fragment() {
     private fun setupRecyclerView() {
         val assetTypes = listOf(
             AssetTypeUiModel(
-                code = AssetCodes.REAL_ESTATE_FUNDS,
-                name = getString(R.string.real_estate_funds),
+                assetType = AssetTypes.REAL_ESTATE_FUNDS,
+                description = getString(R.string.real_estate_funds),
                 color = R.color.green
             ),
             AssetTypeUiModel(
-                code = AssetCodes.STOCKS,
-                name = getString(R.string.stocks),
+                assetType = AssetTypes.STOCKS,
+                description = getString(R.string.stocks),
                 color = R.color.red
             )
         )

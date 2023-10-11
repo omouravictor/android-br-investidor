@@ -29,7 +29,7 @@ class AssetTypeAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(assetType: AssetTypeUiModel) {
-            binding.tvAssetType.text = assetType.name
+            binding.tvAssetType.text = assetType.description
 
             binding.ivCircle.backgroundTintList =
                 getColorStateList(itemView.context, assetType.color)
