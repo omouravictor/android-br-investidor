@@ -12,4 +12,6 @@
     <string name="label_wallet">Carteira</string>
     <string name="label_new_asset">Novo Ativo</string>
     <string name="content_description_arrow_forward">Arrow forward</string>
+    <string name="real_estate_funds">Fundos Imobiliários</string>
+    <string name="stocks">Ações</string>
 </resources>

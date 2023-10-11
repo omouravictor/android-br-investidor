@@ -35,8 +35,8 @@ class SelectAssetTypeFragment : Fragment() {
 
     private fun setupRecyclerView() {
         val assetTypes = listOf(
-            AssetTypeUiModel(name = "Fundos Imobiliários", color = R.color.green),
-            AssetTypeUiModel(name = "Ações", color = R.color.red),
+            AssetTypeUiModel(name = getString(R.string.real_estate_funds), color = R.color.green),
+            AssetTypeUiModel(name = getString(R.string.stocks), color = R.color.red),
         )
         val assetTypeAdapter = AssetTypeAdapter(assetTypes).apply {
             onClickItem = { navigateToCreateAssetFragment(it) }
