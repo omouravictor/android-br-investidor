@@ -13,7 +13,9 @@ import androidx.fragment.app.activityViewModels
 import com.omouravictor.invest_view.MainActivity
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentCreateAssetBinding
-import com.omouravictor.invest_view.util.FunctionsUtil.setupCursorColor
+import com.omouravictor.invest_view.util.EditTextUtil.setupEditTextCursorColor
+import com.omouravictor.invest_view.util.EditTextUtil.setupEditTextsAfterTextChanged
+import com.omouravictor.invest_view.util.EditTextUtil.setupEditTextsHighLightColor
 
 class CreateAssetFragment : Fragment() {
 
@@ -35,7 +37,8 @@ class CreateAssetFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupCursorColor(binding.acAssetSymbol, assetTypeUiModelArg.color)
+        setupEditTextCursorColor(binding.acAssetSymbol, assetTypeUiModelArg.color.defaultColor)
+        setupEditTextsHighLightColor(assetTypeUiModelArg.color.defaultColor, binding.acAssetSymbol)
 
         (requireActivity() as AppCompatActivity).supportActionBar?.title =
             assetTypeUiModelArg.description
@@ -51,30 +54,19 @@ class CreateAssetFragment : Fragment() {
     }
 
     private fun handleMainActivity(mainActivity: MainActivity) {
-        setupAfterTextChangedOnFields(
+        setupEditTextsAfterTextChanged(
             { mainActivity.setupSaveItemMenu(areRequiredFieldsNotEmpty()) },
             binding.acAssetSymbol,
             binding.etQuantity
         )
 
-        setupFocusChangeOnFields(binding.acAssetSymbol, binding.etQuantity, binding.etTotal)
-    }
-
-    private fun setupAfterTextChangedOnFields(
-        doAfterTextChangedFunction: () -> Unit,
-        vararg editTexts: EditText
-    ) {
-        editTexts.forEach { editText ->
-            editText.doAfterTextChanged {
-                doAfterTextChangedFunction()
-            }
-        }
+        setupEditTextsFocusChange(binding.acAssetSymbol, binding.etQuantity, binding.etTotal)
     }
 
     private fun areRequiredFieldsNotEmpty() =
         binding.acAssetSymbol.text.isNotEmpty() && binding.etQuantity.text.isNotEmpty()
 
-    private fun setupFocusChangeOnFields(vararg editTexts: EditText) {
+    private fun setupEditTextsFocusChange(vararg editTexts: EditText) {
         editTexts.forEach { editText ->
             editText.setOnFocusChangeListener { v, hasFocus ->
                 v.backgroundTintList = if (hasFocus)

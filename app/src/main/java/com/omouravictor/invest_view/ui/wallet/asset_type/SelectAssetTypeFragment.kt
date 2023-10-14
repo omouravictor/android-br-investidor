@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.omouravictor.invest_view.databinding.FragmentSelectAssetTypeBinding
-import com.omouravictor.invest_view.util.AssetTypesUtil.getAssetTypeList
+import com.omouravictor.invest_view.util.AssetTypeUtil.getAssetTypeList
 
 class SelectAssetTypeFragment : Fragment() {
 
