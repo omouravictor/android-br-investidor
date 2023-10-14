@@ -51,6 +51,7 @@ class CreateAssetFragment : Fragment() {
     }
 
     private fun setupEditTexts() {
+        binding.acAssetSymbol.requestFocus()
         setupEditTextCursorColor(binding.acAssetSymbol, assetTypeUiModelArg.color.defaultColor)
         setupEditTextsHighLightColor(
             assetTypeUiModelArg.color.defaultColor,
