@@ -8,7 +8,10 @@ import androidx.core.widget.doAfterTextChanged
 
 object EditTextUtil {
 
-    fun setupEditTextCursorColor(editText: EditText, color: Int) {
+    fun setupEditTextCursorColor(
+        editText: EditText,
+        color: Int
+    ) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             editText.textCursorDrawable?.apply { setTint(color) }
 
@@ -29,7 +32,10 @@ object EditTextUtil {
         }
     }
 
-    fun setupEditTextsHighLightColor(color: Int, vararg editTexts: EditText) {
+    fun setupEditTextsHighLightColor(
+        color: Int,
+        vararg editTexts: EditText
+    ) {
         editTexts.forEach { editText ->
             editText.highlightColor = color
         }

@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.getColorStateList
-import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.omouravictor.invest_view.MainActivity
@@ -36,9 +35,7 @@ class CreateAssetFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        setupEditTextCursorColor(binding.acAssetSymbol, assetTypeUiModelArg.color.defaultColor)
-        setupEditTextsHighLightColor(assetTypeUiModelArg.color.defaultColor, binding.acAssetSymbol)
+        setupEditTexts()
 
         (requireActivity() as AppCompatActivity).supportActionBar?.title =
             assetTypeUiModelArg.description
@@ -53,13 +50,14 @@ class CreateAssetFragment : Fragment() {
         _binding = null
     }
 
-    private fun handleMainActivity(mainActivity: MainActivity) {
-        setupEditTextsAfterTextChanged(
-            { mainActivity.setupSaveItemMenu(areRequiredFieldsNotEmpty()) },
+    private fun setupEditTexts() {
+        setupEditTextCursorColor(binding.acAssetSymbol, assetTypeUiModelArg.color.defaultColor)
+        setupEditTextsHighLightColor(
+            assetTypeUiModelArg.color.defaultColor,
             binding.acAssetSymbol,
-            binding.etQuantity
+            binding.etQuantity,
+            binding.etTotal
         )
-
         setupEditTextsFocusChange(binding.acAssetSymbol, binding.etQuantity, binding.etTotal)
     }
 
@@ -69,12 +67,18 @@ class CreateAssetFragment : Fragment() {
     private fun setupEditTextsFocusChange(vararg editTexts: EditText) {
         editTexts.forEach { editText ->
             editText.setOnFocusChangeListener { v, hasFocus ->
-                v.backgroundTintList = if (hasFocus)
-                    assetTypeUiModelArg.color
-                else
-                    getColorStateList(requireContext(), R.color.gray)
+                v.backgroundTintList = if (hasFocus) assetTypeUiModelArg.color
+                else getColorStateList(requireContext(), R.color.gray)
             }
         }
+    }
+
+    private fun handleMainActivity(mainActivity: MainActivity) {
+        setupEditTextsAfterTextChanged(
+            { mainActivity.setupSaveItemMenu(areRequiredFieldsNotEmpty()) },
+            binding.acAssetSymbol,
+            binding.etQuantity
+        )
     }
 
 }
