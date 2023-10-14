@@ -8,7 +8,7 @@ import androidx.core.content.ContextCompat
 
 object FunctionsUtil {
 
-    fun setCursorColor(editText: EditText, colorResId: ColorStateList) {
+    fun setupCursorColor(editText: EditText, colorResId: ColorStateList) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             editText.textCursorDrawable?.apply { setTintList(colorResId) }
 

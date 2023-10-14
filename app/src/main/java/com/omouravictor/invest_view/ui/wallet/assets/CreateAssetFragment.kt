@@ -13,7 +13,7 @@ import androidx.fragment.app.activityViewModels
 import com.omouravictor.invest_view.MainActivity
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentCreateAssetBinding
-import com.omouravictor.invest_view.util.FunctionsUtil.setCursorColor
+import com.omouravictor.invest_view.util.FunctionsUtil.setupCursorColor
 
 class CreateAssetFragment : Fragment() {
 
@@ -35,7 +35,7 @@ class CreateAssetFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setCursorColor(binding.acAssetSymbol, assetTypeUiModelArg.color)
+        setupCursorColor(binding.acAssetSymbol, assetTypeUiModelArg.color)
 
         (requireActivity() as AppCompatActivity).supportActionBar?.title =
             assetTypeUiModelArg.description
