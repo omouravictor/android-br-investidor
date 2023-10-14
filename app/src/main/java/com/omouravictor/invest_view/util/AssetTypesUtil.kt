@@ -6,7 +6,7 @@ import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.ui.wallet.asset_type.AssetTypeUiModel
 import com.omouravictor.invest_view.ui.wallet.asset_type.AssetTypes
 
-object AssetTypeUtil {
+object AssetTypesUtil {
 
     fun getAssetTypeList(context: Context): List<AssetTypeUiModel> = listOf(
         AssetTypeUiModel(
