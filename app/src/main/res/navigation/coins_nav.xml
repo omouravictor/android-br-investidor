@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coinsItemMenu"
+    app:startDestination="@+id/fragmentCoins">
+
+    <fragment
+        android:id="@+id/fragmentCoins"
+        android:name="com.omouravictor.invest_view.ui.wallet.coins.CoinsFragment"
+        android:label="@string/label_coins"
+        tools:layout="@layout/fragment_coins" />
+
+</navigation>

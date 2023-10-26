@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_nav"
+    android:id="@+id/walletItemMenu"
     app:startDestination="@+id/fragmentWallet">
 
     <fragment
@@ -33,11 +33,5 @@
             android:name="assetTypeUiModel"
             app:argType="com.omouravictor.invest_view.ui.wallet.asset_type.AssetTypeUiModel" />
     </fragment>
-
-    <fragment
-        android:id="@+id/fragmentCoins"
-        android:name="com.omouravictor.invest_view.ui.wallet.coins.CoinsFragment"
-        android:label="@string/label_coins"
-        tools:layout="@layout/fragment_coins" />
 
 </navigation>
