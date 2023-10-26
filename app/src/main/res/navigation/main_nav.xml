@@ -34,4 +34,10 @@
             app:argType="com.omouravictor.invest_view.ui.wallet.asset_type.AssetTypeUiModel" />
     </fragment>
 
+    <fragment
+        android:id="@+id/fragmentCoins"
+        android:name="com.omouravictor.invest_view.ui.wallet.coins.CoinsFragment"
+        android:label="@string/label_coins"
+        tools:layout="@layout/fragment_coins" />
+
 </navigation>

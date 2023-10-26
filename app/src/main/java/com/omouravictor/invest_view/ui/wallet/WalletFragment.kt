@@ -9,7 +9,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.omouravictor.invest_view.databinding.FragmentWalletBinding
 import com.omouravictor.invest_view.ui.base.ViewPagerAdapter
 import com.omouravictor.invest_view.ui.wallet.assets.AssetsFragment
-import com.omouravictor.invest_view.ui.wallet.coins.CoinsFragment
+import com.omouravictor.invest_view.ui.wallet.details.DetailsFragment
 
 class WalletFragment : Fragment() {
 
@@ -33,7 +33,7 @@ class WalletFragment : Fragment() {
     private fun setupTabLayoutWithViewPager2() {
         val fragments = listOf(
             Pair(AssetsFragment(), "Ativos"),
-            Pair(CoinsFragment(), "Moedas")
+            Pair(DetailsFragment(), "Detalhes")
         )
 
         binding.viewPager2.adapter = ViewPagerAdapter(requireActivity(), fragments)

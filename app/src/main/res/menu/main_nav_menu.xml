@@ -8,5 +8,10 @@
             android:id="@+id/fragmentWallet"
             android:icon="@drawable/ic_wallet"
             android:title="@string/label_wallet" />
+
+        <item
+            android:id="@+id/fragmentCoins"
+            android:icon="@drawable/ic_wallet"
+            android:title="@string/label_coins" />
     </group>
 </menu>
