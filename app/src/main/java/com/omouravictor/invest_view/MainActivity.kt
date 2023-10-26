@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
 
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.fragmentWallet)
+            setOf(R.id.fragmentWallet, R.id.fragmentCoins)
         )
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
