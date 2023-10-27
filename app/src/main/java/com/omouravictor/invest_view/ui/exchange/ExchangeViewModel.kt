@@ -1,13 +1,13 @@
-package com.omouravictor.invest_view.ui.coins
+package com.omouravictor.invest_view.ui.exchange
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class CoinsViewModel : ViewModel() {
+class ExchangeViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is coins Fragment"
+        value = "This is exchange Fragment"
     }
     val text: LiveData<String> = _text
 }

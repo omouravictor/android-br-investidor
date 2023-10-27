@@ -3,12 +3,11 @@ package com.omouravictor.invest_view
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.omouravictor.invest_view.databinding.ActivityMainBinding
@@ -32,13 +31,14 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
 
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.fragmentWallet, R.id.fragmentCoins)
+            setOf(R.id.fragmentWallet, R.id.fragmentExchange)
         )
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.fragmentWallet -> handleWalletDestination()
                 R.id.fragmentCreateAsset -> handleSelectAssetDestination()
+                R.id.fragmentExchange -> handleExchangeDestination()
                 else -> handleDefaultDestination()
             }
         }
@@ -61,6 +61,8 @@ class MainActivity : AppCompatActivity() {
                 saveItemEnabled = isSaveItemEnabled
             )
 
+            R.id.fragmentExchange -> setupToolbarMenu(exchangeGroupVisible = true)
+
             else -> hideToolbarMenu()
         }
         return super.onPrepareOptionsMenu(menu)
@@ -68,16 +70,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.add_item -> navController.navigate(WalletFragmentDirections.navToSelectAssetTypeFragment())
+            R.id.add_asset -> navController.navigate(WalletFragmentDirections.navToSelectAssetTypeFragment())
+            R.id.add_coin -> {
+                Toast.makeText(this, "Add Coin", Toast.LENGTH_SHORT).show()
+            }
+
             R.id.save_item -> navController.popBackStack(R.id.fragmentWallet, false)
         }
 
         return super.onOptionsItemSelected(item)
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
     fun setupSaveItemMenu(saveItemEnabled: Boolean) {
@@ -88,16 +89,19 @@ class MainActivity : AppCompatActivity() {
     private fun hideToolbarMenu() {
         val menu = binding.toolbar.menu
         menu.setGroupVisible(R.id.wallet_group, false)
+        menu.setGroupVisible(R.id.exchange_group, false)
         menu.findItem(R.id.save_item)?.isVisible = false
     }
 
     private fun setupToolbarMenu(
         walletGroupVisible: Boolean = false,
+        exchangeGroupVisible: Boolean = false,
         saveItemVisible: Boolean = false,
         saveItemEnabled: Boolean = false
     ) {
         val menu = binding.toolbar.menu
         menu.setGroupVisible(R.id.wallet_group, walletGroupVisible)
+        menu.setGroupVisible(R.id.exchange_group, exchangeGroupVisible)
         menu.findItem(R.id.save_item)?.isVisible = saveItemVisible
         setupSaveItemMenu(saveItemEnabled)
     }
@@ -108,6 +112,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleSelectAssetDestination() {
         setupToolbarMenu(saveItemVisible = true)
+    }
+
+    private fun handleExchangeDestination() {
+        setupToolbarMenu(exchangeGroupVisible = true)
     }
 
     private fun handleDefaultDestination() {
