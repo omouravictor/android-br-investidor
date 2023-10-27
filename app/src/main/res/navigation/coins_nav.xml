@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/fragmentCoins"
         android:name="com.omouravictor.invest_view.ui.coins.CoinsFragment"
-        android:label="@string/label_coins"
+        android:label="@string/label_exchange"
         tools:layout="@layout/fragment_coins" />
 
 </navigation>

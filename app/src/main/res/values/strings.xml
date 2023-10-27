@@ -10,7 +10,7 @@
     <string name="option_menu_settings">Configurações</string>
 
     <string name="label_wallet">Carteira</string>
-    <string name="label_coins">Moedas</string>
+    <string name="label_exchange">Câmbio</string>
     <string name="label_new_asset">Novo Ativo</string>
     <string name="content_description_arrow_forward">Arrow forward</string>
     <string name="real_estate_funds">Fundos Imobiliários</string>
