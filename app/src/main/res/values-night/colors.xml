@@ -2,7 +2,8 @@
 <resources>
     <!-- Day/Night colors -->
     <color name="primary">@color/white</color>
-    <color name="blackWhite10">#19FFFFFF</color>
-    <color name="background">#202020</color>
+    <color name="itemListPressedTrue">#19FFFFFF</color>
+    <color name="background">#2C2C2C</color>
     <color name="backgroundAssetItem">#252525</color>
+    <color name="bottomNavCheckedFalse">#9F9F9F</color>
 </resources>
