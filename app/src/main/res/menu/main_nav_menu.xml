@@ -8,7 +8,7 @@
 
     <item
         android:id="@+id/exchangeItemMenu"
-        android:icon="@drawable/ic_wallet"
+        android:icon="@drawable/ic_money"
         android:title="@string/label_exchange" />
 
 </menu>
