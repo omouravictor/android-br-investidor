@@ -3,58 +3,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="8dp"
     android:layout_marginBottom="8dp"
     app:cardCornerRadius="5dp"
-    app:cardElevation="2dp"
+    app:cardElevation="5dp"
     tools:context=".ui.wallet.asset_type.SelectAssetTypeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/selector_item_list_asset"
-        android:padding="8dp">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/iv_company"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_wallet"
+        <View
+            android:id="@+id/vAssetColor"
+            android:layout_width="5dp"
+            android:layout_height="0dp"
+            android:background="@color/green"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/yellow" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_asset_name"
-            android:layout_width="wrap_content"
+            android:id="@+id/tvAssetName"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="KNIP11 (2)"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/iv_company"
-            app:layout_constraintTop_toTopOf="@+id/iv_company"
-            tools:text="KNIP11" />
+            app:layout_constraintBottom_toTopOf="@+id/tvWalletPercent"
+            app:layout_constraintEnd_toStartOf="@+id/tvCurrentTotalValue"
+            app:layout_constraintStart_toEndOf="@+id/vAssetColor"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="KNIP11 (2)" />
 
         <TextView
-            android:id="@+id/tv_company_name"
-            android:layout_width="wrap_content"
+            android:id="@+id/tvWalletPercent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="15,55%"
             android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_company"
-            app:layout_constraintStart_toEndOf="@+id/iv_company"
-            tools:text="Ações" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tvAssetName"
+            app:layout_constraintStart_toStartOf="@+id/tvAssetName"
+            tools:text="15,55%" />
 
         <TextView
-            android:id="@+id/tv_asset_cost"
+            android:id="@+id/tvCurrentTotalValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="R$ 47,95"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="R$ 47,95" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

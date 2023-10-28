@@ -37,6 +37,8 @@ class CreateAssetFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupEditTexts()
 
+        binding.includeItemListAsset.vAssetColor.backgroundTintList = assetTypeUiModelArg.color
+
         (requireActivity() as AppCompatActivity).supportActionBar?.title =
             assetTypeUiModelArg.description
 

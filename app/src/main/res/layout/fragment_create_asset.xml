@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="16dp"
     android:paddingTop="24dp"
     tools:context=".ui.wallet.assets.CreateAssetFragment">
 
@@ -12,6 +11,7 @@
         android:id="@+id/tvTittleAssetSymbol"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:text="Código do ativo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -40,6 +40,7 @@
         android:id="@+id/etQuantity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:backgroundTint="@color/gray"
         android:hint="10"
         android:inputType="number"
@@ -53,18 +54,37 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Total investido (opcional)"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/acAssetSymbol"
         app:layout_constraintTop_toBottomOf="@+id/acAssetSymbol" />
 
     <EditText
         android:id="@+id/etTotal"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/gray"
         android:hint="R$ 100,00"
         android:inputType="numberDecimal"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/etQuantity"
         app:layout_constraintStart_toStartOf="@+id/tvTittleTotal"
         app:layout_constraintTop_toBottomOf="@+id/tvTittleTotal" />
+
+    <TextView
+        android:id="@+id/tvTittleCurrentPosition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Posição atual"
+        app:layout_constraintStart_toStartOf="@+id/etTotal"
+        app:layout_constraintTop_toBottomOf="@+id/etTotal" />
+
+    <include
+        android:id="@+id/includeItemListAsset"
+        layout="@layout/item_list_asset"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/etTotal"
+        app:layout_constraintStart_toStartOf="@+id/tvTittleCurrentPosition"
+        app:layout_constraintTop_toBottomOf="@+id/tvTittleCurrentPosition" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
