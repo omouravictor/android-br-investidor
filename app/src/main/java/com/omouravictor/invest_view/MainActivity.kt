@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.omouravictor.invest_view.databinding.ActivityMainBinding
 import com.omouravictor.invest_view.ui.wallet.WalletFragmentDirections
@@ -31,7 +30,10 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
 
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.fragmentWallet, R.id.fragmentExchange)
+            topLevelDestinationIds = setOf(
+                R.id.fragmentWallet,
+                R.id.fragmentExchange
+            )
         )
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -43,8 +45,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        binding.navView.setupWithNavController(navController)
+        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
+        binding.bottomNav.setupWithNavController(navController)
+        supportActionBar?.title = navController.currentDestination?.label
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
