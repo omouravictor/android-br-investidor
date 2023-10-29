@@ -4,5 +4,4 @@
     <color name="primary">@color/white</color>
     <color name="itemListPressedTrue">#19FFFFFF</color>
     <color name="background">#2C2C2C</color>
-    <color name="backgroundAssetItem">#252525</color>
 </resources>

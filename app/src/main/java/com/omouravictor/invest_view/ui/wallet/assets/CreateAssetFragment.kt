@@ -48,14 +48,15 @@ class CreateAssetFragment : Fragment() {
                 mainActivity.enableSaveItemMenu(fieldsNotEmpty)
 
                 if (fieldsNotEmpty) {
+                    binding.incItemListAsset.tvInfo.visibility = View.INVISIBLE
+                    binding.incItemListAsset.clAssetInfo.visibility = View.VISIBLE
                     binding.incItemListAsset.tvAssetName.text =
                         "${binding.acAssetSymbol.text} (${binding.etQuantity.text})"
                     binding.incItemListAsset.tvWalletPercent.text = "15,55%"
                     binding.incItemListAsset.tvCurrentTotalValue.text = "R$ 1.000,00"
                 } else {
-                    binding.incItemListAsset.tvAssetName.text = ""
-                    binding.incItemListAsset.tvWalletPercent.text = ""
-                    binding.incItemListAsset.tvCurrentTotalValue.text = ""
+                    binding.incItemListAsset.tvInfo.visibility = View.VISIBLE
+                    binding.incItemListAsset.clAssetInfo.visibility = View.INVISIBLE
                 }
 
             },

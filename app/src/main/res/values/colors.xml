@@ -14,5 +14,4 @@
     <color name="primary">@color/black</color>
     <color name="itemListPressedTrue">#1A000000</color>
     <color name="background">@color/white</color>
-    <color name="backgroundAssetItem">@color/white</color>
 </resources>

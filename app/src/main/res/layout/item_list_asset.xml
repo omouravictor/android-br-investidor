@@ -10,7 +10,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/background">
 
         <View
             android:id="@+id/vAssetColor"
@@ -21,41 +22,69 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clAssetInfo"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/vAssetColor"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible">
+
+            <TextView
+                android:id="@+id/tvAssetName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="4dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/tvWalletPercent"
+                app:layout_constraintEnd_toStartOf="@+id/tvCurrentTotalValue"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="KNIP11 (1)" />
+
+            <TextView
+                android:id="@+id/tvWalletPercent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/tvAssetName"
+                app:layout_constraintStart_toStartOf="@+id/tvAssetName"
+                tools:text="15,55%" />
+
+            <TextView
+                android:id="@+id/tvCurrentTotalValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="R$ 47,95" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <TextView
-            android:id="@+id/tvAssetName"
+            android:id="@+id/tvInfo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/tvWalletPercent"
-            app:layout_constraintEnd_toStartOf="@+id/tvCurrentTotalValue"
-            app:layout_constraintStart_toEndOf="@+id/vAssetColor"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="KNIP11 (1)" />
-
-        <TextView
-            android:id="@+id/tvWalletPercent"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:hint="Preencha os campos  para visualizar"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/tvAssetName"
-            app:layout_constraintStart_toStartOf="@+id/tvAssetName"
-            tools:text="15,55%" />
-
-        <TextView
-            android:id="@+id/tvCurrentTotalValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/vAssetColor"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="R$ 47,95" />
+            tools:visibility="gone" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
