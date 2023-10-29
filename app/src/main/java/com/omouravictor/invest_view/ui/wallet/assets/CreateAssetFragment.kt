@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.getColorStateList
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -35,16 +34,34 @@ class CreateAssetFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val mainActivity = (requireActivity() as MainActivity)
+            .apply { supportActionBar?.title = assetTypeUiModelArg.description }
+
         setupEditTexts()
 
-        binding.includeItemListAsset.vAssetColor.backgroundTintList = assetTypeUiModelArg.color
+        binding.incItemListAsset.vAssetColor.backgroundTintList = assetTypeUiModelArg.color
 
-        (requireActivity() as AppCompatActivity).supportActionBar?.title =
-            assetTypeUiModelArg.description
+        setupEditTextsAfterTextChanged(
+            {
+                val fieldsNotEmpty = areRequiredFieldsNotEmpty()
+                mainActivity.enableSaveItemMenu(fieldsNotEmpty)
 
-        if (requireActivity() is MainActivity) {
-            handleMainActivity(requireActivity() as MainActivity)
-        }
+                if (fieldsNotEmpty) {
+                    binding.incItemListAsset.tvAssetName.text =
+                        "${binding.acAssetSymbol.text} (${binding.etQuantity.text})"
+                    binding.incItemListAsset.tvWalletPercent.text = "15,55%"
+                    binding.incItemListAsset.tvCurrentTotalValue.text = "R$ 1.000,00"
+                } else {
+                    binding.incItemListAsset.tvAssetName.text = ""
+                    binding.incItemListAsset.tvWalletPercent.text = ""
+                    binding.incItemListAsset.tvCurrentTotalValue.text = ""
+                }
+
+            },
+            binding.acAssetSymbol,
+            binding.etQuantity
+        )
     }
 
     override fun onDestroyView() {
@@ -64,9 +81,6 @@ class CreateAssetFragment : Fragment() {
         setupEditTextsFocusChange(binding.acAssetSymbol, binding.etQuantity, binding.etTotal)
     }
 
-    private fun areRequiredFieldsNotEmpty() =
-        binding.acAssetSymbol.text.isNotEmpty() && binding.etQuantity.text.isNotEmpty()
-
     private fun setupEditTextsFocusChange(vararg editTexts: EditText) {
         editTexts.forEach { editText ->
             editText.setOnFocusChangeListener { v, hasFocus ->
@@ -76,12 +90,7 @@ class CreateAssetFragment : Fragment() {
         }
     }
 
-    private fun handleMainActivity(mainActivity: MainActivity) {
-        setupEditTextsAfterTextChanged(
-            { mainActivity.setupSaveItemMenu(areRequiredFieldsNotEmpty()) },
-            binding.acAssetSymbol,
-            binding.etQuantity
-        )
-    }
+    private fun areRequiredFieldsNotEmpty() =
+        binding.acAssetSymbol.text.isNotEmpty() && binding.etQuantity.text.isNotEmpty()
 
 }

@@ -42,8 +42,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:backgroundTint="@color/gray"
-        android:hint="10"
+        android:hint="1"
         android:inputType="number"
+        android:text="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTittleQuantity"
         app:layout_constraintWidth_percent="0.45" />
@@ -68,23 +69,31 @@
         app:layout_constraintStart_toStartOf="@+id/tvTittleTotal"
         app:layout_constraintTop_toBottomOf="@+id/tvTittleTotal" />
 
-    <TextView
-        android:id="@+id/tvTittleCurrentPosition"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/llCurrentPosition"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Posição atual"
-        app:layout_constraintStart_toStartOf="@+id/etTotal"
-        app:layout_constraintTop_toBottomOf="@+id/etTotal" />
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etTotal">
 
-    <include
-        android:id="@+id/includeItemListAsset"
-        layout="@layout/item_list_asset"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/etTotal"
-        app:layout_constraintStart_toStartOf="@+id/tvTittleCurrentPosition"
-        app:layout_constraintTop_toBottomOf="@+id/tvTittleCurrentPosition" />
+        <TextView
+            android:id="@+id/tvTittleCurrentPosition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:text="Posição atual" />
+
+        <include
+            android:id="@+id/incItemListAsset"
+            layout="@layout/item_list_asset"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="8dp" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

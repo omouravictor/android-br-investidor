@@ -84,8 +84,8 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    fun setupSaveItemMenu(saveItemEnabled: Boolean) {
-        isSaveItemEnabled = saveItemEnabled
+    fun enableSaveItemMenu(enable: Boolean) {
+        isSaveItemEnabled = enable
         binding.toolbar.menu.findItem(R.id.save_item)?.isEnabled = isSaveItemEnabled
     }
 
@@ -106,7 +106,7 @@ class MainActivity : AppCompatActivity() {
         menu.setGroupVisible(R.id.wallet_group, walletGroupVisible)
         menu.setGroupVisible(R.id.exchange_group, exchangeGroupVisible)
         menu.findItem(R.id.save_item)?.isVisible = saveItemVisible
-        setupSaveItemMenu(saveItemEnabled)
+        enableSaveItemMenu(saveItemEnabled)
     }
 
     private fun handleWalletDestination() {

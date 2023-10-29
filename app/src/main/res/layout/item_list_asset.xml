@@ -28,20 +28,18 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:text="KNIP11 (2)"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/tvWalletPercent"
             app:layout_constraintEnd_toStartOf="@+id/tvCurrentTotalValue"
             app:layout_constraintStart_toEndOf="@+id/vAssetColor"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="KNIP11 (2)" />
+            tools:text="KNIP11 (1)" />
 
         <TextView
             android:id="@+id/tvWalletPercent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:text="15,55%"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/tvAssetName"
@@ -53,7 +51,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:text="R$ 47,95"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
