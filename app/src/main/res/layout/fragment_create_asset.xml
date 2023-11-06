@@ -26,7 +26,7 @@
         android:inputType="textAutoComplete|textCapCharacters"
         app:layout_constraintStart_toStartOf="@+id/tvTittleAssetSymbol"
         app:layout_constraintTop_toBottomOf="@+id/tvTittleAssetSymbol"
-        app:layout_constraintWidth_percent="0.45" />
+        app:layout_constraintWidth_percent="0.43" />
 
     <TextView
         android:id="@+id/tvTittleQuantity"
@@ -47,7 +47,7 @@
         android:text="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTittleQuantity"
-        app:layout_constraintWidth_percent="0.45" />
+        app:layout_constraintWidth_percent="0.43" />
 
     <TextView
         android:id="@+id/tvTittleTotal"
