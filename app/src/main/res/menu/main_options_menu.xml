@@ -18,8 +18,4 @@
             app:showAsAction="ifRoom" />
     </group>
 
-    <item
-        android:id="@+id/save_item"
-        android:title="@string/option_menu_save"
-        app:showAsAction="always" />
 </menu>

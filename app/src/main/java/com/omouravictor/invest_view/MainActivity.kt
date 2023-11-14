@@ -17,7 +17,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
-    private var isSaveItemEnabled = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +38,6 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.fragmentWallet -> handleWalletDestination()
-                R.id.fragmentCreateAsset -> handleSelectAssetDestination()
                 R.id.fragmentExchange -> handleExchangeDestination()
                 else -> handleDefaultDestination()
             }
@@ -58,14 +56,7 @@ class MainActivity : AppCompatActivity() {
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
         when (navController.currentDestination?.id) {
             R.id.fragmentWallet -> setupToolbarMenu(walletGroupVisible = true)
-
-            R.id.fragmentCreateAsset -> setupToolbarMenu(
-                saveItemVisible = true,
-                saveItemEnabled = isSaveItemEnabled
-            )
-
             R.id.fragmentExchange -> setupToolbarMenu(exchangeGroupVisible = true)
-
             else -> hideToolbarMenu()
         }
         return super.onPrepareOptionsMenu(menu)
@@ -77,44 +68,28 @@ class MainActivity : AppCompatActivity() {
             R.id.add_coin -> {
                 Toast.makeText(this, "Add Coin", Toast.LENGTH_SHORT).show()
             }
-
-            R.id.save_item -> navController.popBackStack(R.id.fragmentWallet, false)
         }
 
         return super.onOptionsItemSelected(item)
-    }
-
-    fun enableSaveItemMenu(enable: Boolean) {
-        isSaveItemEnabled = enable
-        binding.toolbar.menu.findItem(R.id.save_item)?.isEnabled = isSaveItemEnabled
     }
 
     private fun hideToolbarMenu() {
         val menu = binding.toolbar.menu
         menu.setGroupVisible(R.id.wallet_group, false)
         menu.setGroupVisible(R.id.exchange_group, false)
-        menu.findItem(R.id.save_item)?.isVisible = false
     }
 
     private fun setupToolbarMenu(
         walletGroupVisible: Boolean = false,
-        exchangeGroupVisible: Boolean = false,
-        saveItemVisible: Boolean = false,
-        saveItemEnabled: Boolean = false
+        exchangeGroupVisible: Boolean = false
     ) {
         val menu = binding.toolbar.menu
         menu.setGroupVisible(R.id.wallet_group, walletGroupVisible)
         menu.setGroupVisible(R.id.exchange_group, exchangeGroupVisible)
-        menu.findItem(R.id.save_item)?.isVisible = saveItemVisible
-        enableSaveItemMenu(saveItemEnabled)
     }
 
     private fun handleWalletDestination() {
         setupToolbarMenu(walletGroupVisible = true)
-    }
-
-    private fun handleSelectAssetDestination() {
-        setupToolbarMenu(saveItemVisible = true)
     }
 
     private fun handleExchangeDestination() {
