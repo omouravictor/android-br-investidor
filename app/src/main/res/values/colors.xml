@@ -11,7 +11,8 @@
     <color name="blue">#00B8D4</color>
 
     <!-- Day/Night colors -->
-    <color name="primary">@color/black</color>
+    <color name="primary">#000000</color>
     <color name="itemListPressedTrue">#1A000000</color>
+    <color name="itemListBackground">#FFFFFF</color>
     <color name="background">@color/white</color>
 </resources>

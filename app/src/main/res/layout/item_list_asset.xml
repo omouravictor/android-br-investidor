@@ -11,7 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background">
+        android:background="@color/itemListBackground">
 
         <View
             android:id="@+id/vAssetColor"
@@ -40,7 +40,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="4dp"
+                android:layout_marginBottom="6dp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/tvWalletPercent"
                 app:layout_constraintEnd_toStartOf="@+id/tvCurrentTotalValue"
@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:hint="Preencha os campos  para visualizar"
+            android:hint="Preencha os campos para visualizar"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
