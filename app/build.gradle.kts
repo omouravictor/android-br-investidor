@@ -60,6 +60,10 @@ dependencies {
     val hiltVersion = "2.44"
     implementation("com.google.dagger:hilt-android:$hiltVersion")
     kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")
+
+    val retrofitVersion = "2.9.0"
+    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
+    implementation("com.squareup.retrofit2:converter-scalars:$retrofitVersion")
 }
 
 kapt {

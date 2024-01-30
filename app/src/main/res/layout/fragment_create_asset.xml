@@ -11,21 +11,24 @@
         android:id="@+id/tvTittleAssetSymbol"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="Código do ativo"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="Ativo"
+        app:layout_constraintStart_toStartOf="@+id/etAssetSymbol"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <AutoCompleteTextView
-        android:id="@+id/acAssetSymbol"
+    <EditText
+        android:id="@+id/etAssetSymbol"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:backgroundTint="@color/gray"
-        android:hint="XXXX00"
-        android:imeOptions="actionNext"
-        android:inputType="textAutoComplete|textCapCharacters"
+        android:cursorVisible="false"
+        android:drawableEnd="@drawable/ic_arrow_forward"
+        android:drawablePadding="8dp"
+        android:focusable="false"
+        android:hint="Selecione"
         android:minHeight="48dp"
-        app:layout_constraintStart_toStartOf="@+id/tvTittleAssetSymbol"
+        android:textAlignment="center"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTittleAssetSymbol"
         app:layout_constraintWidth_percent="0.43" />
 
@@ -35,20 +38,21 @@
         android:layout_height="wrap_content"
         android:text="Quantidade"
         app:layout_constraintStart_toStartOf="@+id/etQuantity"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/tvTittleAssetSymbol" />
 
     <EditText
         android:id="@+id/etQuantity"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginEnd="16dp"
         android:backgroundTint="@color/gray"
         android:hint="1"
         android:inputType="number"
         android:minHeight="48dp"
-        android:text="1"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@+id/etAssetSymbol"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTittleQuantity"
+        app:layout_constraintTop_toTopOf="@+id/etAssetSymbol"
         app:layout_constraintWidth_percent="0.43" />
 
     <TextView
@@ -56,9 +60,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Total investido (opcional)"
-        app:layout_constraintStart_toStartOf="@+id/acAssetSymbol"
-        app:layout_constraintTop_toBottomOf="@+id/acAssetSymbol" />
+        android:text="Total Investido"
+        app:layout_constraintStart_toStartOf="@+id/etAssetSymbol"
+        app:layout_constraintTop_toBottomOf="@+id/etAssetSymbol" />
 
     <EditText
         android:id="@+id/etTotal"
@@ -66,8 +70,10 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/gray"
         android:hint="R$ 100,00"
+        android:imeOptions="actionDone"
         android:inputType="numberDecimal"
         android:minHeight="48dp"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="@+id/etQuantity"
         app:layout_constraintStart_toStartOf="@+id/tvTittleTotal"
         app:layout_constraintTop_toBottomOf="@+id/tvTittleTotal" />
@@ -90,7 +96,7 @@
             android:text="Posição atual" />
 
         <include
-            android:id="@+id/incItemListAsset"
+            android:id="@+id/incAssetPreview"
             layout="@layout/item_list_asset"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

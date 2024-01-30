@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.getColorStateList
 import androidx.fragment.app.Fragment
@@ -39,34 +40,7 @@ class CreateAssetFragment : Fragment() {
             .supportActionBar?.title = assetTypeUiModelArg.description
 
         setupEditTexts()
-
-        binding.incItemListAsset.vAssetColor.backgroundTintList = assetTypeUiModelArg.color
-
-        setupEditTextsAfterTextChanged(
-            {
-                val fieldsNotEmpty = areRequiredFieldsNotEmpty()
-
-                if (fieldsNotEmpty) {
-                    binding.incItemListAsset.tvInfo.visibility = View.INVISIBLE
-                    binding.incItemListAsset.clAssetInfo.visibility = View.VISIBLE
-                    binding.incItemListAsset.tvAssetName.text =
-                        "${binding.acAssetSymbol.text} (${binding.etQuantity.text})"
-                    binding.incItemListAsset.tvWalletPercent.text = "15,55%"
-                    binding.incItemListAsset.tvCurrentTotalValue.text = "R$ 1.000,00"
-
-                    binding.btnSave.isEnabled = true
-
-                } else {
-                    binding.incItemListAsset.tvInfo.visibility = View.VISIBLE
-                    binding.incItemListAsset.clAssetInfo.visibility = View.INVISIBLE
-
-                    binding.btnSave.isEnabled = false
-                }
-
-            },
-            binding.acAssetSymbol,
-            binding.etQuantity
-        )
+        binding.incAssetPreview.vAssetColor.backgroundTintList = assetTypeUiModelArg.color
     }
 
     override fun onDestroyView() {
@@ -75,15 +49,23 @@ class CreateAssetFragment : Fragment() {
     }
 
     private fun setupEditTexts() {
-        binding.acAssetSymbol.requestFocus()
-        setupEditTextCursorColor(binding.acAssetSymbol, assetTypeUiModelArg.color.defaultColor)
+        binding.etAssetSymbol.setOnClickListener {
+            Toast.makeText(requireContext(), "Clicked", Toast.LENGTH_SHORT).show()
+        }
+
+        setupEditTextCursorColor(binding.etAssetSymbol, assetTypeUiModelArg.color.defaultColor)
         setupEditTextsHighLightColor(
             assetTypeUiModelArg.color.defaultColor,
-            binding.acAssetSymbol,
+            binding.etAssetSymbol,
             binding.etQuantity,
             binding.etTotal
         )
-        setupEditTextsFocusChange(binding.acAssetSymbol, binding.etQuantity, binding.etTotal)
+        setupEditTextsFocusChange(binding.etQuantity, binding.etTotal)
+        setupEditTextsAfterTextChanged(
+            { updateAssetPreview() },
+            binding.etAssetSymbol,
+            binding.etQuantity
+        )
     }
 
     private fun setupEditTextsFocusChange(vararg editTexts: EditText) {
@@ -96,6 +78,26 @@ class CreateAssetFragment : Fragment() {
     }
 
     private fun areRequiredFieldsNotEmpty() =
-        binding.acAssetSymbol.text.isNotEmpty() && binding.etQuantity.text.isNotEmpty()
+        binding.etAssetSymbol.text.isNotEmpty() && binding.etQuantity.text.isNotEmpty()
 
+    private fun updateAssetPreview() {
+        val fieldsNotEmpty = areRequiredFieldsNotEmpty()
+
+        if (fieldsNotEmpty) {
+            binding.incAssetPreview.tvInfo.visibility = View.INVISIBLE
+            binding.incAssetPreview.clAssetInfo.visibility = View.VISIBLE
+            binding.incAssetPreview.tvAssetName.text =
+                "${binding.etAssetSymbol.text} (${binding.etQuantity.text})"
+            binding.incAssetPreview.tvWalletPercent.text = "15,55%"
+            binding.incAssetPreview.tvCurrentTotalValue.text = "R$ 1.000,00"
+
+            binding.btnSave.isEnabled = true
+
+        } else {
+            binding.incAssetPreview.tvInfo.visibility = View.VISIBLE
+            binding.incAssetPreview.clAssetInfo.visibility = View.INVISIBLE
+
+            binding.btnSave.isEnabled = false
+        }
+    }
 }
