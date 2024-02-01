@@ -15,4 +15,11 @@
     <string name="content_description_arrow_forward">Arrow forward</string>
     <string name="real_estate_funds">Fundos Imobiliários</string>
     <string name="stocks">Ações</string>
+    <string name="asset">Ativo</string>
+    <string name="select">Selecione</string>
+    <string name="amount">Quantidade</string>
+    <string name="total_invested">Total Investido</string>
+    <string name="current_position">Posição atual</string>
+    <string name="save">Salvar</string>
+    <string name="fill_the_fields_to_view">Preencha os campos para visualizar</string>
 </resources>

@@ -5,31 +5,31 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.getColorStateList
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.omouravictor.invest_view.R
-import com.omouravictor.invest_view.databinding.FragmentCreateAssetBinding
+import com.omouravictor.invest_view.databinding.FragmentSaveAssetBinding
 import com.omouravictor.invest_view.util.EditTextUtil.setupEditTextCursorColor
 import com.omouravictor.invest_view.util.EditTextUtil.setupEditTextsAfterTextChanged
 import com.omouravictor.invest_view.util.EditTextUtil.setupEditTextsHighLightColor
 
-class CreateAssetFragment : Fragment() {
+class SaveAssetFragment : Fragment() {
 
-    private var _binding: FragmentCreateAssetBinding? = null
+    private var _binding: FragmentSaveAssetBinding? = null
     private val binding get() = _binding!!
     private val assetsViewModel: AssetsViewModel by activityViewModels()
     private val assetTypeUiModelArg by lazy {
-        CreateAssetFragmentArgs.fromBundle(requireArguments()).assetTypeUiModel
+        SaveAssetFragmentArgs.fromBundle(requireArguments()).assetTypeUiModel
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentCreateAssetBinding.inflate(inflater, container, false)
+        _binding = FragmentSaveAssetBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -49,10 +49,6 @@ class CreateAssetFragment : Fragment() {
     }
 
     private fun setupEditTexts() {
-        binding.etAssetSymbol.setOnClickListener {
-            Toast.makeText(requireContext(), "Clicked", Toast.LENGTH_SHORT).show()
-        }
-
         setupEditTextCursorColor(binding.etAssetSymbol, assetTypeUiModelArg.color.defaultColor)
         setupEditTextsHighLightColor(
             assetTypeUiModelArg.color.defaultColor,
@@ -66,6 +62,9 @@ class CreateAssetFragment : Fragment() {
             binding.etAssetSymbol,
             binding.etQuantity
         )
+        binding.etAssetSymbol.setOnClickListener {
+            findNavController().navigate(SaveAssetFragmentDirections.navToSelectAssetFragment())
+        }
     }
 
     private fun setupEditTextsFocusChange(vararg editTexts: EditText) {

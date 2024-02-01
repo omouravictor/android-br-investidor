@@ -35,7 +35,7 @@ class SelectAssetTypeFragment : Fragment() {
 
     private fun setupRecyclerView() {
         val assetTypeList = getAssetTypeList(requireContext())
-        val assetTypeAdapter = AssetTypeAdapter(assetTypeList) { navigateToCreateAssetFragment(it) }
+        val assetTypeAdapter = AssetTypeAdapter(assetTypeList) { navigateToSaveAssetFragment(it) }
 
         binding.recyclerView.apply {
             adapter = assetTypeAdapter
@@ -43,9 +43,9 @@ class SelectAssetTypeFragment : Fragment() {
         }
     }
 
-    private fun navigateToCreateAssetFragment(assetType: AssetTypeUiModel) {
+    private fun navigateToSaveAssetFragment(assetType: AssetTypeUiModel) {
         findNavController().navigate(
-            SelectAssetTypeFragmentDirections.navToCreateAssetFragment(assetType)
+            SelectAssetTypeFragmentDirections.navToSaveAssetFragment(assetType)
         )
     }
 

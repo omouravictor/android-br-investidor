@@ -21,17 +21,29 @@
         android:label="@string/label_new_asset"
         tools:layout="@layout/fragment_select_asset_type">
         <action
-            android:id="@+id/navToCreateAssetFragment"
-            app:destination="@id/fragmentCreateAsset" />
+            android:id="@+id/navToSaveAssetFragment"
+            app:destination="@id/fragmentSaveAsset" />
     </fragment>
 
     <fragment
-        android:id="@+id/fragmentCreateAsset"
-        android:name="com.omouravictor.invest_view.ui.wallet.assets.CreateAssetFragment"
-        tools:layout="@layout/fragment_create_asset">
+        android:id="@+id/fragmentSaveAsset"
+        android:name="com.omouravictor.invest_view.ui.wallet.assets.SaveAssetFragment"
+        tools:layout="@layout/fragment_save_asset">
         <argument
             android:name="assetTypeUiModel"
             app:argType="com.omouravictor.invest_view.ui.wallet.asset_type.AssetTypeUiModel" />
+        <action
+            android:id="@+id/navToSelectAssetFragment"
+            app:destination="@id/fragmentSelectAsset" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentSelectAsset"
+        android:name="com.omouravictor.invest_view.ui.wallet.assets.SelectAssetFragment"
+        tools:layout="@layout/fragment_select_asset">
+        <action
+            android:id="@+id/navToSaveAssetFragment"
+            app:destination="@id/fragmentSaveAsset" />
     </fragment>
 
 </navigation>
