@@ -5,18 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.omouravictor.invest_view.databinding.FragmentSelectAssetBinding
+import com.omouravictor.invest_view.databinding.FragmentSearchAssetBinding
 
-class SelectAssetFragment : Fragment() {
+class SearchAssetFragment : Fragment() {
 
-    private var _binding: FragmentSelectAssetBinding? = null
+    private var _binding: FragmentSearchAssetBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSelectAssetBinding.inflate(inflater, container, false)
+        _binding = FragmentSearchAssetBinding.inflate(inflater, container, false)
         return binding.root
     }
 

@@ -39,11 +39,7 @@
 
     <fragment
         android:id="@+id/fragmentSelectAsset"
-        android:name="com.omouravictor.invest_view.ui.wallet.assets.SelectAssetFragment"
-        tools:layout="@layout/fragment_select_asset">
-        <action
-            android:id="@+id/navToSaveAssetFragment"
-            app:destination="@id/fragmentSaveAsset" />
-    </fragment>
+        android:name="com.omouravictor.invest_view.ui.wallet.assets.SearchAssetFragment"
+        tools:layout="@layout/fragment_search_asset" />
 
 </navigation>
