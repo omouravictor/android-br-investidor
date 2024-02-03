@@ -63,7 +63,8 @@ class SaveAssetFragment : Fragment() {
             binding.etQuantity
         )
         binding.etAssetSymbol.setOnClickListener {
-            findNavController().navigate(SaveAssetFragmentDirections.navToSelectAssetFragment())
+            findNavController()
+                .navigate(SaveAssetFragmentDirections.navToSelectAssetFragment(assetTypeUiModelArg))
         }
     }
 

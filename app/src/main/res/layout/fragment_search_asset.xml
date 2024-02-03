@@ -8,10 +8,11 @@
     tools:context=".ui.wallet.assets.SearchAssetFragment">
 
     <androidx.appcompat.widget.SearchView
+        android:id="@+id/svSearchAsset"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:background="@drawable/background_rectangle" />
+        android:background="@drawable/rectangle_background" />
 
     <include
         android:id="@+id/incAssetPreview"

@@ -15,4 +15,5 @@
     <color name="itemListPressedTrue">#1A000000</color>
     <color name="itemListBackground">#FFFFFF</color>
     <color name="background">@color/white</color>
+    <color name="rectangleBackground">#BFBFBF</color>
 </resources>

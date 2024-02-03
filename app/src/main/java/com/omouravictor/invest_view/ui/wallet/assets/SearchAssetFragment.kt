@@ -11,6 +11,9 @@ class SearchAssetFragment : Fragment() {
 
     private var _binding: FragmentSearchAssetBinding? = null
     private val binding get() = _binding!!
+    private val assetTypeUiModelArg by lazy {
+        SearchAssetFragmentArgs.fromBundle(requireArguments()).assetTypeUiModel
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,6 +26,8 @@ class SearchAssetFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
+        binding.incAssetPreview.vAssetColor.backgroundTintList = assetTypeUiModelArg.color
+        binding.svSearchAsset.postDelayed({ binding.svSearchAsset.onActionViewExpanded() }, 50)
     }
 
     override fun onDestroyView() {

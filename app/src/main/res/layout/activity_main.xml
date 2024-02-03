@@ -23,11 +23,6 @@
             android:background="@color/black"
             app:popupTheme="@style/Theme.InvestView.PopupOverlay" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/primary" />
-
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.fragment.app.FragmentContainerView

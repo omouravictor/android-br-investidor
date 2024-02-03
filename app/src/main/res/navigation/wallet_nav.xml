@@ -40,6 +40,10 @@
     <fragment
         android:id="@+id/fragmentSelectAsset"
         android:name="com.omouravictor.invest_view.ui.wallet.assets.SearchAssetFragment"
-        tools:layout="@layout/fragment_search_asset" />
+        tools:layout="@layout/fragment_search_asset">
+        <argument
+            android:name="assetTypeUiModel"
+            app:argType="com.omouravictor.invest_view.ui.wallet.asset_type.AssetTypeUiModel" />
+    </fragment>
 
 </navigation>
