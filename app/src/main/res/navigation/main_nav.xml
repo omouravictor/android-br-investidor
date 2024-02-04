@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/mainNav"
-    app:startDestination="@id/walletItemMenu">
+    app:startDestination="@id/walletNavMenu">
 
     <include app:graph="@navigation/wallet_nav" />
     <include app:graph="@navigation/exchange_nav" />
