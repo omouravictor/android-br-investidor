@@ -16,5 +16,6 @@
     <color name="itemListBackground">#FFFFFF</color>
     <color name="background">@color/white</color>
     <color name="rectangleBackground">#BFBFBF</color>
-    <color name="bottomNavNoCheckedItemColor">#454545</color>
+    <color name="bottomNavNoCheckedItemColor">#8F8F8F</color>
+    <color name="backgroundNavBottom">@color/black</color>
 </resources>

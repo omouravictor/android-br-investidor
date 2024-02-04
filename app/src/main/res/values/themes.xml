@@ -15,6 +15,7 @@
         <item name="android:windowBackground">@color/white</item>
         <item name="android:textColor">@color/black</item>
         <item name="actionMenuTextAppearance">@style/MyMenuTextAppearance</item>
+        <item name="android:navigationBarColor">@color/black</item>
     </style>
 
     <style name="Theme.InvestView.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
