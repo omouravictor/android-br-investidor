@@ -5,10 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.ActivityNavigator
 import androidx.navigation.NavController
-import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
@@ -51,48 +48,13 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNav.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.walletNavMenu -> {
-                    onNavDestinationSelected(menuItem)
-                    true
-                }
-
-                R.id.exchangeNavMenu -> {
-                    onNavDestinationSelected(menuItem)
-                    true
-                }
-
+                R.id.walletNavMenu -> navigateToMenuItem(menuItem.itemId)
+                R.id.exchangeNavMenu -> navigateToMenuItem(menuItem.itemId)
                 else -> false
             }
         }
 
         supportActionBar?.title = navController.currentDestination?.label
-    }
-
-    private fun onNavDestinationSelected(item: MenuItem) {
-        val builder = NavOptions.Builder().setLaunchSingleTop(true).setRestoreState(true)
-        if (
-            navController.currentDestination!!.parent!!.findNode(item.itemId)
-                    is ActivityNavigator.Destination
-        ) {
-            builder.setEnterAnim(androidx.navigation.ui.R.anim.nav_default_enter_anim)
-                .setExitAnim(androidx.navigation.ui.R.anim.nav_default_exit_anim)
-                .setPopEnterAnim(androidx.navigation.ui.R.anim.nav_default_pop_enter_anim)
-                .setPopExitAnim(androidx.navigation.ui.R.anim.nav_default_pop_exit_anim)
-        } else {
-            builder.setEnterAnim(androidx.navigation.ui.R.animator.nav_default_enter_anim)
-                .setExitAnim(androidx.navigation.ui.R.animator.nav_default_exit_anim)
-                .setPopEnterAnim(androidx.navigation.ui.R.animator.nav_default_pop_enter_anim)
-                .setPopExitAnim(androidx.navigation.ui.R.animator.nav_default_pop_exit_anim)
-        }
-        if (item.order and Menu.CATEGORY_SECONDARY == 0) {
-            builder.setPopUpTo(
-                navController.graph.findStartDestination().id,
-                inclusive = false,
-                saveState = true
-            )
-        }
-        val options = builder.build()
-        navController.navigate(item.itemId, null, options)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -145,5 +107,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleDefaultDestination() {
         hideToolbarMenu()
+    }
+
+    private fun navigateToMenuItem(menuItemId: Int): Boolean {
+        val startDestination = navController.graph.findNode(menuItemId)!!.id
+        navController.popBackStack(startDestination, true)
+        navController.navigate(menuItemId)
+        return true
     }
 }
