@@ -14,7 +14,6 @@ import com.omouravictor.invest_view.ui.wallet.WalletFragmentDirections
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
 
@@ -25,11 +24,9 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         binding.bottomNav.itemIconTintList = null
 
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
-        navController = navHostFragment.navController
-
-        appBarConfiguration = AppBarConfiguration(
+        navController =
+            (supportFragmentManager.findFragmentById(R.id.navHostFragmentMain) as NavHostFragment).navController
+        val appBarConfiguration = AppBarConfiguration(
             topLevelDestinationIds = setOf(
                 R.id.fragmentWallet,
                 R.id.fragmentExchange
@@ -49,8 +46,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNav.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.walletNavMenu -> navigateToMenuItem(menuItem.itemId)
-                R.id.exchangeNavMenu -> navigateToMenuItem(menuItem.itemId)
+                R.id.walletNavMenu, R.id.exchangeNavMenu -> navigateToMenuItem(menuItem.itemId)
                 else -> false
             }
         }
