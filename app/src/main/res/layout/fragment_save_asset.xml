@@ -30,7 +30,8 @@
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTittleAssetSymbol"
-        app:layout_constraintWidth_percent="0.43" />
+        app:layout_constraintWidth_percent="0.43"
+        tools:drawableTint="@color/green" />
 
     <TextView
         android:id="@+id/tvTittleQuantity"

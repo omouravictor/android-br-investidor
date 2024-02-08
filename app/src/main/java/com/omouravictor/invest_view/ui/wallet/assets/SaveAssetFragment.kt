@@ -49,6 +49,7 @@ class SaveAssetFragment : Fragment() {
     }
 
     private fun setupEditTexts() {
+        binding.etAssetSymbol.compoundDrawableTintList = assetTypeUiModelArg.color
         setupEditTextCursorColor(binding.etAssetSymbol, assetTypeUiModelArg.color.defaultColor)
         setupEditTextsHighLightColor(
             assetTypeUiModelArg.color.defaultColor,
