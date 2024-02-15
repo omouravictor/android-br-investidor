@@ -71,14 +71,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/gray"
-        android:hint="@string/br_money_100_00"
         android:imeOptions="actionDone"
         android:inputType="number"
         android:minHeight="48dp"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="@+id/etQuantity"
         app:layout_constraintStart_toStartOf="@+id/tvTittleTotalInvested"
-        app:layout_constraintTop_toBottomOf="@+id/tvTittleTotalInvested" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTittleTotalInvested"
+        tools:hint="R$ 100,00" />
 
     <LinearLayout
         android:id="@+id/llCurrentPosition"

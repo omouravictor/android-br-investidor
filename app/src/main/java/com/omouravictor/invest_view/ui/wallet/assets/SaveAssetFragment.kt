@@ -1,5 +1,6 @@
 package com.omouravictor.invest_view.ui.wallet.assets
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -69,6 +70,7 @@ class SaveAssetFragment : Fragment() {
                 .navigate(SaveAssetFragmentDirections.navToSelectAssetFragment(assetTypeUiModelArg))
         }
         setupEditTextCurrencyFormat(binding.etTotalInvested)
+        binding.etTotalInvested.hint = if (Build.VERSION.SDK_INT >= 28) "R$ 100,00" else "R$100,00"
     }
 
     private fun setupEditTextsFocusChange(vararg editTexts: EditText) {
