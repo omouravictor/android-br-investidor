@@ -15,8 +15,8 @@ object EditTextUtil {
         editText: EditText,
         color: Int
     ) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            editText.textCursorDrawable?.apply { setTint(color) }
+        if (Build.VERSION.SDK_INT >= 29) {
+            editText.textCursorDrawable?.setTint(color)
 
         } else {
             val field = TextView::class.java.getDeclaredField("mCursorDrawableRes")
