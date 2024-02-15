@@ -19,19 +19,25 @@ object EditTextUtil {
             editText.textCursorDrawable?.setTint(color)
 
         } else {
-            val field = TextView::class.java.getDeclaredField("mCursorDrawableRes")
-            field.isAccessible = true
+            try {
+                val field = TextView::class.java.getDeclaredField("mCursorDrawableRes")
+                field.isAccessible = true
 
-            val cursorDrawableField = TextView::class.java.getDeclaredField("mEditor")
-            cursorDrawableField.isAccessible = true
-            val editor = cursorDrawableField.get(editText)
+                val cursorDrawableField = TextView::class.java.getDeclaredField("mEditor")
+                cursorDrawableField.isAccessible = true
+                val editor = cursorDrawableField.get(editText)
 
-            val cursorDrawable = ContextCompat.getDrawable(editText.context, field.getInt(editText))
-            cursorDrawable?.setTint(color)
+                val cursorDrawable =
+                    ContextCompat.getDrawable(editText.context, field.getInt(editText))
+                cursorDrawable?.setTint(color)
 
-            val cursorDrawableField2 = editor.javaClass.getDeclaredField("mCursorDrawable")
-            cursorDrawableField2.isAccessible = true
-            cursorDrawableField2.set(editor, arrayOf(cursorDrawable, cursorDrawable))
+                val cursorDrawableField2 = editor.javaClass.getDeclaredField("mCursorDrawable")
+                cursorDrawableField2.isAccessible = true
+                cursorDrawableField2.set(editor, arrayOf(cursorDrawable, cursorDrawable))
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 
