@@ -51,10 +51,9 @@ class SaveAssetFragment : Fragment() {
 
     private fun setupEditTexts() {
         binding.etAssetSymbol.compoundDrawableTintList = assetTypeUiModelArg.color
-        setupEditTextCursorColor(binding.etAssetSymbol, assetTypeUiModelArg.color.defaultColor)
+        setupEditTextCursorColor(binding.etQuantity, assetTypeUiModelArg.color.defaultColor)
         setupEditTextsHighLightColor(
             assetTypeUiModelArg.color.defaultColor,
-            binding.etAssetSymbol,
             binding.etQuantity,
             binding.etTotalInvested
         )
@@ -62,7 +61,8 @@ class SaveAssetFragment : Fragment() {
         setupEditTextsAfterTextChanged(
             { updateAssetPreview() },
             binding.etAssetSymbol,
-            binding.etQuantity
+            binding.etQuantity,
+            binding.etTotalInvested
         )
         binding.etAssetSymbol.setOnClickListener {
             findNavController()

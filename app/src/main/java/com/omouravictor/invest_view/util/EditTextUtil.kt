@@ -63,12 +63,19 @@ object EditTextUtil {
                 override fun onTextChanged(
                     text: CharSequence, start: Int, before: Int, count: Int
                 ) {
+                    if (text.isEmpty()) return
+
+                    val cleanText = text.filter { it.isDigit() }.toString()
+
+                    if (cleanText == "00") {
+                        setText("")
+                        return
+                    }
+
                     removeTextChangedListener(this)
 
-                    val cleanText = text.replace("[R$\\s,.]".toRegex(), "")
                     val amount = cleanText.toDouble() / 100
-                    val formattedAmount = brCurrencyFormat.format(amount).padStart(3, ' ')
-
+                    val formattedAmount = brCurrencyFormat.format(amount)
                     setText(formattedAmount)
                     setSelection(formattedAmount.length)
 
