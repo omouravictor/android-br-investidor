@@ -1,10 +1,13 @@
 package com.omouravictor.invest_view.util
 
 import android.os.Build
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.EditText
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
+import com.omouravictor.invest_view.util.FormatUtils.BrazilianFormats.brCurrencyFormat
 
 object EditTextUtil {
 
@@ -49,6 +52,31 @@ object EditTextUtil {
             editText.doAfterTextChanged {
                 doAfterTextChangedFunction()
             }
+        }
+    }
+
+    fun setupEditTextCurrencyFormat(editText: EditText) {
+        with(editText) {
+            addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(cs: CharSequence?, s: Int, c: Int, a: Int) {}
+
+                override fun onTextChanged(
+                    text: CharSequence, start: Int, before: Int, count: Int
+                ) {
+                    removeTextChangedListener(this)
+
+                    val cleanText = text.replace("[R$\\s,.]".toRegex(), "")
+                    val amount = cleanText.toDouble() / 100
+                    val formattedAmount = brCurrencyFormat.format(amount).padStart(3, ' ')
+
+                    setText(formattedAmount)
+                    setSelection(formattedAmount.length)
+
+                    addTextChangedListener(this)
+                }
+
+                override fun afterTextChanged(s: Editable?) {}
+            })
         }
     }
 

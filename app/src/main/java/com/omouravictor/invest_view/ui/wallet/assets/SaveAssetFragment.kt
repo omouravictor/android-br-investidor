@@ -12,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentSaveAssetBinding
+import com.omouravictor.invest_view.util.EditTextUtil.setupEditTextCurrencyFormat
 import com.omouravictor.invest_view.util.EditTextUtil.setupEditTextCursorColor
 import com.omouravictor.invest_view.util.EditTextUtil.setupEditTextsAfterTextChanged
 import com.omouravictor.invest_view.util.EditTextUtil.setupEditTextsHighLightColor
@@ -55,9 +56,9 @@ class SaveAssetFragment : Fragment() {
             assetTypeUiModelArg.color.defaultColor,
             binding.etAssetSymbol,
             binding.etQuantity,
-            binding.etTotal
+            binding.etTotalInvested
         )
-        setupEditTextsFocusChange(binding.etQuantity, binding.etTotal)
+        setupEditTextsFocusChange(binding.etQuantity, binding.etTotalInvested)
         setupEditTextsAfterTextChanged(
             { updateAssetPreview() },
             binding.etAssetSymbol,
@@ -67,6 +68,7 @@ class SaveAssetFragment : Fragment() {
             findNavController()
                 .navigate(SaveAssetFragmentDirections.navToSelectAssetFragment(assetTypeUiModelArg))
         }
+        setupEditTextCurrencyFormat(binding.etTotalInvested)
     }
 
     private fun setupEditTextsFocusChange(vararg editTexts: EditText) {
