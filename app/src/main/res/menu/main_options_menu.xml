@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <group android:id="@+id/wallet_group">
+    <group android:id="@+id/walletGroup">
         <item
-            android:id="@+id/add_asset"
+            android:id="@+id/addAsset"
             android:icon="@drawable/ic_add"
             android:title="@string/add"
             app:showAsAction="ifRoom" />
     </group>
 
-    <group android:id="@+id/exchange_group">
+    <group android:id="@+id/exchangeGroup">
         <item
-            android:id="@+id/add_coin"
+            android:id="@+id/addCoin"
             android:icon="@drawable/ic_add"
             android:title="@string/add"
             app:showAsAction="ifRoom" />

@@ -74,8 +74,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.add_asset -> navController.navigate(WalletFragmentDirections.navToSelectAssetTypeFragment())
-            R.id.add_coin -> {
+            R.id.addAsset -> navController.navigate(WalletFragmentDirections.navToSelectAssetTypeFragment())
+            R.id.addCoin -> {
                 Toast.makeText(this, "Add Coin", Toast.LENGTH_SHORT).show()
             }
         }
@@ -85,8 +85,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun hideToolbarMenu() {
         val menu = binding.toolbar.menu
-        menu.setGroupVisible(R.id.wallet_group, false)
-        menu.setGroupVisible(R.id.exchange_group, false)
+        menu.setGroupVisible(R.id.walletGroup, false)
+        menu.setGroupVisible(R.id.exchangeGroup, false)
     }
 
     private fun setupToolbarMenu(
@@ -94,8 +94,8 @@ class MainActivity : AppCompatActivity() {
         exchangeGroupVisible: Boolean = false
     ) {
         val menu = binding.toolbar.menu
-        menu.setGroupVisible(R.id.wallet_group, walletGroupVisible)
-        menu.setGroupVisible(R.id.exchange_group, exchangeGroupVisible)
+        menu.setGroupVisible(R.id.walletGroup, walletGroupVisible)
+        menu.setGroupVisible(R.id.exchangeGroup, exchangeGroupVisible)
     }
 
     private fun handleWalletDestination() {

@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/fragmentProfile"
         android:name="com.omouravictor.invest_view.ui.profile.ProfileFragment"
-        android:label="@string/exchange"
+        android:label="@string/profile"
         tools:layout="@layout/fragment_profile" />
 
 </navigation>
