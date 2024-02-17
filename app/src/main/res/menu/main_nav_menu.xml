@@ -4,11 +4,16 @@
     <item
         android:id="@+id/walletNavMenu"
         android:icon="@drawable/selector_wallet"
-        android:title="@string/label_wallet" />
+        android:title="@string/wallet" />
 
     <item
         android:id="@+id/exchangeNavMenu"
         android:icon="@drawable/selector_exchange"
-        android:title="@string/label_exchange" />
+        android:title="@string/exchange" />
+
+    <item
+        android:id="@+id/profileNavMenu"
+        android:icon="@drawable/selector_profile"
+        android:title="@string/profile" />
 
 </menu>

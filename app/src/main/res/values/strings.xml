@@ -5,23 +5,22 @@
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="option_menu_add">Add</string>
-    <string name="option_menu_save">Salvar</string>
-    <string name="option_menu_settings">Configurações</string>
-
-    <string name="label_wallet">Carteira</string>
-    <string name="label_exchange">Câmbio</string>
-    <string name="label_new_asset">Novo Ativo</string>
-    <string name="content_description_arrow_forward">Arrow forward</string>
-    <string name="real_estate_funds">Fundos Imobiliários</string>
+    <string name="add">Add</string>
+    <string name="settings">Configurações</string>
+    <string name="wallet">Carteira</string>
+    <string name="exchange">Câmbio</string>
+    <string name="profile">Perfil</string>
+    <string name="new_asset">Novo Ativo</string>
+    <string name="arrow_forward">Arrow forward</string>
     <string name="stocks">Ações</string>
+    <string name="real_estate_funds">Fundos Imobiliários</string>
     <string name="asset">Ativo</string>
     <string name="select">Selecione</string>
     <string name="amount">Quantidade</string>
-    <string name="total_invested">Total Investido</string>
+    <string name="total_invested">Total investido</string>
     <string name="current_position">Posição atual</string>
     <string name="save">Salvar</string>
     <string name="fill_the_fields_to_view">Preencha os campos para visualizar</string>
-    <string name="br_money_100_00">R$ 100,00</string>
+    <string name="br_money_100">R$ 100,00</string>
     <string name="number_1">1</string>
 </resources>

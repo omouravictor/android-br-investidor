@@ -29,7 +29,8 @@ class MainActivity : AppCompatActivity() {
         val appBarConfiguration = AppBarConfiguration(
             topLevelDestinationIds = setOf(
                 R.id.fragmentWallet,
-                R.id.fragmentExchange
+                R.id.fragmentExchange,
+                R.id.fragmentProfile
             )
         )
 
@@ -46,7 +47,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNav.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.walletNavMenu, R.id.exchangeNavMenu -> navigateToMenuItem(menuItem.itemId)
+                R.id.walletNavMenu,
+                R.id.exchangeNavMenu,
+                R.id.profileNavMenu -> navigateToMenuItem(menuItem.itemId)
+
                 else -> false
             }
         }

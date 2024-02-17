@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/fragmentWallet"
         android:name="com.omouravictor.invest_view.ui.wallet.WalletFragment"
-        android:label="@string/label_wallet"
+        android:label="@string/wallet"
         tools:layout="@layout/fragment_wallet">
         <action
             android:id="@+id/navToSelectAssetTypeFragment"
@@ -18,7 +18,7 @@
     <fragment
         android:id="@+id/fragmentSelectAssetType"
         android:name="com.omouravictor.invest_view.ui.wallet.asset_type.SelectAssetTypeFragment"
-        android:label="@string/label_new_asset"
+        android:label="@string/new_asset"
         tools:layout="@layout/fragment_select_asset_type">
         <action
             android:id="@+id/navToSaveAssetFragment"

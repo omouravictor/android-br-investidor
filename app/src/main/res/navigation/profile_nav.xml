@@ -2,13 +2,13 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/exchangeNavMenu"
-    app:startDestination="@+id/fragmentExchange">
+    android:id="@+id/profileNavMenu"
+    app:startDestination="@+id/fragmentProfile">
 
     <fragment
-        android:id="@+id/fragmentExchange"
-        android:name="com.omouravictor.invest_view.ui.exchange.ExchangeFragment"
+        android:id="@+id/fragmentProfile"
+        android:name="com.omouravictor.invest_view.ui.profile.ProfileFragment"
         android:label="@string/exchange"
-        tools:layout="@layout/fragment_exchange" />
+        tools:layout="@layout/fragment_profile" />
 
 </navigation>

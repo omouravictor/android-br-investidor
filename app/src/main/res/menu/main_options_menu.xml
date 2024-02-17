@@ -6,7 +6,7 @@
         <item
             android:id="@+id/add_asset"
             android:icon="@drawable/ic_add"
-            android:title="@string/option_menu_add"
+            android:title="@string/add"
             app:showAsAction="ifRoom" />
     </group>
 
@@ -14,7 +14,7 @@
         <item
             android:id="@+id/add_coin"
             android:icon="@drawable/ic_add"
-            android:title="@string/option_menu_add"
+            android:title="@string/add"
             app:showAsAction="ifRoom" />
     </group>
 
