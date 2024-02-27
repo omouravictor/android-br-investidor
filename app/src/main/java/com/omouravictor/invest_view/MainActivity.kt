@@ -11,7 +11,9 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.omouravictor.invest_view.databinding.ActivityMainBinding
 import com.omouravictor.invest_view.ui.wallet.WalletFragmentDirections
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
