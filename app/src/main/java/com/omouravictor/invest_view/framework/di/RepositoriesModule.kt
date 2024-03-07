@@ -1,7 +1,7 @@
 package com.omouravictor.invest_view.framework.di
 
 import com.omouravictor.invest_view.data.network.hgfinanceapi.ApiService
-import com.omouravictor.invest_view.data.repository.RatesRepository
+import com.omouravictor.invest_view.data.repository.AssetsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,6 +16,6 @@ object RepositoriesModule {
     @Provides
     fun provideRatesRepository(
         apiService: ApiService
-    ): RatesRepository = RatesRepository(apiService)
+    ): AssetsRepository = AssetsRepository(apiService)
 
 }

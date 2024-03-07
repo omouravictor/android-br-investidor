@@ -1,11 +1,11 @@
-package com.omouravictor.invest_view.ui.rates.model
+package com.omouravictor.invest_view.ui.wallet.assets.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import java.util.Date
 
 @Parcelize
-data class RateUiModel(
+data class AssetUiModel(
     val currencyName: String,
     val currencyTerm: String,
     val unitaryRate: Double,

@@ -26,8 +26,8 @@ class AssetsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        assetsViewModel.text.observe(viewLifecycleOwner) {
-            binding.textAssets.text = it
+        binding.button.setOnClickListener {
+            assetsViewModel.getAssets()
         }
     }
 

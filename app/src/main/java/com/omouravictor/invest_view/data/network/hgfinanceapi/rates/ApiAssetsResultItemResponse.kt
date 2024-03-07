@@ -2,7 +2,7 @@ package com.omouravictor.invest_view.data.network.hgfinanceapi.rates
 
 import com.google.gson.annotations.SerializedName
 
-data class ApiRatesResultsItemResponse(
+data class ApiAssetsResultItemResponse(
     @SerializedName("buy")
     val buy: Double,
 
