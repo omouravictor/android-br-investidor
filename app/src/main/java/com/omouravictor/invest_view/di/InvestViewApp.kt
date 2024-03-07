@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.framework.di
+package com.omouravictor.invest_view.di
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

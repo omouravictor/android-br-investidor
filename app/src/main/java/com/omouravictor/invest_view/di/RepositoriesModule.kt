@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.framework.di
+package com.omouravictor.invest_view.di
 
 import com.omouravictor.invest_view.data.network.hgfinanceapi.ApiService
 import com.omouravictor.invest_view.data.repository.AssetsRepository

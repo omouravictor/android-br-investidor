@@ -1,13 +1,15 @@
-package com.omouravictor.invest_view.framework.di
+package com.omouravictor.invest_view.di
 
 import com.omouravictor.invest_view.data.network.hgfinanceapi.ApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -16,8 +18,31 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(): OkHttpClient {
+    fun provideInterceptor(): Interceptor {
+        return Interceptor { chain ->
+            val request = chain.request()
+            val url = request.url
+
+            val newUrl = url.newBuilder()
+                .addQueryParameter("key", "API_KEY_AQUI")
+                .build()
+
+            chain.proceed(
+                request.newBuilder()
+                    .url(newUrl)
+                    .build()
+            )
+        }
+    }
+
+    @Provides
+    @Singleton
+    fun provideOkHttpClient(interceptor: Interceptor): OkHttpClient {
         return OkHttpClient.Builder()
+            .addInterceptor(interceptor)
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(30, TimeUnit.SECONDS)
             .build()
     }
 
