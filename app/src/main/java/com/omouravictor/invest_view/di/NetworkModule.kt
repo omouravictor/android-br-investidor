@@ -1,5 +1,6 @@
 package com.omouravictor.invest_view.di
 
+import com.omouravictor.invest_view.BuildConfig
 import com.omouravictor.invest_view.data.network.hgfinanceapi.ApiService
 import dagger.Module
 import dagger.Provides
@@ -19,20 +20,7 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideInterceptor(): Interceptor {
-        return Interceptor { chain ->
-            val request = chain.request()
-            val url = request.url
-
-            val newUrl = url.newBuilder()
-                .addQueryParameter("key", "API_KEY_AQUI")
-                .build()
-
-            chain.proceed(
-                request.newBuilder()
-                    .url(newUrl)
-                    .build()
-            )
-        }
+        return Interceptor(BuildConfig.API_KEY)
     }
 
     @Provides
@@ -50,7 +38,7 @@ object NetworkModule {
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("URL_BASE_AQUI")
+            .baseUrl(BuildConfig.API_BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.konan.properties.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -19,6 +21,12 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val apiPropertiesFile = rootProject.file("api.properties")
+        val apiProperties = Properties().apply { load(apiPropertiesFile.inputStream()) }
+
+        buildConfigField("String", "API_KEY", apiProperties.getProperty("API_KEY"))
+        buildConfigField("String", "API_BASE_URL", apiProperties.getProperty("API_BASE_URL"))
     }
 
     buildTypes {
@@ -39,6 +47,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
