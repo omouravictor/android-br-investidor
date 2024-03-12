@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.omouravictor.invest_view.data.repository.AssetsRepository
-import com.omouravictor.invest_view.util.DispatcherProvider
+import com.omouravictor.invest_view.di.DispatcherProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

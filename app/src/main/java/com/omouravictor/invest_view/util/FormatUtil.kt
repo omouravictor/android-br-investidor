@@ -6,7 +6,7 @@ import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-object FormatUtils {
+object FormatUtil {
 
     object BrazilianFormats {
         private val brLocale = Locale("pt", "BR")

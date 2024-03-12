@@ -1,6 +1,6 @@
-package com.omouravictor.invest_view.data.network.hgfinanceapi
+package com.omouravictor.invest_view.data.network.alpha_vantage
 
-import com.omouravictor.invest_view.data.network.hgfinanceapi.rates.ApiAssetsResponse
+import com.omouravictor.invest_view.data.network.alpha_vantage.rates.ApiAssetsResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

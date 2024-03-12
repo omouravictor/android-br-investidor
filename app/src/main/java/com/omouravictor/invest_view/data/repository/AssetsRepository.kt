@@ -1,7 +1,7 @@
 package com.omouravictor.invest_view.data.repository
 
-import com.omouravictor.invest_view.data.network.hgfinanceapi.ApiService
-import com.omouravictor.invest_view.data.network.hgfinanceapi.rates.ApiAssetsResponse
+import com.omouravictor.invest_view.data.network.alpha_vantage.ApiService
+import com.omouravictor.invest_view.data.network.alpha_vantage.rates.ApiAssetsResponse
 import com.omouravictor.invest_view.util.ResultStatus
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

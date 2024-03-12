@@ -7,7 +7,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
-import com.omouravictor.invest_view.util.FormatUtils.BrazilianFormats.brCurrencyFormat
+import com.omouravictor.invest_view.util.FormatUtil.BrazilianFormats.brCurrencyFormat
 
 object EditTextUtil {
 

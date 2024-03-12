@@ -1,7 +1,8 @@
-package com.omouravictor.invest_view.di
+package com.omouravictor.invest_view.di.module
 
 import com.omouravictor.invest_view.BuildConfig
-import com.omouravictor.invest_view.data.network.hgfinanceapi.ApiService
+import com.omouravictor.invest_view.data.network.alpha_vantage.ApiService
+import com.omouravictor.invest_view.di.AuthenticationInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,7 +21,7 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideInterceptor(): Interceptor {
-        return Interceptor(BuildConfig.API_KEY)
+        return AuthenticationInterceptor(BuildConfig.API_KEY)
     }
 
     @Provides

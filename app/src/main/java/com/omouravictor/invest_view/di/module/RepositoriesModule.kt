@@ -1,6 +1,6 @@
-package com.omouravictor.invest_view.di
+package com.omouravictor.invest_view.di.module
 
-import com.omouravictor.invest_view.data.network.hgfinanceapi.ApiService
+import com.omouravictor.invest_view.data.network.alpha_vantage.ApiService
 import com.omouravictor.invest_view.data.repository.AssetsRepository
 import dagger.Module
 import dagger.Provides

@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view
+package com.omouravictor.invest_view.ui
 
 import android.os.Bundle
 import android.view.Menu
@@ -9,6 +9,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.ActivityMainBinding
 import com.omouravictor.invest_view.ui.wallet.WalletFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint

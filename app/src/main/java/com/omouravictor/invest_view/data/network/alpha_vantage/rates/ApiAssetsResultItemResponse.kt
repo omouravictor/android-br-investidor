@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.data.network.hgfinanceapi.rates
+package com.omouravictor.invest_view.data.network.alpha_vantage.rates
 
 import com.google.gson.annotations.SerializedName
 
