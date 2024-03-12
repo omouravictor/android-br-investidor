@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.di
+package com.omouravictor.invest_view.di.base
 
 import kotlinx.coroutines.CoroutineDispatcher
 
