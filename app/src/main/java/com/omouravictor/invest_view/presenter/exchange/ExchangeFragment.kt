@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.ui.exchange
+package com.omouravictor.invest_view.presenter.exchange
 
 import android.os.Bundle
 import android.view.LayoutInflater

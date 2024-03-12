@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.ui.base
+package com.omouravictor.invest_view.presenter.base
 
 sealed class UiResultStatus<out T> {
     data object Loading : UiResultStatus<Nothing>()

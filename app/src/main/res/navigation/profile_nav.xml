@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/fragmentProfile"
-        android:name="com.omouravictor.invest_view.ui.profile.ProfileFragment"
+        android:name="com.omouravictor.invest_view.presenter.profile.ProfileFragment"
         android:label="@string/profile"
         tools:layout="@layout/fragment_profile" />
 

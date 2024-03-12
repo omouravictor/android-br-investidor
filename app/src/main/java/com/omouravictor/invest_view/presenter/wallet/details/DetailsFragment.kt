@@ -1,33 +1,33 @@
-package com.omouravictor.invest_view.ui.wallet.assets
+package com.omouravictor.invest_view.presenter.wallet.details
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import com.omouravictor.invest_view.databinding.FragmentAssetsBinding
+import androidx.fragment.app.viewModels
+import com.omouravictor.invest_view.databinding.FragmentDetailsBinding
 
-class AssetsFragment : Fragment() {
+class DetailsFragment : Fragment() {
 
-    private var _binding: FragmentAssetsBinding? = null
+    private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
-    private val assetsViewModel: AssetsViewModel by activityViewModels()
+    private val detailsViewModel: DetailsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAssetsBinding.inflate(inflater, container, false)
+        _binding = FragmentDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.button.setOnClickListener {
-            assetsViewModel.getAssets()
+        detailsViewModel.text.observe(viewLifecycleOwner) {
+            binding.textDetails.text = it
         }
     }
 

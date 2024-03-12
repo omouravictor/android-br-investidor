@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.ui.wallet.asset_type
+package com.omouravictor.invest_view.presenter.wallet.asset_type
 
 import android.content.res.ColorStateList
 import android.os.Parcelable

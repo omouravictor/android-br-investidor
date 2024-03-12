@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/fragmentExchange"
-        android:name="com.omouravictor.invest_view.ui.exchange.ExchangeFragment"
+        android:name="com.omouravictor.invest_view.presenter.exchange.ExchangeFragment"
         android:label="@string/exchange"
         tools:layout="@layout/fragment_exchange" />
 

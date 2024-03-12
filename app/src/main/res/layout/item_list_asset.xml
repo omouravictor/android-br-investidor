@@ -6,7 +6,7 @@
     android:layout_marginBottom="8dp"
     app:cardCornerRadius="5dp"
     app:cardElevation="5dp"
-    tools:context=".ui.wallet.asset_type.SelectAssetTypeFragment">
+    tools:context=".presenter.wallet.asset_type.SelectAssetTypeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

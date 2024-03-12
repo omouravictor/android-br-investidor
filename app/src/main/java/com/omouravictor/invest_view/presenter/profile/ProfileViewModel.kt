@@ -1,13 +1,13 @@
-package com.omouravictor.invest_view.ui.wallet.details
+package com.omouravictor.invest_view.presenter.profile
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class DetailsViewModel : ViewModel() {
+class ProfileViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is details Fragment"
+        value = "This is profile Fragment"
     }
     val text: LiveData<String> = _text
 }

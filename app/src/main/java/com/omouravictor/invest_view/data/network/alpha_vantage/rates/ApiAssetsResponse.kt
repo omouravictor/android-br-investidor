@@ -1,7 +1,7 @@
 package com.omouravictor.invest_view.data.network.alpha_vantage.rates
 
 import com.google.gson.annotations.SerializedName
-import com.omouravictor.invest_view.ui.wallet.assets.model.AssetUiModel
+import com.omouravictor.invest_view.presenter.wallet.assets.model.AssetUiModel
 import java.util.*
 
 data class ApiAssetsResponse(

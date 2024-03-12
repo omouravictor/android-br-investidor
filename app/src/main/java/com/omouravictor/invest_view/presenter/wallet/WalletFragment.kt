@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.ui.wallet
+package com.omouravictor.invest_view.presenter.wallet
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import com.omouravictor.invest_view.databinding.FragmentWalletBinding
-import com.omouravictor.invest_view.ui.base.ViewPagerAdapter
-import com.omouravictor.invest_view.ui.wallet.assets.AssetsFragment
-import com.omouravictor.invest_view.ui.wallet.details.DetailsFragment
+import com.omouravictor.invest_view.presenter.base.ViewPagerAdapter
+import com.omouravictor.invest_view.presenter.wallet.assets.AssetsFragment
+import com.omouravictor.invest_view.presenter.wallet.details.DetailsFragment
 
 class WalletFragment : Fragment() {
 

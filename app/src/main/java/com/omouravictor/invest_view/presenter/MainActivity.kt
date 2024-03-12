@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.ui
+package com.omouravictor.invest_view.presenter
 
 import android.os.Bundle
 import android.view.Menu
@@ -11,7 +11,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.ActivityMainBinding
-import com.omouravictor.invest_view.ui.wallet.WalletFragmentDirections
+import com.omouravictor.invest_view.presenter.wallet.WalletFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

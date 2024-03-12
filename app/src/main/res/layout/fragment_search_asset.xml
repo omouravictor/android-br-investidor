@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingTop="16dp"
-    tools:context=".ui.wallet.assets.SearchAssetFragment">
+    tools:context=".presenter.wallet.assets.SearchAssetFragment">
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/svSearchAsset"
