@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.data.remote.alpha_vantage.rates
+package com.omouravictor.invest_view.data.network.alpha_vantage.rates
 
 import com.google.gson.annotations.SerializedName
 import com.omouravictor.invest_view.ui.wallet.assets.model.AssetUiModel
