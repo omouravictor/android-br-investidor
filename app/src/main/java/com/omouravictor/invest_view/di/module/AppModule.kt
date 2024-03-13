@@ -1,6 +1,6 @@
 package com.omouravictor.invest_view.di.module
 
-import com.omouravictor.invest_view.di.model.DispatcherProvider
+import com.omouravictor.invest_view.di.base.DispatcherProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
