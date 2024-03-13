@@ -2,7 +2,7 @@ package com.omouravictor.invest_view.data.repository
 
 import com.omouravictor.invest_view.data.network.alpha_vantage.AlphaVantageService
 import com.omouravictor.invest_view.data.network.alpha_vantage.model.asset_search.AssetMatchesResponse
-import com.omouravictor.invest_view.data.network.model.NetworkResultState
+import com.omouravictor.invest_view.data.network.base.NetworkResultState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
