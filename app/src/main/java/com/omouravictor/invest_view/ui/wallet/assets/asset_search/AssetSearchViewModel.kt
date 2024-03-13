@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.ui.wallet.assets
+package com.omouravictor.invest_view.ui.wallet.assets.asset_search
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,19 +14,17 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AssetsViewModel @Inject constructor(
+class AssetSearchViewModel @Inject constructor(
     private val assetsRepository: AssetsRepository,
     private val dispatchers: DispatcherProvider
 ) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is assets Fragment"
-    }
+    private val _text = MutableLiveData<String>()
     val text: LiveData<String> = _text
 
-    fun getAssets(text: String) {
+    fun getAssetsBySearch(keywords: String) {
         viewModelScope.launch(dispatchers.io) {
-            assetsRepository.getRemoteAssetsBySearch(text).collectLatest { result ->
+            assetsRepository.getRemoteAssetsBySearch(keywords).collectLatest { result ->
                 when (result) {
                     is NetworkResultState.Success -> handleNetworkSuccessResult(result.data)
                     is NetworkResultState.Error -> handleNetworkErrorResult(result.message)

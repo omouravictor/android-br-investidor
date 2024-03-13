@@ -9,11 +9,9 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.getColorStateList
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentSaveAssetBinding
-import com.omouravictor.invest_view.ui.wallet.assets.AssetsViewModel
 import com.omouravictor.invest_view.util.EditTextUtil.setupEditTextCurrencyFormat
 import com.omouravictor.invest_view.util.EditTextUtil.setupEditTextCursorColor
 import com.omouravictor.invest_view.util.EditTextUtil.setupEditTextsAfterTextChanged
@@ -23,7 +21,6 @@ class SaveAssetFragment : Fragment() {
 
     private var _binding: FragmentSaveAssetBinding? = null
     private val binding get() = _binding!!
-    private val assetsViewModel: AssetsViewModel by activityViewModels()
     private val assetTypeUiArg by lazy {
         SaveAssetFragmentArgs.fromBundle(requireArguments()).assetTypeUi
     }

@@ -5,12 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.omouravictor.invest_view.databinding.FragmentAssetSearchBinding
 
 class AssetSearchFragment : Fragment() {
 
     private var _binding: FragmentAssetSearchBinding? = null
     private val binding get() = _binding!!
+    private val assetSearchViewModel: AssetSearchViewModel by activityViewModels()
     private val assetTypeUiArg by lazy {
         AssetSearchFragmentArgs.fromBundle(requireArguments()).assetTypeUi
     }
@@ -25,9 +27,24 @@ class AssetSearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupRecyclerView()
-        binding.incAssetPreview.vAssetColor.backgroundTintList = assetTypeUiArg.color
-        binding.svSearchAsset.postDelayed({ binding.svSearchAsset.onActionViewExpanded() }, 50)
+
+        binding.svAssetSearch.postDelayed({ binding.svAssetSearch.onActionViewExpanded() }, 50)
+        binding.svAssetSearch.setOnQueryTextListener(object :
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let { assetSearchViewModel.getAssetsBySearch(it) }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                newText.let {
+                    if (it.isNullOrEmpty())
+                        binding.recyclerView.scrollToPosition(0)
+                }
+                return true
+            }
+        })
     }
 
     override fun onDestroyView() {
