@@ -24,8 +24,8 @@ class SaveAssetFragment : Fragment() {
     private var _binding: FragmentSaveAssetBinding? = null
     private val binding get() = _binding!!
     private val assetsViewModel: AssetsViewModel by activityViewModels()
-    private val assetTypeUiModelArg by lazy {
-        SaveAssetFragmentArgs.fromBundle(requireArguments()).assetTypeUiModel
+    private val assetTypeUiArg by lazy {
+        SaveAssetFragmentArgs.fromBundle(requireArguments()).assetTypeUi
     }
 
     override fun onCreateView(
@@ -40,10 +40,10 @@ class SaveAssetFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         (requireActivity() as AppCompatActivity)
-            .supportActionBar?.title = assetTypeUiModelArg.description
+            .supportActionBar?.title = assetTypeUiArg.description
 
         setupEditTexts()
-        binding.incAssetPreview.vAssetColor.backgroundTintList = assetTypeUiModelArg.color
+        binding.incAssetPreview.vAssetColor.backgroundTintList = assetTypeUiArg.color
     }
 
     override fun onDestroyView() {
@@ -52,10 +52,10 @@ class SaveAssetFragment : Fragment() {
     }
 
     private fun setupEditTexts() {
-        binding.etAssetSymbol.compoundDrawableTintList = assetTypeUiModelArg.color
-        setupEditTextCursorColor(binding.etQuantity, assetTypeUiModelArg.color.defaultColor)
+        binding.etAssetSymbol.compoundDrawableTintList = assetTypeUiArg.color
+        setupEditTextCursorColor(binding.etQuantity, assetTypeUiArg.color.defaultColor)
         setupEditTextsHighLightColor(
-            assetTypeUiModelArg.color.defaultColor,
+            assetTypeUiArg.color.defaultColor,
             binding.etQuantity,
             binding.etTotalInvested
         )
@@ -68,7 +68,7 @@ class SaveAssetFragment : Fragment() {
         )
         binding.etAssetSymbol.setOnClickListener {
             findNavController()
-                .navigate(SaveAssetFragmentDirections.navToSelectAssetFragment(assetTypeUiModelArg))
+                .navigate(SaveAssetFragmentDirections.navToSelectAssetFragment(assetTypeUiArg))
         }
         setupEditTextCurrencyFormat(binding.etTotalInvested)
         binding.etTotalInvested.hint = if (Build.VERSION.SDK_INT >= 28) "R$ 100,00" else "R$100,00"
@@ -77,7 +77,7 @@ class SaveAssetFragment : Fragment() {
     private fun setupEditTextsFocusChange(vararg editTexts: EditText) {
         editTexts.forEach { editText ->
             editText.setOnFocusChangeListener { v, hasFocus ->
-                v.backgroundTintList = if (hasFocus) assetTypeUiModelArg.color
+                v.backgroundTintList = if (hasFocus) assetTypeUiArg.color
                 else getColorStateList(requireContext(), R.color.gray)
             }
         }

@@ -2,7 +2,7 @@ package com.omouravictor.invest_view.data.network.alpha_vantage.model.asset_sear
 
 import com.google.gson.annotations.SerializedName
 
-data class AssetMatchItemResponse(
+data class AssetMatchResponse(
     @SerializedName("1. symbol") val symbol: String,
     @SerializedName("2. name") val name: String,
     @SerializedName("3. type") val type: String,

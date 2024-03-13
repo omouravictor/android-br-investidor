@@ -4,11 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.omouravictor.invest_view.databinding.ItemListAssetTypeBinding
-import com.omouravictor.invest_view.ui.wallet.new_asset.model.AssetTypeUiModel
+import com.omouravictor.invest_view.ui.wallet.new_asset.model.AssetTypeUi
 
 class AssetTypeAdapter(
-    private val items: List<AssetTypeUiModel>,
-    private val onClickItem: (AssetTypeUiModel) -> Unit
+    private val items: List<AssetTypeUi>,
+    private val onClickItem: (AssetTypeUi) -> Unit
 ) : RecyclerView.Adapter<AssetTypeAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,12 +27,12 @@ class AssetTypeAdapter(
     inner class ViewHolder(private val binding: ItemListAssetTypeBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(assetType: AssetTypeUiModel) {
-            binding.tvAssetType.text = assetType.description
+        fun bind(assetTypeUi: AssetTypeUi) {
+            binding.tvAssetType.text = assetTypeUi.description
 
-            binding.ivCircle.backgroundTintList = assetType.color
+            binding.ivCircle.backgroundTintList = assetTypeUi.color
 
-            itemView.setOnClickListener { onClickItem(assetType) }
+            itemView.setOnClickListener { onClickItem(assetTypeUi) }
         }
 
     }

@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.omouravictor.invest_view.databinding.FragmentNewAssetBinding
-import com.omouravictor.invest_view.ui.wallet.new_asset.model.AssetTypeUiModel
+import com.omouravictor.invest_view.ui.wallet.new_asset.model.AssetTypeUi
 import com.omouravictor.invest_view.util.AssetTypeUtil.getAssetTypeList
 
 class NewAssetFragment : Fragment() {
@@ -44,7 +44,7 @@ class NewAssetFragment : Fragment() {
         }
     }
 
-    private fun navigateToSaveAssetFragment(assetType: AssetTypeUiModel) {
+    private fun navigateToSaveAssetFragment(assetType: AssetTypeUi) {
         findNavController().navigate(
             NewAssetFragmentDirections.navToSaveAssetFragment(assetType)
         )

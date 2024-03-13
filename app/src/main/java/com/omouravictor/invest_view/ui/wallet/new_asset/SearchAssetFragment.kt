@@ -11,10 +11,8 @@ class SearchAssetFragment : Fragment() {
 
     private var _binding: FragmentSearchAssetBinding? = null
     private val binding get() = _binding!!
-    private val assetTypeUiModelArg by lazy {
-        com.omouravictor.invest_view.ui.wallet.new_asset.SearchAssetFragmentArgs.fromBundle(
-            requireArguments()
-        ).assetTypeUiModel
+    private val assetTypeUiArg by lazy {
+        SearchAssetFragmentArgs.fromBundle(requireArguments()).assetTypeUi
     }
 
     override fun onCreateView(
@@ -28,7 +26,7 @@ class SearchAssetFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
-        binding.incAssetPreview.vAssetColor.backgroundTintList = assetTypeUiModelArg.color
+        binding.incAssetPreview.vAssetColor.backgroundTintList = assetTypeUiArg.color
         binding.svSearchAsset.postDelayed({ binding.svSearchAsset.onActionViewExpanded() }, 50)
     }
 

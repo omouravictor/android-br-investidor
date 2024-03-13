@@ -30,8 +30,8 @@
         android:name="com.omouravictor.invest_view.ui.wallet.new_asset.SaveAssetFragment"
         tools:layout="@layout/fragment_save_asset">
         <argument
-            android:name="assetTypeUiModel"
-            app:argType="com.omouravictor.invest_view.ui.wallet.new_asset.model.AssetTypeUiModel" />
+            android:name="assetTypeUi"
+            app:argType="com.omouravictor.invest_view.ui.wallet.new_asset.model.AssetTypeUi" />
         <action
             android:id="@+id/navToSelectAssetFragment"
             app:destination="@id/fragmentSelectAsset" />
@@ -42,8 +42,8 @@
         android:name="com.omouravictor.invest_view.ui.wallet.new_asset.SearchAssetFragment"
         tools:layout="@layout/fragment_search_asset">
         <argument
-            android:name="assetTypeUiModel"
-            app:argType="com.omouravictor.invest_view.ui.wallet.new_asset.model.AssetTypeUiModel" />
+            android:name="assetTypeUi"
+            app:argType="com.omouravictor.invest_view.ui.wallet.new_asset.model.AssetTypeUi" />
     </fragment>
 
 </navigation>
