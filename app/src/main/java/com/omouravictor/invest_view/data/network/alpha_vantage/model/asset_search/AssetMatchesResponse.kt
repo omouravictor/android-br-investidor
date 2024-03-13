@@ -1,6 +1,6 @@
 package com.omouravictor.invest_view.data.network.alpha_vantage.model.asset_search
 
-import com.omouravictor.invest_view.ui.wallet.new_asset.model.AssetMatchUi
+import com.omouravictor.invest_view.ui.wallet.assets.asset_search.model.AssetMatchUi
 
 data class AssetMatchesResponse(
     val bestMatches: List<AssetMatchResponse>

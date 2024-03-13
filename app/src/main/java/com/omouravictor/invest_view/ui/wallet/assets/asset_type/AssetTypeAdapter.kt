@@ -1,10 +1,10 @@
-package com.omouravictor.invest_view.ui.wallet.new_asset
+package com.omouravictor.invest_view.ui.wallet.assets.asset_type
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.omouravictor.invest_view.databinding.ItemListAssetTypeBinding
-import com.omouravictor.invest_view.ui.wallet.new_asset.model.AssetTypeUi
+import com.omouravictor.invest_view.ui.wallet.assets.asset_type.model.AssetTypeUi
 
 class AssetTypeAdapter(
     private val items: List<AssetTypeUi>,

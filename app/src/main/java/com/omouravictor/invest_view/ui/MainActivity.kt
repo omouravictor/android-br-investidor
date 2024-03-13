@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.addAsset -> navController.navigate(WalletFragmentDirections.navToSelectAssetTypeFragment())
+            R.id.addAsset -> navController.navigate(WalletFragmentDirections.navToAssetTypeFragment())
             R.id.addCoin -> {
                 Toast.makeText(this, "Add Coin", Toast.LENGTH_SHORT).show()
             }

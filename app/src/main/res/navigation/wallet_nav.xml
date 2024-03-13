@@ -11,15 +11,15 @@
         android:label="@string/wallet"
         tools:layout="@layout/fragment_wallet">
         <action
-            android:id="@+id/navToSelectAssetTypeFragment"
-            app:destination="@id/fragmentSelectAssetType" />
+            android:id="@+id/navToAssetTypeFragment"
+            app:destination="@id/fragmentAssetType" />
     </fragment>
 
     <fragment
-        android:id="@+id/fragmentSelectAssetType"
-        android:name="com.omouravictor.invest_view.ui.wallet.new_asset.NewAssetFragment"
-        android:label="@string/new_asset"
-        tools:layout="@layout/fragment_new_asset">
+        android:id="@+id/fragmentAssetType"
+        android:name="com.omouravictor.invest_view.ui.wallet.assets.asset_type.AssetTypeFragment"
+        android:label="@string/asset_types"
+        tools:layout="@layout/fragment_asset_type">
         <action
             android:id="@+id/navToSaveAssetFragment"
             app:destination="@id/fragmentSaveAsset" />
@@ -27,23 +27,23 @@
 
     <fragment
         android:id="@+id/fragmentSaveAsset"
-        android:name="com.omouravictor.invest_view.ui.wallet.new_asset.SaveAssetFragment"
+        android:name="com.omouravictor.invest_view.ui.wallet.assets.save_asset.SaveAssetFragment"
         tools:layout="@layout/fragment_save_asset">
         <argument
             android:name="assetTypeUi"
-            app:argType="com.omouravictor.invest_view.ui.wallet.new_asset.model.AssetTypeUi" />
+            app:argType="com.omouravictor.invest_view.ui.wallet.assets.asset_type.model.AssetTypeUi" />
         <action
-            android:id="@+id/navToSelectAssetFragment"
-            app:destination="@id/fragmentSelectAsset" />
+            android:id="@+id/navToSearchAssetFragment"
+            app:destination="@id/fragmentSearchAsset" />
     </fragment>
 
     <fragment
-        android:id="@+id/fragmentSelectAsset"
-        android:name="com.omouravictor.invest_view.ui.wallet.new_asset.SearchAssetFragment"
+        android:id="@+id/fragmentSearchAsset"
+        android:name="com.omouravictor.invest_view.ui.wallet.assets.asset_search.SearchAssetFragment"
         tools:layout="@layout/fragment_search_asset">
         <argument
             android:name="assetTypeUi"
-            app:argType="com.omouravictor.invest_view.ui.wallet.new_asset.model.AssetTypeUi" />
+            app:argType="com.omouravictor.invest_view.ui.wallet.assets.asset_type.model.AssetTypeUi" />
     </fragment>
 
 </navigation>
