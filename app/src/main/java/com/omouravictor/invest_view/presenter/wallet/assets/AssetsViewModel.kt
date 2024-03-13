@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.omouravictor.invest_view.data.network.alpha_vantage.asset_search.AssetMatchesResponse
-import com.omouravictor.invest_view.data.network.base.NetworkResultStatus
-import com.omouravictor.invest_view.data.repositories.AssetsRepository
-import com.omouravictor.invest_view.di.base.DispatcherProvider
+import com.omouravictor.invest_view.data.network.alpha_vantage.model.asset_search.AssetMatchesResponse
+import com.omouravictor.invest_view.data.network.model.NetworkResultState
+import com.omouravictor.invest_view.data.repository.AssetsRepository
+import com.omouravictor.invest_view.di.model.DispatcherProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -28,20 +28,18 @@ class AssetsViewModel @Inject constructor(
         viewModelScope.launch(dispatchers.io) {
             assetsRepository.getRemoteAssetsBySearch(text).collectLatest { result ->
                 when (result) {
-                    is NetworkResultStatus.Success -> handleNetworkSuccessResult(result.data)
-                    is NetworkResultStatus.Error -> handleNetworkErrorResult(result.message)
-                    is NetworkResultStatus.Loading -> handleNetworkLoadingResult()
+                    is NetworkResultState.Success -> handleNetworkSuccessResult(result.data)
+                    is NetworkResultState.Error -> handleNetworkErrorResult(result.message)
+                    is NetworkResultState.Loading -> handleNetworkLoadingResult()
                 }
             }
         }
     }
 
     private fun handleNetworkSuccessResult(data: AssetMatchesResponse) {
-        println("SAÍDA: " + data.bestMatches)
     }
 
     private fun handleNetworkErrorResult(message: String) {
-
     }
 
     private fun handleNetworkLoadingResult() {

@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.data.network.alpha_vantage.asset_search
+package com.omouravictor.invest_view.data.network.alpha_vantage.model.asset_search
 
 import com.omouravictor.invest_view.presenter.wallet.assets.model.AssetUiModel
 

@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.omouravictor.invest_view.databinding.ItemListAssetTypeBinding
+import com.omouravictor.invest_view.presenter.wallet.asset_type.model.AssetTypeUiModel
 
 class AssetTypeAdapter(
     private val items: List<AssetTypeUiModel>,

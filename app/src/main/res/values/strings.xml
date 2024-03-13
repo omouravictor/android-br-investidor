@@ -13,8 +13,10 @@
     <string name="new_asset">Novo Ativo</string>
     <string name="arrow_forward">Arrow forward</string>
     <string name="stocks">Ações</string>
-    <string name="real_estate_funds">Fundos Imobiliários</string>
+    <string name="investment_funds">Fundos de Investimento</string>
     <string name="asset">Ativo</string>
+    <string name="assets">Ativos</string>
+    <string name="details">Detalhes</string>
     <string name="select">Selecione</string>
     <string name="amount">Quantidade</string>
     <string name="total_invested">Total investido</string>

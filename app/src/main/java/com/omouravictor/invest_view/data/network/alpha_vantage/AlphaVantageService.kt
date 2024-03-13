@@ -1,6 +1,6 @@
 package com.omouravictor.invest_view.data.network.alpha_vantage
 
-import com.omouravictor.invest_view.data.network.alpha_vantage.asset_search.AssetMatchesResponse
+import com.omouravictor.invest_view.data.network.alpha_vantage.model.asset_search.AssetMatchesResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.di.base
+package com.omouravictor.invest_view.di.model
 
 import okhttp3.Interceptor
 import okhttp3.Response
