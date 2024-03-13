@@ -68,7 +68,7 @@ class SaveAssetFragment : Fragment() {
         )
         binding.etAssetSymbol.setOnClickListener {
             findNavController()
-                .navigate(SaveAssetFragmentDirections.navToSearchAssetFragment(assetTypeUiArg))
+                .navigate(SaveAssetFragmentDirections.navToAssetSearchFragment(assetTypeUiArg))
         }
         setupEditTextCurrencyFormat(binding.etTotalInvested)
         binding.etTotalInvested.hint = if (Build.VERSION.SDK_INT >= 28) "R$ 100,00" else "R$100,00"

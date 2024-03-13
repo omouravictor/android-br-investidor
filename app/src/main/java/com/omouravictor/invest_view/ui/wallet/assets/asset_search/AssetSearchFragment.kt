@@ -5,21 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.omouravictor.invest_view.databinding.FragmentSearchAssetBinding
+import com.omouravictor.invest_view.databinding.FragmentAssetSearchBinding
 
-class SearchAssetFragment : Fragment() {
+class AssetSearchFragment : Fragment() {
 
-    private var _binding: FragmentSearchAssetBinding? = null
+    private var _binding: FragmentAssetSearchBinding? = null
     private val binding get() = _binding!!
     private val assetTypeUiArg by lazy {
-        SearchAssetFragmentArgs.fromBundle(requireArguments()).assetTypeUi
+        AssetSearchFragmentArgs.fromBundle(requireArguments()).assetTypeUi
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSearchAssetBinding.inflate(inflater, container, false)
+        _binding = FragmentAssetSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
 

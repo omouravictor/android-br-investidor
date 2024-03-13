@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.ui.wallet.assets.asset_type
+package com.omouravictor.invest_view.ui.wallet.assets.asset_types
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,20 +7,20 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.omouravictor.invest_view.databinding.FragmentAssetTypeBinding
-import com.omouravictor.invest_view.ui.wallet.assets.asset_type.model.AssetTypeUi
+import com.omouravictor.invest_view.databinding.FragmentAssetTypesBinding
+import com.omouravictor.invest_view.ui.wallet.assets.asset_types.model.AssetTypeUi
 import com.omouravictor.invest_view.util.AssetTypeUtil.getAssetTypeList
 
-class AssetTypeFragment : Fragment() {
+class AssetTypesFragment : Fragment() {
 
-    private var _binding: FragmentAssetTypeBinding? = null
+    private var _binding: FragmentAssetTypesBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAssetTypeBinding.inflate(inflater, container, false)
+        _binding = FragmentAssetTypesBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -46,7 +46,7 @@ class AssetTypeFragment : Fragment() {
 
     private fun navigateToSaveAssetFragment(assetType: AssetTypeUi) {
         findNavController().navigate(
-            AssetTypeFragmentDirections.navToSaveAssetFragment(assetType)
+            AssetTypesFragmentDirections.navToSaveAssetFragment(assetType)
         )
     }
 
