@@ -9,7 +9,7 @@ class AuthenticationInterceptor(private val apiKey: String) : Interceptor {
         val request = chain.request()
 
         val newUrl = request.url.newBuilder()
-            .addQueryParameter("api_key", apiKey)
+            .addQueryParameter("apikey", apiKey)
             .build()
 
         val newRequest = request.newBuilder()

@@ -1,6 +1,6 @@
 package com.omouravictor.invest_view.di.module
 
-import com.omouravictor.invest_view.data.network.alpha_vantage.ApiService
+import com.omouravictor.invest_view.data.network.alpha_vantage.AlphaVantageService
 import com.omouravictor.invest_view.data.repositories.AssetsRepository
 import dagger.Module
 import dagger.Provides
@@ -14,8 +14,8 @@ object RepositoriesModule {
 
     @Singleton
     @Provides
-    fun provideRatesRepository(
-        apiService: ApiService
-    ): AssetsRepository = AssetsRepository(apiService)
+    fun provideAssetsRepository(
+        alphaVantageService: AlphaVantageService
+    ): AssetsRepository = AssetsRepository(alphaVantageService)
 
 }

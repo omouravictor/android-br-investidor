@@ -27,7 +27,7 @@ class AssetsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.button.setOnClickListener {
-            assetsViewModel.getAssets()
+            assetsViewModel.getAssets(binding.editText.text.toString())
         }
     }
 
