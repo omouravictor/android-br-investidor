@@ -3,7 +3,7 @@ package com.omouravictor.invest_view.data.network.remote.model.assetsbysearch
 import com.omouravictor.invest_view.presenter.wallet.assets.asset_search.model.AssetBySearchUiModel
 
 data class AssetsBySearchResponse(
-    val bestMatches: List<AssetsItemBySearchResponse>
+    val bestMatches: List<AssetBySearchItemResponse>
 )
 
 fun AssetsBySearchResponse.toAssetsBySearchUiModel(): List<AssetBySearchUiModel> {
