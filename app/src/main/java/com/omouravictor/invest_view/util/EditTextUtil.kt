@@ -11,7 +11,7 @@ import com.omouravictor.invest_view.util.FormatUtil.BrazilianFormats.brCurrencyF
 
 object EditTextUtil {
 
-    fun setupEditTextCursorColor(
+    fun setEditTextCursorColor(
         editText: EditText,
         color: Int
     ) {
@@ -41,7 +41,7 @@ object EditTextUtil {
         }
     }
 
-    fun setupEditTextsHighLightColor(
+    fun setEditTextsHighLightColor(
         color: Int,
         vararg editTexts: EditText
     ) {
@@ -50,7 +50,7 @@ object EditTextUtil {
         }
     }
 
-    fun setupEditTextsAfterTextChanged(
+    fun setEditTextsAfterTextChanged(
         doAfterTextChangedFunction: () -> Unit,
         vararg editTexts: EditText
     ) {
@@ -61,7 +61,7 @@ object EditTextUtil {
         }
     }
 
-    fun setupEditTextCurrencyFormat(editText: EditText) {
+    fun setEditTextCurrencyFormat(editText: EditText) {
         with(editText) {
             addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(cs: CharSequence?, s: Int, c: Int, a: Int) {}

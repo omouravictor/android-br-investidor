@@ -8,14 +8,15 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.getColorStateList
+import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentSaveAssetBinding
-import com.omouravictor.invest_view.util.EditTextUtil.setupEditTextCurrencyFormat
-import com.omouravictor.invest_view.util.EditTextUtil.setupEditTextCursorColor
-import com.omouravictor.invest_view.util.EditTextUtil.setupEditTextsAfterTextChanged
-import com.omouravictor.invest_view.util.EditTextUtil.setupEditTextsHighLightColor
+import com.omouravictor.invest_view.util.EditTextUtil.setEditTextCurrencyFormat
+import com.omouravictor.invest_view.util.EditTextUtil.setEditTextCursorColor
+import com.omouravictor.invest_view.util.EditTextUtil.setEditTextsAfterTextChanged
+import com.omouravictor.invest_view.util.EditTextUtil.setEditTextsHighLightColor
 
 class SaveAssetFragment : Fragment() {
 
@@ -49,15 +50,15 @@ class SaveAssetFragment : Fragment() {
     }
 
     private fun setupEditTexts() {
-        binding.etAssetSymbol.compoundDrawableTintList = assetTypeUiArg.color
-        setupEditTextCursorColor(binding.etQuantity, assetTypeUiArg.color.defaultColor)
-        setupEditTextsHighLightColor(
+        TextViewCompat.setCompoundDrawableTintList(binding.etAssetSymbol, assetTypeUiArg.color)
+        setEditTextCursorColor(binding.etQuantity, assetTypeUiArg.color.defaultColor)
+        setEditTextsHighLightColor(
             assetTypeUiArg.color.defaultColor,
             binding.etQuantity,
             binding.etTotalInvested
         )
-        setupEditTextsFocusChange(binding.etQuantity, binding.etTotalInvested)
-        setupEditTextsAfterTextChanged(
+        setEditTextsFocusChange(binding.etQuantity, binding.etTotalInvested)
+        setEditTextsAfterTextChanged(
             { updateAssetPreview() },
             binding.etAssetSymbol,
             binding.etQuantity,
@@ -67,11 +68,11 @@ class SaveAssetFragment : Fragment() {
             findNavController()
                 .navigate(SaveAssetFragmentDirections.navToAssetSearchFragment(assetTypeUiArg))
         }
-        setupEditTextCurrencyFormat(binding.etTotalInvested)
+        setEditTextCurrencyFormat(binding.etTotalInvested)
         binding.etTotalInvested.hint = if (Build.VERSION.SDK_INT >= 28) "R$ 100,00" else "R$100,00"
     }
 
-    private fun setupEditTextsFocusChange(vararg editTexts: EditText) {
+    private fun setEditTextsFocusChange(vararg editTexts: EditText) {
         editTexts.forEach { editText ->
             editText.setOnFocusChangeListener { v, hasFocus ->
                 v.backgroundTintList = if (hasFocus) assetTypeUiArg.color
@@ -80,13 +81,11 @@ class SaveAssetFragment : Fragment() {
         }
     }
 
-    private fun areRequiredFieldsNotEmpty() =
+    private fun requiredFieldsNotEmpty() =
         binding.etAssetSymbol.text.isNotEmpty() && binding.etQuantity.text.isNotEmpty()
 
     private fun updateAssetPreview() {
-        val fieldsNotEmpty = areRequiredFieldsNotEmpty()
-
-        if (fieldsNotEmpty) {
+        if (requiredFieldsNotEmpty()) {
             binding.incAssetPreview.tvInfo.visibility = View.INVISIBLE
             binding.incAssetPreview.clAssetInfo.visibility = View.VISIBLE
             binding.incAssetPreview.tvAssetName.text =
