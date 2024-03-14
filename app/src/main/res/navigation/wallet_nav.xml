@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/fragmentWallet"
-        android:name="com.omouravictor.invest_view.ui.wallet.WalletFragment"
+        android:name="com.omouravictor.invest_view.presenter.wallet.WalletFragment"
         android:label="@string/wallet"
         tools:layout="@layout/fragment_wallet">
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/fragmentAssetTypes"
-        android:name="com.omouravictor.invest_view.ui.wallet.assets.asset_types.AssetTypesFragment"
+        android:name="com.omouravictor.invest_view.presenter.wallet.assets.asset_types.AssetTypesFragment"
         android:label="@string/asset_types"
         tools:layout="@layout/fragment_asset_types">
         <action
@@ -27,11 +27,11 @@
 
     <fragment
         android:id="@+id/fragmentSaveAsset"
-        android:name="com.omouravictor.invest_view.ui.wallet.assets.save_asset.SaveAssetFragment"
+        android:name="com.omouravictor.invest_view.presenter.wallet.assets.save_asset.SaveAssetFragment"
         tools:layout="@layout/fragment_save_asset">
         <argument
             android:name="assetTypeUi"
-            app:argType="com.omouravictor.invest_view.ui.wallet.assets.asset_types.model.AssetTypeUi" />
+            app:argType="com.omouravictor.invest_view.presenter.wallet.assets.asset_types.model.AssetTypeUiModel" />
         <action
             android:id="@+id/navToAssetSearchFragment"
             app:destination="@id/fragmentAssetSearch" />
@@ -39,11 +39,11 @@
 
     <fragment
         android:id="@+id/fragmentAssetSearch"
-        android:name="com.omouravictor.invest_view.ui.wallet.assets.asset_search.AssetSearchFragment"
+        android:name="com.omouravictor.invest_view.presenter.wallet.assets.asset_search.AssetSearchFragment"
         tools:layout="@layout/fragment_asset_search">
         <argument
             android:name="assetTypeUi"
-            app:argType="com.omouravictor.invest_view.ui.wallet.assets.asset_types.model.AssetTypeUi" />
+            app:argType="com.omouravictor.invest_view.presenter.wallet.assets.asset_types.model.AssetTypeUiModel" />
     </fragment>
 
 </navigation>

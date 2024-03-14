@@ -1,7 +1,7 @@
 package com.omouravictor.invest_view.di.module
 
-import com.omouravictor.invest_view.data.network.alpha_vantage.AlphaVantageService
-import com.omouravictor.invest_view.data.repository.AssetsRepository
+import com.omouravictor.invest_view.data.network.remote.api.AlphaVantageService
+import com.omouravictor.invest_view.data.network.remote.repository.AssetsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
