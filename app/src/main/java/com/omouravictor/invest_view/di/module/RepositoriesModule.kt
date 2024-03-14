@@ -2,6 +2,7 @@ package com.omouravictor.invest_view.di.module
 
 import com.omouravictor.invest_view.data.network.remote.api.AlphaVantageService
 import com.omouravictor.invest_view.data.network.remote.repository.AssetsRepository
+import com.omouravictor.invest_view.data.network.remote.repository.AssetsRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,6 +17,6 @@ object RepositoriesModule {
     @Provides
     fun provideAssetsRepository(
         alphaVantageService: AlphaVantageService
-    ): AssetsRepository = AssetsRepository(alphaVantageService)
+    ): AssetsRepository = AssetsRepositoryImpl(alphaVantageService)
 
 }

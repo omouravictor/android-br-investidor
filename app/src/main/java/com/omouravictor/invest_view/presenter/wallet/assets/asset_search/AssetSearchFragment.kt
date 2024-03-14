@@ -52,14 +52,4 @@ class AssetSearchFragment : Fragment() {
         _binding = null
     }
 
-    private fun setupRecyclerView() {
-//        val assetTypeList = getAssetTypeList(requireContext())
-//        val assetTypeAdapter = AssetTypeAdapter(assetTypeList) { navigateToSaveAssetFragment(it) }
-//
-//        binding.recyclerView.apply {
-//            adapter = assetTypeAdapter
-//            layoutManager = LinearLayoutManager(context)
-//        }
-    }
-
 }
