@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AssetSearchViewModel @Inject constructor(
+class AssetBySearchViewModel @Inject constructor(
     private val assetsRepository: AssetsRepository,
     private val dispatchers: DispatcherProvider
 ) : ViewModel() {
@@ -38,8 +38,7 @@ class AssetSearchViewModel @Inject constructor(
     }
 
     private fun handleNetworkSuccessResult(assetsBySearchResponse: AssetsBySearchResponse) {
-        _assetsBySearch.value =
-            UiResultState.Success(assetsBySearchResponse.toAssetsBySearchUiModel())
+        _assetsBySearch.postValue(UiResultState.Success(assetsBySearchResponse.toAssetsBySearchUiModel()))
     }
 
     private fun handleNetworkErrorResult(e: Exception) {

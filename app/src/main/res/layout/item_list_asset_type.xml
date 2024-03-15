@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/selector_item_list_asset_type"
+    android:background="@drawable/selector_item_list"
     android:paddingHorizontal="16dp"
     tools:context=".presenter.wallet.assets.asset_types.AssetTypesFragment">
 

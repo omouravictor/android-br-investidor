@@ -7,24 +7,23 @@ import com.omouravictor.invest_view.databinding.ItemListAssetTypeBinding
 import com.omouravictor.invest_view.presenter.wallet.assets.asset_types.model.AssetTypeUiModel
 
 class AssetTypeAdapter(
-    private val items: List<AssetTypeUiModel>,
+    private val assetTypeUiModelList: List<AssetTypeUiModel>,
     private val onClickItem: (AssetTypeUiModel) -> Unit
-) : RecyclerView.Adapter<AssetTypeAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<AssetTypeAdapter.AssetTypeViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AssetTypeViewHolder {
         val binding =
             ItemListAssetTypeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding)
+        return AssetTypeViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = items[position]
-        holder.bind(item)
+    override fun onBindViewHolder(holder: AssetTypeViewHolder, position: Int) {
+        holder.bind(assetTypeUiModelList[position])
     }
 
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount(): Int = assetTypeUiModelList.size
 
-    inner class ViewHolder(private val binding: ItemListAssetTypeBinding) :
+    inner class AssetTypeViewHolder(private val binding: ItemListAssetTypeBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(assetTypeUiModel: AssetTypeUiModel) {

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -16,7 +17,12 @@ class AssetSearchFragment : Fragment() {
 
     private var _binding: FragmentAssetSearchBinding? = null
     private val binding get() = _binding!!
-    private val assetSearchViewModel: AssetSearchViewModel by activityViewModels()
+    private val assetBySearchViewModel: AssetBySearchViewModel by activityViewModels()
+    private val assetBySearchAdapter = AssetBySearchAdapter()
+    private val assetTypeUiArg by lazy {
+        AssetSearchFragmentArgs.fromBundle(requireArguments()).assetTypeUi
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,7 +34,12 @@ class AssetSearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        (requireActivity() as AppCompatActivity)
+            .supportActionBar?.title = assetTypeUiArg.description
+
         setupAssetSearchView()
+        setupRecyclerView()
         observeAssetSearchResults()
     }
 
@@ -37,7 +48,7 @@ class AssetSearchFragment : Fragment() {
 
         binding.svAssetSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                query?.let { assetSearchViewModel.getAssetsBySearch(it) }
+                query?.let { assetBySearchViewModel.getAssetsBySearch(it) }
                 return true
             }
 
@@ -49,8 +60,15 @@ class AssetSearchFragment : Fragment() {
         })
     }
 
+    private fun setupRecyclerView() {
+        binding.recyclerView.apply {
+            adapter = assetBySearchAdapter
+            layoutManager = LinearLayoutManager(context)
+        }
+    }
+
     private fun observeAssetSearchResults() {
-        assetSearchViewModel.assetsBySearch.observe(viewLifecycleOwner) { result ->
+        assetBySearchViewModel.assetsBySearch.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is UiResultState.Success -> handleUiResultStateSuccess(result.data)
                 is UiResultState.Error -> handleUiResultStateError(result.message)
@@ -59,7 +77,8 @@ class AssetSearchFragment : Fragment() {
         }
     }
 
-    private fun handleUiResultStateSuccess(data: List<AssetBySearchUiModel>) {
+    private fun handleUiResultStateSuccess(assetsBySearchList: List<AssetBySearchUiModel>) {
+        assetBySearchAdapter.setAssetsBySearchList(assetsBySearchList)
     }
 
     private fun handleUiResultStateError(message: String) {
