@@ -42,6 +42,7 @@ class AssetBySearchViewModel @Inject constructor(
     }
 
     private fun handleNetworkErrorResult(e: Exception) {
+        println("Error: $e")
     }
 
     private fun handleNetworkLoadingResult() {

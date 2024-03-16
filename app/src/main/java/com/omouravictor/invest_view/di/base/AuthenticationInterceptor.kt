@@ -7,13 +7,8 @@ class AuthenticationInterceptor(private val apiKey: String) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
-
-        val newUrl = request.url.newBuilder()
-            .addQueryParameter("apikey", apiKey)
-            .build()
-
         val newRequest = request.newBuilder()
-            .url(newUrl)
+            .addHeader("X-RapidAPI-Key", apiKey)
             .build()
 
         return chain.proceed(newRequest)

@@ -6,7 +6,7 @@ import retrofit2.http.Query
 
 interface AlphaVantageService {
 
-    @GET("query?function=SYMBOL_SEARCH")
+    @GET("query?function=SYMBOL_SEARCH&datatype=json")
     suspend fun getAssetsBySearch(
         @Query("keywords") keywords: String
     ): AssetsBySearchResponse
