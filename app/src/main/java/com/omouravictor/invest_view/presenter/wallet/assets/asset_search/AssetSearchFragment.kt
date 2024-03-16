@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.omouravictor.invest_view.databinding.FragmentAssetSearchBinding
 import com.omouravictor.invest_view.presenter.base.UiResultState
 import com.omouravictor.invest_view.presenter.wallet.assets.asset_search.model.AssetBySearchUiModel
+import com.omouravictor.invest_view.util.SystemServiceUtil
 
 class AssetSearchFragment : Fragment() {
 
@@ -42,12 +43,12 @@ class AssetSearchFragment : Fragment() {
         binding.svAssetSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let { assetBySearchViewModel.getAssetsBySearch(it) }
+                SystemServiceUtil.hideKeyboard(requireActivity(), binding.svAssetSearch)
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText.isNullOrEmpty())
-                    binding.recyclerView.scrollToPosition(0)
+                binding.recyclerView.scrollToPosition(0)
                 return true
             }
         })
