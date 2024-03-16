@@ -2,12 +2,18 @@ package com.omouravictor.invest_view.presenter.wallet.assets.asset_search
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetSearchBinding
 import com.omouravictor.invest_view.presenter.base.UiResultState
 import com.omouravictor.invest_view.presenter.wallet.assets.asset_search.model.AssetBySearchUiModel
@@ -20,7 +26,6 @@ class AssetSearchFragment : Fragment() {
     private val assetBySearchViewModel: AssetBySearchViewModel by activityViewModels()
     private val assetBySearchAdapter = AssetBySearchAdapter()
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,26 +37,42 @@ class AssetSearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupAssetSearchView()
+        addSearchOptionMenu()
         setupRecyclerView()
         observeAssetSearchResults()
     }
 
-    private fun setupAssetSearchView() {
-        binding.svAssetSearch.postDelayed({ binding.svAssetSearch.onActionViewExpanded() }, 50)
+    private fun addSearchOptionMenu() {
+        requireActivity().addMenuProvider(
+            object : MenuProvider {
+                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                    menuInflater.inflate(R.menu.search_options_menu, menu)
 
-        binding.svAssetSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                query?.let { assetBySearchViewModel.getAssetsBySearch(it) }
-                SystemServiceUtil.hideKeyboard(requireActivity(), binding.svAssetSearch)
-                return true
-            }
+                    val searchMenuItem = menu.findItem(R.id.searchAsset)
+                    val searchView = searchMenuItem.actionView as android.widget.SearchView
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                binding.recyclerView.scrollToPosition(0)
-                return true
-            }
-        })
+                    searchView.onActionViewExpanded()
+
+                    searchView.queryHint = getString(R.string.search_your_asset)
+
+                    searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+                        android.widget.SearchView.OnQueryTextListener {
+                        override fun onQueryTextSubmit(query: String?): Boolean {
+                            query?.let { assetBySearchViewModel.getAssetsBySearch(it) }
+                            SystemServiceUtil.hideKeyboard(requireActivity(), searchView)
+                            return true
+                        }
+
+                        override fun onQueryTextChange(newText: String?): Boolean {
+                            binding.recyclerView.scrollToPosition(0)
+                            return true
+                        }
+                    })
+                }
+
+                override fun onMenuItemSelected(menuItem: MenuItem): Boolean = false
+            }, viewLifecycleOwner, Lifecycle.State.STARTED
+        )
     }
 
     private fun setupRecyclerView() {

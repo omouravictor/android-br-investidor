@@ -1,21 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".presenter.wallet.assets.asset_search.AssetSearchFragment">
-
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/svAssetSearch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="6dp"
-        app:queryBackground="@drawable/selector_background_rectangle"
-        app:queryHint="Faça uma pesquisa..." />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

@@ -9,6 +9,7 @@
     <string name="settings">Configurações</string>
     <string name="wallet">Carteira</string>
     <string name="assets_search">Pesquisa de ativos</string>
+    <string name="search_your_asset">Pesquise seu ativo…</string>
     <string name="exchange">Câmbio</string>
     <string name="profile">Perfil</string>
     <string name="new_asset">Novo Ativo</string>
