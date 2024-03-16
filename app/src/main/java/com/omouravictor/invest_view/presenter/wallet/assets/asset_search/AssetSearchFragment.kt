@@ -46,7 +46,7 @@ class AssetSearchFragment : Fragment() {
         requireActivity().addMenuProvider(
             object : MenuProvider {
                 override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                    menuInflater.inflate(R.menu.search_options_menu, menu)
+                    menuInflater.inflate(R.menu.options_menu_search, menu)
 
                     val searchMenuItem = menu.findItem(R.id.searchAsset)
                     val searchView = searchMenuItem.actionView as android.widget.SearchView
