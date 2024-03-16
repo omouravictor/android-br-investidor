@@ -5,6 +5,8 @@
     <color name="gray">#737373</color>
     <color name="green">#00C853</color>
     <color name="yellow">#FFD600</color>
+
+    <!-- Asset type colors -->
     <color name="equity">#00C853</color>
     <color name="mutual_fund">#00B8D4</color>
 
@@ -13,6 +15,7 @@
     <color name="primary">@color/black</color>
     <color name="itemListPressedTrue">#1A000000</color>
     <color name="itemListBackground">#FFFFFF</color>
-    <color name="rectangleBackground">#BFBFBF</color>
+    <color name="background_rectangle_stroke">#BFBFBF</color>
+    <color name="background_rectangle_filled_stroke">@color/black</color>
     <color name="bottomNavNoCheckedItemColor">#9F9F9F</color>
 </resources>

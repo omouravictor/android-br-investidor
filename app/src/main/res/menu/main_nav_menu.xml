@@ -3,17 +3,17 @@
 
     <item
         android:id="@+id/walletNavMenu"
-        android:icon="@drawable/selector_wallet"
+        android:icon="@drawable/selector_menu_item_icon_wallet"
         android:title="@string/wallet" />
 
     <item
         android:id="@+id/exchangeNavMenu"
-        android:icon="@drawable/selector_exchange"
+        android:icon="@drawable/selector_menu_item_icon_exchange"
         android:title="@string/exchange" />
 
     <item
         android:id="@+id/profileNavMenu"
-        android:icon="@drawable/selector_profile"
+        android:icon="@drawable/selector_menu_item_icon_profile"
         android:title="@string/profile" />
 
 </menu>

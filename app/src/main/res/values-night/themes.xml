@@ -13,7 +13,7 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
-        <item name="android:windowBackground">#131313</item>
+        <item name="android:windowBackground">#1B1B1B</item>
         <item name="android:textColor">@color/white</item>
         <item name="actionMenuTextAppearance">@style/MyMenuTextAppearance</item>
         <item name="android:navigationBarColor">@color/black</item>

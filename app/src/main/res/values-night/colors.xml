@@ -5,6 +5,7 @@
     <color name="primary">@color/white</color>
     <color name="itemListPressedTrue">#19FFFFFF</color>
     <color name="itemListBackground">#3E3E3E</color>
-    <color name="rectangleBackground">#3E3E3E</color>
+    <color name="background_rectangle_stroke">#4D4D4D</color>
+    <color name="background_rectangle_filled_stroke">@color/white</color>
     <color name="bottomNavNoCheckedItemColor">#BABABA</color>
 </resources>
