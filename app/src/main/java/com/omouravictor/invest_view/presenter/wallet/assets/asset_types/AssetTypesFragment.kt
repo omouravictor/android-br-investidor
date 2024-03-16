@@ -15,6 +15,7 @@ class AssetTypesFragment : Fragment() {
 
     private var _binding: FragmentAssetTypesBinding? = null
     private val binding get() = _binding!!
+    private val assetTypeAdapter = AssetTypeAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +37,8 @@ class AssetTypesFragment : Fragment() {
 
     private fun setupRecyclerView() {
         val assetTypeList = getAssetTypeList(requireContext())
-        val assetTypeAdapter = AssetTypeAdapter(assetTypeList) { navigateToSaveAssetFragment(it) }
+        assetTypeAdapter.updateItemsList(assetTypeList)
+        assetTypeAdapter.updateOnClickItem(::navigateToSaveAssetFragment)
 
         binding.recyclerView.apply {
             adapter = assetTypeAdapter

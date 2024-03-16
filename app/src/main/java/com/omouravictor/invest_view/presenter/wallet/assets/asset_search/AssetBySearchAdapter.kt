@@ -4,21 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.omouravictor.invest_view.databinding.ItemListAssetBySearchBinding
+import com.omouravictor.invest_view.presenter.base.RecyclerViewAdapter
 import com.omouravictor.invest_view.presenter.wallet.assets.asset_search.model.AssetBySearchUiModel
 
-class AssetBySearchAdapter : RecyclerView.Adapter<AssetBySearchAdapter.AssetBySearchViewHolder>() {
-
-    private var assetBySearchList = listOf<AssetBySearchUiModel>()
-    private var onAssetClick: (AssetBySearchUiModel) -> Unit = {}
-
-    fun setAssetsBySearchList(assetBySearchList: List<AssetBySearchUiModel>) {
-        this.assetBySearchList = assetBySearchList
-        notifyDataSetChanged()
-    }
-
-    fun setOnAssetClick(onAssetClick: (AssetBySearchUiModel) -> Unit) {
-        this.onAssetClick = onAssetClick
-    }
+class AssetBySearchAdapter :
+    RecyclerViewAdapter<AssetBySearchUiModel, AssetBySearchAdapter.AssetBySearchViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AssetBySearchViewHolder {
         val binding =
@@ -27,10 +17,8 @@ class AssetBySearchAdapter : RecyclerView.Adapter<AssetBySearchAdapter.AssetBySe
     }
 
     override fun onBindViewHolder(holder: AssetBySearchViewHolder, position: Int) {
-        holder.bind(assetBySearchList[position])
+        holder.bind(itemsList[position])
     }
-
-    override fun getItemCount(): Int = assetBySearchList.size
 
     inner class AssetBySearchViewHolder(private val binding: ItemListAssetBySearchBinding) :
         RecyclerView.ViewHolder(binding.root) {

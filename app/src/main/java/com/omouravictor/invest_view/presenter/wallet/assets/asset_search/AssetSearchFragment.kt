@@ -78,7 +78,7 @@ class AssetSearchFragment : Fragment() {
     }
 
     private fun handleUiResultStateSuccess(assetsBySearchList: List<AssetBySearchUiModel>) {
-        assetBySearchAdapter.setAssetsBySearchList(assetsBySearchList)
+        assetBySearchAdapter.updateItemsList(assetsBySearchList)
     }
 
     private fun handleUiResultStateError(message: String) {
