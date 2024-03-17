@@ -64,11 +64,8 @@ class AssetSearchFragment : Fragment() {
     }
 
     private fun setupSearchView(searchView: SearchView) {
-        searchView.onActionViewExpanded()
-        searchView.queryHint = getString(R.string.search_your_asset)
-        searchView.inputType = InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
-
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+        val capCharactersInputType = InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
+        val queryTextListener = object : SearchView.OnQueryTextListener,
             android.widget.SearchView.OnQueryTextListener {
 
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -78,11 +75,16 @@ class AssetSearchFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText.isNullOrEmpty()) searchView.inputType = capCharactersInputType
                 binding.recyclerView.scrollToPosition(0)
                 return true
             }
+        }
 
-        })
+        searchView.onActionViewExpanded()
+        searchView.queryHint = getString(R.string.search_your_asset)
+        searchView.inputType = capCharactersInputType
+        searchView.setOnQueryTextListener(queryTextListener)
     }
 
     private fun setupRecyclerView() {
