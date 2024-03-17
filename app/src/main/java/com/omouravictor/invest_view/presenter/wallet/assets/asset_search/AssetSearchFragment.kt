@@ -36,7 +36,7 @@ class AssetSearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        addSearchViewOptionMenu()
+        addMenuProvider()
         setupRecyclerView()
         observeAssetSearchResults()
     }
@@ -46,7 +46,7 @@ class AssetSearchFragment : Fragment() {
         SystemServiceUtil.hideKeyboard(requireActivity(), requireView())
     }
 
-    private fun addSearchViewOptionMenu() {
+    private fun addMenuProvider() {
         requireActivity().addMenuProvider(
             object : MenuProvider {
 
