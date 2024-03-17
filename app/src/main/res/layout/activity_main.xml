@@ -21,7 +21,9 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/black"
-            app:popupTheme="@style/Theme.InvestView.PopupOverlay" />
+            app:contentInsetStartWithNavigation="0dp"
+            app:popupTheme="@style/Theme.InvestView.PopupOverlay"
+            app:titleMarginStart="0dp" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

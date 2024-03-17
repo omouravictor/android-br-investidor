@@ -1,6 +1,5 @@
 package com.omouravictor.invest_view.presenter.wallet.assets.asset_search
 
-import android.graphics.Color
 import android.os.Bundle
 import android.text.InputType
 import android.view.LayoutInflater
@@ -9,9 +8,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.appcompat.widget.SearchView
-import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
