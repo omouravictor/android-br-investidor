@@ -43,6 +43,7 @@ class AssetSearchFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
+        assetBySearchViewModel.clearAssetsBySearch()
         SystemServiceUtil.hideKeyboard(requireActivity(), requireView())
     }
 
@@ -100,6 +101,7 @@ class AssetSearchFragment : Fragment() {
                 is UiResultState.Success -> handleUiResultStateSuccess(result.data)
                 is UiResultState.Error -> handleUiResultStateError(result.message)
                 is UiResultState.Loading -> handleUiResultStateLoading()
+                is UiResultState.Empty -> {}
             }
         }
     }

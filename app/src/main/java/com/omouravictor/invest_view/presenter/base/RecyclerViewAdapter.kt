@@ -1,7 +1,9 @@
 package com.omouravictor.invest_view.presenter.base
 
+import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView
 
+@SuppressLint("NotifyDataSetChanged")
 abstract class RecyclerViewAdapter<T, VH : RecyclerView.ViewHolder> : RecyclerView.Adapter<VH>() {
 
     protected var itemsList = listOf<T>()

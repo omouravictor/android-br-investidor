@@ -37,6 +37,10 @@ class AssetBySearchViewModel @Inject constructor(
         }
     }
 
+    fun clearAssetsBySearch() {
+        _assetsBySearch.value = UiResultState.Empty
+    }
+
     private fun handleNetworkSuccessResult(assetsBySearchResponse: AssetsBySearchResponse) {
         _assetsBySearch.postValue(UiResultState.Success(assetsBySearchResponse.toAssetsBySearchUiModel()))
     }
