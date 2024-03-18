@@ -17,5 +17,4 @@
     <color name="itemListBackground">#FFFFFF</color>
     <color name="background_rectangle_stroke">#BFBFBF</color>
     <color name="background_rectangle_filled_stroke">@color/black</color>
-    <color name="bottomNavNoCheckedItemColor">#9F9F9F</color>
 </resources>
