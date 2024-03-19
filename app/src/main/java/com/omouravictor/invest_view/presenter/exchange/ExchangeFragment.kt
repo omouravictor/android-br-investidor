@@ -12,7 +12,6 @@ class ExchangeFragment : Fragment() {
 
     private var _binding: FragmentExchangeBinding? = null
     private val binding get() = _binding!!
-    private val exchangeViewModel: ExchangeViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,10 +24,6 @@ class ExchangeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        exchangeViewModel.text.observe(viewLifecycleOwner) {
-            binding.textCurrencies.text = it
-        }
     }
 
     override fun onDestroyView() {

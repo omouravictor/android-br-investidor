@@ -12,7 +12,6 @@ class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
-    private val profileViewModel: ProfileViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,10 +24,6 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        profileViewModel.text.observe(viewLifecycleOwner) {
-            binding.textCurrencies.text = it
-        }
     }
 
     override fun onDestroyView() {

@@ -12,7 +12,6 @@ class DetailsFragment : Fragment() {
 
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
-    private val detailsViewModel: DetailsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,10 +24,6 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        detailsViewModel.text.observe(viewLifecycleOwner) {
-            binding.textDetails.text = it
-        }
     }
 
     override fun onDestroyView() {
