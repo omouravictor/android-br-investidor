@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/fragmentAssetSearch"
-        android:name="com.omouravictor.invest_view.presenter.wallet.assets.asset_search.AssetSearchFragment"
+        android:name="com.omouravictor.invest_view.presenter.wallet.asset_search.AssetSearchFragment"
         android:label="@string/assets_search"
         tools:layout="@layout/fragment_asset_search">
         <action
@@ -27,11 +27,11 @@
 
     <fragment
         android:id="@+id/fragmentSaveAsset"
-        android:name="com.omouravictor.invest_view.presenter.wallet.assets.save_asset.SaveAssetFragment"
+        android:name="com.omouravictor.invest_view.presenter.wallet.save_asset.SaveAssetFragment"
         tools:layout="@layout/fragment_save_asset">
         <argument
             android:name="assetTypeUi"
-            app:argType="com.omouravictor.invest_view.presenter.wallet.assets.model.AssetTypeUiModel" />
+            app:argType="com.omouravictor.invest_view.presenter.wallet.model.AssetTypeUiModel" />
         <action
             android:id="@+id/navToAssetSearchFragment"
             app:destination="@id/fragmentAssetSearch" />

@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.presenter.wallet.assets.asset_search
+package com.omouravictor.invest_view.presenter.wallet.asset_search
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,9 +10,8 @@ import com.omouravictor.invest_view.data.network.remote.model.assetsbysearch.toA
 import com.omouravictor.invest_view.data.network.remote.repository.AssetsRepository
 import com.omouravictor.invest_view.di.base.DispatcherProvider
 import com.omouravictor.invest_view.presenter.base.UiResultState
-import com.omouravictor.invest_view.presenter.wallet.assets.asset_search.model.AssetBySearchUiModel
+import com.omouravictor.invest_view.presenter.wallet.asset_search.model.AssetBySearchUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

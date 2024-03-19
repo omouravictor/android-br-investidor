@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.presenter.wallet.assets.asset_search
+package com.omouravictor.invest_view.presenter.wallet.asset_search
 
 import android.os.Bundle
 import android.text.InputType
@@ -13,14 +13,12 @@ import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetSearchBinding
 import com.omouravictor.invest_view.presenter.base.UiResultState
-import com.omouravictor.invest_view.presenter.wallet.assets.asset_search.model.AssetBySearchUiModel
+import com.omouravictor.invest_view.presenter.wallet.asset_search.model.AssetBySearchUiModel
 import com.omouravictor.invest_view.util.SystemServiceUtil
-import kotlinx.coroutines.Delay
 
 class AssetSearchFragment : Fragment() {
 

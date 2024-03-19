@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.presenter.wallet.assets.save_asset
+package com.omouravictor.invest_view.presenter.wallet.save_asset
 
 import android.os.Build
 import android.os.Bundle
@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentSaveAssetBinding
+import com.omouravictor.invest_view.presenter.wallet.model.AssetTypeUiModel
 import com.omouravictor.invest_view.util.EditTextUtil.setEditTextCurrencyFormat
 import com.omouravictor.invest_view.util.EditTextUtil.setEditTextCursorColor
 import com.omouravictor.invest_view.util.EditTextUtil.setEditTextsAfterTextChanged
@@ -22,9 +23,7 @@ class SaveAssetFragment : Fragment() {
 
     private var _binding: FragmentSaveAssetBinding? = null
     private val binding get() = _binding!!
-    private val assetTypeUiArg by lazy {
-        SaveAssetFragmentArgs.fromBundle(requireArguments()).assetTypeUi
-    }
+    private lateinit var assetTypeUiArg: AssetTypeUiModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +38,8 @@ class SaveAssetFragment : Fragment() {
 
         (requireActivity() as AppCompatActivity)
             .supportActionBar?.title = assetTypeUiArg.description
+
+        assetTypeUiArg = SaveAssetFragmentArgs.fromBundle(requireArguments()).assetTypeUi
 
         setupEditTexts()
         binding.incAssetPreview.vAssetColor.backgroundTintList = assetTypeUiArg.color
