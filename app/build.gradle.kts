@@ -79,6 +79,9 @@ dependencies {
     implementation(platform("com.squareup.okhttp3:okhttp-bom:$okHttpVersion"))
     implementation("com.squareup.okhttp3:okhttp")
     implementation("com.squareup.okhttp3:logging-interceptor")
+
+    val facebookShimmerVersion = "0.5.0"
+    implementation("com.facebook.shimmer:shimmer:$facebookShimmerVersion")
 }
 
 kapt {

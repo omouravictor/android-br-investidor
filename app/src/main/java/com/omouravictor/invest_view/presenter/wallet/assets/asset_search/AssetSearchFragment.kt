@@ -10,14 +10,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuProvider
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetSearchBinding
 import com.omouravictor.invest_view.presenter.base.UiResultState
 import com.omouravictor.invest_view.presenter.wallet.assets.asset_search.model.AssetBySearchUiModel
 import com.omouravictor.invest_view.util.SystemServiceUtil
+import kotlinx.coroutines.Delay
 
 class AssetSearchFragment : Fragment() {
 
@@ -98,15 +101,20 @@ class AssetSearchFragment : Fragment() {
     private fun observeAssetSearchResults() {
         assetBySearchViewModel.assetsBySearch.observe(viewLifecycleOwner) { result ->
             when (result) {
+                is UiResultState.Loading -> handleUiResultStateLoading()
                 is UiResultState.Success -> handleUiResultStateSuccess(result.data)
                 is UiResultState.Error -> handleUiResultStateError(result.message)
-                is UiResultState.Loading -> handleUiResultStateLoading()
-                is UiResultState.Empty -> {}
+                is UiResultState.Empty -> Unit
             }
         }
     }
 
+    private fun handleUiResultStateLoading() {
+        setupViews(shimmerLayoutVisible = true)
+    }
+
     private fun handleUiResultStateSuccess(assetsBySearchList: List<AssetBySearchUiModel>) {
+        setupViews(recyclerViewVisible = true)
         assetBySearchAdapter.updateItemsList(assetsBySearchList)
     }
 
@@ -114,7 +122,24 @@ class AssetSearchFragment : Fragment() {
 
     }
 
-    private fun handleUiResultStateLoading() {
+    private fun setupShimmer(
+        shimmerLayoutVisible: Boolean = false,
+    ) {
+        if (shimmerLayoutVisible) {
+            binding.shimmerLayout.isVisible = true
+            binding.shimmerLayout.startShimmer()
+        } else {
+            binding.shimmerLayout.isVisible = false
+            binding.shimmerLayout.stopShimmer()
+        }
+    }
+
+    private fun setupViews(
+        shimmerLayoutVisible: Boolean = false,
+        recyclerViewVisible: Boolean = false,
+    ) {
+        setupShimmer(shimmerLayoutVisible)
+        binding.recyclerView.isVisible = recyclerViewVisible
     }
 
     override fun onDestroyView() {
