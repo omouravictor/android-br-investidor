@@ -21,15 +21,14 @@ import com.omouravictor.invest_view.util.EditTextUtil.setEditTextsHighLightColor
 
 class SaveAssetFragment : Fragment() {
 
-    private var _binding: FragmentSaveAssetBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentSaveAssetBinding
     private lateinit var assetTypeUiArg: AssetTypeUiModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSaveAssetBinding.inflate(inflater, container, false)
+        binding = FragmentSaveAssetBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -43,11 +42,6 @@ class SaveAssetFragment : Fragment() {
 
         setupEditTexts()
         binding.incAssetPreview.vAssetColor.backgroundTintList = assetTypeUiArg.color
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     private fun setupEditTexts() {

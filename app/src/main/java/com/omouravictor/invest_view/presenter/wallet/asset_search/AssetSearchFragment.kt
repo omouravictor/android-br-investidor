@@ -22,8 +22,7 @@ import com.omouravictor.invest_view.util.SystemServiceUtil
 
 class AssetSearchFragment : Fragment() {
 
-    private var _binding: FragmentAssetSearchBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentAssetSearchBinding
     private val assetBySearchViewModel: AssetBySearchViewModel by activityViewModels()
     private val assetBySearchAdapter = AssetBySearchAdapter()
 
@@ -31,7 +30,7 @@ class AssetSearchFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAssetSearchBinding.inflate(inflater, container, false)
+        binding = FragmentAssetSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -138,11 +137,6 @@ class AssetSearchFragment : Fragment() {
     ) {
         setupShimmer(shimmerLayoutVisible)
         binding.recyclerView.isVisible = recyclerViewVisible
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
 }

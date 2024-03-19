@@ -9,15 +9,14 @@ import com.omouravictor.invest_view.databinding.FragmentAssetsBinding
 
 class AssetsFragment : Fragment() {
 
-    private var _binding: FragmentAssetsBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentAssetsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAssetsBinding.inflate(inflater, container, false)
+        binding = FragmentAssetsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -25,8 +24,4 @@ class AssetsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 }

@@ -14,15 +14,14 @@ import com.omouravictor.invest_view.presenter.wallet.details.DetailsFragment
 
 class WalletFragment : Fragment() {
 
-    private var _binding: FragmentWalletBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentWalletBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentWalletBinding.inflate(inflater, container, false)
+        binding = FragmentWalletBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -44,8 +43,4 @@ class WalletFragment : Fragment() {
         }.attach()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 }
