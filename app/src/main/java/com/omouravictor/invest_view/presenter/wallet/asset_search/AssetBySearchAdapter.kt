@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.omouravictor.invest_view.databinding.ItemListAssetBySearchBinding
-import com.omouravictor.invest_view.presenter.base.RecyclerViewAdapter
+import com.omouravictor.invest_view.presenter.base.adapter.RecyclerViewAdapter
 import com.omouravictor.invest_view.presenter.wallet.asset_search.model.AssetBySearchUiModel
 
 class AssetBySearchAdapter :

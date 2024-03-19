@@ -16,7 +16,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetSearchBinding
-import com.omouravictor.invest_view.presenter.base.UiResultState
+import com.omouravictor.invest_view.presenter.base.model.UiState
 import com.omouravictor.invest_view.presenter.wallet.asset_search.model.AssetBySearchUiModel
 import com.omouravictor.invest_view.util.SystemServiceUtil
 
@@ -39,7 +39,7 @@ class AssetSearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         addMenuProvider()
         setupRecyclerView()
-        observeAssetSearchResults()
+        observeAssetsBySearchState()
     }
 
     override fun onStop() {
@@ -96,27 +96,27 @@ class AssetSearchFragment : Fragment() {
         }
     }
 
-    private fun observeAssetSearchResults() {
-        assetBySearchViewModel.assetsBySearch.observe(viewLifecycleOwner) { result ->
-            when (result) {
-                is UiResultState.Loading -> handleUiResultStateLoading()
-                is UiResultState.Success -> handleUiResultStateSuccess(result.data)
-                is UiResultState.Error -> handleUiResultStateError(result.message)
-                is UiResultState.Empty -> Unit
+    private fun observeAssetsBySearchState() {
+        assetBySearchViewModel.assetsBySearch.observe(viewLifecycleOwner) {
+            when (it) {
+                is UiState.Loading -> handleAssetsBySearchLoading()
+                is UiState.Success -> handleAssetsBySearchSuccess(it.data)
+                is UiState.Error -> handleAssetsBySearchError(it.message)
+                is UiState.Empty -> Unit
             }
         }
     }
 
-    private fun handleUiResultStateLoading() {
+    private fun handleAssetsBySearchLoading() {
         setupViews(shimmerLayoutVisible = true)
     }
 
-    private fun handleUiResultStateSuccess(assetsBySearchList: List<AssetBySearchUiModel>) {
+    private fun handleAssetsBySearchSuccess(assetsBySearchList: List<AssetBySearchUiModel>) {
         setupViews(recyclerViewVisible = true)
         assetBySearchAdapter.updateItemsList(assetsBySearchList)
     }
 
-    private fun handleUiResultStateError(message: String) {
+    private fun handleAssetsBySearchError(message: String) {
 
     }
 

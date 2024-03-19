@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentWalletBinding
-import com.omouravictor.invest_view.presenter.base.ViewPagerAdapter
+import com.omouravictor.invest_view.presenter.base.adapter.ViewPagerAdapter
 import com.omouravictor.invest_view.presenter.wallet.assets.AssetsFragment
 import com.omouravictor.invest_view.presenter.wallet.details.DetailsFragment
 

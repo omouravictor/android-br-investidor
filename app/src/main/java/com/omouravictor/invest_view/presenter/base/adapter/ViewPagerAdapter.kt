@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.presenter.base
+package com.omouravictor.invest_view.presenter.base.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
