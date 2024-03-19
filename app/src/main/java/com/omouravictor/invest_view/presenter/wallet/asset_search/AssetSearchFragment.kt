@@ -99,10 +99,10 @@ class AssetSearchFragment : Fragment() {
     private fun observeAssetsBySearchState() {
         assetBySearchViewModel.assetsBySearch.observe(viewLifecycleOwner) {
             when (it) {
+                is UiState.Empty -> Unit
                 is UiState.Loading -> handleAssetsBySearchLoading()
                 is UiState.Success -> handleAssetsBySearchSuccess(it.data)
                 is UiState.Error -> handleAssetsBySearchError(it.message)
-                is UiState.Empty -> Unit
             }
         }
     }
