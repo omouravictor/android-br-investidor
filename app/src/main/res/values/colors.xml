@@ -15,6 +15,5 @@
     <color name="primary">@color/black</color>
     <color name="itemListPressedTrue">#1A000000</color>
     <color name="itemListBackground">#FFFFFF</color>
-    <color name="background_rectangle_stroke">#BFBFBF</color>
-    <color name="background_rectangle_filled_stroke">@color/black</color>
+    <color name="shimmerBackground">#939393</color>
 </resources>
