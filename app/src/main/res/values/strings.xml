@@ -1,10 +1,5 @@
 <resources>
     <string name="app_name">Invest View</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
     <string name="add">Add</string>
     <string name="settings">Configurações</string>
     <string name="wallet">Carteira</string>
@@ -28,4 +23,5 @@
     <string name="fill_the_fields_to_view">Preencha os campos para visualizar</string>
     <string name="br_money_100">R$ 100,00</string>
     <string name="number_1">1</string>
+    <string name="no_results_found">Nenhum resultado encontrado</string>
 </resources>

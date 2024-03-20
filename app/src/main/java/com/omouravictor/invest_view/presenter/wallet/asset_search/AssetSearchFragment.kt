@@ -38,7 +38,7 @@ class AssetSearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         addMenuProvider()
         setupRecyclerView()
-        observeAssetsBySearchState()
+        observeAssetsBySearch()
     }
 
     override fun onStop() {
@@ -66,17 +66,15 @@ class AssetSearchFragment : Fragment() {
 
     private fun setupSearchView(searchView: SearchView) {
         val capCharactersInputType = InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
-        val queryTextListener = object : SearchView.OnQueryTextListener,
-            android.widget.SearchView.OnQueryTextListener {
-
+        val queryTextListener = object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let { assetBySearchViewModel.getAssetsBySearch(it) }
-                SystemServiceUtil.hideKeyboard(requireActivity(), searchView)
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText.isNullOrEmpty()) searchView.inputType = capCharactersInputType
+                binding.tvNoResults.isVisible = false
                 binding.recyclerView.scrollToPosition(0)
                 return true
             }
@@ -96,7 +94,7 @@ class AssetSearchFragment : Fragment() {
         }
     }
 
-    private fun observeAssetsBySearchState() {
+    private fun observeAssetsBySearch() {
         assetBySearchViewModel.assetsBySearch.observe(viewLifecycleOwner) {
             when (it) {
                 is UiState.Empty -> Unit
@@ -108,11 +106,11 @@ class AssetSearchFragment : Fragment() {
     }
 
     private fun handleAssetsBySearchLoading() {
-        setupViews(shimmerLayoutVisible = true)
+        setupViews(isLoading = true)
     }
 
     private fun handleAssetsBySearchSuccess(assetsBySearchList: List<AssetBySearchUiModel>) {
-        setupViews(recyclerViewVisible = true)
+        setupViews(resultsVisible = assetsBySearchList.isNotEmpty())
         assetBySearchAdapter.updateItemsList(assetsBySearchList)
     }
 
@@ -120,24 +118,42 @@ class AssetSearchFragment : Fragment() {
 
     }
 
-    private fun setupShimmer(
-        shimmerLayoutVisible: Boolean = false,
+    private fun setupViews(
+        isLoading: Boolean = false,
+        resultsVisible: Boolean = false,
     ) {
-        if (shimmerLayoutVisible) {
-            binding.shimmerLayout.isVisible = true
-            binding.shimmerLayout.startShimmer()
+        if (isLoading) {
+            showLoadingViews()
         } else {
-            binding.shimmerLayout.isVisible = false
-            binding.shimmerLayout.stopShimmer()
+            hideLoadingViews()
+            if (resultsVisible) {
+                showResultsViews()
+            } else {
+                showNoResultsViews()
+            }
         }
     }
 
-    private fun setupViews(
-        shimmerLayoutVisible: Boolean = false,
-        recyclerViewVisible: Boolean = false,
-    ) {
-        setupShimmer(shimmerLayoutVisible)
-        binding.recyclerView.isVisible = recyclerViewVisible
+    private fun showLoadingViews() {
+        binding.recyclerView.isVisible = false
+        binding.tvNoResults.isVisible = false
+        binding.shimmerLayout.isVisible = true
+        binding.shimmerLayout.startShimmer()
+    }
+
+    private fun hideLoadingViews() {
+        binding.shimmerLayout.isVisible = false
+        binding.shimmerLayout.stopShimmer()
+    }
+
+    private fun showResultsViews() {
+        binding.recyclerView.isVisible = true
+        binding.tvNoResults.isVisible = false
+    }
+
+    private fun showNoResultsViews() {
+        binding.recyclerView.isVisible = false
+        binding.tvNoResults.isVisible = true
     }
 
 }
