@@ -18,6 +18,7 @@
     <fragment
         android:id="@+id/fragmentAssetSearch"
         android:name="com.omouravictor.invest_view.presenter.wallet.asset_search.AssetSearchFragment"
+        android:label="@string/assets_search"
         tools:layout="@layout/fragment_asset_search">
         <action
             android:id="@+id/navToSaveAssetFragment"
