@@ -15,5 +15,5 @@
     <color name="primary">@color/black</color>
     <color name="itemListPressedTrue">#1A000000</color>
     <color name="itemListBackground">#FFFFFF</color>
-    <color name="shimmerBackground">#939393</color>
+    <color name="shimmerBackground">#656565</color>
 </resources>
