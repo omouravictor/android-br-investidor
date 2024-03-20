@@ -83,6 +83,7 @@ class AssetSearchFragment : Fragment() {
         }
 
         searchView.onActionViewExpanded()
+        searchView.maxWidth = Int.MAX_VALUE
         searchView.queryHint = getString(R.string.search_your_asset)
         searchView.inputType = capCharactersInputType
         searchView.setOnQueryTextListener(queryTextListener)
