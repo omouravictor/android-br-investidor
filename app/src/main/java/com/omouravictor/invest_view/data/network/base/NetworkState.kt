@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.data.network.base.model
+package com.omouravictor.invest_view.data.network.base
 
 sealed class NetworkState<out T> {
     data object Loading : NetworkState<Nothing>()

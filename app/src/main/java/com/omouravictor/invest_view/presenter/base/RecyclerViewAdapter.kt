@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.presenter.base.adapter
+package com.omouravictor.invest_view.presenter.base
 
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView

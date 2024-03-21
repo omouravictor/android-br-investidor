@@ -4,12 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.omouravictor.invest_view.data.network.base.model.NetworkState
+import com.omouravictor.invest_view.data.network.base.NetworkState
 import com.omouravictor.invest_view.data.network.remote.model.assetsbysearch.AssetsBySearchResponse
 import com.omouravictor.invest_view.data.network.remote.model.assetsbysearch.toAssetsBySearchUiModel
 import com.omouravictor.invest_view.data.network.remote.repository.AssetsRepository
 import com.omouravictor.invest_view.di.base.DispatcherProvider
-import com.omouravictor.invest_view.presenter.base.model.UiState
+import com.omouravictor.invest_view.presenter.base.UiState
 import com.omouravictor.invest_view.presenter.wallet.asset_search.model.AssetBySearchUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest

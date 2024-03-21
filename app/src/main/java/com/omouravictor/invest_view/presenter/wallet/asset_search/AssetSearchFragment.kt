@@ -16,7 +16,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetSearchBinding
-import com.omouravictor.invest_view.presenter.base.model.UiState
+import com.omouravictor.invest_view.presenter.base.UiState
 import com.omouravictor.invest_view.presenter.wallet.asset_search.model.AssetBySearchUiModel
 
 class AssetSearchFragment : Fragment() {

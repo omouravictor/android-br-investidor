@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.presenter.base.model
+package com.omouravictor.invest_view.presenter.base
 
 sealed class UiState<out T> {
     data object Empty : UiState<Nothing>()
