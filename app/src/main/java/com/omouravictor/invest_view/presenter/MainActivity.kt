@@ -1,8 +1,11 @@
 package com.omouravictor.invest_view.presenter
 
+import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -25,40 +28,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
-        binding.bottomNav.itemIconTintList = null
-
-        navController =
-            (supportFragmentManager.findFragmentById(R.id.navHostFragmentMain) as NavHostFragment).navController
-        val appBarConfiguration = AppBarConfiguration(
-            topLevelDestinationIds = setOf(
-                R.id.fragmentWallet,
-                R.id.fragmentExchange,
-                R.id.fragmentProfile
-            )
-        )
-
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            when (destination.id) {
-                R.id.fragmentWallet -> handleWalletDestination()
-                R.id.fragmentExchange -> handleExchangeDestination()
-                else -> handleDefaultDestination()
-            }
-        }
-
-        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
-        binding.bottomNav.setupWithNavController(navController)
-
-        binding.bottomNav.setOnItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.walletNavMenu,
-                R.id.exchangeNavMenu,
-                R.id.profileNavMenu -> navigateToMenuItem(menuItem.itemId)
-
-                else -> false
-            }
-        }
-
-        supportActionBar?.title = navController.currentDestination?.label
+        setupNavigation()
+        setupBottomNavigationView()
+        addOnGlobalFocusChangeListener()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -84,6 +56,51 @@ class MainActivity : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun setupNavigation() {
+        navController =
+            (supportFragmentManager.findFragmentById(R.id.navHostFragmentMain) as NavHostFragment).navController
+
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(R.id.fragmentWallet, R.id.fragmentExchange, R.id.fragmentProfile)
+        )
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.fragmentWallet -> handleWalletDestination()
+                R.id.fragmentExchange -> handleExchangeDestination()
+                else -> handleDefaultDestination()
+            }
+        }
+
+        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
+        binding.bottomNav.setupWithNavController(navController)
+        supportActionBar?.title = navController.currentDestination?.label
+    }
+
+    private fun setupBottomNavigationView() {
+        binding.bottomNav.itemIconTintList = null
+        binding.bottomNav.setOnItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.walletNavMenu,
+                R.id.exchangeNavMenu,
+                R.id.profileNavMenu -> navigateToMenuItem(menuItem.itemId)
+
+                else -> false
+            }
+        }
+    }
+
+    private fun addOnGlobalFocusChangeListener() {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        window.decorView.viewTreeObserver.addOnGlobalFocusChangeListener { oldView, newView ->
+            if (newView !is EditText) {
+                imm.hideSoftInputFromWindow(
+                    (oldView ?: newView)?.windowToken ?: window.attributes.token, 0
+                )
+            }
+        }
     }
 
     private fun hideToolbarMenu() {

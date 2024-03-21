@@ -18,7 +18,6 @@ import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetSearchBinding
 import com.omouravictor.invest_view.presenter.base.model.UiState
 import com.omouravictor.invest_view.presenter.wallet.asset_search.model.AssetBySearchUiModel
-import com.omouravictor.invest_view.util.SystemServiceUtil
 
 class AssetSearchFragment : Fragment() {
 
@@ -44,7 +43,6 @@ class AssetSearchFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         assetBySearchViewModel.clearAssetsBySearch()
-        SystemServiceUtil.hideKeyboard(requireActivity(), requireView())
     }
 
     private fun addMenuProvider() {
