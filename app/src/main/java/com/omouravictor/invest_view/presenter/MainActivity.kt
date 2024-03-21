@@ -8,6 +8,9 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowInsetsCompat.Type.ime
+import androidx.core.view.WindowInsetsCompat.toWindowInsetsCompat
+import androidx.core.view.isGone
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -31,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         setupNavigation()
         setupBottomNavigationView()
         addOnGlobalFocusChangeListener()
+        addOnApplyWindowInsetsListener()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -89,6 +93,14 @@ class MainActivity : AppCompatActivity() {
 
                 else -> false
             }
+        }
+    }
+
+    private fun addOnApplyWindowInsetsListener() {
+        window.decorView.setOnApplyWindowInsetsListener { view, insets ->
+            val insetsCompat = toWindowInsetsCompat(insets, view)
+            binding.bottomNav.isGone = insetsCompat.isVisible(ime())
+            view.onApplyWindowInsets(insets)
         }
     }
 
