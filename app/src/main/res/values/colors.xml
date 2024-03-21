@@ -8,7 +8,7 @@
 
     <!-- Asset type colors -->
     <color name="equity">#00C853</color>
-    <color name="mutual_fund">#00B8D4</color>
+    <color name="mutualFund">#00B8D4</color>
 
     <!-- Day/Night colors -->
     <color name="background">@color/white</color>

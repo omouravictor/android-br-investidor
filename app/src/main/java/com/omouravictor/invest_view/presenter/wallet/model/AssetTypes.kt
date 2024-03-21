@@ -4,5 +4,5 @@ import com.omouravictor.invest_view.R
 
 enum class AssetTypes(val description: Int, val color: Int) {
     EQUITY(R.string.stocks, R.color.equity),
-    MUTUAL_FUND(R.string.investment_funds, R.color.mutual_fund)
+    MUTUAL_FUND(R.string.investmentFunds, R.color.mutualFund)
 }
