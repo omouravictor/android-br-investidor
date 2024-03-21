@@ -1,4 +1,13 @@
 <resources>
-    <dimen name="nav_header_height">176dp</dimen>
-    <dimen name="default_elevation">5dp</dimen>
+    <dimen name="defaultElevation">5dp</dimen>
+    <dimen name="defaultCardElevation">3dp</dimen>
+    <dimen name="defaultCardRadius">5dp</dimen>
+    <dimen name="defaultMarginHorizontal">16dp</dimen>
+    <dimen name="defaultMarginVertical">16dp</dimen>
+    <dimen name="defaultPaddingHorizontal">16dp</dimen>
+    <dimen name="defaultPaddingTop">16dp</dimen>
+    <dimen name="defaultMarginStart">16dp</dimen>
+    <dimen name="defaultMarginEnd">16dp</dimen>
+    <dimen name="defaultMarginBottom">16dp</dimen>
+    <dimen name="defaultButtonHeight">56dp</dimen>
 </resources>

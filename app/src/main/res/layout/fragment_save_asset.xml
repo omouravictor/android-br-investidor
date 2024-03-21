@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="16dp"
+    android:paddingTop="@dimen/defaultPaddingTop"
     tools:context=".presenter.wallet.save_asset.SaveAssetFragment">
 
     <TextView
@@ -19,19 +19,17 @@
         android:id="@+id/etAssetSymbol"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="@dimen/defaultMarginStart"
         android:backgroundTint="@color/gray"
         android:cursorVisible="false"
         android:drawableEnd="@drawable/ic_arrow_forward"
-        android:drawablePadding="8dp"
         android:focusable="false"
         android:hint="@string/select"
         android:inputType="text"
-        android:minHeight="48dp"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTittleAssetSymbol"
-        app:layout_constraintWidth_percent="0.43"
+        app:layout_constraintWidth_percent="0.4"
         tools:drawableTint="@color/green" />
 
     <TextView
@@ -46,16 +44,15 @@
         android:id="@+id/etQuantity"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="@dimen/defaultMarginEnd"
         android:backgroundTint="@color/gray"
         android:hint="@string/number_1"
         android:inputType="number"
-        android:minHeight="48dp"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="@+id/etAssetSymbol"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/etAssetSymbol"
-        app:layout_constraintWidth_percent="0.43" />
+        app:layout_constraintWidth_percent="0.4" />
 
     <TextView
         android:id="@+id/tvTittleTotalInvested"
@@ -73,51 +70,45 @@
         android:backgroundTint="@color/gray"
         android:imeOptions="actionDone"
         android:inputType="number"
-        android:minHeight="48dp"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="@+id/etQuantity"
         app:layout_constraintStart_toStartOf="@+id/tvTittleTotalInvested"
         app:layout_constraintTop_toBottomOf="@+id/tvTittleTotalInvested"
         tools:hint="R$ 100,00" />
 
-    <LinearLayout
-        android:id="@+id/llCurrentPosition"
+    <TextView
+        android:id="@+id/tvTittleCurrentPosition"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/defaultMarginHorizontal"
         android:layout_marginTop="16dp"
-        android:orientation="vertical"
+        android:text="@string/current_position"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etTotalInvested">
+        app:layout_constraintTop_toBottomOf="@+id/etTotalInvested" />
 
-        <TextView
-            android:id="@+id/tvTittleCurrentPosition"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:text="@string/current_position" />
-
-        <include
-            android:id="@+id/incAssetPreview"
-            layout="@layout/item_list_asset"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginVertical="8dp" />
-
-    </LinearLayout>
+    <include
+        android:id="@+id/incAssetPreview"
+        layout="@layout/item_list_asset"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/defaultMarginHorizontal"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTittleCurrentPosition" />
 
     <Button
         android:id="@+id/btnSave"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="@dimen/defaultButtonHeight"
+        android:layout_marginHorizontal="@dimen/defaultMarginHorizontal"
+        android:layout_marginTop="24dp"
         android:enabled="false"
         android:text="@string/save"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/llCurrentPosition" />
+        app:layout_constraintTop_toBottomOf="@+id/incAssetPreview" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

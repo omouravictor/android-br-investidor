@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="16dp"
-    app:cardCornerRadius="5dp"
-    app:cardElevation="3dp">
+    android:layout_marginBottom="@dimen/defaultMarginBottom"
+    app:cardCornerRadius="@dimen/defaultCardRadius"
+    app:cardElevation="@dimen/defaultElevation">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
