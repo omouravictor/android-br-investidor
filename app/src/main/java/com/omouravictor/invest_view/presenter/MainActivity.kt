@@ -83,6 +83,13 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.title = navController.currentDestination?.label
     }
 
+    private fun navigateToMenuItem(menuItemId: Int): Boolean {
+        val startDestination = navController.graph.findNode(menuItemId)!!.id
+        navController.popBackStack(startDestination, true)
+        navController.navigate(menuItemId)
+        return true
+    }
+
     private fun setupBottomNavigationView() {
         binding.bottomNav.itemIconTintList = null
         binding.bottomNav.setOnItemSelectedListener { menuItem ->
@@ -142,10 +149,4 @@ class MainActivity : AppCompatActivity() {
         hideToolbarMenu()
     }
 
-    private fun navigateToMenuItem(menuItemId: Int): Boolean {
-        val startDestination = navController.graph.findNode(menuItemId)!!.id
-        navController.popBackStack(startDestination, true)
-        navController.navigate(menuItemId)
-        return true
-    }
 }
