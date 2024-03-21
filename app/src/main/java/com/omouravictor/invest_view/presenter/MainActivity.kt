@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
-        setupNavigation()
+        setupMainNavigation()
         setupBottomNavigationView()
         addOnGlobalFocusChangeListener()
         addOnApplyWindowInsetsListener()
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun setupNavigation() {
+    private fun setupMainNavigation() {
         navController =
             (supportFragmentManager.findFragmentById(R.id.navHostFragmentMain) as NavHostFragment).navController
 
