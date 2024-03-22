@@ -72,7 +72,7 @@ class AssetSearchFragment : Fragment() {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText.isNullOrEmpty()) searchView.inputType = capCharactersInputType
-                binding.tvNoResults.isVisible = false
+                binding.tvResultsInfo.isVisible = false
                 binding.recyclerView.scrollToPosition(0)
                 return true
             }
@@ -113,7 +113,8 @@ class AssetSearchFragment : Fragment() {
     }
 
     private fun handleAssetsBySearchError(message: String) {
-
+        setupViews(resultsVisible = false)
+        binding.tvResultsInfo.text = message
     }
 
     private fun setupViews(
@@ -121,37 +122,38 @@ class AssetSearchFragment : Fragment() {
         resultsVisible: Boolean = false,
     ) {
         if (isLoading) {
-            showLoadingViews()
+            setupLoading()
         } else {
-            hideLoadingViews()
+            setupNoLoading()
             if (resultsVisible) {
-                showResultsViews()
+                setupResults()
             } else {
-                showNoResultsViews()
+                setupNoResults()
             }
         }
     }
 
-    private fun showLoadingViews() {
+    private fun setupLoading() {
         binding.recyclerView.isVisible = false
-        binding.tvNoResults.isVisible = false
+        binding.tvResultsInfo.isVisible = false
         binding.shimmerLayout.isVisible = true
         binding.shimmerLayout.startShimmer()
     }
 
-    private fun hideLoadingViews() {
+    private fun setupNoLoading() {
         binding.shimmerLayout.isVisible = false
         binding.shimmerLayout.stopShimmer()
     }
 
-    private fun showResultsViews() {
+    private fun setupResults() {
         binding.recyclerView.isVisible = true
-        binding.tvNoResults.isVisible = false
+        binding.tvResultsInfo.isVisible = false
     }
 
-    private fun showNoResultsViews() {
+    private fun setupNoResults() {
         binding.recyclerView.isVisible = false
-        binding.tvNoResults.isVisible = true
+        binding.tvResultsInfo.isVisible = true
+        binding.tvResultsInfo.text = getString(R.string.noResultsFound)
     }
 
 }
