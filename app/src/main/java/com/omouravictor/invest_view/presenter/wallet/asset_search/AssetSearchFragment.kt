@@ -62,7 +62,7 @@ class AssetSearchFragment : Fragment() {
         )
 
         binding.btnTryAgain.setOnClickListener {
-            searchView.setQuery(searchView.query.toString(), true)
+            searchView.setQuery(searchView.query, true)
         }
     }
 
@@ -109,20 +109,20 @@ class AssetSearchFragment : Fragment() {
 
     private fun setupViews(
         isLoading: Boolean = false,
-        isResultsEmpty: Boolean = false,
+        isSuccessResultsEmpty: Boolean = false,
         isError: Boolean = false
     ) {
         binding.shimmerLayout.isVisible = isLoading
-        binding.tvResultsInfo.isVisible = isResultsEmpty || isError
+        binding.tvResultsInfo.isVisible = isSuccessResultsEmpty || isError
         binding.btnTryAgain.isVisible = isError
-        binding.recyclerView.isVisible = !isLoading && !isResultsEmpty && !isError
+        binding.recyclerView.isVisible = !isLoading && !isSuccessResultsEmpty && !isError
 
         if (isLoading)
             binding.shimmerLayout.startShimmer()
         else
             binding.shimmerLayout.stopShimmer()
 
-        if (isResultsEmpty)
+        if (isSuccessResultsEmpty)
             binding.tvResultsInfo.text = getString(R.string.noResultsFound)
     }
 
@@ -131,7 +131,7 @@ class AssetSearchFragment : Fragment() {
     }
 
     private fun handleAssetsBySearchSuccess(assetsBySearchList: List<AssetBySearchUiModel>) {
-        setupViews(isResultsEmpty = assetsBySearchList.isEmpty())
+        setupViews(isSuccessResultsEmpty = assetsBySearchList.isEmpty())
         assetBySearchAdapter.updateItemsList(assetsBySearchList)
     }
 
