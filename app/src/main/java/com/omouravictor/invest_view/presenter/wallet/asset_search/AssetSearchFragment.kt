@@ -22,7 +22,8 @@ import com.omouravictor.invest_view.presenter.wallet.asset_search.model.AssetByS
 class AssetSearchFragment : Fragment() {
 
     private lateinit var binding: FragmentAssetSearchBinding
-    private val assetBySearchViewModel: AssetBySearchViewModel by activityViewModels()
+    private lateinit var searchView: SearchView
+    private val assetSearchViewModel: AssetSearchViewModel by activityViewModels()
     private val assetBySearchAdapter = AssetBySearchAdapter()
 
     override fun onCreateView(
@@ -42,7 +43,7 @@ class AssetSearchFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
-        assetBySearchViewModel.clearAssetsBySearch()
+        assetSearchViewModel.clearAssetsBySearch()
     }
 
     private fun addMenuProvider() {
@@ -51,8 +52,7 @@ class AssetSearchFragment : Fragment() {
 
                 override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                     menuInflater.inflate(R.menu.options_menu_search, menu)
-                    val searchMenuItem = menu.findItem(R.id.searchAsset)
-                    val searchView = searchMenuItem.actionView as SearchView
+                    searchView = menu.findItem(R.id.searchAsset).actionView as SearchView
                     setupSearchView(searchView)
                 }
 
@@ -60,19 +60,23 @@ class AssetSearchFragment : Fragment() {
 
             }, viewLifecycleOwner
         )
+
+        binding.btnTryAgain.setOnClickListener {
+            searchView.setQuery(searchView.query.toString(), true)
+        }
     }
 
     private fun setupSearchView(searchView: SearchView) {
         val capCharactersInputType = InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
         val queryTextListener = object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                query?.let { assetBySearchViewModel.getAssetsBySearch(it) }
+                query?.let { assetSearchViewModel.getAssetsBySearch(it) }
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText.isNullOrEmpty()) searchView.inputType = capCharactersInputType
-                binding.tvResultsInfo.isVisible = false
+                if (newText.isNullOrEmpty())
+                    searchView.inputType = capCharactersInputType
                 binding.recyclerView.scrollToPosition(0)
                 return true
             }
@@ -93,7 +97,7 @@ class AssetSearchFragment : Fragment() {
     }
 
     private fun observeAssetsBySearch() {
-        assetBySearchViewModel.assetsBySearch.observe(viewLifecycleOwner) {
+        assetSearchViewModel.assetsBySearch.observe(viewLifecycleOwner) {
             when (it) {
                 is UiState.Empty -> Unit
                 is UiState.Loading -> handleAssetsBySearchLoading()
@@ -103,57 +107,37 @@ class AssetSearchFragment : Fragment() {
         }
     }
 
+    private fun setupViews(
+        isLoading: Boolean = false,
+        isResultsEmpty: Boolean = false,
+        isError: Boolean = false
+    ) {
+        binding.shimmerLayout.isVisible = isLoading
+        binding.tvResultsInfo.isVisible = isResultsEmpty || isError
+        binding.btnTryAgain.isVisible = isError
+        binding.recyclerView.isVisible = !isLoading && !isResultsEmpty && !isError
+
+        if (isLoading)
+            binding.shimmerLayout.startShimmer()
+        else
+            binding.shimmerLayout.stopShimmer()
+
+        if (isResultsEmpty)
+            binding.tvResultsInfo.text = getString(R.string.noResultsFound)
+    }
+
     private fun handleAssetsBySearchLoading() {
         setupViews(isLoading = true)
     }
 
     private fun handleAssetsBySearchSuccess(assetsBySearchList: List<AssetBySearchUiModel>) {
-        setupViews(resultsVisible = assetsBySearchList.isNotEmpty())
+        setupViews(isResultsEmpty = assetsBySearchList.isEmpty())
         assetBySearchAdapter.updateItemsList(assetsBySearchList)
     }
 
     private fun handleAssetsBySearchError(message: String) {
-        setupViews(resultsVisible = false)
+        setupViews(isError = true)
         binding.tvResultsInfo.text = message
-    }
-
-    private fun setupViews(
-        isLoading: Boolean = false,
-        resultsVisible: Boolean = false,
-    ) {
-        if (isLoading) {
-            setupLoading()
-        } else {
-            setupNoLoading()
-            if (resultsVisible) {
-                setupResults()
-            } else {
-                setupNoResults()
-            }
-        }
-    }
-
-    private fun setupLoading() {
-        binding.recyclerView.isVisible = false
-        binding.tvResultsInfo.isVisible = false
-        binding.shimmerLayout.isVisible = true
-        binding.shimmerLayout.startShimmer()
-    }
-
-    private fun setupNoLoading() {
-        binding.shimmerLayout.isVisible = false
-        binding.shimmerLayout.stopShimmer()
-    }
-
-    private fun setupResults() {
-        binding.recyclerView.isVisible = true
-        binding.tvResultsInfo.isVisible = false
-    }
-
-    private fun setupNoResults() {
-        binding.recyclerView.isVisible = false
-        binding.tvResultsInfo.isVisible = true
-        binding.tvResultsInfo.text = getString(R.string.noResultsFound)
     }
 
 }

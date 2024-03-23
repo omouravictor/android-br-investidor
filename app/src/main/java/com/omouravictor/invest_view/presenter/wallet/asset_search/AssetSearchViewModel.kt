@@ -21,7 +21,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class AssetBySearchViewModel @Inject constructor(
+class AssetSearchViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
     private val assetsRepository: AssetsRepository,
     private val dispatchers: DispatcherProvider
