@@ -21,6 +21,7 @@ import com.omouravictor.invest_view.presenter.base.UiState
 import com.omouravictor.invest_view.presenter.wallet.AssetDTO
 import com.omouravictor.invest_view.presenter.wallet.asset_quote.AssetQuoteViewModel
 import com.omouravictor.invest_view.presenter.wallet.asset_search.model.AssetBySearchUiModel
+import com.omouravictor.invest_view.presenter.wallet.model.AssetTypes
 
 class AssetSearchFragment : Fragment() {
 
@@ -76,7 +77,13 @@ class AssetSearchFragment : Fragment() {
 
     private fun setupAdapter() {
         assetBySearchAdapter.updateOnClickItem { assetBySearchUiModel ->
-            assetDTO.assetBySearchUiModel = assetBySearchUiModel
+            assetDTO.symbol = assetBySearchUiModel.symbol
+            assetDTO.name = assetBySearchUiModel.name
+            assetDTO.assetTypes = try {
+                AssetTypes.valueOf(assetBySearchUiModel.type.uppercase())
+            } catch (e: IllegalArgumentException) {
+                AssetTypes.OTHERS
+            }
             assetQuoteViewModel.getAssetQuote(assetBySearchUiModel.symbol)
         }
     }
@@ -128,7 +135,7 @@ class AssetSearchFragment : Fragment() {
                 is UiState.Empty -> Unit
                 is UiState.Loading -> Unit
                 is UiState.Success -> {
-                    assetDTO.assetQuoteUiModel = it.data
+                    assetDTO.price = it.data.price
                     findNavController()
                         .navigate(AssetSearchFragmentDirections.navToSaveAssetFragment(assetDTO))
                 }

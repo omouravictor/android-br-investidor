@@ -6,7 +6,7 @@ import com.omouravictor.invest_view.R
 
 enum class AssetTypes(private val descriptionResId: Int, private val colorResId: Int) {
 
-    UNKNOWN(R.string.asset, R.color.green),
+    OTHERS(R.string.others, R.color.gray),
     EQUITY(R.string.stocks, R.color.equity),
     MUTUAL_FUND(R.string.investmentFunds, R.color.mutualFund);
 
@@ -14,7 +14,7 @@ enum class AssetTypes(private val descriptionResId: Int, private val colorResId:
         return context.getString(descriptionResId)
     }
 
-    fun getColor(): ColorStateList {
-        return ColorStateList.valueOf(colorResId)
+    fun getColor(context: Context): ColorStateList {
+        return context.getColorStateList(colorResId)
     }
 }

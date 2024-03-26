@@ -32,9 +32,6 @@
         <argument
             android:name="assetDTO"
             app:argType="com.omouravictor.invest_view.presenter.wallet.AssetDTO" />
-        <action
-            android:id="@+id/navToAssetSearchFragment"
-            app:destination="@id/fragmentAssetSearch" />
     </fragment>
 
 </navigation>

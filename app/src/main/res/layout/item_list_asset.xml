@@ -41,22 +41,23 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="6dp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/tvWalletPercent"
+                app:layout_constraintBottom_toTopOf="@+id/tvCompanyName"
                 app:layout_constraintEnd_toStartOf="@+id/tvCurrentTotalValue"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="KNIP11 (1)" />
 
             <TextView
-                android:id="@+id/tvWalletPercent"
+                android:id="@+id/tvCompanyName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/tvAssetName"
+                app:layout_constraintEnd_toStartOf="@+id/asdsa"
                 app:layout_constraintStart_toStartOf="@+id/tvAssetName"
-                tools:text="15,55%" />
+                tools:text="Vale" />
 
             <TextView
                 android:id="@+id/tvCurrentTotalValue"
@@ -64,10 +65,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/tvAssetName"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvAssetName"
                 tools:text="R$ 47,95" />
+
+            <TextView
+                android:id="@+id/asdsa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/tvCompanyName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvCompanyName"
+                tools:text="-R$ 40,95  (↓23,18%)" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

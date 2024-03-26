@@ -22,7 +22,7 @@ import com.omouravictor.invest_view.util.EditTextUtil.setEditTextsHighLightColor
 class SaveAssetFragment : Fragment() {
 
     private lateinit var binding: FragmentSaveAssetBinding
-    private lateinit var assetDTO: AssetDTO
+    private val assetDTO: AssetDTO by lazy { SaveAssetFragmentArgs.fromBundle(requireArguments()).assetDTO }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,17 +35,19 @@ class SaveAssetFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        assetDTO = SaveAssetFragmentArgs.fromBundle(requireArguments()).assetDTO
-
         (requireActivity() as AppCompatActivity)
             .supportActionBar?.title = assetDTO.assetTypes.getDescription(requireContext())
 
         setupEditTexts()
-        binding.incAssetPreview.vAssetColor.backgroundTintList = assetDTO.assetTypes.getColor()
+
+        binding.etAssetSymbol.setText(assetDTO.symbol)
+
+        binding.incAssetPreview.vAssetColor.backgroundTintList =
+            assetDTO.assetTypes.getColor(requireContext())
     }
 
     private fun setupEditTexts() {
-        val colorStateList = assetDTO.assetTypes.getColor()
+        val colorStateList = assetDTO.assetTypes.getColor(requireContext())
         val defaultColor = colorStateList.defaultColor
 
         TextViewCompat.setCompoundDrawableTintList(binding.etAssetSymbol, colorStateList)
@@ -58,9 +60,7 @@ class SaveAssetFragment : Fragment() {
             binding.etQuantity,
             binding.etTotalInvested
         )
-        binding.etAssetSymbol.setOnClickListener {
-            findNavController().navigate(SaveAssetFragmentDirections.navToAssetSearchFragment())
-        }
+        binding.etAssetSymbol.setOnClickListener { findNavController().popBackStack() }
         setEditTextCurrencyFormat(binding.etTotalInvested)
         binding.etTotalInvested.hint = if (Build.VERSION.SDK_INT >= 28) "R$ 100,00" else "R$100,00"
     }
@@ -68,7 +68,7 @@ class SaveAssetFragment : Fragment() {
     private fun setEditTextsFocusChange(vararg editTexts: EditText) {
         editTexts.forEach { editText ->
             editText.setOnFocusChangeListener { v, hasFocus ->
-                v.backgroundTintList = if (hasFocus) assetDTO.assetTypes.getColor()
+                v.backgroundTintList = if (hasFocus) assetDTO.assetTypes.getColor(requireContext())
                 else getColorStateList(requireContext(), R.color.gray)
             }
         }
@@ -83,8 +83,9 @@ class SaveAssetFragment : Fragment() {
             binding.incAssetPreview.clAssetInfo.visibility = View.VISIBLE
             binding.incAssetPreview.tvAssetName.text =
                 "${binding.etAssetSymbol.text} (${binding.etQuantity.text})"
-            binding.incAssetPreview.tvWalletPercent.text = "15,55%"
-            binding.incAssetPreview.tvCurrentTotalValue.text = "R$ 1.000,00"
+            binding.incAssetPreview.tvCompanyName.text = assetDTO.name
+            binding.incAssetPreview.tvCurrentTotalValue.text =
+                "R$ ${assetDTO.price * binding.etQuantity.text.toString().toInt()}"
 
             binding.btnSave.isEnabled = true
 

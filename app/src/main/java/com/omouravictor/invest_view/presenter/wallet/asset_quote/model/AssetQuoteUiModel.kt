@@ -9,7 +9,7 @@ data class AssetQuoteUiModel(
     val open: String,
     val high: String,
     val low: String,
-    val price: String,
+    val price: Double,
     val volume: String,
     val latestTradingDay: String,
     val previousClose: String,
