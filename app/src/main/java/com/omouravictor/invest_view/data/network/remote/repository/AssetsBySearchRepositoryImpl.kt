@@ -6,8 +6,8 @@ import com.omouravictor.invest_view.data.network.remote.model.assetsbysearch.Ass
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class AssetsRepositoryImpl(private val alphaVantageService: AlphaVantageService) :
-    AssetsRepository {
+class AssetsBySearchRepositoryImpl(private val alphaVantageService: AlphaVantageService) :
+    AssetsBySearchRepository {
 
     override suspend fun getRemoteAssetsBySearch(keywords: String): Flow<NetworkState<AssetsBySearchResponse>> {
         return flow {

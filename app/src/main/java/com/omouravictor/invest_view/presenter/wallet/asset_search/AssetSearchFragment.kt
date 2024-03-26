@@ -13,10 +13,13 @@ import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetSearchBinding
 import com.omouravictor.invest_view.presenter.base.UiState
+import com.omouravictor.invest_view.presenter.wallet.AssetDTO
+import com.omouravictor.invest_view.presenter.wallet.asset_quote.AssetQuoteViewModel
 import com.omouravictor.invest_view.presenter.wallet.asset_search.model.AssetBySearchUiModel
 
 class AssetSearchFragment : Fragment() {
@@ -24,7 +27,9 @@ class AssetSearchFragment : Fragment() {
     private lateinit var binding: FragmentAssetSearchBinding
     private lateinit var searchView: SearchView
     private val assetSearchViewModel: AssetSearchViewModel by activityViewModels()
+    private val assetQuoteViewModel: AssetQuoteViewModel by activityViewModels()
     private val assetBySearchAdapter = AssetBySearchAdapter()
+    private val assetDTO = AssetDTO()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,13 +42,16 @@ class AssetSearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         addMenuProvider()
+        setupAdapter()
         setupRecyclerView()
         observeAssetsBySearch()
+        observeAssetQuote()
     }
 
     override fun onStop() {
         super.onStop()
         assetSearchViewModel.clearAssetsBySearch()
+        assetQuoteViewModel.clearAssetQuote()
     }
 
     private fun addMenuProvider() {
@@ -63,6 +71,13 @@ class AssetSearchFragment : Fragment() {
 
         binding.btnTryAgain.setOnClickListener {
             searchView.setQuery(searchView.query, true)
+        }
+    }
+
+    private fun setupAdapter() {
+        assetBySearchAdapter.updateOnClickItem { assetBySearchUiModel ->
+            assetDTO.assetBySearchUiModel = assetBySearchUiModel
+            assetQuoteViewModel.getAssetQuote(assetBySearchUiModel.symbol)
         }
     }
 
@@ -103,6 +118,22 @@ class AssetSearchFragment : Fragment() {
                 is UiState.Loading -> handleAssetsBySearchLoading()
                 is UiState.Success -> handleAssetsBySearchSuccess(it.data)
                 is UiState.Error -> handleAssetsBySearchError(it.message)
+            }
+        }
+    }
+
+    private fun observeAssetQuote() {
+        assetQuoteViewModel.assetQuote.observe(viewLifecycleOwner) {
+            when (it) {
+                is UiState.Empty -> Unit
+                is UiState.Loading -> Unit
+                is UiState.Success -> {
+                    assetDTO.assetQuoteUiModel = it.data
+                    findNavController()
+                        .navigate(AssetSearchFragmentDirections.navToSaveAssetFragment(assetDTO))
+                }
+
+                is UiState.Error -> Unit
             }
         }
     }

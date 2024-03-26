@@ -26,6 +26,7 @@ class AssetBySearchAdapter :
         fun bind(assetBySearchUiModel: AssetBySearchUiModel) {
             binding.tvAssetSymbol.text = assetBySearchUiModel.symbol
             binding.tvAssetName.text = assetBySearchUiModel.name
+            itemView.setOnClickListener { onClickItem(assetBySearchUiModel) }
         }
     }
 }

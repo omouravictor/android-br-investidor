@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentSaveAssetBinding
-import com.omouravictor.invest_view.presenter.wallet.model.AssetTypeUiModel
+import com.omouravictor.invest_view.presenter.wallet.AssetDTO
 import com.omouravictor.invest_view.util.EditTextUtil.setEditTextCurrencyFormat
 import com.omouravictor.invest_view.util.EditTextUtil.setEditTextCursorColor
 import com.omouravictor.invest_view.util.EditTextUtil.setEditTextsAfterTextChanged
@@ -22,7 +22,7 @@ import com.omouravictor.invest_view.util.EditTextUtil.setEditTextsHighLightColor
 class SaveAssetFragment : Fragment() {
 
     private lateinit var binding: FragmentSaveAssetBinding
-    private lateinit var assetTypeUiArg: AssetTypeUiModel
+    private lateinit var assetDTO: AssetDTO
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,23 +35,22 @@ class SaveAssetFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (requireActivity() as AppCompatActivity)
-            .supportActionBar?.title = assetTypeUiArg.description
+        assetDTO = SaveAssetFragmentArgs.fromBundle(requireArguments()).assetDTO
 
-        assetTypeUiArg = SaveAssetFragmentArgs.fromBundle(requireArguments()).assetTypeUi
+        (requireActivity() as AppCompatActivity)
+            .supportActionBar?.title = assetDTO.assetTypes.getDescription(requireContext())
 
         setupEditTexts()
-        binding.incAssetPreview.vAssetColor.backgroundTintList = assetTypeUiArg.color
+        binding.incAssetPreview.vAssetColor.backgroundTintList = assetDTO.assetTypes.getColor()
     }
 
     private fun setupEditTexts() {
-        TextViewCompat.setCompoundDrawableTintList(binding.etAssetSymbol, assetTypeUiArg.color)
-        setEditTextCursorColor(binding.etQuantity, assetTypeUiArg.color.defaultColor)
-        setEditTextsHighLightColor(
-            assetTypeUiArg.color.defaultColor,
-            binding.etQuantity,
-            binding.etTotalInvested
-        )
+        val colorStateList = assetDTO.assetTypes.getColor()
+        val defaultColor = colorStateList.defaultColor
+
+        TextViewCompat.setCompoundDrawableTintList(binding.etAssetSymbol, colorStateList)
+        setEditTextCursorColor(binding.etQuantity, defaultColor)
+        setEditTextsHighLightColor(defaultColor, binding.etQuantity, binding.etTotalInvested)
         setEditTextsFocusChange(binding.etQuantity, binding.etTotalInvested)
         setEditTextsAfterTextChanged(
             { updateAssetPreview() },
@@ -69,7 +68,7 @@ class SaveAssetFragment : Fragment() {
     private fun setEditTextsFocusChange(vararg editTexts: EditText) {
         editTexts.forEach { editText ->
             editText.setOnFocusChangeListener { v, hasFocus ->
-                v.backgroundTintList = if (hasFocus) assetTypeUiArg.color
+                v.backgroundTintList = if (hasFocus) assetDTO.assetTypes.getColor()
                 else getColorStateList(requireContext(), R.color.gray)
             }
         }

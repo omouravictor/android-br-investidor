@@ -9,7 +9,7 @@ import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.data.network.base.NetworkState
 import com.omouravictor.invest_view.data.network.remote.model.assetsbysearch.AssetsBySearchResponse
 import com.omouravictor.invest_view.data.network.remote.model.assetsbysearch.toAssetsBySearchUiModel
-import com.omouravictor.invest_view.data.network.remote.repository.AssetsRepository
+import com.omouravictor.invest_view.data.network.remote.repository.AssetsBySearchRepository
 import com.omouravictor.invest_view.di.base.DispatcherProvider
 import com.omouravictor.invest_view.presenter.base.UiState
 import com.omouravictor.invest_view.presenter.wallet.asset_search.model.AssetBySearchUiModel
@@ -23,7 +23,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AssetSearchViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val assetsRepository: AssetsRepository,
+    private val assetsBySearchRepository: AssetsBySearchRepository,
     private val dispatchers: DispatcherProvider
 ) : ViewModel() {
 
@@ -33,7 +33,7 @@ class AssetSearchViewModel @Inject constructor(
     fun getAssetsBySearch(keywords: String) {
         viewModelScope.launch {
             withContext(dispatchers.io) {
-                assetsRepository.getRemoteAssetsBySearch(keywords)
+                assetsBySearchRepository.getRemoteAssetsBySearch(keywords)
             }.collectLatest { networkState ->
                 when (networkState) {
                     is NetworkState.Loading -> handleRemoteAssetsBySearchLoading()

@@ -1,8 +1,10 @@
 package com.omouravictor.invest_view.di.module
 
 import com.omouravictor.invest_view.data.network.remote.api.AlphaVantageService
-import com.omouravictor.invest_view.data.network.remote.repository.AssetsRepository
-import com.omouravictor.invest_view.data.network.remote.repository.AssetsRepositoryImpl
+import com.omouravictor.invest_view.data.network.remote.repository.AssetQuoteRepository
+import com.omouravictor.invest_view.data.network.remote.repository.AssetQuoteRepositoryImpl
+import com.omouravictor.invest_view.data.network.remote.repository.AssetsBySearchRepository
+import com.omouravictor.invest_view.data.network.remote.repository.AssetsBySearchRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,8 +17,14 @@ object RepositoriesModule {
 
     @Singleton
     @Provides
-    fun provideAssetsRepository(
+    fun provideAssetsBySearchRepository(
         alphaVantageService: AlphaVantageService
-    ): AssetsRepository = AssetsRepositoryImpl(alphaVantageService)
+    ): AssetsBySearchRepository = AssetsBySearchRepositoryImpl(alphaVantageService)
+
+    @Singleton
+    @Provides
+    fun provideAssetQuoteRepository(
+        alphaVantageService: AlphaVantageService
+    ): AssetQuoteRepository = AssetQuoteRepositoryImpl(alphaVantageService)
 
 }

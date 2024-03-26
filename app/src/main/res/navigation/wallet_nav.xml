@@ -30,8 +30,8 @@
         android:name="com.omouravictor.invest_view.presenter.wallet.save_asset.SaveAssetFragment"
         tools:layout="@layout/fragment_save_asset">
         <argument
-            android:name="assetTypeUi"
-            app:argType="com.omouravictor.invest_view.presenter.wallet.model.AssetTypeUiModel" />
+            android:name="assetDTO"
+            app:argType="com.omouravictor.invest_view.presenter.wallet.AssetDTO" />
         <action
             android:id="@+id/navToAssetSearchFragment"
             app:destination="@id/fragmentAssetSearch" />
