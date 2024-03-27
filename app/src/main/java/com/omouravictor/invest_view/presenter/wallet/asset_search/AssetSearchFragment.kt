@@ -18,9 +18,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetSearchBinding
 import com.omouravictor.invest_view.presenter.base.UiState
-import com.omouravictor.invest_view.presenter.wallet.asset_quote.AssetQuoteViewModel
-import com.omouravictor.invest_view.presenter.wallet.asset_quote.model.AssetQuoteUiModel
-import com.omouravictor.invest_view.presenter.wallet.asset_search.model.AssetBySearchUiModel
+import com.omouravictor.invest_view.presenter.wallet.model.AssetBySearchUiModel
+import com.omouravictor.invest_view.presenter.wallet.model.AssetQuoteUiModel
 
 class AssetSearchFragment : Fragment() {
 
@@ -28,7 +27,6 @@ class AssetSearchFragment : Fragment() {
     private lateinit var searchView: SearchView
     private lateinit var assetBySearchDTO: AssetBySearchUiModel
     private val assetSearchViewModel: AssetSearchViewModel by activityViewModels()
-    private val assetQuoteViewModel: AssetQuoteViewModel by activityViewModels()
     private val assetBySearchAdapter = AssetBySearchAdapter()
 
     override fun onCreateView(
@@ -50,8 +48,7 @@ class AssetSearchFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
-        assetSearchViewModel.clearAssetsBySearch()
-        assetQuoteViewModel.clearAssetQuote()
+        assetSearchViewModel.clearLiveDataValues()
     }
 
     private fun addMenuProvider() {
@@ -75,9 +72,9 @@ class AssetSearchFragment : Fragment() {
     }
 
     private fun setupAdapter() {
-        assetBySearchAdapter.updateOnClickItem { assetBySearchUiModel ->
-            assetBySearchDTO = assetBySearchUiModel
-            assetQuoteViewModel.getAssetQuote(assetBySearchUiModel.symbol)
+        assetBySearchAdapter.updateOnClickItem {
+            assetBySearchDTO = it
+            assetSearchViewModel.getAssetQuote(it.symbol)
         }
     }
 
@@ -123,7 +120,7 @@ class AssetSearchFragment : Fragment() {
     }
 
     private fun observeAssetQuote() {
-        assetQuoteViewModel.assetQuote.observe(viewLifecycleOwner) {
+        assetSearchViewModel.assetQuote.observe(viewLifecycleOwner) {
             when (it) {
                 is UiState.Empty -> Unit
                 is UiState.Loading -> handleAssetQuoteLoading()

@@ -32,7 +32,7 @@
         tools:layout="@layout/fragment_save_asset">
         <argument
             android:name="assetBySearchDTO"
-            app:argType="com.omouravictor.invest_view.presenter.wallet.asset_search.model.AssetBySearchUiModel" />
+            app:argType="com.omouravictor.invest_view.presenter.wallet.model.AssetBySearchUiModel" />
     </fragment>
 
 </navigation>

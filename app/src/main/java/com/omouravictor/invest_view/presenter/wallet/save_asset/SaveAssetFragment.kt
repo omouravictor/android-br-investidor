@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentSaveAssetBinding
-import com.omouravictor.invest_view.presenter.wallet.asset_search.model.AssetBySearchUiModel
+import com.omouravictor.invest_view.presenter.wallet.model.AssetBySearchUiModel
 import com.omouravictor.invest_view.util.EditTextUtil.setEditTextCurrencyFormat
 import com.omouravictor.invest_view.util.EditTextUtil.setEditTextCursorColor
 import com.omouravictor.invest_view.util.EditTextUtil.setEditTextsAfterTextChanged

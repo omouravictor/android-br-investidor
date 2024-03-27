@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.presenter.wallet.model
+package com.omouravictor.invest_view.presenter.wallet.base
 
 import android.content.Context
 import android.content.res.ColorStateList

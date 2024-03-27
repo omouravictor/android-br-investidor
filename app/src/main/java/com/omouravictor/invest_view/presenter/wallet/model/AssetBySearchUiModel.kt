@@ -1,7 +1,7 @@
-package com.omouravictor.invest_view.presenter.wallet.asset_search.model
+package com.omouravictor.invest_view.presenter.wallet.model
 
 import android.os.Parcelable
-import com.omouravictor.invest_view.presenter.wallet.model.AssetTypes
+import com.omouravictor.invest_view.presenter.wallet.base.AssetTypes
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
