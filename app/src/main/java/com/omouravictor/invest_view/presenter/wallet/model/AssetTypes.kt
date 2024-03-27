@@ -6,7 +6,7 @@ import com.omouravictor.invest_view.R
 
 enum class AssetTypes(private val descriptionResId: Int, private val colorResId: Int) {
 
-    OTHERS(R.string.others, R.color.gray),
+    OTHER(R.string.others, R.color.gray),
     EQUITY(R.string.stocks, R.color.equity),
     MUTUAL_FUND(R.string.investmentFunds, R.color.mutualFund);
 

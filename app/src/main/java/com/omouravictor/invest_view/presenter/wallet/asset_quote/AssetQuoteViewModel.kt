@@ -7,9 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.data.network.base.NetworkState
-import com.omouravictor.invest_view.data.network.remote.model.assetquote.AssetQuoteResponse
-import com.omouravictor.invest_view.data.network.remote.model.assetquote.toAssetQuoteUiModel
-import com.omouravictor.invest_view.data.network.remote.repository.AssetQuoteRepository
+import com.omouravictor.invest_view.data.network.remote.model.asset_quote.AssetGlobalQuoteResponse
+import com.omouravictor.invest_view.data.network.remote.model.asset_quote.toAssetQuoteUiModel
+import com.omouravictor.invest_view.data.network.remote.repository.RemoteAssetQuoteRepository
 import com.omouravictor.invest_view.di.base.DispatcherProvider
 import com.omouravictor.invest_view.presenter.base.UiState
 import com.omouravictor.invest_view.presenter.wallet.asset_quote.model.AssetQuoteUiModel
@@ -23,7 +23,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AssetQuoteViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val assetQuoteRepository: AssetQuoteRepository,
+    private val remoteAssetQuoteRepository: RemoteAssetQuoteRepository,
     private val dispatchers: DispatcherProvider
 ) : ViewModel() {
 
@@ -33,7 +33,7 @@ class AssetQuoteViewModel @Inject constructor(
     fun getAssetQuote(symbol: String) {
         viewModelScope.launch {
             withContext(dispatchers.io) {
-                assetQuoteRepository.getRemoteAssetQuote(symbol)
+                remoteAssetQuoteRepository.getAssetGlobalQuoteResponse(symbol)
             }.collectLatest { networkState ->
                 when (networkState) {
                     is NetworkState.Loading -> handleRemoteAssetQuoteLoading()
@@ -52,8 +52,8 @@ class AssetQuoteViewModel @Inject constructor(
         _assetQuote.value = UiState.Loading
     }
 
-    private fun handleRemoteAssetQuoteSuccess(assetQuoteResponse: AssetQuoteResponse) {
-        val assetQuoteUiModel = assetQuoteResponse.toAssetQuoteUiModel()
+    private fun handleRemoteAssetQuoteSuccess(assetGlobalQuoteResponse: AssetGlobalQuoteResponse) {
+        val assetQuoteUiModel = assetGlobalQuoteResponse.toAssetQuoteUiModel()
         _assetQuote.value = UiState.Success(assetQuoteUiModel)
     }
 

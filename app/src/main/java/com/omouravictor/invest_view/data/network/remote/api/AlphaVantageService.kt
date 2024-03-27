@@ -1,7 +1,7 @@
 package com.omouravictor.invest_view.data.network.remote.api
 
-import com.omouravictor.invest_view.data.network.remote.model.assetquote.AssetQuoteResponse
-import com.omouravictor.invest_view.data.network.remote.model.assetsbysearch.AssetsBySearchResponse
+import com.omouravictor.invest_view.data.network.remote.model.asset_quote.AssetGlobalQuoteResponse
+import com.omouravictor.invest_view.data.network.remote.model.assets_by_search.AssetsBySearchResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -13,8 +13,8 @@ interface AlphaVantageService {
     ): AssetsBySearchResponse
 
     @GET("query?function=GLOBAL_QUOTE&datatype=json")
-    suspend fun getAssetQuote(
+    suspend fun getAssetGlobalQuote(
         @Query("symbol") symbol: String
-    ): AssetQuoteResponse
+    ): AssetGlobalQuoteResponse
 
 }

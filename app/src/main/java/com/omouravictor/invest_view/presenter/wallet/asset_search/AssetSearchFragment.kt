@@ -18,19 +18,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetSearchBinding
 import com.omouravictor.invest_view.presenter.base.UiState
-import com.omouravictor.invest_view.presenter.wallet.AssetDTO
 import com.omouravictor.invest_view.presenter.wallet.asset_quote.AssetQuoteViewModel
+import com.omouravictor.invest_view.presenter.wallet.asset_quote.model.AssetQuoteUiModel
 import com.omouravictor.invest_view.presenter.wallet.asset_search.model.AssetBySearchUiModel
-import com.omouravictor.invest_view.presenter.wallet.model.AssetTypes
 
 class AssetSearchFragment : Fragment() {
 
     private lateinit var binding: FragmentAssetSearchBinding
     private lateinit var searchView: SearchView
+    private lateinit var assetBySearchDTO: AssetBySearchUiModel
     private val assetSearchViewModel: AssetSearchViewModel by activityViewModels()
     private val assetQuoteViewModel: AssetQuoteViewModel by activityViewModels()
     private val assetBySearchAdapter = AssetBySearchAdapter()
-    private val assetDTO = AssetDTO()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -77,13 +76,7 @@ class AssetSearchFragment : Fragment() {
 
     private fun setupAdapter() {
         assetBySearchAdapter.updateOnClickItem { assetBySearchUiModel ->
-            assetDTO.symbol = assetBySearchUiModel.symbol
-            assetDTO.name = assetBySearchUiModel.name
-            assetDTO.assetTypes = try {
-                AssetTypes.valueOf(assetBySearchUiModel.type.uppercase())
-            } catch (e: IllegalArgumentException) {
-                AssetTypes.OTHERS
-            }
+            assetBySearchDTO = assetBySearchUiModel
             assetQuoteViewModel.getAssetQuote(assetBySearchUiModel.symbol)
         }
     }
@@ -133,16 +126,26 @@ class AssetSearchFragment : Fragment() {
         assetQuoteViewModel.assetQuote.observe(viewLifecycleOwner) {
             when (it) {
                 is UiState.Empty -> Unit
-                is UiState.Loading -> Unit
-                is UiState.Success -> {
-                    assetDTO.price = it.data.price
-                    findNavController()
-                        .navigate(AssetSearchFragmentDirections.navToSaveAssetFragment(assetDTO))
-                }
-
-                is UiState.Error -> Unit
+                is UiState.Loading -> handleAssetQuoteLoading()
+                is UiState.Success -> handleAssetQuoteSuccess(it.data)
+                is UiState.Error -> handleAssetQuoteError(it.message)
             }
         }
+    }
+
+    private fun handleAssetQuoteLoading() {
+        setupViews(isLoading = true)
+    }
+
+    private fun handleAssetQuoteSuccess(assetQuote: AssetQuoteUiModel) {
+        assetBySearchDTO.price = assetQuote.price
+        findNavController()
+            .navigate(AssetSearchFragmentDirections.navToSaveAssetFragment(assetBySearchDTO))
+    }
+
+    private fun handleAssetQuoteError(message: String) {
+        setupViews(isError = true)
+        binding.tvResultsInfo.text = message
     }
 
     private fun setupViews(

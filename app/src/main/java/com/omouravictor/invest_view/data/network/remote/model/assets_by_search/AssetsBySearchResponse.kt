@@ -1,6 +1,7 @@
-package com.omouravictor.invest_view.data.network.remote.model.assetsbysearch
+package com.omouravictor.invest_view.data.network.remote.model.assets_by_search
 
 import com.omouravictor.invest_view.presenter.wallet.asset_search.model.AssetBySearchUiModel
+import com.omouravictor.invest_view.presenter.wallet.model.AssetTypes
 
 data class AssetsBySearchResponse(
     val bestMatches: List<AssetBySearchItemResponse>
@@ -11,13 +12,12 @@ fun AssetsBySearchResponse.toAssetsBySearchUiModel(): List<AssetBySearchUiModel>
         AssetBySearchUiModel(
             symbol = it.symbol,
             name = it.name,
-            type = it.type,
-            region = it.region,
-            marketOpen = it.marketOpen,
-            marketClose = it.marketClose,
-            timezone = it.timezone,
-            currency = it.currency,
-            matchScore = it.matchScore
+            assetType = getAssetType(it.type)
         )
     }
+}
+
+private fun getAssetType(type: String): AssetTypes {
+    val assetType = type.replace(" ", "_").uppercase()
+    return AssetTypes.values().firstOrNull { it.name == assetType } ?: AssetTypes.OTHER
 }

@@ -1,13 +1,13 @@
-package com.omouravictor.invest_view.data.network.remote.model.assetquote
+package com.omouravictor.invest_view.data.network.remote.model.asset_quote
 
 import com.google.gson.annotations.SerializedName
 import com.omouravictor.invest_view.presenter.wallet.asset_quote.model.AssetQuoteUiModel
 
-data class AssetQuoteResponse(
-    @SerializedName("Global Quote") val globalQuote: GlobalQuoteResponse
+data class AssetGlobalQuoteResponse(
+    @SerializedName("Global Quote") val globalQuote: AssetGlobalQuoteItemResponse
 )
 
-fun AssetQuoteResponse.toAssetQuoteUiModel(): AssetQuoteUiModel {
+fun AssetGlobalQuoteResponse.toAssetQuoteUiModel(): AssetQuoteUiModel {
     return AssetQuoteUiModel(
         symbol = globalQuote.symbol,
         open = globalQuote.open,

@@ -28,10 +28,11 @@
     <fragment
         android:id="@+id/fragmentSaveAsset"
         android:name="com.omouravictor.invest_view.presenter.wallet.save_asset.SaveAssetFragment"
+        android:label="@string/newAsset"
         tools:layout="@layout/fragment_save_asset">
         <argument
-            android:name="assetDTO"
-            app:argType="com.omouravictor.invest_view.presenter.wallet.AssetDTO" />
+            android:name="assetBySearchDTO"
+            app:argType="com.omouravictor.invest_view.presenter.wallet.asset_search.model.AssetBySearchUiModel" />
     </fragment>
 
 </navigation>

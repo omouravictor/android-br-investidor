@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.data.network.remote.model.assetsbysearch
+package com.omouravictor.invest_view.data.network.remote.model.assets_by_search
 
 import com.google.gson.annotations.SerializedName
 
