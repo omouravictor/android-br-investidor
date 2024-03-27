@@ -22,9 +22,7 @@ class SaveAssetFragment : Fragment() {
 
     private lateinit var binding: FragmentSaveAssetBinding
     private val assetBySearchDTO: AssetBySearchUiModel by lazy {
-        SaveAssetFragmentArgs.fromBundle(
-            requireArguments()
-        ).assetBySearchDTO
+        SaveAssetFragmentArgs.fromBundle(requireArguments()).assetBySearchDTO
     }
 
     override fun onCreateView(
@@ -40,19 +38,21 @@ class SaveAssetFragment : Fragment() {
 
         setupEditTexts()
 
-        binding.etAssetSymbol.setText(assetBySearchDTO.symbol)
-
         binding.incAssetPreview.vAssetColor.backgroundTintList =
             assetBySearchDTO.assetType.getColor(requireContext())
     }
 
     private fun setupEditTexts() {
-        val colorStateList = assetBySearchDTO.assetType.getColor(requireContext())
-        val defaultColor = colorStateList.defaultColor
+        val assetTypeColor = assetBySearchDTO.assetType.getColor(requireContext())
+        val assetTypeDefaultColor = assetTypeColor.defaultColor
 
-        TextViewCompat.setCompoundDrawableTintList(binding.etAssetSymbol, colorStateList)
-        setEditTextCursorColor(binding.etQuantity, defaultColor)
-        setEditTextsHighLightColor(defaultColor, binding.etQuantity, binding.etTotalInvested)
+        TextViewCompat.setCompoundDrawableTintList(binding.etAssetSymbol, assetTypeColor)
+        setEditTextCursorColor(binding.etQuantity, assetTypeDefaultColor)
+        setEditTextsHighLightColor(
+            assetTypeDefaultColor,
+            binding.etQuantity,
+            binding.etTotalInvested
+        )
         setEditTextsFocusChange(binding.etQuantity, binding.etTotalInvested)
         setEditTextsAfterTextChanged(
             { updateAssetPreview() },
@@ -60,8 +60,9 @@ class SaveAssetFragment : Fragment() {
             binding.etQuantity,
             binding.etTotalInvested
         )
-        binding.etAssetSymbol.setOnClickListener { findNavController().popBackStack() }
         setEditTextCurrencyFormat(binding.etTotalInvested)
+        binding.etAssetSymbol.setText(assetBySearchDTO.symbol)
+        binding.etAssetSymbol.setOnClickListener { findNavController().popBackStack() }
         binding.etTotalInvested.hint = if (Build.VERSION.SDK_INT >= 28) "R$ 100,00" else "R$100,00"
     }
 
