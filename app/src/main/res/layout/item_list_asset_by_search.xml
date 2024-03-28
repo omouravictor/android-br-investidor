@@ -8,39 +8,39 @@
     android:focusable="true">
 
     <TextView
-        android:id="@+id/tvAssetSymbol"
+        android:id="@+id/tvSymbol"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/defaultMarginVertical"
         android:layout_marginEnd="32dp"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/vLine"
-        app:layout_constraintEnd_toStartOf="@+id/tvAssetName"
+        app:layout_constraintBottom_toTopOf="@+id/line"
+        app:layout_constraintEnd_toStartOf="@+id/tvAssetCompanyName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="AAPL" />
 
     <TextView
-        android:id="@+id/tvAssetName"
+        android:id="@+id/tvAssetCompanyName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="2"
         android:textAlignment="textEnd"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvAssetSymbol"
+        app:layout_constraintBottom_toBottomOf="@+id/tvSymbol"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvAssetSymbol"
+        app:layout_constraintTop_toTopOf="@+id/tvSymbol"
         app:layout_constraintWidth_percent=".4"
         tools:text="The Boeing Aasdasd Asdas Company" />
 
     <View
-        android:id="@+id/vLine"
+        android:id="@+id/line"
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="@color/itemListPressedTrue"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/tvAssetName"
-        app:layout_constraintStart_toStartOf="@+id/tvAssetSymbol" />
+        app:layout_constraintEnd_toEndOf="@+id/tvAssetCompanyName"
+        app:layout_constraintStart_toStartOf="@+id/tvSymbol" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

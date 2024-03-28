@@ -11,7 +11,7 @@ fun AssetsBySearchResponse.toAssetsBySearchUiModel(): List<AssetBySearchUiModel>
     return bestMatches.map {
         AssetBySearchUiModel(
             symbol = it.symbol,
-            name = it.name,
+            companyName = it.name,
             assetType = getAssetType(it.type)
         )
     }

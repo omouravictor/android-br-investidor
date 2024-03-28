@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import androidx.core.content.ContextCompat.getColorStateList
 import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -38,7 +37,7 @@ class SaveAssetFragment : Fragment() {
 
         setupEditTexts()
 
-        binding.incAssetPreview.vAssetColor.backgroundTintList =
+        binding.incCurrentPosition.assetColor.backgroundTintList =
             assetBySearchDTO.assetType.getColor(requireContext())
     }
 
@@ -46,7 +45,7 @@ class SaveAssetFragment : Fragment() {
         val assetTypeColor = assetBySearchDTO.assetType.getColor(requireContext())
         val assetTypeDefaultColor = assetTypeColor.defaultColor
 
-        TextViewCompat.setCompoundDrawableTintList(binding.etAssetSymbol, assetTypeColor)
+        TextViewCompat.setCompoundDrawableTintList(binding.etSymbol, assetTypeColor)
         setEditTextCursorColor(binding.etQuantity, assetTypeDefaultColor)
         setEditTextsHighLightColor(
             assetTypeDefaultColor,
@@ -56,44 +55,50 @@ class SaveAssetFragment : Fragment() {
         setEditTextsFocusChange(binding.etQuantity, binding.etTotalInvested)
         setEditTextsAfterTextChanged(
             { updateAssetPreview() },
-            binding.etAssetSymbol,
+            binding.etSymbol,
             binding.etQuantity,
             binding.etTotalInvested
         )
         setEditTextCurrencyFormat(binding.etTotalInvested)
-        binding.etAssetSymbol.setText(assetBySearchDTO.symbol)
-        binding.etAssetSymbol.setOnClickListener { findNavController().popBackStack() }
+        binding.etSymbol.setText(assetBySearchDTO.symbol)
+        binding.etSymbol.setOnClickListener { findNavController().popBackStack() }
         binding.etTotalInvested.hint = if (Build.VERSION.SDK_INT >= 28) "R$ 100,00" else "R$100,00"
     }
 
     private fun setEditTextsFocusChange(vararg editTexts: EditText) {
+        val context = requireContext()
+        val assetTypeColor = assetBySearchDTO.assetType.getColor(context)
+        val grayColor = context.getColorStateList(R.color.gray)
         editTexts.forEach { editText ->
             editText.setOnFocusChangeListener { v, hasFocus ->
-                v.backgroundTintList =
-                    if (hasFocus) assetBySearchDTO.assetType.getColor(requireContext())
-                    else getColorStateList(requireContext(), R.color.gray)
+                v.backgroundTintList = if (hasFocus) assetTypeColor else grayColor
             }
         }
     }
 
     private fun requiredFieldsNotEmpty() =
-        binding.etAssetSymbol.text.isNotEmpty() && binding.etQuantity.text.isNotEmpty()
+        binding.etSymbol.text.isNotEmpty() && binding.etQuantity.text.isNotEmpty()
 
     private fun updateAssetPreview() {
         if (requiredFieldsNotEmpty()) {
-            binding.incAssetPreview.tvInfo.visibility = View.INVISIBLE
-            binding.incAssetPreview.clAssetInfo.visibility = View.VISIBLE
-            binding.incAssetPreview.tvAssetName.text =
-                "${binding.etAssetSymbol.text} (${binding.etQuantity.text})"
-            binding.incAssetPreview.tvCompanyName.text = assetBySearchDTO.name
-            binding.incAssetPreview.tvCurrentTotalValue.text =
+            binding.incCurrentPosition.tvInfoMessage.visibility = View.INVISIBLE
+            binding.incCurrentPosition.layoutAssetInfo.visibility = View.VISIBLE
+            binding.incCurrentPosition.tvSymbolAndQuantity.text = getString(
+                R.string.placeholderSymbolAndQuantity,
+                binding.etSymbol.text,
+                binding.etQuantity.text
+            )
+
+            // adicionar máscara monetária
+            binding.incCurrentPosition.tvTotal.text =
                 "R$ ${assetBySearchDTO.price * binding.etQuantity.text.toString().toInt()}"
+            binding.incCurrentPosition.tvCompanyName.text = assetBySearchDTO.companyName
 
             binding.btnSave.isEnabled = true
 
         } else {
-            binding.incAssetPreview.tvInfo.visibility = View.VISIBLE
-            binding.incAssetPreview.clAssetInfo.visibility = View.INVISIBLE
+            binding.incCurrentPosition.tvInfoMessage.visibility = View.VISIBLE
+            binding.incCurrentPosition.layoutAssetInfo.visibility = View.INVISIBLE
 
             binding.btnSave.isEnabled = false
         }

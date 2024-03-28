@@ -8,15 +8,15 @@
     tools:context=".presenter.wallet.save_asset.SaveAssetFragment">
 
     <TextView
-        android:id="@+id/tvTittleAssetSymbol"
+        android:id="@+id/tvTittleAsset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/asset"
-        app:layout_constraintStart_toStartOf="@+id/etAssetSymbol"
+        app:layout_constraintStart_toStartOf="@+id/etSymbol"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/etAssetSymbol"
+        android:id="@+id/etSymbol"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/defaultMarginStart"
@@ -28,7 +28,7 @@
         android:inputType="text"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTittleAssetSymbol"
+        app:layout_constraintTop_toBottomOf="@+id/tvTittleAsset"
         app:layout_constraintWidth_percent="0.4"
         tools:drawableTint="@color/green" />
 
@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:text="@string/amount"
         app:layout_constraintStart_toStartOf="@+id/etQuantity"
-        app:layout_constraintTop_toTopOf="@+id/tvTittleAssetSymbol" />
+        app:layout_constraintTop_toTopOf="@+id/tvTittleAsset" />
 
     <EditText
         android:id="@+id/etQuantity"
@@ -50,9 +50,9 @@
         android:inputType="number"
         android:text="@string/number_1"
         android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="@+id/etAssetSymbol"
+        app:layout_constraintBottom_toBottomOf="@+id/etSymbol"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/etAssetSymbol"
+        app:layout_constraintTop_toTopOf="@+id/etSymbol"
         app:layout_constraintWidth_percent="0.4" />
 
     <TextView
@@ -61,8 +61,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/totalInvested"
-        app:layout_constraintStart_toStartOf="@+id/etAssetSymbol"
-        app:layout_constraintTop_toBottomOf="@+id/etAssetSymbol" />
+        app:layout_constraintStart_toStartOf="@+id/etSymbol"
+        app:layout_constraintTop_toBottomOf="@+id/etSymbol" />
 
     <EditText
         android:id="@+id/etTotalInvested"
@@ -89,7 +89,7 @@
         app:layout_constraintTop_toBottomOf="@+id/etTotalInvested" />
 
     <include
-        android:id="@+id/incAssetPreview"
+        android:id="@+id/incCurrentPosition"
         layout="@layout/item_list_asset"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -110,6 +110,6 @@
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/incAssetPreview" />
+        app:layout_constraintTop_toBottomOf="@+id/incCurrentPosition" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

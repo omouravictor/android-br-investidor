@@ -11,7 +11,6 @@
     <color name="mutualFund">#00B8D4</color>
 
     <!-- Day/Night colors -->
-    <color name="background">@color/white</color>
     <color name="primary">@color/black</color>
     <color name="itemListPressedTrue">#1A000000</color>
     <color name="itemListBackground">#FFFFFF</color>

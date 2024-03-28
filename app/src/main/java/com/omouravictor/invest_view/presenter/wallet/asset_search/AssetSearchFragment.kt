@@ -142,7 +142,7 @@ class AssetSearchFragment : Fragment() {
 
     private fun handleAssetQuoteError(message: String) {
         setupViews(isError = true)
-        binding.tvResultsInfo.text = message
+        binding.tvInfoMessage.text = message
     }
 
     private fun setupViews(
@@ -151,7 +151,7 @@ class AssetSearchFragment : Fragment() {
         isError: Boolean = false
     ) {
         binding.shimmerLayout.isVisible = isLoading
-        binding.tvResultsInfo.isVisible = isSuccessResultsEmpty || isError
+        binding.tvInfoMessage.isVisible = isSuccessResultsEmpty || isError
         binding.btnTryAgain.isVisible = isError
         binding.recyclerView.isVisible = !isLoading && !isSuccessResultsEmpty && !isError
 
@@ -161,7 +161,7 @@ class AssetSearchFragment : Fragment() {
             binding.shimmerLayout.stopShimmer()
 
         if (isSuccessResultsEmpty)
-            binding.tvResultsInfo.text = getString(R.string.noResultsFound)
+            binding.tvInfoMessage.text = getString(R.string.noResultsFound)
     }
 
     private fun handleAssetsBySearchLoading() {
@@ -175,7 +175,7 @@ class AssetSearchFragment : Fragment() {
 
     private fun handleAssetsBySearchError(message: String) {
         setupViews(isError = true)
-        binding.tvResultsInfo.text = message
+        binding.tvInfoMessage.text = message
     }
 
 }

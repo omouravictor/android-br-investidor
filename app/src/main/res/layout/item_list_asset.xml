@@ -13,7 +13,7 @@
         android:background="@color/itemListBackground">
 
         <View
-            android:id="@+id/vAssetColor"
+            android:id="@+id/assetColor"
             android:layout_width="5dp"
             android:layout_height="0dp"
             android:background="@color/green"
@@ -22,18 +22,17 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clAssetInfo"
+            android:id="@+id/layoutAssetInfo"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/vAssetColor"
+            app:layout_constraintStart_toEndOf="@+id/assetColor"
             app:layout_constraintTop_toTopOf="parent"
             tools:visibility="visible">
 
             <TextView
-                android:id="@+id/tvAssetName"
+                android:id="@+id/tvSymbolAndQuantity"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -42,7 +41,7 @@
                 android:layout_marginBottom="6dp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/tvCompanyName"
-                app:layout_constraintEnd_toStartOf="@+id/tvCurrentTotalValue"
+                app:layout_constraintEnd_toStartOf="@+id/tvTotal"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="KNIP11 (1)" />
@@ -55,23 +54,23 @@
                 android:layout_marginBottom="8dp"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/asdsa"
-                app:layout_constraintStart_toStartOf="@+id/tvAssetName"
+                app:layout_constraintEnd_toStartOf="@+id/tvAppreciationAndDepreciation"
+                app:layout_constraintStart_toStartOf="@+id/tvSymbolAndQuantity"
                 tools:text="Vale" />
 
             <TextView
-                android:id="@+id/tvCurrentTotalValue"
+                android:id="@+id/tvTotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/tvAssetName"
+                app:layout_constraintBottom_toBottomOf="@+id/tvSymbolAndQuantity"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tvAssetName"
+                app:layout_constraintTop_toTopOf="@+id/tvSymbolAndQuantity"
                 tools:text="R$ 47,95" />
 
             <TextView
-                android:id="@+id/asdsa"
+                android:id="@+id/tvAppreciationAndDepreciation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -84,7 +83,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/tvInfo"
+            android:id="@+id/tvInfoMessage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -93,9 +92,9 @@
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/vAssetColor"
+            app:layout_constraintStart_toEndOf="@+id/assetColor"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="gone" />
+            tools:visibility="invisible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

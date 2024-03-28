@@ -24,8 +24,8 @@ class AssetBySearchAdapter :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(assetBySearchUiModel: AssetBySearchUiModel) {
-            binding.tvAssetSymbol.text = assetBySearchUiModel.symbol
-            binding.tvAssetName.text = assetBySearchUiModel.name
+            binding.tvSymbol.text = assetBySearchUiModel.symbol
+            binding.tvAssetCompanyName.text = assetBySearchUiModel.companyName
             itemView.setOnClickListener { onClickItem(assetBySearchUiModel) }
         }
     }

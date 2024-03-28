@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class AssetBySearchUiModel(
     val symbol: String,
-    val name: String,
+    val companyName: String,
     val assetType: AssetTypes,
     var price: Double = 0.0,
 ) : Parcelable

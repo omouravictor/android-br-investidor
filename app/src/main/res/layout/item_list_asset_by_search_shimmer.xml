@@ -4,34 +4,34 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/tvAssetSymbol"
+        android:id="@+id/tvSymbol"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/defaultMarginVertical"
         android:background="@color/shimmerBackground"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/vLine"
+        app:layout_constraintBottom_toTopOf="@+id/line"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent=".25" />
 
     <TextView
-        android:id="@+id/tvAssetName"
+        android:id="@+id/tvSymbolAndQuantity"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/shimmerBackground"
-        app:layout_constraintBottom_toBottomOf="@+id/tvAssetSymbol"
+        app:layout_constraintBottom_toBottomOf="@+id/tvSymbol"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvAssetSymbol"
+        app:layout_constraintTop_toTopOf="@+id/tvSymbol"
         app:layout_constraintWidth_percent=".4" />
 
     <View
-        android:id="@+id/vLine"
+        android:id="@+id/line"
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="@color/shimmerBackground"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/tvAssetName"
-        app:layout_constraintStart_toStartOf="@+id/tvAssetSymbol" />
+        app:layout_constraintEnd_toEndOf="@+id/tvSymbolAndQuantity"
+        app:layout_constraintStart_toStartOf="@+id/tvSymbol" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -29,4 +29,7 @@
     <string name="somethingWentWrong">Algo deu errado, espero um pouco e tente novamente.</string>
     <string name="checkInternetConnection">Cheque sua conexão com a internet.</string>
     <string name="tryAgain">Tentar novamente</string>
+
+    <!-- Placeholders -->
+    <string name="placeholderSymbolAndQuantity">%1$s (%2$s)</string>
 </resources>
