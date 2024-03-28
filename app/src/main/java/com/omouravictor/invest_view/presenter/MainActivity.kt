@@ -1,11 +1,8 @@
 package com.omouravictor.invest_view.presenter
 
-import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat.Type.ime
@@ -33,7 +30,6 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         setupMainNavigation()
         setupBottomNavigationView()
-        addOnGlobalFocusChangeListener()
         addOnApplyWindowInsetsListener()
     }
 
@@ -106,17 +102,6 @@ class MainActivity : AppCompatActivity() {
             val insetsCompat = toWindowInsetsCompat(insets, view)
             binding.bottomNav.isGone = insetsCompat.isVisible(ime())
             view.onApplyWindowInsets(insets)
-        }
-    }
-
-    private fun addOnGlobalFocusChangeListener() {
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        window.decorView.viewTreeObserver.addOnGlobalFocusChangeListener { oldView, newView ->
-            if (newView !is EditText) {
-                imm.hideSoftInputFromWindow(
-                    (oldView ?: newView)?.windowToken ?: window.attributes.token, 0
-                )
-            }
         }
     }
 

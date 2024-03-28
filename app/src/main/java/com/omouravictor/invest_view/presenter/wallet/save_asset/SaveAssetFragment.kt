@@ -1,15 +1,12 @@
 package com.omouravictor.invest_view.presenter.wallet.save_asset
 
-import android.content.res.ColorStateList
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import androidx.core.widget.TextViewCompat
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentSaveAssetBinding
 import com.omouravictor.invest_view.presenter.wallet.model.AssetBySearchUiModel
@@ -50,21 +47,15 @@ class SaveAssetFragment : Fragment() {
         val assetTypeDefaultColor = assetTypeColor.defaultColor
         val etQuantity = binding.etQuantity
         val etTotalInvested = binding.etTotalInvested
+        val etSymbol = binding.etSymbol
 
         setEditTextCursorColor(etQuantity, assetTypeDefaultColor)
         setEditTextsHighLightColor(assetTypeDefaultColor, etQuantity, etTotalInvested)
         setEditTextsFocusChange(etQuantity, etTotalInvested)
-        setEditTextsAfterTextChanged({ updateCurrentPosition() }, etQuantity, etTotalInvested)
+        setEditTextsAfterTextChanged({ updateCurrentPosition() }, etSymbol, etQuantity, etTotalInvested)
         setEditTextCurrencyFormatMask(etTotalInvested, locale)
-        setupEditTextSymbol(assetTypeColor)
-        etQuantity.setText("1")
+        etSymbol.setText(assetBySearchDTO.symbol)
         etTotalInvested.hint = if (Build.VERSION.SDK_INT >= 28) "R$ 100,00" else "R$100,00"
-    }
-
-    private fun setupEditTextSymbol(assetTypeColor: ColorStateList) {
-        TextViewCompat.setCompoundDrawableTintList(binding.etSymbol, assetTypeColor)
-        binding.etSymbol.setText(assetBySearchDTO.symbol)
-        binding.etSymbol.setOnClickListener { findNavController().popBackStack() }
     }
 
     private fun setupIncCurrentPosition() {

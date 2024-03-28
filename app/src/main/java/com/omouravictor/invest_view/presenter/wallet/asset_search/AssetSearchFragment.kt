@@ -20,6 +20,7 @@ import com.omouravictor.invest_view.databinding.FragmentAssetSearchBinding
 import com.omouravictor.invest_view.presenter.base.UiState
 import com.omouravictor.invest_view.presenter.wallet.model.AssetBySearchUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetQuoteUiModel
+import com.omouravictor.invest_view.util.SystemServiceUtil
 
 class AssetSearchFragment : Fragment() {
 
@@ -74,6 +75,7 @@ class AssetSearchFragment : Fragment() {
         assetBySearchAdapter.updateOnClickItem {
             assetBySearchDTO = it
             assetSearchViewModel.getAssetQuote(it.symbol)
+            SystemServiceUtil.hideKeyboard(requireActivity(), searchView)
         }
     }
 
