@@ -7,13 +7,13 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
-import com.omouravictor.invest_view.util.FormatUtil.BrazilianFormats.brCurrencyFormat
+import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForCurrencyLocale
+import java.util.Locale
 
 object EditTextUtil {
 
     fun setEditTextCursorColor(
-        editText: EditText,
-        color: Int
+        editText: EditText, color: Int
     ) {
         if (Build.VERSION.SDK_INT >= 29) {
             editText.textCursorDrawable?.setTint(color)
@@ -42,8 +42,7 @@ object EditTextUtil {
     }
 
     fun setEditTextsHighLightColor(
-        color: Int,
-        vararg editTexts: EditText
+        color: Int, vararg editTexts: EditText
     ) {
         editTexts.forEach { editText ->
             editText.highlightColor = color
@@ -51,8 +50,7 @@ object EditTextUtil {
     }
 
     fun setEditTextsAfterTextChanged(
-        doAfterTextChangedFunction: () -> Unit,
-        vararg editTexts: EditText
+        doAfterTextChangedFunction: () -> Unit, vararg editTexts: EditText
     ) {
         editTexts.forEach { editText ->
             editText.doAfterTextChanged {
@@ -61,7 +59,7 @@ object EditTextUtil {
         }
     }
 
-    fun setEditTextCurrencyFormat(editText: EditText) {
+    fun setEditTextCurrencyFormatMask(editText: EditText, locale: Locale) {
         with(editText) {
             addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(cs: CharSequence?, s: Int, c: Int, a: Int) {}
@@ -81,7 +79,7 @@ object EditTextUtil {
                     removeTextChangedListener(this)
 
                     val amount = cleanText.toDouble() / 100
-                    val formattedAmount = brCurrencyFormat.format(amount)
+                    val formattedAmount = getFormattedValueForCurrencyLocale(locale, amount)
                     setText(formattedAmount)
                     setSelection(formattedAmount.length)
 

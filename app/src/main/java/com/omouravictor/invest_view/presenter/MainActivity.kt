@@ -94,9 +94,7 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNav.itemIconTintList = null
         binding.bottomNav.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.walletNavMenu,
-                R.id.exchangeNavMenu,
-                R.id.profileNavMenu -> navigateToMenuItem(menuItem.itemId)
+                R.id.walletNavMenu, R.id.exchangeNavMenu, R.id.profileNavMenu -> navigateToMenuItem(menuItem.itemId)
 
                 else -> false
             }
@@ -129,8 +127,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupToolbarMenu(
-        walletGroupVisible: Boolean = false,
-        exchangeGroupVisible: Boolean = false
+        walletGroupVisible: Boolean = false, exchangeGroupVisible: Boolean = false
     ) {
         val menu = binding.toolbar.menu
         menu.setGroupVisible(R.id.walletGroup, walletGroupVisible)

@@ -7,8 +7,7 @@ import com.omouravictor.invest_view.databinding.ItemListAssetBySearchBinding
 import com.omouravictor.invest_view.presenter.base.RecyclerViewAdapter
 import com.omouravictor.invest_view.presenter.wallet.model.AssetBySearchUiModel
 
-class AssetBySearchAdapter :
-    RecyclerViewAdapter<AssetBySearchUiModel, AssetBySearchAdapter.AssetBySearchViewHolder>() {
+class AssetBySearchAdapter : RecyclerViewAdapter<AssetBySearchUiModel, AssetBySearchAdapter.AssetBySearchViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AssetBySearchViewHolder {
         val binding =
@@ -25,7 +24,7 @@ class AssetBySearchAdapter :
 
         fun bind(assetBySearchUiModel: AssetBySearchUiModel) {
             binding.tvSymbol.text = assetBySearchUiModel.symbol
-            binding.tvAssetCompanyName.text = assetBySearchUiModel.companyName
+            binding.tvName.text = assetBySearchUiModel.name
             itemView.setOnClickListener { onClickItem(assetBySearchUiModel) }
         }
     }

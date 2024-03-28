@@ -17,9 +17,7 @@ class WalletFragment : Fragment() {
     private lateinit var binding: FragmentWalletBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentWalletBinding.inflate(inflater, container, false)
         return binding.root
@@ -32,8 +30,7 @@ class WalletFragment : Fragment() {
 
     private fun setupTabLayoutWithViewPager2() {
         val fragments = listOf(
-            Pair(AssetsFragment(), getString(R.string.assets)),
-            Pair(DetailsFragment(), getString(R.string.details))
+            Pair(AssetsFragment(), getString(R.string.assets)), Pair(DetailsFragment(), getString(R.string.details))
         )
 
         binding.viewPager2.adapter = ViewPagerAdapter(requireActivity(), fragments)

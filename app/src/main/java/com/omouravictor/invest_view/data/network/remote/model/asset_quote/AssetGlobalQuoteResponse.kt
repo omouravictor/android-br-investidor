@@ -9,15 +9,6 @@ data class AssetGlobalQuoteResponse(
 
 fun AssetGlobalQuoteResponse.toAssetQuoteUiModel(): AssetQuoteUiModel {
     return AssetQuoteUiModel(
-        symbol = globalQuote.symbol,
-        open = globalQuote.open,
-        high = globalQuote.high,
-        low = globalQuote.low,
-        price = globalQuote.price,
-        volume = globalQuote.volume,
-        latestTradingDay = globalQuote.latestTradingDay,
-        previousClose = globalQuote.previousClose,
-        change = globalQuote.change,
-        changePercent = globalQuote.changePercent
+        symbol = globalQuote.symbol, open = globalQuote.open, high = globalQuote.high, low = globalQuote.low, price = globalQuote.price, volume = globalQuote.volume, latestTradingDay = globalQuote.latestTradingDay, previousClose = globalQuote.previousClose, change = globalQuote.change, changePercent = globalQuote.changePercent
     )
 }

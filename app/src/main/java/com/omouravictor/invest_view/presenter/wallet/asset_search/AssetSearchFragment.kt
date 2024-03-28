@@ -30,8 +30,7 @@ class AssetSearchFragment : Fragment() {
     private val assetBySearchAdapter = AssetBySearchAdapter()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentAssetSearchBinding.inflate(inflater, container, false)
         return binding.root
@@ -87,8 +86,7 @@ class AssetSearchFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText.isNullOrEmpty())
-                    searchView.inputType = capCharactersInputType
+                if (newText.isNullOrEmpty()) searchView.inputType = capCharactersInputType
                 binding.recyclerView.scrollToPosition(0)
                 return true
             }
@@ -136,8 +134,7 @@ class AssetSearchFragment : Fragment() {
 
     private fun handleAssetQuoteSuccess(assetQuote: AssetQuoteUiModel) {
         assetBySearchDTO.price = assetQuote.price
-        findNavController()
-            .navigate(AssetSearchFragmentDirections.navToSaveAssetFragment(assetBySearchDTO))
+        findNavController().navigate(AssetSearchFragmentDirections.navToSaveAssetFragment(assetBySearchDTO))
     }
 
     private fun handleAssetQuoteError(message: String) {
@@ -146,22 +143,17 @@ class AssetSearchFragment : Fragment() {
     }
 
     private fun setupViews(
-        isLoading: Boolean = false,
-        isSuccessResultsEmpty: Boolean = false,
-        isError: Boolean = false
+        isLoading: Boolean = false, isSuccessResultsEmpty: Boolean = false, isError: Boolean = false
     ) {
         binding.shimmerLayout.isVisible = isLoading
         binding.tvInfoMessage.isVisible = isSuccessResultsEmpty || isError
         binding.btnTryAgain.isVisible = isError
         binding.recyclerView.isVisible = !isLoading && !isSuccessResultsEmpty && !isError
 
-        if (isLoading)
-            binding.shimmerLayout.startShimmer()
-        else
-            binding.shimmerLayout.stopShimmer()
+        if (isLoading) binding.shimmerLayout.startShimmer()
+        else binding.shimmerLayout.stopShimmer()
 
-        if (isSuccessResultsEmpty)
-            binding.tvInfoMessage.text = getString(R.string.noResultsFound)
+        if (isSuccessResultsEmpty) binding.tvInfoMessage.text = getString(R.string.noResultsFound)
     }
 
     private fun handleAssetsBySearchLoading() {

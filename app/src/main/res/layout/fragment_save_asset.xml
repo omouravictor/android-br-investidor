@@ -48,7 +48,7 @@
         android:backgroundTint="@color/gray"
         android:hint="@string/number_1"
         android:inputType="number"
-        android:text="@string/number_1"
+        android:maxLength="9"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="@+id/etSymbol"
         app:layout_constraintEnd_toEndOf="parent"

@@ -12,9 +12,7 @@ class ExchangeFragment : Fragment() {
     private lateinit var binding: FragmentExchangeBinding
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentExchangeBinding.inflate(inflater, container, false)
         return binding.root
