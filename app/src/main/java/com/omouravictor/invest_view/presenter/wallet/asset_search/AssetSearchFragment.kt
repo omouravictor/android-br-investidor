@@ -1,7 +1,6 @@
 package com.omouravictor.invest_view.presenter.wallet.asset_search
 
 import android.os.Bundle
-import android.text.InputType
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -53,19 +52,17 @@ class AssetSearchFragment : Fragment() {
     }
 
     private fun addMenuProvider() {
-        requireActivity().addMenuProvider(
-            object : MenuProvider {
+        requireActivity().addMenuProvider(object : MenuProvider {
 
-                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                    menuInflater.inflate(R.menu.options_menu_search, menu)
-                    searchView = menu.findItem(R.id.searchAsset).actionView as SearchView
-                    setupSearchView(searchView)
-                }
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.options_menu_search, menu)
+                searchView = menu.findItem(R.id.searchAsset).actionView as SearchView
+                setupSearchView(searchView)
+            }
 
-                override fun onMenuItemSelected(menuItem: MenuItem): Boolean = false
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean = false
 
-            }, viewLifecycleOwner
-        )
+        }, viewLifecycleOwner)
 
         binding.btnTryAgain.setOnClickListener {
             searchView.setQuery(searchView.query, true)
@@ -81,7 +78,6 @@ class AssetSearchFragment : Fragment() {
     }
 
     private fun setupSearchView(searchView: SearchView) {
-        val capCharactersInputType = InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
         val queryTextListener = object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let { assetSearchViewModel.getAssetsBySearch(it) }
@@ -89,7 +85,6 @@ class AssetSearchFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText.isNullOrEmpty()) searchView.inputType = capCharactersInputType
                 binding.recyclerView.scrollToPosition(0)
                 return true
             }
@@ -98,7 +93,6 @@ class AssetSearchFragment : Fragment() {
         searchView.onActionViewExpanded()
         searchView.maxWidth = Int.MAX_VALUE
         searchView.queryHint = getString(R.string.searchYourAsset)
-        searchView.inputType = capCharactersInputType
         searchView.setOnQueryTextListener(queryTextListener)
     }
 
@@ -165,7 +159,9 @@ class AssetSearchFragment : Fragment() {
 
     private fun handleAssetQuoteSuccess(assetQuote: AssetQuoteUiModel) {
         assetBySearchDTO.price = assetQuote.price
-        findNavController().navigate(AssetSearchFragmentDirections.navToSaveAssetFragment(assetBySearchDTO))
+        findNavController().navigate(
+            AssetSearchFragmentDirections.navToSaveAssetFragment(assetBySearchDTO)
+        )
     }
 
     private fun handleAssetQuoteError(message: String) {

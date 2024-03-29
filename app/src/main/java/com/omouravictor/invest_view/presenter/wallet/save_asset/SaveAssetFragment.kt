@@ -52,9 +52,11 @@ class SaveAssetFragment : Fragment() {
         setEditTextCursorColor(etQuantity, assetTypeDefaultColor)
         setEditTextsHighLightColor(assetTypeDefaultColor, etQuantity, etTotalInvested)
         setEditTextsFocusChange(etQuantity, etTotalInvested)
-        setEditTextsAfterTextChanged({ updateCurrentPosition() }, etSymbol, etQuantity, etTotalInvested)
+        setEditTextsAfterTextChanged(
+            { updateCurrentPosition() }, etSymbol, etQuantity, etTotalInvested
+        )
         setEditTextCurrencyFormatMask(etTotalInvested, locale)
-        etSymbol.setText(assetBySearchDTO.symbol)
+        etSymbol.setText(assetBySearchDTO.symbol.substringBeforeLast("."))
         etTotalInvested.hint = if (Build.VERSION.SDK_INT >= 28) "R$ 100,00" else "R$100,00"
     }
 
