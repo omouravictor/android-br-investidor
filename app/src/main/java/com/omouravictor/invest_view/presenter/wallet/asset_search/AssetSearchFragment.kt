@@ -130,20 +130,6 @@ class AssetSearchFragment : Fragment() {
         }
     }
 
-    private fun handleAssetQuoteLoading() {
-        setupViews(isLoading = true)
-    }
-
-    private fun handleAssetQuoteSuccess(assetQuote: AssetQuoteUiModel) {
-        assetBySearchDTO.price = assetQuote.price
-        findNavController().navigate(AssetSearchFragmentDirections.navToSaveAssetFragment(assetBySearchDTO))
-    }
-
-    private fun handleAssetQuoteError(message: String) {
-        setupViews(isError = true)
-        binding.tvInfoMessage.text = message
-    }
-
     private fun setupViews(
         isLoading: Boolean = false, isSuccessResultsEmpty: Boolean = false, isError: Boolean = false
     ) {
@@ -168,6 +154,20 @@ class AssetSearchFragment : Fragment() {
     }
 
     private fun handleAssetsBySearchError(message: String) {
+        setupViews(isError = true)
+        binding.tvInfoMessage.text = message
+    }
+
+    private fun handleAssetQuoteLoading() {
+        setupViews(isLoading = true)
+    }
+
+    private fun handleAssetQuoteSuccess(assetQuote: AssetQuoteUiModel) {
+        assetBySearchDTO.price = assetQuote.price
+        findNavController().navigate(AssetSearchFragmentDirections.navToSaveAssetFragment(assetBySearchDTO))
+    }
+
+    private fun handleAssetQuoteError(message: String) {
         setupViews(isError = true)
         binding.tvInfoMessage.text = message
     }

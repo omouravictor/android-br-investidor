@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.data.network.base.NetworkState
 import com.omouravictor.invest_view.data.network.remote.model.asset_quote.AssetGlobalQuoteResponse
 import com.omouravictor.invest_view.data.network.remote.model.asset_quote.toAssetQuoteUiModel
@@ -16,6 +15,7 @@ import com.omouravictor.invest_view.di.base.DispatcherProvider
 import com.omouravictor.invest_view.presenter.base.UiState
 import com.omouravictor.invest_view.presenter.wallet.model.AssetBySearchUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetQuoteUiModel
+import com.omouravictor.invest_view.util.AppUtil.getGenericNetworkErrorMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.collectLatest
@@ -41,9 +41,9 @@ class AssetSearchViewModel @Inject constructor(
                 remoteAssetsRepository.getAssetsBySearch(keywords)
             }.collectLatest {
                 when (it) {
-                    is NetworkState.Loading -> handleRemoteDataLoading()
+                    is NetworkState.Loading -> handleRemoteAssetsBySearchLoading()
                     is NetworkState.Success -> handleRemoteAssetsBySearchSuccess(it.data)
-                    is NetworkState.Error -> handleRemoteDataError(it.e)
+                    is NetworkState.Error -> handleRemoteAssetsBySearchError(it.e)
                 }
             }
         }
@@ -55,9 +55,9 @@ class AssetSearchViewModel @Inject constructor(
                 remoteAssetsRepository.getAssetGlobalQuote(symbol)
             }.collectLatest {
                 when (it) {
-                    is NetworkState.Loading -> handleRemoteDataLoading()
+                    is NetworkState.Loading -> handleRemoteAssetQuoteLoading()
                     is NetworkState.Success -> handleRemoteAssetQuoteSuccess(it.data)
-                    is NetworkState.Error -> handleRemoteDataError(it.e)
+                    is NetworkState.Error -> handleRemoteAssetQuoteError(it.e)
                 }
             }
         }
@@ -68,9 +68,8 @@ class AssetSearchViewModel @Inject constructor(
         _assetQuote.value = UiState.Empty
     }
 
-    private fun handleRemoteDataLoading() {
+    private fun handleRemoteAssetsBySearchLoading() {
         _assetsBySearch.value = UiState.Loading
-        _assetQuote.value = UiState.Loading
     }
 
     private fun handleRemoteAssetsBySearchSuccess(assetsBySearchResponse: AssetsBySearchResponse) {
@@ -78,22 +77,21 @@ class AssetSearchViewModel @Inject constructor(
         _assetsBySearch.value = UiState.Success(assetsBySearchUiModel)
     }
 
+    private fun handleRemoteAssetsBySearchError(e: Exception) {
+        _assetsBySearch.value = UiState.Error(getGenericNetworkErrorMessage(context, e))
+    }
+
+    private fun handleRemoteAssetQuoteLoading() {
+        _assetQuote.value = UiState.Loading
+    }
+
     private fun handleRemoteAssetQuoteSuccess(assetGlobalQuoteResponse: AssetGlobalQuoteResponse) {
         val assetQuoteUiModel = assetGlobalQuoteResponse.toAssetQuoteUiModel()
         _assetQuote.value = UiState.Success(assetQuoteUiModel)
     }
 
-    private fun handleRemoteDataError(e: Exception) {
-        when (e) {
-            is java.net.UnknownHostException -> _assetsBySearch.value =
-                UiState.Error(context.getString(R.string.noInternetConnection))
-
-            is java.net.SocketTimeoutException -> _assetsBySearch.value =
-                UiState.Error(context.getString(R.string.checkInternetConnection))
-
-            else -> _assetsBySearch.value =
-                UiState.Error(context.getString(R.string.somethingWentWrong))
-        }
+    private fun handleRemoteAssetQuoteError(e: Exception) {
+        _assetQuote.value = UiState.Error(getGenericNetworkErrorMessage(context, e))
     }
 
 }
