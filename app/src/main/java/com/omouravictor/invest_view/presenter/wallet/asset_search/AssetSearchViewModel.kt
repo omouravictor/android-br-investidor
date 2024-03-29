@@ -64,7 +64,6 @@ class AssetSearchViewModel @Inject constructor(
     }
 
     fun clearLiveDataValues() {
-        _assetsBySearch.value = UiState.Empty
         _assetQuote.value = UiState.Empty
     }
 
