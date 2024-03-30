@@ -5,6 +5,7 @@
     <dimen name="defaultMarginHorizontal">16dp</dimen>
     <dimen name="defaultMarginVertical">16dp</dimen>
     <dimen name="defaultPaddingHorizontal">16dp</dimen>
+    <dimen name="defaultPaddingVertical">16dp</dimen>
     <dimen name="defaultPaddingTop">16dp</dimen>
     <dimen name="defaultMarginStart">16dp</dimen>
     <dimen name="defaultMarginEnd">16dp</dimen>

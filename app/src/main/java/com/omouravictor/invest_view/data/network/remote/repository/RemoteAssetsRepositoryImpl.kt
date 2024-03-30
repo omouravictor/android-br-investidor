@@ -10,7 +10,9 @@ import kotlinx.coroutines.flow.flow
 class RemoteAssetsRepositoryImpl(private val alphaVantageService: AlphaVantageService) :
     RemoteAssetsRepository {
 
-    override suspend fun getAssetsBySearch(keywords: String): Flow<NetworkState<AssetsBySearchResponse>> {
+    override suspend fun getAssetsBySearch(
+        keywords: String
+    ): Flow<NetworkState<AssetsBySearchResponse>> {
         return flow {
             emit(NetworkState.Loading)
             try {
@@ -22,7 +24,9 @@ class RemoteAssetsRepositoryImpl(private val alphaVantageService: AlphaVantageSe
         }
     }
 
-    override suspend fun getAssetGlobalQuote(symbol: String): Flow<NetworkState<AssetGlobalQuoteResponse>> {
+    override suspend fun getAssetGlobalQuote(
+        symbol: String
+    ): Flow<NetworkState<AssetGlobalQuoteResponse>> {
         return flow {
             emit(NetworkState.Loading)
             try {

@@ -90,8 +90,9 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNav.itemIconTintList = null
         binding.bottomNav.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.walletNavMenu, R.id.exchangeNavMenu, R.id.profileNavMenu -> navigateToMenuItem(menuItem.itemId)
-
+                R.id.walletNavMenu,
+                R.id.exchangeNavMenu,
+                R.id.profileNavMenu -> navigateToMenuItem(menuItem.itemId)
                 else -> false
             }
         }

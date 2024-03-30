@@ -30,7 +30,8 @@ class WalletFragment : Fragment() {
 
     private fun setupTabLayoutWithViewPager2() {
         val fragments = listOf(
-            Pair(AssetsFragment(), getString(R.string.assets)), Pair(DetailsFragment(), getString(R.string.details))
+            Pair(AssetsFragment(), getString(R.string.assets)),
+            Pair(DetailsFragment(), getString(R.string.details))
         )
 
         binding.viewPager2.adapter = ViewPagerAdapter(requireActivity(), fragments)

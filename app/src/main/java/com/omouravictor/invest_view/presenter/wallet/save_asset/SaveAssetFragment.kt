@@ -1,5 +1,6 @@
 package com.omouravictor.invest_view.presenter.wallet.save_asset
 
+import android.content.res.ColorStateList
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +11,8 @@ import androidx.fragment.app.Fragment
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentSaveAssetBinding
 import com.omouravictor.invest_view.presenter.wallet.model.AssetBySearchUiModel
+import com.omouravictor.invest_view.presenter.wallet.model.getAssetType
+import com.omouravictor.invest_view.presenter.wallet.model.getDisplaySymbol
 import com.omouravictor.invest_view.util.EditTextUtil.setEditTextCurrencyFormatMask
 import com.omouravictor.invest_view.util.EditTextUtil.setEditTextCursorColor
 import com.omouravictor.invest_view.util.EditTextUtil.setEditTextsAfterTextChanged
@@ -33,8 +36,7 @@ class SaveAssetFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initEssentialVars()
-        setupEditTexts()
-        setupIncCurrentPosition()
+        setupViews()
     }
 
     private fun initEssentialVars() {
@@ -42,33 +44,25 @@ class SaveAssetFragment : Fragment() {
         locale = Locale("pt", "BR")
     }
 
-    private fun setupEditTexts() {
-        val assetTypeColor = assetBySearchDTO.assetType.getColor(requireContext())
-        val assetTypeDefaultColor = assetTypeColor.defaultColor
+    private fun setupViews() {
+        val assetTypeColor = assetBySearchDTO.getAssetType().getColor(requireContext())
         val etQuantity = binding.etQuantity
         val etTotalInvested = binding.etTotalInvested
         val etSymbol = binding.etSymbol
 
-        setEditTextCursorColor(etQuantity, assetTypeDefaultColor)
-        setEditTextsHighLightColor(assetTypeDefaultColor, etQuantity, etTotalInvested)
-        setEditTextsFocusChange(etQuantity, etTotalInvested)
-        setEditTextsAfterTextChanged(
-            { updateCurrentPosition() }, etSymbol, etQuantity, etTotalInvested
-        )
+        setEditTextsAfterTextChanged({ updateCurrentPosition() }, etSymbol, etQuantity, etTotalInvested)
+        setEditTextsHighLightColor(assetTypeColor.defaultColor, etQuantity, etTotalInvested)
+        setEditTextsFocusChange(assetTypeColor, etQuantity, etTotalInvested)
+        setEditTextCursorColor(etQuantity, assetTypeColor.defaultColor)
         setEditTextCurrencyFormatMask(etTotalInvested, locale)
-        etSymbol.setText(assetBySearchDTO.symbol.substringBeforeLast("."))
+        etSymbol.setText(assetBySearchDTO.getDisplaySymbol())
         etTotalInvested.hint = if (Build.VERSION.SDK_INT >= 28) "R$ 100,00" else "R$100,00"
+        binding.etLocation.setText(assetBySearchDTO.region)
+        binding.incCurrentPosition.assetColor.backgroundTintList = assetTypeColor
     }
 
-    private fun setupIncCurrentPosition() {
-        binding.incCurrentPosition.assetColor.backgroundTintList =
-            assetBySearchDTO.assetType.getColor(requireContext())
-    }
-
-    private fun setEditTextsFocusChange(vararg editTexts: EditText) {
-        val context = requireContext()
-        val assetTypeColor = assetBySearchDTO.assetType.getColor(context)
-        val grayColor = context.getColorStateList(R.color.gray)
+    private fun setEditTextsFocusChange(assetTypeColor: ColorStateList, vararg editTexts: EditText) {
+        val grayColor = requireContext().getColorStateList(R.color.gray)
         editTexts.forEach { editText ->
             editText.setOnFocusChangeListener { v, hasFocus ->
                 v.backgroundTintList = if (hasFocus) assetTypeColor else grayColor

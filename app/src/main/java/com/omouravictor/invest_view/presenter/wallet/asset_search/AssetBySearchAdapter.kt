@@ -6,8 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.omouravictor.invest_view.databinding.ItemListAssetBySearchBinding
 import com.omouravictor.invest_view.presenter.base.RecyclerViewAdapter
 import com.omouravictor.invest_view.presenter.wallet.model.AssetBySearchUiModel
+import com.omouravictor.invest_view.presenter.wallet.model.getDisplaySymbol
 
-class AssetBySearchAdapter : RecyclerViewAdapter<AssetBySearchUiModel, AssetBySearchAdapter.AssetBySearchViewHolder>() {
+class AssetBySearchAdapter :
+    RecyclerViewAdapter<AssetBySearchUiModel, AssetBySearchAdapter.AssetBySearchViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AssetBySearchViewHolder {
         val binding =
@@ -23,8 +25,9 @@ class AssetBySearchAdapter : RecyclerViewAdapter<AssetBySearchUiModel, AssetBySe
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(assetBySearchUiModel: AssetBySearchUiModel) {
-            binding.tvSymbol.text = assetBySearchUiModel.symbol
+            binding.tvSymbol.text = assetBySearchUiModel.getDisplaySymbol()
             binding.tvName.text = assetBySearchUiModel.name
+            binding.tvLocation.text = assetBySearchUiModel.region
             itemView.setOnClickListener { onClickItem(assetBySearchUiModel) }
         }
     }

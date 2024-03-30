@@ -1,4 +1,7 @@
 <resources>
+    <!-- Placeholders -->
+    <string name="placeholderSymbolAndQuantity">%1$s (%2$s)</string>
+
     <string name="app_name">Invest View</string>
     <string name="add">Add</string>
     <string name="settings">Configurações</string>
@@ -30,7 +33,5 @@
     <string name="checkInternetConnection">Cheque sua conexão com a internet.</string>
     <string name="tryAgain">Tentar novamente</string>
     <string name="last_search">Última pesquisa…</string>
-
-    <!-- Placeholders -->
-    <string name="placeholderSymbolAndQuantity">%1$s (%2$s)</string>
+    <string name="location">Localidade</string>
 </resources>
