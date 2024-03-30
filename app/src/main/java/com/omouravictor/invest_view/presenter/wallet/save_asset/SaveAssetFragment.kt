@@ -15,9 +15,10 @@ import com.omouravictor.invest_view.presenter.wallet.model.getAssetType
 import com.omouravictor.invest_view.presenter.wallet.model.getDisplaySymbol
 import com.omouravictor.invest_view.util.EditTextUtil.setEditTextCurrencyFormatMask
 import com.omouravictor.invest_view.util.EditTextUtil.setEditTextCursorColor
+import com.omouravictor.invest_view.util.EditTextUtil.setEditTextIntNumberFormatMask
 import com.omouravictor.invest_view.util.EditTextUtil.setEditTextsAfterTextChanged
 import com.omouravictor.invest_view.util.EditTextUtil.setEditTextsHighLightColor
-import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForCurrencyLocale
+import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForCurrency
 
 class SaveAssetFragment : Fragment() {
 
@@ -57,9 +58,10 @@ class SaveAssetFragment : Fragment() {
         setEditTextsHighLightColor(assetTypeColor.defaultColor, etQuantity, etTotalInvested)
         setEditTextsFocusChange(assetTypeColor, etQuantity, etTotalInvested)
         setEditTextCursorColor(etQuantity, assetTypeColor.defaultColor)
+        setEditTextIntNumberFormatMask(etQuantity)
         setEditTextCurrencyFormatMask(etTotalInvested, assetBySearchDTO.currency)
         etSymbol.setText(assetBySearchDTO.getDisplaySymbol())
-        etTotalInvested.hint = getFormattedValueForCurrencyLocale(assetBySearchDTO.currency, 100)
+        etTotalInvested.hint = getFormattedValueForCurrency(assetBySearchDTO.currency, 100)
         binding.etLocation.setText(assetBySearchDTO.region)
         binding.incCurrentPosition.assetColor.backgroundTintList = assetTypeColor
     }
@@ -86,14 +88,13 @@ class SaveAssetFragment : Fragment() {
         val btnSave = binding.btnSave
 
         if (requiredFieldsNotEmpty()) {
+            val total = assetBySearchDTO.price * etQuantityText.replace(".", "").toInt()
+            incCurrentPosition.tvTotal.text = getFormattedValueForCurrency(assetBySearchDTO.currency, total)
             tvInfoMessage.visibility = View.INVISIBLE
             layoutAssetInfo.visibility = View.VISIBLE
             incCurrentPosition.tvSymbolAndQuantity.text = getString(
                 R.string.placeholderSymbolAndQuantity, etSymbolText, etQuantityText
             )
-            val total = assetBySearchDTO.price * etQuantityText.toInt()
-            incCurrentPosition.tvTotal.text =
-                getFormattedValueForCurrencyLocale(assetBySearchDTO.currency, total)
             incCurrentPosition.tvName.text = assetBySearchDTO.name
             btnSave.isEnabled = true
 

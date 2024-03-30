@@ -7,7 +7,8 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
-import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForCurrencyLocale
+import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForCurrency
+import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForIntNumber
 
 object EditTextUtil {
 
@@ -68,7 +69,7 @@ object EditTextUtil {
                 ) {
                     if (text.isEmpty()) return
 
-                    val cleanText = text.filter { it.isDigit() }.toString()
+                    val cleanText = text.filter { it.isDigit() }
 
                     if (cleanText == "00") {
                         setText("")
@@ -77,8 +78,33 @@ object EditTextUtil {
 
                     removeTextChangedListener(this)
 
-                    val amount = cleanText.toDouble() / 100
-                    val formattedAmount = getFormattedValueForCurrencyLocale(currency, amount)
+                    val amount = cleanText.toString().toDouble() / 100
+                    val formattedAmount = getFormattedValueForCurrency(currency, amount)
+                    setText(formattedAmount)
+                    setSelection(formattedAmount.length)
+
+                    addTextChangedListener(this)
+                }
+
+                override fun afterTextChanged(s: Editable?) {}
+            })
+        }
+    }
+
+    fun setEditTextIntNumberFormatMask(editText: EditText) {
+        with(editText) {
+            addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(cs: CharSequence?, s: Int, c: Int, a: Int) {}
+
+                override fun onTextChanged(
+                    text: CharSequence, start: Int, before: Int, count: Int
+                ) {
+                    if (text.isEmpty()) return
+
+                    removeTextChangedListener(this)
+
+                    val amount = text.toString().replace(".", "").toInt()
+                    val formattedAmount = getFormattedValueForIntNumber(amount)
                     setText(formattedAmount)
                     setSelection(formattedAmount.length)
 

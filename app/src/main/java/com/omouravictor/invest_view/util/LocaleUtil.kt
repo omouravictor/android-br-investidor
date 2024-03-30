@@ -6,12 +6,17 @@ import java.util.Locale
 
 object LocaleUtil {
 
-    private val globalLocale = Locale("pt", "BR")
+    private val appLocale = Locale("pt", "BR")
 
-    fun getFormattedValueForCurrencyLocale(currency: String, value: Number): String {
-        val currencyFormat = NumberFormat.getCurrencyInstance(globalLocale)
+    fun getFormattedValueForCurrency(currency: String, value: Number): String {
+        val currencyFormat = NumberFormat.getCurrencyInstance(appLocale)
         currencyFormat.currency = Currency.getInstance(currency)
         return currencyFormat.format(value)
+    }
+
+    fun getFormattedValueForIntNumber(value: Int): String {
+        val intNumberFormat = NumberFormat.getIntegerInstance(appLocale)
+        return intNumberFormat.format(value)
     }
 
 }
