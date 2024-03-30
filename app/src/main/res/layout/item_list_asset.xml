@@ -37,48 +37,59 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="6dp"
+                android:layout_marginEnd="32dp"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/tvName"
                 app:layout_constraintEnd_toStartOf="@+id/tvTotal"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="KNIP11 (1)" />
+                tools:text="KNIP11 (100.000.000)" />
+
+            <TextView
+                android:id="@+id/tvTotal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textAlignment="textEnd"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="R$ 100.000.000.000,00" />
 
             <TextView
                 android:id="@+id/tvName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="32dp"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/tvAppreciationAndDepreciation"
                 app:layout_constraintEnd_toStartOf="@+id/tvAppreciationAndDepreciation"
-                app:layout_constraintStart_toStartOf="@+id/tvSymbolAndQuantity"
-                tools:text="Vale" />
-
-            <TextView
-                android:id="@+id/tvTotal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/tvSymbolAndQuantity"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tvSymbolAndQuantity"
-                tools:text="R$ 47,95" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvAppreciationAndDepreciation"
+                tools:text="Apple inc" />
 
             <TextView
                 android:id="@+id/tvAppreciationAndDepreciation"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/tvName"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tvName"
-                tools:text="-R$ 40,95  (↓23,18%)" />
+                app:layout_constraintTop_toBottomOf="@+id/tvTotal"
+                app:layout_constraintVertical_bias="1.0"
+                tools:text="R$ 100.000.000.000,00 (↓23,18%)" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -94,7 +105,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/assetColor"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="invisible" />
+            tools:visibility="gone" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
