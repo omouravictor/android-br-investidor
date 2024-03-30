@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForCurrencyLocale
-import java.util.Locale
 
 object EditTextUtil {
 
@@ -59,7 +58,7 @@ object EditTextUtil {
         }
     }
 
-    fun setEditTextCurrencyFormatMask(editText: EditText, locale: Locale) {
+    fun setEditTextCurrencyFormatMask(editText: EditText, currency: String) {
         with(editText) {
             addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(cs: CharSequence?, s: Int, c: Int, a: Int) {}
@@ -79,7 +78,7 @@ object EditTextUtil {
                     removeTextChangedListener(this)
 
                     val amount = cleanText.toDouble() / 100
-                    val formattedAmount = getFormattedValueForCurrencyLocale(locale, amount)
+                    val formattedAmount = getFormattedValueForCurrencyLocale(currency, amount)
                     setText(formattedAmount)
                     setSelection(formattedAmount.length)
 

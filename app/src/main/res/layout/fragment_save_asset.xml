@@ -36,9 +36,8 @@
         android:id="@+id/tvTittleLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/defaultMarginEnd"
         android:text="@string/location"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/etLocation"
         app:layout_constraintTop_toTopOf="@+id/tvTittleAsset" />
 
     <EditText
@@ -102,7 +101,8 @@
         android:layout_marginHorizontal="@dimen/defaultMarginHorizontal"
         android:backgroundTint="@color/gray"
         android:imeOptions="actionDone"
-        android:inputType="number"
+        android:inputType="numberDecimal"
+        android:maxLength="22"
         android:textAlignment="center"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -135,10 +135,10 @@
     <Button
         android:id="@+id/btnSave"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/defaultButtonHeight"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/defaultMarginHorizontal"
         android:layout_marginTop="24dp"
-        android:enabled="false"
+        android:background="@drawable/shape_rectangle"
         android:text="@string/save"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"

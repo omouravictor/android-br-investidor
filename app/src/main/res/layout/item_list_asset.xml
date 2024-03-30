@@ -57,7 +57,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent=".4"
+                app:layout_constraintWidth_percent=".5"
                 tools:text="R$ 100.000.000.000,00" />
 
             <TextView
