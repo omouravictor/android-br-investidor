@@ -19,4 +19,10 @@ object LocaleUtil {
         return intNumberFormat.format(value)
     }
 
+    fun getFormattedValueForPercent(value: Double): String {
+        val percentFormat = NumberFormat.getPercentInstance(appLocale)
+        percentFormat.minimumFractionDigits = 2
+        return percentFormat.format(value)
+    }
+
 }

@@ -19,6 +19,9 @@ import com.omouravictor.invest_view.util.EditTextUtil.setEditTextIntNumberFormat
 import com.omouravictor.invest_view.util.EditTextUtil.setEditTextsAfterTextChanged
 import com.omouravictor.invest_view.util.EditTextUtil.setEditTextsHighLightColor
 import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForCurrency
+import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForPercent
+import com.omouravictor.invest_view.util.NumberUtil.getRoundedDouble
+import com.omouravictor.invest_view.util.StringUtil.getOnlyNumbers
 
 class SaveAssetFragment : Fragment() {
 
@@ -85,10 +88,25 @@ class SaveAssetFragment : Fragment() {
         val etQuantityText = binding.etQuantity.text.toString()
         val tvInfoMessage = incCurrentPosition.tvInfoMessage
         val layoutAssetInfo = incCurrentPosition.layoutAssetInfo
+        val etTotalInvestedText = binding.etTotalInvested.text.toString()
         val btnSave = binding.btnSave
 
         if (requiredFieldsNotEmpty()) {
             val total = assetBySearchDTO.price * etQuantityText.replace(".", "").toInt()
+            val totalInvested = getOnlyNumbers(etTotalInvestedText)
+
+            if (totalInvested.isNotEmpty()) {
+                val totalInvestedValue = totalInvested.toDouble() / 100
+                val appreciation = getRoundedDouble(total - totalInvestedValue)
+                val appreciationFtd = getFormattedValueForCurrency(assetBySearchDTO.currency, appreciation)
+                val percentFtd = getFormattedValueForPercent(appreciation / totalInvestedValue)
+
+                incCurrentPosition.tvAppreciationAndDepreciation.text =
+                    getString(R.string.placeholderAppreciationAndDepreciation, appreciationFtd, percentFtd)
+            } else {
+                incCurrentPosition.tvAppreciationAndDepreciation.text = ""
+            }
+
             incCurrentPosition.tvTotal.text = getFormattedValueForCurrency(assetBySearchDTO.currency, total)
             tvInfoMessage.visibility = View.INVISIBLE
             layoutAssetInfo.visibility = View.VISIBLE
