@@ -82,44 +82,44 @@ class SaveAssetFragment : Fragment() {
         return binding.etSymbol.text.isNotEmpty() && binding.etQuantity.text.isNotEmpty()
     }
 
-    private fun updateCurrentPosition() {
-        val incCurrentPosition = binding.incCurrentPosition
-        val etSymbolText = binding.etSymbol.text.toString()
-        val etQuantityText = binding.etQuantity.text.toString()
-        val tvInfoMessage = incCurrentPosition.tvInfoMessage
-        val layoutAssetInfo = incCurrentPosition.layoutAssetInfo
+    private fun updateAppreciation(totalAssetPrice: Double) {
         val etTotalInvestedText = binding.etTotalInvested.text.toString()
-        val btnSave = binding.btnSave
 
-        if (requiredFieldsNotEmpty()) {
-            val total = assetBySearchDTO.price * etQuantityText.replace(".", "").toInt()
-            val totalInvested = getOnlyNumbers(etTotalInvestedText)
+        if (etTotalInvestedText.isNotEmpty()) {
+            val totalInvested = getOnlyNumbers(etTotalInvestedText).toDouble() / 100
+            val appreciation = getRoundedDouble(totalAssetPrice - totalInvested)
+            val appreciationFtd = getFormattedValueForCurrency(assetBySearchDTO.currency, appreciation)
+            val percentFtd = getFormattedValueForPercent(appreciation / totalInvested)
 
-            if (totalInvested.isNotEmpty()) {
-                val totalInvestedValue = totalInvested.toDouble() / 100
-                val appreciation = getRoundedDouble(total - totalInvestedValue)
-                val appreciationFtd = getFormattedValueForCurrency(assetBySearchDTO.currency, appreciation)
-                val percentFtd = getFormattedValueForPercent(appreciation / totalInvestedValue)
-
-                incCurrentPosition.tvAppreciationAndDepreciation.text =
-                    getString(R.string.placeholderAppreciationAndDepreciation, appreciationFtd, percentFtd)
-            } else {
-                incCurrentPosition.tvAppreciationAndDepreciation.text = ""
-            }
-
-            incCurrentPosition.tvTotal.text = getFormattedValueForCurrency(assetBySearchDTO.currency, total)
-            tvInfoMessage.visibility = View.INVISIBLE
-            layoutAssetInfo.visibility = View.VISIBLE
-            incCurrentPosition.tvSymbolAndQuantity.text = getString(
-                R.string.placeholderSymbolAndQuantity, etSymbolText, etQuantityText
-            )
-            incCurrentPosition.tvName.text = assetBySearchDTO.name
-            btnSave.isEnabled = true
+            binding.incCurrentPosition.tvAppreciation.text =
+                getString(R.string.placeholderAppreciation, appreciationFtd, percentFtd)
 
         } else {
-            tvInfoMessage.visibility = View.VISIBLE
-            layoutAssetInfo.visibility = View.INVISIBLE
-            btnSave.isEnabled = false
+            binding.incCurrentPosition.tvAppreciation.text = ""
+        }
+    }
+
+    private fun updateCurrentPosition() {
+        val incCurrentPosition = binding.incCurrentPosition
+        val etQuantityText = binding.etQuantity.text.toString()
+
+        if (requiredFieldsNotEmpty()) {
+            val totalAssetPrice = assetBySearchDTO.price * getOnlyNumbers(etQuantityText).toInt()
+
+            updateAppreciation(totalAssetPrice)
+            incCurrentPosition.tvTotal.text =
+                getFormattedValueForCurrency(assetBySearchDTO.currency, totalAssetPrice)
+            incCurrentPosition.tvInfoMessage.visibility = View.INVISIBLE
+            incCurrentPosition.layoutAssetInfo.visibility = View.VISIBLE
+            incCurrentPosition.tvSymbolAndQuantity.text =
+                getString(R.string.placeholderSymbolAndQuantity, binding.etSymbol.text.toString(), etQuantityText)
+            incCurrentPosition.tvName.text = assetBySearchDTO.name
+            binding.btnSave.isEnabled = true
+
+        } else {
+            incCurrentPosition.tvInfoMessage.visibility = View.VISIBLE
+            incCurrentPosition.layoutAssetInfo.visibility = View.INVISIBLE
+            binding.btnSave.isEnabled = false
         }
     }
 }

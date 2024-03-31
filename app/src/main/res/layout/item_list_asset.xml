@@ -69,14 +69,14 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@+id/tvAppreciationAndDepreciation"
-                app:layout_constraintEnd_toStartOf="@+id/tvAppreciationAndDepreciation"
+                app:layout_constraintBottom_toBottomOf="@+id/tvAppreciation"
+                app:layout_constraintEnd_toStartOf="@+id/tvAppreciation"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tvAppreciationAndDepreciation"
+                app:layout_constraintTop_toTopOf="@+id/tvAppreciation"
                 tools:text="Apple inc" />
 
             <TextView
-                android:id="@+id/tvAppreciationAndDepreciation"
+                android:id="@+id/tvAppreciation"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
