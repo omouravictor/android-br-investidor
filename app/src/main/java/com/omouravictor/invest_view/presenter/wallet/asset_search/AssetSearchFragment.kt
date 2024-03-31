@@ -64,7 +64,7 @@ class AssetSearchFragment : Fragment() {
 
         }, viewLifecycleOwner)
 
-        binding.btnTryAgain.setOnClickListener {
+        binding.incLayoutError.btnTryAgain.setOnClickListener {
             searchView.setQuery(searchView.query, true)
         }
     }
@@ -129,14 +129,15 @@ class AssetSearchFragment : Fragment() {
         isLoading: Boolean = false, isSuccessResultsEmpty: Boolean = false, isError: Boolean = false
     ) {
         binding.shimmerLayout.isVisible = isLoading
-        binding.tvInfoMessage.isVisible = isSuccessResultsEmpty || isError
-        binding.btnTryAgain.isVisible = isError
+        binding.incLayoutError.tvInfoMessage.isVisible = isSuccessResultsEmpty || isError
+        binding.incLayoutError.btnTryAgain.isVisible = isError
         binding.recyclerView.isVisible = !isLoading && !isSuccessResultsEmpty && !isError
 
         if (isLoading) binding.shimmerLayout.startShimmer()
         else binding.shimmerLayout.stopShimmer()
 
-        if (isSuccessResultsEmpty) binding.tvInfoMessage.text = getString(R.string.noResultsFound)
+        if (isSuccessResultsEmpty) binding.incLayoutError.tvInfoMessage.text =
+            getString(R.string.noResultsFound)
     }
 
     private fun handleAssetsBySearchLoading() {
@@ -150,7 +151,7 @@ class AssetSearchFragment : Fragment() {
 
     private fun handleAssetsBySearchError(message: String) {
         setupViews(isError = true)
-        binding.tvInfoMessage.text = message
+        binding.incLayoutError.tvInfoMessage.text = message
     }
 
     private fun handleAssetQuoteLoading() {
@@ -159,14 +160,12 @@ class AssetSearchFragment : Fragment() {
 
     private fun handleAssetQuoteSuccess(assetQuote: AssetQuoteUiModel) {
         assetBySearchDTO.price = assetQuote.price
-        findNavController().navigate(
-            AssetSearchFragmentDirections.navToSaveAssetFragment(assetBySearchDTO)
-        )
+        findNavController().navigate(AssetSearchFragmentDirections.navToSaveAssetFragment(assetBySearchDTO))
     }
 
     private fun handleAssetQuoteError(message: String) {
         setupViews(isError = true)
-        binding.tvInfoMessage.text = message
+        binding.incLayoutError.tvInfoMessage.text = message
     }
 
 }
