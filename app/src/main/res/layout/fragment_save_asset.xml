@@ -121,7 +121,7 @@
         app:layout_constraintTop_toBottomOf="@+id/etTotalInvested" />
 
     <include
-        android:id="@+id/incCurrentPosition"
+        android:id="@+id/incItemListAsset"
         layout="@layout/item_list_asset"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -142,6 +142,6 @@
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/incCurrentPosition" />
+        app:layout_constraintTop_toBottomOf="@+id/incItemListAsset" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

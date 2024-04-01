@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getColor
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentSaveAssetBinding
+import com.omouravictor.invest_view.databinding.ItemListAssetBinding
 import com.omouravictor.invest_view.presenter.wallet.model.AssetBySearchUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getAssetType
 import com.omouravictor.invest_view.presenter.wallet.model.getDisplaySymbol
@@ -67,7 +69,7 @@ class SaveAssetFragment : Fragment() {
         etSymbol.setText(assetDTO.getDisplaySymbol())
         etTotalInvested.hint = getFormattedValueForCurrency(assetDTO.currency, 100)
         binding.etLocation.setText(assetDTO.region)
-        binding.incCurrentPosition.assetColor.backgroundTintList = assetTypeColor
+        binding.incItemListAsset.assetColor.backgroundTintList = assetTypeColor
     }
 
     private fun setEditTextsFocusChange(assetTypeColor: ColorStateList, vararg editTexts: EditText) {
@@ -83,34 +85,43 @@ class SaveAssetFragment : Fragment() {
         return binding.etSymbol.text.isNotEmpty() && binding.etQuantity.text.isNotEmpty()
     }
 
-    private fun updateAppreciation(totalAssetPrice: Double) {
-        binding.incCurrentPosition.tvAppreciation.apply {
-            text = binding.etTotalInvested.text.toString()
-                .takeIf { it.isNotEmpty() }?.let { totalInvestedText ->
-                    val totalInvested = saveAssetViewModel.getTotalInvested(totalInvestedText)
-                    val (appreciation, appreciationPercent) =
-                        saveAssetViewModel.getAppreciation(totalAssetPrice, totalInvested)
-                    val appreciationText = getString(
-                        R.string.placeholderAppreciation,
-                        getFormattedValueForCurrency(assetDTO.currency, appreciation),
-                        getFormattedValueForPercent(appreciationPercent)
-                    )
+    private fun updateAppreciation(itemListAssetBinding: ItemListAssetBinding, totalAssetPrice: Double) {
+        val etTotalInvestedText = binding.etTotalInvested.text.toString()
 
-                    setTextColor(
-                        when {
-                            appreciation > 0 -> ContextCompat.getColor(context, R.color.green)
-                            appreciation < 0 -> ContextCompat.getColor(context, R.color.red)
-                            else -> ContextCompat.getColor(context, R.color.gray)
-                        }
-                    )
+        if (etTotalInvestedText.isNotEmpty()) {
+            val totalInvested = saveAssetViewModel.getTotalInvested(etTotalInvestedText)
+            val (appreciation, percent) = saveAssetViewModel.getAppreciation(totalAssetPrice, totalInvested)
 
-                    appreciationText
-                } ?: ""
+            when {
+                appreciation > 0 -> {
+                    itemListAssetBinding.ivArrow.isVisible = true
+                    itemListAssetBinding.ivArrow.setImageResource(R.drawable.ic_arrow_up)
+                    itemListAssetBinding.tvAppreciation.setTextColor(getColor(requireContext(), R.color.green))
+                }
+                appreciation < 0 -> {
+                    itemListAssetBinding.ivArrow.isVisible = true
+                    itemListAssetBinding.ivArrow.setImageResource(R.drawable.ic_arrow_down)
+                    itemListAssetBinding.tvAppreciation.setTextColor(getColor(requireContext(), R.color.red))
+                }
+                else -> {
+                    itemListAssetBinding.ivArrow.isVisible = false
+                    itemListAssetBinding.tvAppreciation.setTextColor(getColor(requireContext(), R.color.gray))
+                }
+            }
+
+            itemListAssetBinding.tvAppreciation.text = getString(
+                R.string.placeholderAppreciation,
+                getFormattedValueForCurrency(assetDTO.currency, appreciation),
+                getFormattedValueForPercent(percent)
+            )
+        } else {
+            itemListAssetBinding.ivArrow.isVisible = false
+            itemListAssetBinding.tvAppreciation.text = ""
         }
     }
 
     private fun updateCurrentPosition() {
-        binding.incCurrentPosition.apply {
+        binding.incItemListAsset.apply {
             if (requiredFieldsNotEmpty()) {
                 val etQuantityText = binding.etQuantity.text.toString()
                 val totalAssetPrice = saveAssetViewModel.getTotalAssetPrice(assetDTO.price, etQuantityText)
@@ -119,7 +130,7 @@ class SaveAssetFragment : Fragment() {
                     getString(R.string.placeholderSymbolAndQuantity, binding.etSymbol.text.toString(), etQuantityText)
                 tvName.text = assetDTO.name
                 tvTotal.text = getFormattedValueForCurrency(assetDTO.currency, totalAssetPrice)
-                updateAppreciation(totalAssetPrice)
+                updateAppreciation(this, totalAssetPrice)
                 tvInfoMessage.visibility = View.INVISIBLE
                 layoutAssetInfo.visibility = View.VISIBLE
                 binding.btnSave.isEnabled = true
