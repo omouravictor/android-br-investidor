@@ -48,7 +48,7 @@ class AssetSearchFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         hideKeyboard(requireActivity(), searchView)
-        assetSearchViewModel.clearLiveDataValues()
+        assetSearchViewModel.clearAssetQuoteLiveData()
     }
 
     private fun addMenuProvider() {
@@ -73,7 +73,6 @@ class AssetSearchFragment : Fragment() {
         assetBySearchAdapter.updateOnClickItem {
             assetBySearchDTO = it
             assetSearchViewModel.getAssetQuote(it.symbol)
-            hideKeyboard(requireActivity(), searchView)
         }
     }
 
@@ -126,8 +125,11 @@ class AssetSearchFragment : Fragment() {
     }
 
     private fun setupViews(
-        isLoading: Boolean = false, isSuccessResultsEmpty: Boolean = false, isError: Boolean = false
+        isLoading: Boolean = false,
+        isSuccessResultsEmpty: Boolean = false,
+        isError: Boolean = false,
     ) {
+        binding.progressBar.isVisible = false
         binding.shimmerLayout.isVisible = isLoading
         binding.incLayoutError.tvInfoMessage.isVisible = isSuccessResultsEmpty || isError
         binding.incLayoutError.btnTryAgain.isVisible = isError
@@ -155,7 +157,8 @@ class AssetSearchFragment : Fragment() {
     }
 
     private fun handleAssetQuoteLoading() {
-        setupViews(isLoading = true)
+        binding.recyclerView.isVisible = false
+        binding.progressBar.isVisible = true
     }
 
     private fun handleAssetQuoteSuccess(assetQuote: AssetQuoteUiModel) {
