@@ -14,10 +14,10 @@ class SaveAssetViewModel : ViewModel() {
         return StringUtil.getOnlyNumbers(totalInvested).toDouble() / 100
     }
 
-    fun getAppreciation(totalAssetPrice: Double, totalInvested: Double): Pair<Double, Double> {
-        val appreciation = NumberUtil.getRoundedDouble(totalAssetPrice - totalInvested)
-        val appreciationPercent = appreciation / totalInvested
-        return Pair(appreciation, appreciationPercent)
+    fun getVariation(totalAssetPrice: Double, totalInvested: Double): Pair<Double, Double> {
+        val variation = NumberUtil.getRoundedDouble(totalAssetPrice - totalInvested)
+        val percent = variation / totalInvested
+        return Pair(variation, percent)
     }
 
 }

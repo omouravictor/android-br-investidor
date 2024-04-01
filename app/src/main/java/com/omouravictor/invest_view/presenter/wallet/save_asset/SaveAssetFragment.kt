@@ -67,7 +67,6 @@ class SaveAssetFragment : Fragment() {
         setEditTextIntNumberFormatMask(etQuantity)
         setEditTextCurrencyFormatMask(etTotalInvested, assetDTO.currency)
         etSymbol.setText(assetDTO.getDisplaySymbol())
-        etTotalInvested.hint = getFormattedValueForCurrency(assetDTO.currency, 100)
         binding.etLocation.setText(assetDTO.region)
         binding.incItemListAsset.assetColor.backgroundTintList = assetTypeColor
     }
@@ -85,38 +84,38 @@ class SaveAssetFragment : Fragment() {
         return binding.etSymbol.text.isNotEmpty() && binding.etQuantity.text.isNotEmpty()
     }
 
-    private fun updateAppreciation(itemListAssetBinding: ItemListAssetBinding, totalAssetPrice: Double) {
+    private fun updateVariation(itemListAssetBinding: ItemListAssetBinding, totalAssetPrice: Double) {
         val etTotalInvestedText = binding.etTotalInvested.text.toString()
 
         if (etTotalInvestedText.isNotEmpty()) {
             val totalInvested = saveAssetViewModel.getTotalInvested(etTotalInvestedText)
-            val (appreciation, percent) = saveAssetViewModel.getAppreciation(totalAssetPrice, totalInvested)
+            val (variation, percent) = saveAssetViewModel.getVariation(totalAssetPrice, totalInvested)
 
             when {
-                appreciation > 0 -> {
+                variation > 0 -> {
                     itemListAssetBinding.ivArrow.isVisible = true
                     itemListAssetBinding.ivArrow.setImageResource(R.drawable.ic_arrow_up)
-                    itemListAssetBinding.tvAppreciation.setTextColor(getColor(requireContext(), R.color.green))
+                    itemListAssetBinding.tvVariation.setTextColor(getColor(requireContext(), R.color.green))
                 }
-                appreciation < 0 -> {
+                variation < 0 -> {
                     itemListAssetBinding.ivArrow.isVisible = true
                     itemListAssetBinding.ivArrow.setImageResource(R.drawable.ic_arrow_down)
-                    itemListAssetBinding.tvAppreciation.setTextColor(getColor(requireContext(), R.color.red))
+                    itemListAssetBinding.tvVariation.setTextColor(getColor(requireContext(), R.color.red))
                 }
                 else -> {
                     itemListAssetBinding.ivArrow.isVisible = false
-                    itemListAssetBinding.tvAppreciation.setTextColor(getColor(requireContext(), R.color.gray))
+                    itemListAssetBinding.tvVariation.setTextColor(getColor(requireContext(), R.color.gray))
                 }
             }
 
-            itemListAssetBinding.tvAppreciation.text = getString(
-                R.string.placeholderAppreciation,
-                getFormattedValueForCurrency(assetDTO.currency, appreciation),
+            itemListAssetBinding.tvVariation.text = getString(
+                R.string.placeholderVariation,
+                getFormattedValueForCurrency(assetDTO.currency, variation),
                 getFormattedValueForPercent(percent)
             )
         } else {
             itemListAssetBinding.ivArrow.isVisible = false
-            itemListAssetBinding.tvAppreciation.text = ""
+            itemListAssetBinding.tvVariation.text = ""
         }
     }
 
@@ -130,7 +129,7 @@ class SaveAssetFragment : Fragment() {
                     getString(R.string.placeholderSymbolAndQuantity, binding.etSymbol.text.toString(), etQuantityText)
                 tvName.text = assetDTO.name
                 tvTotal.text = getFormattedValueForCurrency(assetDTO.currency, totalAssetPrice)
-                updateAppreciation(this, totalAssetPrice)
+                updateVariation(this, totalAssetPrice)
                 tvInfoMessage.visibility = View.INVISIBLE
                 layoutAssetInfo.visibility = View.VISIBLE
                 binding.btnSave.isEnabled = true

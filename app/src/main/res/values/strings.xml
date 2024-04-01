@@ -1,7 +1,7 @@
 <resources>
     <!-- Placeholders -->
     <string name="placeholderSymbolAndQuantity">%1$s (%2$s)</string>
-    <string name="placeholderAppreciation">%1$s (%2$s)</string>
+    <string name="placeholderVariation">%1$s (%2$s)</string>
 
     <string name="app_name">Invest View</string>
     <string name="add">Add</string>
@@ -24,6 +24,7 @@
     <string name="amount">Quantidade</string>
     <string name="totalInvested">Total investido</string>
     <string name="currentPosition">Posição atual</string>
+    <string name="totalInvestedDescription">O total investido é utilizado para o cálculo da variação do ativo. O seu preenchimento é opcional.</string>
     <string name="save">Salvar</string>
     <string name="fillTheFieldsToView">Preencha os campos para visualizar</string>
     <string name="brMoney_100">R$ 100,00</string>

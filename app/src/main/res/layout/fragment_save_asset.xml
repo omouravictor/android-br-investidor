@@ -74,7 +74,6 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/defaultMarginHorizontal"
         android:backgroundTint="@color/gray"
-        android:hint="@string/number_1"
         android:inputType="number"
         android:maxLength="11"
         android:text="@string/number_1"
@@ -106,19 +105,30 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTittleTotalInvested"
-        tools:hint="R$ 100,00" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTittleTotalInvested" />
+
+    <TextView
+        android:id="@+id/tvTotalInvestedDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/defaultMarginHorizontal"
+        android:layout_marginTop="2dp"
+        android:text="@string/totalInvestedDescription"
+        android:textColor="@color/lightGray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etTotalInvested" />
 
     <TextView
         android:id="@+id/tvTittleCurrentPosition"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/defaultMarginHorizontal"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:text="@string/currentPosition"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etTotalInvested" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTotalInvestedDescription" />
 
     <include
         android:id="@+id/incItemListAsset"

@@ -71,7 +71,7 @@
                 tools:text="Apple inc" />
 
             <TextView
-                android:id="@+id/tvAppreciation"
+                android:id="@+id/tvVariation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -89,12 +89,12 @@
                 android:id="@+id/ivArrow"
                 android:layout_width="12dp"
                 android:layout_height="0dp"
-                android:layout_marginEnd="2dp"
+                android:layout_marginEnd="1dp"
                 android:src="@drawable/ic_arrow_up"
                 android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="@+id/tvAppreciation"
-                app:layout_constraintEnd_toStartOf="@+id/tvAppreciation"
-                app:layout_constraintTop_toTopOf="@+id/tvAppreciation"
+                app:layout_constraintBottom_toBottomOf="@+id/tvVariation"
+                app:layout_constraintEnd_toStartOf="@+id/tvVariation"
+                app:layout_constraintTop_toTopOf="@+id/tvVariation"
                 tools:visibility="visible" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
