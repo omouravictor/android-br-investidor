@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.omouravictor.invest_view.R
@@ -24,9 +25,9 @@ import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForPercent
 
 class SaveAssetFragment : Fragment() {
 
-    private val saveViewModel: SaveViewModel by activityViewModels()
+    private val saveAssetViewModel: SaveAssetViewModel by activityViewModels()
     private lateinit var binding: FragmentSaveAssetBinding
-    private lateinit var assetBySearchDTO: AssetBySearchUiModel
+    private lateinit var assetDTO: AssetBySearchUiModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -44,15 +45,15 @@ class SaveAssetFragment : Fragment() {
 
     private fun setupSupportActionBarTitle() {
         (requireActivity() as AppCompatActivity).supportActionBar?.title =
-            assetBySearchDTO.getAssetType().getDescription(requireContext())
+            assetDTO.getAssetType().getDescription(requireContext())
     }
 
     private fun initEssentialVars() {
-        assetBySearchDTO = SaveAssetFragmentArgs.fromBundle(requireArguments()).assetBySearchDTO
+        assetDTO = SaveAssetFragmentArgs.fromBundle(requireArguments()).assetDTO
     }
 
     private fun setupViews() {
-        val assetTypeColor = assetBySearchDTO.getAssetType().getColor(requireContext())
+        val assetTypeColor = assetDTO.getAssetType().getColor(requireContext())
         val etQuantity = binding.etQuantity
         val etTotalInvested = binding.etTotalInvested
         val etSymbol = binding.etSymbol
@@ -62,10 +63,10 @@ class SaveAssetFragment : Fragment() {
         setEditTextsFocusChange(assetTypeColor, etQuantity, etTotalInvested)
         setEditTextCursorColor(etQuantity, assetTypeColor.defaultColor)
         setEditTextIntNumberFormatMask(etQuantity)
-        setEditTextCurrencyFormatMask(etTotalInvested, assetBySearchDTO.currency)
-        etSymbol.setText(assetBySearchDTO.getDisplaySymbol())
-        etTotalInvested.hint = getFormattedValueForCurrency(assetBySearchDTO.currency, 100)
-        binding.etLocation.setText(assetBySearchDTO.region)
+        setEditTextCurrencyFormatMask(etTotalInvested, assetDTO.currency)
+        etSymbol.setText(assetDTO.getDisplaySymbol())
+        etTotalInvested.hint = getFormattedValueForCurrency(assetDTO.currency, 100)
+        binding.etLocation.setText(assetDTO.region)
         binding.incCurrentPosition.assetColor.backgroundTintList = assetTypeColor
     }
 
@@ -83,42 +84,51 @@ class SaveAssetFragment : Fragment() {
     }
 
     private fun updateAppreciation(totalAssetPrice: Double) {
-        val totalInvestedText = binding.etTotalInvested.text.toString()
+        binding.incCurrentPosition.tvAppreciation.apply {
+            text = binding.etTotalInvested.text.toString()
+                .takeIf { it.isNotEmpty() }?.let { totalInvestedText ->
+                    val totalInvested = saveAssetViewModel.getTotalInvested(totalInvestedText)
+                    val (appreciation, appreciationPercent) =
+                        saveAssetViewModel.getAppreciation(totalAssetPrice, totalInvested)
+                    val appreciationText = getString(
+                        R.string.placeholderAppreciation,
+                        getFormattedValueForCurrency(assetDTO.currency, appreciation),
+                        getFormattedValueForPercent(appreciationPercent)
+                    )
 
-        binding.incCurrentPosition.tvAppreciation.text = if (totalInvestedText.isNotEmpty()) {
-            val totalInvested = saveViewModel.getTotalInvested(totalInvestedText)
-            val (appreciation, appreciationPercent) = saveViewModel.getAppreciation(totalAssetPrice, totalInvested)
+                    setTextColor(
+                        when {
+                            appreciation > 0 -> ContextCompat.getColor(context, R.color.green)
+                            appreciation < 0 -> ContextCompat.getColor(context, R.color.red)
+                            else -> ContextCompat.getColor(context, R.color.gray)
+                        }
+                    )
 
-            getString(
-                R.string.placeholderAppreciation,
-                getFormattedValueForCurrency(assetBySearchDTO.currency, appreciation),
-                getFormattedValueForPercent(appreciationPercent)
-            )
-
-        } else ""
+                    appreciationText
+                } ?: ""
+        }
     }
 
     private fun updateCurrentPosition() {
-        val incCurrentPosition = binding.incCurrentPosition
+        binding.incCurrentPosition.apply {
+            if (requiredFieldsNotEmpty()) {
+                val etQuantityText = binding.etQuantity.text.toString()
+                val totalAssetPrice = saveAssetViewModel.getTotalAssetPrice(assetDTO.price, etQuantityText)
 
-        if (requiredFieldsNotEmpty()) {
-            val etQuantityText = binding.etQuantity.text.toString()
-            val totalAssetPrice = saveViewModel.getTotalAssetPrice(assetBySearchDTO.price, etQuantityText)
+                tvSymbolAndQuantity.text =
+                    getString(R.string.placeholderSymbolAndQuantity, binding.etSymbol.text.toString(), etQuantityText)
+                tvName.text = assetDTO.name
+                tvTotal.text = getFormattedValueForCurrency(assetDTO.currency, totalAssetPrice)
+                updateAppreciation(totalAssetPrice)
+                tvInfoMessage.visibility = View.INVISIBLE
+                layoutAssetInfo.visibility = View.VISIBLE
+                binding.btnSave.isEnabled = true
 
-            incCurrentPosition.tvSymbolAndQuantity.text =
-                getString(R.string.placeholderSymbolAndQuantity, binding.etSymbol.text.toString(), etQuantityText)
-            incCurrentPosition.tvName.text = assetBySearchDTO.name
-            incCurrentPosition.tvTotal.text =
-                getFormattedValueForCurrency(assetBySearchDTO.currency, totalAssetPrice)
-            updateAppreciation(totalAssetPrice)
-            incCurrentPosition.tvInfoMessage.visibility = View.INVISIBLE
-            incCurrentPosition.layoutAssetInfo.visibility = View.VISIBLE
-            binding.btnSave.isEnabled = true
-
-        } else {
-            incCurrentPosition.tvInfoMessage.visibility = View.VISIBLE
-            incCurrentPosition.layoutAssetInfo.visibility = View.INVISIBLE
-            binding.btnSave.isEnabled = false
+            } else {
+                tvInfoMessage.visibility = View.VISIBLE
+                layoutAssetInfo.visibility = View.INVISIBLE
+                binding.btnSave.isEnabled = false
+            }
         }
     }
 }

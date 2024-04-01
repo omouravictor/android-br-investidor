@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.omouravictor.invest_view.util.NumberUtil
 import com.omouravictor.invest_view.util.StringUtil
 
-class SaveViewModel() : ViewModel() {
+class SaveAssetViewModel : ViewModel() {
 
     fun getTotalAssetPrice(price: Double, quantity: String): Double {
         return price * StringUtil.getOnlyNumbers(quantity).toInt()
