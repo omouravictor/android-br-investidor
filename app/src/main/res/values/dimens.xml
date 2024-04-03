@@ -1,7 +1,9 @@
 <resources>
     <dimen name="defaultElevation">5dp</dimen>
-    <dimen name="defaultCardElevation">3dp</dimen>
+    <dimen name="defaultCardElevation">5dp</dimen>
+    <dimen name="defaultRadius">5dp</dimen>
     <dimen name="defaultCardRadius">5dp</dimen>
+    <dimen name="defaultTextInputLayoutRadius">5dp</dimen>
     <dimen name="defaultMarginHorizontal">16dp</dimen>
     <dimen name="defaultMarginVertical">16dp</dimen>
     <dimen name="defaultPaddingHorizontal">16dp</dimen>
