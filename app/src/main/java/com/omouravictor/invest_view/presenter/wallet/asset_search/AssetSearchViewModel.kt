@@ -15,7 +15,7 @@ import com.omouravictor.invest_view.di.base.DispatcherProvider
 import com.omouravictor.invest_view.presenter.base.UiState
 import com.omouravictor.invest_view.presenter.wallet.model.AssetBySearchUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetQuoteUiModel
-import com.omouravictor.invest_view.util.AppUtil.getGenericNetworkErrorMessage
+import com.omouravictor.invest_view.util.AppUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.collectLatest
@@ -77,7 +77,7 @@ class AssetSearchViewModel @Inject constructor(
     }
 
     private fun handleRemoteAssetsBySearchError(e: Exception) {
-        _assetsBySearch.value = UiState.Error(getGenericNetworkErrorMessage(context, e))
+        _assetsBySearch.value = UiState.Error(AppUtil.getGenericNetworkErrorMessage(context, e))
     }
 
     private fun handleRemoteAssetQuoteLoading() {
@@ -90,7 +90,7 @@ class AssetSearchViewModel @Inject constructor(
     }
 
     private fun handleRemoteAssetQuoteError(e: Exception) {
-        _assetQuote.value = UiState.Error(getGenericNetworkErrorMessage(context, e))
+        _assetQuote.value = UiState.Error(AppUtil.getGenericNetworkErrorMessage(context, e))
     }
 
 }

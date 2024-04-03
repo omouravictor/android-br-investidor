@@ -1,43 +1,12 @@
 package com.omouravictor.invest_view.util
 
-import android.os.Build
+import android.content.res.ColorStateList
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
-import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 
 object EditTextUtil {
-
-    fun setEditTextCursorColor(
-        editText: EditText, color: Int
-    ) {
-        if (Build.VERSION.SDK_INT >= 29) {
-            editText.textCursorDrawable?.setTint(color)
-
-        } else {
-            try {
-                val field = TextView::class.java.getDeclaredField("mCursorDrawableRes")
-                field.isAccessible = true
-
-                val cursorDrawableField = TextView::class.java.getDeclaredField("mEditor")
-                cursorDrawableField.isAccessible = true
-                val editor = cursorDrawableField.get(editText)
-
-                val cursorDrawable =
-                    ContextCompat.getDrawable(editText.context, field.getInt(editText))
-                cursorDrawable?.setTint(color)
-
-                val cursorDrawableField2 = editor.javaClass.getDeclaredField("mCursorDrawable")
-                cursorDrawableField2.isAccessible = true
-                cursorDrawableField2.set(editor, arrayOf(cursorDrawable, cursorDrawable))
-
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-    }
 
     fun setEditTextsHighLightColor(
         color: Int, vararg editTexts: EditText
@@ -58,7 +27,7 @@ object EditTextUtil {
     }
 
     fun setEditTextCurrencyFormatMask(editText: EditText, currency: String) {
-        with(editText) {
+        editText.apply {
             addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(cs: CharSequence?, s: Int, c: Int, a: Int) {}
 
@@ -90,7 +59,7 @@ object EditTextUtil {
     }
 
     fun setEditTextIntNumberFormatMask(editText: EditText) {
-        with(editText) {
+        editText.apply {
             addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(cs: CharSequence?, s: Int, c: Int, a: Int) {}
 

@@ -53,19 +53,25 @@ class SaveAssetFragment : Fragment() {
         val assetTypeColor = assetDTO.getAssetType().getColor(requireContext())
         val ietQuantity = binding.ietQuantity
         val ietTotalInvested = binding.ietTotalInvested
+        val textInputLayoutQuantity = binding.textInputLayoutQuantity
+        val textInputLayoutTotalInvested = binding.textInputLayoutTotalInvested
         val currency = assetDTO.currency
+        val etSymbol = binding.etSymbol
+        val etLocation = binding.etLocation
+        val incItemListAsset = binding.incItemListAsset
 
-        binding.etSymbol.setText(assetDTO.getDisplaySymbol())
-        binding.etLocation.setText(assetDTO.region)
+        etSymbol.setText(assetDTO.getDisplaySymbol())
+        etLocation.setText(assetDTO.region)
         ietTotalInvested.hint = LocaleUtil.getFormattedValueForCurrency(currency, 0.0)
         EditTextUtil.setEditTextsAfterTextChanged({ updateCurrentPosition() }, ietQuantity, ietTotalInvested)
         EditTextUtil.setEditTextsHighLightColor(assetTypeColor.defaultColor, ietQuantity, ietTotalInvested)
-        EditTextUtil.setEditTextCursorColor(ietQuantity, assetTypeColor.defaultColor)
         EditTextUtil.setEditTextIntNumberFormatMask(ietQuantity)
         EditTextUtil.setEditTextCurrencyFormatMask(ietTotalInvested, currency)
         setEditTextsFocusChange(assetTypeColor, ietQuantity, ietTotalInvested)
+        textInputLayoutQuantity.setBoxStrokeColorStateList(assetTypeColor)
+        textInputLayoutTotalInvested.setBoxStrokeColorStateList(assetTypeColor)
+        incItemListAsset.color.backgroundTintList = assetTypeColor
         ietQuantity.setText("1")
-        binding.incItemListAsset.color.backgroundTintList = assetTypeColor
     }
 
     private fun setEditTextsFocusChange(assetTypeColor: ColorStateList, vararg editTexts: EditText) {
