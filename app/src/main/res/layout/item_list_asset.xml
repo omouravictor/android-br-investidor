@@ -12,7 +12,7 @@
         android:background="@color/itemListBackground">
 
         <View
-            android:id="@+id/assetColor"
+            android:id="@+id/color"
             android:layout_width="5dp"
             android:layout_height="0dp"
             android:background="@color/green"
@@ -27,7 +27,7 @@
             android:padding="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/assetColor"
+            app:layout_constraintStart_toEndOf="@+id/color"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
@@ -109,7 +109,7 @@
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/assetColor"
+            app:layout_constraintStart_toEndOf="@+id/color"
             app:layout_constraintTop_toTopOf="parent"
             tools:visibility="gone" />
 

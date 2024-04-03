@@ -17,13 +17,8 @@ import com.omouravictor.invest_view.databinding.ItemListAssetBinding
 import com.omouravictor.invest_view.presenter.wallet.model.AssetBySearchUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getAssetType
 import com.omouravictor.invest_view.presenter.wallet.model.getDisplaySymbol
-import com.omouravictor.invest_view.util.EditTextUtil.setEditTextCurrencyFormatMask
-import com.omouravictor.invest_view.util.EditTextUtil.setEditTextCursorColor
-import com.omouravictor.invest_view.util.EditTextUtil.setEditTextIntNumberFormatMask
-import com.omouravictor.invest_view.util.EditTextUtil.setEditTextsAfterTextChanged
-import com.omouravictor.invest_view.util.EditTextUtil.setEditTextsHighLightColor
-import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForCurrency
-import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForPercent
+import com.omouravictor.invest_view.util.EditTextUtil
+import com.omouravictor.invest_view.util.LocaleUtil
 
 class SaveAssetFragment : Fragment() {
 
@@ -56,19 +51,21 @@ class SaveAssetFragment : Fragment() {
 
     private fun setupViews() {
         val assetTypeColor = assetDTO.getAssetType().getColor(requireContext())
-        val etQuantity = binding.etQuantity
-        val etTotalInvested = binding.etTotalInvested
-        val etSymbol = binding.etSymbol
+        val ietQuantity = binding.ietQuantity
+        val ietTotalInvested = binding.ietTotalInvested
+        val currency = assetDTO.currency
 
-        setEditTextsAfterTextChanged({ updateCurrentPosition() }, etSymbol, etQuantity, etTotalInvested)
-        setEditTextsHighLightColor(assetTypeColor.defaultColor, etQuantity, etTotalInvested)
-        setEditTextsFocusChange(assetTypeColor, etQuantity, etTotalInvested)
-        setEditTextCursorColor(etQuantity, assetTypeColor.defaultColor)
-        setEditTextIntNumberFormatMask(etQuantity)
-        setEditTextCurrencyFormatMask(etTotalInvested, assetDTO.currency)
-        etSymbol.setText(assetDTO.getDisplaySymbol())
+        binding.etSymbol.setText(assetDTO.getDisplaySymbol())
         binding.etLocation.setText(assetDTO.region)
-        binding.incItemListAsset.assetColor.backgroundTintList = assetTypeColor
+        ietTotalInvested.hint = LocaleUtil.getFormattedValueForCurrency(currency, 0.0)
+        EditTextUtil.setEditTextsAfterTextChanged({ updateCurrentPosition() }, ietQuantity, ietTotalInvested)
+        EditTextUtil.setEditTextsHighLightColor(assetTypeColor.defaultColor, ietQuantity, ietTotalInvested)
+        EditTextUtil.setEditTextCursorColor(ietQuantity, assetTypeColor.defaultColor)
+        EditTextUtil.setEditTextIntNumberFormatMask(ietQuantity)
+        EditTextUtil.setEditTextCurrencyFormatMask(ietTotalInvested, currency)
+        setEditTextsFocusChange(assetTypeColor, ietQuantity, ietTotalInvested)
+        ietQuantity.setText("1")
+        binding.incItemListAsset.color.backgroundTintList = assetTypeColor
     }
 
     private fun setEditTextsFocusChange(assetTypeColor: ColorStateList, vararg editTexts: EditText) {
@@ -81,14 +78,15 @@ class SaveAssetFragment : Fragment() {
     }
 
     private fun requiredFieldsNotEmpty(): Boolean {
-        return binding.etSymbol.text.isNotEmpty() && binding.etQuantity.text.isNotEmpty()
+        val ietQuantityText = binding.ietQuantity.text.toString()
+        return ietQuantityText.isNotEmpty() && ietQuantityText != "0"
     }
 
     private fun updateVariation(itemListAssetBinding: ItemListAssetBinding, totalAssetPrice: Double) {
-        val etTotalInvestedText = binding.etTotalInvested.text.toString()
+        val ietTotalInvestedText = binding.ietTotalInvested.text.toString()
 
-        if (etTotalInvestedText.isNotEmpty()) {
-            val totalInvested = saveAssetViewModel.getTotalInvested(etTotalInvestedText)
+        if (ietTotalInvestedText.isNotEmpty()) {
+            val totalInvested = saveAssetViewModel.getTotalInvested(ietTotalInvestedText)
             val (variation, percent) = saveAssetViewModel.getVariation(totalAssetPrice, totalInvested)
 
             when {
@@ -110,8 +108,8 @@ class SaveAssetFragment : Fragment() {
 
             itemListAssetBinding.tvVariation.text = getString(
                 R.string.placeholderVariation,
-                getFormattedValueForCurrency(assetDTO.currency, variation),
-                getFormattedValueForPercent(percent)
+                LocaleUtil.getFormattedValueForCurrency(assetDTO.currency, variation),
+                LocaleUtil.getFormattedValueForPercent(percent)
             )
         } else {
             itemListAssetBinding.ivArrow.isVisible = false
@@ -122,13 +120,13 @@ class SaveAssetFragment : Fragment() {
     private fun updateCurrentPosition() {
         binding.incItemListAsset.apply {
             if (requiredFieldsNotEmpty()) {
-                val etQuantityText = binding.etQuantity.text.toString()
-                val totalAssetPrice = saveAssetViewModel.getTotalAssetPrice(assetDTO.price, etQuantityText)
+                val ietQuantityText = binding.ietQuantity.text.toString()
+                val totalAssetPrice = saveAssetViewModel.getTotalAssetPrice(assetDTO.price, ietQuantityText)
 
                 tvSymbolAndQuantity.text =
-                    getString(R.string.placeholderSymbolAndQuantity, binding.etSymbol.text.toString(), etQuantityText)
+                    getString(R.string.placeholderSymbolAndQuantity, binding.etSymbol.text.toString(), ietQuantityText)
                 tvName.text = assetDTO.name
-                tvTotal.text = getFormattedValueForCurrency(assetDTO.currency, totalAssetPrice)
+                tvTotal.text = LocaleUtil.getFormattedValueForCurrency(assetDTO.currency, totalAssetPrice)
                 updateVariation(this, totalAssetPrice)
                 tvInfoMessage.visibility = View.INVISIBLE
                 layoutAssetInfo.visibility = View.VISIBLE

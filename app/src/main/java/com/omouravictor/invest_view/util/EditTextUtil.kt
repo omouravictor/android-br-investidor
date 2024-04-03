@@ -7,9 +7,6 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
-import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForCurrency
-import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForIntNumber
-import com.omouravictor.invest_view.util.StringUtil.getOnlyNumbers
 
 object EditTextUtil {
 
@@ -70,7 +67,7 @@ object EditTextUtil {
                 ) {
                     if (text.isEmpty()) return
 
-                    val cleanText = getOnlyNumbers(text.toString())
+                    val cleanText = StringUtil.getOnlyNumbers(text.toString())
 
                     if (cleanText == "00") {
                         setText("")
@@ -80,7 +77,7 @@ object EditTextUtil {
                     removeTextChangedListener(this)
 
                     val amount = cleanText.toDouble() / 100
-                    val formattedAmount = getFormattedValueForCurrency(currency, amount)
+                    val formattedAmount = LocaleUtil.getFormattedValueForCurrency(currency, amount)
                     setText(formattedAmount)
                     setSelection(formattedAmount.length)
 
@@ -104,8 +101,8 @@ object EditTextUtil {
 
                     removeTextChangedListener(this)
 
-                    val amount = getOnlyNumbers(text.toString()).toInt()
-                    val formattedAmount = getFormattedValueForIntNumber(amount)
+                    val amount = StringUtil.getOnlyNumbers(text.toString()).toLong()
+                    val formattedAmount = LocaleUtil.getFormattedValueForLongNumber(amount)
                     setText(formattedAmount)
                     setSelection(formattedAmount.length)
 

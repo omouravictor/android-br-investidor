@@ -14,7 +14,7 @@ object LocaleUtil {
         return currencyFormat.format(value)
     }
 
-    fun getFormattedValueForIntNumber(value: Int): String {
+    fun getFormattedValueForLongNumber(value: Long): String {
         val intNumberFormat = NumberFormat.getIntegerInstance(appLocale)
         return intNumberFormat.format(value)
     }

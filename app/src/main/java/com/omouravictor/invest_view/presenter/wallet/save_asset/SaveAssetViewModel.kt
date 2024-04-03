@@ -7,7 +7,7 @@ import com.omouravictor.invest_view.util.StringUtil
 class SaveAssetViewModel : ViewModel() {
 
     fun getTotalAssetPrice(price: Double, quantity: String): Double {
-        return price * StringUtil.getOnlyNumbers(quantity).toInt()
+        return price * StringUtil.getOnlyNumbers(quantity).toLong()
     }
 
     fun getTotalInvested(totalInvested: String): Double {
