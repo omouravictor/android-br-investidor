@@ -36,19 +36,17 @@ class AssetSearchViewModel @Inject constructor(
     val assetQuote: LiveData<UiState<AssetQuoteUiModel>> = _assetQuote
 
     fun getAssetsBySearch(keywords: String) {
-        _assetsBySearch.value = UiState.Loading
-
-//        viewModelScope.launch {
-//            withContext(dispatchers.io) {
-//                remoteAssetsRepository.getAssetsBySearch(keywords)
-//            }.collectLatest {
-//                when (it) {
-//                    is NetworkState.Loading -> handleRemoteAssetsBySearchLoading()
-//                    is NetworkState.Success -> handleRemoteAssetsBySearchSuccess(it.data)
-//                    is NetworkState.Error -> handleRemoteAssetsBySearchError(it.e)
-//                }
-//            }
-//        }
+        viewModelScope.launch {
+            withContext(dispatchers.io) {
+                remoteAssetsRepository.getAssetsBySearch(keywords)
+            }.collectLatest {
+                when (it) {
+                    is NetworkState.Loading -> handleRemoteAssetsBySearchLoading()
+                    is NetworkState.Success -> handleRemoteAssetsBySearchSuccess(it.data)
+                    is NetworkState.Error -> handleRemoteAssetsBySearchError(it.e)
+                }
+            }
+        }
     }
 
     fun getAssetQuote(symbol: String) {
