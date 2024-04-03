@@ -7,31 +7,42 @@
         android:id="@+id/tvSymbol"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/defaultMarginVertical"
+        android:layout_marginTop="10dp"
         android:background="@color/shimmerBackground"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/line"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent=".25" />
+        app:layout_constraintWidth_percent=".2" />
 
     <TextView
-        android:id="@+id/tvSymbolAndQuantity"
+        android:id="@+id/tvLocation"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="10dp"
         android:background="@color/shimmerBackground"
-        app:layout_constraintBottom_toBottomOf="@+id/tvSymbol"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/line"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSymbol"
+        app:layout_constraintWidth_percent=".3" />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/shimmerBackground"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvLocation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tvSymbol"
         app:layout_constraintWidth_percent=".4" />
 
     <View
         android:id="@+id/line"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/shimmerBackground"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/tvSymbolAndQuantity"
-        app:layout_constraintStart_toStartOf="@+id/tvSymbol" />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
