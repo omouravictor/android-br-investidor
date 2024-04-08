@@ -25,7 +25,7 @@ class AssetSearchFragment : Fragment() {
 
     private lateinit var binding: FragmentAssetSearchBinding
     private lateinit var searchView: SearchView
-    private lateinit var assetBySearchDTO: AssetBySearchUiModel
+    private lateinit var assetBySearchUiModel: AssetBySearchUiModel
     private val assetSearchViewModel: AssetSearchViewModel by activityViewModels()
     private val assetBySearchAdapter = AssetBySearchAdapter()
 
@@ -71,7 +71,7 @@ class AssetSearchFragment : Fragment() {
 
     private fun setupAdapter() {
         assetBySearchAdapter.updateOnClickItem {
-            assetBySearchDTO = it
+            assetBySearchUiModel = it
             assetSearchViewModel.getAssetQuote(it.symbol)
         }
     }
@@ -162,8 +162,8 @@ class AssetSearchFragment : Fragment() {
     }
 
     private fun handleAssetQuoteSuccess(assetQuote: AssetQuoteUiModel) {
-        assetBySearchDTO.price = assetQuote.price
-        findNavController().navigate(AssetSearchFragmentDirections.navToSaveAssetFragment(assetBySearchDTO))
+        assetBySearchUiModel.price = assetQuote.price
+        findNavController().navigate(AssetSearchFragmentDirections.navToSaveAssetFragment(assetBySearchUiModel))
     }
 
     private fun handleAssetQuoteError(message: String) {

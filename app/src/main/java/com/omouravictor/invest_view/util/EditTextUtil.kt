@@ -1,6 +1,5 @@
 package com.omouravictor.invest_view.util
 
-import android.content.res.ColorStateList
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
