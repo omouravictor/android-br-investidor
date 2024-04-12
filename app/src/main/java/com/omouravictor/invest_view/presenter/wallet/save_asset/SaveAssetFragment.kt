@@ -23,6 +23,7 @@ import com.omouravictor.invest_view.presenter.wallet.model.getVariation
 import com.omouravictor.invest_view.util.AssetUtil
 import com.omouravictor.invest_view.util.EditTextUtil
 import com.omouravictor.invest_view.util.LocaleUtil
+import com.omouravictor.invest_view.util.NavigationUtil
 import com.omouravictor.invest_view.util.StringUtil
 
 class SaveAssetFragment : Fragment() {
@@ -163,8 +164,7 @@ class SaveAssetFragment : Fragment() {
 
     private fun setupBtnSave() {
         binding.btnSave.setOnClickListener {
-            val navController = findNavController()
-            //            navController.clearBackStack(R.id.walletNavMenu)
+            NavigationUtil.clearPileAndNavigateToStart(findNavController())
         }
     }
 

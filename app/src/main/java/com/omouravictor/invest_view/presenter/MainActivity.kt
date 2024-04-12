@@ -15,6 +15,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.ActivityMainBinding
 import com.omouravictor.invest_view.presenter.wallet.WalletFragmentDirections
+import com.omouravictor.invest_view.util.NavigationUtil
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -79,22 +80,12 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.title = navController.currentDestination?.label
     }
 
-    private fun navigateToMenuItem(menuItemId: Int): Boolean {
-        val startDestination = navController.graph.findNode(menuItemId)!!.id
-        navController.popBackStack(startDestination, true)
-        navController.navigate(menuItemId)
-        return true
-    }
-
     private fun setupBottomNavigationView() {
         binding.bottomNav.itemIconTintList = null
         binding.bottomNav.setOnItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.walletNavMenu,
-                R.id.exchangeNavMenu,
-                R.id.profileNavMenu -> navigateToMenuItem(menuItem.itemId)
-                else -> false
-            }
+            val menuItemStartDestination = navController.graph.findNode(menuItem.itemId)!!.id
+            NavigationUtil.clearPileAndNavigateTo(menuItemStartDestination, navController)
+            true
         }
     }
 
