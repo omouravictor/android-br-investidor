@@ -35,17 +35,21 @@ object EditTextUtil {
                 ) {
                     if (text.isEmpty()) return
 
-                    val cleanText = StringUtil.getOnlyNumbers(text.toString())
+                    var cleanText = StringUtil.getOnlyNumbers(text.toString())
 
                     if (cleanText == "00") {
                         setText("")
                         return
                     }
 
+                    if (cleanText.length == 15) {
+                        cleanText = cleanText.substring(0, 14)
+                    }
+
                     removeTextChangedListener(this)
 
-                    val amount = cleanText.toDouble() / 100
-                    val formattedAmount = LocaleUtil.getFormattedValueForCurrency(currency, amount)
+                    val value = cleanText.toDouble() / 100
+                    val formattedAmount = LocaleUtil.getFormattedValueForCurrency(currency, value)
                     setText(formattedAmount)
                     setSelection(formattedAmount.length)
 

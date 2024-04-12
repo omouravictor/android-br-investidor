@@ -70,7 +70,7 @@
             app:layout_constraintTop_toBottomOf="@+id/etSymbol" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayoutQuantity"
+            android:id="@+id/textInputLayoutAmount"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -86,7 +86,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tvTittleQuantity">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ietQuantity"
+                android:id="@+id/iet_amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/defaultMarginHorizontal"
@@ -106,7 +106,7 @@
             android:layout_marginTop="16dp"
             android:text="@string/totalInvested"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutQuantity" />
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayoutAmount" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayoutTotalInvested"

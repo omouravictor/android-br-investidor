@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentSaveAssetBinding
@@ -18,8 +18,6 @@ import com.omouravictor.invest_view.databinding.ItemListAssetBinding
 import com.omouravictor.invest_view.presenter.wallet.assets.AssetsViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getAssetType
-import com.omouravictor.invest_view.presenter.wallet.model.getTotalAssetPrice
-import com.omouravictor.invest_view.presenter.wallet.model.getVariation
 import com.omouravictor.invest_view.util.AssetUtil
 import com.omouravictor.invest_view.util.EditTextUtil
 import com.omouravictor.invest_view.util.LocaleUtil
@@ -28,7 +26,8 @@ import com.omouravictor.invest_view.util.StringUtil
 
 class SaveAssetFragment : Fragment() {
 
-    private val assetsViewModel: AssetsViewModel by activityViewModels()
+    private val saveAssetViewModel = SaveAssetViewModel()
+    private val assetsViewModel: AssetsViewModel by viewModels()
     private lateinit var binding: FragmentSaveAssetBinding
     private lateinit var assetUiModel: AssetUiModel
 
@@ -66,9 +65,9 @@ class SaveAssetFragment : Fragment() {
 
     private fun setupViews() {
         val assetTypeColor = assetUiModel.getAssetType().getColor(requireContext())
-        val ietQuantity = binding.ietQuantity
+        val ietAmount = binding.ietAmount
         val ietTotalInvested = binding.ietTotalInvested
-        val textInputLayoutQuantity = binding.textInputLayoutQuantity
+        val textInputLayoutAmount = binding.textInputLayoutAmount
         val textInputLayoutTotalInvested = binding.textInputLayoutTotalInvested
         val currency = assetUiModel.currency
         val etSymbol = binding.etSymbol
@@ -78,15 +77,15 @@ class SaveAssetFragment : Fragment() {
         etSymbol.setText(AssetUtil.getDisplaySymbol(assetUiModel.symbol))
         etLocation.setText(assetUiModel.region)
         ietTotalInvested.hint = LocaleUtil.getFormattedValueForCurrency(currency, 0.0)
-        EditTextUtil.setEditTextsAfterTextChanged({ updateCurrentPosition() }, ietQuantity, ietTotalInvested)
-        EditTextUtil.setEditTextsHighLightColor(assetTypeColor.defaultColor, ietQuantity, ietTotalInvested)
-        EditTextUtil.setEditTextIntNumberFormatMask(ietQuantity)
+        EditTextUtil.setEditTextsAfterTextChanged({ updateCurrentPosition() }, ietAmount, ietTotalInvested)
+        EditTextUtil.setEditTextsHighLightColor(assetTypeColor.defaultColor, ietAmount, ietTotalInvested)
+        EditTextUtil.setEditTextIntNumberFormatMask(ietAmount)
         EditTextUtil.setEditTextCurrencyFormatMask(ietTotalInvested, currency)
-        setEditTextsFocusChange(assetTypeColor, ietQuantity, ietTotalInvested)
-        textInputLayoutQuantity.setBoxStrokeColorStateList(assetTypeColor)
+        setEditTextsFocusChange(assetTypeColor, ietAmount, ietTotalInvested)
+        textInputLayoutAmount.setBoxStrokeColorStateList(assetTypeColor)
         textInputLayoutTotalInvested.setBoxStrokeColorStateList(assetTypeColor)
         incItemListAsset.color.backgroundTintList = assetTypeColor
-        ietQuantity.setText("1")
+        ietAmount.setText("1")
     }
 
     private fun setEditTextsFocusChange(assetTypeColor: ColorStateList, vararg editTexts: EditText) {
@@ -99,39 +98,35 @@ class SaveAssetFragment : Fragment() {
     }
 
     private fun requiredFieldsNotEmpty(): Boolean {
-        val ietQuantityText = binding.ietQuantity.text.toString()
-        return ietQuantityText.isNotEmpty() && ietQuantityText != "0"
+        val ietAmountText = binding.ietAmount.text.toString()
+        return ietAmountText.isNotEmpty() && ietAmountText != "0"
     }
 
-    private fun updateVariation(itemListAssetBinding: ItemListAssetBinding) {
+    private fun updateVariation(itemListAssetBinding: ItemListAssetBinding, totalAssetPrice: Double) {
         val ietTotalInvestedText = binding.ietTotalInvested.text.toString()
 
         if (ietTotalInvestedText.isNotEmpty()) {
-            assetUiModel.totalInvested = StringUtil.getOnlyNumbers(ietTotalInvestedText).toDouble() / 100
-            val (variation, percent) = assetUiModel.getVariation()
+            val totalInvested = saveAssetViewModel.getDoubleTotalInvested(ietTotalInvestedText)
+            val (variation, percent) = AssetUtil.getVariation(totalAssetPrice, totalInvested)
 
-            when {
-                variation > 0 -> {
-                    itemListAssetBinding.ivArrow.isVisible = true
-                    itemListAssetBinding.ivArrow.setImageResource(R.drawable.ic_arrow_up)
-                    itemListAssetBinding.tvVariation.setTextColor(getColor(requireContext(), R.color.green))
-                }
-                variation < 0 -> {
-                    itemListAssetBinding.ivArrow.isVisible = true
-                    itemListAssetBinding.ivArrow.setImageResource(R.drawable.ic_arrow_down)
-                    itemListAssetBinding.tvVariation.setTextColor(getColor(requireContext(), R.color.red))
-                }
-                else -> {
-                    itemListAssetBinding.ivArrow.isVisible = false
-                    itemListAssetBinding.tvVariation.setTextColor(getColor(requireContext(), R.color.gray))
-                }
+            if (variation > 0) {
+                itemListAssetBinding.ivArrow.isVisible = true
+                itemListAssetBinding.ivArrow.setImageResource(R.drawable.ic_arrow_up)
+                itemListAssetBinding.tvVariation.setTextColor(getColor(requireContext(), R.color.green))
+            } else if (variation < 0) {
+                itemListAssetBinding.ivArrow.isVisible = true
+                itemListAssetBinding.ivArrow.setImageResource(R.drawable.ic_arrow_down)
+                itemListAssetBinding.tvVariation.setTextColor(getColor(requireContext(), R.color.red))
+            } else {
+                itemListAssetBinding.ivArrow.isVisible = false
+                itemListAssetBinding.tvVariation.setTextColor(getColor(requireContext(), R.color.gray))
             }
-
             itemListAssetBinding.tvVariation.text = getString(
                 R.string.placeholderVariation,
                 LocaleUtil.getFormattedValueForCurrency(assetUiModel.currency, variation),
                 LocaleUtil.getFormattedValueForPercent(percent)
             )
+
         } else {
             itemListAssetBinding.ivArrow.isVisible = false
             itemListAssetBinding.tvVariation.text = ""
@@ -141,15 +136,15 @@ class SaveAssetFragment : Fragment() {
     private fun updateCurrentPosition() {
         binding.incItemListAsset.apply {
             if (requiredFieldsNotEmpty()) {
-                val ietQuantityText = binding.ietQuantity.text.toString()
+                val ietAmountText = binding.ietAmount.text.toString()
+                val totalAssetPrice =
+                    saveAssetViewModel.getDoubleTotalAssetPrice(assetUiModel.price, ietAmountText)
 
-                assetUiModel.amount = StringUtil.getOnlyNumbers(ietQuantityText).toLong()
-                tvSymbolAndQuantity.text =
-                    getString(R.string.placeholderSymbolAndQuantity, binding.etSymbol.text.toString(), ietQuantityText)
+                tvSymbolAndAmount.text =
+                    getString(R.string.placeholderSymbolAndAmount, binding.etSymbol.text.toString(), ietAmountText)
                 tvName.text = assetUiModel.name
-                tvTotal.text =
-                    LocaleUtil.getFormattedValueForCurrency(assetUiModel.currency, assetUiModel.getTotalAssetPrice())
-                updateVariation(this)
+                tvTotal.text = LocaleUtil.getFormattedValueForCurrency(assetUiModel.currency, totalAssetPrice)
+                updateVariation(this, totalAssetPrice)
                 tvInfoMessage.visibility = View.INVISIBLE
                 layoutAssetInfo.visibility = View.VISIBLE
                 binding.btnSave.isEnabled = true
@@ -164,6 +159,12 @@ class SaveAssetFragment : Fragment() {
 
     private fun setupBtnSave() {
         binding.btnSave.setOnClickListener {
+            assetUiModel.amount = StringUtil.getOnlyNumbers(binding.ietAmount.text.toString()).toLong()
+            assetUiModel.totalInvested =
+                saveAssetViewModel.getDoubleTotalInvested(binding.ietTotalInvested.text.toString())
+
+            // handles the save operation with the view model
+
             NavigationUtil.clearPileAndNavigateToStart(findNavController())
         }
     }
