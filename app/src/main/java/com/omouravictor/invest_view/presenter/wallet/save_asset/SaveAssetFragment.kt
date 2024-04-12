@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.getColor
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.omouravictor.invest_view.R
@@ -26,8 +27,8 @@ import com.omouravictor.invest_view.util.StringUtil
 
 class SaveAssetFragment : Fragment() {
 
-    private val saveAssetViewModel = SaveAssetViewModel()
-    private val assetsViewModel: AssetsViewModel by viewModels()
+    private val saveAssetViewModel: SaveAssetViewModel by viewModels()
+    private val assetsViewModel: AssetsViewModel by activityViewModels()
     private lateinit var binding: FragmentSaveAssetBinding
     private lateinit var assetUiModel: AssetUiModel
 

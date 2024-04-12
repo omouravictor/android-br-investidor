@@ -42,9 +42,7 @@ object EditTextUtil {
                         return
                     }
 
-                    if (cleanText.length == 15) {
-                        cleanText = cleanText.substring(0, 14)
-                    }
+                    if (cleanText.length == 15) cleanText = cleanText.take(14)
 
                     removeTextChangedListener(this)
 
