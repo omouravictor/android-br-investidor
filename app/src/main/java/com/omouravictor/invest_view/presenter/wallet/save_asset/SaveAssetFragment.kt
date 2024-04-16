@@ -107,7 +107,7 @@ class SaveAssetFragment : Fragment() {
         val ietTotalInvestedText = binding.ietTotalInvested.text.toString()
 
         if (ietTotalInvestedText.isNotEmpty()) {
-            val totalInvested = saveAssetViewModel.getDoubleTotalInvested(ietTotalInvestedText)
+            val totalInvested = saveAssetViewModel.getTotalInvested(ietTotalInvestedText)
             val (variation, percent) = AssetUtil.getVariation(totalAssetPrice, totalInvested)
 
             if (variation > 0) {
@@ -138,8 +138,7 @@ class SaveAssetFragment : Fragment() {
         binding.incItemListAsset.apply {
             if (requiredFieldsNotEmpty()) {
                 val ietAmountText = binding.ietAmount.text.toString()
-                val totalAssetPrice =
-                    saveAssetViewModel.getDoubleTotalAssetPrice(assetUiModel.price, ietAmountText)
+                val totalAssetPrice = saveAssetViewModel.getTotalAssetPrice(assetUiModel.price, ietAmountText)
 
                 tvSymbolAndAmount.text =
                     getString(R.string.placeholderSymbolAndAmount, binding.etSymbol.text.toString(), ietAmountText)
@@ -162,7 +161,7 @@ class SaveAssetFragment : Fragment() {
         binding.btnSave.setOnClickListener {
             assetUiModel.amount = StringUtil.getOnlyNumbers(binding.ietAmount.text.toString()).toLong()
             assetUiModel.totalInvested =
-                saveAssetViewModel.getDoubleTotalInvested(binding.ietTotalInvested.text.toString())
+                saveAssetViewModel.getTotalInvested(binding.ietTotalInvested.text.toString())
 
             // handles the save operation with the view model
 
