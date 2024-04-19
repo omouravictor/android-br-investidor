@@ -7,14 +7,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.omouravictor.invest_view.databinding.FragmentAssetsBinding
 import com.omouravictor.invest_view.presenter.base.UiState
 
 class AssetsFragment : Fragment() {
 
+    private lateinit var binding: FragmentAssetsBinding
     private val assetsViewModel: AssetsViewModel by activityViewModels()
     private val assetsAdapter = AssetsAdapter()
-    private lateinit var binding: FragmentAssetsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -25,8 +26,15 @@ class AssetsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupAdapter()
         setupRecyclerView()
         observeAssets()
+    }
+
+    private fun setupAdapter() {
+        assetsAdapter.updateOnClickItem {
+            Snackbar.make(binding.root, "Item clicked", Snackbar.LENGTH_SHORT).show()
+        }
     }
 
     private fun setupRecyclerView() {

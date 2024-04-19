@@ -1,6 +1,5 @@
 package com.omouravictor.invest_view.presenter.wallet.model
 
-import com.omouravictor.invest_view.presenter.wallet.base.AssetTypes
 import com.omouravictor.invest_view.util.AssetUtil
 import com.omouravictor.invest_view.util.LocaleUtil
 
@@ -15,18 +14,14 @@ data class AssetUiModel(
     var totalInvested: Double = 0.0
 )
 
-fun AssetUiModel.getTotalAssetPrice() = price * amount
+fun AssetUiModel.getFormattedSymbolAndAmount() =
+    "${getFormattedSymbol()} (${LocaleUtil.getFormattedValueForLongNumber(amount)})"
 
-fun AssetUiModel.getFormattedTotalAssetPrice() = LocaleUtil.getFormattedValueForCurrency(currency, getTotalAssetPrice())
+fun AssetUiModel.getFormattedSymbol() = AssetUtil.getFormattedSymbol(symbol)
 
-fun AssetUiModel.getAssetType(): AssetTypes {
-    val assetType = type.replace(" ", "_").uppercase()
-    return AssetTypes.values().firstOrNull { it.name == assetType } ?: AssetTypes.OTHER
-}
+fun AssetUiModel.getFormattedTotalAssetPrice() = LocaleUtil.getFormattedValueForCurrency(currency, price * amount)
 
-fun AssetUiModel.getFormattedVariation(): String {
-    val (variation, percent) = AssetUtil.getVariation(getTotalAssetPrice(), totalInvested)
-    val variationCurrency = LocaleUtil.getFormattedValueForCurrency(currency, variation)
-    val percentFormatted = LocaleUtil.getFormattedValueForPercent(percent)
-    return "$variationCurrency ($percentFormatted)"
-}
+fun AssetUiModel.getAssetType() = AssetUtil.getAssetType(type)
+
+fun AssetUiModel.getFormattedVariationAndPercent() =
+    AssetUtil.getFormattedVariationAndPercent(currency, price * amount, totalInvested)

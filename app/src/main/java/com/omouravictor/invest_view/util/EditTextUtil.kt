@@ -59,7 +59,7 @@ object EditTextUtil {
         }
     }
 
-    fun setEditTextIntNumberFormatMask(editText: EditText) {
+    fun setEditTextLongNumberFormatMask(editText: EditText) {
         editText.apply {
             addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(cs: CharSequence?, s: Int, c: Int, a: Int) {}
