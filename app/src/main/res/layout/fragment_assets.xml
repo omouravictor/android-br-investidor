@@ -16,12 +16,10 @@
             android:clipToPadding="false"
             android:paddingHorizontal="@dimen/defaultMarginHorizontal"
             android:paddingTop="@dimen/defaultPaddingTop"
-            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/item_list_asset"
-            tools:visibility="visible" />
+            tools:listitem="@layout/item_list_asset" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

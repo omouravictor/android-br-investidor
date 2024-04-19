@@ -28,10 +28,10 @@ import com.omouravictor.invest_view.util.StringUtil
 
 class SaveAssetFragment : Fragment() {
 
-    private val saveAssetViewModel: SaveAssetViewModel by viewModels()
-    private val assetsViewModel: AssetsViewModel by activityViewModels()
     private lateinit var binding: FragmentSaveAssetBinding
     private lateinit var assetUiModel: AssetUiModel
+    private val saveAssetViewModel: SaveAssetViewModel by viewModels()
+    private val assetsViewModel: AssetsViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -160,9 +160,7 @@ class SaveAssetFragment : Fragment() {
         binding.btnSave.setOnClickListener {
             assetUiModel.amount = StringUtil.getOnlyNumbers(binding.ietAmount.text.toString()).toLong()
             assetUiModel.totalInvested = saveAssetViewModel.getTotalInvested(binding.ietTotalInvested.text.toString())
-
-            // handles the save operation with the view model
-
+            assetsViewModel.addAsset(assetUiModel)
             NavigationUtil.clearPileAndNavigateToStart(findNavController())
         }
     }
