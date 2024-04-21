@@ -17,9 +17,8 @@ data class AssetUiModel(
 
 fun AssetUiModel.getTotalAssetPrice() = price * amount
 
-fun AssetUiModel.getFormattedSymbolAndAmount() =
-    "${getFormattedSymbol()} (${LocaleUtil.getFormattedValueForLongNumber(amount)})"
-
 fun AssetUiModel.getFormattedSymbol() = AssetUtil.getFormattedSymbol(symbol)
+
+fun AssetUiModel.getFormattedAmount() = "(${LocaleUtil.getFormattedValueForLongNumber(amount)})"
 
 fun AssetUiModel.getFormattedTotalAssetPrice() = LocaleUtil.getFormattedValueForCurrency(currency, getTotalAssetPrice())

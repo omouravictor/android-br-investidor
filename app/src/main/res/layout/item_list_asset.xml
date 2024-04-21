@@ -32,17 +32,29 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/tvSymbolAndAmount"
+                android:id="@+id/tvSymbol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="KNIP11" />
+
+            <TextView
+                android:id="@+id/tvAmount"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
                 android:layout_marginEnd="32dp"
                 android:ellipsize="end"
                 android:maxLines="1"
+                android:textSize="12sp"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/tvSymbol"
                 app:layout_constraintEnd_toStartOf="@+id/tvTotal"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="KNIP11 (100.000.000)" />
+                app:layout_constraintStart_toEndOf="@+id/tvSymbol"
+                app:layout_constraintTop_toTopOf="@+id/tvSymbol"
+                tools:text="(100.000.000)" />
 
             <TextView
                 android:id="@+id/tvTotal"
@@ -68,7 +80,7 @@
                 android:textSize="12sp"
                 app:layout_constraintEnd_toStartOf="@+id/tvVariation"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvSymbolAndAmount"
+                app:layout_constraintTop_toBottomOf="@+id/tvSymbol"
                 tools:text="Apple inc" />
 
             <TextView

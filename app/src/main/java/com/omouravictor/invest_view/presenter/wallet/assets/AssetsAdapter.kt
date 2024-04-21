@@ -6,7 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.omouravictor.invest_view.databinding.ItemListAssetBinding
 import com.omouravictor.invest_view.presenter.base.RecyclerViewAdapter
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
-import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbolAndAmount
+import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAmount
+import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalAssetPrice
 import com.omouravictor.invest_view.presenter.wallet.model.getTotalAssetPrice
 import com.omouravictor.invest_view.util.AssetUtil
@@ -27,7 +28,8 @@ class AssetsAdapter : RecyclerViewAdapter<AssetUiModel, AssetsAdapter.AssetViewH
 
         fun bind(assetUiModel: AssetUiModel) {
             binding.color.backgroundTintList = assetUiModel.assetType.getColor(context)
-            binding.tvSymbolAndAmount.text = assetUiModel.getFormattedSymbolAndAmount()
+            binding.tvSymbol.text = assetUiModel.getFormattedSymbol()
+            binding.tvAmount.text = assetUiModel.getFormattedAmount()
             binding.tvName.text = assetUiModel.name
             binding.tvTotal.text = assetUiModel.getFormattedTotalAssetPrice()
             AssetUtil.setupVariationViews(

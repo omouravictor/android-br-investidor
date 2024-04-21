@@ -1,6 +1,6 @@
 <resources>
     <!-- Placeholders -->
-    <string name="placeholderSymbolAndAmount">%1$s (%2$s)</string>
+    <string name="placeholderAmount">(%1$s)</string>
 
     <string name="app_name">Invest View</string>
     <string name="add">Add</string>
