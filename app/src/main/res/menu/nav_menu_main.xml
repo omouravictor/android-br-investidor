@@ -7,11 +7,6 @@
         android:title="@string/wallet" />
 
     <item
-        android:id="@+id/exchangeNavMenu"
-        android:icon="@drawable/selector_menu_item_icon_exchange"
-        android:title="@string/exchange" />
-
-    <item
         android:id="@+id/profileNavMenu"
         android:icon="@drawable/selector_menu_item_icon_profile"
         android:title="@string/profile" />

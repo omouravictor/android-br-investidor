@@ -7,14 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentSaveAssetBinding
-import com.omouravictor.invest_view.databinding.ItemListAssetBinding
 import com.omouravictor.invest_view.presenter.wallet.assets.AssetsViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getAssetType
@@ -42,7 +40,6 @@ class SaveAssetFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initEssentialVars()
-        setupSupportActionBarTitle()
         setupViews()
         setupBtnSave()
     }
@@ -52,20 +49,16 @@ class SaveAssetFragment : Fragment() {
         assetUiModel = AssetUiModel(
             symbol = assetBySearchUiModel.symbol,
             name = assetBySearchUiModel.name,
-            type = assetBySearchUiModel.type,
+            assetType = assetBySearchUiModel.getAssetType(),
             region = assetBySearchUiModel.region,
             currency = assetBySearchUiModel.currency,
             price = assetBySearchUiModel.price
         )
     }
 
-    private fun setupSupportActionBarTitle() {
-        (requireActivity() as AppCompatActivity).supportActionBar?.title =
-            assetUiModel.getAssetType().getDescription(requireContext())
-    }
-
     private fun setupViews() {
-        val assetTypeColor = assetUiModel.getAssetType().getColor(requireContext())
+        val assetType = assetUiModel.assetType
+        val assetTypeColor = assetType.getColor(requireContext())
         val ietAmount = binding.ietAmount
         val ietTotalInvested = binding.ietTotalInvested
         val textInputLayoutAmount = binding.textInputLayoutAmount
@@ -75,6 +68,7 @@ class SaveAssetFragment : Fragment() {
         val etLocation = binding.etLocation
         val incItemListAsset = binding.incItemListAsset
 
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = assetType.getDescription(requireContext())
         etSymbol.setText(assetUiModel.getFormattedSymbol())
         etLocation.setText(assetUiModel.region)
         ietTotalInvested.hint = LocaleUtil.getFormattedValueForCurrency(currency, 0.0)
@@ -103,35 +97,24 @@ class SaveAssetFragment : Fragment() {
         return ietAmountText.isNotEmpty() && ietAmountText != "0"
     }
 
-    private fun updateVariation(itemListAssetBinding: ItemListAssetBinding, totalAssetPrice: Double) {
-        val ietTotalInvestedText = binding.ietTotalInvested.text.toString()
-
-        if (ietTotalInvestedText.isNotEmpty()) {
-            val totalInvested = saveAssetViewModel.getTotalInvested(ietTotalInvestedText)
-            AssetUtil.setupVariationViews(
-                itemListAssetBinding,
-                assetUiModel.currency,
-                totalInvested,
-                totalAssetPrice
-            )
-
-        } else {
-            itemListAssetBinding.ivArrow.isVisible = false
-            itemListAssetBinding.tvVariation.text = ""
-        }
-    }
-
     private fun updateCurrentPosition() {
         binding.incItemListAsset.apply {
             if (requiredFieldsNotEmpty()) {
                 val ietAmountText = binding.ietAmount.text.toString()
                 val totalAssetPrice = saveAssetViewModel.getTotalAssetPrice(assetUiModel.price, ietAmountText)
+                val ietTotalInvestedText = binding.ietTotalInvested.text.toString()
+                val totalInvested = saveAssetViewModel.getTotalInvested(ietTotalInvestedText)
 
                 tvSymbolAndAmount.text =
                     getString(R.string.placeholderSymbolAndAmount, binding.etSymbol.text.toString(), ietAmountText)
                 tvName.text = assetUiModel.name
                 tvTotal.text = LocaleUtil.getFormattedValueForCurrency(assetUiModel.currency, totalAssetPrice)
-                updateVariation(this, totalAssetPrice)
+                AssetUtil.setupVariationViews(
+                    this,
+                    assetUiModel.currency,
+                    totalInvested,
+                    totalAssetPrice
+                )
                 tvInfoMessage.visibility = View.INVISIBLE
                 layoutAssetInfo.visibility = View.VISIBLE
                 binding.btnSave.isEnabled = true

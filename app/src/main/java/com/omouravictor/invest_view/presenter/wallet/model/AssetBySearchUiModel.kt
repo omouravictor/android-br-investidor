@@ -15,3 +15,5 @@ data class AssetBySearchUiModel(
 ) : Parcelable
 
 fun AssetBySearchUiModel.getFormattedSymbol() = AssetUtil.getFormattedSymbol(symbol)
+
+fun AssetBySearchUiModel.getAssetType() = AssetUtil.getAssetType(type)

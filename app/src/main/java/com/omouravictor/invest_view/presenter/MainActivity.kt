@@ -3,7 +3,6 @@ package com.omouravictor.invest_view.presenter
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat.Type.ime
 import androidx.core.view.WindowInsetsCompat.toWindowInsetsCompat
@@ -42,7 +41,6 @@ class MainActivity : AppCompatActivity() {
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
         when (navController.currentDestination?.id) {
             R.id.fragmentWallet -> setupToolbarMenu(walletGroupVisible = true)
-            R.id.fragmentExchange -> setupToolbarMenu(exchangeGroupVisible = true)
             else -> hideToolbarMenu()
         }
         return super.onPrepareOptionsMenu(menu)
@@ -51,9 +49,6 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.addAsset -> navController.navigate(WalletFragmentDirections.navToAssetSearchFragment())
-            R.id.addCoin -> {
-                Toast.makeText(this, "Add Coin", Toast.LENGTH_SHORT).show()
-            }
         }
 
         return super.onOptionsItemSelected(item)
@@ -64,13 +59,12 @@ class MainActivity : AppCompatActivity() {
             (supportFragmentManager.findFragmentById(R.id.navHostFragmentMain) as NavHostFragment).navController
 
         val appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.fragmentWallet, R.id.fragmentExchange, R.id.fragmentProfile)
+            setOf(R.id.fragmentWallet, R.id.fragmentProfile)
         )
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.fragmentWallet -> handleWalletDestination()
-                R.id.fragmentExchange -> handleExchangeDestination()
                 else -> handleDefaultDestination()
             }
         }
@@ -100,23 +94,17 @@ class MainActivity : AppCompatActivity() {
     private fun hideToolbarMenu() {
         val menu = binding.toolbar.menu
         menu.setGroupVisible(R.id.walletGroup, false)
-        menu.setGroupVisible(R.id.exchangeGroup, false)
     }
 
     private fun setupToolbarMenu(
-        walletGroupVisible: Boolean = false, exchangeGroupVisible: Boolean = false
+        walletGroupVisible: Boolean = false
     ) {
         val menu = binding.toolbar.menu
         menu.setGroupVisible(R.id.walletGroup, walletGroupVisible)
-        menu.setGroupVisible(R.id.exchangeGroup, exchangeGroupVisible)
     }
 
     private fun handleWalletDestination() {
         setupToolbarMenu(walletGroupVisible = true)
-    }
-
-    private fun handleExchangeDestination() {
-        setupToolbarMenu(exchangeGroupVisible = true)
     }
 
     private fun handleDefaultDestination() {

@@ -10,12 +10,4 @@
             app:showAsAction="ifRoom" />
     </group>
 
-    <group android:id="@+id/exchangeGroup">
-        <item
-            android:id="@+id/addCoin"
-            android:icon="@drawable/ic_add"
-            android:title="@string/add"
-            app:showAsAction="ifRoom" />
-    </group>
-
 </menu>
