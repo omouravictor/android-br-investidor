@@ -14,14 +14,13 @@ data class AssetUiModel(
     var totalInvested: Double = 0.0
 )
 
+fun AssetUiModel.getTotalAssetPrice() = price * amount
+
 fun AssetUiModel.getFormattedSymbolAndAmount() =
     "${getFormattedSymbol()} (${LocaleUtil.getFormattedValueForLongNumber(amount)})"
 
 fun AssetUiModel.getFormattedSymbol() = AssetUtil.getFormattedSymbol(symbol)
 
-fun AssetUiModel.getFormattedTotalAssetPrice() = LocaleUtil.getFormattedValueForCurrency(currency, price * amount)
+fun AssetUiModel.getFormattedTotalAssetPrice() = LocaleUtil.getFormattedValueForCurrency(currency, getTotalAssetPrice())
 
 fun AssetUiModel.getAssetType() = AssetUtil.getAssetType(type)
-
-fun AssetUiModel.getFormattedVariationAndPercent() =
-    AssetUtil.getFormattedVariationAndPercent(currency, price * amount, totalInvested)

@@ -8,7 +8,8 @@ import com.omouravictor.invest_view.presenter.base.RecyclerViewAdapter
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbolAndAmount
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalAssetPrice
-import com.omouravictor.invest_view.presenter.wallet.model.getFormattedVariationAndPercent
+import com.omouravictor.invest_view.presenter.wallet.model.getTotalAssetPrice
+import com.omouravictor.invest_view.util.AssetUtil
 
 class AssetsAdapter : RecyclerViewAdapter<AssetUiModel, AssetsAdapter.AssetViewHolder>() {
 
@@ -27,7 +28,12 @@ class AssetsAdapter : RecyclerViewAdapter<AssetUiModel, AssetsAdapter.AssetViewH
             binding.tvSymbolAndAmount.text = assetUiModel.getFormattedSymbolAndAmount()
             binding.tvName.text = assetUiModel.name
             binding.tvTotal.text = assetUiModel.getFormattedTotalAssetPrice()
-            binding.tvVariation.text = assetUiModel.getFormattedVariationAndPercent()
+            AssetUtil.setupVariationViews(
+                binding,
+                assetUiModel.currency,
+                assetUiModel.totalInvested,
+                assetUiModel.getTotalAssetPrice()
+            )
         }
     }
 }

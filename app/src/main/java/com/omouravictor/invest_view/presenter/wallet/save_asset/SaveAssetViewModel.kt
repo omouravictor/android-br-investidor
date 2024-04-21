@@ -1,7 +1,6 @@
 package com.omouravictor.invest_view.presenter.wallet.save_asset
 
 import androidx.lifecycle.ViewModel
-import com.omouravictor.invest_view.util.AssetUtil
 import com.omouravictor.invest_view.util.StringUtil
 
 class SaveAssetViewModel : ViewModel() {
@@ -16,10 +15,6 @@ class SaveAssetViewModel : ViewModel() {
         } else {
             0.0
         }
-    }
-
-    fun getAssetVariation(totalAssetPrice: Double, totalInvested: Double): Double {
-        return AssetUtil.getVariation(totalAssetPrice, totalInvested)
     }
 
 }

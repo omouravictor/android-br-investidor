@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.getColor
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -109,23 +108,12 @@ class SaveAssetFragment : Fragment() {
 
         if (ietTotalInvestedText.isNotEmpty()) {
             val totalInvested = saveAssetViewModel.getTotalInvested(ietTotalInvestedText)
-            val variation = saveAssetViewModel.getAssetVariation(totalAssetPrice, totalInvested)
-
-            if (variation > 0) {
-                itemListAssetBinding.ivArrow.isVisible = true
-                itemListAssetBinding.ivArrow.setImageResource(R.drawable.ic_arrow_up)
-                itemListAssetBinding.tvVariation.setTextColor(getColor(requireContext(), R.color.green))
-            } else if (variation < 0) {
-                itemListAssetBinding.ivArrow.isVisible = true
-                itemListAssetBinding.ivArrow.setImageResource(R.drawable.ic_arrow_down)
-                itemListAssetBinding.tvVariation.setTextColor(getColor(requireContext(), R.color.red))
-            } else {
-                itemListAssetBinding.ivArrow.isVisible = false
-                itemListAssetBinding.tvVariation.setTextColor(getColor(requireContext(), R.color.gray))
-            }
-
-            itemListAssetBinding.tvVariation.text =
-                AssetUtil.getFormattedVariationAndPercent(assetUiModel.currency, totalAssetPrice, totalInvested)
+            AssetUtil.setupVariationViews(
+                itemListAssetBinding,
+                assetUiModel.currency,
+                totalInvested,
+                totalAssetPrice
+            )
 
         } else {
             itemListAssetBinding.ivArrow.isVisible = false
