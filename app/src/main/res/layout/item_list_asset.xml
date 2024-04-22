@@ -5,12 +5,13 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/defaultMarginBottom"
     app:cardCornerRadius="@dimen/defaultCardRadius"
+    android:backgroundTint="@color/itemListBackground"
     app:cardElevation="@dimen/defaultCardElevation">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/itemListBackground">
+        android:background="@drawable/selector_item_list">
 
         <View
             android:id="@+id/color"

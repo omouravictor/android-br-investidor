@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.omouravictor.invest_view.databinding.FragmentAssetsBinding
 
 class AssetsFragment : Fragment() {
@@ -32,7 +32,7 @@ class AssetsFragment : Fragment() {
 
     private fun setupAdapter() {
         assetsAdapter.updateOnClickItem {
-            Toast.makeText(context, "Clicked on item: $it", Toast.LENGTH_SHORT).show()
+            Snackbar.make(binding.root, "Item clicked: $it", Snackbar.LENGTH_SHORT).show()
         }
     }
 

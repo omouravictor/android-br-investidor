@@ -38,6 +38,7 @@ class AssetsAdapter : RecyclerViewAdapter<AssetUiModel, AssetsAdapter.AssetViewH
                 assetUiModel.totalInvested,
                 assetUiModel.getTotalAssetPrice()
             )
+            itemView.setOnClickListener { onClickItem(assetUiModel) }
         }
     }
 }
