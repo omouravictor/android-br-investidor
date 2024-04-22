@@ -12,7 +12,9 @@
     <color name="mutualFund">#00B8D4</color>
 
     <!-- Day/Night colors -->
-    <color name="primary">@color/black</color>
+    <color name="appPrimary">@color/black</color>
+    <color name="appTextColor">@color/black</color>
+    <color name="appWindowBackground">@color/white</color>
     <color name="itemListPressedTrue">#1A000000</color>
     <color name="itemListBackground">#FFFFFF</color>
     <color name="shimmerBackground">#656565</color>

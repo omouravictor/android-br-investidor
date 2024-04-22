@@ -14,13 +14,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetSearchBinding
 import com.omouravictor.invest_view.presenter.base.UiState
 import com.omouravictor.invest_view.presenter.wallet.assets.AssetsViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetBySearchUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetQuoteUiModel
+import com.omouravictor.invest_view.util.AppUtil
 import com.omouravictor.invest_view.util.SystemServiceUtil
 
 class AssetSearchFragment : Fragment() {
@@ -80,7 +80,7 @@ class AssetSearchFragment : Fragment() {
                 this.assetBySearchUiModel = assetBySearchUiModel
                 assetSearchViewModel.getAssetQuote(symbol)
             } else {
-                Snackbar.make(requireView(), getString(R.string.assetAlreadyExists), Snackbar.LENGTH_SHORT).show()
+                AppUtil.showSnackBar(requireView(), getString(R.string.assetAlreadyExists), isError = true)
             }
         }
     }

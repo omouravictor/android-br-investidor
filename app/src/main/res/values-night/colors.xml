@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Day/Night colors -->
-    <color name="primary">@color/white</color>
+    <color name="appPrimary">@color/white</color>
+    <color name="appTextColor">@color/white</color>
+    <color name="appWindowBackground">#101010</color>
     <color name="itemListPressedTrue">#19FFFFFF</color>
     <color name="itemListBackground">#252525</color>
     <color name="shimmerBackground">#B1B1B1</color>
