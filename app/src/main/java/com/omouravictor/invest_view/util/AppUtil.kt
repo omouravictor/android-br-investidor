@@ -19,19 +19,17 @@ object AppUtil {
         view: View,
         message: String,
         isSuccess: Boolean = false,
-        isWarning: Boolean = false,
         isError: Boolean = false
     ) {
         val snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT)
         val context = view.context
         val backgroundTintColor = when {
             isSuccess -> context.getColor(R.color.green)
-            isWarning -> context.getColor(R.color.yellow)
             isError -> context.getColor(R.color.red)
             else -> context.getColor(R.color.appPrimary)
         }
         val textColor = when {
-            isSuccess || isWarning || isError -> context.getColor(R.color.black)
+            isSuccess || isError -> context.getColor(R.color.white)
             else -> context.getColor(R.color.appTextColor)
         }
 
