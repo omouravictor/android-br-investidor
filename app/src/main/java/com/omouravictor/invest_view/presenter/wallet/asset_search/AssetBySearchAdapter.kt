@@ -8,12 +8,10 @@ import com.omouravictor.invest_view.presenter.base.RecyclerViewAdapter
 import com.omouravictor.invest_view.presenter.wallet.model.AssetBySearchUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 
-class AssetBySearchAdapter :
-    RecyclerViewAdapter<AssetBySearchUiModel, AssetBySearchAdapter.AssetBySearchViewHolder>() {
+class AssetBySearchAdapter : RecyclerViewAdapter<AssetBySearchUiModel, AssetBySearchAdapter.AssetBySearchViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AssetBySearchViewHolder {
-        val binding =
-            ItemListAssetBySearchBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemListAssetBySearchBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return AssetBySearchViewHolder(binding)
     }
 
