@@ -68,7 +68,11 @@ class AssetSearchFragment : Fragment() {
         }, viewLifecycleOwner)
 
         binding.incLayoutError.btnTryAgain.setOnClickListener {
-            searchView.setQuery(searchView.query, true)
+            val query = searchView.query.toString()
+            if (query.isNotEmpty())
+                assetSearchViewModel.getAssetsBySearch(query)
+            else
+                AppUtil.showSnackBar(requireView(), getString(R.string.enterAssetSymbolForTryAgain), isError = true)
         }
     }
 
@@ -148,8 +152,7 @@ class AssetSearchFragment : Fragment() {
         if (isLoading) binding.shimmerLayout.startShimmer()
         else binding.shimmerLayout.stopShimmer()
 
-        if (isSuccessResultsEmpty) binding.incLayoutError.tvInfoMessage.text =
-            getString(R.string.noResultsFound)
+        if (isSuccessResultsEmpty) binding.incLayoutError.tvInfoMessage.text = getString(R.string.noResultsFound)
     }
 
     private fun handleAssetsBySearchLoading() {
