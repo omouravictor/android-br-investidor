@@ -25,32 +25,39 @@ object AssetUtil {
         totalInvested: Double,
         totalAssetPrice: Double
     ) {
-        val context = binding.root.context
-        val variation = NumberUtil.getRoundedDouble(totalAssetPrice - totalInvested)
-        val variationFormatted = LocaleUtil.getFormattedValueForCurrency(currency, variation)
-        val percentFormatted = LocaleUtil.getFormattedValueForPercent(variation / totalInvested)
+        if (totalInvested > 0) {
+            val context = binding.root.context
+            val variation = NumberUtil.getRoundedDouble(totalAssetPrice - totalInvested)
+            val variationFormatted = LocaleUtil.getFormattedValueForCurrency(currency, variation)
+            val percentFormatted = LocaleUtil.getFormattedValueForPercent(variation / totalInvested)
 
-        if (variation > 0) {
-            val color = ContextCompat.getColor(context, R.color.green)
-            binding.ivArrow.isVisible = true
-            binding.ivArrow.setImageResource(R.drawable.ic_arrow_up)
-            binding.tvVariation.setTextColor(color)
-            binding.tvVariationPercent.setTextColor(color)
-        } else if (variation < 0) {
-            val color = ContextCompat.getColor(context, R.color.red)
-            binding.ivArrow.isVisible = true
-            binding.ivArrow.setImageResource(R.drawable.ic_arrow_down)
-            binding.tvVariation.setTextColor(color)
-            binding.tvVariationPercent.setTextColor(color)
+            if (variation > 0) {
+                val color = ContextCompat.getColor(context, R.color.green)
+                binding.ivArrow.isVisible = true
+                binding.ivArrow.setImageResource(R.drawable.ic_arrow_up)
+                binding.tvVariation.setTextColor(color)
+                binding.tvVariationPercent.setTextColor(color)
+            } else if (variation < 0) {
+                val color = ContextCompat.getColor(context, R.color.red)
+                binding.ivArrow.isVisible = true
+                binding.ivArrow.setImageResource(R.drawable.ic_arrow_down)
+                binding.tvVariation.setTextColor(color)
+                binding.tvVariationPercent.setTextColor(color)
+            } else {
+                val color = ContextCompat.getColor(context, R.color.gray)
+                binding.ivArrow.isVisible = false
+                binding.tvVariation.setTextColor(color)
+                binding.tvVariationPercent.setTextColor(color)
+            }
+
+            binding.tvVariation.text = if (variation > 0) "+$variationFormatted (" else "$variationFormatted ("
+            binding.tvVariationPercent.text = if (variation != 0.0) "$percentFormatted )" else "$percentFormatted)"
+
         } else {
-            val color = ContextCompat.getColor(context, R.color.gray)
+            binding.tvVariation.text = ""
+            binding.tvVariationPercent.text = ""
             binding.ivArrow.isVisible = false
-            binding.tvVariation.setTextColor(color)
-            binding.tvVariationPercent.setTextColor(color)
         }
-
-        binding.tvVariation.text = if (variation > 0) "+$variationFormatted (" else "$variationFormatted ("
-        binding.tvVariationPercent.text = if (variation != 0.0) "$percentFormatted )" else "$percentFormatted)"
     }
 
 }

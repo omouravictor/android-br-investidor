@@ -73,7 +73,7 @@
                 android:id="@+id/tvName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="32dp"
                 android:ellipsize="end"
                 android:maxLines="1"
@@ -87,14 +87,13 @@
                 android:id="@+id/tvVariation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
                 android:ellipsize="end"
                 android:maxWidth="200dp"
                 android:maxLines="1"
                 android:textAlignment="textEnd"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toStartOf="@+id/ivArrow"
-                app:layout_constraintTop_toBottomOf="@+id/tvTotal"
+                app:layout_constraintTop_toTopOf="@+id/tvName"
                 tools:text="+R$ 100.000.000.000,00 ("
                 tools:textColor="@color/green" />
 
@@ -113,10 +112,9 @@
                 android:id="@+id/tvVariationPercent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvTotal"
+                app:layout_constraintTop_toTopOf="@+id/tvVariation"
                 tools:text="23,18% )"
                 tools:textColor="@color/green" />
 

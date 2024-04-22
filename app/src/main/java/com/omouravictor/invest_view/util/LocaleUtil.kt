@@ -22,10 +22,7 @@ object LocaleUtil {
     fun getFormattedValueForPercent(value: Double): String {
         val percentFormat = NumberFormat.getPercentInstance(appLocale)
         percentFormat.maximumFractionDigits = 2
-        return if (value.isInfinite())
-            percentFormat.format(1)
-        else
-            percentFormat.format(value)
+        return percentFormat.format(value)
     }
 
 }

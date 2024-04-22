@@ -50,7 +50,7 @@ class AssetsViewModel @Inject constructor(
 
     fun addAsset(assetUiModel: AssetUiModel) {
         val currentList = _assetsList.value.orEmpty().toMutableList()
-        currentList.add(assetUiModel)
+        currentList.add(0, assetUiModel)
         _assetsList.value = currentList
     }
 
