@@ -70,7 +70,7 @@ class AssetSearchFragment : Fragment() {
             if (query.isNotEmpty())
                 assetSearchViewModel.getAssetsBySearch(query)
             else
-                AppUtil.showSnackBar(requireView(), getString(R.string.enterAssetSymbolForTryAgain), isError = true)
+                AppUtil.showSnackBar(requireActivity(), getString(R.string.enterAssetSymbolForTryAgain), isError = true)
         }
     }
 
@@ -82,13 +82,7 @@ class AssetSearchFragment : Fragment() {
                 this.assetBySearchUiModel = assetBySearchUiModel
                 assetSearchViewModel.getAssetQuote(symbol)
             } else {
-                val isBottomNavVisible = requireActivity().findViewById<View>(R.id.bottomNav).isVisible
-                AppUtil.showSnackBar(
-                    view = requireView(),
-                    message = getString(R.string.assetAlreadyExists),
-                    isBottomNavVisible = isBottomNavVisible,
-                    isError = true
-                )
+                AppUtil.showSnackBar(requireActivity(), getString(R.string.assetAlreadyExists), isError = true)
             }
         }
     }
