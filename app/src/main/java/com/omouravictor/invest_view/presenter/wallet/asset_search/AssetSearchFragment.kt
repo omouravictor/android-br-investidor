@@ -14,9 +14,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetSearchBinding
 import com.omouravictor.invest_view.presenter.base.UiState
+import com.omouravictor.invest_view.presenter.wallet.assets.AssetsViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetBySearchUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetQuoteUiModel
 import com.omouravictor.invest_view.util.SystemServiceUtil
@@ -26,6 +28,7 @@ class AssetSearchFragment : Fragment() {
     private lateinit var binding: FragmentAssetSearchBinding
     private lateinit var searchView: SearchView
     private lateinit var assetBySearchUiModel: AssetBySearchUiModel
+    private val assetsViewModel: AssetsViewModel by activityViewModels()
     private val assetSearchViewModel: AssetSearchViewModel by activityViewModels()
     private val assetBySearchAdapter = AssetBySearchAdapter()
 
@@ -70,9 +73,15 @@ class AssetSearchFragment : Fragment() {
     }
 
     private fun setupAdapter() {
-        assetBySearchAdapter.updateOnClickItem {
-            assetBySearchUiModel = it
-            assetSearchViewModel.getAssetQuote(it.symbol)
+        assetBySearchAdapter.updateOnClickItem { assetBySearchUiModel ->
+            val symbol = assetBySearchUiModel.symbol
+            val existingAsset = assetsViewModel.currentAssetsList.find { it.symbol == symbol }
+            if (existingAsset == null) {
+                this.assetBySearchUiModel = assetBySearchUiModel
+                assetSearchViewModel.getAssetQuote(symbol)
+            } else {
+                Snackbar.make(requireView(), getString(R.string.assetAlreadyExists), Snackbar.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -93,6 +102,7 @@ class AssetSearchFragment : Fragment() {
         searchView.maxWidth = Int.MAX_VALUE
         searchView.queryHint = getString(R.string.searchYourAsset)
         searchView.setOnQueryTextListener(queryTextListener)
+        searchView.setQuery("AAPL", true) // TODO: Remove this line after testing
     }
 
     private fun setupRecyclerView() {

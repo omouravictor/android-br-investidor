@@ -2,7 +2,7 @@
     <!-- Placeholders -->
     <string name="placeholderAmount">(%1$s)</string>
 
-    <string name="app_name">Invest View</string>
+    <string name="appName">Invest View</string>
     <string name="add">Add</string>
     <string name="settings">Configurações</string>
     <string name="wallet">Carteira</string>
@@ -34,6 +34,6 @@
     <string name="somethingWentWrong">Algo deu errado, espero um pouco e tente novamente</string>
     <string name="checkInternetConnection">Cheque sua conexão com a internet.</string>
     <string name="tryAgain">Tentar novamente</string>
-    <string name="last_search">Última pesquisa…</string>
     <string name="location">Localidade</string>
+    <string name="assetAlreadyExists">Você já possui este ativo na carteira.</string>
 </resources>

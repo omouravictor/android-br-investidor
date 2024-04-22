@@ -19,6 +19,7 @@ class AssetsViewModel @Inject constructor(
     private val dispatchers: DispatcherProvider
 ) : ViewModel() {
 
+    val currentAssetsList get() = _assetsList.value.orEmpty()
     private val _assetsList = MutableLiveData<List<AssetUiModel>>()
     val assetsList: LiveData<List<AssetUiModel>> = _assetsList
 
@@ -49,8 +50,8 @@ class AssetsViewModel @Inject constructor(
     }
 
     fun addAsset(assetUiModel: AssetUiModel) {
-        val currentList = _assetsList.value.orEmpty().toMutableList()
-        currentList.add(0, assetUiModel)
+        val currentList = currentAssetsList.toMutableList()
+        currentList.add(assetUiModel)
         _assetsList.value = currentList
     }
 
