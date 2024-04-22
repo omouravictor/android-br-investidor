@@ -108,7 +108,7 @@ class AssetSearchFragment : Fragment() {
                 is UiState.Empty -> Unit
                 is UiState.Loading -> handleAssetsBySearchLoading()
                 is UiState.Success -> handleAssetsBySearchSuccess(it.data)
-                is UiState.Error -> handleAssetsBySearchError(it.message)
+                is UiState.Error -> handleErrors(it.message)
             }
         }
     }
@@ -119,7 +119,7 @@ class AssetSearchFragment : Fragment() {
                 is UiState.Empty -> Unit
                 is UiState.Loading -> handleAssetQuoteLoading()
                 is UiState.Success -> handleAssetQuoteSuccess(it.data)
-                is UiState.Error -> handleAssetQuoteError(it.message)
+                is UiState.Error -> handleErrors(it.message)
             }
         }
     }
@@ -151,7 +151,7 @@ class AssetSearchFragment : Fragment() {
         assetBySearchAdapter.updateItemsList(assetsBySearchList)
     }
 
-    private fun handleAssetsBySearchError(message: String) {
+    private fun handleErrors(message: String) {
         setupViews(isError = true)
         binding.incLayoutError.tvInfoMessage.text = message
     }
@@ -164,11 +164,6 @@ class AssetSearchFragment : Fragment() {
     private fun handleAssetQuoteSuccess(assetQuote: AssetQuoteUiModel) {
         assetBySearchUiModel.price = assetQuote.price
         findNavController().navigate(AssetSearchFragmentDirections.navToSaveAssetFragment(assetBySearchUiModel))
-    }
-
-    private fun handleAssetQuoteError(message: String) {
-        setupViews(isError = true)
-        binding.incLayoutError.tvInfoMessage.text = message
     }
 
 }
