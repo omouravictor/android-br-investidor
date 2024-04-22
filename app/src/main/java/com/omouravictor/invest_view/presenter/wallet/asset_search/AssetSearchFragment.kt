@@ -56,7 +56,6 @@ class AssetSearchFragment : Fragment() {
 
     private fun addMenuProvider() {
         requireActivity().addMenuProvider(object : MenuProvider {
-
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.options_menu_search, menu)
                 searchView = menu.findItem(R.id.searchAsset).actionView as SearchView
@@ -64,7 +63,6 @@ class AssetSearchFragment : Fragment() {
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean = false
-
         }, viewLifecycleOwner)
 
         binding.incLayoutError.btnTryAgain.setOnClickListener {
