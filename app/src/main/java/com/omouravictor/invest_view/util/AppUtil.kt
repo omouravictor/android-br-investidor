@@ -18,6 +18,7 @@ object AppUtil {
     fun showSnackBar(
         view: View,
         message: String,
+        isBottomNavVisible: Boolean = true,
         isSuccess: Boolean = false,
         isError: Boolean = false
     ) {
@@ -32,6 +33,9 @@ object AppUtil {
             isSuccess || isError -> context.getColor(R.color.white)
             else -> context.getColor(R.color.appTextColor)
         }
+
+        if (isBottomNavVisible)
+            snackbar.setAnchorView(R.id.bottomNav)
 
         snackbar.setBackgroundTint(backgroundTintColor)
         snackbar.setTextColor(textColor)
