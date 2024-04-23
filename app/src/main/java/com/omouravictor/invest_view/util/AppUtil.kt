@@ -35,7 +35,7 @@ object AppUtil {
             isSuccess || isError -> ContextCompat.getColor(view.context, R.color.white)
             else -> ContextCompat.getColor(view.context, R.color.appTextColor)
         }
-        val isBottomNavVisible = view.findViewById<View>(R.id.bottomNav).isVisible
+        val isBottomNavVisible = view.findViewById<View>(R.id.bottomNav)?.isVisible ?: false
 
         if (isBottomNavVisible)
             snackbar.setAnchorView(R.id.bottomNav)
