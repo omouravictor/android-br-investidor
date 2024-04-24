@@ -16,7 +16,6 @@ import com.omouravictor.invest_view.databinding.FragmentSaveAssetBinding
 import com.omouravictor.invest_view.presenter.wallet.assets.AssetsViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getAssetType
-import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.util.AssetUtil
 import com.omouravictor.invest_view.util.EditTextUtil
 import com.omouravictor.invest_view.util.LocaleUtil
@@ -69,7 +68,7 @@ class SaveAssetFragment : Fragment() {
         val incItemListAsset = binding.incItemListAsset
 
         (requireActivity() as AppCompatActivity).supportActionBar?.title = assetType.getName(requireContext())
-        etSymbol.setText(assetUiModel.getFormattedSymbol())
+        etSymbol.setText(AssetUtil.getFormattedSymbol(assetUiModel.symbol))
         etLocation.setText(assetUiModel.region)
         ietTotalInvested.hint = LocaleUtil.getFormattedValueForCurrency(currency, 0.0)
         EditTextUtil.setEditTextsAfterTextChanged({ updateCurrentPosition() }, ietAmount, ietTotalInvested)

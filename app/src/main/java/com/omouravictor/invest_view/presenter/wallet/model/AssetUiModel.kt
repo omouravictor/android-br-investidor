@@ -1,7 +1,6 @@
 package com.omouravictor.invest_view.presenter.wallet.model
 
 import com.omouravictor.invest_view.presenter.wallet.base.AssetTypes
-import com.omouravictor.invest_view.util.AssetUtil
 import com.omouravictor.invest_view.util.LocaleUtil
 
 data class AssetUiModel(
@@ -16,8 +15,6 @@ data class AssetUiModel(
 )
 
 fun AssetUiModel.getTotalAssetPrice() = price * amount
-
-fun AssetUiModel.getFormattedSymbol() = AssetUtil.getFormattedSymbol(symbol)
 
 fun AssetUiModel.getFormattedAmount() = "(${LocaleUtil.getFormattedValueForLongNumber(amount)})"
 
