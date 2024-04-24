@@ -11,7 +11,7 @@ data class AssetBySearchUiModel(
     val type: String,
     val region: String,
     val currency: String,
-    var price: Double = 0.0,
+    var price: Double = 0.0
 ) : Parcelable
 
 fun AssetBySearchUiModel.getFormattedSymbol() = AssetUtil.getFormattedSymbol(symbol)

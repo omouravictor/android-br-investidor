@@ -4,14 +4,15 @@ import android.content.Context
 import android.content.res.ColorStateList
 import com.omouravictor.invest_view.R
 
-enum class AssetTypes(private val descriptionResId: Int, private val colorResId: Int) {
+enum class AssetTypes(private val nameResId: Int, private val colorResId: Int) {
 
     OTHER(R.string.others, R.color.gray),
-    EQUITY(R.string.stocks, R.color.equity),
-    MUTUAL_FUND(R.string.investmentFunds, R.color.mutualFund);
+    STOCK(R.string.stock, R.color.stock),
+    INVESTMENT_FUND(R.string.investmentFund, R.color.investmentFund),
+    BDR(R.string.bdr, R.color.bdr);
 
     fun getDescription(context: Context): String {
-        return context.getString(descriptionResId)
+        return context.getString(nameResId)
     }
 
     fun getColor(context: Context): ColorStateList {

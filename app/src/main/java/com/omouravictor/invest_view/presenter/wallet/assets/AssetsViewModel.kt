@@ -28,7 +28,7 @@ class AssetsViewModel @Inject constructor(
             AssetUiModel(
                 symbol = "AAPL",
                 name = "Apple Inc.",
-                assetType = AssetTypes.EQUITY,
+                assetType = AssetTypes.STOCK,
                 region = "United States",
                 currency = "USD",
                 price = 150.0,
@@ -36,9 +36,19 @@ class AssetsViewModel @Inject constructor(
                 totalInvested = 1600.0
             ),
             AssetUiModel(
+                symbol = "AAPL34",
+                name = "Apple Inc.",
+                assetType = AssetTypes.BDR,
+                region = "Brazil",
+                currency = "BRL",
+                price = 50.0,
+                amount = 10,
+                totalInvested = 1000.0
+            ),
+            AssetUiModel(
                 symbol = "MXRF11",
                 name = "Max Retail Fund",
-                assetType = AssetTypes.MUTUAL_FUND,
+                assetType = AssetTypes.INVESTMENT_FUND,
                 region = "Brazil",
                 currency = "BRL",
                 price = 10.0,

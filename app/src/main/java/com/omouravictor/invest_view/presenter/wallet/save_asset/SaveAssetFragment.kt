@@ -120,6 +120,7 @@ class SaveAssetFragment : Fragment() {
                 binding.btnSave.isEnabled = true
 
             } else {
+                tvInfoMessage.hint = getString(R.string.fillTheFieldsToView)
                 tvInfoMessage.visibility = View.VISIBLE
                 layoutAssetInfo.visibility = View.INVISIBLE
                 binding.btnSave.isEnabled = false

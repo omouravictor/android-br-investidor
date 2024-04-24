@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/defaultMarginBottom"
-    app:cardCornerRadius="@dimen/defaultCardRadius"
     android:backgroundTint="@color/itemListBackground"
+    app:cardCornerRadius="@dimen/defaultCardRadius"
     app:cardElevation="@dimen/defaultCardElevation">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -127,13 +127,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:hint="@string/fillTheFieldsToView"
             android:textSize="12sp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/color"
             app:layout_constraintTop_toTopOf="parent"
+            tools:hint="@string/fillTheFieldsToView"
             tools:visibility="gone" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,8 +10,15 @@ import com.omouravictor.invest_view.presenter.wallet.base.AssetTypes
 object AssetUtil {
 
     fun getAssetType(type: String): AssetTypes {
-        val assetType = type.replace(" ", "_").uppercase()
-        return AssetTypes.values().firstOrNull { it.name == assetType } ?: AssetTypes.OTHER
+        return when (type.lowercase()) {
+            "equity" -> {
+                AssetTypes.STOCK
+            }
+            "mutual fund" -> {
+                AssetTypes.INVESTMENT_FUND
+            }
+            else -> AssetTypes.OTHER
+        }
     }
 
     fun getFormattedSymbol(symbol: String): String {

@@ -1,23 +1,21 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/defaultMarginBottom"
     android:backgroundTint="@color/itemListBackground"
     app:cardCornerRadius="@dimen/defaultCardRadius"
-    app:cardElevation="@dimen/defaultCardElevation">
+    app:cardElevation="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/selector_item_list">
+        android:layout_height="match_parent">
 
         <View
             android:id="@+id/color"
             android:layout_width="5dp"
             android:layout_height="0dp"
-            android:background="@color/green"
+            android:background="@color/shimmerBackground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -34,71 +32,36 @@
 
             <TextView
                 android:id="@+id/tvSymbol"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="AAPL" />
-
-            <TextView
-                android:id="@+id/tvCurrency"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginEnd="32dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="@+id/tvSymbol"
-                app:layout_constraintEnd_toStartOf="@+id/tvAssetType"
-                app:layout_constraintStart_toEndOf="@+id/tvSymbol"
-                app:layout_constraintTop_toTopOf="@+id/tvSymbol"
-                tools:text="(USD)" />
+                android:background="@color/shimmerBackground"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent=".2" />
 
             <TextView
                 android:id="@+id/tvAssetType"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textAlignment="textEnd"
+                android:background="@color/shimmerBackground"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent=".5"
-                tools:text="Stock" />
+                app:layout_constraintWidth_percent=".4" />
 
             <TextView
                 android:id="@+id/tvName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:ellipsize="end"
-                android:maxLines="1"
+                android:background="@color/shimmerBackground"
                 android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="@+id/tvCurrency"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvSymbol"
-                tools:text="Apple inc" />
+                app:layout_constraintWidth_percent=".3" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <TextView
-            android:id="@+id/tvInfoMessage"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:textSize="12sp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/color"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:hint="@string/assetLoadFailed"
-            tools:visibility="gone" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
