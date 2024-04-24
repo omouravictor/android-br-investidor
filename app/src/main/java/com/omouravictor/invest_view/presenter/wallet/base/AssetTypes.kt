@@ -11,7 +11,7 @@ enum class AssetTypes(private val nameResId: Int, private val colorResId: Int) {
     INVESTMENT_FUND(R.string.investmentFund, R.color.investmentFund),
     BDR(R.string.bdr, R.color.bdr);
 
-    fun getDescription(context: Context): String {
+    fun getName(context: Context): String {
         return context.getString(nameResId)
     }
 

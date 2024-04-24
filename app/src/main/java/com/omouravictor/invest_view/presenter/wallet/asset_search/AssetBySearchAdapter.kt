@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.omouravictor.invest_view.databinding.ItemListAssetBySearchBinding
 import com.omouravictor.invest_view.presenter.base.RecyclerViewAdapter
 import com.omouravictor.invest_view.presenter.wallet.model.AssetBySearchUiModel
-import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.util.AssetUtil
 
 class AssetBySearchAdapter : RecyclerViewAdapter<AssetBySearchUiModel, AssetBySearchAdapter.AssetBySearchViewHolder>() {
@@ -26,13 +25,13 @@ class AssetBySearchAdapter : RecyclerViewAdapter<AssetBySearchUiModel, AssetBySe
 
         private val context = binding.root.context
 
+        @SuppressLint("SetTextI18n")
         fun bind(assetBySearchUiModel: AssetBySearchUiModel) {
             val assetType = AssetUtil.getAssetType(assetBySearchUiModel.type)
-            binding.tvSymbol.text = assetBySearchUiModel.getFormattedSymbol()
+            binding.tvSymbol.text = AssetUtil.getFormattedSymbol(assetBySearchUiModel.symbol)
             binding.tvName.text = assetBySearchUiModel.name
-            @SuppressLint("SetTextI18n")
             binding.tvCurrency.text = "(${assetBySearchUiModel.currency})"
-            binding.tvAssetType.text = assetType.getDescription(context)
+            binding.tvAssetType.text = assetType.getName(context)
             binding.color.backgroundTintList = assetType.getColor(context)
             itemView.setOnClickListener { onClickItem(assetBySearchUiModel) }
         }

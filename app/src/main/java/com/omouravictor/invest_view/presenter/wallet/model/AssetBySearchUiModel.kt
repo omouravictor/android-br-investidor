@@ -14,6 +14,4 @@ data class AssetBySearchUiModel(
     var price: Double = 0.0
 ) : Parcelable
 
-fun AssetBySearchUiModel.getFormattedSymbol() = AssetUtil.getFormattedSymbol(symbol)
-
 fun AssetBySearchUiModel.getAssetType() = AssetUtil.getAssetType(type)

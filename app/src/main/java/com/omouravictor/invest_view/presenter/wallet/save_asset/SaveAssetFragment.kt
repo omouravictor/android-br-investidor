@@ -68,7 +68,7 @@ class SaveAssetFragment : Fragment() {
         val etLocation = binding.etLocation
         val incItemListAsset = binding.incItemListAsset
 
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = assetType.getDescription(requireContext())
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = assetType.getName(requireContext())
         etSymbol.setText(assetUiModel.getFormattedSymbol())
         etLocation.setText(assetUiModel.region)
         ietTotalInvested.hint = LocaleUtil.getFormattedValueForCurrency(currency, 0.0)
