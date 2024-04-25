@@ -6,7 +6,7 @@
     android:layout_marginBottom="@dimen/defaultMarginBottom"
     android:backgroundTint="@color/itemListBackground"
     app:cardCornerRadius="@dimen/defaultCardRadius"
-    app:cardElevation="@dimen/defaultCardElevation">
+    app:cardElevation="@dimen/defaultElevation">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

@@ -21,7 +21,7 @@
         android:id="@+id/btnTryAgain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_rectangle"
+        android:background="@drawable/background_rectangle"
         android:text="@string/tryAgain"
         android:textAllCaps="false"
         android:visibility="gone"

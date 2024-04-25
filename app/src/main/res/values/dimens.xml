@@ -1,6 +1,5 @@
 <resources>
     <dimen name="defaultElevation">5dp</dimen>
-    <dimen name="defaultCardElevation">5dp</dimen>
     <dimen name="defaultButtonRadius">10dp</dimen>
     <dimen name="defaultCardRadius">5dp</dimen>
     <dimen name="defaultTextInputLayoutRadius">5dp</dimen>

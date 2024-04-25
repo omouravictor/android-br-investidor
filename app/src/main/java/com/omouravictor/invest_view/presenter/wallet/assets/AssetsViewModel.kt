@@ -54,7 +54,67 @@ class AssetsViewModel @Inject constructor(
                 price = 10.0,
                 amount = 100,
                 totalInvested = 900.0
-            )
+            ),
+            AssetUiModel(
+                symbol = "AAPL",
+                name = "Apple Inc.",
+                assetType = AssetTypes.STOCK,
+                region = "United States",
+                currency = "USD",
+                price = 150.0,
+                amount = 10,
+                totalInvested = 1600.0
+            ),
+            AssetUiModel(
+                symbol = "AAPL34",
+                name = "Apple Inc.",
+                assetType = AssetTypes.BDR,
+                region = "Brazil",
+                currency = "BRL",
+                price = 50.0,
+                amount = 10,
+                totalInvested = 1000.0
+            ),
+            AssetUiModel(
+                symbol = "MXRF11",
+                name = "Max Retail Fund",
+                assetType = AssetTypes.INVESTMENT_FUND,
+                region = "Brazil",
+                currency = "BRL",
+                price = 10.0,
+                amount = 100,
+                totalInvested = 900.0
+            ),
+            AssetUiModel(
+                symbol = "AAPL",
+                name = "Apple Inc.",
+                assetType = AssetTypes.STOCK,
+                region = "United States",
+                currency = "USD",
+                price = 150.0,
+                amount = 10,
+                totalInvested = 1600.0
+            ),
+            AssetUiModel(
+                symbol = "AAPL34",
+                name = "Apple Inc.",
+                assetType = AssetTypes.BDR,
+                region = "Brazil",
+                currency = "BRL",
+                price = 50.0,
+                amount = 10,
+                totalInvested = 1000.0
+            ),
+            AssetUiModel(
+                symbol = "MXRF11",
+                name = "Max Retail Fund",
+                assetType = AssetTypes.INVESTMENT_FUND,
+                region = "Brazil",
+                currency = "BRL",
+                price = 10.0,
+                amount = 100,
+                totalInvested = 900.0
+            ),
         )
         _assetsList.value = testList
     }

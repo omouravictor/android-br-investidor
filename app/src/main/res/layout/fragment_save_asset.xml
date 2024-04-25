@@ -179,7 +179,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/defaultMarginHorizontal"
             android:layout_marginTop="24dp"
-            android:background="@drawable/shape_rectangle"
+            android:background="@drawable/background_rectangle"
             android:text="@string/save"
             android:textAllCaps="false"
             app:layout_constraintEnd_toEndOf="parent"
