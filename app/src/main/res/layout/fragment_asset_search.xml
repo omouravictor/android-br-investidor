@@ -9,15 +9,17 @@
         android:id="@+id/shimmerLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="@dimen/defaultPaddingHorizontal"
-        android:paddingTop="@dimen/defaultPaddingTop"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible">
 
-        <include layout="@layout/item_list_asset_shimmer" />
+        <include
+            layout="@layout/item_list_asset_shimmer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/defaultMargin" />
 
     </com.facebook.shimmer.ShimmerFrameLayout>
 
