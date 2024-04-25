@@ -46,14 +46,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:layout_marginEnd="32dp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/tvSymbol"
-                app:layout_constraintEnd_toStartOf="@+id/tvAssetType"
                 app:layout_constraintStart_toEndOf="@+id/tvSymbol"
                 app:layout_constraintTop_toTopOf="@+id/tvSymbol"
+                app:layout_constraintWidth_percent=".3"
                 tools:text="(USD)" />
 
             <TextView
@@ -64,10 +63,11 @@
                 android:maxLines="1"
                 android:textAlignment="textEnd"
                 android:textSize="12sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent=".5"
+                app:layout_constraintWidth_percent=".3"
                 tools:text="Stock" />
 
             <TextView
