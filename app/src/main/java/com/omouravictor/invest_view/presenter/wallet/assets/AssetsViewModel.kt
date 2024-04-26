@@ -28,7 +28,7 @@ class AssetsViewModel @Inject constructor(
             AssetUiModel(
                 symbol = "AAPL",
                 name = "Apple Inc.",
-                assetType = AssetTypes.STOCK,
+                assetType = AssetTypes.FOREIGN_STOCK,
                 region = "United States",
                 currency = "USD",
                 price = 150.0,
@@ -58,7 +58,7 @@ class AssetsViewModel @Inject constructor(
             AssetUiModel(
                 symbol = "AAPL",
                 name = "Apple Inc.",
-                assetType = AssetTypes.STOCK,
+                assetType = AssetTypes.FOREIGN_STOCK,
                 region = "United States",
                 currency = "USD",
                 price = 150.0,
@@ -88,7 +88,7 @@ class AssetsViewModel @Inject constructor(
             AssetUiModel(
                 symbol = "AAPL",
                 name = "Apple Inc.",
-                assetType = AssetTypes.STOCK,
+                assetType = AssetTypes.FOREIGN_STOCK,
                 region = "United States",
                 currency = "USD",
                 price = 150.0,

@@ -15,7 +15,6 @@ import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentSaveAssetBinding
 import com.omouravictor.invest_view.presenter.wallet.assets.AssetsViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
-import com.omouravictor.invest_view.presenter.wallet.model.getAssetType
 import com.omouravictor.invest_view.util.AssetUtil
 import com.omouravictor.invest_view.util.EditTextUtil
 import com.omouravictor.invest_view.util.LocaleUtil
@@ -48,7 +47,7 @@ class SaveAssetFragment : Fragment() {
         assetUiModel = AssetUiModel(
             symbol = assetBySearchUiModel.symbol,
             name = assetBySearchUiModel.name,
-            assetType = assetBySearchUiModel.getAssetType(),
+            assetType = AssetUtil.getAssetType(assetBySearchUiModel.symbol, assetBySearchUiModel.type),
             region = assetBySearchUiModel.region,
             currency = assetBySearchUiModel.currency,
             price = assetBySearchUiModel.price

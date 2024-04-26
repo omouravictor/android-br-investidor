@@ -6,10 +6,11 @@ import com.omouravictor.invest_view.R
 
 enum class AssetTypes(private val nameResId: Int, private val colorResId: Int) {
 
-    OTHER(R.string.others, R.color.gray),
-    STOCK(R.string.stock, R.color.stock),
+    BRAZILIAN_STOCK(R.string.brazilianStock, R.color.brazilianStock),
+    BDR(R.string.bdr, R.color.bdr),
     INVESTMENT_FUND(R.string.investmentFund, R.color.investmentFund),
-    BDR(R.string.bdr, R.color.bdr);
+    FOREIGN_STOCK(R.string.foreignStock, R.color.foreignStock),
+    OTHER(R.string.other, R.color.other);
 
     fun getName(context: Context): String {
         return context.getString(nameResId)

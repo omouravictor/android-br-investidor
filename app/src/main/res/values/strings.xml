@@ -1,4 +1,11 @@
 <resources>
+    <!-- Asset type colors -->
+    <string name="brazilianStock">Ação</string>
+    <string name="bdr">BDR</string>
+    <string name="investmentFund">Fundo de investimento</string>
+    <string name="foreignStock">Stock</string>
+    <string name="other">Outro</string>
+
     <!-- Placeholders -->
     <string name="placeholderAmount">(%1$s)</string>
 
@@ -13,10 +20,7 @@
     <string name="newAsset">Novo ativo</string>
     <string name="assetTypes">Tipos de Ativos</string>
     <string name="arrowForward">Arrow forward</string>
-    <string name="stock">Stock</string>
-    <string name="investmentFund">Fundo de Investimento</string>
     <string name="asset">Ativo</string>
-    <string name="others">Outros</string>
     <string name="assets">Ativos</string>
     <string name="details">Detalhes</string>
     <string name="select">Selecione</string>
@@ -38,5 +42,4 @@
     <string name="location">Localidade</string>
     <string name="assetAlreadyExists">Você já possui este ativo na carteira.</string>
     <string name="enterAssetSymbolForTryAgain">Pesquise um ativo para tentar novamente.</string>
-    <string name="bdr">BDR</string>
 </resources>

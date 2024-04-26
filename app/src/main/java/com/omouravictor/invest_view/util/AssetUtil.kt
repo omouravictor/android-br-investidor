@@ -9,20 +9,31 @@ import com.omouravictor.invest_view.presenter.wallet.base.AssetTypes
 
 object AssetUtil {
 
-    fun getAssetType(type: String): AssetTypes {
-        return when (type.lowercase()) {
-            "equity" -> {
-                AssetTypes.STOCK
+    fun getAssetType(symbol: String, type: String): AssetTypes {
+        return when (type) {
+            "Equity" -> {
+                if (symbol.substringAfter(".") == "SAO") {
+                    val formattedSymbol = getFormattedSymbol(symbol)
+                    val lastTwoDigits = formattedSymbol.takeLast(2)
+                    if (lastTwoDigits == "34" || lastTwoDigits == "35" || lastTwoDigits == "32" || lastTwoDigits == "33")
+                        AssetTypes.BDR
+                    else
+                        AssetTypes.BRAZILIAN_STOCK
+                } else {
+                    AssetTypes.FOREIGN_STOCK
+                }
             }
-            "mutual fund" -> {
+
+            "Mutual Fund" -> {
                 AssetTypes.INVESTMENT_FUND
             }
+
             else -> AssetTypes.OTHER
         }
     }
 
     fun getFormattedSymbol(symbol: String): String {
-        return symbol.substringBeforeLast(".")
+        return symbol.substringBefore(".")
     }
 
     @SuppressLint("SetTextI18n")

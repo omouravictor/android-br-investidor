@@ -27,7 +27,7 @@ class AssetBySearchAdapter : RecyclerViewAdapter<AssetBySearchUiModel, AssetBySe
 
         @SuppressLint("SetTextI18n")
         fun bind(assetBySearchUiModel: AssetBySearchUiModel) {
-            val assetType = AssetUtil.getAssetType(assetBySearchUiModel.type)
+            val assetType = AssetUtil.getAssetType(assetBySearchUiModel.symbol, assetBySearchUiModel.type)
             binding.tvSymbol.text = AssetUtil.getFormattedSymbol(assetBySearchUiModel.symbol)
             binding.tvName.text = assetBySearchUiModel.name
             binding.tvCurrency.text = "(${assetBySearchUiModel.currency})"
