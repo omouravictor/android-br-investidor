@@ -8,11 +8,11 @@
     <color name="yellow">#FFD600</color>
 
     <!-- Asset type colors -->
-    <color name="brazilianStock">#00C853</color>
+    <color name="localStock">#00C853</color>
     <color name="bdr">#FFC107</color>
-    <color name="investmentFund">#00B8D4</color>
+    <color name="fi">#00B8D4</color>
     <color name="etf">#FF6D00</color>
-    <color name="foreignStock">#AA00FF</color>
+    <color name="stock">#AA00FF</color>
     <color name="other">#737373</color>
 
     <!-- Day/Night colors -->

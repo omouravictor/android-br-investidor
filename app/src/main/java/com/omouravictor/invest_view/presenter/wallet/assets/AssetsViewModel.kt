@@ -19,7 +19,8 @@ class AssetsViewModel @Inject constructor(
     private val dispatchers: DispatcherProvider
 ) : ViewModel() {
 
-    val currentAssetsList get() = _assetsList.value.orEmpty()
+    val currentAssets get() = _assetsList.value.orEmpty()
+    val currentAssetTypes get() = currentAssets.map { it.assetType }.distinct()
     private val _assetsList = MutableLiveData<List<AssetUiModel>>()
     val assetsList: LiveData<List<AssetUiModel>> = _assetsList
 
@@ -28,7 +29,7 @@ class AssetsViewModel @Inject constructor(
             AssetUiModel(
                 symbol = "AAPL",
                 name = "Apple Inc.",
-                assetType = AssetTypes.FOREIGN_STOCK,
+                assetType = AssetTypes.STOCK,
                 region = "United States",
                 currency = "USD",
                 price = 150.0,
@@ -48,7 +49,7 @@ class AssetsViewModel @Inject constructor(
             AssetUiModel(
                 symbol = "MXRF11",
                 name = "Max Retail Fund",
-                assetType = AssetTypes.INVESTMENT_FUND,
+                assetType = AssetTypes.FI,
                 region = "Brazil",
                 currency = "BRL",
                 price = 10.0,
@@ -58,7 +59,7 @@ class AssetsViewModel @Inject constructor(
             AssetUiModel(
                 symbol = "AAPL",
                 name = "Apple Inc.",
-                assetType = AssetTypes.FOREIGN_STOCK,
+                assetType = AssetTypes.STOCK,
                 region = "United States",
                 currency = "USD",
                 price = 150.0,
@@ -66,61 +67,41 @@ class AssetsViewModel @Inject constructor(
                 totalInvested = 1600.0
             ),
             AssetUiModel(
-                symbol = "AAPL34",
+                symbol = "MSTFT",
                 name = "Apple Inc.",
-                assetType = AssetTypes.BDR,
-                region = "Brazil",
-                currency = "BRL",
-                price = 50.0,
-                amount = 10,
-                totalInvested = 1000.0
-            ),
-            AssetUiModel(
-                symbol = "MXRF11",
-                name = "Max Retail Fund",
-                assetType = AssetTypes.INVESTMENT_FUND,
-                region = "Brazil",
-                currency = "BRL",
-                price = 10.0,
-                amount = 100,
-                totalInvested = 900.0
-            ),
-            AssetUiModel(
-                symbol = "AAPL",
-                name = "Apple Inc.",
-                assetType = AssetTypes.FOREIGN_STOCK,
-                region = "United States",
-                currency = "USD",
+                assetType = AssetTypes.ETF,
+                region = "Germany",
+                currency = "EUR",
                 price = 150.0,
                 amount = 10,
                 totalInvested = 1600.0
             ),
             AssetUiModel(
-                symbol = "AAPL34",
-                name = "Apple Inc.",
-                assetType = AssetTypes.BDR,
-                region = "Brazil",
+                symbol = "VALE3",
+                name = "Vale S.A.",
+                assetType = AssetTypes.LOCAL_STOCK,
+                region = "Brasil",
                 currency = "BRL",
-                price = 50.0,
+                price = 150.0,
                 amount = 10,
-                totalInvested = 1000.0
+                totalInvested = 1600.0
             ),
             AssetUiModel(
-                symbol = "MXRF11",
-                name = "Max Retail Fund",
-                assetType = AssetTypes.INVESTMENT_FUND,
-                region = "Brazil",
+                symbol = "VALE3",
+                name = "Vale S.A.",
+                assetType = AssetTypes.OTHER,
+                region = "Brasil",
                 currency = "BRL",
-                price = 10.0,
-                amount = 100,
-                totalInvested = 900.0
-            ),
+                price = 150.0,
+                amount = 10,
+                totalInvested = 1600.0
+            )
         )
         _assetsList.value = testList
     }
 
     fun addAsset(assetUiModel: AssetUiModel) {
-        val currentList = currentAssetsList.toMutableList()
+        val currentList = currentAssets.toMutableList()
         currentList.add(assetUiModel)
         _assetsList.value = currentList
     }

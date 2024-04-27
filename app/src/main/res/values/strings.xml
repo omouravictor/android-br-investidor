@@ -1,9 +1,9 @@
 <resources>
     <!-- Asset type colors -->
-    <string name="brazilianStock">Ação</string>
+    <string name="localStock">Ação</string>
     <string name="bdr">BDR</string>
-    <string name="investmentFund">Fundo de investimento</string>
-    <string name="foreignStock">Stock</string>
+    <string name="fi">FI</string>
+    <string name="stock">Stock</string>
     <string name="other">Outro</string>
 
     <!-- Placeholders -->

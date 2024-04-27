@@ -51,17 +51,31 @@ android {
 }
 
 dependencies {
+    val androidxCoreVersion = "1.12.0"
+    implementation("androidx.core:core-ktx:$androidxCoreVersion")
 
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.11.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    testImplementation("junit:junit:4.13.2")
+    val androidxAppCompatVersion = "1.6.1"
+    implementation("androidx.appcompat:appcompat:$androidxAppCompatVersion")
+
+    val materialVersion = "1.11.0"
+    implementation("com.google.android.material:material:$materialVersion")
+
+    val androidxConstraintLayoutVersion = "2.1.4"
+    implementation("androidx.constraintlayout:constraintlayout:$androidxConstraintLayoutVersion")
+
+    val androidxLifecycleVersion = "2.7.0"
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$androidxLifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$androidxLifecycleVersion")
+
+    val androidxNavigationVersion = "2.7.7"
+    implementation("androidx.navigation:navigation-fragment-ktx:$androidxNavigationVersion")
+    implementation("androidx.navigation:navigation-ui-ktx:$androidxNavigationVersion")
+
+    val androidxLegacyVersion = "1.0.0"
+    implementation("androidx.legacy:legacy-support-v4:$androidxLegacyVersion")
+
+    val junitVersion = "4.13.2"
+    testImplementation("junit:junit:$junitVersion")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
@@ -81,6 +95,9 @@ dependencies {
 
     val facebookShimmerVersion = "0.5.0"
     implementation("com.facebook.shimmer:shimmer:$facebookShimmerVersion")
+
+    val mpAndroidChartVersion = "3.1.0"
+    implementation("com.github.PhilJay:MPAndroidChart:$mpAndroidChartVersion")
 }
 
 kapt {

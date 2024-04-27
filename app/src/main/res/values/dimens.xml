@@ -4,6 +4,7 @@
     <dimen name="defaultCardRadius">5dp</dimen>
     <dimen name="defaultTextInputLayoutRadius">5dp</dimen>
     <dimen name="defaultMargin">16dp</dimen>
+    <dimen name="defaultMarginTop">16dp</dimen>
     <dimen name="defaultMarginHorizontal">16dp</dimen>
     <dimen name="defaultMarginVertical">16dp</dimen>
     <dimen name="defaultPaddingHorizontal">16dp</dimen>

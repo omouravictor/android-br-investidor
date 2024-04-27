@@ -18,13 +18,13 @@ object AssetUtil {
                     if (lastTwoDigits == "34" || lastTwoDigits == "35" || lastTwoDigits == "32" || lastTwoDigits == "33")
                         AssetTypes.BDR
                     else
-                        AssetTypes.BRAZILIAN_STOCK
+                        AssetTypes.LOCAL_STOCK
                 } else {
-                    AssetTypes.FOREIGN_STOCK
+                    AssetTypes.STOCK
                 }
             }
 
-            "Mutual Fund" -> AssetTypes.INVESTMENT_FUND
+            "Mutual Fund" -> AssetTypes.FI
             "ETF" -> AssetTypes.ETF
             else -> AssetTypes.OTHER
         }
