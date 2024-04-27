@@ -104,7 +104,7 @@ class AssetSearchFragment : Fragment() {
         searchView.maxWidth = Int.MAX_VALUE
         searchView.queryHint = getString(R.string.searchYourAsset)
         searchView.setOnQueryTextListener(queryTextListener)
-        searchView.setQuery("Microsoft", true) // TODO: Remove this line after testing
+        searchView.setQuery("MSFT", true) // TODO: Remove this line after testing
     }
 
     private fun setupRecyclerView() {

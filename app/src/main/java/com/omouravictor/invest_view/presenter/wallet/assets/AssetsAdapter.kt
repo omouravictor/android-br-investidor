@@ -26,10 +26,11 @@ class AssetsAdapter : RecyclerViewAdapter<AssetUiModel, AssetsAdapter.AssetViewH
         private val context = itemView.context
 
         fun bind(assetUiModel: AssetUiModel) {
-            binding.color.backgroundTintList = assetUiModel.assetType.getColor(context)
+            val assetType = assetUiModel.assetType
+            binding.color.backgroundTintList = assetType.getColor(context)
             binding.tvSymbol.text = AssetUtil.getFormattedSymbol(assetUiModel.symbol)
             binding.tvAmount.text = assetUiModel.getFormattedAmount()
-            binding.tvName.text = assetUiModel.name
+            binding.tvAssetType.text = assetType.getName(context)
             binding.tvTotal.text = assetUiModel.getFormattedTotalAssetPrice()
             AssetUtil.setupVariationViews(
                 binding,

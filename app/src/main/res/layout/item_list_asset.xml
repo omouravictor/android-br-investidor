@@ -71,18 +71,18 @@
                 tools:text="R$ 100.000.000.000,00" />
 
             <TextView
-                android:id="@+id/tvName"
+                android:id="@+id/tvAssetType"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="32dp"
+                android:layout_marginEnd="48dp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toStartOf="@+id/tvVariation"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvSymbol"
-                tools:text="Apple inc" />
+                tools:text="Ação" />
 
             <TextView
                 android:id="@+id/tvVariation"
@@ -94,7 +94,7 @@
                 android:textAlignment="textEnd"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toStartOf="@+id/ivArrow"
-                app:layout_constraintTop_toTopOf="@+id/tvName"
+                app:layout_constraintTop_toTopOf="@+id/tvAssetType"
                 tools:text="+R$ 100.000.000.000,00 ("
                 tools:textColor="@color/green" />
 

@@ -56,7 +56,7 @@
                 tools:text="(USD)" />
 
             <TextView
-                android:id="@+id/tvAssetType"
+                android:id="@+id/tvName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
@@ -67,10 +67,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent=".3"
-                tools:text="Stock" />
+                tools:text="Apple inc" />
 
             <TextView
-                android:id="@+id/tvName"
+                android:id="@+id/tvAssetType"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -80,7 +80,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/tvCurrency"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvSymbol"
-                tools:text="Apple inc" />
+                tools:text="Stock" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
