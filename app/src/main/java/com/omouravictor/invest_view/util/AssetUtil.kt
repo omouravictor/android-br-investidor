@@ -24,10 +24,8 @@ object AssetUtil {
                 }
             }
 
-            "Mutual Fund" -> {
-                AssetTypes.INVESTMENT_FUND
-            }
-
+            "Mutual Fund" -> AssetTypes.INVESTMENT_FUND
+            "ETF" -> AssetTypes.ETF
             else -> AssetTypes.OTHER
         }
     }

@@ -42,4 +42,5 @@
     <string name="location">Localidade</string>
     <string name="assetAlreadyExists">Você já possui este ativo na carteira.</string>
     <string name="enterAssetSymbolForTryAgain">Pesquise um ativo para tentar novamente.</string>
+    <string name="etf">ETF</string>
 </resources>
