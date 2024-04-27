@@ -1,6 +1,6 @@
 package com.omouravictor.invest_view.presenter.wallet.assets
 
-import android.graphics.Color
+import android.graphics.Color.TRANSPARENT
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +14,7 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.PercentFormatter
 import com.google.android.material.snackbar.Snackbar
+import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetsBinding
 
 class AssetsFragment : Fragment() {
@@ -38,7 +39,6 @@ class AssetsFragment : Fragment() {
     }
 
     private fun setupChart() {
-        val chart = binding.pieChart
         val context = requireContext()
         val pieEntries = arrayListOf<PieEntry>()
         val colors = arrayListOf<Int>()
@@ -53,21 +53,29 @@ class AssetsFragment : Fragment() {
         dataSet.colors = colors
         dataSet.sliceSpace = 3f
 
-        val assetsSize = assetsViewModel.currentAssets.size
         val data = PieData(dataSet)
+        val whiteColor = context.getColor(R.color.white)
         data.setValueFormatter(PercentFormatter())
-        data.setValueTextSize(11f)
-        data.setValueTextColor(Color.WHITE)
+        data.setValueTextSize(12f)
+        data.setValueTextColor(whiteColor)
 
+        val chart = binding.pieChart
+        val assetsSize = assetsViewModel.currentAssets.size
+        val appWindowBackColor = context.getColor(R.color.appWindowBackColor)
+        val greenColor = context.getColor(R.color.green)
+        chart.data = data
         chart.setUsePercentValues(true)
         chart.description.isEnabled = false
         chart.isDrawHoleEnabled = true
-        chart.setHoleColor(Color.TRANSPARENT)
+        chart.setHoleColor(TRANSPARENT)
         chart.setTransparentCircleAlpha(100)
-        chart.centerText = if (assetsSize == 1) "$assetsSize \nativo" else "$assetsSize \nativos"
+        chart.setTransparentCircleColor(appWindowBackColor)
+        chart.centerText = if (assetsSize == 1) "$assetsSize\nativo" else "$assetsSize\nativos"
+        chart.setCenterTextColor(greenColor)
+        chart.setCenterTextSize(16f)
         chart.animateY(1400, Easing.EaseInOutQuad)
         chart.legend.isEnabled = false
-        chart.data = data
+        chart.isRotationEnabled = false
     }
 
     private fun setupAdapter() {

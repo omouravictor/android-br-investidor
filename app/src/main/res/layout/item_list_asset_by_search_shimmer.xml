@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/defaultMarginBottom"
-    android:backgroundTint="@color/itemListBackground"
+    android:backgroundTint="@color/itemListBackColor"
     app:cardCornerRadius="@dimen/defaultCardRadius"
     app:cardElevation="@dimen/defaultElevation">
 
@@ -15,7 +15,7 @@
             android:id="@+id/color"
             android:layout_width="5dp"
             android:layout_height="0dp"
-            android:background="@color/shimmerBackground"
+            android:background="@color/shimmerBackColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -34,7 +34,7 @@
                 android:id="@+id/tvSymbol"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@color/shimmerBackground"
+                android:background="@color/shimmerBackColor"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent=".2" />
@@ -43,7 +43,7 @@
                 android:id="@+id/tvName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@color/shimmerBackground"
+                android:background="@color/shimmerBackColor"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -55,7 +55,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:background="@color/shimmerBackground"
+                android:background="@color/shimmerBackColor"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvSymbol"

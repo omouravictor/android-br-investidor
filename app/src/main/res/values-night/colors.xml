@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Day/Night colors -->
-    <color name="appPrimary">@color/white</color>
+    <color name="appPrimaryColor">@color/white</color>
     <color name="appTextColor">@color/white</color>
-    <color name="appWindowBackground">#101010</color>
-    <color name="itemListPressedTrue">#19FFFFFF</color>
-    <color name="itemListBackground">#252525</color>
-    <color name="shimmerBackground">#B1B1B1</color>
-    <color name="lightGray">#A3A3A3</color>
+    <color name="appWindowBackColor">#101010</color>
+    <color name="itemListPressedTrueColor">#19FFFFFF</color>
+    <color name="itemListBackColor">#252525</color>
+    <color name="shimmerBackColor">#B1B1B1</color>
+    <color name="lightGrayColor">#A3A3A3</color>
 </resources>

@@ -2,13 +2,13 @@
     <!-- Base application theme. -->
     <style name="Theme.InvestView" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/appPrimary</item>
+        <item name="colorPrimary">@color/appPrimaryColor</item>
         <item name="colorPrimaryVariant">@color/black</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/black</item>
         <!-- Customize your theme here. -->
-        <item name="android:windowBackground">@color/appWindowBackground</item>
+        <item name="android:windowBackground">@color/appWindowBackColor</item>
         <item name="android:textColor">@color/appTextColor</item>
         <item name="actionMenuTextAppearance">@style/MyActionBarMenuStyle</item>
         <item name="android:navigationBarColor">@color/black</item>

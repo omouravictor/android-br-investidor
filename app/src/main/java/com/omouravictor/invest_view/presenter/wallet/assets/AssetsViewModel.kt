@@ -47,16 +47,6 @@ class AssetsViewModel @Inject constructor(
                 totalInvested = 1000.0
             ),
             AssetUiModel(
-                symbol = "MXRF11",
-                name = "Max Retail Fund",
-                assetType = AssetTypes.FI,
-                region = "Brazil",
-                currency = "BRL",
-                price = 10.0,
-                amount = 100,
-                totalInvested = 900.0
-            ),
-            AssetUiModel(
                 symbol = "AAPL",
                 name = "Apple Inc.",
                 assetType = AssetTypes.STOCK,

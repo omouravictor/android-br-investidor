@@ -146,7 +146,7 @@
             android:layout_marginHorizontal="@dimen/defaultMarginHorizontal"
             android:layout_marginTop="8dp"
             android:text="@string/totalInvestedDescription"
-            android:textColor="@color/lightGray"
+            android:textColor="@color/lightGrayColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayoutTotalInvested" />

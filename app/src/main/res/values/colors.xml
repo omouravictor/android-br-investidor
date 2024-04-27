@@ -16,11 +16,11 @@
     <color name="other">#737373</color>
 
     <!-- Day/Night colors -->
-    <color name="appPrimary">@color/black</color>
+    <color name="appPrimaryColor">@color/black</color>
     <color name="appTextColor">@color/black</color>
-    <color name="appWindowBackground">@color/white</color>
-    <color name="itemListPressedTrue">#1A000000</color>
-    <color name="itemListBackground">#FFFFFF</color>
-    <color name="shimmerBackground">#656565</color>
-    <color name="lightGray">@color/gray</color>
+    <color name="appWindowBackColor">@color/white</color>
+    <color name="itemListPressedTrueColor">#1A000000</color>
+    <color name="itemListBackColor">#FFFFFF</color>
+    <color name="shimmerBackColor">#656565</color>
+    <color name="lightGrayColor">@color/gray</color>
 </resources>

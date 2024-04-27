@@ -1,4 +1,4 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@color/itemListPressedTrue" android:state_pressed="true" />
+    <item android:drawable="@color/itemListPressedTrueColor" android:state_pressed="true" />
     <item android:drawable="@android:color/transparent" />
 </selector>

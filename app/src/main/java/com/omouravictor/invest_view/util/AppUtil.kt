@@ -29,7 +29,7 @@ object AppUtil {
         val backgroundTintColor = when {
             isSuccess -> ContextCompat.getColor(view.context, R.color.green)
             isError -> ContextCompat.getColor(view.context, R.color.red)
-            else -> ContextCompat.getColor(view.context, R.color.appPrimary)
+            else -> ContextCompat.getColor(view.context, R.color.appPrimaryColor)
         }
         val textColor = when {
             isSuccess || isError -> ContextCompat.getColor(view.context, R.color.white)
