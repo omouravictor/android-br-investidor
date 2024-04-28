@@ -49,25 +49,25 @@ class AssetsFragment : Fragment() {
             colors.add(assetType.getColor(context).defaultColor)
         }
 
-        val dataSet = PieDataSet(pieEntries, "Tipos de Ativos")
-        dataSet.colors = colors
-        dataSet.sliceSpace = 3f
-        dataSet.xValuePosition = PieDataSet.ValuePosition.INSIDE_SLICE
-        dataSet.yValuePosition = PieDataSet.ValuePosition.INSIDE_SLICE
+        val pieDataSet = PieDataSet(pieEntries, "Tipos de Ativos")
+        pieDataSet.colors = colors
+        pieDataSet.sliceSpace = 3f
+        pieDataSet.xValuePosition = PieDataSet.ValuePosition.INSIDE_SLICE
+        pieDataSet.yValuePosition = PieDataSet.ValuePosition.INSIDE_SLICE
 
-        val data = PieData(dataSet)
+        val pieData = PieData(pieDataSet)
         val whiteColor = context.getColor(R.color.white)
         val textSize12 = 12f
-        data.setValueFormatter(PercentFormatter())
-        data.setValueTextSize(textSize12)
-        data.setValueTextColor(whiteColor)
+        pieData.setValueFormatter(PercentFormatter())
+        pieData.setValueTextSize(textSize12)
+        pieData.setValueTextColor(whiteColor)
 
         val assetsSize = assetsViewModel.currentAssets.size
         val appWindowBackColor = context.getColor(R.color.appWindowBackColor)
         val greenColor = context.getColor(R.color.green)
         val pieChart = binding.pieChart
 
-        pieChart.data = data
+        pieChart.data = pieData
         pieChart.setUsePercentValues(true)
         pieChart.description.isEnabled = false
         pieChart.isDrawHoleEnabled = true
