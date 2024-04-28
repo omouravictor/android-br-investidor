@@ -64,13 +64,14 @@ class AssetsFragment : Fragment() {
             valueLineColor = appTextColor
         }
 
+        val pieChart = binding.pieChart
         val pieData = PieData(pieDataSet).apply {
-            setValueFormatter(PercentFormatter())
+            setValueFormatter(PercentFormatter(pieChart))
             setValueTextSize(textSize12)
             setValueTextColor(appTextColor)
         }
 
-        binding.pieChart.apply {
+        pieChart.apply {
             data = pieData
             description.isEnabled = false
             legend.isEnabled = false
