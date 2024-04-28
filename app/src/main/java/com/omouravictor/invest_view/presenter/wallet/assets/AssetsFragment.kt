@@ -44,7 +44,7 @@ class AssetsFragment : Fragment() {
         val assets = assetsViewModel.currentAssets
         val assetTypes = assetsViewModel.currentAssetTypes
         val assetsSize = assets.size
-        val whiteColor = ContextCompat.getColor(context, R.color.white)
+        val appTextColor = ContextCompat.getColor(context, R.color.appTextColor)
         val textSize12 = 12f
         val appWindowBackColor = ContextCompat.getColor(context, R.color.appWindowBackColor)
         val greenColor = ContextCompat.getColor(context, R.color.green)
@@ -60,13 +60,14 @@ class AssetsFragment : Fragment() {
             this.colors = colors
             sliceSpace = 3f
             xValuePosition = PieDataSet.ValuePosition.INSIDE_SLICE
-            yValuePosition = PieDataSet.ValuePosition.INSIDE_SLICE
+            yValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
+            valueLineColor = appTextColor
         }
 
         val pieData = PieData(pieDataSet).apply {
             setValueFormatter(PercentFormatter())
             setValueTextSize(textSize12)
-            setValueTextColor(whiteColor)
+            setValueTextColor(appTextColor)
         }
 
         binding.pieChart.apply {
