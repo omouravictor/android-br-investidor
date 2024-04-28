@@ -47,16 +47,6 @@ class AssetsViewModel @Inject constructor(
                 totalInvested = 1000f
             ),
             AssetUiModel(
-                symbol = "AAPL",
-                name = "Apple Inc.",
-                assetType = AssetTypes.STOCK,
-                region = "United States",
-                currency = "USD",
-                price = 150f,
-                amount = 10,
-                totalInvested = 1600f
-            ),
-            AssetUiModel(
                 symbol = "MSTFT",
                 name = "Apple Inc.",
                 assetType = AssetTypes.ETF,
@@ -77,7 +67,17 @@ class AssetsViewModel @Inject constructor(
                 totalInvested = 1600f
             ),
             AssetUiModel(
-                symbol = "VALE3",
+                symbol = "MXRF11",
+                name = "Max renda.",
+                assetType = AssetTypes.FI,
+                region = "Brasil",
+                currency = "BRL",
+                price = 150f,
+                amount = 10,
+                totalInvested = 1600f
+            ),
+            AssetUiModel(
+                symbol = "ASDAS",
                 name = "Vale S.A.",
                 assetType = AssetTypes.OTHER,
                 region = "Brasil",
