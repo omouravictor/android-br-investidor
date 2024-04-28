@@ -28,7 +28,7 @@ object EditTextUtil {
     fun setEditTextCurrencyFormatMask(editText: EditText, currency: String) {
         editText.apply {
             addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(cs: CharSequence?, s: Int, c: Int, a: Int) {}
+                override fun beforeTextChanged(cs: CharSequence?, s: Int, c: Int, a: Int) = Unit
 
                 override fun onTextChanged(
                     text: CharSequence, start: Int, before: Int, count: Int
@@ -54,7 +54,7 @@ object EditTextUtil {
                     addTextChangedListener(this)
                 }
 
-                override fun afterTextChanged(s: Editable?) {}
+                override fun afterTextChanged(s: Editable?) = Unit
             })
         }
     }
@@ -62,7 +62,7 @@ object EditTextUtil {
     fun setEditTextLongNumberFormatMask(editText: EditText) {
         editText.apply {
             addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(cs: CharSequence?, s: Int, c: Int, a: Int) {}
+                override fun beforeTextChanged(cs: CharSequence?, s: Int, c: Int, a: Int) = Unit
 
                 override fun onTextChanged(
                     text: CharSequence, start: Int, before: Int, count: Int
@@ -79,7 +79,7 @@ object EditTextUtil {
                     addTextChangedListener(this)
                 }
 
-                override fun afterTextChanged(s: Editable?) {}
+                override fun afterTextChanged(s: Editable?) = Unit
             })
         }
     }
