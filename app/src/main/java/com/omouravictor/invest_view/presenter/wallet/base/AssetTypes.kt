@@ -1,7 +1,6 @@
 package com.omouravictor.invest_view.presenter.wallet.base
 
 import android.content.Context
-import android.content.res.ColorStateList
 import com.omouravictor.invest_view.R
 
 enum class AssetTypes(private val nameResId: Int, private val colorResId: Int) {
@@ -13,11 +12,7 @@ enum class AssetTypes(private val nameResId: Int, private val colorResId: Int) {
     STOCK(R.string.stock, R.color.stock),
     OTHER(R.string.other, R.color.other);
 
-    fun getName(context: Context): String {
-        return context.getString(nameResId)
-    }
-
-    fun getColor(context: Context): ColorStateList {
-        return context.getColorStateList(colorResId)
-    }
+    fun getName(context: Context) = context.getString(nameResId)
+    fun getColor(context: Context) = context.getColor(colorResId)
+    fun getColorStateList(context: Context) = context.getColorStateList(colorResId)
 }

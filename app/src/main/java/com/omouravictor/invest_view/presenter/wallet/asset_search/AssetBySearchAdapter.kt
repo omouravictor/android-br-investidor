@@ -32,7 +32,7 @@ class AssetBySearchAdapter : RecyclerViewAdapter<AssetBySearchUiModel, AssetBySe
             binding.tvName.text = assetBySearchUiModel.name
             binding.tvCurrency.text = "(${assetBySearchUiModel.currency})"
             binding.tvAssetType.text = assetType.getName(context)
-            binding.color.backgroundTintList = assetType.getColor(context)
+            binding.color.backgroundTintList = assetType.getColorStateList(context)
             itemView.setOnClickListener { onClickItem(assetBySearchUiModel) }
         }
     }

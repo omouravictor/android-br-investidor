@@ -42,45 +42,45 @@ class AssetsFragment : Fragment() {
         val context = requireContext()
         val pieEntries = arrayListOf<PieEntry>()
         val colors = arrayListOf<Int>()
+        val whiteColor = context.getColor(R.color.white)
+        val textSize12 = 12f
+        val assetsSize = assetsViewModel.currentAssets.size
+        val appWindowBackColor = context.getColor(R.color.appWindowBackColor)
+        val greenColor = context.getColor(R.color.green)
 
         assetsViewModel.currentAssetTypes.forEach { assetType ->
             val count = assetsViewModel.currentAssets.count { it.assetType.name == assetType.name }
             pieEntries.add(PieEntry(count.toFloat(), assetType.getName(context)))
-            colors.add(assetType.getColor(context).defaultColor)
+            colors.add(assetType.getColor(context))
+        }
+        val pieDataSet = PieDataSet(pieEntries, "Tipos de Ativos").apply {
+            this.colors = colors
+            sliceSpace = 3f
+            xValuePosition = PieDataSet.ValuePosition.INSIDE_SLICE
+            yValuePosition = PieDataSet.ValuePosition.INSIDE_SLICE
+        }
+        val pieData = PieData(pieDataSet).apply {
+            setValueFormatter(PercentFormatter())
+            setValueTextSize(textSize12)
+            setValueTextColor(whiteColor)
         }
 
-        val pieDataSet = PieDataSet(pieEntries, "Tipos de Ativos")
-        pieDataSet.colors = colors
-        pieDataSet.sliceSpace = 3f
-        pieDataSet.xValuePosition = PieDataSet.ValuePosition.INSIDE_SLICE
-        pieDataSet.yValuePosition = PieDataSet.ValuePosition.INSIDE_SLICE
-
-        val pieData = PieData(pieDataSet)
-        val whiteColor = context.getColor(R.color.white)
-        val textSize12 = 12f
-        pieData.setValueFormatter(PercentFormatter())
-        pieData.setValueTextSize(textSize12)
-        pieData.setValueTextColor(whiteColor)
-
-        val assetsSize = assetsViewModel.currentAssets.size
-        val appWindowBackColor = context.getColor(R.color.appWindowBackColor)
-        val greenColor = context.getColor(R.color.green)
-        val pieChart = binding.pieChart
-
-        pieChart.data = pieData
-        pieChart.setUsePercentValues(true)
-        pieChart.description.isEnabled = false
-        pieChart.isDrawHoleEnabled = true
-        pieChart.setHoleColor(TRANSPARENT)
-        pieChart.setTransparentCircleAlpha(100)
-        pieChart.setTransparentCircleColor(appWindowBackColor)
-        pieChart.centerText = if (assetsSize == 1) "$assetsSize\nativo" else "$assetsSize\nativos"
-        pieChart.setEntryLabelTextSize(textSize12)
-        pieChart.setCenterTextColor(greenColor)
-        pieChart.setCenterTextSize(16f)
-        pieChart.animateY(1400, Easing.EaseInOutQuad)
-        pieChart.legend.isEnabled = false
-        pieChart.isRotationEnabled = false
+        binding.pieChart.apply {
+            data = pieData
+            setUsePercentValues(true)
+            description.isEnabled = false
+            isDrawHoleEnabled = true
+            setHoleColor(TRANSPARENT)
+            setTransparentCircleAlpha(100)
+            setTransparentCircleColor(appWindowBackColor)
+            centerText = if (assetsSize == 1) "$assetsSize\nativo" else "$assetsSize\nativos"
+            setEntryLabelTextSize(textSize12)
+            setCenterTextColor(greenColor)
+            setCenterTextSize(16f)
+            animateY(1400, Easing.EaseInOutQuad)
+            legend.isEnabled = false
+            isRotationEnabled = false
+        }
     }
 
     private fun setupAdapter() {

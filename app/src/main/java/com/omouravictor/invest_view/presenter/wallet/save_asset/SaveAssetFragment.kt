@@ -56,7 +56,7 @@ class SaveAssetFragment : Fragment() {
 
     private fun setupViews() {
         val assetType = assetUiModel.assetType
-        val assetTypeColor = assetType.getColor(requireContext())
+        val assetTypeColor = assetType.getColorStateList(requireContext())
         val ietAmount = binding.ietAmount
         val ietTotalInvested = binding.ietTotalInvested
         val textInputLayoutAmount = binding.textInputLayoutAmount
