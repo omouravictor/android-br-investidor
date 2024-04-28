@@ -49,33 +49,44 @@ class AssetsFragment : Fragment() {
             colors.add(assetType.getColor(context).defaultColor)
         }
 
-        val dataSet = PieDataSet(pieEntries, "")
+        val dataSet = PieDataSet(pieEntries, "Tipos de Ativos")
         dataSet.colors = colors
         dataSet.sliceSpace = 3f
+        dataSet.xValuePosition = PieDataSet.ValuePosition.INSIDE_SLICE
+        dataSet.yValuePosition = PieDataSet.ValuePosition.INSIDE_SLICE
 
         val data = PieData(dataSet)
         val whiteColor = context.getColor(R.color.white)
+        val textSize12 = 12f
         data.setValueFormatter(PercentFormatter())
-        data.setValueTextSize(12f)
+        data.setValueTextSize(textSize12)
         data.setValueTextColor(whiteColor)
 
-        val chart = binding.pieChart
         val assetsSize = assetsViewModel.currentAssets.size
         val appWindowBackColor = context.getColor(R.color.appWindowBackColor)
         val greenColor = context.getColor(R.color.green)
-        chart.data = data
-        chart.setUsePercentValues(true)
-        chart.description.isEnabled = false
-        chart.isDrawHoleEnabled = true
-        chart.setHoleColor(TRANSPARENT)
-        chart.setTransparentCircleAlpha(100)
-        chart.setTransparentCircleColor(appWindowBackColor)
-        chart.centerText = if (assetsSize == 1) "$assetsSize\nativo" else "$assetsSize\nativos"
-        chart.setCenterTextColor(greenColor)
-        chart.setCenterTextSize(16f)
-        chart.animateY(1400, Easing.EaseInOutQuad)
-        chart.legend.isEnabled = false
-        chart.isRotationEnabled = false
+        val appTextColor = context.getColor(R.color.appTextColor)
+        val pieChart = binding.pieChart
+
+        pieChart.data = data
+        pieChart.setUsePercentValues(true)
+        pieChart.description.text = "Resumo de ativos"
+        pieChart.description.textColor = appTextColor
+        pieChart.description.textSize = textSize12
+        pieChart.description.xOffset = 0f
+        pieChart.description.yOffset = 0f
+
+        pieChart.isDrawHoleEnabled = true
+        pieChart.setHoleColor(TRANSPARENT)
+        pieChart.setTransparentCircleAlpha(100)
+        pieChart.setTransparentCircleColor(appWindowBackColor)
+        pieChart.centerText = if (assetsSize == 1) "$assetsSize\nativo" else "$assetsSize\nativos"
+        pieChart.setEntryLabelTextSize(textSize12)
+        pieChart.setCenterTextColor(greenColor)
+        pieChart.setCenterTextSize(16f)
+        pieChart.animateY(1400, Easing.EaseInOutQuad)
+        pieChart.legend.isEnabled = false
+        pieChart.isRotationEnabled = false
     }
 
     private fun setupAdapter() {
