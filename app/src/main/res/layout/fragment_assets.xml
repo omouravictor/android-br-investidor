@@ -24,10 +24,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:clipToPadding="false"
-            android:nestedScrollingEnabled="false"
             android:paddingHorizontal="@dimen/defaultPaddingHorizontal"
             android:paddingTop="@dimen/defaultPaddingTop"
-            app:fastScrollEnabled="false"
             app:layout_constraintTop_toBottomOf="@+id/pieChart"
             tools:listitem="@layout/item_list_asset" />
 
