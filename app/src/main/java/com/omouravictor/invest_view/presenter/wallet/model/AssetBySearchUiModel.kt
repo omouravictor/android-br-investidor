@@ -10,5 +10,5 @@ data class AssetBySearchUiModel(
     val type: String,
     val region: String,
     val currency: String,
-    var price: Double = 0.0
+    var price: Float = 0f
 ) : Parcelable

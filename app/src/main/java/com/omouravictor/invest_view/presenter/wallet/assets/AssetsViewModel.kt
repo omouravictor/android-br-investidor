@@ -32,9 +32,9 @@ class AssetsViewModel @Inject constructor(
                 assetType = AssetTypes.STOCK,
                 region = "United States",
                 currency = "USD",
-                price = 150.0,
+                price = 150f,
                 amount = 10,
-                totalInvested = 1600.0
+                totalInvested = 1600f
             ),
             AssetUiModel(
                 symbol = "AAPL34",
@@ -42,9 +42,9 @@ class AssetsViewModel @Inject constructor(
                 assetType = AssetTypes.BDR,
                 region = "Brazil",
                 currency = "BRL",
-                price = 50.0,
+                price = 50f,
                 amount = 10,
-                totalInvested = 1000.0
+                totalInvested = 1000f
             ),
             AssetUiModel(
                 symbol = "AAPL",
@@ -52,9 +52,9 @@ class AssetsViewModel @Inject constructor(
                 assetType = AssetTypes.STOCK,
                 region = "United States",
                 currency = "USD",
-                price = 150.0,
+                price = 150f,
                 amount = 10,
-                totalInvested = 1600.0
+                totalInvested = 1600f
             ),
             AssetUiModel(
                 symbol = "MSTFT",
@@ -62,9 +62,9 @@ class AssetsViewModel @Inject constructor(
                 assetType = AssetTypes.ETF,
                 region = "Germany",
                 currency = "EUR",
-                price = 150.0,
+                price = 150f,
                 amount = 10,
-                totalInvested = 1600.0
+                totalInvested = 1600f
             ),
             AssetUiModel(
                 symbol = "VALE3",
@@ -72,9 +72,9 @@ class AssetsViewModel @Inject constructor(
                 assetType = AssetTypes.LOCAL_STOCK,
                 region = "Brasil",
                 currency = "BRL",
-                price = 150.0,
+                price = 150f,
                 amount = 10,
-                totalInvested = 1600.0
+                totalInvested = 1600f
             ),
             AssetUiModel(
                 symbol = "VALE3",
@@ -82,9 +82,9 @@ class AssetsViewModel @Inject constructor(
                 assetType = AssetTypes.OTHER,
                 region = "Brasil",
                 currency = "BRL",
-                price = 150.0,
+                price = 150f,
                 amount = 10,
-                totalInvested = 1600.0
+                totalInvested = 1600f
             )
         )
         _assetsList.value = testList
