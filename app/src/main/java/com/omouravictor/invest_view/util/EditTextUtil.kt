@@ -46,7 +46,7 @@ object EditTextUtil {
 
                     removeTextChangedListener(this)
 
-                    val value = cleanText.toFloat() / 100
+                    val value = cleanText.toDouble() / 100
                     val formattedAmount = LocaleUtil.getFormattedValueForCurrency(currency, value)
                     setText(formattedAmount)
                     setSelection(formattedAmount.length)
