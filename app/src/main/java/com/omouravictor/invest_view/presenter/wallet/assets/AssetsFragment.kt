@@ -72,15 +72,15 @@ class AssetsFragment : Fragment() {
 
         binding.pieChart.apply {
             data = pieData
-            setUsePercentValues(true)
             description.isEnabled = false
             legend.isEnabled = false
             isRotationEnabled = false
             isDrawHoleEnabled = true
+            centerText = if (assetsSize == 1) "$assetsSize\nativo" else "$assetsSize\nativos"
+            setUsePercentValues(true)
             setHoleColor(TRANSPARENT)
             setTransparentCircleAlpha(100)
             setTransparentCircleColor(appWindowBackColor)
-            centerText = if (assetsSize == 1) "$assetsSize\nativo" else "$assetsSize\nativos"
             setEntryLabelTextSize(textSize12)
             setCenterTextColor(greenColor)
             setCenterTextSize(16f)
