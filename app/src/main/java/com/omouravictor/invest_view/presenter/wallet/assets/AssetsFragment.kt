@@ -1,6 +1,7 @@
 package com.omouravictor.invest_view.presenter.wallet.assets
 
 import android.graphics.Color.TRANSPARENT
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -48,6 +49,7 @@ class AssetsFragment : Fragment() {
         val whiteColor = ContextCompat.getColor(context, R.color.white)
         val appWindowBackColor = ContextCompat.getColor(context, R.color.appWindowBackColor)
         val greenColor = ContextCompat.getColor(context, R.color.green)
+        val boldTypeface = Typeface.DEFAULT_BOLD
 
         val pieEntries = assetTypes.map { assetType ->
             val count = assets.count { it.assetType.name == assetType.name }
@@ -82,6 +84,7 @@ class AssetsFragment : Fragment() {
             setTransparentCircleAlpha(100)
             setTransparentCircleColor(appWindowBackColor)
             setEntryLabelTextSize(textSize12)
+            setEntryLabelTypeface(boldTypeface)
             setCenterTextColor(greenColor)
             setCenterTextSize(16f)
             animateY(1400, Easing.EaseInOutQuad)
