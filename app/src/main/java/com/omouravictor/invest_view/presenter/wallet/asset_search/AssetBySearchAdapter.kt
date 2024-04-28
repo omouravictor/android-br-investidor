@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.omouravictor.invest_view.databinding.ItemListAssetBySearchBinding
-import com.omouravictor.invest_view.presenter.base.RecyclerViewAdapter
+import com.omouravictor.invest_view.presenter.base.BaseRecyclerViewAdapter
 import com.omouravictor.invest_view.presenter.wallet.model.AssetBySearchUiModel
 import com.omouravictor.invest_view.util.AssetUtil
 
-class AssetBySearchAdapter : RecyclerViewAdapter<AssetBySearchUiModel, AssetBySearchAdapter.AssetBySearchViewHolder>() {
+class AssetBySearchAdapter : BaseRecyclerViewAdapter<AssetBySearchUiModel, AssetBySearchAdapter.AssetBySearchViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AssetBySearchViewHolder {
         val binding = ItemListAssetBySearchBinding.inflate(LayoutInflater.from(parent.context), parent, false)

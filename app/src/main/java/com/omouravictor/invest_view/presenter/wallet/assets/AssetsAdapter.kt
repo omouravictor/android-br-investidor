@@ -4,14 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.omouravictor.invest_view.databinding.ItemListAssetBinding
-import com.omouravictor.invest_view.presenter.base.RecyclerViewAdapter
+import com.omouravictor.invest_view.presenter.base.BaseRecyclerViewAdapter
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAmount
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalAssetPrice
 import com.omouravictor.invest_view.presenter.wallet.model.getTotalAssetPrice
 import com.omouravictor.invest_view.util.AssetUtil
 
-class AssetsAdapter : RecyclerViewAdapter<AssetUiModel, AssetsAdapter.AssetViewHolder>() {
+class AssetsAdapter : BaseRecyclerViewAdapter<AssetUiModel, AssetsAdapter.AssetViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AssetViewHolder {
         val binding = ItemListAssetBinding.inflate(LayoutInflater.from(parent.context), parent, false)
