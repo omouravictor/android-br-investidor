@@ -78,7 +78,8 @@ class AssetsFragment : Fragment() {
             legend.isEnabled = false
             isRotationEnabled = false
             isDrawHoleEnabled = true
-            centerText = if (assetsSize == 1) "$assetsSize\nativo" else "$assetsSize\nativos"
+            centerText =
+                if (assetsSize == 1) "$assetsSize\n${getString(R.string.asset)}" else "$assetsSize\n${getString(R.string.assets)}"
             setUsePercentValues(true)
             setHoleColor(TRANSPARENT)
             setTransparentCircleAlpha(100)

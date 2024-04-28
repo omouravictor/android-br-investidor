@@ -21,7 +21,8 @@
     <string name="assetTypes">Tipos de Ativos</string>
     <string name="arrowForward">Arrow forward</string>
     <string name="asset">Ativo</string>
-    <string name="assets">Ativos</string>
+    <string name="Assets">Ativos</string>
+    <string name="assets">ativos</string>
     <string name="details">Detalhes</string>
     <string name="select">Selecione</string>
     <string name="amount">Quantidade</string>
