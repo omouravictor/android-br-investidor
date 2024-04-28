@@ -5,15 +5,15 @@ import com.omouravictor.invest_view.util.StringUtil
 
 class SaveAssetViewModel : ViewModel() {
 
-    fun getTotalAssetPrice(price: Float, quantity: String): Float {
+    fun getTotalAssetPrice(price: Double, quantity: String): Double {
         return price * StringUtil.getOnlyNumbers(quantity).toLong()
     }
 
-    fun getTotalInvested(totalInvested: String): Float {
+    fun getTotalInvested(totalInvested: String): Double {
         return if (totalInvested.isNotEmpty()) {
-            StringUtil.getOnlyNumbers(totalInvested).toFloat() / 100
+            StringUtil.getOnlyNumbers(totalInvested).toDouble() / 100
         } else {
-            0f
+            0.0
         }
     }
 

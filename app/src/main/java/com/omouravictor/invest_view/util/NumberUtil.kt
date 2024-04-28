@@ -4,6 +4,6 @@ import kotlin.math.round
 
 object NumberUtil {
 
-    fun getRoundedFloat(value: Float) = round(value * 100) / 100
+    fun getRoundedDouble(value: Double) = round(value * 100) / 100
 
 }

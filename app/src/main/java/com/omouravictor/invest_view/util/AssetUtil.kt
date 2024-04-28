@@ -38,12 +38,12 @@ object AssetUtil {
     fun setupVariationViews(
         binding: ItemListAssetBinding,
         currency: String,
-        totalInvested: Float,
-        totalAssetPrice: Float
+        totalInvested: Double,
+        totalAssetPrice: Double
     ) {
         if (totalInvested > 0) {
             val context = binding.root.context
-            val variation = NumberUtil.getRoundedFloat(totalAssetPrice - totalInvested)
+            val variation = NumberUtil.getRoundedDouble(totalAssetPrice - totalInvested)
             val variationFormatted = LocaleUtil.getFormattedValueForCurrency(currency, variation)
             val percentFormatted = LocaleUtil.getFormattedValueForPercent(variation / totalInvested)
 
@@ -67,7 +67,7 @@ object AssetUtil {
             }
 
             binding.tvVariation.text = if (variation > 0) "+$variationFormatted (" else "$variationFormatted ("
-            binding.tvVariationPercent.text = if (variation != 0f) "$percentFormatted )" else "$percentFormatted)"
+            binding.tvVariationPercent.text = if (variation != 0.0) "$percentFormatted )" else "$percentFormatted)"
 
         } else {
             binding.tvVariation.text = ""

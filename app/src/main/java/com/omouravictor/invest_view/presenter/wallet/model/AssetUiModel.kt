@@ -9,9 +9,9 @@ data class AssetUiModel(
     val assetType: AssetTypes,
     val region: String,
     val currency: String,
-    var price: Float = 0f,
+    var price: Double = 0.0,
     var amount: Long = 0,
-    var totalInvested: Float = 0f
+    var totalInvested: Double = 0.0
 )
 
 fun AssetUiModel.getTotalAssetPrice() = price * amount

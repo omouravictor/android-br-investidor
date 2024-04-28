@@ -6,13 +6,13 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class AssetQuoteUiModel(
     val symbol: String,
-    val open: Float,
-    val high: Float,
-    val low: Float,
-    val price: Float,
+    val open: Double,
+    val high: Double,
+    val low: Double,
+    val price: Double,
     val volume: Int,
     val latestTradingDay: String,
-    val previousClose: Float,
-    val change: Float,
+    val previousClose: Double,
+    val change: Double,
     val changePercent: String
 ) : Parcelable
