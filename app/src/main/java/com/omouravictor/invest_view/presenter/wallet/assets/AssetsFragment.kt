@@ -65,17 +65,11 @@ class AssetsFragment : Fragment() {
         val assetsSize = assetsViewModel.currentAssets.size
         val appWindowBackColor = context.getColor(R.color.appWindowBackColor)
         val greenColor = context.getColor(R.color.green)
-        val appTextColor = context.getColor(R.color.appTextColor)
         val pieChart = binding.pieChart
 
         pieChart.data = data
         pieChart.setUsePercentValues(true)
-        pieChart.description.text = "Resumo de ativos"
-        pieChart.description.textColor = appTextColor
-        pieChart.description.textSize = textSize12
-        pieChart.description.xOffset = 0f
-        pieChart.description.yOffset = 0f
-
+        pieChart.description.isEnabled = false
         pieChart.isDrawHoleEnabled = true
         pieChart.setHoleColor(TRANSPARENT)
         pieChart.setTransparentCircleAlpha(100)
