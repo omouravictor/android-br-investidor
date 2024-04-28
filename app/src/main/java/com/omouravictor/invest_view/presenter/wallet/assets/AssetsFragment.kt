@@ -44,8 +44,8 @@ class AssetsFragment : Fragment() {
         val assets = assetsViewModel.currentAssets
         val assetTypes = assetsViewModel.currentAssetTypes
         val assetsSize = assets.size
-        val appTextColor = ContextCompat.getColor(context, R.color.appTextColor)
         val textSize12 = 12f
+        val appTextColor = ContextCompat.getColor(context, R.color.appTextColor)
         val appWindowBackColor = ContextCompat.getColor(context, R.color.appWindowBackColor)
         val greenColor = ContextCompat.getColor(context, R.color.green)
 
@@ -74,6 +74,8 @@ class AssetsFragment : Fragment() {
             data = pieData
             setUsePercentValues(true)
             description.isEnabled = false
+            legend.isEnabled = false
+            isRotationEnabled = false
             isDrawHoleEnabled = true
             setHoleColor(TRANSPARENT)
             setTransparentCircleAlpha(100)
@@ -83,8 +85,6 @@ class AssetsFragment : Fragment() {
             setCenterTextColor(greenColor)
             setCenterTextSize(16f)
             animateY(1400, Easing.EaseInOutQuad)
-            legend.isEnabled = false
-            isRotationEnabled = false
         }
     }
 
