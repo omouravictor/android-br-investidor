@@ -55,8 +55,9 @@ class SaveAssetFragment : Fragment() {
     }
 
     private fun setupViews() {
+        val context = requireContext()
         val assetType = assetUiModel.assetType
-        val assetTypeColor = assetType.getColorStateList(requireContext())
+        val assetTypeColor = assetType.getColorStateList(context)
         val ietAmount = binding.ietAmount
         val ietTotalInvested = binding.ietTotalInvested
         val textInputLayoutAmount = binding.textInputLayoutAmount
@@ -66,7 +67,7 @@ class SaveAssetFragment : Fragment() {
         val etLocation = binding.etLocation
         val incItemListAsset = binding.incItemListAsset
 
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = assetType.getName(requireContext())
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = assetType.getName(context)
         etSymbol.setText(AssetUtil.getFormattedSymbol(assetUiModel.symbol))
         etLocation.setText(assetUiModel.region)
         ietTotalInvested.hint = LocaleUtil.getFormattedValueForCurrency(currency, 0.0)

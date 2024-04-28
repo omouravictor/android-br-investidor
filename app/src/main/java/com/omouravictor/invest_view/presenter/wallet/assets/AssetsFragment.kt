@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -40,25 +41,28 @@ class AssetsFragment : Fragment() {
 
     private fun setupChart() {
         val context = requireContext()
-        val pieEntries = arrayListOf<PieEntry>()
-        val colors = arrayListOf<Int>()
-        val whiteColor = context.getColor(R.color.white)
+        val assets = assetsViewModel.currentAssets
+        val assetTypes = assetsViewModel.currentAssetTypes
+        val assetsSize = assets.size
+        val whiteColor = ContextCompat.getColor(context, R.color.white)
         val textSize12 = 12f
-        val assetsSize = assetsViewModel.currentAssets.size
-        val appWindowBackColor = context.getColor(R.color.appWindowBackColor)
-        val greenColor = context.getColor(R.color.green)
+        val appWindowBackColor = ContextCompat.getColor(context, R.color.appWindowBackColor)
+        val greenColor = ContextCompat.getColor(context, R.color.green)
 
-        assetsViewModel.currentAssetTypes.forEach { assetType ->
-            val count = assetsViewModel.currentAssets.count { it.assetType.name == assetType.name }
-            pieEntries.add(PieEntry(count.toFloat(), assetType.getName(context)))
-            colors.add(assetType.getColor(context))
+        val pieEntries = assetTypes.map { assetType ->
+            val count = assets.count { it.assetType.name == assetType.name }
+            PieEntry(count.toFloat(), assetType.getName(context))
         }
+
+        val colors = assetTypes.map { it.getColor(context) }
+
         val pieDataSet = PieDataSet(pieEntries, "Tipos de Ativos").apply {
             this.colors = colors
             sliceSpace = 3f
             xValuePosition = PieDataSet.ValuePosition.INSIDE_SLICE
             yValuePosition = PieDataSet.ValuePosition.INSIDE_SLICE
         }
+
         val pieData = PieData(pieDataSet).apply {
             setValueFormatter(PercentFormatter())
             setValueTextSize(textSize12)
