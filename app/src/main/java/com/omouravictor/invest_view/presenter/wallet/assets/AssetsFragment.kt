@@ -62,6 +62,7 @@ class AssetsFragment : Fragment() {
             xValuePosition = PieDataSet.ValuePosition.INSIDE_SLICE
             yValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
             valueLineColor = appTextColor
+            setDrawIcons(false)
         }
 
         val pieChart = binding.pieChart
