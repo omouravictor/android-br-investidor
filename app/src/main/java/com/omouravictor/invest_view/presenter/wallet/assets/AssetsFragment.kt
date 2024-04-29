@@ -1,8 +1,10 @@
 package com.omouravictor.invest_view.presenter.wallet.assets
 
-import android.graphics.Color.TRANSPARENT
+import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,7 +46,6 @@ class AssetsFragment : Fragment() {
         val context = requireContext()
         val assets = assetsViewModel.currentAssets
         val assetTypes = assetsViewModel.currentAssetTypes
-        val assetsSize = assets.size
         val textSize12 = 12f
         val whiteColor = ContextCompat.getColor(context, R.color.white)
         val appWindowBackColor = ContextCompat.getColor(context, R.color.appWindowBackColor)
@@ -71,16 +72,21 @@ class AssetsFragment : Fragment() {
             setValueTextColor(whiteColor)
         }
 
+        val assetSize = assets.size
+        val assetText = getString(if (assetSize == 1) R.string.asset else R.string.assets)
+        val spannableString = SpannableString("$assetSize\n$assetText").apply {
+            setSpan(StyleSpan(Typeface.BOLD), 0, assetSize.toString().length, 0)
+        }
+
         pieChart.apply {
             data = pieData
             description.isEnabled = false
             legend.isEnabled = false
             isRotationEnabled = false
             isDrawHoleEnabled = true
-            centerText =
-                if (assetsSize == 1) "$assetsSize\n${getString(R.string.asset)}" else "$assetsSize\n${getString(R.string.assets)}"
+            centerText = spannableString
             setUsePercentValues(true)
-            setHoleColor(TRANSPARENT)
+            setHoleColor(Color.TRANSPARENT)
             setTransparentCircleAlpha(100)
             setTransparentCircleColor(appWindowBackColor)
             setEntryLabelTextSize(textSize12)
