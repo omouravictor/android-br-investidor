@@ -106,7 +106,7 @@ class SaveAssetFragment : Fragment() {
 
                 tvSymbol.text = binding.etSymbol.text.toString()
                 tvAmount.text = getString(R.string.placeholderAmount, ietAmountText)
-                tvAssetType.text = assetUiModel.assetType.getName(this.root.context)
+                tvName.text = assetUiModel.name
                 tvTotal.text = LocaleUtil.getFormattedValueForCurrency(assetUiModel.currency, totalAssetPrice)
                 AssetUtil.setupVariationViews(
                     this,

@@ -40,7 +40,7 @@
                 app:layout_constraintWidth_percent=".2" />
 
             <TextView
-                android:id="@+id/tvName"
+                android:id="@+id/tvAssetType"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@color/shimmerBackColor"
@@ -51,7 +51,7 @@
                 app:layout_constraintWidth_percent=".4" />
 
             <TextView
-                android:id="@+id/tvAssetType"
+                android:id="@+id/tvName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"

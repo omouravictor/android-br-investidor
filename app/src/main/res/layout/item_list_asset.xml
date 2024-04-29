@@ -71,7 +71,7 @@
                 tools:text="R$ 100.000.000.000,00" />
 
             <TextView
-                android:id="@+id/tvAssetType"
+                android:id="@+id/tvName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -94,7 +94,7 @@
                 android:textAlignment="textEnd"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toStartOf="@+id/ivArrow"
-                app:layout_constraintTop_toTopOf="@+id/tvAssetType"
+                app:layout_constraintTop_toTopOf="@+id/tvName"
                 tools:text="+R$ 100.000.000.000,00 ("
                 tools:textColor="@color/green" />
 

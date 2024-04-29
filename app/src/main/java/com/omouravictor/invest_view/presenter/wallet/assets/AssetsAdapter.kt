@@ -30,7 +30,7 @@ class AssetsAdapter : BaseRecyclerViewAdapter<AssetUiModel, AssetsAdapter.AssetV
             binding.color.backgroundTintList = assetType.getColorStateList(context)
             binding.tvSymbol.text = AssetUtil.getFormattedSymbol(assetUiModel.symbol)
             binding.tvAmount.text = assetUiModel.getFormattedAmount()
-            binding.tvAssetType.text = assetType.getName(context)
+            binding.tvName.text = assetUiModel.name
             binding.tvTotal.text = assetUiModel.getFormattedTotalAssetPrice()
             AssetUtil.setupVariationViews(
                 binding,
