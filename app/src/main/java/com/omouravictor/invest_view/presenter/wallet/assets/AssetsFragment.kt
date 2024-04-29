@@ -13,15 +13,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.mikephil.charting.animation.Easing
+import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.PercentFormatter
+import com.github.mikephil.charting.highlight.Highlight
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.google.android.material.snackbar.Snackbar
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetsBinding
 
-class AssetsFragment : Fragment() {
+class AssetsFragment : Fragment(), OnChartValueSelectedListener {
 
     private lateinit var binding: FragmentAssetsBinding
     private val assetsViewModel: AssetsViewModel by activityViewModels()
@@ -42,6 +45,14 @@ class AssetsFragment : Fragment() {
         observeAssets()
     }
 
+    override fun onValueSelected(e: Entry?, h: Highlight?) {
+        Snackbar.make(binding.root, "Value selected: $e", Snackbar.LENGTH_SHORT).show()
+    }
+
+    override fun onNothingSelected() {
+        Snackbar.make(binding.root, "Nothing selected", Snackbar.LENGTH_SHORT).show()
+    }
+
     private fun setupChart() {
         val context = requireContext()
         val assets = assetsViewModel.currentAssets
@@ -51,27 +62,22 @@ class AssetsFragment : Fragment() {
         val appWindowBackColor = ContextCompat.getColor(context, R.color.appWindowBackColor)
         val greenColor = ContextCompat.getColor(context, R.color.green)
         val boldTypeface = Typeface.DEFAULT_BOLD
-
         val pieEntries = assetTypes.map { assetType ->
             val count = assets.count { it.assetType.name == assetType.name }
             PieEntry(count.toFloat(), assetType.getName(context))
         }
-
         val colors = assetTypes.map { it.getColor(context) }
-
         val pieDataSet = PieDataSet(pieEntries, "Tipos de Ativos").apply {
             this.colors = colors
             sliceSpace = 3f
             setDrawIcons(false)
         }
-
-        val pieChart = binding.pieChart
+        val pieChart = binding.pieChart.also { it.setOnChartValueSelectedListener(this) }
         val pieData = PieData(pieDataSet).apply {
             setValueFormatter(PercentFormatter(pieChart))
             setValueTextSize(textSize12)
             setValueTextColor(whiteColor)
         }
-
         val assetSize = assets.size
         val assetText = getString(if (assetSize == 1) R.string.asset else R.string.assets)
         val spannableString = SpannableString("$assetSize\n$assetText").apply {
