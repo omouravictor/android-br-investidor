@@ -39,7 +39,7 @@ class AssetsViewModel @Inject constructor(
             AssetUiModel(
                 symbol = "AAPL34",
                 name = "Apple Inc.",
-                assetType = AssetTypes.BDR,
+                assetType = AssetTypes.LOCAL_DEPOSITARY_RECEIPTS,
                 region = "Brazil",
                 currency = "BRL",
                 price = 50.0,

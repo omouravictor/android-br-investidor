@@ -16,7 +16,7 @@ object AssetUtil {
                     val formattedSymbol = getFormattedSymbol(symbol)
                     val lastTwoDigits = formattedSymbol.takeLast(2)
                     if (lastTwoDigits == "34" || lastTwoDigits == "35" || lastTwoDigits == "32" || lastTwoDigits == "33")
-                        AssetTypes.BDR
+                        AssetTypes.LOCAL_DEPOSITARY_RECEIPTS
                     else
                         AssetTypes.LOCAL_STOCK
                 } else {

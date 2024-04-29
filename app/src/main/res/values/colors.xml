@@ -9,7 +9,7 @@
 
     <!-- Asset type colors -->
     <color name="localStock">#00A143</color>
-    <color name="bdr">#FFC107</color>
+    <color name="localDepositaryReceipts">#FFC107</color>
     <color name="fi">#00B8D4</color>
     <color name="etf">#FF6D00</color>
     <color name="stock">#AA00FF</color>

@@ -7,7 +7,7 @@ import com.omouravictor.invest_view.R
 enum class AssetTypes(private val nameResId: Int, private val colorResId: Int) {
 
     LOCAL_STOCK(R.string.localStock, R.color.localStock),
-    BDR(R.string.bdr, R.color.bdr),
+    LOCAL_DEPOSITARY_RECEIPTS(R.string.localDepositaryReceipts, R.color.localDepositaryReceipts),
     FI(R.string.fi, R.color.fi),
     ETF(R.string.etf, R.color.etf),
     STOCK(R.string.stock, R.color.stock),

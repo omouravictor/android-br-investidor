@@ -46,11 +46,14 @@ class AssetsFragment : Fragment(), OnChartValueSelectedListener {
     }
 
     override fun onValueSelected(e: Entry?, h: Highlight?) {
-        Snackbar.make(binding.root, "Value selected: $e", Snackbar.LENGTH_SHORT).show()
+        val context = requireContext()
+        val label = (e as PieEntry).label
+        val filteredAssets = assetsViewModel.currentAssets.filter { it.assetType.getName(context) == label }
+        assetsAdapter.updateItemsList(filteredAssets)
     }
 
     override fun onNothingSelected() {
-        Snackbar.make(binding.root, "Nothing selected", Snackbar.LENGTH_SHORT).show()
+        assetsAdapter.updateItemsList(assetsViewModel.currentAssets)
     }
 
     private fun setupChart() {

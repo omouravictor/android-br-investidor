@@ -1,7 +1,7 @@
 <resources>
     <!-- Asset type colors -->
     <string name="localStock">Ação</string>
-    <string name="bdr">BDR</string>
+    <string name="localDepositaryReceipts">BDR</string>
     <string name="fi">FI</string>
     <string name="stock">Stock</string>
     <string name="other">Outro</string>
