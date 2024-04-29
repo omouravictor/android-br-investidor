@@ -5,7 +5,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.ItemListAssetBinding
-import com.omouravictor.invest_view.presenter.wallet.base.AssetTypes
+import com.omouravictor.invest_view.presenter.base.AssetTypes
 
 object AssetUtil {
 

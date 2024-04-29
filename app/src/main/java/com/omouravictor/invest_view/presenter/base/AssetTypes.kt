@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.presenter.wallet.base
+package com.omouravictor.invest_view.presenter.base
 
 import android.content.Context
 import androidx.core.content.ContextCompat

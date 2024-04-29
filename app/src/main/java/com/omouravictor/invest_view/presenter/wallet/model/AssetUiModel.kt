@@ -1,6 +1,6 @@
 package com.omouravictor.invest_view.presenter.wallet.model
 
-import com.omouravictor.invest_view.presenter.wallet.base.AssetTypes
+import com.omouravictor.invest_view.presenter.base.AssetTypes
 import com.omouravictor.invest_view.util.LocaleUtil
 
 data class AssetUiModel(

@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.omouravictor.invest_view.data.network.remote.repository.RemoteAssetsRepository
 import com.omouravictor.invest_view.di.base.DispatcherProvider
-import com.omouravictor.invest_view.presenter.wallet.base.AssetTypes
+import com.omouravictor.invest_view.presenter.base.AssetTypes
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
