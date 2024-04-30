@@ -69,7 +69,7 @@ class AssetsFragment : Fragment(), OnChartValueSelectedListener {
             PieEntry(count.toFloat(), getString(assetType.nameResId))
         }
         val colors = assetTypes.map { ContextCompat.getColor(context, it.colorResId) }
-        val pieDataSet = PieDataSet(pieEntries, "Tipos de Ativos").apply {
+        val pieDataSet = PieDataSet(pieEntries, getString(R.string.assetTypes)).apply {
             this.colors = colors
             sliceSpace = 3f
             setDrawIcons(false)
