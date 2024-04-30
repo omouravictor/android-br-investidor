@@ -3,13 +3,15 @@ package com.omouravictor.invest_view.presenter.wallet.asset_search
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.omouravictor.invest_view.databinding.ItemListAssetBySearchBinding
 import com.omouravictor.invest_view.presenter.base.BaseRecyclerViewAdapter
 import com.omouravictor.invest_view.presenter.wallet.model.AssetBySearchUiModel
 import com.omouravictor.invest_view.util.AssetUtil
 
-class AssetBySearchAdapter : BaseRecyclerViewAdapter<AssetBySearchUiModel, AssetBySearchAdapter.AssetBySearchViewHolder>() {
+class AssetBySearchAdapter :
+    BaseRecyclerViewAdapter<AssetBySearchUiModel, AssetBySearchAdapter.AssetBySearchViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AssetBySearchViewHolder {
         val binding = ItemListAssetBySearchBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -31,8 +33,8 @@ class AssetBySearchAdapter : BaseRecyclerViewAdapter<AssetBySearchUiModel, Asset
             binding.tvSymbol.text = AssetUtil.getFormattedSymbol(assetBySearchUiModel.symbol)
             binding.tvName.text = assetBySearchUiModel.name
             binding.tvCurrency.text = "(${assetBySearchUiModel.currency})"
-            binding.tvAssetType.text = assetType.getName(context)
-            binding.color.backgroundTintList = assetType.getColorStateList(context)
+            binding.tvAssetType.text = context.getString(assetType.nameResId)
+            binding.color.backgroundTintList = ContextCompat.getColorStateList(context, assetType.colorResId)
             itemView.setOnClickListener { onClickItem(assetBySearchUiModel) }
         }
     }

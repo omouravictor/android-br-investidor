@@ -2,6 +2,7 @@ package com.omouravictor.invest_view.presenter.wallet.assets
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.omouravictor.invest_view.databinding.ItemListAssetBinding
 import com.omouravictor.invest_view.presenter.base.BaseRecyclerViewAdapter
@@ -27,7 +28,7 @@ class AssetsAdapter : BaseRecyclerViewAdapter<AssetUiModel, AssetsAdapter.AssetV
 
         fun bind(assetUiModel: AssetUiModel) {
             val assetType = assetUiModel.assetType
-            binding.color.backgroundTintList = assetType.getColorStateList(context)
+            binding.color.backgroundTintList = ContextCompat.getColorStateList(context, assetType.colorResId)
             binding.tvSymbol.text = AssetUtil.getFormattedSymbol(assetUiModel.symbol)
             binding.tvAmount.text = assetUiModel.getFormattedAmount()
             binding.tvName.text = assetUiModel.name

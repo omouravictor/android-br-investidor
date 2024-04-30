@@ -46,9 +46,8 @@ class AssetsFragment : Fragment(), OnChartValueSelectedListener {
     }
 
     override fun onValueSelected(e: Entry?, h: Highlight?) {
-        val context = requireContext()
         val label = (e as PieEntry).label
-        val filteredAssets = assetsViewModel.currentAssets.filter { it.assetType.getName(context) == label }
+        val filteredAssets = assetsViewModel.currentAssets.filter { getString(it.assetType.nameResId) == label }
         assetsAdapter.updateItemsList(filteredAssets)
     }
 
@@ -67,9 +66,9 @@ class AssetsFragment : Fragment(), OnChartValueSelectedListener {
         val boldTypeface = Typeface.DEFAULT_BOLD
         val pieEntries = assetTypes.map { assetType ->
             val count = assets.count { it.assetType.name == assetType.name }
-            PieEntry(count.toFloat(), assetType.getName(context))
+            PieEntry(count.toFloat(), getString(assetType.nameResId))
         }
-        val colors = assetTypes.map { it.getColor(context) }
+        val colors = assetTypes.map { ContextCompat.getColor(context, it.colorResId) }
         val pieDataSet = PieDataSet(pieEntries, "Tipos de Ativos").apply {
             this.colors = colors
             sliceSpace = 3f

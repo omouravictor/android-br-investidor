@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -57,7 +58,7 @@ class SaveAssetFragment : Fragment() {
     private fun setupViews() {
         val context = requireContext()
         val assetType = assetUiModel.assetType
-        val assetTypeColor = assetType.getColorStateList(context)
+        val assetTypeColor = ContextCompat.getColorStateList(context, assetType.colorResId)!!
         val ietAmount = binding.ietAmount
         val ietTotalInvested = binding.ietTotalInvested
         val textInputLayoutAmount = binding.textInputLayoutAmount
@@ -67,7 +68,7 @@ class SaveAssetFragment : Fragment() {
         val etLocation = binding.etLocation
         val incItemListAsset = binding.incItemListAsset
 
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = assetType.getName(context)
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = getString(assetType.nameResId)
         etSymbol.setText(AssetUtil.getFormattedSymbol(assetUiModel.symbol))
         etLocation.setText(assetUiModel.region)
         ietTotalInvested.hint = LocaleUtil.getFormattedValueForCurrency(currency, 0.0)
