@@ -106,7 +106,7 @@ class SaveAssetFragment : Fragment() {
                 val totalInvested = saveAssetViewModel.getTotalInvested(ietTotalInvestedText)
 
                 tvSymbol.text = binding.etSymbol.text.toString()
-                tvAmount.text = getString(R.string.placeholderAmount, ietAmountText)
+                tvAmount.text = getString(R.string.placeholderAssetAmount, ietAmountText)
                 tvName.text = assetUiModel.name
                 tvTotal.text = LocaleUtil.getFormattedValueForCurrency(assetUiModel.currency, totalAssetPrice)
                 AssetUtil.setupVariationViews(

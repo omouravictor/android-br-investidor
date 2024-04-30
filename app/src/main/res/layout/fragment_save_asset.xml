@@ -92,7 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/defaultMarginHorizontal"
-                android:hint="@string/number_0"
+                android:hint="@string/intNumber_0"
                 android:inputType="number"
                 android:maxLength="15"
                 android:textAlignment="center"
