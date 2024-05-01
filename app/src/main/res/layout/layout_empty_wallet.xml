@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/defaultPaddingHorizontal">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginVertical="@dimen/defaultMarginVertical"
         android:layout_weight="1"
-        android:src="@drawable/ic_wallet_filled"
-        app:layout_constraintBottom_toTopOf="@+id/tvTittle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:src="@drawable/ic_wallet_filled" />
 
     <TextView
         android:id="@+id/tvTittle"
@@ -24,10 +21,7 @@
         android:text="@string/emptyAssetTittle"
         android:textAlignment="center"
         android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/tvDescription"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvDescription"
@@ -36,20 +30,15 @@
         android:layout_marginBottom="32dp"
         android:text="@string/emptyAssetDescription"
         android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnAddAsset"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/btnAddAsset"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/defaultMarginBottom"
         android:background="@drawable/background_rectangle"
         android:text="@string/addAssets"
-        android:textAllCaps="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textAllCaps="false" />
 
 </LinearLayout>

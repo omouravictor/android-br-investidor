@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.presenter.wallet.assets
+package com.omouravictor.invest_view.presenter.wallet
 
 import android.content.Context
 import androidx.lifecycle.LiveData
@@ -12,21 +12,21 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 @HiltViewModel
-class AssetsViewModel @Inject constructor(
+class WalletViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
     private val remoteAssetsRepository: RemoteAssetsRepository,
     private val dispatchers: DispatcherProvider
 ) : ViewModel() {
 
-    val currentAssets get() = _assetsList.value.orEmpty()
-    val currentAssetTypes get() = currentAssets.map { it.assetType }.distinct()
-    private val _assetsList = MutableLiveData<List<AssetUiModel>>()
-    val assetsList: LiveData<List<AssetUiModel>> = _assetsList
+    private val _assetsLiveData = MutableLiveData<List<AssetUiModel>>()
+    val assetsLiveData: LiveData<List<AssetUiModel>> = _assetsLiveData
+    val assetsList get() = assetsLiveData.value.orEmpty()
+    val assetTypesList get() = assetsList.map { it.assetType }.distinct()
 
     fun addAsset(assetUiModel: AssetUiModel) {
-        val currentList = currentAssets.toMutableList()
+        val currentList = assetsList.toMutableList()
         currentList.add(assetUiModel)
-        _assetsList.value = currentList
+        _assetsLiveData.value = currentList
     }
 
 }

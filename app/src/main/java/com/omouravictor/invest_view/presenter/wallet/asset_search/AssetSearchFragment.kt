@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetSearchBinding
 import com.omouravictor.invest_view.presenter.base.UiState
-import com.omouravictor.invest_view.presenter.wallet.assets.AssetsViewModel
+import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetBySearchUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetQuoteUiModel
 import com.omouravictor.invest_view.util.AppUtil
@@ -28,7 +28,7 @@ class AssetSearchFragment : Fragment() {
     private lateinit var binding: FragmentAssetSearchBinding
     private lateinit var searchView: SearchView
     private lateinit var assetBySearchUiModel: AssetBySearchUiModel
-    private val assetsViewModel: AssetsViewModel by activityViewModels()
+    private val walletViewModel: WalletViewModel by activityViewModels()
     private val assetSearchViewModel: AssetSearchViewModel by activityViewModels()
     private val assetBySearchAdapter = AssetBySearchAdapter()
 
@@ -77,7 +77,7 @@ class AssetSearchFragment : Fragment() {
     private fun setupAdapter() {
         assetBySearchAdapter.updateOnClickItem { assetBySearchUiModel ->
             val symbol = assetBySearchUiModel.symbol
-            val existingAsset = assetsViewModel.currentAssets.find { it.symbol == symbol }
+            val existingAsset = walletViewModel.assetsList.find { it.symbol == symbol }
             if (existingAsset == null) {
                 this.assetBySearchUiModel = assetBySearchUiModel
                 assetSearchViewModel.getAssetQuote(symbol)

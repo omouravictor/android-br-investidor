@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.google.android.material.tabs.TabLayoutMediator
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentWalletBinding
@@ -15,6 +16,12 @@ import com.omouravictor.invest_view.presenter.wallet.details.DetailsFragment
 class WalletFragment : Fragment() {
 
     private lateinit var binding: FragmentWalletBinding
+    private val walletViewModel: WalletViewModel by activityViewModels()
+
+    companion object {
+        const val VIEW_FLIPPER_CHILD_EMPTY_WALLET_LAYOUT = 0
+        const val VIEW_FLIPPER_CHILD_WALLET_LAYOUT = 1
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -26,6 +33,14 @@ class WalletFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupTabLayoutWithViewPager2()
+
+        walletViewModel.assetsLiveData.observe(viewLifecycleOwner) {
+            binding.viewFlipper.displayedChild = if (it.isEmpty()) {
+                VIEW_FLIPPER_CHILD_EMPTY_WALLET_LAYOUT
+            } else {
+                VIEW_FLIPPER_CHILD_WALLET_LAYOUT
+            }
+        }
     }
 
     private fun setupTabLayoutWithViewPager2() {

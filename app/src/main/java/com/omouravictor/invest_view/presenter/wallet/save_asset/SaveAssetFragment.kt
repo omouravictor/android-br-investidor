@@ -14,7 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentSaveAssetBinding
-import com.omouravictor.invest_view.presenter.wallet.assets.AssetsViewModel
+import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.util.AssetUtil
 import com.omouravictor.invest_view.util.EditTextUtil
@@ -27,7 +27,7 @@ class SaveAssetFragment : Fragment() {
     private lateinit var binding: FragmentSaveAssetBinding
     private lateinit var assetUiModel: AssetUiModel
     private val saveAssetViewModel: SaveAssetViewModel by viewModels()
-    private val assetsViewModel: AssetsViewModel by activityViewModels()
+    private val walletViewModel: WalletViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -132,7 +132,7 @@ class SaveAssetFragment : Fragment() {
         binding.btnSave.setOnClickListener {
             assetUiModel.amount = StringUtil.getOnlyNumbers(binding.ietAmount.text.toString()).toLong()
             assetUiModel.totalInvested = saveAssetViewModel.getTotalInvested(binding.ietTotalInvested.text.toString())
-            assetsViewModel.addAsset(assetUiModel)
+            walletViewModel.addAsset(assetUiModel)
             NavigationUtil.clearPileAndNavigateToStart(findNavController())
         }
     }

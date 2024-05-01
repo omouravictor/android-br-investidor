@@ -23,11 +23,12 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.google.android.material.snackbar.Snackbar
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetsBinding
+import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 
 class AssetsFragment : Fragment(), OnChartValueSelectedListener {
 
     private lateinit var binding: FragmentAssetsBinding
-    private val assetsViewModel: AssetsViewModel by activityViewModels()
+    private val walletViewModel: WalletViewModel by activityViewModels()
     private val assetsAdapter = AssetsAdapter()
 
     override fun onCreateView(
@@ -47,22 +48,22 @@ class AssetsFragment : Fragment(), OnChartValueSelectedListener {
 
     override fun onValueSelected(e: Entry?, h: Highlight?) {
         val label = (e as PieEntry).label
-        val filteredAssets = assetsViewModel.currentAssets.filter { getString(it.assetType.nameResId) == label }
+        val filteredAssets = walletViewModel.assetsList.filter { getString(it.assetType.nameResId) == label }
         assetsAdapter.updateItemsList(filteredAssets)
     }
 
     override fun onNothingSelected() {
-        assetsAdapter.updateItemsList(assetsViewModel.currentAssets)
+        assetsAdapter.updateItemsList(walletViewModel.assetsList)
     }
 
     private fun setupChart() {
         val context = requireContext()
-        val assets = assetsViewModel.currentAssets
-        val assetTypes = assetsViewModel.currentAssetTypes
+        val assets = walletViewModel.assetsList
+        val assetTypes = walletViewModel.assetTypesList
         val textSize12 = 12f
         val whiteColor = ContextCompat.getColor(context, R.color.white)
         val appWindowBackColor = ContextCompat.getColor(context, R.color.appWindowBackColor)
-        val greenColor = ContextCompat.getColor(context, R.color.green)
+        val appTextColor = ContextCompat.getColor(context, R.color.appTextColor)
         val boldTypeface = Typeface.DEFAULT_BOLD
         val pieEntries = assetTypes.map { assetType ->
             val count = assets.count { it.assetType.name == assetType.name }
@@ -99,7 +100,7 @@ class AssetsFragment : Fragment(), OnChartValueSelectedListener {
             setTransparentCircleColor(appWindowBackColor)
             setEntryLabelTextSize(textSize12)
             setEntryLabelTypeface(boldTypeface)
-            setCenterTextColor(greenColor)
+            setCenterTextColor(appTextColor)
             setCenterTextSize(16f)
             animateY(1400, Easing.EaseInOutQuad)
         }
@@ -119,7 +120,7 @@ class AssetsFragment : Fragment(), OnChartValueSelectedListener {
     }
 
     private fun observeAssets() {
-        assetsViewModel.assetsList.observe(viewLifecycleOwner) {
+        walletViewModel.assetsLiveData.observe(viewLifecycleOwner) {
             assetsAdapter.updateItemsList(it)
         }
     }
