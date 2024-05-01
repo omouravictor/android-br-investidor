@@ -13,6 +13,7 @@
     <string name="asset">ativo</string>
     <string name="Assets">Ativos</string>
     <string name="assets">ativos</string>
+    <string name="addAssets">Adicionar ativos</string>
     <string name="details">Detalhes</string>
     <string name="select">Selecione</string>
     <string name="amount">Quantidade</string>
@@ -37,12 +38,14 @@
     <string name="intNumber_0">0</string>
     <string name="intNumber_1">1</string>
 
-    <!-- Alert messages -->
+    <!-- Messages -->
     <string name="totalInvestedDescription">O total investido é utilizado para o cálculo da variação do ativo. O seu preenchimento é opcional.</string>
     <string name="fillTheFieldsToView">Preencha os campos para visualizar</string>
     <string name="noResultsFound">Nenhum resultado encontrado</string>
     <string name="assetAlreadyExists">Você já possui este ativo na carteira.</string>
     <string name="enterAssetSymbolForTryAgain">Pesquise um ativo para tentar novamente.</string>
+    <string name="emptyAssetTittle">Comece a construir sua carteira de investimentos</string>
+    <string name="emptyAssetDescription">Adicione seus ativos para ter uma visão geral da sua carteira e te ajudar a tomar as melhores decisões no longo prazo.</string>
 
     <!-- Error messages -->
     <string name="assetLoadFailed">Não foi possível carregar este ativo.</string>
