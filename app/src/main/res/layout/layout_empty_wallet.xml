@@ -11,7 +11,7 @@
         android:layout_height="0dp"
         android:layout_marginVertical="@dimen/defaultMarginVertical"
         android:layout_weight="1"
-        android:src="@drawable/ic_wallet_filled" />
+        android:src="@drawable/ic_graphic" />
 
     <TextView
         android:id="@+id/tvTittle"
@@ -39,6 +39,8 @@
         android:layout_marginBottom="@dimen/defaultMarginBottom"
         android:background="@drawable/background_rectangle"
         android:text="@string/addAssets"
-        android:textAllCaps="false" />
+        android:textAllCaps="false"
+        android:textColor="@color/green"
+        android:textStyle="bold" />
 
 </LinearLayout>
