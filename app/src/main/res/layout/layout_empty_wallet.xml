@@ -36,7 +36,7 @@
         android:id="@+id/btnAddAsset"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/defaultMarginBottom"
+        android:layout_marginBottom="32dp"
         android:background="@drawable/background_rectangle"
         android:text="@string/addAssets"
         android:textAllCaps="false"
