@@ -20,7 +20,7 @@
         android:layout_marginBottom="8dp"
         android:text="@string/emptyAssetTittle"
         android:textAlignment="center"
-        android:textSize="24sp"
+        android:textSize="@dimen/textSize5"
         android:textStyle="bold" />
 
     <TextView
@@ -30,9 +30,9 @@
         android:layout_marginBottom="32dp"
         android:text="@string/emptyAssetDescription"
         android:textAlignment="center"
-        android:textSize="20sp" />
+        android:textSize="@dimen/textSize4" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnAddAsset"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -40,7 +40,8 @@
         android:background="@drawable/background_rectangle"
         android:text="@string/addAssets"
         android:textAllCaps="false"
-        android:textColor="@color/green"
+        android:textColor="@color/buttonTextColor"
+        android:textSize="@dimen/textSize3"
         android:textStyle="bold" />
 
 </LinearLayout>

@@ -48,9 +48,9 @@
     <string name="emptyAssetDescription">Adicione seus ativos para ter uma visão geral da sua carteira e te ajudar a tomar melhores decisões no longo prazo.</string>
 
     <!-- Error messages -->
-    <string name="assetLoadFailed">Não foi possível carregar este ativo.</string>
-    <string name="noInternetConnection">Sem conexão com a internet :(</string>
-    <string name="checkInternetConnection">Cheque sua conexão com a internet.</string>
-    <string name="somethingWentWrong">Algo deu errado, espere um pouco e tente novamente.</string>
+    <string name="assetLoadFailed">Não foi possível carregar este ativo</string>
+    <string name="noInternetConnection">Sem conexão com a internet</string>
+    <string name="checkInternetConnection">Cheque sua conexão com a internet</string>
+    <string name="somethingWentWrong">Algo deu errado, espere um pouco e tente novamente</string>
 
 </resources>

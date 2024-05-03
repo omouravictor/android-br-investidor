@@ -8,4 +8,6 @@
     <color name="itemListBackColor">#252525</color>
     <color name="shimmerBackColor">#B1B1B1</color>
     <color name="lightGrayColor">#A3A3A3</color>
+    <color name="buttonBackColor">@color/green</color>
+    <color name="buttonTextColor">@color/black</color>
 </resources>
