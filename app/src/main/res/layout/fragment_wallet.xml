@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/layout_empty_wallet" />
+    <include
+        android:id="@+id/incEmptyWalletLayout"
+        layout="@layout/layout_empty_wallet" />
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentWalletBinding
@@ -33,14 +34,8 @@ class WalletFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupTabLayoutWithViewPager2()
-
-        walletViewModel.assetsLiveData.observe(viewLifecycleOwner) {
-            binding.viewFlipper.displayedChild = if (it.isEmpty()) {
-                VIEW_FLIPPER_CHILD_EMPTY_WALLET_LAYOUT
-            } else {
-                VIEW_FLIPPER_CHILD_WALLET_LAYOUT
-            }
-        }
+        setupEmptyWalletLayout()
+        observeAssets()
     }
 
     private fun setupTabLayoutWithViewPager2() {
@@ -54,6 +49,22 @@ class WalletFragment : Fragment() {
         TabLayoutMediator(binding.tabLayout, binding.viewPager2) { tab, position ->
             tab.text = fragments[position].second
         }.attach()
+    }
+
+    private fun setupEmptyWalletLayout() {
+        binding.incEmptyWalletLayout.btnAddAsset.setOnClickListener {
+            findNavController().navigate(WalletFragmentDirections.navToAssetSearchFragment())
+        }
+    }
+
+    private fun observeAssets() {
+        walletViewModel.assetsLiveData.observe(viewLifecycleOwner) {
+            binding.viewFlipper.displayedChild = if (it.isEmpty()) {
+                VIEW_FLIPPER_CHILD_EMPTY_WALLET_LAYOUT
+            } else {
+                VIEW_FLIPPER_CHILD_WALLET_LAYOUT
+            }
+        }
     }
 
 }
