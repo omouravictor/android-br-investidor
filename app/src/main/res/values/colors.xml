@@ -2,7 +2,7 @@
 <resources>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
-    <color name="gray">#737373</color>
+    <color name="gray">#9A9A9A</color>
     <color name="green">#00C853</color>
     <color name="red">#EE0000</color>
     <color name="yellow">#FFD600</color>
@@ -20,10 +20,10 @@
     <color name="appTextColor">@color/black</color>
     <color name="appWindowBackColor">@color/white</color>
     <color name="itemListPressedTrueColor">#1A000000</color>
-    <color name="itemListBackColor">#FFFFFF</color>
+    <color name="itemListBackColor">@color/white</color>
     <color name="buttonPressedTrueColor">#CB000000</color>
     <color name="shimmerBackColor">#656565</color>
-    <color name="lightGrayColor">@color/gray</color>
+    <color name="lightGrayColor">#616161</color>
     <color name="buttonBackColor">@color/black</color>
     <color name="buttonTextColor">@color/green</color>
 </resources>
