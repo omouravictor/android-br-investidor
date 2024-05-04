@@ -23,7 +23,7 @@
     <color name="itemListBackColor">@color/white</color>
     <color name="buttonPressedTrueColor">#CB000000</color>
     <color name="shimmerBackColor">#656565</color>
-    <color name="lightGrayColor">#616161</color>
+    <color name="grayDayNightColor">#616161</color>
     <color name="buttonBackColor">@color/black</color>
     <color name="buttonTextColor">@color/green</color>
 </resources>
