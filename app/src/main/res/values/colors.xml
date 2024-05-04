@@ -21,6 +21,7 @@
     <color name="appWindowBackColor">@color/white</color>
     <color name="itemListPressedTrueColor">#1A000000</color>
     <color name="itemListBackColor">#FFFFFF</color>
+    <color name="buttonPressedTrueColor">#CB000000</color>
     <color name="shimmerBackColor">#656565</color>
     <color name="lightGrayColor">@color/gray</color>
     <color name="buttonBackColor">@color/black</color>
