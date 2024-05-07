@@ -23,7 +23,18 @@
             android:background="@color/black"
             android:theme="@style/Toolbar"
             app:contentInsetStartWithNavigation="0dp"
-            app:popupTheme="@style/Theme.InvestView.PopupOverlay" />
+            app:popupTheme="@style/Theme.InvestView.PopupOverlay">
+
+            <TextView
+                android:id="@+id/tvToolbarCenterText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textSize4"
+                android:textStyle="bold" />
+
+        </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 

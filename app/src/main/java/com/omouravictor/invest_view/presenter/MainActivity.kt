@@ -3,6 +3,7 @@ package com.omouravictor.invest_view.presenter
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat.Type.ime
 import androidx.core.view.WindowInsetsCompat.toWindowInsetsCompat
@@ -14,6 +15,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.ActivityMainBinding
 import com.omouravictor.invest_view.presenter.wallet.WalletFragmentDirections
+import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.util.NavigationUtil
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,6 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+    private val walletViewModel: WalletViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
         when (navController.currentDestination?.id) {
-            R.id.fragmentWallet -> setupToolbarMenu(walletGroupVisible = true)
+            R.id.fragmentWallet -> setupToolbarMenu(walletGroupVisible = walletViewModel.assetsList.isNotEmpty())
             else -> hideToolbarMenu()
         }
         return super.onPrepareOptionsMenu(menu)
@@ -63,10 +66,14 @@ class MainActivity : AppCompatActivity() {
         )
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
+            val destinationId = destination.id
+
             when (destination.id) {
                 R.id.fragmentWallet -> handleWalletDestination()
                 else -> handleDefaultDestination()
             }
+
+            binding.tvToolbarCenterText.isGone = destinationId != R.id.fragmentSaveAsset
         }
 
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
