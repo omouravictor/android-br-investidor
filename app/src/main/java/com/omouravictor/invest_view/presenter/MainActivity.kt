@@ -43,15 +43,16 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
         when (navController.currentDestination?.id) {
-            R.id.fragmentWallet -> setupToolbarMenu(walletGroupVisible = walletViewModel.assetsList.isNotEmpty())
-            else -> hideToolbarMenu()
+            R.id.fragmentWallet -> setupOptionsMenuForWallet()
+            R.id.fragmentSaveAsset -> setupOptionsMenuForSaveAsset()
+            else -> setupDefaultOptionsMenu()
         }
         return super.onPrepareOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.addAsset -> navController.navigate(WalletFragmentDirections.navToAssetSearchFragment())
+            R.id.addAssetMenuItem -> navController.navigate(WalletFragmentDirections.navToAssetSearchFragment())
         }
 
         return super.onOptionsItemSelected(item)
@@ -69,8 +70,17 @@ class MainActivity : AppCompatActivity() {
             val destinationId = destination.id
 
             when (destination.id) {
-                R.id.fragmentWallet -> handleWalletDestination()
-                else -> handleDefaultDestination()
+                R.id.fragmentWallet -> {
+                    setupOptionsMenuForWallet()
+                }
+
+                R.id.fragmentSaveAsset -> {
+                    setupOptionsMenuForSaveAsset()
+                }
+
+                else -> {
+                    setupDefaultOptionsMenu()
+                }
             }
 
             binding.tvToolbarCenterText.isGone = destinationId != R.id.fragmentSaveAsset
@@ -98,24 +108,20 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun hideToolbarMenu() {
-        val menu = binding.toolbar.menu
-        menu.setGroupVisible(R.id.walletGroup, false)
-    }
-
-    private fun setupToolbarMenu(
-        walletGroupVisible: Boolean = false
+    private fun setupOptionsMenu(
+        walletGroupVisible: Boolean = false,
+        infoGroupVisible: Boolean = false
     ) {
         val menu = binding.toolbar.menu
         menu.setGroupVisible(R.id.walletGroup, walletGroupVisible)
+        menu.setGroupVisible(R.id.infoGroup, infoGroupVisible)
     }
 
-    private fun handleWalletDestination() {
-        setupToolbarMenu(walletGroupVisible = true)
-    }
+    private fun setupOptionsMenuForWallet() =
+        setupOptionsMenu(walletGroupVisible = walletViewModel.assetsList.isNotEmpty())
 
-    private fun handleDefaultDestination() {
-        hideToolbarMenu()
-    }
+    private fun setupOptionsMenuForSaveAsset() = setupOptionsMenu(infoGroupVisible = true)
+
+    private fun setupDefaultOptionsMenu() = setupOptionsMenu()
 
 }

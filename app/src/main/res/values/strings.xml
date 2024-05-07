@@ -22,12 +22,13 @@
     <string name="save">Salvar</string>
     <string name="tryAgain">Tentar novamente</string>
     <string name="location">Localidade</string>
-    <string name="etf">ETF</string>
+    <string name="information">Informação</string>
 
     <!-- Asset type names -->
     <string name="localStock">Ação</string>
     <string name="localDepositaryReceipts">BDR</string>
     <string name="fi">FI</string>
+    <string name="etf">ETF</string>
     <string name="stock">Stock</string>
     <string name="other">Outro</string>
 
