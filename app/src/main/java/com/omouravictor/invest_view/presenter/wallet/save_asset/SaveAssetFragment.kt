@@ -2,10 +2,14 @@ package com.omouravictor.invest_view.presenter.wallet.save_asset
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -50,6 +54,21 @@ class SaveAssetFragment : Fragment() {
             title = ""
             findViewById<TextView>(R.id.tvToolbarCenterText).apply { text = getString(assetType.nameResId) }
         }
+
+        activity.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.options_menu_info, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return if (menuItem.itemId == R.id.infoMenuItem) {
+                    println(getString(assetType.descriptionResId))
+                    true
+                } else {
+                    false
+                }
+            }
+        }, viewLifecycleOwner)
     }
 
     private fun initEssentialVars() {

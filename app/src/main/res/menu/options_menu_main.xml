@@ -9,12 +9,4 @@
             android:title="@string/add"
             app:showAsAction="ifRoom" />
     </group>
-
-    <group android:id="@+id/infoGroup">
-        <item
-            android:id="@+id/infoMenuItem"
-            android:icon="@drawable/ic_info"
-            android:title="@string/information"
-            app:showAsAction="ifRoom" />
-    </group>
 </menu>

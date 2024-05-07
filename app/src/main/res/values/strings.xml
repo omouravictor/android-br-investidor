@@ -25,12 +25,21 @@
     <string name="information">Informação</string>
 
     <!-- Asset type names -->
-    <string name="localStock">Ação</string>
+    <string name="brazilianStock">Ação</string>
     <string name="localDepositaryReceipts">BDR</string>
     <string name="fi">FI</string>
     <string name="etf">ETF</string>
     <string name="stock">Stock</string>
     <string name="other">Outro</string>
+
+    <!-- Asset type description -->
+    <string name="brazilianStockDescription">
+Uma ação no mercado financeiro brasileiro representa uma fração de propriedade em uma empresa de capital aberto, sendo negociada na bolsa de valores, como a B3. Ao se tornarem acionistas, os investidores têm direito a receber dividendos e podem lucrar com a valorização das ações ao longo do tempo, embora os investimentos em ações envolvam riscos devido à volatilidade do mercado.</string>
+    <string name="bdrDescription">Descrição para localDepositaryReceipts</string>
+    <string name="fiDescription">Descrição para FI</string>
+    <string name="etfDescription">Descrição para ETF</string>
+    <string name="stockDescription">Descrição para Stock</string>
+    <string name="otherDescription">Descrição para Other</string>
 
     <!-- Placeholders -->
     <string name="placeholderAssetAmount">(%1$s)</string>

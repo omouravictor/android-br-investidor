@@ -44,7 +44,6 @@ class MainActivity : AppCompatActivity() {
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
         when (navController.currentDestination?.id) {
             R.id.fragmentWallet -> setupOptionsMenuForWallet()
-            R.id.fragmentSaveAsset -> setupOptionsMenuForSaveAsset()
             else -> setupDefaultOptionsMenu()
         }
         return super.onPrepareOptionsMenu(menu)
@@ -72,10 +71,6 @@ class MainActivity : AppCompatActivity() {
             when (destination.id) {
                 R.id.fragmentWallet -> {
                     setupOptionsMenuForWallet()
-                }
-
-                R.id.fragmentSaveAsset -> {
-                    setupOptionsMenuForSaveAsset()
                 }
 
                 else -> {
@@ -109,18 +104,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupOptionsMenu(
-        walletGroupVisible: Boolean = false,
-        infoGroupVisible: Boolean = false
+        walletGroupVisible: Boolean = false
     ) {
         val menu = binding.toolbar.menu
         menu.setGroupVisible(R.id.walletGroup, walletGroupVisible)
-        menu.setGroupVisible(R.id.infoGroup, infoGroupVisible)
     }
 
     private fun setupOptionsMenuForWallet() =
         setupOptionsMenu(walletGroupVisible = walletViewModel.assetsList.isNotEmpty())
-
-    private fun setupOptionsMenuForSaveAsset() = setupOptionsMenu(infoGroupVisible = true)
 
     private fun setupDefaultOptionsMenu() = setupOptionsMenu()
 
