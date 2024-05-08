@@ -55,7 +55,9 @@ class AssetSearchFragment : Fragment() {
     }
 
     private fun addMenuProvider() {
-        requireActivity().addMenuProvider(object : MenuProvider {
+        val activity = requireActivity()
+
+        activity.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.options_menu_search, menu)
                 searchView = menu.findItem(R.id.searchAsset).actionView as SearchView
@@ -67,10 +69,15 @@ class AssetSearchFragment : Fragment() {
 
         binding.incLayoutError.btnTryAgain.setOnClickListener {
             val query = searchView.query.toString()
-            if (query.isNotEmpty())
+            if (query.isNotEmpty()) {
                 assetSearchViewModel.getAssetsBySearch(query)
-            else
-                AppUtil.showSnackBar(requireActivity(), getString(R.string.enterAssetSymbolForTryAgain), isError = true)
+            } else {
+                AppUtil.showSnackBar(
+                    activity,
+                    message = getString(R.string.enterAssetSymbolForTryAgain),
+                    isError = true
+                )
+            }
         }
     }
 

@@ -3,8 +3,10 @@ package com.omouravictor.invest_view.util
 import android.app.Activity
 import android.content.Context
 import android.view.View
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import com.omouravictor.invest_view.R
 
@@ -43,6 +45,15 @@ object AppUtil {
         snackbar.setBackgroundTint(backgroundTintColor)
         snackbar.setTextColor(textColor)
         snackbar.show()
+    }
+
+    fun showInfoBottomSheetDialog(activity: Activity, title: String, infoMessage: String) {
+        with(BottomSheetDialog(activity, R.style.Theme_App_OverlayBottomSheetDialog)) {
+            setContentView(R.layout.bottom_sheet_dialog_info)
+            findViewById<TextView>(R.id.tvTitle)!!.text = title
+            findViewById<TextView>(R.id.tvInfo)!!.text = infoMessage
+            show()
+        }
     }
 
 }

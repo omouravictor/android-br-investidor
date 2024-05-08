@@ -8,20 +8,20 @@
     android:padding="@dimen/defaultPadding">
 
     <LinearLayout
-        android:id="@+id/layout"
+        android:id="@+id/layoutTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/ivTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:src="@drawable/ic_info" />
 
         <TextView
-            android:id="@+id/tvAssetType"
+            android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/textSize4"

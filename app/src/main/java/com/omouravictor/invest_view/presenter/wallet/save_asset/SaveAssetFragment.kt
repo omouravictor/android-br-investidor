@@ -14,11 +14,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentSaveAssetBinding
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
+import com.omouravictor.invest_view.util.AppUtil
 import com.omouravictor.invest_view.util.AssetUtil
 import com.omouravictor.invest_view.util.EditTextUtil
 import com.omouravictor.invest_view.util.LocaleUtil
@@ -62,12 +62,11 @@ class SaveAssetFragment : Fragment() {
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                with(BottomSheetDialog(activity, R.style.Theme_App_OverlayBottomSheetDialog)) {
-                    setContentView(R.layout.bottom_sheet_rate_dialog)
-                    findViewById<TextView>(R.id.tvAssetType)!!.text = getString(assetType.nameResId)
-                    findViewById<TextView>(R.id.tvInfo)!!.text = getString(assetType.descriptionResId)
-                    show()
-                }
+                AppUtil.showInfoBottomSheetDialog(
+                    activity,
+                    title = getString(assetType.nameResId),
+                    infoMessage = getString(assetType.descriptionResId)
+                )
                 return true
             }
         }, viewLifecycleOwner)
