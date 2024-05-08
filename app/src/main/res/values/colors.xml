@@ -19,6 +19,7 @@
     <color name="appPrimaryColor">@color/black</color>
     <color name="appTextColor">@color/black</color>
     <color name="appWindowBackColor">@color/white</color>
+    <color name="appBottomSheetBackColor">@color/white</color>
     <color name="itemListPressedTrueColor">#1A000000</color>
     <color name="itemListBackColor">@color/white</color>
     <color name="buttonPressedTrueColor">#CB000000</color>
