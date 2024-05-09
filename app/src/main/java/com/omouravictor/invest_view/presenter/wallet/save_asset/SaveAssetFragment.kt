@@ -62,11 +62,7 @@ class SaveAssetFragment : Fragment() {
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                AppUtil.showInfoBottomSheetDialog(
-                    activity,
-                    title = getString(assetType.nameResId),
-                    infoMessage = getString(assetType.descriptionResId)
-                )
+                AppUtil.showInfoBottomSheetDialog(activity, assetType)
                 return true
             }
         }, viewLifecycleOwner)
