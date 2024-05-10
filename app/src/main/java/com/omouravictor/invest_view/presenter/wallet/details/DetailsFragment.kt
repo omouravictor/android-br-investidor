@@ -5,11 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.omouravictor.invest_view.databinding.FragmentDetailsBinding
+import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 
 class DetailsFragment : Fragment() {
 
     private lateinit var binding: FragmentDetailsBinding
+    private val walletViewModel: WalletViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -20,6 +23,10 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.tvWalletTotalInvested.text = walletViewModel.totalInvested.toString()
+        binding.tvWalletTotalPrice.text = walletViewModel.totalPrice.toString()
+        binding.tvWalletTotalVariation.text = walletViewModel.totalVariation.toString()
     }
 
 }

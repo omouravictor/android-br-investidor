@@ -4,19 +4,74 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/defaultPadding"
     tools:context=".presenter.wallet.details.DetailsFragment">
 
     <TextView
-        android:id="@+id/text_details"
-        android:layout_width="match_parent"
+        android:id="@+id/tvTittleWalletTotalPrice"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:text="@string/wallet_total"
         android:textAlignment="center"
-        android:textSize="@dimen/textSize4"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="@dimen/textSize2"
+        app:layout_constraintEnd_toStartOf="@+id/tvTittleWalletTotalInvested"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvWalletTotalPrice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="@dimen/textSize4"
+        app:layout_constraintEnd_toEndOf="@+id/tvTittleWalletTotalPrice"
+        app:layout_constraintStart_toStartOf="@+id/tvTittleWalletTotalPrice"
+        app:layout_constraintTop_toBottomOf="@+id/tvTittleWalletTotalPrice"
+        tools:text="R$ 200,50" />
+
+    <TextView
+        android:id="@+id/tvTittleWalletTotalInvested"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/totalInvested"
+        android:textAlignment="center"
+        android:textSize="@dimen/textSize2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvTittleWalletTotalPrice"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvWalletTotalInvested"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="@dimen/textSize4"
+        app:layout_constraintEnd_toEndOf="@+id/tvTittleWalletTotalInvested"
+        app:layout_constraintStart_toStartOf="@+id/tvTittleWalletTotalInvested"
+        app:layout_constraintTop_toBottomOf="@+id/tvTittleWalletTotalInvested"
+        tools:text="R$ 100,25" />
+
+    <TextView
+        android:id="@+id/tvTittleWalletTotalVariation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/totalVariation"
+        android:textAlignment="center"
+        android:textSize="@dimen/textSize2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvWalletTotalPrice" />
+
+    <TextView
+        android:id="@+id/tvWalletTotalVariation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="@dimen/textSize4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTittleWalletTotalVariation"
+        tools:text="R$ 200,50" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

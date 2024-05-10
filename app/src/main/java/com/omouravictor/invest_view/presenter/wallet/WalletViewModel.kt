@@ -23,6 +23,9 @@ class WalletViewModel @Inject constructor(
     val assetsLiveData: LiveData<List<AssetUiModel>> = _assetsLiveData
     val assetsList get() = assetsLiveData.value.orEmpty()
     val assetTypesList get() = assetsList.map { it.assetType }.distinct()
+    val totalInvested get() = assetsList.sumOf { it.totalInvested }
+    val totalPrice get() = assetsList.sumOf { it.price * it.amount }
+    val totalVariation get() = totalPrice - totalInvested
 
     init {
         val testList = listOf(

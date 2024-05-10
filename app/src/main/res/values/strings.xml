@@ -1,29 +1,4 @@
 <resources>
-    <string name="appName">Invest View</string>
-    <string name="add">Add</string>
-    <string name="settings">Configurações</string>
-    <string name="wallet">Carteira</string>
-    <string name="assetsSearch">Pesquisa de ativos</string>
-    <string name="searchYourAsset">Pesquise seu ativo…</string>
-    <string name="profile">Perfil</string>
-    <string name="newAsset">Novo ativo</string>
-    <string name="assetTypes">Tipos de Ativos</string>
-    <string name="arrowForward">Arrow forward</string>
-    <string name="Asset">Ativo</string>
-    <string name="asset">ativo</string>
-    <string name="Assets">Ativos</string>
-    <string name="assets">ativos</string>
-    <string name="addAssets">Adicionar ativos</string>
-    <string name="details">Detalhes</string>
-    <string name="select">Selecione</string>
-    <string name="amount">Quantidade *</string>
-    <string name="totalInvested">Total investido</string>
-    <string name="currentPosition">Posição atual</string>
-    <string name="save">Salvar</string>
-    <string name="tryAgain">Tentar novamente</string>
-    <string name="location">Localidade</string>
-    <string name="information">Informação</string>
-
     <!-- Asset type names -->
     <string name="brazilianStock">Ação</string>
     <string name="localDepositaryReceipts">BDR</string>
@@ -61,5 +36,32 @@
     <string name="noInternetConnection">Sem conexão com a internet</string>
     <string name="checkInternetConnection">Cheque sua conexão com a internet</string>
     <string name="somethingWentWrong">Algo deu errado, espere um pouco e tente novamente</string>
+
+    <string name="appName">Invest View</string>
+    <string name="add">Add</string>
+    <string name="settings">Configurações</string>
+    <string name="wallet">Carteira</string>
+    <string name="assetsSearch">Pesquisa de ativos</string>
+    <string name="searchYourAsset">Pesquise seu ativo…</string>
+    <string name="profile">Perfil</string>
+    <string name="newAsset">Novo ativo</string>
+    <string name="assetTypes">Tipos de Ativos</string>
+    <string name="arrowForward">Arrow forward</string>
+    <string name="Asset">Ativo</string>
+    <string name="asset">ativo</string>
+    <string name="Assets">Ativos</string>
+    <string name="assets">ativos</string>
+    <string name="addAssets">Adicionar ativos</string>
+    <string name="details">Detalhes</string>
+    <string name="select">Selecione</string>
+    <string name="amount">Quantidade *</string>
+    <string name="totalInvested">Total investido</string>
+    <string name="currentPosition">Posição atual</string>
+    <string name="save">Salvar</string>
+    <string name="tryAgain">Tentar novamente</string>
+    <string name="location">Localidade</string>
+    <string name="information">Informação</string>
+    <string name="wallet_total">Total da carteira</string>
+    <string name="totalVariation">Variação total</string>
 
 </resources>
