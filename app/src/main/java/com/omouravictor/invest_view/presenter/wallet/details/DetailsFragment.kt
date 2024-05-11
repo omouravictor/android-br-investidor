@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.omouravictor.invest_view.databinding.FragmentDetailsBinding
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
+import com.omouravictor.invest_view.util.LocaleUtil
 
 class DetailsFragment : Fragment() {
 
@@ -23,10 +24,9 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.tvWalletTotalInvested.text = walletViewModel.totalInvested.toString()
-        binding.tvWalletTotalPrice.text = walletViewModel.totalPrice.toString()
-        binding.tvWalletTotalVariation.text = walletViewModel.totalVariation.toString()
+        binding.tvWalletTotalInvested.text = LocaleUtil.getFormattedCurrencyValue(walletViewModel.totalInvested)
+        binding.tvWalletTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(walletViewModel.totalPrice)
+        binding.tvWalletTotalVariation.text = LocaleUtil.getFormattedCurrencyValue(walletViewModel.totalVariation)
     }
 
 }

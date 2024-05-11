@@ -93,7 +93,7 @@ class SaveAssetFragment : Fragment() {
 
         etSymbol.setText(AssetUtil.getFormattedSymbol(assetUiModel.symbol))
         etLocation.setText(assetUiModel.region)
-        ietTotalInvested.hint = LocaleUtil.getFormattedValueForCurrency(currency, 0.0)
+        ietTotalInvested.hint = LocaleUtil.getFormattedCurrencyValue(currency, 0.0)
         EditTextUtil.setEditTextsAfterTextChanged({ updateCurrentPosition() }, ietAmount, ietTotalInvested)
         EditTextUtil.setEditTextLongNumberFormatMask(ietAmount)
         EditTextUtil.setEditTextCurrencyFormatMask(ietTotalInvested, currency)
@@ -117,7 +117,7 @@ class SaveAssetFragment : Fragment() {
                 tvSymbol.text = binding.etSymbol.text.toString()
                 tvAmount.text = getString(R.string.placeholderAssetAmount, ietAmountText)
                 tvName.text = assetUiModel.name
-                tvTotal.text = LocaleUtil.getFormattedValueForCurrency(assetUiModel.currency, totalAssetPrice)
+                tvTotal.text = LocaleUtil.getFormattedCurrencyValue(assetUiModel.currency, totalAssetPrice)
                 AssetUtil.setupVariationViews(
                     this,
                     assetUiModel.currency,

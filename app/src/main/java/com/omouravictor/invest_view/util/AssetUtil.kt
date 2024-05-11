@@ -44,7 +44,7 @@ object AssetUtil {
         if (totalInvested > 0) {
             val context = binding.root.context
             val variation = NumberUtil.getRoundedDouble(totalAssetPrice - totalInvested)
-            val variationFormatted = LocaleUtil.getFormattedValueForCurrency(currency, variation)
+            val variationFormatted = LocaleUtil.getFormattedCurrencyValue(currency, variation)
             val percentFormatted = LocaleUtil.getFormattedValueForPercent(variation / totalInvested)
 
             if (variation > 0) {

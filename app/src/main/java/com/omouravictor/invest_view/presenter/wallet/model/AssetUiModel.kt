@@ -18,4 +18,4 @@ fun AssetUiModel.getTotalAssetPrice() = price * amount
 
 fun AssetUiModel.getFormattedAmount() = "(${LocaleUtil.getFormattedValueForLongNumber(amount)})"
 
-fun AssetUiModel.getFormattedTotalAssetPrice() = LocaleUtil.getFormattedValueForCurrency(currency, getTotalAssetPrice())
+fun AssetUiModel.getFormattedTotalAssetPrice() = LocaleUtil.getFormattedCurrencyValue(currency, getTotalAssetPrice())
