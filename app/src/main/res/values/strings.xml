@@ -61,7 +61,7 @@
     <string name="tryAgain">Tentar novamente</string>
     <string name="location">Localidade</string>
     <string name="information">Informação</string>
-    <string name="wallet_total">Total da carteira</string>
+    <string name="walletValue">Valor da carteira</string>
     <string name="totalVariation">Variação total</string>
 
 </resources>

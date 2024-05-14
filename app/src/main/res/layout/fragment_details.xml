@@ -1,77 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/defaultPadding"
-    tools:context=".presenter.wallet.details.DetailsFragment">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tvTittleWalletTotalPrice"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/wallet_total"
-        android:textAlignment="center"
-        android:textSize="@dimen/textSize2"
-        app:layout_constraintEnd_toStartOf="@+id/tvTittleWalletTotalInvested"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tvWalletTotalPrice"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textSize="@dimen/textSize4"
-        app:layout_constraintEnd_toEndOf="@+id/tvTittleWalletTotalPrice"
-        app:layout_constraintStart_toStartOf="@+id/tvTittleWalletTotalPrice"
-        app:layout_constraintTop_toBottomOf="@+id/tvTittleWalletTotalPrice"
-        tools:text="R$ 200,50" />
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/pieChart"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginTop="@dimen/defaultMarginTop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvTittleWalletTotalInvested"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/totalInvested"
-        android:textAlignment="center"
-        android:textSize="@dimen/textSize2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvTittleWalletTotalPrice"
-        app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:id="@+id/layoutWalletTotalInvested"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/background_rectangle_right_radius"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/defaultPaddingHorizontal"
+            android:paddingVertical="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/layoutWalletTotalVariation"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pieChart">
 
-    <TextView
-        android:id="@+id/tvWalletTotalInvested"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textSize="@dimen/textSize4"
-        app:layout_constraintEnd_toEndOf="@+id/tvTittleWalletTotalInvested"
-        app:layout_constraintStart_toStartOf="@+id/tvTittleWalletTotalInvested"
-        app:layout_constraintTop_toBottomOf="@+id/tvTittleWalletTotalInvested"
-        tools:text="R$ 100,25" />
+            <TextView
+                android:id="@+id/tvTittleWalletTotalInvested"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/totalInvested"
+                android:textAlignment="center"
+                android:textSize="@dimen/textSize2" />
 
-    <TextView
-        android:id="@+id/tvTittleWalletTotalVariation"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/totalVariation"
-        android:textAlignment="center"
-        android:textSize="@dimen/textSize2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvWalletTotalPrice" />
+            <TextView
+                android:id="@+id/tvWalletTotalInvested"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textSize="@dimen/textSize4"
+                android:textStyle="bold"
+                tools:text="R$ 100.000.000.000,25" />
 
-    <TextView
-        android:id="@+id/tvWalletTotalVariation"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textSize="@dimen/textSize4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTittleWalletTotalVariation"
-        tools:text="R$ 200,50" />
+        </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutWalletTotalVariation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_rectangle_left_radius"
+            android:paddingHorizontal="@dimen/defaultPaddingHorizontal"
+            android:paddingVertical="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/layoutWalletTotalInvested"
+            app:layout_constraintTop_toTopOf="@+id/layoutWalletTotalInvested">
+
+            <TextView
+                android:id="@+id/tvTittleWalletTotalVariation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/totalVariation"
+                android:textAlignment="center"
+                android:textSize="@dimen/textSize2"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvWalletTotalVariation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textSize="@dimen/textSize4"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/tvTittleWalletTotalVariation"
+                tools:text="R$ 200.000.000.000,50" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tvTittleWalletValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/walletValue"
+            android:textSize="@dimen/textSize2"
+            app:layout_constraintBottom_toBottomOf="@+id/tvWalletTotalPrice"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvWalletTotalPrice" />
+
+        <TextView
+            android:id="@+id/tvWalletTotalPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:textSize="@dimen/textSize4"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutWalletTotalInvested"
+            tools:text="R$ 200,50" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
