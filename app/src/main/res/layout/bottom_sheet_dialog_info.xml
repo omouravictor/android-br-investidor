@@ -33,7 +33,7 @@
         android:id="@+id/tvInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/defaultMarginTop"
+        android:layout_marginTop="@dimen/defaultMargin"
         android:textAlignment="center"
         android:textSize="@dimen/textSize3"
         tools:text="@string/brazilianStockDescription" />

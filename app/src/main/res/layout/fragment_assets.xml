@@ -13,7 +13,7 @@
             android:id="@+id/pieChart"
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:layout_marginTop="@dimen/defaultMarginTop"
+            android:layout_marginTop="@dimen/defaultMargin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -23,8 +23,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:clipToPadding="false"
-            android:paddingHorizontal="@dimen/defaultPaddingHorizontal"
-            android:paddingTop="@dimen/defaultPaddingTop"
+            android:paddingHorizontal="@dimen/defaultPadding"
+            android:paddingTop="@dimen/defaultPadding"
             app:layout_constraintTop_toBottomOf="@+id/pieChart"
             tools:listitem="@layout/item_list_asset" />
 

@@ -28,8 +28,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:paddingHorizontal="@dimen/defaultPaddingHorizontal"
-        android:paddingTop="@dimen/defaultPaddingTop"
+        android:paddingHorizontal="@dimen/defaultPadding"
+        android:paddingTop="@dimen/defaultPadding"
         android:visibility="gone"
         tools:listitem="@layout/item_list_asset_by_search"
         tools:visibility="visible" />
