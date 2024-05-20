@@ -25,7 +25,8 @@ import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentDetailsBinding
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.assets.AssetsAdapter
-import com.omouravictor.invest_view.util.LocaleUtil
+import com.omouravictor.invest_view.util.LocaleUtil.getFormattedCurrencyValue
+import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForPercent
 
 class DetailsFragment : Fragment(), OnChartValueSelectedListener {
 
@@ -54,13 +55,11 @@ class DetailsFragment : Fragment(), OnChartValueSelectedListener {
         val totalPrice = filteredAssets.sumOf { it.price * it.amount }
         val totalInvested = filteredAssets.sumOf { it.totalInvested }
         val totalVariation = totalPrice - totalInvested
-        binding.infoCardLayout.tvWalletTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, totalPrice)
-        binding.infoCardLayout.tvWalletTotalInvested.text =
-            LocaleUtil.getFormattedCurrencyValue(currency, totalInvested)
-        binding.infoCardLayout.tvWalletTotalVariation.text =
-            LocaleUtil.getFormattedCurrencyValue(currency, totalVariation)
+        binding.infoCardLayout.tvWalletTotalPrice.text = getFormattedCurrencyValue(currency, totalPrice)
+        binding.infoCardLayout.tvWalletTotalInvested.text = getFormattedCurrencyValue(currency, totalInvested)
+        binding.infoCardLayout.tvWalletTotalVariation.text = getFormattedCurrencyValue(currency, totalVariation)
         binding.infoCardLayout.tvWalletTotalVariationPercent.text =
-            LocaleUtil.getFormattedValueForPercent(totalVariation / totalInvested)
+            getFormattedValueForPercent(totalVariation / totalInvested)
         binding.infoCardLayout.root.visibility = View.VISIBLE
         assetsAdapter.updateItemsList(filteredAssets)
     }
