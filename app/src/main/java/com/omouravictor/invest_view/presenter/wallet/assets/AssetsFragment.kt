@@ -47,8 +47,8 @@ class AssetsFragment : Fragment(), OnChartValueSelectedListener {
     }
 
     override fun onValueSelected(e: Entry?, h: Highlight?) {
-        val label = (e as PieEntry).label
-        val filteredAssets = walletViewModel.assetsList.filter { getString(it.assetType.nameResId) == label }
+        val assetType = (e as PieEntry).label
+        val filteredAssets = walletViewModel.assetsList.filter { getString(it.assetType.nameResId) == assetType }
         assetsAdapter.updateItemsList(filteredAssets)
     }
 

@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.PieData
@@ -43,21 +44,29 @@ class DetailsFragment : Fragment(), OnChartValueSelectedListener {
         super.onViewCreated(view, savedInstanceState)
         setupChart()
         setupAdapter()
-//        setupRecyclerView()
+        setupRecyclerView()
         observeAssets()
-        binding.infoCardWalletValue.tvTittle.text = getString(R.string.walletValue)
-        binding.infoCardWalletValue.tvValue.text = LocaleUtil.getFormattedCurrencyValue(walletViewModel.totalPrice)
-        binding.infoCardWalletInvested.tvTittle.text = getString(R.string.totalInvested)
-        binding.infoCardWalletInvested.tvValue.text = LocaleUtil.getFormattedCurrencyValue(walletViewModel.totalInvested)
     }
 
     override fun onValueSelected(e: Entry?, h: Highlight?) {
-        val label = (e as PieEntry).label
-        val filteredAssets = walletViewModel.assetsList.filter { it.currency == label }
+        val currency = (e as PieEntry).label
+        val filteredAssets = walletViewModel.assetsList.filter { it.currency == currency }
+        val totalPrice = filteredAssets.sumOf { it.price * it.amount }
+        val totalInvested = filteredAssets.sumOf { it.totalInvested }
+        val totalVariation = totalPrice - totalInvested
+        binding.infoCardLayout.tvWalletTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, totalPrice)
+        binding.infoCardLayout.tvWalletTotalInvested.text =
+            LocaleUtil.getFormattedCurrencyValue(currency, totalInvested)
+        binding.infoCardLayout.tvWalletTotalVariation.text =
+            LocaleUtil.getFormattedCurrencyValue(currency, totalVariation)
+        binding.infoCardLayout.tvWalletTotalVariationPercent.text =
+            LocaleUtil.getFormattedValueForPercent(totalVariation / totalInvested)
+        binding.infoCardLayout.root.visibility = View.VISIBLE
         assetsAdapter.updateItemsList(filteredAssets)
     }
 
     override fun onNothingSelected() {
+        binding.infoCardLayout.root.visibility = View.GONE
         assetsAdapter.updateItemsList(walletViewModel.assetsList)
     }
 
@@ -118,12 +127,12 @@ class DetailsFragment : Fragment(), OnChartValueSelectedListener {
         }
     }
 
-//    private fun setupRecyclerView() {
-//        binding.recyclerView.apply {
-//            adapter = assetsAdapter
-//            layoutManager = LinearLayoutManager(context)
-//        }
-//    }
+    private fun setupRecyclerView() {
+        binding.recyclerView.apply {
+            adapter = assetsAdapter
+            layoutManager = LinearLayoutManager(context)
+        }
+    }
 
     private fun observeAssets() {
         walletViewModel.assetsLiveData.observe(viewLifecycleOwner) {

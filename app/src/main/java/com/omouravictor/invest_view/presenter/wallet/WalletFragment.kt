@@ -43,10 +43,12 @@ class WalletFragment : Fragment() {
             Pair(AssetsFragment(), getString(R.string.Assets)),
             Pair(DetailsFragment(), getString(R.string.details))
         )
+        val walletLayout = binding.incWalletLayout
+        val viewPager2 = walletLayout.viewPager2
 
-        binding.viewPager2.adapter = BaseViewPagerAdapter(requireActivity(), fragments)
+        viewPager2.adapter = BaseViewPagerAdapter(requireActivity(), fragments)
 
-        TabLayoutMediator(binding.tabLayout, binding.viewPager2) { tab, position ->
+        TabLayoutMediator(walletLayout.tabLayout, viewPager2) { tab, position ->
             tab.text = fragments[position].second
         }.attach()
     }
