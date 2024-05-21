@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.presenter.wallet.assets
+package com.omouravictor.invest_view.presenter.wallet.asset_types
 
 import android.graphics.Color
 import android.graphics.Typeface
@@ -23,9 +23,10 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.google.android.material.snackbar.Snackbar
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetsBinding
+import com.omouravictor.invest_view.presenter.base.AssetsAdapter
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 
-class AssetsFragment : Fragment(), OnChartValueSelectedListener {
+class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
 
     private lateinit var binding: FragmentAssetsBinding
     private val walletViewModel: WalletViewModel by activityViewModels()

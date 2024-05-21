@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.presenter.wallet.details
+package com.omouravictor.invest_view.presenter.wallet.currencies
 
 import android.graphics.Color
 import android.graphics.Typeface
@@ -22,22 +22,20 @@ import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.google.android.material.snackbar.Snackbar
 import com.omouravictor.invest_view.R
-import com.omouravictor.invest_view.databinding.FragmentDetailsBinding
+import com.omouravictor.invest_view.databinding.FragmentAssetsBinding
+import com.omouravictor.invest_view.presenter.base.AssetsAdapter
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
-import com.omouravictor.invest_view.presenter.wallet.assets.AssetsAdapter
-import com.omouravictor.invest_view.util.LocaleUtil.getFormattedCurrencyValue
-import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForPercent
 
-class DetailsFragment : Fragment(), OnChartValueSelectedListener {
+class CurrenciesFragment : Fragment(), OnChartValueSelectedListener {
 
-    private lateinit var binding: FragmentDetailsBinding
+    private lateinit var binding: FragmentAssetsBinding
     private val walletViewModel: WalletViewModel by activityViewModels()
     private val assetsAdapter = AssetsAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        binding = FragmentDetailsBinding.inflate(inflater, container, false)
+        binding = FragmentAssetsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -52,20 +50,10 @@ class DetailsFragment : Fragment(), OnChartValueSelectedListener {
     override fun onValueSelected(e: Entry?, h: Highlight?) {
         val currency = (e as PieEntry).label
         val filteredAssets = walletViewModel.assetsList.filter { it.currency == currency }
-        val totalPrice = filteredAssets.sumOf { it.price * it.amount }
-        val totalInvested = filteredAssets.sumOf { it.totalInvested }
-        val totalVariation = totalPrice - totalInvested
-        binding.infoCardLayout.tvWalletTotalPrice.text = getFormattedCurrencyValue(currency, totalPrice)
-        binding.infoCardLayout.tvWalletTotalInvested.text = getFormattedCurrencyValue(currency, totalInvested)
-        binding.infoCardLayout.tvWalletTotalVariation.text = getFormattedCurrencyValue(currency, totalVariation)
-        binding.infoCardLayout.tvWalletTotalVariationPercent.text =
-            getFormattedValueForPercent(totalVariation / totalInvested)
-        binding.infoCardLayout.root.visibility = View.VISIBLE
         assetsAdapter.updateItemsList(filteredAssets)
     }
 
     override fun onNothingSelected() {
-        binding.infoCardLayout.root.visibility = View.GONE
         assetsAdapter.updateItemsList(walletViewModel.assetsList)
     }
 
