@@ -24,6 +24,7 @@ class WalletViewModel @Inject constructor(
     val assetsList get() = assetsLiveData.value.orEmpty()
     val assetTypesList get() = assetsList.map { it.assetType }.distinct()
     val assetCurrenciesList get() = assetsList.map { it.currency }.distinct()
+    val assetRegionsList get() = assetsList.map { it.region }.distinct()
 
     init {
         val testList = listOf(
@@ -41,17 +42,17 @@ class WalletViewModel @Inject constructor(
                 symbol = "AAPL34",
                 name = "Apple Inc.",
                 assetType = AssetTypes.BDR,
-                region = "Brazil",
+                region = "Brazil/Sao Paolo",
                 currency = "BRL",
                 price = 50.0,
                 amount = 10,
                 totalInvested = 1000.0
             ),
             AssetUiModel(
-                symbol = "MSTFT",
+                symbol = "MSFT",
                 name = "Apple Inc.",
                 assetType = AssetTypes.ETF,
-                region = "Germany",
+                region = "Amsterdam",
                 currency = "EUR",
                 price = 150.0,
                 amount = 10,
@@ -61,7 +62,7 @@ class WalletViewModel @Inject constructor(
                 symbol = "VALE3",
                 name = "Vale S.A.",
                 assetType = AssetTypes.BRAZILIAN_STOCK,
-                region = "Brasil",
+                region = "Brazil/Sao Paolo",
                 currency = "BRL",
                 price = 150.0,
                 amount = 10,
@@ -71,7 +72,7 @@ class WalletViewModel @Inject constructor(
                 symbol = "MXRF11",
                 name = "Max renda.",
                 assetType = AssetTypes.FI,
-                region = "Brasil",
+                region = "Brazil/Sao Paolo",
                 currency = "BRL",
                 price = 150.0,
                 amount = 10,
@@ -81,7 +82,7 @@ class WalletViewModel @Inject constructor(
                 symbol = "ASDAS",
                 name = "Vale S.A.",
                 assetType = AssetTypes.OTHER,
-                region = "Brasil",
+                region = "Brazil/Sao Paolo",
                 currency = "BRL",
                 price = 150.0,
                 amount = 10,

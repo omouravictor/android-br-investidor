@@ -64,5 +64,6 @@
     <string name="information">Informação</string>
     <string name="walletValue">Valor da carteira</string>
     <string name="totalVariation">Variação total</string>
+    <string name="countries">Países</string>
 
 </resources>
