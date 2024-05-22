@@ -75,7 +75,7 @@ class SaveAssetFragment : Fragment() {
             name = assetBySearchUiModel.name,
             assetType = AssetUtil.getAssetType(assetBySearchUiModel.symbol, assetBySearchUiModel.type),
             region = assetBySearchUiModel.region,
-            currency = assetBySearchUiModel.currency,
+            currency = AssetUtil.getCurrency(assetBySearchUiModel.currency),
             price = assetBySearchUiModel.price
         )
     }
@@ -86,7 +86,7 @@ class SaveAssetFragment : Fragment() {
         val assetTypeColor = context.getColor(assetType.colorResId)
         val ietAmount = binding.ietAmount
         val ietTotalInvested = binding.ietTotalInvested
-        val currency = assetUiModel.currency
+        val currency = assetUiModel.currency.name
         val etSymbol = binding.etSymbol
         val etLocation = binding.etLocation
         val incItemListAsset = binding.incItemListAsset
@@ -113,14 +113,15 @@ class SaveAssetFragment : Fragment() {
                 val totalAssetPrice = saveAssetViewModel.getTotalAssetPrice(assetUiModel.price, ietAmountText)
                 val ietTotalInvestedText = binding.ietTotalInvested.text.toString()
                 val totalInvested = saveAssetViewModel.getTotalInvested(ietTotalInvestedText)
+                val currency = assetUiModel.currency.name
 
                 tvSymbol.text = binding.etSymbol.text.toString()
                 tvAmount.text = getString(R.string.placeholderAssetAmount, ietAmountText)
                 tvName.text = assetUiModel.name
-                tvTotal.text = LocaleUtil.getFormattedCurrencyValue(assetUiModel.currency, totalAssetPrice)
+                tvTotal.text = LocaleUtil.getFormattedCurrencyValue(currency, totalAssetPrice)
                 AssetUtil.setupVariationViews(
                     this,
-                    assetUiModel.currency,
+                    currency,
                     totalInvested,
                     totalAssetPrice
                 )

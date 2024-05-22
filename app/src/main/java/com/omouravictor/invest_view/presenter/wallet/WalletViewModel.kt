@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.omouravictor.invest_view.data.network.remote.repository.RemoteAssetsRepository
 import com.omouravictor.invest_view.di.base.DispatcherProvider
 import com.omouravictor.invest_view.presenter.base.AssetTypes
+import com.omouravictor.invest_view.presenter.base.Currencies
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -33,7 +34,7 @@ class WalletViewModel @Inject constructor(
                 name = "Apple Inc.",
                 assetType = AssetTypes.STOCK,
                 region = "United States",
-                currency = "USD",
+                currency = Currencies.USD,
                 price = 150.0,
                 amount = 10,
                 totalInvested = 1600.0
@@ -43,7 +44,7 @@ class WalletViewModel @Inject constructor(
                 name = "Apple Inc.",
                 assetType = AssetTypes.BDR,
                 region = "Brazil/Sao Paolo",
-                currency = "BRL",
+                currency = Currencies.BRL,
                 price = 50.0,
                 amount = 10,
                 totalInvested = 1000.0
@@ -53,7 +54,7 @@ class WalletViewModel @Inject constructor(
                 name = "Apple Inc.",
                 assetType = AssetTypes.ETF,
                 region = "Amsterdam",
-                currency = "EUR",
+                currency = Currencies.EUR,
                 price = 150.0,
                 amount = 10,
                 totalInvested = 1600.0
@@ -63,7 +64,7 @@ class WalletViewModel @Inject constructor(
                 name = "Vale S.A.",
                 assetType = AssetTypes.BRAZILIAN_STOCK,
                 region = "Brazil/Sao Paolo",
-                currency = "BRL",
+                currency = Currencies.BRL,
                 price = 150.0,
                 amount = 10,
                 totalInvested = 1600.0
@@ -73,7 +74,7 @@ class WalletViewModel @Inject constructor(
                 name = "Max renda.",
                 assetType = AssetTypes.FI,
                 region = "Brazil/Sao Paolo",
-                currency = "BRL",
+                currency = Currencies.BRL,
                 price = 150.0,
                 amount = 10,
                 totalInvested = 1600.0
@@ -83,7 +84,7 @@ class WalletViewModel @Inject constructor(
                 name = "Vale S.A.",
                 assetType = AssetTypes.OTHER,
                 region = "Brazil/Sao Paolo",
-                currency = "BRL",
+                currency = Currencies.BRL,
                 price = 150.0,
                 amount = 10,
                 totalInvested = 1600.0

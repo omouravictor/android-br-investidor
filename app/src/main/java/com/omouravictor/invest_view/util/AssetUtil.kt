@@ -6,6 +6,7 @@ import androidx.core.view.isVisible
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.ItemListAssetBinding
 import com.omouravictor.invest_view.presenter.base.AssetTypes
+import com.omouravictor.invest_view.presenter.base.Currencies
 
 object AssetUtil {
 
@@ -27,6 +28,14 @@ object AssetUtil {
             "Mutual Fund" -> AssetTypes.FI
             "ETF" -> AssetTypes.ETF
             else -> AssetTypes.OTHER
+        }
+    }
+
+    fun getCurrency(currency: String): Currencies {
+        return try {
+            Currencies.valueOf(currency)
+        } catch (e: IllegalArgumentException) {
+            Currencies.OTHER
         }
     }
 

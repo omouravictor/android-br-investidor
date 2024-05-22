@@ -13,7 +13,6 @@
     <color name="fi">#00B8D4</color>
     <color name="etf">#FF6D00</color>
     <color name="stock">#AA00FF</color>
-    <color name="other">#737373</color>
 
     <!-- Day/Night colors -->
     <color name="appPrimaryColor">@color/black</color>
@@ -29,4 +28,12 @@
     <color name="buttonTextColorEnabledTrue">@color/white</color>
     <color name="buttonTextColorEnabledFalse">@color/appWindowBackColor</color>
     <color name="mtrl_textinput_default_box_stroke_color" tools:ignore="PrivateResource">@color/gray</color>
+
+    <color name="other">#737373</color>
+
+    <!-- Currency colors -->
+    <color name="usd">#00C853</color>
+    <color name="brl">#FFC107</color>
+    <color name="eur">#00B8D4</color>
+
 </resources>

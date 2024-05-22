@@ -5,7 +5,6 @@
     <string name="fi">FI</string>
     <string name="etf">ETF</string>
     <string name="stock">Stock</string>
-    <string name="other">Outro</string>
 
     <!-- Asset type description -->
     <string name="brazilianStockDescription">Uma ação no mercado financeiro brasileiro representa uma parcela de propriedade em uma empresa de capital aberto, negociada na bolsa de valores brasileira, a B3. Ao se tornarem acionistas, os investidores têm direito a receber dividendos e podem lucrar com a valorização das ações ao longo do tempo. No entanto, é importante estar ciente de que os investimentos em ações envolvem riscos devido à volatilidade do mercado, podendo resultar em perdas financeiras.</string>
@@ -65,5 +64,11 @@
     <string name="walletValue">Valor da carteira</string>
     <string name="totalVariation">Variação total</string>
     <string name="countries">Países</string>
+    <string name="other">Outro</string>
+
+    <!-- Currency names -->
+    <string name="usd">Dólar Americano</string>
+    <string name="brl">Real Brasileiro</string>
+    <string name="eur">Euro</string>
 
 </resources>

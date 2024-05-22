@@ -34,7 +34,7 @@ class AssetsAdapter : BaseRecyclerViewAdapter<AssetUiModel, AssetsAdapter.AssetV
             binding.tvTotal.text = assetUiModel.getFormattedTotalAssetPrice()
             AssetUtil.setupVariationViews(
                 binding,
-                assetUiModel.currency,
+                assetUiModel.currency.name,
                 assetUiModel.totalInvested,
                 assetUiModel.getTotalAssetPrice()
             )

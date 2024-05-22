@@ -49,7 +49,7 @@ class CurrenciesFragment : Fragment(), OnChartValueSelectedListener {
 
     override fun onValueSelected(e: Entry?, h: Highlight?) {
         val currency = (e as PieEntry).label
-        val filteredAssets = walletViewModel.assetsList.filter { it.currency == currency }
+        val filteredAssets = walletViewModel.assetsList.filter { it.currency.name == currency }
         assetsAdapter.updateItemsList(filteredAssets)
     }
 
@@ -61,19 +61,19 @@ class CurrenciesFragment : Fragment(), OnChartValueSelectedListener {
         val context = requireContext()
         val assets = walletViewModel.assetsList
         val assetCurrencies = walletViewModel.assetCurrenciesList
-        val assetTypes = walletViewModel.assetTypesList
         val textSize12 = 12f
         val whiteColor = ContextCompat.getColor(context, R.color.white)
         val appWindowBackColor = ContextCompat.getColor(context, R.color.appWindowBackColor)
         val appTextColor = ContextCompat.getColor(context, R.color.appTextColor)
         val boldTypeface = Typeface.DEFAULT_BOLD
+        val colors = arrayListOf<Int>()
         val pieEntries = assetCurrencies.map { currency ->
+            colors.add(currency.colorResId)
             val count = assets.count { it.currency == currency }
-            PieEntry(count.toFloat(), currency)
+            PieEntry(count.toFloat(), currency.name)
         }
-        val colors = assetTypes.map { ContextCompat.getColor(context, it.colorResId) }
         val pieDataSet = PieDataSet(pieEntries, getString(R.string.currencies)).apply {
-            this.colors = colors
+            this.colors = colors.map { ContextCompat.getColor(context, it) }
             sliceSpace = 3f
             setDrawIcons(false)
         }
