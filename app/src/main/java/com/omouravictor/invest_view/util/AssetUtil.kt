@@ -1,12 +1,15 @@
 package com.omouravictor.invest_view.util
 
-import android.annotation.SuppressLint
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.ItemListAssetBinding
 import com.omouravictor.invest_view.presenter.base.AssetTypes
 import com.omouravictor.invest_view.presenter.base.Currencies
+import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
+import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAmount
+import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalAssetPrice
+import com.omouravictor.invest_view.presenter.wallet.model.getTotalAssetPrice
 
 object AssetUtil {
 
@@ -43,7 +46,6 @@ object AssetUtil {
         return symbol.substringBefore(".")
     }
 
-    @SuppressLint("SetTextI18n")
     fun setupVariationViews(
         binding: ItemListAssetBinding,
         currency: String,
@@ -83,6 +85,24 @@ object AssetUtil {
             binding.tvVariationPercent.text = ""
             binding.ivArrow.isVisible = false
         }
+    }
+
+    fun setupAssetUiModelBind(
+        binding: ItemListAssetBinding,
+        assetUiModel: AssetUiModel,
+        color: Int
+    ) {
+        binding.color.setBackgroundColor(color)
+        binding.tvSymbol.text = getFormattedSymbol(assetUiModel.symbol)
+        binding.tvAmount.text = assetUiModel.getFormattedAmount()
+        binding.tvName.text = assetUiModel.name
+        binding.tvTotal.text = assetUiModel.getFormattedTotalAssetPrice()
+        setupVariationViews(
+            binding,
+            assetUiModel.currency.name,
+            assetUiModel.totalInvested,
+            assetUiModel.getTotalAssetPrice()
+        )
     }
 
 }

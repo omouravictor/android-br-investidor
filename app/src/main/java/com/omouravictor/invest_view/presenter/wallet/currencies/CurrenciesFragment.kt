@@ -19,7 +19,6 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.google.android.material.snackbar.Snackbar
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetsBinding
-import com.omouravictor.invest_view.presenter.base.AssetsAdapter
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.util.AppUtil
 
@@ -27,7 +26,7 @@ class CurrenciesFragment : Fragment(), OnChartValueSelectedListener {
 
     private lateinit var binding: FragmentAssetsBinding
     private val walletViewModel: WalletViewModel by activityViewModels()
-    private val assetsAdapter = AssetsAdapter()
+    private val assetCurrenciesAdapter = AssetCurrenciesAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -47,11 +46,11 @@ class CurrenciesFragment : Fragment(), OnChartValueSelectedListener {
     override fun onValueSelected(e: Entry?, h: Highlight?) {
         val currency = (e as PieEntry).label
         val filteredAssets = walletViewModel.assetsList.filter { it.currency.name == currency }
-        assetsAdapter.updateItemsList(filteredAssets)
+        assetCurrenciesAdapter.updateItemsList(filteredAssets)
     }
 
     override fun onNothingSelected() {
-        assetsAdapter.updateItemsList(walletViewModel.assetsList)
+        assetCurrenciesAdapter.updateItemsList(walletViewModel.assetsList)
     }
 
     private fun setupChart() {
@@ -80,21 +79,21 @@ class CurrenciesFragment : Fragment(), OnChartValueSelectedListener {
     }
 
     private fun setupAdapter() {
-        assetsAdapter.updateOnClickItem {
+        assetCurrenciesAdapter.updateOnClickItem {
             Snackbar.make(binding.root, "Item clicked: $it", Snackbar.LENGTH_SHORT).show()
         }
     }
 
     private fun setupRecyclerView() {
         binding.recyclerView.apply {
-            adapter = assetsAdapter
+            adapter = assetCurrenciesAdapter
             layoutManager = LinearLayoutManager(context)
         }
     }
 
     private fun observeAssets() {
         walletViewModel.assetsLiveData.observe(viewLifecycleOwner) {
-            assetsAdapter.updateItemsList(it)
+            assetCurrenciesAdapter.updateItemsList(it)
         }
     }
 

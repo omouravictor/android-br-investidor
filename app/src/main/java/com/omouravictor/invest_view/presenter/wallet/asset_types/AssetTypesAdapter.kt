@@ -1,17 +1,15 @@
-package com.omouravictor.invest_view.presenter.base
+package com.omouravictor.invest_view.presenter.wallet.asset_types
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.omouravictor.invest_view.databinding.ItemListAssetBinding
+import com.omouravictor.invest_view.presenter.base.BaseRecyclerViewAdapter
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
-import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAmount
-import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalAssetPrice
-import com.omouravictor.invest_view.presenter.wallet.model.getTotalAssetPrice
 import com.omouravictor.invest_view.util.AssetUtil
 
-class AssetsAdapter : BaseRecyclerViewAdapter<AssetUiModel, AssetsAdapter.AssetViewHolder>() {
+class AssetTypesAdapter : BaseRecyclerViewAdapter<AssetUiModel, AssetTypesAdapter.AssetViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AssetViewHolder {
         val binding = ItemListAssetBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -27,16 +25,10 @@ class AssetsAdapter : BaseRecyclerViewAdapter<AssetUiModel, AssetsAdapter.AssetV
 
         fun bind(assetUiModel: AssetUiModel) {
             val assetType = assetUiModel.assetType
-            binding.color.setBackgroundColor(ContextCompat.getColor(context, assetType.colorResId))
-            binding.tvSymbol.text = AssetUtil.getFormattedSymbol(assetUiModel.symbol)
-            binding.tvAmount.text = assetUiModel.getFormattedAmount()
-            binding.tvName.text = assetUiModel.name
-            binding.tvTotal.text = assetUiModel.getFormattedTotalAssetPrice()
-            AssetUtil.setupVariationViews(
+            AssetUtil.setupAssetUiModelBind(
                 binding,
-                assetUiModel.currency.name,
-                assetUiModel.totalInvested,
-                assetUiModel.getTotalAssetPrice()
+                assetUiModel,
+                ContextCompat.getColor(context, assetType.colorResId)
             )
             itemView.setOnClickListener { onClickItem(assetUiModel) }
         }
