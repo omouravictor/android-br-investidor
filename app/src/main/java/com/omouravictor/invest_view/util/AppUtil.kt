@@ -18,7 +18,7 @@ import com.github.mikephil.charting.formatter.PercentFormatter
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import com.omouravictor.invest_view.R
-import com.omouravictor.invest_view.presenter.base.AssetTypes
+import com.omouravictor.invest_view.presenter.wallet.asset_types.AssetTypes
 
 object AppUtil {
 

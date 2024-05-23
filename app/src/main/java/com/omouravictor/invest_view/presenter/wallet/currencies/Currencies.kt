@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.presenter.base
+package com.omouravictor.invest_view.presenter.wallet.currencies
 
 import com.omouravictor.invest_view.R
 

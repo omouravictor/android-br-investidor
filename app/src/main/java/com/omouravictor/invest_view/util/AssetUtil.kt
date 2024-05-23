@@ -4,8 +4,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.ItemListAssetBinding
-import com.omouravictor.invest_view.presenter.base.AssetTypes
-import com.omouravictor.invest_view.presenter.base.Currencies
+import com.omouravictor.invest_view.presenter.wallet.asset_types.AssetTypes
+import com.omouravictor.invest_view.presenter.wallet.currencies.Currencies
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAmount
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalAssetPrice
