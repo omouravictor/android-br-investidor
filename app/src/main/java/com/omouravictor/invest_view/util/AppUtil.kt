@@ -2,11 +2,19 @@ package com.omouravictor.invest_view.util
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.Color
+import android.graphics.Typeface
+import android.text.SpannableString
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import com.github.mikephil.charting.animation.Easing
+import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.formatter.PercentFormatter
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import com.omouravictor.invest_view.R
@@ -57,6 +65,42 @@ object AppUtil {
             findViewById<TextView>(R.id.tvTitle)!!.text = activity.getString(assetTypes.nameResId)
             findViewById<TextView>(R.id.tvInfo)!!.text = activity.getString(assetTypes.descriptionResId)
             show()
+        }
+    }
+
+    fun showPieChart(
+        context: Context,
+        pieChart: PieChart,
+        pieDataSet: PieDataSet,
+        centerTextSpanString: SpannableString
+    ) {
+        val textSize12 = 12f
+        val whiteColor = ContextCompat.getColor(context, R.color.white)
+        val appWindowBackColor = ContextCompat.getColor(context, R.color.appWindowBackColor)
+        val appTextColor = ContextCompat.getColor(context, R.color.appTextColor)
+        val boldTypeface = Typeface.DEFAULT_BOLD
+        val pieData = PieData(pieDataSet).apply {
+            setValueFormatter(PercentFormatter(pieChart))
+            setValueTextSize(textSize12)
+            setValueTextColor(whiteColor)
+        }
+
+        pieChart.apply {
+            data = pieData
+            description.isEnabled = false
+            legend.isEnabled = false
+            isRotationEnabled = false
+            isDrawHoleEnabled = true
+            centerText = centerTextSpanString
+            setUsePercentValues(true)
+            setHoleColor(Color.TRANSPARENT)
+            setTransparentCircleAlpha(100)
+            setTransparentCircleColor(appWindowBackColor)
+            setEntryLabelTextSize(textSize12)
+            setEntryLabelTypeface(boldTypeface)
+            setCenterTextColor(appTextColor)
+            setCenterTextSize(16f)
+            animateY(1400, Easing.EaseInOutQuad)
         }
     }
 

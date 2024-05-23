@@ -1,6 +1,5 @@
 package com.omouravictor.invest_view.presenter.wallet.currencies
 
-import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.SpannableString
@@ -12,12 +11,9 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
-import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.google.android.material.snackbar.Snackbar
@@ -25,6 +21,7 @@ import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetsBinding
 import com.omouravictor.invest_view.presenter.base.AssetsAdapter
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
+import com.omouravictor.invest_view.util.AppUtil
 
 class CurrenciesFragment : Fragment(), OnChartValueSelectedListener {
 
@@ -59,13 +56,9 @@ class CurrenciesFragment : Fragment(), OnChartValueSelectedListener {
 
     private fun setupChart() {
         val context = requireContext()
+        val pieChart = binding.pieChart.also { it.setOnChartValueSelectedListener(this) }
         val assets = walletViewModel.assetsList
         val assetCurrencies = walletViewModel.assetCurrenciesList
-        val textSize12 = 12f
-        val whiteColor = ContextCompat.getColor(context, R.color.white)
-        val appWindowBackColor = ContextCompat.getColor(context, R.color.appWindowBackColor)
-        val appTextColor = ContextCompat.getColor(context, R.color.appTextColor)
-        val boldTypeface = Typeface.DEFAULT_BOLD
         val colors = arrayListOf<Int>()
         val pieEntries = assetCurrencies.map { currency ->
             colors.add(currency.colorResId)
@@ -77,35 +70,13 @@ class CurrenciesFragment : Fragment(), OnChartValueSelectedListener {
             sliceSpace = 3f
             setDrawIcons(false)
         }
-        val pieChart = binding.pieChart.also { it.setOnChartValueSelectedListener(this) }
-        val pieData = PieData(pieDataSet).apply {
-            setValueFormatter(PercentFormatter(pieChart))
-            setValueTextSize(textSize12)
-            setValueTextColor(whiteColor)
-        }
         val assetSize = assets.size
         val assetText = getString(if (assetSize == 1) R.string.asset else R.string.assets)
         val spannableString = SpannableString("$assetSize\n$assetText").apply {
             setSpan(StyleSpan(Typeface.BOLD), 0, assetSize.toString().length, 0)
         }
 
-        pieChart.apply {
-            data = pieData
-            description.isEnabled = false
-            legend.isEnabled = false
-            isRotationEnabled = false
-            isDrawHoleEnabled = true
-            centerText = spannableString
-            setUsePercentValues(true)
-            setHoleColor(Color.TRANSPARENT)
-            setTransparentCircleAlpha(100)
-            setTransparentCircleColor(appWindowBackColor)
-            setEntryLabelTextSize(textSize12)
-            setEntryLabelTypeface(boldTypeface)
-            setCenterTextColor(appTextColor)
-            setCenterTextSize(16f)
-            animateY(1400, Easing.EaseInOutQuad)
-        }
+        AppUtil.showPieChart(context, pieChart, pieDataSet, spannableString)
     }
 
     private fun setupAdapter() {
