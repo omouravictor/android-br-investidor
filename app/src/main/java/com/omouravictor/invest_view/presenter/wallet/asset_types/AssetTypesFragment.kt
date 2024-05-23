@@ -66,13 +66,14 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
         val appWindowBackColor = ContextCompat.getColor(context, R.color.appWindowBackColor)
         val appTextColor = ContextCompat.getColor(context, R.color.appTextColor)
         val boldTypeface = Typeface.DEFAULT_BOLD
+        val colors = arrayListOf<Int>()
         val pieEntries = assetTypes.map { assetType ->
-            val count = assets.count { it.assetType.name == assetType.name }
+            colors.add(assetType.colorResId)
+            val count = assets.count { it.assetType == assetType }
             PieEntry(count.toFloat(), getString(assetType.nameResId))
         }
-        val colors = assetTypes.map { ContextCompat.getColor(context, it.colorResId) }
         val pieDataSet = PieDataSet(pieEntries, getString(R.string.assetTypes)).apply {
-            this.colors = colors
+            this.colors = colors.map { ContextCompat.getColor(context, it) }
             sliceSpace = 3f
             setDrawIcons(false)
         }
