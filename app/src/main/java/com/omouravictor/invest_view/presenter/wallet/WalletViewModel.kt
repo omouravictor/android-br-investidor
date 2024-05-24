@@ -67,8 +67,8 @@ class WalletViewModel @Inject constructor(
                 name = "Vale S.A.",
                 assetType = AssetTypes.BRAZILIAN_STOCK,
                 region = "Brazil/Sao Paolo",
-                currency = "BRL",
-                currencyResColor = R.color.brl,
+                currency = "CNY",
+                currencyResColor = R.color.cny,
                 price = 150.0,
                 amount = 10,
                 totalInvested = 1600.0

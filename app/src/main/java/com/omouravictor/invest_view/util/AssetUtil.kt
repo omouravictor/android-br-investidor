@@ -40,6 +40,7 @@ object AssetUtil {
             "EUR" -> Pair(currency, R.color.eur)
             "CAD" -> Pair(currency, R.color.cad)
             "INR" -> Pair(currency, R.color.inr)
+            "CNY" -> Pair(currency, R.color.cny)
             else -> Pair(currency, R.color.other)
         }
     }
