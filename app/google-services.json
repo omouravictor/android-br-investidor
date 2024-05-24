@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "927086290979",
+    "project_id": "invest-view-91db0",
+    "storage_bucket": "invest-view-91db0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:927086290979:android:22a9c0b9f80504686c6996",
+        "android_client_info": {
+          "package_name": "com.omouravictor.invest_view"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDouVad2yBuNsF4U9E-EnGqBz4w1KxRNq4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

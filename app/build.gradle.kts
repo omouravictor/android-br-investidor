@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.konan.properties.Properties
 
 plugins {
     id("com.android.application")
+    id("com.google.gms.google-services")
     id("org.jetbrains.kotlin.android")
     id("androidx.navigation.safeargs")
     id("kotlin-parcelize")
@@ -98,6 +99,9 @@ dependencies {
 
     val mpAndroidChartVersion = "3.1.0"
     implementation("com.github.PhilJay:MPAndroidChart:$mpAndroidChartVersion")
+
+    val firebaseBomVersion = "33.0.0"
+    implementation(platform("com.google.firebase:firebase-bom:$firebaseBomVersion"))
 }
 
 kapt {
