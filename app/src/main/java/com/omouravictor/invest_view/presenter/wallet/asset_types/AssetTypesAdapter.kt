@@ -2,7 +2,6 @@ package com.omouravictor.invest_view.presenter.wallet.asset_types
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.omouravictor.invest_view.databinding.ItemListAssetBinding
 import com.omouravictor.invest_view.presenter.base.BaseRecyclerViewAdapter
@@ -21,15 +20,8 @@ class AssetTypesAdapter : BaseRecyclerViewAdapter<AssetUiModel, AssetTypesAdapte
     }
 
     inner class AssetViewHolder(private val binding: ItemListAssetBinding) : RecyclerView.ViewHolder(binding.root) {
-        private val context = itemView.context
-
         fun bind(assetUiModel: AssetUiModel) {
-            val assetType = assetUiModel.assetType
-            AssetUtil.setupAssetUiModelBind(
-                binding,
-                assetUiModel,
-                ContextCompat.getColor(context, assetType.colorResId)
-            )
+            AssetUtil.setupAdapterItemListAssetBinding(binding, assetUiModel, assetUiModel.assetType.colorResId)
             itemView.setOnClickListener { onClickItem(assetUiModel) }
         }
     }

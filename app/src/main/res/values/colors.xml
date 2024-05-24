@@ -15,18 +15,6 @@
     <color name="buttonTextColorEnabledFalse">@color/appWindowBackColor</color>
     <color name="mtrl_textinput_default_box_stroke_color" tools:ignore="PrivateResource">@color/gray</color>
 
-    <!-- Asset type colors -->
-    <color name="brazilianStock">#FFBF00</color>
-    <color name="bdr">#977E00</color>
-    <color name="fi">#00B8D4</color>
-    <color name="etf">#FF6D00</color>
-    <color name="stock">#AA00FF</color>
-
-    <!-- Currency colors -->
-    <color name="usd">#1354C6</color>
-    <color name="brl">@color/brazilianStock</color>
-    <color name="eur">#93002A</color>
-
     <!-- default colors -->
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
@@ -34,5 +22,19 @@
     <color name="green">#00C853</color>
     <color name="red">#EE0000</color>
     <color name="yellow">#FFD600</color>
+
+    <!-- Asset type colors -->
+    <color name="brazilianStock">#FFBF00</color>
+    <color name="bdr">#977E00</color>
+    <color name="fi">#00B8D4</color>
+    <color name="etf">#FF6D00</color>
+    <color name="stock">#AA00FF</color>
     <color name="other">#737373</color>
+
+    <!-- Currency colors -->
+    <color name="usd">#0847B6</color>
+    <color name="brl">@color/brazilianStock</color>
+    <color name="eur">#93002A</color>
+    <color name="cad">#5582D1</color>
+    <color name="inr">#8D2BD3</color>
 </resources>

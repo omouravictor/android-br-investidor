@@ -1,15 +1,16 @@
 package com.omouravictor.invest_view.presenter.wallet.model
 
 import com.omouravictor.invest_view.presenter.wallet.asset_types.AssetTypes
-import com.omouravictor.invest_view.presenter.wallet.currencies.Currencies
-import com.omouravictor.invest_view.util.LocaleUtil
+import com.omouravictor.invest_view.util.LocaleUtil.getFormattedCurrencyValue
+import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForLongNumber
 
 data class AssetUiModel(
     val symbol: String,
     val name: String,
     val assetType: AssetTypes,
     val region: String,
-    val currency: Currencies,
+    val currency: String,
+    val currencyResColor: Int,
     var price: Double = 0.0,
     var amount: Long = 0,
     var totalInvested: Double = 0.0
@@ -17,7 +18,6 @@ data class AssetUiModel(
 
 fun AssetUiModel.getTotalAssetPrice() = price * amount
 
-fun AssetUiModel.getFormattedAmount() = "(${LocaleUtil.getFormattedValueForLongNumber(amount)})"
+fun AssetUiModel.getFormattedAmount() = "(${getFormattedValueForLongNumber(amount)})"
 
-fun AssetUiModel.getFormattedTotalAssetPrice() =
-    LocaleUtil.getFormattedCurrencyValue(currency.name, getTotalAssetPrice())
+fun AssetUiModel.getFormattedTotalAssetPrice() = getFormattedCurrencyValue(currency, getTotalAssetPrice())

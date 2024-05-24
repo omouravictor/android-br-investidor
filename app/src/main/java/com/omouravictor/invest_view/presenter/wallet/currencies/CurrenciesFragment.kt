@@ -45,7 +45,7 @@ class CurrenciesFragment : Fragment(), OnChartValueSelectedListener {
 
     override fun onValueSelected(e: Entry?, h: Highlight?) {
         val currency = (e as PieEntry).label
-        val filteredAssets = walletViewModel.assetsList.filter { it.currency.name == currency }
+        val filteredAssets = walletViewModel.assetsList.filter { it.currency == currency }
         assetCurrenciesAdapter.updateItemsList(filteredAssets)
     }
 
@@ -57,12 +57,12 @@ class CurrenciesFragment : Fragment(), OnChartValueSelectedListener {
         val context = requireContext()
         val pieChart = binding.pieChart.also { it.setOnChartValueSelectedListener(this) }
         val assets = walletViewModel.assetsList
-        val assetCurrencies = walletViewModel.assetCurrenciesList
+        val assetCurrencyPairs = walletViewModel.assetCurrencyPairsList
         val colors = arrayListOf<Int>()
-        val pieEntries = assetCurrencies.map { currency ->
-            colors.add(currency.colorResId)
+        val pieEntries = assetCurrencyPairs.map { (currency, currencyResColor) ->
+            colors.add(currencyResColor)
             val count = assets.count { it.currency == currency }
-            PieEntry(count.toFloat(), currency.name)
+            PieEntry(count.toFloat(), currency)
         }
         val pieDataSet = PieDataSet(pieEntries, getString(R.string.currencies)).apply {
             this.colors = colors.map { ContextCompat.getColor(context, it) }

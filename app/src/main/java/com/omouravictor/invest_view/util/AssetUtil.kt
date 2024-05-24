@@ -5,7 +5,6 @@ import androidx.core.view.isVisible
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.ItemListAssetBinding
 import com.omouravictor.invest_view.presenter.wallet.asset_types.AssetTypes
-import com.omouravictor.invest_view.presenter.wallet.currencies.Currencies
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAmount
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalAssetPrice
@@ -34,11 +33,14 @@ object AssetUtil {
         }
     }
 
-    fun getCurrency(currency: String): Currencies {
-        return try {
-            Currencies.valueOf(currency)
-        } catch (e: IllegalArgumentException) {
-            Currencies.OTHER
+    fun getCurrencyPair(currency: String): Pair<String, Int> {
+        return when (currency) {
+            "USD" -> Pair(currency, R.color.usd)
+            "BRL" -> Pair(currency, R.color.brl)
+            "EUR" -> Pair(currency, R.color.eur)
+            "CAD" -> Pair(currency, R.color.cad)
+            "INR" -> Pair(currency, R.color.inr)
+            else -> Pair(currency, R.color.other)
         }
     }
 
@@ -87,19 +89,20 @@ object AssetUtil {
         }
     }
 
-    fun setupAssetUiModelBind(
+    fun setupAdapterItemListAssetBinding(
         binding: ItemListAssetBinding,
         assetUiModel: AssetUiModel,
         color: Int
     ) {
-        binding.color.setBackgroundColor(color)
+        val context = binding.root.context
+        binding.color.setBackgroundColor(ContextCompat.getColor(context, color))
         binding.tvSymbol.text = getFormattedSymbol(assetUiModel.symbol)
         binding.tvAmount.text = assetUiModel.getFormattedAmount()
         binding.tvName.text = assetUiModel.name
         binding.tvTotal.text = assetUiModel.getFormattedTotalAssetPrice()
         setupVariationViews(
             binding,
-            assetUiModel.currency.name,
+            assetUiModel.currency,
             assetUiModel.totalInvested,
             assetUiModel.getTotalAssetPrice()
         )

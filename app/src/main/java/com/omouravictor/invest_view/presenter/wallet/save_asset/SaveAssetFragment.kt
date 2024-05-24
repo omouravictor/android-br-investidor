@@ -70,12 +70,14 @@ class SaveAssetFragment : Fragment() {
 
     private fun initEssentialVars() {
         val assetBySearchUiModel = SaveAssetFragmentArgs.fromBundle(requireArguments()).assetBySearchUiModel
+        val (currency, currencyResColor) = AssetUtil.getCurrencyPair(assetBySearchUiModel.currency)
         assetUiModel = AssetUiModel(
             symbol = assetBySearchUiModel.symbol,
             name = assetBySearchUiModel.name,
             assetType = AssetUtil.getAssetType(assetBySearchUiModel.symbol, assetBySearchUiModel.type),
             region = assetBySearchUiModel.region,
-            currency = AssetUtil.getCurrency(assetBySearchUiModel.currency),
+            currency = currency,
+            currencyResColor = currencyResColor,
             price = assetBySearchUiModel.price
         )
     }
@@ -86,7 +88,7 @@ class SaveAssetFragment : Fragment() {
         val assetTypeColor = context.getColor(assetType.colorResId)
         val ietAmount = binding.ietAmount
         val ietTotalInvested = binding.ietTotalInvested
-        val currency = assetUiModel.currency.name
+        val currency = assetUiModel.currency
         val etSymbol = binding.etSymbol
         val etLocation = binding.etLocation
         val incItemListAsset = binding.incItemListAsset
@@ -113,7 +115,7 @@ class SaveAssetFragment : Fragment() {
                 val totalAssetPrice = saveAssetViewModel.getTotalAssetPrice(assetUiModel.price, ietAmountText)
                 val ietTotalInvestedText = binding.ietTotalInvested.text.toString()
                 val totalInvested = saveAssetViewModel.getTotalInvested(ietTotalInvestedText)
-                val currency = assetUiModel.currency.name
+                val currency = assetUiModel.currency
 
                 tvSymbol.text = binding.etSymbol.text.toString()
                 tvAmount.text = getString(R.string.placeholderAssetAmount, ietAmountText)
