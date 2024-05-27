@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
@@ -25,6 +26,7 @@ import com.omouravictor.invest_view.util.AppUtil
 class CurrenciesFragment : Fragment(), OnChartValueSelectedListener {
 
     private lateinit var binding: FragmentAssetsBinding
+    private lateinit var pieChart: PieChart
     private val walletViewModel: WalletViewModel by activityViewModels()
     private val assetCurrenciesAdapter = AssetCurrenciesAdapter()
 
@@ -37,6 +39,7 @@ class CurrenciesFragment : Fragment(), OnChartValueSelectedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initEssentialVars()
         setupChart()
         setupAdapter()
         setupRecyclerView()
@@ -46,16 +49,33 @@ class CurrenciesFragment : Fragment(), OnChartValueSelectedListener {
     override fun onValueSelected(e: Entry?, h: Highlight?) {
         val currency = (e as PieEntry).label
         val filteredAssets = walletViewModel.assetsList.filter { it.currency == currency }
+
+        updatePieChartCenterText(filteredAssets.size)
         assetCurrenciesAdapter.updateItemsList(filteredAssets)
     }
 
     override fun onNothingSelected() {
-        assetCurrenciesAdapter.updateItemsList(walletViewModel.assetsList)
+        val assetsList = walletViewModel.assetsList
+
+        updatePieChartCenterText(assetsList.size)
+        assetCurrenciesAdapter.updateItemsList(assetsList)
+    }
+
+    private fun initEssentialVars() {
+        pieChart = binding.pieChart.also { it.setOnChartValueSelectedListener(this) }
+    }
+
+    private fun updatePieChartCenterText(assetSize: Int) {
+        val assetText = getString(if (assetSize == 1) R.string.asset else R.string.assets)
+        val spannableString = SpannableString("$assetSize\n$assetText").apply {
+            setSpan(StyleSpan(Typeface.BOLD), 0, assetSize.toString().length, 0)
+        }
+
+        pieChart.centerText = spannableString
     }
 
     private fun setupChart() {
         val context = requireContext()
-        val pieChart = binding.pieChart.also { it.setOnChartValueSelectedListener(this) }
         val assets = walletViewModel.assetsList
         val assetCurrencyPairs = walletViewModel.assetCurrencyPairsList
         val colors = arrayListOf<Int>()
@@ -69,13 +89,9 @@ class CurrenciesFragment : Fragment(), OnChartValueSelectedListener {
             sliceSpace = 3f
             setDrawIcons(false)
         }
-        val assetSize = assets.size
-        val assetText = getString(if (assetSize == 1) R.string.asset else R.string.assets)
-        val spannableString = SpannableString("$assetSize\n$assetText").apply {
-            setSpan(StyleSpan(Typeface.BOLD), 0, assetSize.toString().length, 0)
-        }
 
         AppUtil.showPieChart(context, pieChart, pieDataSet)
+        updatePieChartCenterText(assets.size)
     }
 
     private fun setupAdapter() {
