@@ -94,7 +94,51 @@ class WalletViewModel @Inject constructor(
                 price = 150.0,
                 amount = 10,
                 totalInvested = 1600.0
-            )
+            ),
+            AssetUiModel(
+                symbol = "AAPL34",
+                name = "Apple Inc.",
+                assetType = AssetTypes.BDR,
+                region = "Brazil/Sao Paolo",
+                currency = "BRL",
+                currencyResColor = R.color.brl,
+                price = 50.0,
+                amount = 10,
+                totalInvested = 1000.0
+            ),
+            AssetUiModel(
+                symbol = "MSFT",
+                name = "Apple Inc.",
+                assetType = AssetTypes.ETF,
+                region = "Amsterdam",
+                currency = "EUR",
+                currencyResColor = R.color.eur,
+                price = 150.0,
+                amount = 10,
+                totalInvested = 1600.0
+            ),
+            AssetUiModel(
+                symbol = "VALE3",
+                name = "Vale S.A.",
+                assetType = AssetTypes.BRAZILIAN_STOCK,
+                region = "Brazil/Sao Paolo",
+                currency = "CNY",
+                currencyResColor = R.color.cny,
+                price = 150.0,
+                amount = 10,
+                totalInvested = 1600.0
+            ),
+            AssetUiModel(
+                symbol = "MXRF11",
+                name = "Max renda.",
+                assetType = AssetTypes.FI,
+                region = "Brazil/Sao Paolo",
+                currency = "INR",
+                currencyResColor = R.color.inr,
+                price = 150.0,
+                amount = 10,
+                totalInvested = 1600.0
+            ),
         )
         _assetsLiveData.value = testList
     }

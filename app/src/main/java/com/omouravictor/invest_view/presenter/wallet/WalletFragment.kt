@@ -12,7 +12,6 @@ import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentWalletBinding
 import com.omouravictor.invest_view.presenter.base.BaseViewPagerAdapter
 import com.omouravictor.invest_view.presenter.wallet.asset_types.AssetTypesFragment
-import com.omouravictor.invest_view.presenter.wallet.countries.CountriesFragment
 import com.omouravictor.invest_view.presenter.wallet.currencies.CurrenciesFragment
 
 class WalletFragment : Fragment() {
@@ -43,7 +42,6 @@ class WalletFragment : Fragment() {
         val fragments = listOf(
             Pair(AssetTypesFragment(), getString(R.string.Assets)),
             Pair(CurrenciesFragment(), getString(R.string.currencies)),
-            Pair(CountriesFragment(), getString(R.string.countries))
         )
         val walletLayout = binding.incWalletLayout
         val viewPager2 = walletLayout.viewPager2
