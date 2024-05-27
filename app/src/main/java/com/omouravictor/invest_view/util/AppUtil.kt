@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
-import android.text.SpannableString
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -71,8 +70,7 @@ object AppUtil {
     fun showPieChart(
         context: Context,
         pieChart: PieChart,
-        pieDataSet: PieDataSet,
-        centerTextSpanString: SpannableString
+        pieDataSet: PieDataSet
     ) {
         val textSize12 = 12f
         val whiteColor = ContextCompat.getColor(context, R.color.white)
@@ -91,7 +89,6 @@ object AppUtil {
             legend.isEnabled = false
             isRotationEnabled = false
             isDrawHoleEnabled = true
-            centerText = centerTextSpanString
             setUsePercentValues(true)
             setHoleColor(Color.TRANSPARENT)
             setTransparentCircleAlpha(100)

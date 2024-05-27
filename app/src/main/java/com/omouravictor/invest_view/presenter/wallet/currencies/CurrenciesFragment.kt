@@ -75,7 +75,7 @@ class CurrenciesFragment : Fragment(), OnChartValueSelectedListener {
             setSpan(StyleSpan(Typeface.BOLD), 0, assetSize.toString().length, 0)
         }
 
-        AppUtil.showPieChart(context, pieChart, pieDataSet, spannableString)
+        AppUtil.showPieChart(context, pieChart, pieDataSet)
     }
 
     private fun setupAdapter() {
