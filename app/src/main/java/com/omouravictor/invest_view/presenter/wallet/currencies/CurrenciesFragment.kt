@@ -68,7 +68,7 @@ class CurrenciesFragment : Fragment(), OnChartValueSelectedListener {
     private fun updatePieChartCenterText(assetSize: Int) {
         val assetText = getString(if (assetSize == 1) R.string.asset else R.string.assets)
         val spannableString = SpannableString("$assetSize\n$assetText").apply {
-            setSpan(StyleSpan(Typeface.BOLD), 0, assetSize.toString().length, 0)
+            setSpan(StyleSpan(Typeface.ITALIC), 0, length, 0)
         }
 
         pieChart.centerText = spannableString

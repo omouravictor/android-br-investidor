@@ -36,6 +36,11 @@
     <string name="checkInternetConnection">Cheque sua conexão com a internet</string>
     <string name="somethingWentWrong">Algo deu errado, espere um pouco e tente novamente</string>
 
+    <!-- Currency names -->
+    <string name="usd">Dólar Americano</string>
+    <string name="brl">Real Brasileiro</string>
+    <string name="eur">Euro</string>
+
     <string name="appName">Invest View</string>
     <string name="add">Add</string>
     <string name="settings">Configurações</string>
@@ -65,10 +70,9 @@
     <string name="totalVariation">Variação total</string>
     <string name="countries">Países</string>
     <string name="other">Outro</string>
-
-    <!-- Currency names -->
-    <string name="usd">Dólar Americano</string>
-    <string name="brl">Real Brasileiro</string>
-    <string name="eur">Euro</string>
+    <string name="e_mail">E-mail</string>
+    <string name="password">Senha</string>
+    <string name="login">Login</string>
+    <string name="register">Cadastrar</string>
 
 </resources>

@@ -102,6 +102,9 @@ dependencies {
 
     val firebaseBomVersion = "33.0.0"
     implementation(platform("com.google.firebase:firebase-bom:$firebaseBomVersion"))
+
+    val firebaseAuthVersion = "23.0.0"
+    implementation("com.google.firebase:firebase-auth:$firebaseAuthVersion")
 }
 
 kapt {
