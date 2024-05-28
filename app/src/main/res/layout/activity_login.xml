@@ -12,12 +12,12 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:autofillHints="email"
-        android:text="omouravictor@gmail.com"
         android:drawableStart="@drawable/ic_email"
         android:drawablePadding="8dp"
         android:hint="@string/e_mail"
         android:inputType="textEmailAddress"
-        android:paddingVertical="@dimen/defaultPadding" />
+        android:paddingVertical="@dimen/defaultPadding"
+        android:text="omouravictor@gmail.com" />
 
     <EditText
         android:id="@+id/etPassword"
@@ -26,11 +26,11 @@
         android:layout_marginBottom="32dp"
         android:autofillHints="password"
         android:drawableStart="@drawable/ic_lock"
-        android:text="123456"
         android:drawablePadding="8dp"
         android:hint="@string/password"
         android:inputType="textPassword"
-        android:paddingVertical="@dimen/defaultPadding" />
+        android:paddingVertical="@dimen/defaultPadding"
+        android:text="123456" />
 
     <Button
         android:id="@+id/btnLogin"

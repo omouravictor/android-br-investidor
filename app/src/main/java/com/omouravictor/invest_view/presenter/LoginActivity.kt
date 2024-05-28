@@ -7,6 +7,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
+import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.ActivityLoginBinding
 import com.omouravictor.invest_view.util.AppUtil.showSnackBar
 
@@ -49,15 +50,15 @@ class LoginActivity : AppCompatActivity() {
                     startMainActivity()
                 } else {
                     val message = when (val exception = task.exception) {
-                        is FirebaseAuthInvalidCredentialsException -> "Credenciais inválidas, verifique o e-mail e senha."
-                        else -> "Erro ao fazer Login: ${exception?.message}"
+                        is FirebaseAuthInvalidCredentialsException -> getString(R.string.invalidCredentials)
+                        else -> "${getString(R.string.loginError)}: ${exception?.message}"
                     }
 
                     showSnackBar(this, message, isError = true)
                 }
             }
         } else {
-            showSnackBar(this, "Preencha todos os campos.", isError = true)
+            showSnackBar(this, getString(R.string.fillAllFields), isError = true)
         }
     }
 
@@ -71,16 +72,16 @@ class LoginActivity : AppCompatActivity() {
                     startMainActivity()
                 } else {
                     val message = when (val exception = task.exception) {
-                        is FirebaseAuthWeakPasswordException -> "Senha fraca, utilize no mínimo 6 caracteres."
-                        is FirebaseAuthUserCollisionException -> "E-mail já utilizado por outro usuário."
-                        else -> "Erro na tentativa de Cadastro: ${exception?.message}."
+                        is FirebaseAuthWeakPasswordException -> getString(R.string.weakPassword)
+                        is FirebaseAuthUserCollisionException -> getString(R.string.userAlreadyExists)
+                        else -> "${getString(R.string.registerError)}: ${exception?.message}."
                     }
 
                     showSnackBar(this, message, isError = true)
                 }
             }
         } else {
-            showSnackBar(this, "Preencha todos os campos.", isError = true)
+            showSnackBar(this, getString(R.string.fillAllFields), isError = true)
         }
     }
 
