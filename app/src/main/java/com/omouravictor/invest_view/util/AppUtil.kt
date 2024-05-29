@@ -31,21 +31,23 @@ object AppUtil {
 
     fun showSuccessSnackBar(activity: Activity, message: String) {
         val view = activity.findViewById<View>(android.R.id.content)
+        val context = view.context
         val snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT)
         val isBottomNavVisible = view.findViewById<View>(R.id.bottomNav)?.isVisible ?: false
 
         if (isBottomNavVisible)
             snackbar.setAnchorView(R.id.bottomNav)
 
-        snackbar.setBackgroundTint(ContextCompat.getColor(view.context, R.color.green))
-        snackbar.setTextColor(ContextCompat.getColor(view.context, R.color.white))
+        snackbar.setBackgroundTint(ContextCompat.getColor(context, R.color.green))
+        snackbar.setTextColor(ContextCompat.getColor(context, R.color.white))
         snackbar.show()
     }
 
     fun showErrorSnackBar(activity: Activity, message: String) {
         val view = activity.findViewById<View>(android.R.id.content)
+        val context = view.context
         val snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT)
-        val textColor = ContextCompat.getColor(view.context, R.color.white)
+        val textColor = ContextCompat.getColor(context, R.color.white)
         val isBottomNavVisible = view.findViewById<View>(R.id.bottomNav)?.isVisible ?: false
 
         if (isBottomNavVisible)
@@ -58,7 +60,7 @@ object AppUtil {
 
         snackbar.duration = Snackbar.LENGTH_INDEFINITE
         snackbar.setAction("Fechar") { snackbar.dismiss() }
-        snackbar.setBackgroundTint(ContextCompat.getColor(view.context, R.color.red))
+        snackbar.setBackgroundTint(ContextCompat.getColor(context, R.color.red))
         snackbar.setTextColor(textColor)
         snackbar.show()
     }
