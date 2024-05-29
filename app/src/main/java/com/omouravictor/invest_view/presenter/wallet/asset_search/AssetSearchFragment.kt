@@ -20,7 +20,7 @@ import com.omouravictor.invest_view.presenter.base.UiState
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetBySearchUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetQuoteUiModel
-import com.omouravictor.invest_view.util.AppUtil
+import com.omouravictor.invest_view.util.AppUtil.showErrorSnackBar
 import com.omouravictor.invest_view.util.SystemServiceUtil
 
 class AssetSearchFragment : Fragment() {
@@ -72,11 +72,7 @@ class AssetSearchFragment : Fragment() {
             if (query.isNotEmpty()) {
                 assetSearchViewModel.getAssetsBySearch(query)
             } else {
-                AppUtil.showSnackBar(
-                    activity,
-                    message = getString(R.string.enterAssetSymbolForTryAgain),
-                    isError = true
-                )
+                showErrorSnackBar(activity, message = getString(R.string.enterAssetSymbolForTryAgain))
             }
         }
     }
@@ -89,7 +85,7 @@ class AssetSearchFragment : Fragment() {
                 this.assetBySearchUiModel = assetBySearchUiModel
                 assetSearchViewModel.getAssetQuote(symbol)
             } else {
-                AppUtil.showSnackBar(requireActivity(), getString(R.string.assetAlreadyExists), isError = true)
+                showErrorSnackBar(requireActivity(), getString(R.string.assetAlreadyExists))
             }
         }
     }

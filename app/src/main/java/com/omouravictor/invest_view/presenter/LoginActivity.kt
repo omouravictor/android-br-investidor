@@ -9,7 +9,7 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.ActivityLoginBinding
-import com.omouravictor.invest_view.util.AppUtil.showSnackBar
+import com.omouravictor.invest_view.util.AppUtil.showErrorSnackBar
 
 class LoginActivity : AppCompatActivity() {
 
@@ -54,11 +54,11 @@ class LoginActivity : AppCompatActivity() {
                         else -> "${getString(R.string.loginError)}: ${exception?.message}"
                     }
 
-                    showSnackBar(this, message, isError = true)
+                    showErrorSnackBar(this, message)
                 }
             }
         } else {
-            showSnackBar(this, getString(R.string.fillAllFields), isError = true)
+            showErrorSnackBar(this, getString(R.string.fillAllFields))
         }
     }
 
@@ -77,11 +77,11 @@ class LoginActivity : AppCompatActivity() {
                         else -> "${getString(R.string.registerError)}: ${exception?.message}."
                     }
 
-                    showSnackBar(this, message, isError = true)
+                    showErrorSnackBar(this, message)
                 }
             }
         } else {
-            showSnackBar(this, getString(R.string.fillAllFields), isError = true)
+            showErrorSnackBar(this, getString(R.string.fillAllFields))
         }
     }
 

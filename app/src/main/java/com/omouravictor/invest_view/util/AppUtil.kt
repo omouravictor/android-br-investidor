@@ -29,29 +29,36 @@ object AppUtil {
         }
     }
 
-    fun showSnackBar(
-        activity: Activity,
-        message: String,
-        isSuccess: Boolean = false,
-        isError: Boolean = false
-    ) {
+    fun showSuccessSnackBar(activity: Activity, message: String) {
         val view = activity.findViewById<View>(android.R.id.content)
         val snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT)
-        val backgroundTintColor = when {
-            isSuccess -> ContextCompat.getColor(view.context, R.color.green)
-            isError -> ContextCompat.getColor(view.context, R.color.red)
-            else -> ContextCompat.getColor(view.context, R.color.appPrimaryColor)
-        }
-        val textColor = when {
-            isSuccess || isError -> ContextCompat.getColor(view.context, R.color.white)
-            else -> ContextCompat.getColor(view.context, R.color.appTextColor)
-        }
         val isBottomNavVisible = view.findViewById<View>(R.id.bottomNav)?.isVisible ?: false
 
         if (isBottomNavVisible)
             snackbar.setAnchorView(R.id.bottomNav)
 
-        snackbar.setBackgroundTint(backgroundTintColor)
+        snackbar.setBackgroundTint(ContextCompat.getColor(view.context, R.color.green))
+        snackbar.setTextColor(ContextCompat.getColor(view.context, R.color.white))
+        snackbar.show()
+    }
+
+    fun showErrorSnackBar(activity: Activity, message: String) {
+        val view = activity.findViewById<View>(android.R.id.content)
+        val snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT)
+        val textColor = ContextCompat.getColor(view.context, R.color.white)
+        val isBottomNavVisible = view.findViewById<View>(R.id.bottomNav)?.isVisible ?: false
+
+        if (isBottomNavVisible)
+            snackbar.setAnchorView(R.id.bottomNav)
+
+        snackbar.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_action).apply {
+            isAllCaps = false
+            setTextColor(textColor)
+        }
+
+        snackbar.duration = Snackbar.LENGTH_INDEFINITE
+        snackbar.setAction("Fechar") { snackbar.dismiss() }
+        snackbar.setBackgroundTint(ContextCompat.getColor(view.context, R.color.red))
         snackbar.setTextColor(textColor)
         snackbar.show()
     }
