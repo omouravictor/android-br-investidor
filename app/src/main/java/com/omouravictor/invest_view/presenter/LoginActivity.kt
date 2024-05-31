@@ -54,11 +54,11 @@ class LoginActivity : AppCompatActivity() {
                         else -> "${getString(R.string.loginError)}: ${exception?.message}"
                     }
 
-                    showErrorSnackBar(this, message)
+                    showErrorSnackBar(this, message, hasCloseAction = true)
                 }
             }
         } else {
-            showErrorSnackBar(this, getString(R.string.fillAllFields))
+            showErrorSnackBar(this, getString(R.string.fillAllFields), hasCloseAction = true)
         }
     }
 
@@ -77,11 +77,11 @@ class LoginActivity : AppCompatActivity() {
                         else -> "${getString(R.string.registerError)}: ${exception?.message}."
                     }
 
-                    showErrorSnackBar(this, message)
+                    showErrorSnackBar(this, message, hasCloseAction = true)
                 }
             }
         } else {
-            showErrorSnackBar(this, getString(R.string.fillAllFields))
+            showErrorSnackBar(this, getString(R.string.fillAllFields), hasCloseAction = true)
         }
     }
 
