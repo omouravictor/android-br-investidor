@@ -33,15 +33,15 @@ object AssetUtil {
         }
     }
 
-    fun getCurrencyPair(currency: String): Pair<String, Int> {
+    fun getCurrencyResColor(currency: String): Int {
         return when (currency) {
-            "USD" -> Pair(currency, R.color.usd)
-            "BRL" -> Pair(currency, R.color.brl)
-            "EUR" -> Pair(currency, R.color.eur)
-            "CAD" -> Pair(currency, R.color.cad)
-            "INR" -> Pair(currency, R.color.inr)
-            "CNY" -> Pair(currency, R.color.cny)
-            else -> Pair(currency, R.color.other)
+            "USD" -> R.color.usd
+            "BRL" -> R.color.brl
+            "EUR" -> R.color.eur
+            "CAD" -> R.color.cad
+            "INR" -> R.color.inr
+            "CNY" -> R.color.cny
+            else -> R.color.other
         }
     }
 

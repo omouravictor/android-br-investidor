@@ -105,6 +105,9 @@ dependencies {
 
     val firebaseAuthVersion = "23.0.0"
     implementation("com.google.firebase:firebase-auth:$firebaseAuthVersion")
+
+    val firebaseFirestoreVersion = "25.0.0"
+    implementation("com.google.firebase:firebase-firestore:$firebaseFirestoreVersion")
 }
 
 kapt {

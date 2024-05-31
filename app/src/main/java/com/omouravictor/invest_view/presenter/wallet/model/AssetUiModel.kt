@@ -10,7 +10,6 @@ data class AssetUiModel(
     val assetType: AssetTypes,
     val region: String,
     val currency: String,
-    val currencyResColor: Int,
     var price: Double = 0.0,
     var amount: Long = 0,
     var totalInvested: Double = 0.0

@@ -70,14 +70,12 @@ class SaveAssetFragment : Fragment() {
 
     private fun initEssentialVars() {
         val assetBySearchUiModel = SaveAssetFragmentArgs.fromBundle(requireArguments()).assetBySearchUiModel
-        val (currency, currencyResColor) = AssetUtil.getCurrencyPair(assetBySearchUiModel.currency)
         assetUiModel = AssetUiModel(
             symbol = assetBySearchUiModel.symbol,
             name = assetBySearchUiModel.name,
             assetType = AssetUtil.getAssetType(assetBySearchUiModel.symbol, assetBySearchUiModel.type),
             region = assetBySearchUiModel.region,
-            currency = currency,
-            currencyResColor = currencyResColor,
+            currency = assetBySearchUiModel.currency,
             price = assetBySearchUiModel.price
         )
     }

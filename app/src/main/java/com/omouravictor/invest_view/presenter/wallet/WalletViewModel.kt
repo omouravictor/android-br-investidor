@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.data.network.remote.repository.RemoteAssetsRepository
 import com.omouravictor.invest_view.di.base.DispatcherProvider
 import com.omouravictor.invest_view.presenter.wallet.asset_types.AssetTypes
@@ -24,8 +23,7 @@ class WalletViewModel @Inject constructor(
     val assetsLiveData: LiveData<List<AssetUiModel>> = _assetsLiveData
     val assetsList get() = assetsLiveData.value.orEmpty()
     val assetTypesList get() = assetsList.map { it.assetType }.distinct()
-    val assetCurrencyPairsList get() = assetsList.map { Pair(it.currency, it.currencyResColor) }.distinct()
-    val assetRegionsList get() = assetsList.map { it.region }.distinct()
+    val assetCurrenciesList get() = assetsList.map { it.currency }.distinct()
 
     init {
         val testList = listOf(
@@ -35,7 +33,6 @@ class WalletViewModel @Inject constructor(
                 assetType = AssetTypes.STOCK,
                 region = "United States",
                 currency = "USD",
-                currencyResColor = R.color.usd,
                 price = 150.0,
                 amount = 10,
                 totalInvested = 1600.0
@@ -46,7 +43,6 @@ class WalletViewModel @Inject constructor(
                 assetType = AssetTypes.BDR,
                 region = "Brazil/Sao Paolo",
                 currency = "BRL",
-                currencyResColor = R.color.brl,
                 price = 50.0,
                 amount = 10,
                 totalInvested = 1000.0
@@ -57,7 +53,6 @@ class WalletViewModel @Inject constructor(
                 assetType = AssetTypes.ETF,
                 region = "Amsterdam",
                 currency = "EUR",
-                currencyResColor = R.color.eur,
                 price = 150.0,
                 amount = 10,
                 totalInvested = 1600.0
@@ -68,7 +63,6 @@ class WalletViewModel @Inject constructor(
                 assetType = AssetTypes.BRAZILIAN_STOCK,
                 region = "Brazil/Sao Paolo",
                 currency = "CNY",
-                currencyResColor = R.color.cny,
                 price = 150.0,
                 amount = 10,
                 totalInvested = 1600.0
@@ -79,7 +73,6 @@ class WalletViewModel @Inject constructor(
                 assetType = AssetTypes.FI,
                 region = "Brazil/Sao Paolo",
                 currency = "INR",
-                currencyResColor = R.color.inr,
                 price = 150.0,
                 amount = 10,
                 totalInvested = 1600.0
@@ -90,7 +83,6 @@ class WalletViewModel @Inject constructor(
                 assetType = AssetTypes.OTHER,
                 region = "Brazil/Sao Paolo",
                 currency = "CAD",
-                currencyResColor = R.color.cad,
                 price = 150.0,
                 amount = 10,
                 totalInvested = 1600.0
@@ -101,7 +93,6 @@ class WalletViewModel @Inject constructor(
                 assetType = AssetTypes.BDR,
                 region = "Brazil/Sao Paolo",
                 currency = "BRL",
-                currencyResColor = R.color.brl,
                 price = 50.0,
                 amount = 10,
                 totalInvested = 1000.0
@@ -112,7 +103,6 @@ class WalletViewModel @Inject constructor(
                 assetType = AssetTypes.ETF,
                 region = "Amsterdam",
                 currency = "EUR",
-                currencyResColor = R.color.eur,
                 price = 150.0,
                 amount = 10,
                 totalInvested = 1600.0
@@ -123,7 +113,6 @@ class WalletViewModel @Inject constructor(
                 assetType = AssetTypes.BRAZILIAN_STOCK,
                 region = "Brazil/Sao Paolo",
                 currency = "CNY",
-                currencyResColor = R.color.cny,
                 price = 150.0,
                 amount = 10,
                 totalInvested = 1600.0
@@ -134,7 +123,6 @@ class WalletViewModel @Inject constructor(
                 assetType = AssetTypes.FI,
                 region = "Brazil/Sao Paolo",
                 currency = "INR",
-                currencyResColor = R.color.inr,
                 price = 150.0,
                 amount = 10,
                 totalInvested = 1600.0

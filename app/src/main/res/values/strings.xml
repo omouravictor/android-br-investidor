@@ -42,11 +42,6 @@
     <string name="checkInternetConnection">Cheque sua conexão com a internet</string>
     <string name="somethingWentWrong">Algo deu errado, espere um pouco e tente novamente</string>
 
-    <!-- Currency names -->
-    <string name="usd">Dólar Americano</string>
-    <string name="brl">Real Brasileiro</string>
-    <string name="eur">Euro</string>
-
     <string name="appName">Invest View</string>
     <string name="add">Add</string>
     <string name="settings">Configurações</string>

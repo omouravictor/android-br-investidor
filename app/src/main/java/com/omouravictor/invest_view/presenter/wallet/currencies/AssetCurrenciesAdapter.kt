@@ -21,7 +21,8 @@ class AssetCurrenciesAdapter : BaseRecyclerViewAdapter<AssetUiModel, AssetCurren
 
     inner class AssetViewHolder(private val binding: ItemListAssetBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(assetUiModel: AssetUiModel) {
-            AssetUtil.setupAdapterItemListAssetBinding(binding, assetUiModel, assetUiModel.currencyResColor)
+            val currencyResColor = AssetUtil.getCurrencyResColor(assetUiModel.currency)
+            AssetUtil.setupAdapterItemListAssetBinding(binding, assetUiModel, currencyResColor)
             itemView.setOnClickListener { onClickItem(assetUiModel) }
         }
     }

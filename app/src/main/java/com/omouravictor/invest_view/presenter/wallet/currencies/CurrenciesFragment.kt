@@ -22,6 +22,7 @@ import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetsBinding
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.util.AppUtil
+import com.omouravictor.invest_view.util.AssetUtil
 
 class CurrenciesFragment : Fragment(), OnChartValueSelectedListener {
 
@@ -77,10 +78,10 @@ class CurrenciesFragment : Fragment(), OnChartValueSelectedListener {
     private fun setupChart() {
         val context = requireContext()
         val assets = walletViewModel.assetsList
-        val assetCurrencyPairs = walletViewModel.assetCurrencyPairsList
+        val assetCurrencies = walletViewModel.assetCurrenciesList
         val colors = arrayListOf<Int>()
-        val pieEntries = assetCurrencyPairs.map { (currency, currencyResColor) ->
-            colors.add(currencyResColor)
+        val pieEntries = assetCurrencies.map { currency ->
+            colors.add(AssetUtil.getCurrencyResColor(currency))
             val count = assets.count { it.currency == currency }
             PieEntry(count.toFloat(), currency)
         }
