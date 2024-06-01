@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.omouravictor.invest_view.R
@@ -13,6 +16,8 @@ import com.omouravictor.invest_view.databinding.FragmentWalletBinding
 import com.omouravictor.invest_view.presenter.base.BaseViewPagerAdapter
 import com.omouravictor.invest_view.presenter.wallet.asset_types.AssetTypesFragment
 import com.omouravictor.invest_view.presenter.wallet.currencies.CurrenciesFragment
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class WalletFragment : Fragment() {
 
@@ -35,7 +40,7 @@ class WalletFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupTabLayoutWithViewPager2()
         setupEmptyWalletLayout()
-        observeAssets()
+        observeAssetsList()
     }
 
     private fun setupTabLayoutWithViewPager2() {
@@ -59,12 +64,16 @@ class WalletFragment : Fragment() {
         }
     }
 
-    private fun observeAssets() {
-        walletViewModel.assetsListLiveData.observe(viewLifecycleOwner) {
-            binding.viewFlipper.displayedChild = if (it.isEmpty()) {
-                VIEW_FLIPPER_CHILD_EMPTY_WALLET_LAYOUT
-            } else {
-                VIEW_FLIPPER_CHILD_WALLET_LAYOUT
+    private fun observeAssetsList() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                walletViewModel.assetsListStateFlow.collectLatest {
+                    binding.viewFlipper.displayedChild = if (it.isEmpty()) {
+                        VIEW_FLIPPER_CHILD_EMPTY_WALLET_LAYOUT
+                    } else {
+                        VIEW_FLIPPER_CHILD_WALLET_LAYOUT
+                    }
+                }
             }
         }
     }

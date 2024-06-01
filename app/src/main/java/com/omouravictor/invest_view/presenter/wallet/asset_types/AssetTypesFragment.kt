@@ -10,6 +10,9 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.Entry
@@ -22,6 +25,8 @@ import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetsBinding
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.util.AppUtil
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
 
@@ -43,7 +48,7 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
         setupChart()
         setupAdapter()
         setupRecyclerView()
-        observeAssets()
+        observeAssetsList()
     }
 
     override fun onValueSelected(e: Entry?, h: Highlight?) {
@@ -107,9 +112,13 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
         }
     }
 
-    private fun observeAssets() {
-        walletViewModel.assetsListLiveData.observe(viewLifecycleOwner) {
-            assetTypesAdapter.updateItemsList(it)
+    private fun observeAssetsList() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                walletViewModel.assetsListStateFlow.collectLatest {
+                    assetTypesAdapter.updateItemsList(it)
+                }
+            }
         }
     }
 

@@ -51,7 +51,7 @@ class AssetSearchFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         SystemServiceUtil.hideKeyboard(requireActivity(), searchView)
-        assetSearchViewModel.clearAssetQuoteLiveData()
+        assetSearchViewModel.resetAssetQuoteLiveData()
     }
 
     private fun addMenuProvider() {

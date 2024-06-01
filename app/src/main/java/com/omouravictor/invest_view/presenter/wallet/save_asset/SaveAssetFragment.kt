@@ -12,6 +12,9 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentSaveAssetBinding
@@ -24,6 +27,8 @@ import com.omouravictor.invest_view.util.EditTextUtil
 import com.omouravictor.invest_view.util.LocaleUtil
 import com.omouravictor.invest_view.util.NavigationUtil
 import com.omouravictor.invest_view.util.StringUtil
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class SaveAssetFragment : Fragment() {
 
@@ -49,7 +54,7 @@ class SaveAssetFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
-        walletViewModel.clearWalletUiStateLiveData()
+        walletViewModel.resetWalletUiStateFlow()
     }
 
     private fun setupToolbar() {
@@ -155,24 +160,28 @@ class SaveAssetFragment : Fragment() {
     }
 
     private fun observeWalletUiState() {
-        walletViewModel.walletUiStateLiveData.observe(viewLifecycleOwner) {
-            when (it) {
-                is UiState.Empty -> Unit
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                walletViewModel.walletUiStateFlow.collectLatest {
+                    when (it) {
+                        is UiState.Empty -> Unit
 
-                is UiState.Loading -> {
-                    binding.layout.visibility = View.INVISIBLE
-                    binding.progressBar.visibility = View.VISIBLE
-                }
+                        is UiState.Loading -> {
+                            binding.layout.visibility = View.INVISIBLE
+                            binding.progressBar.visibility = View.VISIBLE
+                        }
 
-                is UiState.Error -> {
-                    val activity = requireActivity()
-                    binding.layout.visibility = View.VISIBLE
-                    binding.progressBar.visibility = View.INVISIBLE
-                    AppUtil.showErrorSnackBar(activity, AppUtil.getGenericErrorMessage(activity, it.e))
-                }
+                        is UiState.Error -> {
+                            val activity = requireActivity()
+                            binding.layout.visibility = View.VISIBLE
+                            binding.progressBar.visibility = View.INVISIBLE
+                            AppUtil.showErrorSnackBar(activity, AppUtil.getGenericErrorMessage(activity, it.e))
+                        }
 
-                is UiState.Success -> {
-                    NavigationUtil.clearPileAndNavigateToStart(findNavController())
+                        is UiState.Success -> {
+                            NavigationUtil.clearPileAndNavigateToStart(findNavController())
+                        }
+                    }
                 }
             }
         }
