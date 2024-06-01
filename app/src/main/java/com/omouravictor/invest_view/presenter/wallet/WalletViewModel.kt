@@ -42,6 +42,7 @@ class WalletViewModel @Inject constructor(
                         currentList.add(it.data)
                         _assetsLiveData.value = currentList
                     }
+
                     is NetworkState.Error -> _walletUiState.value = UiState.Error(it.e)
                     is NetworkState.Loading -> _walletUiState.value = UiState.Loading
                 }

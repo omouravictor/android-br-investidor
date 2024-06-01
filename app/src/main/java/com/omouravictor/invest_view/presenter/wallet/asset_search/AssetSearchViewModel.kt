@@ -31,18 +31,19 @@ class AssetSearchViewModel @Inject constructor(
 
     fun getAssetsBySearch(keywords: String) {
         viewModelScope.launch {
+            _assetsBySearch.value = UiState.Loading
+
             withContext(dispatchers.io) {
                 remoteAssetsRepository.getAssetsBySearch(keywords)
             }.collectLatest {
                 when (it) {
-                    is NetworkState.Loading -> _assetsBySearch.value = UiState.Loading
-
                     is NetworkState.Success -> {
                         val assetsBySearchUiModel = it.data.toAssetsBySearchUiModel()
                         _assetsBySearch.value = UiState.Success(assetsBySearchUiModel)
                     }
 
                     is NetworkState.Error -> _assetsBySearch.value = UiState.Error(it.e)
+                    is NetworkState.Loading -> _assetsBySearch.value = UiState.Loading
                 }
             }
         }
@@ -50,18 +51,19 @@ class AssetSearchViewModel @Inject constructor(
 
     fun getAssetQuote(symbol: String) {
         viewModelScope.launch {
+            _assetQuote.value = UiState.Loading
+
             withContext(dispatchers.io) {
                 remoteAssetsRepository.getAssetGlobalQuote(symbol)
             }.collectLatest {
                 when (it) {
-                    is NetworkState.Loading -> _assetQuote.value = UiState.Loading
-
                     is NetworkState.Success -> {
                         val assetQuoteUiModel = it.data.toAssetQuoteUiModel()
                         _assetQuote.value = UiState.Success(assetQuoteUiModel)
                     }
 
                     is NetworkState.Error -> _assetQuote.value = UiState.Error(it.e)
+                    is NetworkState.Loading -> _assetQuote.value = UiState.Loading
                 }
             }
         }

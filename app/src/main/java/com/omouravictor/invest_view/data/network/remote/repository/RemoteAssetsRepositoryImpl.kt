@@ -13,7 +13,6 @@ class RemoteAssetsRepositoryImpl(
 
     override fun getAssetsBySearch(keywords: String): Flow<NetworkState<AssetsBySearchResponse>> {
         return flow {
-            emit(NetworkState.Loading)
             try {
                 val response = alphaVantageService.getAssetsBySearch(keywords)
                 emit(NetworkState.Success(response))
@@ -25,7 +24,6 @@ class RemoteAssetsRepositoryImpl(
 
     override fun getAssetGlobalQuote(symbol: String): Flow<NetworkState<AssetGlobalQuoteResponse>> {
         return flow {
-            emit(NetworkState.Loading)
             try {
                 val response = alphaVantageService.getAssetGlobalQuote(symbol)
                 emit(NetworkState.Success(response))
