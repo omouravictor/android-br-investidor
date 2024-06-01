@@ -21,9 +21,9 @@ class WalletViewModel @Inject constructor(
     private val dispatchers: DispatcherProvider
 ) : ViewModel() {
 
-    private val _walletUiState = MutableLiveData<UiState<Unit>>()
+    private val _walletUiStateLiveData = MutableLiveData<UiState<Unit>>()
     private val _assetsListLiveData = MutableLiveData<List<AssetUiModel>>()
-    val walletUiState: LiveData<UiState<Unit>> = _walletUiState
+    val walletUiStateLiveData: LiveData<UiState<Unit>> = _walletUiStateLiveData
     val assetsListLiveData: LiveData<List<AssetUiModel>> = _assetsListLiveData
     val assetsList get() = assetsListLiveData.value.orEmpty()
     val assetTypesList get() = assetsList.map { it.assetType }.distinct()
@@ -31,7 +31,7 @@ class WalletViewModel @Inject constructor(
 
     fun saveAsset(asset: AssetUiModel) {
         viewModelScope.launch {
-            _walletUiState.value = UiState.Loading
+            _walletUiStateLiveData.value = UiState.Loading
 
             withContext(dispatchers.io) {
                 firebaseRepository.saveAsset(asset)
@@ -41,11 +41,11 @@ class WalletViewModel @Inject constructor(
                         val currentList = assetsList.toMutableList()
                         currentList.add(it.data)
                         _assetsListLiveData.value = currentList
-                        _walletUiState.value = UiState.Success(Unit)
+                        _walletUiStateLiveData.value = UiState.Success(Unit)
                     }
 
-                    is NetworkState.Error -> _walletUiState.value = UiState.Error(it.e)
-                    is NetworkState.Loading -> _walletUiState.value = UiState.Loading
+                    is NetworkState.Error -> _walletUiStateLiveData.value = UiState.Error(it.e)
+                    is NetworkState.Loading -> _walletUiStateLiveData.value = UiState.Loading
                 }
             }
         }
