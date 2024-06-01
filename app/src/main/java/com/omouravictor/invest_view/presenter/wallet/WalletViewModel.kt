@@ -21,11 +21,11 @@ class WalletViewModel @Inject constructor(
     private val dispatchers: DispatcherProvider
 ) : ViewModel() {
 
-    private val _walletUiState = MutableLiveData<UiState<List<AssetUiModel>>>()
-    private val _assetsLiveData = MutableLiveData<List<AssetUiModel>>()
-    val walletUiState: LiveData<UiState<List<AssetUiModel>>> = _walletUiState
-    val assetsLiveData: LiveData<List<AssetUiModel>> = _assetsLiveData
-    val assetsList get() = assetsLiveData.value.orEmpty()
+    private val _walletUiState = MutableLiveData<UiState<Unit>>()
+    private val _assetsListLiveData = MutableLiveData<List<AssetUiModel>>()
+    val walletUiState: LiveData<UiState<Unit>> = _walletUiState
+    val assetsListLiveData: LiveData<List<AssetUiModel>> = _assetsListLiveData
+    val assetsList get() = assetsListLiveData.value.orEmpty()
     val assetTypesList get() = assetsList.map { it.assetType }.distinct()
     val assetCurrenciesList get() = assetsList.map { it.currency }.distinct()
 
@@ -40,7 +40,8 @@ class WalletViewModel @Inject constructor(
                     is NetworkState.Success -> {
                         val currentList = assetsList.toMutableList()
                         currentList.add(it.data)
-                        _assetsLiveData.value = currentList
+                        _assetsListLiveData.value = currentList
+                        _walletUiState.value = UiState.Success(Unit)
                     }
 
                     is NetworkState.Error -> _walletUiState.value = UiState.Error(it.e)

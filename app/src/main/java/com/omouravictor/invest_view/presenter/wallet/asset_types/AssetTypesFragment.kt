@@ -108,7 +108,7 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
     }
 
     private fun observeAssets() {
-        walletViewModel.assetsLiveData.observe(viewLifecycleOwner) {
+        walletViewModel.assetsListLiveData.observe(viewLifecycleOwner) {
             assetTypesAdapter.updateItemsList(it)
         }
     }

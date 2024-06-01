@@ -109,7 +109,7 @@ class CurrenciesFragment : Fragment(), OnChartValueSelectedListener {
     }
 
     private fun observeAssets() {
-        walletViewModel.assetsLiveData.observe(viewLifecycleOwner) {
+        walletViewModel.assetsListLiveData.observe(viewLifecycleOwner) {
             assetCurrenciesAdapter.updateItemsList(it)
         }
     }

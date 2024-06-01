@@ -60,7 +60,7 @@ class WalletFragment : Fragment() {
     }
 
     private fun observeAssets() {
-        walletViewModel.assetsLiveData.observe(viewLifecycleOwner) {
+        walletViewModel.assetsListLiveData.observe(viewLifecycleOwner) {
             binding.viewFlipper.displayedChild = if (it.isEmpty()) {
                 VIEW_FLIPPER_CHILD_EMPTY_WALLET_LAYOUT
             } else {
