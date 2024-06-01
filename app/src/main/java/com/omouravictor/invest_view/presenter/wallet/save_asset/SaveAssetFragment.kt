@@ -15,6 +15,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentSaveAssetBinding
+import com.omouravictor.invest_view.presenter.base.UiState
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.util.AppUtil
@@ -43,6 +44,12 @@ class SaveAssetFragment : Fragment() {
         setupToolbar()
         setupViews()
         setupBtnSave()
+        observeWalletUiState()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        walletViewModel.clearWalletUiStateLiveData()
     }
 
     private fun setupToolbar() {
@@ -153,12 +160,35 @@ class SaveAssetFragment : Fragment() {
         }
     }
 
+    private fun observeWalletUiState() {
+        walletViewModel.walletUiStateLiveData.observe(viewLifecycleOwner) {
+            when (it) {
+                is UiState.Empty -> Unit
+
+                is UiState.Loading -> {
+                    binding.layout.visibility = View.INVISIBLE
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+
+                is UiState.Error -> {
+                    val activity = requireActivity()
+                    binding.layout.visibility = View.VISIBLE
+                    binding.progressBar.visibility = View.INVISIBLE
+                    AppUtil.showErrorSnackBar(activity, AppUtil.getGenericErrorMessage(activity, it.e))
+                }
+
+                is UiState.Success -> {
+                    NavigationUtil.clearPileAndNavigateToStart(findNavController())
+                }
+            }
+        }
+    }
+
     private fun setupBtnSave() {
         binding.btnSave.setOnClickListener {
             assetUiModel.amount = getAmount()
             assetUiModel.totalInvested = getTotalInvested()
             walletViewModel.saveAsset(assetUiModel)
-            NavigationUtil.clearPileAndNavigateToStart(findNavController())
         }
     }
 

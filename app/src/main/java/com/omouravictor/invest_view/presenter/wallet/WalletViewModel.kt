@@ -51,4 +51,8 @@ class WalletViewModel @Inject constructor(
         }
     }
 
+    fun clearWalletUiStateLiveData() {
+        _walletUiStateLiveData.value = UiState.Empty
+    }
+
 }

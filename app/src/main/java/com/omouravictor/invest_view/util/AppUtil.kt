@@ -21,7 +21,7 @@ import com.omouravictor.invest_view.presenter.wallet.asset_types.AssetTypes
 
 object AppUtil {
 
-    fun getGenericNetworkErrorMessage(context: Context, e: Exception): String {
+    fun getGenericErrorMessage(context: Context, e: Exception): String {
         return when (e) {
             is java.net.UnknownHostException -> context.getString(R.string.noInternetConnection)
             is java.net.SocketTimeoutException -> context.getString(R.string.checkInternetConnection)

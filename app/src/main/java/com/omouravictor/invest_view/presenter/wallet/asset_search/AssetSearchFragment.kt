@@ -119,7 +119,7 @@ class AssetSearchFragment : Fragment() {
 
     private fun handleErrors(e: Exception) {
         setupViewsForAssetsBySearch(isError = true)
-        binding.incLayoutError.tvInfoMessage.text = AppUtil.getGenericNetworkErrorMessage(requireContext(), e)
+        binding.incLayoutError.tvInfoMessage.text = AppUtil.getGenericErrorMessage(requireContext(), e)
     }
 
     private fun observeAssetsBySearch() {
