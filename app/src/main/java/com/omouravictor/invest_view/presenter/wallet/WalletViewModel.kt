@@ -21,9 +21,8 @@ class WalletViewModel @Inject constructor(
     private val dispatchers: DispatcherProvider
 ) : ViewModel() {
 
-    private val _walletUiState = MutableLiveData<UiState<Nothing>>()
-    val walletUiState: LiveData<UiState<Nothing>> = _walletUiState
-
+    private val _walletUiState = MutableLiveData<UiState<List<AssetUiModel>>>()
+    val walletUiState: LiveData<UiState<List<AssetUiModel>>> = _walletUiState
     private val _assetsLiveData = MutableLiveData<List<AssetUiModel>>()
     val assetsLiveData: LiveData<List<AssetUiModel>> = _assetsLiveData
     val assetsList get() = assetsLiveData.value.orEmpty()
@@ -32,19 +31,19 @@ class WalletViewModel @Inject constructor(
 
     fun saveAsset(asset: AssetUiModel) {
         viewModelScope.launch {
+            _walletUiState.value = UiState.Loading
+
             withContext(dispatchers.io) {
                 remoteDatabaseRepository.save(asset)
             }.collectLatest {
                 when (it) {
-                    is NetworkState.Loading -> _walletUiState.value = UiState.Loading
-
                     is NetworkState.Success -> {
                         val currentList = assetsList.toMutableList()
                         currentList.add(it.data)
                         _assetsLiveData.value = currentList
                     }
-
                     is NetworkState.Error -> _walletUiState.value = UiState.Error(it.e)
+                    is NetworkState.Loading -> _walletUiState.value = UiState.Loading
                 }
             }
         }

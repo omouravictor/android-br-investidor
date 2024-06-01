@@ -20,6 +20,7 @@ import com.omouravictor.invest_view.presenter.base.UiState
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetBySearchUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetQuoteUiModel
+import com.omouravictor.invest_view.util.AppUtil
 import com.omouravictor.invest_view.util.AppUtil.showErrorSnackBar
 import com.omouravictor.invest_view.util.SystemServiceUtil
 
@@ -123,7 +124,7 @@ class AssetSearchFragment : Fragment() {
                 is UiState.Empty -> Unit
                 is UiState.Loading -> handleAssetsBySearchLoading()
                 is UiState.Success -> handleAssetsBySearchSuccess(it.data)
-                is UiState.Error -> handleErrors(it.message)
+                is UiState.Error -> handleErrors(it.e)
             }
         }
     }
@@ -134,7 +135,7 @@ class AssetSearchFragment : Fragment() {
                 is UiState.Empty -> Unit
                 is UiState.Loading -> handleAssetQuoteLoading()
                 is UiState.Success -> handleAssetQuoteSuccess(it.data)
-                is UiState.Error -> handleErrors(it.message)
+                is UiState.Error -> handleErrors(it.e)
             }
         }
     }
@@ -165,9 +166,9 @@ class AssetSearchFragment : Fragment() {
         assetBySearchAdapter.updateItemsList(assetsBySearchList)
     }
 
-    private fun handleErrors(message: String) {
+    private fun handleErrors(e: Exception) {
         setupViews(isError = true)
-        binding.incLayoutError.tvInfoMessage.text = message
+        binding.incLayoutError.tvInfoMessage.text = AppUtil.getGenericNetworkErrorMessage(requireContext(), e)
     }
 
     private fun handleAssetQuoteLoading() {

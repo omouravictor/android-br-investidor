@@ -7,12 +7,11 @@ import com.omouravictor.invest_view.data.network.remote.model.assets_by_search.A
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class RemoteAssetsRepositoryImpl(private val alphaVantageService: AlphaVantageService) :
-    RemoteAssetsRepository {
+class RemoteAssetsRepositoryImpl(
+    private val alphaVantageService: AlphaVantageService
+) : RemoteAssetsRepository {
 
-    override suspend fun getAssetsBySearch(
-        keywords: String
-    ): Flow<NetworkState<AssetsBySearchResponse>> {
+    override fun getAssetsBySearch(keywords: String): Flow<NetworkState<AssetsBySearchResponse>> {
         return flow {
             emit(NetworkState.Loading)
             try {
@@ -24,9 +23,7 @@ class RemoteAssetsRepositoryImpl(private val alphaVantageService: AlphaVantageSe
         }
     }
 
-    override suspend fun getAssetGlobalQuote(
-        symbol: String
-    ): Flow<NetworkState<AssetGlobalQuoteResponse>> {
+    override fun getAssetGlobalQuote(symbol: String): Flow<NetworkState<AssetGlobalQuoteResponse>> {
         return flow {
             emit(NetworkState.Loading)
             try {

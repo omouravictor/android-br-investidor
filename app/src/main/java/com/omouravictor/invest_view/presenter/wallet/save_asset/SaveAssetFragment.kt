@@ -12,7 +12,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentSaveAssetBinding
@@ -29,7 +28,6 @@ class SaveAssetFragment : Fragment() {
 
     private lateinit var binding: FragmentSaveAssetBinding
     private lateinit var assetUiModel: AssetUiModel
-    private val saveAssetViewModel: SaveAssetViewModel by viewModels()
     private val walletViewModel: WalletViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -106,13 +104,30 @@ class SaveAssetFragment : Fragment() {
         return ietAmountText.isNotEmpty() && ietAmountText != "0"
     }
 
+    private fun getAmount(): Long {
+        val amount = binding.ietAmount.text.toString()
+        return if (amount.isNotEmpty()) {
+            StringUtil.getOnlyNumbers(amount).toLong()
+        } else {
+            0
+        }
+    }
+
+    private fun getTotalInvested(): Double {
+        val totalInvested = binding.ietTotalInvested.text.toString()
+        return if (totalInvested.isNotEmpty()) {
+            StringUtil.getOnlyNumbers(totalInvested).toDouble() / 100
+        } else {
+            0.0
+        }
+    }
+
     private fun updateCurrentPosition() {
         binding.incItemListAsset.apply {
             if (requiredFieldsNotEmpty()) {
                 val ietAmountText = binding.ietAmount.text.toString()
-                val totalAssetPrice = saveAssetViewModel.getTotalAssetPrice(assetUiModel.price, ietAmountText)
-                val ietTotalInvestedText = binding.ietTotalInvested.text.toString()
-                val totalInvested = saveAssetViewModel.getTotalInvested(ietTotalInvestedText)
+                val totalAssetPrice = assetUiModel.price * StringUtil.getOnlyNumbers(ietAmountText).toLong()
+                val totalInvested = getTotalInvested()
                 val currency = assetUiModel.currency
 
                 tvSymbol.text = binding.etSymbol.text.toString()
@@ -140,9 +155,9 @@ class SaveAssetFragment : Fragment() {
 
     private fun setupBtnSave() {
         binding.btnSave.setOnClickListener {
-            assetUiModel.amount = StringUtil.getOnlyNumbers(binding.ietAmount.text.toString()).toLong()
-            assetUiModel.totalInvested = saveAssetViewModel.getTotalInvested(binding.ietTotalInvested.text.toString())
-            walletViewModel.addAsset(assetUiModel)
+            assetUiModel.amount = getAmount()
+            assetUiModel.totalInvested = getTotalInvested()
+            walletViewModel.saveAsset(assetUiModel)
             NavigationUtil.clearPileAndNavigateToStart(findNavController())
         }
     }
