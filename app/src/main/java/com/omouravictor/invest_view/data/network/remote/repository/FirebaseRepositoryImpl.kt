@@ -7,12 +7,12 @@ import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class RemoteDatabaseRepositoryImpl(
+class FirebaseRepositoryImpl(
     private val auth: FirebaseAuth,
     private val firestore: FirebaseFirestore
-) : RemoteDatabaseRepository {
+) : FirebaseRepository {
 
-    override fun save(assetUiModel: AssetUiModel): Flow<NetworkState<AssetUiModel>> {
+    override fun saveAsset(assetUiModel: AssetUiModel): Flow<NetworkState<AssetUiModel>> {
         return flow {
             try {
                 val userId = auth.currentUser?.uid ?: throw Exception("Usuário não autenticado.")

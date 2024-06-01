@@ -4,6 +4,6 @@ import com.omouravictor.invest_view.data.network.base.NetworkState
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import kotlinx.coroutines.flow.Flow
 
-interface RemoteDatabaseRepository {
-    fun save(assetUiModel: AssetUiModel): Flow<NetworkState<AssetUiModel>>
+interface FirebaseRepository {
+    fun saveAsset(assetUiModel: AssetUiModel): Flow<NetworkState<AssetUiModel>>
 }

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.omouravictor.invest_view.data.network.base.NetworkState
-import com.omouravictor.invest_view.data.network.remote.repository.RemoteDatabaseRepository
+import com.omouravictor.invest_view.data.network.remote.repository.FirebaseRepository
 import com.omouravictor.invest_view.di.base.DispatcherProvider
 import com.omouravictor.invest_view.presenter.base.UiState
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WalletViewModel @Inject constructor(
-    private val remoteDatabaseRepository: RemoteDatabaseRepository,
+    private val firebaseRepository: FirebaseRepository,
     private val dispatchers: DispatcherProvider
 ) : ViewModel() {
 
@@ -34,7 +34,7 @@ class WalletViewModel @Inject constructor(
             _walletUiState.value = UiState.Loading
 
             withContext(dispatchers.io) {
-                remoteDatabaseRepository.save(asset)
+                firebaseRepository.saveAsset(asset)
             }.collectLatest {
                 when (it) {
                     is NetworkState.Success -> {
