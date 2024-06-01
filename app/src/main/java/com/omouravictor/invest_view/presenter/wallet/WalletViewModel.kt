@@ -8,6 +8,7 @@ import com.omouravictor.invest_view.data.network.base.NetworkState
 import com.omouravictor.invest_view.data.network.remote.repository.FirebaseRepository
 import com.omouravictor.invest_view.di.base.DispatcherProvider
 import com.omouravictor.invest_view.presenter.base.UiState
+import com.omouravictor.invest_view.presenter.wallet.asset_types.AssetTypes
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -25,9 +26,9 @@ class WalletViewModel @Inject constructor(
     private val _assetsListLiveData = MutableLiveData<List<AssetUiModel>>()
     val walletUiStateLiveData: LiveData<UiState<Unit>> = _walletUiStateLiveData
     val assetsListLiveData: LiveData<List<AssetUiModel>> = _assetsListLiveData
-    val assetsList get() = assetsListLiveData.value.orEmpty()
-    val assetTypesList get() = assetsList.map { it.assetType }.distinct()
-    val assetCurrenciesList get() = assetsList.map { it.currency }.distinct()
+    val assetsList: List<AssetUiModel> get() = assetsListLiveData.value.orEmpty()
+    val assetTypesList: List<AssetTypes> get() = assetsList.map { it.assetType }.distinct()
+    val assetCurrenciesList: List<String> get() = assetsList.map { it.currency }.distinct()
 
     fun saveAsset(asset: AssetUiModel) {
         viewModelScope.launch {
@@ -38,9 +39,7 @@ class WalletViewModel @Inject constructor(
             }.collectLatest {
                 when (it) {
                     is NetworkState.Success -> {
-                        val currentList = assetsList.toMutableList()
-                        currentList.add(it.data)
-                        _assetsListLiveData.value = currentList
+                        _assetsListLiveData.value = assetsList + asset
                         _walletUiStateLiveData.value = UiState.Success(Unit)
                     }
 
