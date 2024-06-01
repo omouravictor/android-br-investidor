@@ -19,7 +19,6 @@ import com.omouravictor.invest_view.databinding.FragmentAssetSearchBinding
 import com.omouravictor.invest_view.presenter.base.UiState
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetBySearchUiModel
-import com.omouravictor.invest_view.presenter.wallet.model.AssetQuoteUiModel
 import com.omouravictor.invest_view.util.AppUtil
 import com.omouravictor.invest_view.util.AppUtil.showErrorSnackBar
 import com.omouravictor.invest_view.util.SystemServiceUtil
@@ -118,12 +117,22 @@ class AssetSearchFragment : Fragment() {
         }
     }
 
+    private fun handleErrors(e: Exception) {
+        setupViewsForAssetsBySearch(isError = true)
+        binding.incLayoutError.tvInfoMessage.text = AppUtil.getGenericNetworkErrorMessage(requireContext(), e)
+    }
+
     private fun observeAssetsBySearch() {
         assetSearchViewModel.assetsBySearch.observe(viewLifecycleOwner) {
             when (it) {
                 is UiState.Empty -> Unit
-                is UiState.Loading -> handleAssetsBySearchLoading()
-                is UiState.Success -> handleAssetsBySearchSuccess(it.data)
+                is UiState.Loading -> setupViewsForAssetsBySearch(isLoading = true)
+                is UiState.Success -> {
+                    val assetsBySearchList = it.data
+                    setupViewsForAssetsBySearch(isSuccessResultsEmpty = assetsBySearchList.isEmpty())
+                    assetBySearchAdapter.updateItemsList(assetsBySearchList)
+                }
+
                 is UiState.Error -> handleErrors(it.e)
             }
         }
@@ -133,14 +142,24 @@ class AssetSearchFragment : Fragment() {
         assetSearchViewModel.assetQuote.observe(viewLifecycleOwner) {
             when (it) {
                 is UiState.Empty -> Unit
-                is UiState.Loading -> handleAssetQuoteLoading()
-                is UiState.Success -> handleAssetQuoteSuccess(it.data)
+                is UiState.Loading -> {
+                    binding.recyclerView.isVisible = false
+                    binding.progressBar.isVisible = true
+                }
+
+                is UiState.Success -> {
+                    assetBySearchUiModel.price = it.data.price
+                    findNavController().navigate(
+                        AssetSearchFragmentDirections.navToSaveAssetFragment(assetBySearchUiModel)
+                    )
+                }
+
                 is UiState.Error -> handleErrors(it.e)
             }
         }
     }
 
-    private fun setupViews(
+    private fun setupViewsForAssetsBySearch(
         isLoading: Boolean = false,
         isSuccessResultsEmpty: Boolean = false,
         isError: Boolean = false,
@@ -155,30 +174,6 @@ class AssetSearchFragment : Fragment() {
         else binding.shimmerLayout.stopShimmer()
 
         if (isSuccessResultsEmpty) binding.incLayoutError.tvInfoMessage.text = getString(R.string.noResultsFound)
-    }
-
-    private fun handleAssetsBySearchLoading() {
-        setupViews(isLoading = true)
-    }
-
-    private fun handleAssetsBySearchSuccess(assetsBySearchList: List<AssetBySearchUiModel>) {
-        setupViews(isSuccessResultsEmpty = assetsBySearchList.isEmpty())
-        assetBySearchAdapter.updateItemsList(assetsBySearchList)
-    }
-
-    private fun handleErrors(e: Exception) {
-        setupViews(isError = true)
-        binding.incLayoutError.tvInfoMessage.text = AppUtil.getGenericNetworkErrorMessage(requireContext(), e)
-    }
-
-    private fun handleAssetQuoteLoading() {
-        binding.recyclerView.isVisible = false
-        binding.progressBar.isVisible = true
-    }
-
-    private fun handleAssetQuoteSuccess(assetQuote: AssetQuoteUiModel) {
-        assetBySearchUiModel.price = assetQuote.price
-        findNavController().navigate(AssetSearchFragmentDirections.navToSaveAssetFragment(assetBySearchUiModel))
     }
 
 }

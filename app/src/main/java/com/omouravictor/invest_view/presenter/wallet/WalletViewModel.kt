@@ -22,8 +22,8 @@ class WalletViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _walletUiState = MutableLiveData<UiState<List<AssetUiModel>>>()
-    val walletUiState: LiveData<UiState<List<AssetUiModel>>> = _walletUiState
     private val _assetsLiveData = MutableLiveData<List<AssetUiModel>>()
+    val walletUiState: LiveData<UiState<List<AssetUiModel>>> = _walletUiState
     val assetsLiveData: LiveData<List<AssetUiModel>> = _assetsLiveData
     val assetsList get() = assetsLiveData.value.orEmpty()
     val assetTypesList get() = assetsList.map { it.assetType }.distinct()
