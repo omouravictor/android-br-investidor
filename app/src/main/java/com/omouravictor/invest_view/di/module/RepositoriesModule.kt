@@ -3,8 +3,8 @@ package com.omouravictor.invest_view.di.module
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.omouravictor.invest_view.data.network.remote.api.AlphaVantageService
-import com.omouravictor.invest_view.data.network.remote.repository.RemoteAssetsRepository
-import com.omouravictor.invest_view.data.network.remote.repository.RemoteAssetsRepositoryImpl
+import com.omouravictor.invest_view.data.network.remote.repository.AssetsApiRepository
+import com.omouravictor.invest_view.data.network.remote.repository.AssetsApiRepositoryImpl
 import com.omouravictor.invest_view.data.network.remote.repository.RemoteDatabaseRepository
 import com.omouravictor.invest_view.data.network.remote.repository.RemoteDatabaseRepositoryImpl
 import dagger.Module
@@ -19,9 +19,9 @@ object RepositoriesModule {
 
     @Singleton
     @Provides
-    fun provideRemoteAssetsRepository(
+    fun provideAssetsApiRepository(
         alphaVantageService: AlphaVantageService
-    ): RemoteAssetsRepository = RemoteAssetsRepositoryImpl(alphaVantageService)
+    ): AssetsApiRepository = AssetsApiRepositoryImpl(alphaVantageService)
 
     @Singleton
     @Provides

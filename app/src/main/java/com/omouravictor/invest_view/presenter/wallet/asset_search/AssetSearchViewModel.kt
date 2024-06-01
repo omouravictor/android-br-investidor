@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.omouravictor.invest_view.data.network.base.NetworkState
 import com.omouravictor.invest_view.data.network.remote.model.asset_quote.toAssetQuoteUiModel
 import com.omouravictor.invest_view.data.network.remote.model.assets_by_search.toAssetsBySearchUiModel
-import com.omouravictor.invest_view.data.network.remote.repository.RemoteAssetsRepository
+import com.omouravictor.invest_view.data.network.remote.repository.AssetsApiRepository
 import com.omouravictor.invest_view.di.base.DispatcherProvider
 import com.omouravictor.invest_view.presenter.base.UiState
 import com.omouravictor.invest_view.presenter.wallet.model.AssetBySearchUiModel
@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AssetSearchViewModel @Inject constructor(
-    private val remoteAssetsRepository: RemoteAssetsRepository,
+    private val assetsApiRepository: AssetsApiRepository,
     private val dispatchers: DispatcherProvider
 ) : ViewModel() {
 
@@ -34,7 +34,7 @@ class AssetSearchViewModel @Inject constructor(
             _assetsBySearch.value = UiState.Loading
 
             withContext(dispatchers.io) {
-                remoteAssetsRepository.getAssetsBySearch(keywords)
+                assetsApiRepository.getAssetsBySearch(keywords)
             }.collectLatest {
                 when (it) {
                     is NetworkState.Success -> {
@@ -54,7 +54,7 @@ class AssetSearchViewModel @Inject constructor(
             _assetQuote.value = UiState.Loading
 
             withContext(dispatchers.io) {
-                remoteAssetsRepository.getAssetGlobalQuote(symbol)
+                assetsApiRepository.getAssetGlobalQuote(symbol)
             }.collectLatest {
                 when (it) {
                     is NetworkState.Success -> {
