@@ -132,24 +132,18 @@ class SaveAssetFragment : Fragment() {
     private fun updateCurrentPosition() {
         binding.incItemListAsset.apply {
             if (requiredFieldsNotEmpty()) {
-                val ietAmountText = binding.ietAmount.text.toString()
-                val totalAssetPrice = assetUiModel.price * StringUtil.getOnlyNumbers(ietAmountText).toLong()
+                val totalAssetPrice = assetUiModel.price * getAmount()
                 val totalInvested = getTotalInvested()
                 val currency = assetUiModel.currency
 
                 tvSymbol.text = binding.etSymbol.text.toString()
-                tvAmount.text = getString(R.string.placeholderAssetAmount, ietAmountText)
+                tvAmount.text = getString(R.string.placeholderAssetAmount, binding.ietAmount.text.toString())
                 tvName.text = assetUiModel.name
                 tvTotal.text = LocaleUtil.getFormattedCurrencyValue(currency, totalAssetPrice)
-                AssetUtil.setupVariationViews(
-                    this,
-                    currency,
-                    totalInvested,
-                    totalAssetPrice
-                )
                 tvInfoMessage.visibility = View.INVISIBLE
                 layoutAssetInfo.visibility = View.VISIBLE
                 binding.btnSave.isEnabled = true
+                AssetUtil.setupVariationViews(this, currency, totalInvested, totalAssetPrice)
 
             } else {
                 tvInfoMessage.hint = getString(R.string.fillTheFieldsToView)
