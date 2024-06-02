@@ -1,35 +1,28 @@
 package com.omouravictor.invest_view.data.network.remote.repository
 
-import com.omouravictor.invest_view.data.network.base.NetworkState
 import com.omouravictor.invest_view.data.network.remote.api.AlphaVantageService
 import com.omouravictor.invest_view.data.network.remote.model.asset_quote.AssetGlobalQuoteResponse
 import com.omouravictor.invest_view.data.network.remote.model.assets_by_search.AssetsBySearchResponse
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 
 class AssetsApiRepositoryImpl(
     private val alphaVantageService: AlphaVantageService
 ) : AssetsApiRepository {
 
-    override fun getAssetsBySearch(keywords: String): Flow<NetworkState<AssetsBySearchResponse>> {
-        return flow {
-            try {
-                val response = alphaVantageService.getAssetsBySearch(keywords)
-                emit(NetworkState.Success(response))
-            } catch (e: Exception) {
-                emit(NetworkState.Error(e))
-            }
+    override suspend fun getAssetsBySearch(keywords: String): Result<AssetsBySearchResponse> {
+        return try {
+            val response = alphaVantageService.getAssetsBySearch(keywords)
+            Result.success(response)
+        } catch (e: Exception) {
+            Result.failure(e)
         }
     }
 
-    override fun getAssetGlobalQuote(symbol: String): Flow<NetworkState<AssetGlobalQuoteResponse>> {
-        return flow {
-            try {
-                val response = alphaVantageService.getAssetGlobalQuote(symbol)
-                emit(NetworkState.Success(response))
-            } catch (e: Exception) {
-                emit(NetworkState.Error(e))
-            }
+    override suspend fun getAssetGlobalQuote(symbol: String): Result<AssetGlobalQuoteResponse> {
+        return try {
+            val response = alphaVantageService.getAssetGlobalQuote(symbol)
+            Result.success(response)
+        } catch (e: Exception) {
+            Result.failure(e)
         }
     }
 

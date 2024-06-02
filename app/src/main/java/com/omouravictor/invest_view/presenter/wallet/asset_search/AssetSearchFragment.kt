@@ -12,6 +12,9 @@ import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.omouravictor.invest_view.R
@@ -22,6 +25,8 @@ import com.omouravictor.invest_view.presenter.wallet.model.AssetBySearchUiModel
 import com.omouravictor.invest_view.util.AppUtil
 import com.omouravictor.invest_view.util.AppUtil.showErrorSnackBar
 import com.omouravictor.invest_view.util.SystemServiceUtil
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class AssetSearchFragment : Fragment() {
 
@@ -123,38 +128,46 @@ class AssetSearchFragment : Fragment() {
     }
 
     private fun observeAssetsBySearch() {
-        assetSearchViewModel.assetsBySearch.observe(viewLifecycleOwner) {
-            when (it) {
-                is UiState.Empty -> Unit
-                is UiState.Loading -> setupViewsForAssetsBySearch(isLoading = true)
-                is UiState.Success -> {
-                    val assetsBySearchList = it.data
-                    setupViewsForAssetsBySearch(isSuccessResultsEmpty = assetsBySearchList.isEmpty())
-                    assetBySearchAdapter.updateItemsList(assetsBySearchList)
-                }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                assetSearchViewModel.assetsBySearchListStateFlow.collectLatest {
+                    when (it) {
+                        is UiState.Empty -> Unit
+                        is UiState.Loading -> setupViewsForAssetsBySearch(isLoading = true)
+                        is UiState.Success -> {
+                            val assetsBySearchList = it.data
+                            setupViewsForAssetsBySearch(isSuccessResultsEmpty = assetsBySearchList.isEmpty())
+                            assetBySearchAdapter.updateItemsList(assetsBySearchList)
+                        }
 
-                is UiState.Error -> handleErrors(it.e)
+                        is UiState.Error -> handleErrors(it.e)
+                    }
+                }
             }
         }
     }
 
     private fun observeAssetQuote() {
-        assetSearchViewModel.assetQuote.observe(viewLifecycleOwner) {
-            when (it) {
-                is UiState.Empty -> Unit
-                is UiState.Loading -> {
-                    binding.recyclerView.isVisible = false
-                    binding.progressBar.isVisible = true
-                }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                assetSearchViewModel.assetQuoteStateFlow.collectLatest {
+                    when (it) {
+                        is UiState.Empty -> Unit
+                        is UiState.Loading -> {
+                            binding.recyclerView.isVisible = false
+                            binding.progressBar.isVisible = true
+                        }
 
-                is UiState.Success -> {
-                    assetBySearchUiModel.price = it.data.price
-                    findNavController().navigate(
-                        AssetSearchFragmentDirections.navToSaveAssetFragment(assetBySearchUiModel)
-                    )
-                }
+                        is UiState.Success -> {
+                            assetBySearchUiModel.price = it.data.price
+                            findNavController().navigate(
+                                AssetSearchFragmentDirections.navToSaveAssetFragment(assetBySearchUiModel)
+                            )
+                        }
 
-                is UiState.Error -> handleErrors(it.e)
+                        is UiState.Error -> handleErrors(it.e)
+                    }
+                }
             }
         }
     }
