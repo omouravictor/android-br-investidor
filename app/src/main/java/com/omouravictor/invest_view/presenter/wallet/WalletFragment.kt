@@ -89,7 +89,8 @@ class WalletFragment : Fragment() {
 
                         is UiState.Error -> {
                             binding.viewFlipper.displayedChild = VIEW_FLIPPER_CHILD_WALLET_ERROR_LAYOUT
-                            binding.incWalletErrorLayout.tvInfoMessage.text = it.e.message // TODO: adicionar mensagem de erro padrão depois
+                            binding.incWalletErrorLayout.tvInfoMessage.text =
+                                it.e.message // TODO: adicionar mensagem de erro padrão depois
                         }
                     }
                 }
