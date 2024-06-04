@@ -16,7 +16,7 @@
         tools:visibility="visible">
 
         <include
-            layout="@layout/item_list_asset_by_search_shimmer"
+            layout="@layout/shimmer_item_list_asset_by_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/defaultMargin" />

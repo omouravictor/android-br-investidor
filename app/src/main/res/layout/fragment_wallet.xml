@@ -5,11 +5,19 @@
     android:layout_height="match_parent">
 
     <include
+        android:id="@+id/incWalletLoadingLayout"
+        layout="@layout/shimmer_wallet_success" />
+
+    <include
         android:id="@+id/incEmptyWalletLayout"
         layout="@layout/layout_empty_wallet" />
 
     <include
-        android:id="@+id/incWalletLayout"
-        layout="@layout/layout_wallet" />
+        android:id="@+id/incWalletSuccessLayout"
+        layout="@layout/layout_wallet_success" />
+
+    <include
+        android:id="@+id/incWalletErrorLayout"
+        layout="@layout/layout_error_try_again" />
 
 </ViewFlipper>
