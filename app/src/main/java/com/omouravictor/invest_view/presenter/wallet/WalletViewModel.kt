@@ -24,6 +24,7 @@ class WalletViewModel @Inject constructor(
     val walletUiStateFlow = _walletUiStateFlow.asStateFlow()
     val assetsListStateFlow = _assetsListStateFlow.asStateFlow()
     val assetsList get() = assetsListStateFlow.value
+    // TODO: testar depois a carteira vazia no banco pra ver se o empty layout aparece
 
     fun getAssetsList() {
         _walletUiStateFlow.value = UiState.Loading
