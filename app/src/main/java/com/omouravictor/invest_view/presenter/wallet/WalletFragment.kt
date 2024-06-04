@@ -14,6 +14,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentWalletBinding
 import com.omouravictor.invest_view.presenter.base.BaseViewPagerAdapter
+import com.omouravictor.invest_view.presenter.base.UiState
 import com.omouravictor.invest_view.presenter.wallet.asset_types.AssetTypesFragment
 import com.omouravictor.invest_view.presenter.wallet.currencies.CurrenciesFragment
 import kotlinx.coroutines.flow.collectLatest
@@ -25,8 +26,10 @@ class WalletFragment : Fragment() {
     private val walletViewModel: WalletViewModel by activityViewModels()
 
     companion object {
-        const val VIEW_FLIPPER_CHILD_EMPTY_WALLET_LAYOUT = 0
-        const val VIEW_FLIPPER_CHILD_WALLET_LAYOUT = 1
+        const val VIEW_FLIPPER_CHILD_WALLET_LOADING_LAYOUT = 0
+        const val VIEW_FLIPPER_CHILD_WALLET_EMPTY_LAYOUT = 1
+        const val VIEW_FLIPPER_CHILD_WALLET_SUCCESS_LAYOUT = 2
+        const val VIEW_FLIPPER_CHILD_WALLET_ERROR_LAYOUT = 3
     }
 
     override fun onCreateView(
@@ -41,6 +44,12 @@ class WalletFragment : Fragment() {
         setupTabLayoutWithViewPager2()
         setupEmptyWalletLayout()
         observeAssetsList()
+
+        walletViewModel.getAssets()
+
+        binding.incWalletErrorLayout.btnTryAgain.setOnClickListener {
+            walletViewModel.getAssets()
+        }
     }
 
     private fun setupTabLayoutWithViewPager2() {
@@ -48,7 +57,7 @@ class WalletFragment : Fragment() {
             Pair(AssetTypesFragment(), getString(R.string.Assets)),
             Pair(CurrenciesFragment(), getString(R.string.currencies)),
         )
-        val walletLayout = binding.incWalletLayout
+        val walletLayout = binding.incWalletSuccessLayout
         val viewPager2 = walletLayout.viewPager2
 
         viewPager2.adapter = BaseViewPagerAdapter(requireActivity(), fragments)
@@ -67,11 +76,24 @@ class WalletFragment : Fragment() {
     private fun observeAssetsList() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                walletViewModel.assetsListStateFlow.collectLatest {
-                    binding.viewFlipper.displayedChild = if (it.isEmpty()) {
-                        VIEW_FLIPPER_CHILD_EMPTY_WALLET_LAYOUT
-                    } else {
-                        VIEW_FLIPPER_CHILD_WALLET_LAYOUT
+                walletViewModel.walletUiStateFlow.collectLatest {
+                    when (it) {
+                        is UiState.Loading -> {
+                            binding.viewFlipper.displayedChild = VIEW_FLIPPER_CHILD_WALLET_LOADING_LAYOUT
+                        }
+
+                        is UiState.Empty -> {
+                            binding.viewFlipper.displayedChild = VIEW_FLIPPER_CHILD_WALLET_EMPTY_LAYOUT
+                        }
+
+                        is UiState.Success -> {
+                            binding.viewFlipper.displayedChild = VIEW_FLIPPER_CHILD_WALLET_SUCCESS_LAYOUT
+                        }
+
+                        is UiState.Error -> {
+                            binding.viewFlipper.displayedChild = VIEW_FLIPPER_CHILD_WALLET_ERROR_LAYOUT
+                            binding.incWalletErrorLayout.tvInfoMessage.text = it.e.message // TODO: adicionar mensagem de erro padrão depois
+                        }
                     }
                 }
             }

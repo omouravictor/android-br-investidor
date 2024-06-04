@@ -19,13 +19,32 @@ class WalletViewModel @Inject constructor(
     private val dispatchers: DispatcherProvider
 ) : ViewModel() {
 
-    private val _walletUiStateFlow = MutableStateFlow<UiState<List<AssetUiModel>>>(UiState.Empty)
+    private val _walletUiStateFlow = MutableStateFlow<UiState<Unit>>(UiState.Empty)
     private val _assetsListStateFlow = MutableStateFlow<List<AssetUiModel>>(emptyList())
     val walletUiStateFlow = _walletUiStateFlow.asStateFlow()
     val assetsListStateFlow = _assetsListStateFlow.asStateFlow()
     val assetsList get() = assetsListStateFlow.value
     val assetTypesList get() = assetsList.map { it.assetType }.distinct()
     val assetCurrenciesList get() = assetsList.map { it.currency }.distinct()
+
+    fun getAssets() {
+        _walletUiStateFlow.value = UiState.Loading
+
+        viewModelScope.launch {
+            try {
+                val result = withContext(dispatchers.io) { firebaseRepository.getAssetsList() }
+                if (result.isSuccess) {
+                    val assetsList = result.getOrThrow()
+                    _assetsListStateFlow.value = assetsList
+                    _walletUiStateFlow.value = UiState.Success(Unit)
+                } else {
+                    _walletUiStateFlow.value = UiState.Error(result.exceptionOrNull() as Exception)
+                }
+            } catch (e: Exception) {
+                _walletUiStateFlow.value = UiState.Error(e)
+            }
+        }
+    }
 
     fun saveAsset(asset: AssetUiModel) {
         _walletUiStateFlow.value = UiState.Loading
@@ -36,7 +55,7 @@ class WalletViewModel @Inject constructor(
                 if (result.isSuccess) {
                     val newList = assetsList + result.getOrThrow()
                     _assetsListStateFlow.value = newList
-                    _walletUiStateFlow.value = UiState.Success(newList)
+                    _walletUiStateFlow.value = UiState.Success(Unit)
                 } else {
                     _walletUiStateFlow.value = UiState.Error(result.exceptionOrNull() as Exception)
                 }
