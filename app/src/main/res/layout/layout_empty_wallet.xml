@@ -34,7 +34,7 @@
         android:textSize="@dimen/textSize4" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnAddAsset"
+        android:id="@+id/btnAddAssets"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"

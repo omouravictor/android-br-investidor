@@ -42,13 +42,14 @@ class WalletFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupTabLayoutWithViewPager2()
-        setupEmptyWalletLayout()
         observeAssetsList()
 
-        walletViewModel.getAssets()
+        binding.incEmptyWalletLayout.btnAddAssets.setOnClickListener {
+            findNavController().navigate(WalletFragmentDirections.navToAssetSearchFragment())
+        }
 
         binding.incWalletErrorLayout.btnTryAgain.setOnClickListener {
-            walletViewModel.getAssets()
+            walletViewModel.getAssetsList()
         }
     }
 
@@ -67,13 +68,9 @@ class WalletFragment : Fragment() {
         }.attach()
     }
 
-    private fun setupEmptyWalletLayout() {
-        binding.incEmptyWalletLayout.btnAddAsset.setOnClickListener {
-            findNavController().navigate(WalletFragmentDirections.navToAssetSearchFragment())
-        }
-    }
-
     private fun observeAssetsList() {
+        walletViewModel.getAssetsList()
+
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 walletViewModel.walletUiStateFlow.collectLatest {
