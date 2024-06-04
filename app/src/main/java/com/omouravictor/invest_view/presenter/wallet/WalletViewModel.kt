@@ -24,8 +24,6 @@ class WalletViewModel @Inject constructor(
     val walletUiStateFlow = _walletUiStateFlow.asStateFlow()
     val assetsListStateFlow = _assetsListStateFlow.asStateFlow()
     val assetsList get() = assetsListStateFlow.value
-    val assetTypesList get() = assetsList.map { it.assetType }.distinct()
-    val assetCurrenciesList get() = assetsList.map { it.currency }.distinct()
 
     fun getAssetsList() {
         _walletUiStateFlow.value = UiState.Loading

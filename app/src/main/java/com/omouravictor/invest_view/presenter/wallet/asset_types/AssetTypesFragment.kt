@@ -82,7 +82,7 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
     private fun setupChart() {
         val context = requireContext()
         val assets = walletViewModel.assetsList
-        val assetTypes = walletViewModel.assetTypesList
+        val assetTypes = walletViewModel.assetsList.map { it.assetType }.distinct()
         val colors = arrayListOf<Int>()
         val pieEntries = assetTypes.map { assetType ->
             colors.add(assetType.colorResId)
