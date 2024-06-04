@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
@@ -12,11 +11,9 @@
         android:id="@+id/tvInfoMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:textAlignment="center"
-        android:visibility="gone"
-        tools:text="@string/somethingWentWrong"
-        tools:visibility="visible" />
+        android:layout_marginBottom="@dimen/defaultMargin"
+        android:text="@string/somethingWentWrong"
+        android:textAlignment="center" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnTryAgain"
@@ -27,8 +24,6 @@
         android:textAllCaps="false"
         android:textColor="@color/buttonTextColorEnabledTrue"
         android:textSize="@dimen/textSize3"
-        android:textStyle="bold"
-        android:visibility="gone"
-        tools:visibility="visible" />
+        android:textStyle="bold" />
 
 </LinearLayout>

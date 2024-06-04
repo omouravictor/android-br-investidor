@@ -5,11 +5,11 @@ import com.omouravictor.invest_view.util.LocaleUtil.getFormattedCurrencyValue
 import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForLongNumber
 
 data class AssetUiModel(
-    val symbol: String,
-    val name: String,
-    val assetType: AssetTypes,
-    val region: String,
-    val currency: String,
+    val symbol: String = "",
+    val name: String = "",
+    val assetType: AssetTypes = AssetTypes.OTHER,
+    val region: String = "",
+    val currency: String = "",
     var price: Double = 0.0,
     var amount: Long = 0,
     var totalInvested: Double = 0.0
