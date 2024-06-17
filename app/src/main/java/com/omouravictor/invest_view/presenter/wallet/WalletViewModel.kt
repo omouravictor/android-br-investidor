@@ -19,11 +19,14 @@ class WalletViewModel @Inject constructor(
     private val dispatchers: DispatcherProvider
 ) : ViewModel() {
 
-    private val _walletUiStateFlow = MutableStateFlow<UiState<Unit>>(UiState.Empty)
+    private val _walletUiStateFlow = MutableStateFlow<UiState<Unit>>(UiState.Initial)
     private val _assetsListStateFlow = MutableStateFlow<List<AssetUiModel>>(emptyList())
     val walletUiStateFlow = _walletUiStateFlow.asStateFlow()
     val assetsListStateFlow = _assetsListStateFlow.asStateFlow()
-    // TODO: testar depois a carteira vazia no banco pra ver se o empty layout aparece
+
+    init {
+        loadAssets()
+    }
 
     fun loadAssets() {
         _walletUiStateFlow.value = UiState.Loading
@@ -32,12 +35,14 @@ class WalletViewModel @Inject constructor(
             try {
                 val result = withContext(dispatchers.io) { firebaseRepository.getAssetsList() }
                 if (result.isSuccess) {
-                    val assetsList = result.getOrThrow()
-                    _assetsListStateFlow.value = assetsList
-                    _walletUiStateFlow.value = UiState.Success(Unit)
-                } else {
+                    val assetsList = result.getOrNull()
+                    if (!assetsList.isNullOrEmpty()) {
+                        _assetsListStateFlow.value = assetsList
+                        _walletUiStateFlow.value = UiState.Success(Unit)
+                    } else
+                        _walletUiStateFlow.value = UiState.Initial
+                } else
                     _walletUiStateFlow.value = UiState.Error(result.exceptionOrNull() as Exception)
-                }
             } catch (e: Exception) {
                 _walletUiStateFlow.value = UiState.Error(e)
             }
@@ -46,6 +51,7 @@ class WalletViewModel @Inject constructor(
 
     fun addAsset(asset: AssetUiModel) {
         _assetsListStateFlow.value += asset
+        _walletUiStateFlow.value = UiState.Success(Unit)
     }
 
 }

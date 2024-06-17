@@ -19,7 +19,7 @@ class SaveViewModel @Inject constructor(
     private val dispatchers: DispatcherProvider
 ) : ViewModel() {
 
-    private val _uiStateFlow = MutableStateFlow<UiState<AssetUiModel>>(UiState.Empty)
+    private val _uiStateFlow = MutableStateFlow<UiState<AssetUiModel>>(UiState.Initial)
     val uiStateFlow = _uiStateFlow.asStateFlow()
 
     fun saveAsset(asset: AssetUiModel) {
@@ -30,9 +30,8 @@ class SaveViewModel @Inject constructor(
                 val result = withContext(dispatchers.io) { firebaseRepository.saveAsset(asset) }
                 if (result.isSuccess) {
                     _uiStateFlow.value = UiState.Success(result.getOrThrow())
-                } else {
+                } else
                     _uiStateFlow.value = UiState.Error(result.exceptionOrNull() as Exception)
-                }
             } catch (e: Exception) {
                 _uiStateFlow.value = UiState.Error(e)
             }
@@ -40,7 +39,7 @@ class SaveViewModel @Inject constructor(
     }
 
     fun resetUiStateFlow() {
-        _uiStateFlow.value = UiState.Empty
+        _uiStateFlow.value = UiState.Initial
     }
 
 }

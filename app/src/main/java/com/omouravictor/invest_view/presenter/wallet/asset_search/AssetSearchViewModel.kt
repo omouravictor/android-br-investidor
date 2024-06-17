@@ -22,8 +22,8 @@ class AssetSearchViewModel @Inject constructor(
     private val dispatchers: DispatcherProvider
 ) : ViewModel() {
 
-    private val _assetsBySearchListStateFlow = MutableStateFlow<UiState<List<AssetBySearchUiModel>>>(UiState.Empty)
-    private val _assetQuoteStateFlow = MutableStateFlow<UiState<AssetQuoteUiModel>>(UiState.Empty)
+    private val _assetsBySearchListStateFlow = MutableStateFlow<UiState<List<AssetBySearchUiModel>>>(UiState.Initial)
+    private val _assetQuoteStateFlow = MutableStateFlow<UiState<AssetQuoteUiModel>>(UiState.Initial)
     val assetsBySearchListStateFlow = _assetsBySearchListStateFlow.asStateFlow()
     val assetQuoteStateFlow = _assetQuoteStateFlow.asStateFlow()
 
@@ -36,9 +36,8 @@ class AssetSearchViewModel @Inject constructor(
                 if (result.isSuccess) {
                     val assetsBySearchList = result.getOrThrow().toAssetsBySearchUiModel()
                     _assetsBySearchListStateFlow.value = UiState.Success(assetsBySearchList)
-                } else {
+                } else
                     _assetsBySearchListStateFlow.value = UiState.Error(result.exceptionOrNull() as Exception)
-                }
             } catch (e: Exception) {
                 _assetsBySearchListStateFlow.value = UiState.Error(e)
             }
@@ -54,9 +53,8 @@ class AssetSearchViewModel @Inject constructor(
                 if (result.isSuccess) {
                     val assetQuoteUiModel = result.getOrThrow().toAssetQuoteUiModel()
                     _assetQuoteStateFlow.value = UiState.Success(assetQuoteUiModel)
-                } else {
+                } else
                     _assetQuoteStateFlow.value = UiState.Error(result.exceptionOrNull() as Exception)
-                }
             } catch (e: Exception) {
                 _assetQuoteStateFlow.value = UiState.Error(e)
             }
@@ -64,7 +62,7 @@ class AssetSearchViewModel @Inject constructor(
     }
 
     fun resetAssetQuoteLiveData() {
-        _assetQuoteStateFlow.value = UiState.Empty
+        _assetQuoteStateFlow.value = UiState.Initial
     }
 
 }

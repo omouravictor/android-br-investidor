@@ -132,7 +132,7 @@ class AssetSearchFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 assetSearchViewModel.assetsBySearchListStateFlow.collectLatest {
                     when (it) {
-                        is UiState.Empty -> Unit
+                        is UiState.Initial -> Unit
                         is UiState.Loading -> setupViewsForAssetsBySearch(isLoading = true)
                         is UiState.Success -> {
                             val assetsBySearchList = it.data
@@ -152,7 +152,7 @@ class AssetSearchFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 assetSearchViewModel.assetQuoteStateFlow.collectLatest {
                     when (it) {
-                        is UiState.Empty -> Unit
+                        is UiState.Initial -> Unit
                         is UiState.Loading -> {
                             binding.recyclerView.isVisible = false
                             binding.progressBar.isVisible = true

@@ -69,9 +69,6 @@ class WalletFragment : Fragment() {
     }
 
     private fun observeAssetsList() {
-        if (walletViewModel.assetsListStateFlow.value.isEmpty())
-            walletViewModel.loadAssets()
-
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 walletViewModel.walletUiStateFlow.collectLatest {
@@ -80,7 +77,7 @@ class WalletFragment : Fragment() {
                             binding.viewFlipper.displayedChild = VIEW_FLIPPER_CHILD_PROGRESS_BAR
                         }
 
-                        is UiState.Empty -> {
+                        is UiState.Initial -> {
                             binding.viewFlipper.displayedChild = VIEW_FLIPPER_CHILD_WALLET_EMPTY_LAYOUT
                         }
 

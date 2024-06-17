@@ -165,7 +165,7 @@ class SaveAssetFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 saveViewModel.uiStateFlow.collectLatest {
                     when (it) {
-                        is UiState.Empty -> Unit
+                        is UiState.Initial -> Unit
 
                         is UiState.Loading -> {
                             binding.layout.visibility = View.INVISIBLE
