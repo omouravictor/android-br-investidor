@@ -25,7 +25,7 @@ class WalletViewModel @Inject constructor(
     val assetsListStateFlow = _assetsListStateFlow.asStateFlow()
     // TODO: testar depois a carteira vazia no banco pra ver se o empty layout aparece
 
-    fun getAssetsList() {
+    fun loadAssets() {
         _walletUiStateFlow.value = UiState.Loading
 
         viewModelScope.launch {
@@ -44,26 +44,8 @@ class WalletViewModel @Inject constructor(
         }
     }
 
-    fun saveAsset(asset: AssetUiModel) {
-        _walletUiStateFlow.value = UiState.Loading
-
-        viewModelScope.launch {
-            try {
-                val result = withContext(dispatchers.io) { firebaseRepository.saveAsset(asset) }
-                if (result.isSuccess) {
-                    _assetsListStateFlow.value += result.getOrThrow()
-                    _walletUiStateFlow.value = UiState.Success(Unit)
-                } else {
-                    _walletUiStateFlow.value = UiState.Error(result.exceptionOrNull() as Exception)
-                }
-            } catch (e: Exception) {
-                _walletUiStateFlow.value = UiState.Error(e)
-            }
-        }
-    }
-
-    fun resetWalletUiStateFlow() {
-        _walletUiStateFlow.value = UiState.Empty
+    fun addAsset(asset: AssetUiModel) {
+        _assetsListStateFlow.value += asset
     }
 
 }

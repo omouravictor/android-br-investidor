@@ -49,7 +49,7 @@ class WalletFragment : Fragment() {
         }
 
         binding.incWalletErrorLayout.btnTryAgain.setOnClickListener {
-            walletViewModel.getAssetsList()
+            walletViewModel.loadAssets()
         }
     }
 
@@ -69,7 +69,8 @@ class WalletFragment : Fragment() {
     }
 
     private fun observeAssetsList() {
-        walletViewModel.getAssetsList()
+        if (walletViewModel.assetsListStateFlow.value.isEmpty())
+            walletViewModel.loadAssets()
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {

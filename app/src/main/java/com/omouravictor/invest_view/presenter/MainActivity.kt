@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
         when (navController.currentDestination?.id) {
             R.id.fragmentWallet -> setupOptionsMenuForWallet()
-            else -> setupDefaultOptionsMenu()
+            else -> setupOptionsMenu()
         }
         return super.onPrepareOptionsMenu(menu)
     }
@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 else -> {
-                    setupDefaultOptionsMenu()
+                    setupOptionsMenu()
                 }
             }
 
@@ -111,9 +111,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupOptionsMenuForWallet() =
-        // TODO: o options menu deve aparecer apenas se o estado da carteira for sucesso
-        setupOptionsMenu(walletGroupVisible = walletViewModel.assetsListStateFlow.value.isNotEmpty())
-
-    private fun setupDefaultOptionsMenu() = setupOptionsMenu()
+        setupOptionsMenu(walletGroupVisible = true)
 
 }

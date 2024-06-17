@@ -35,6 +35,7 @@ class SaveAssetFragment : Fragment() {
     private lateinit var binding: FragmentSaveAssetBinding
     private lateinit var assetUiModel: AssetUiModel
     private val walletViewModel: WalletViewModel by activityViewModels()
+    private val saveViewModel: SaveViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -54,7 +55,7 @@ class SaveAssetFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
-        walletViewModel.resetWalletUiStateFlow()
+        saveViewModel.resetUiStateFlow()
     }
 
     private fun setupToolbar() {
@@ -162,7 +163,7 @@ class SaveAssetFragment : Fragment() {
     private fun observeWalletUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                walletViewModel.walletUiStateFlow.collectLatest {
+                saveViewModel.uiStateFlow.collectLatest {
                     when (it) {
                         is UiState.Empty -> Unit
 
@@ -179,6 +180,7 @@ class SaveAssetFragment : Fragment() {
                         }
 
                         is UiState.Success -> {
+                            walletViewModel.addAsset(it.data)
                             NavigationUtil.clearPileAndNavigateToStart(findNavController())
                         }
                     }
@@ -191,7 +193,7 @@ class SaveAssetFragment : Fragment() {
         binding.btnSave.setOnClickListener {
             assetUiModel.amount = getAmount()
             assetUiModel.totalInvested = getTotalInvested()
-            walletViewModel.saveAsset(assetUiModel)
+            saveViewModel.saveAsset(assetUiModel)
         }
     }
 
