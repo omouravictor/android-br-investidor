@@ -26,7 +26,7 @@ class WalletFragment : Fragment() {
     private val walletViewModel: WalletViewModel by activityViewModels()
 
     companion object {
-        const val VIEW_FLIPPER_CHILD_WALLET_LOADING_LAYOUT = 0
+        const val VIEW_FLIPPER_CHILD_PROGRESS_BAR = 0
         const val VIEW_FLIPPER_CHILD_WALLET_EMPTY_LAYOUT = 1
         const val VIEW_FLIPPER_CHILD_WALLET_SUCCESS_LAYOUT = 2
         const val VIEW_FLIPPER_CHILD_WALLET_ERROR_LAYOUT = 3
@@ -76,7 +76,7 @@ class WalletFragment : Fragment() {
                 walletViewModel.walletUiStateFlow.collectLatest {
                     when (it) {
                         is UiState.Loading -> {
-                            binding.viewFlipper.displayedChild = VIEW_FLIPPER_CHILD_WALLET_LOADING_LAYOUT
+                            binding.viewFlipper.displayedChild = VIEW_FLIPPER_CHILD_PROGRESS_BAR
                         }
 
                         is UiState.Empty -> {

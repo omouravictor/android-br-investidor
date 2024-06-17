@@ -54,15 +54,14 @@ class CurrenciesFragment : Fragment(), OnChartValueSelectedListener {
 
     override fun onValueSelected(e: Entry?, h: Highlight?) {
         val currency = (e as PieEntry).label
-        val filteredAssets = walletViewModel.assetsList.filter { it.currency == currency }
+        val filteredAssets = walletViewModel.assetsListStateFlow.value.filter { it.currency == currency }
 
         updatePieChartCenterText(filteredAssets.size)
         assetCurrenciesAdapter.updateItemsList(filteredAssets)
     }
 
     override fun onNothingSelected() {
-        val assetsList = walletViewModel.assetsList
-
+        val assetsList = walletViewModel.assetsListStateFlow.value
         updatePieChartCenterText(assetsList.size)
         assetCurrenciesAdapter.updateItemsList(assetsList)
     }
@@ -82,8 +81,8 @@ class CurrenciesFragment : Fragment(), OnChartValueSelectedListener {
 
     private fun setupChart() {
         val context = requireContext()
-        val assets = walletViewModel.assetsList
-        val assetCurrencies = walletViewModel.assetsList.map { it.currency }.distinct()
+        val assets = walletViewModel.assetsListStateFlow.value
+        val assetCurrencies = assets.map { it.currency }.distinct()
         val colors = arrayListOf<Int>()
         val pieEntries = assetCurrencies.map { currency ->
             colors.add(AssetUtil.getCurrencyResColor(currency))

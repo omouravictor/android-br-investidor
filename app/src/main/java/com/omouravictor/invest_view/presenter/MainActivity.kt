@@ -14,7 +14,6 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.ActivityMainBinding
-import com.omouravictor.invest_view.presenter.base.UiState
 import com.omouravictor.invest_view.presenter.wallet.WalletFragmentDirections
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.util.NavigationUtil
@@ -111,8 +110,9 @@ class MainActivity : AppCompatActivity() {
         menu.setGroupVisible(R.id.walletGroup, walletGroupVisible)
     }
 
-    private fun setupOptionsMenuForWallet() = // TODO: o options menu deve aparecer apenas se o estado da carteira for sucesso
-        setupOptionsMenu(walletGroupVisible = walletViewModel.walletUiStateFlow.value is UiState.Success)
+    private fun setupOptionsMenuForWallet() =
+        // TODO: o options menu deve aparecer apenas se o estado da carteira for sucesso
+        setupOptionsMenu(walletGroupVisible = walletViewModel.assetsListStateFlow.value.isNotEmpty())
 
     private fun setupDefaultOptionsMenu() = setupOptionsMenu()
 

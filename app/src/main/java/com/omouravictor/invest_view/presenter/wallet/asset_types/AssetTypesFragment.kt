@@ -53,15 +53,15 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
 
     override fun onValueSelected(e: Entry?, h: Highlight?) {
         val assetType = (e as PieEntry).label
-        val filteredAssets = walletViewModel.assetsList.filter { getString(it.assetType.nameResId) == assetType }
+        val filteredAssets =
+            walletViewModel.assetsListStateFlow.value.filter { getString(it.assetType.nameResId) == assetType }
 
         updatePieChartCenterText(filteredAssets.size)
         assetTypesAdapter.updateItemsList(filteredAssets)
     }
 
     override fun onNothingSelected() {
-        val assetsList = walletViewModel.assetsList
-
+        val assetsList = walletViewModel.assetsListStateFlow.value
         updatePieChartCenterText(assetsList.size)
         assetTypesAdapter.updateItemsList(assetsList)
     }
@@ -81,8 +81,8 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
 
     private fun setupChart() {
         val context = requireContext()
-        val assets = walletViewModel.assetsList
-        val assetTypes = walletViewModel.assetsList.map { it.assetType }.distinct()
+        val assets = walletViewModel.assetsListStateFlow.value
+        val assetTypes = assets.map { it.assetType }.distinct()
         val colors = arrayListOf<Int>()
         val pieEntries = assetTypes.map { assetType ->
             colors.add(assetType.colorResId)

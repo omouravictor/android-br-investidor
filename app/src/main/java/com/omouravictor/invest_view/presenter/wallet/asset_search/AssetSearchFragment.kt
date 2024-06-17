@@ -85,7 +85,7 @@ class AssetSearchFragment : Fragment() {
     private fun setupAdapter() {
         assetBySearchAdapter.updateOnClickItem { assetBySearchUiModel ->
             val symbol = assetBySearchUiModel.symbol
-            val existingAsset = walletViewModel.assetsList.find { it.symbol == symbol }
+            val existingAsset = walletViewModel.assetsListStateFlow.value.find { it.symbol == symbol }
             if (existingAsset == null) {
                 this.assetBySearchUiModel = assetBySearchUiModel
                 assetSearchViewModel.getAssetQuote(symbol)
