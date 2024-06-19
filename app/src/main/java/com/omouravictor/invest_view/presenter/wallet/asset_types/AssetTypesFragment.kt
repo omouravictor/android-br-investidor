@@ -13,6 +13,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.Entry
@@ -20,9 +21,9 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
-import com.google.android.material.snackbar.Snackbar
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetsBinding
+import com.omouravictor.invest_view.presenter.wallet.WalletFragmentDirections
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.util.AppUtil
 import kotlinx.coroutines.flow.collectLatest
@@ -101,7 +102,7 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
 
     private fun setupAdapter() {
         assetTypesAdapter.updateOnClickItem {
-            Snackbar.make(binding.root, "Item clicked: $it", Snackbar.LENGTH_SHORT).show()
+            findNavController().navigate(WalletFragmentDirections.navToAssetDetailFragment(it))
         }
     }
 
