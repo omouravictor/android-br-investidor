@@ -23,6 +23,7 @@ import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.util.AppUtil
 import com.omouravictor.invest_view.util.AssetUtil
+import com.omouravictor.invest_view.util.BindingUtil
 import com.omouravictor.invest_view.util.EditTextUtil
 import com.omouravictor.invest_view.util.LocaleUtil
 import com.omouravictor.invest_view.util.NavigationUtil
@@ -149,7 +150,7 @@ class SaveAssetFragment : Fragment() {
                 tvInfoMessage.visibility = View.INVISIBLE
                 layoutAssetInfo.visibility = View.VISIBLE
                 binding.btnSave.isEnabled = true
-                AssetUtil.setupVariationViews(this, currency, totalInvested, totalAssetPrice)
+                BindingUtil.setupVariationViews(this, currency, totalInvested, totalAssetPrice)
 
             } else {
                 tvInfoMessage.hint = getString(R.string.fillTheFieldsToView)

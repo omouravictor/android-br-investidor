@@ -8,8 +8,6 @@ object LocaleUtil {
 
     private val appLocale = Locale("pt", "BR")
 
-    fun getFormattedCurrencyValue(value: Number): String = NumberFormat.getCurrencyInstance(appLocale).format(value)
-
     fun getFormattedCurrencyValue(currency: String, value: Number): String {
         val currencyFormat = NumberFormat.getCurrencyInstance(appLocale)
         currencyFormat.currency = Currency.getInstance(currency)

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.omouravictor.invest_view.databinding.ItemListAssetBinding
 import com.omouravictor.invest_view.presenter.base.BaseRecyclerViewAdapter
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
-import com.omouravictor.invest_view.util.AssetUtil
+import com.omouravictor.invest_view.util.BindingUtil
 
 class AssetTypesAdapter : BaseRecyclerViewAdapter<AssetUiModel, AssetTypesAdapter.AssetViewHolder>() {
 
@@ -21,7 +21,7 @@ class AssetTypesAdapter : BaseRecyclerViewAdapter<AssetUiModel, AssetTypesAdapte
 
     inner class AssetViewHolder(private val binding: ItemListAssetBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(assetUiModel: AssetUiModel) {
-            AssetUtil.setupAdapterItemListAssetBinding(binding, assetUiModel, assetUiModel.assetType.colorResId)
+            BindingUtil.setupAdapterItemListAssetBinding(binding, assetUiModel, assetUiModel.assetType.colorResId)
             itemView.setOnClickListener { onClickItem(assetUiModel) }
         }
     }

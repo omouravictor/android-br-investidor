@@ -7,6 +7,7 @@ import com.omouravictor.invest_view.databinding.ItemListAssetBinding
 import com.omouravictor.invest_view.presenter.base.BaseRecyclerViewAdapter
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.util.AssetUtil
+import com.omouravictor.invest_view.util.BindingUtil
 
 class AssetCurrenciesAdapter : BaseRecyclerViewAdapter<AssetUiModel, AssetCurrenciesAdapter.AssetViewHolder>() {
 
@@ -22,7 +23,7 @@ class AssetCurrenciesAdapter : BaseRecyclerViewAdapter<AssetUiModel, AssetCurren
     inner class AssetViewHolder(private val binding: ItemListAssetBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(assetUiModel: AssetUiModel) {
             val currencyResColor = AssetUtil.getCurrencyResColor(assetUiModel.currency)
-            AssetUtil.setupAdapterItemListAssetBinding(binding, assetUiModel, currencyResColor)
+            BindingUtil.setupAdapterItemListAssetBinding(binding, assetUiModel, currencyResColor)
             itemView.setOnClickListener { onClickItem(assetUiModel) }
         }
     }

@@ -1,13 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
+    android:padding="@dimen/defaultPadding">
 
     <TextView
-        android:id="@+id/et"
+        android:id="@+id/tvSymbol"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Detalhes" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="PETR3" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSymbol"
+        tools:text="Petrobras" />
+
+    <TextView
+        android:id="@+id/tvPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/tvSymbol"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvSymbol"
+        tools:text="R$ 38,47" />
+
+    <TextView
+        android:id="@+id/tvVariation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/tvName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvName"
+        tools:text="+R$ 0,87(↑ 2,21%)" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:stretchColumns="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvName">
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/tvAmountTittle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/amount" />
+
+            <TextView
+                android:id="@+id/tvAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                tools:text="1" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/tvTittleTotalInvested"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/totalInvested" />
+
+            <TextView
+                android:id="@+id/tvTotalInvested"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                tools:text="R$ 100,00" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/tvTittleCurrentPosition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/currentPosition" />
+
+            <TextView
+                android:id="@+id/tvCurrentPosition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                tools:text="R$ 38,26" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/tvTittleVariation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/totalVariation" />
+
+            <TextView
+                android:id="@+id/tvVariationTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                tools:text="-R$ 61,74(↓ 61,74%)" />
+        </TableRow>
+    </TableLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

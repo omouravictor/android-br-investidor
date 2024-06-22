@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/defaultMargin"
                 android:layout_marginTop="@dimen/defaultMargin"
-                android:text="@string/amount"
+                android:text="@string/amount_form"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/etSymbol" />
 

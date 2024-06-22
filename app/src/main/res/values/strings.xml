@@ -60,7 +60,8 @@
     <string name="addAssets">Adicionar ativos</string>
     <string name="details">Detalhes</string>
     <string name="select">Selecione</string>
-    <string name="amount">Quantidade *</string>
+    <string name="amount_form">Quantidade *</string>
+    <string name="amount">Quantidade</string>
     <string name="totalInvested">Total investido</string>
     <string name="currentPosition">Posição atual</string>
     <string name="save">Salvar</string>
