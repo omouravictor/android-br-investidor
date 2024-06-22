@@ -5,9 +5,10 @@ import androidx.core.view.isVisible
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.ItemListAssetBinding
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
+import com.omouravictor.invest_view.presenter.wallet.model.getCurrentPosition
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAmount
-import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalAssetPrice
-import com.omouravictor.invest_view.presenter.wallet.model.getTotalAssetPrice
+import com.omouravictor.invest_view.presenter.wallet.model.getFormattedCurrentPosition
+import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 
 object BindingUtil {
 
@@ -64,15 +65,15 @@ object BindingUtil {
     ) {
         val context = binding.root.context
         binding.color.setBackgroundColor(ContextCompat.getColor(context, color))
-        binding.tvSymbol.text = AssetUtil.getFormattedSymbol(assetUiModel.symbol)
+        binding.tvSymbol.text = assetUiModel.getFormattedSymbol()
         binding.tvAmount.text = "(${assetUiModel.getFormattedAmount()})"
         binding.tvName.text = assetUiModel.name
-        binding.tvTotal.text = assetUiModel.getFormattedTotalAssetPrice()
+        binding.tvTotal.text = assetUiModel.getFormattedCurrentPosition()
         setupVariationViews(
             binding,
             assetUiModel.currency,
             assetUiModel.totalInvested,
-            assetUiModel.getTotalAssetPrice()
+            assetUiModel.getCurrentPosition()
         )
     }
 

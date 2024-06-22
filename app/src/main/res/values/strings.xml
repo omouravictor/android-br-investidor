@@ -76,5 +76,6 @@
     <string name="password">Senha</string>
     <string name="login">Login</string>
     <string name="register">Cadastrar</string>
+    <string name="yield">Rendimento</string>
 
 </resources>

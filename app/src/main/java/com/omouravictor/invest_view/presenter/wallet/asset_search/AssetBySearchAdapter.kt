@@ -9,6 +9,7 @@ import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.ItemListAssetBySearchBinding
 import com.omouravictor.invest_view.presenter.base.BaseRecyclerViewAdapter
 import com.omouravictor.invest_view.presenter.wallet.model.AssetBySearchUiModel
+import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.util.AssetUtil
 
 class AssetBySearchAdapter :
@@ -32,7 +33,7 @@ class AssetBySearchAdapter :
         fun bind(assetBySearchUiModel: AssetBySearchUiModel) {
             val assetType = AssetUtil.getAssetType(assetBySearchUiModel.symbol, assetBySearchUiModel.type)
             binding.color.setBackgroundColor(ContextCompat.getColor(context, R.color.green))
-            binding.tvSymbol.text = AssetUtil.getFormattedSymbol(assetBySearchUiModel.symbol)
+            binding.tvSymbol.text = assetBySearchUiModel.getFormattedSymbol()
             binding.tvName.text = assetBySearchUiModel.name
             binding.tvCurrency.text = "(${assetBySearchUiModel.currency})"
             binding.tvAssetType.text = context.getString(assetType.nameResId)

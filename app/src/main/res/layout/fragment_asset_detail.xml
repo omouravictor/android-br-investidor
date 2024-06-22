@@ -8,16 +8,24 @@
 
     <TextView
         android:id="@+id/tvSymbol"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="48dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        app:layout_constraintEnd_toStartOf="@+id/tvPrice"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="PETR3" />
 
     <TextView
         android:id="@+id/tvName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="48dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        app:layout_constraintEnd_toStartOf="@+id/tvVariation"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvSymbol"
         tools:text="Petrobras" />
@@ -35,10 +43,55 @@
         android:id="@+id/tvVariation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="2dp"
+        android:ellipsize="end"
+        android:maxWidth="200dp"
+        android:maxLines="1"
         app:layout_constraintBottom_toBottomOf="@+id/tvName"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bracketStart"
         app:layout_constraintTop_toTopOf="@+id/tvName"
-        tools:text="+R$ 0,87(↑ 2,21%)" />
+        tools:text="+R$ 100.000.000.000,00"
+        tools:textColor="@color/green" />
+
+    <TextView
+        android:id="@+id/bracketStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="("
+        app:layout_constraintBottom_toBottomOf="@+id/tvVariation"
+        app:layout_constraintEnd_toStartOf="@+id/ivArrow"
+        app:layout_constraintTop_toTopOf="@+id/tvVariation"
+        tools:textColor="@color/green" />
+
+    <ImageView
+        android:id="@+id/ivArrow"
+        android:layout_width="12dp"
+        android:layout_height="0dp"
+        android:src="@drawable/ic_arrow_up"
+        app:layout_constraintBottom_toBottomOf="@+id/tvVariation"
+        app:layout_constraintEnd_toStartOf="@+id/tvVariationPercent"
+        app:layout_constraintTop_toTopOf="@+id/tvVariation" />
+
+    <TextView
+        android:id="@+id/tvVariationPercent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvVariation"
+        app:layout_constraintEnd_toStartOf="@+id/bracketEnd"
+        app:layout_constraintTop_toTopOf="@+id/tvVariation"
+        tools:text="23,18%"
+        tools:textColor="@color/green" />
+
+    <TextView
+        android:id="@+id/bracketEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=")"
+        app:layout_constraintBottom_toBottomOf="@+id/tvVariation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvVariation"
+        tools:textColor="@color/green" />
 
     <TableLayout
         android:layout_width="match_parent"
@@ -100,17 +153,17 @@
         <TableRow>
 
             <TextView
-                android:id="@+id/tvTittleVariation"
+                android:id="@+id/tvTittleYield"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/totalVariation" />
+                android:text="@string/yield" />
 
             <TextView
-                android:id="@+id/tvVariationTotal"
+                android:id="@+id/tvYield"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="end"
-                tools:text="-R$ 61,74(↓ 61,74%)" />
+                tools:text="-R$ 61,74 (45%)" />
         </TableRow>
     </TableLayout>
 
