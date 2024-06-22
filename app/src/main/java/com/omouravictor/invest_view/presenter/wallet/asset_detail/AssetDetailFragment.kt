@@ -93,8 +93,8 @@ class AssetDetailFragment : Fragment() {
                                     val color = ContextCompat.getColor(requireContext(), R.color.green)
                                     binding.tvVariation.setTextColor(color)
                                     binding.tvVariationPercent.setTextColor(color)
-                                    binding.bracketStart.setTextColor(color)
-                                    binding.bracketEnd.setTextColor(color)
+                                    binding.tvBracketStart.setTextColor(color)
+                                    binding.tvBracketEnd.setTextColor(color)
                                     binding.ivArrow.visibility = View.VISIBLE
                                     binding.ivArrow.setImageResource(R.drawable.ic_arrow_up)
                                 }
@@ -103,8 +103,8 @@ class AssetDetailFragment : Fragment() {
                                     val color = ContextCompat.getColor(requireContext(), R.color.red)
                                     binding.tvVariation.setTextColor(color)
                                     binding.tvVariationPercent.setTextColor(color)
-                                    binding.bracketStart.setTextColor(color)
-                                    binding.bracketEnd.setTextColor(color)
+                                    binding.tvBracketStart.setTextColor(color)
+                                    binding.tvBracketEnd.setTextColor(color)
                                     binding.ivArrow.visibility = View.VISIBLE
                                     binding.ivArrow.setImageResource(R.drawable.ic_arrow_down)
                                 }
@@ -113,8 +113,8 @@ class AssetDetailFragment : Fragment() {
                                     val color = ContextCompat.getColor(requireContext(), R.color.gray)
                                     binding.tvVariation.setTextColor(color)
                                     binding.tvVariationPercent.setTextColor(color)
-                                    binding.bracketStart.setTextColor(color)
-                                    binding.bracketEnd.setTextColor(color)
+                                    binding.tvBracketStart.setTextColor(color)
+                                    binding.tvBracketEnd.setTextColor(color)
                                     binding.ivArrow.visibility = View.GONE
                                 }
                             }

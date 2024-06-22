@@ -26,34 +26,47 @@ object BindingUtil {
         if (variation > 0) {
             val color = ContextCompat.getColor(context, R.color.green)
             binding.tvVariation.setTextColor(color)
+            binding.tvVariation.text = "+$variationFormatted"
             if (totalInvested == 0.0) {
-                binding.tvVariation.text = "+$variationFormatted"
                 binding.tvVariationPercent.isVisible = false
+                binding.tvBracketStart.isVisible = false
+                binding.tvBracketEnd.isVisible = false
                 binding.ivArrow.isVisible = false
             } else {
-                binding.tvVariation.text = "+$variationFormatted ("
                 binding.tvVariationPercent.isVisible = true
                 binding.tvVariationPercent.setTextColor(color)
-                binding.tvVariationPercent.text = "$percentFormatted )"
+                binding.tvVariationPercent.text = percentFormatted
+                binding.tvBracketStart.setTextColor(color)
+                binding.tvBracketEnd.setTextColor(color)
+                binding.tvBracketStart.isVisible = true
+                binding.tvBracketEnd.isVisible = true
                 binding.ivArrow.isVisible = true
                 binding.ivArrow.setImageResource(R.drawable.ic_arrow_up)
             }
         } else if (variation < 0) {
             val color = ContextCompat.getColor(context, R.color.red)
             binding.tvVariation.setTextColor(color)
-            binding.tvVariation.text = "$variationFormatted ("
+            binding.tvVariation.text = variationFormatted
             binding.tvVariationPercent.isVisible = true
             binding.tvVariationPercent.setTextColor(color)
-            binding.tvVariationPercent.text = "$percentFormatted )"
+            binding.tvVariationPercent.text = percentFormatted
+            binding.tvBracketStart.setTextColor(color)
+            binding.tvBracketEnd.setTextColor(color)
+            binding.tvBracketStart.isVisible = true
+            binding.tvBracketEnd.isVisible = true
             binding.ivArrow.isVisible = true
             binding.ivArrow.setImageResource(R.drawable.ic_arrow_down)
         } else {
             val color = ContextCompat.getColor(context, R.color.gray)
             binding.tvVariation.setTextColor(color)
-            binding.tvVariation.text = "$variationFormatted ("
+            binding.tvVariation.text = variationFormatted
             binding.tvVariationPercent.isVisible = true
             binding.tvVariationPercent.setTextColor(color)
-            binding.tvVariationPercent.text = "$percentFormatted)"
+            binding.tvVariationPercent.text = " $percentFormatted"
+            binding.tvBracketStart.setTextColor(color)
+            binding.tvBracketEnd.setTextColor(color)
+            binding.tvBracketStart.isVisible = true
+            binding.tvBracketEnd.isVisible = true
             binding.ivArrow.isVisible = false
         }
     }

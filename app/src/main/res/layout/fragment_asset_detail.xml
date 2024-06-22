@@ -48,13 +48,13 @@
         android:maxWidth="200dp"
         android:maxLines="1"
         app:layout_constraintBottom_toBottomOf="@+id/tvName"
-        app:layout_constraintEnd_toStartOf="@+id/bracketStart"
+        app:layout_constraintEnd_toStartOf="@+id/tv_bracket_start"
         app:layout_constraintTop_toTopOf="@+id/tvName"
         tools:text="+R$ 100.000.000.000,00"
         tools:textColor="@color/green" />
 
     <TextView
-        android:id="@+id/bracketStart"
+        android:id="@+id/tv_bracket_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="("
@@ -78,13 +78,13 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="2dp"
         app:layout_constraintBottom_toBottomOf="@+id/tvVariation"
-        app:layout_constraintEnd_toStartOf="@+id/bracketEnd"
+        app:layout_constraintEnd_toStartOf="@+id/tv_bracket_end"
         app:layout_constraintTop_toTopOf="@+id/tvVariation"
         tools:text="23,18%"
         tools:textColor="@color/green" />
 
     <TextView
-        android:id="@+id/bracketEnd"
+        android:id="@+id/tv_bracket_end"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=")"
