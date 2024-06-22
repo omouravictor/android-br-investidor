@@ -58,19 +58,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="("
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/tvVariation"
         app:layout_constraintEnd_toStartOf="@+id/ivArrow"
         app:layout_constraintTop_toTopOf="@+id/tvVariation"
-        tools:textColor="@color/green" />
+        tools:textColor="@color/green"
+        tools:visibility="visible" />
 
     <ImageView
         android:id="@+id/ivArrow"
         android:layout_width="12dp"
         android:layout_height="0dp"
         android:src="@drawable/ic_arrow_up"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/tvVariation"
         app:layout_constraintEnd_toStartOf="@+id/tvVariationPercent"
-        app:layout_constraintTop_toTopOf="@+id/tvVariation" />
+        app:layout_constraintTop_toTopOf="@+id/tvVariation"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/tvVariationPercent"
@@ -88,10 +92,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=")"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/tvVariation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tvVariation"
-        tools:textColor="@color/green" />
+        tools:textColor="@color/green"
+        tools:visibility="visible" />
 
     <TableLayout
         android:layout_width="match_parent"
