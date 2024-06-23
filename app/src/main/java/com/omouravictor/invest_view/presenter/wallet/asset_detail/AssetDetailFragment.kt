@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -20,7 +21,6 @@ import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalInvested
 import com.omouravictor.invest_view.presenter.wallet.model.getPriceCurrentPosition
 import com.omouravictor.invest_view.util.BindingUtil
-import com.omouravictor.invest_view.util.BindingUtil.setupColorsAndArrow
 import com.omouravictor.invest_view.util.LocaleUtil.getFormattedCurrencyValue
 import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForPercent
 import kotlinx.coroutines.flow.collectLatest
@@ -81,24 +81,46 @@ class AssetDetailFragment : Fragment() {
         )
     }
 
+    private fun setupLoadingLayout(isLoading: Boolean) {
+        if (isLoading) {
+            binding.incShimmerItemVariation.root.startShimmer()
+            binding.incShimmerItemVariation.root.isVisible = true
+            binding.incLayoutVariation.root.isVisible = false
+        } else {
+            binding.incShimmerItemVariation.root.stopShimmer()
+            binding.incShimmerItemVariation.root.isVisible = false
+            binding.incLayoutVariation.root.isVisible = true
+        }
+    }
+
+    private fun setupErrorLayout() {
+        binding.incLayoutVariation.root.isVisible = false
+    }
+
     private fun observeAssetQuote() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 assetSearchViewModel.assetQuoteStateFlow.collectLatest {
                     when (it) {
-                        is UiState.Loading -> Unit
+                        is UiState.Loading -> setupLoadingLayout(true)
+
                         is UiState.Success -> {
                             val variation = it.data.change
-                            val formattedVariation = getFormattedCurrencyValue(assetUiModel.currency, variation)
                             val variationPercent = it.data.changePercent.removeSuffix("%").toDoubleOrNull()?.div(100)
-                            val formattedVariationPercent = getFormattedValueForPercent(variationPercent)
 
-                            binding.incLayoutVariation.tvVariation.text = formattedVariation
-                            binding.incLayoutVariation.tvVariationPercent.text = formattedVariationPercent
-                            setupColorsAndArrow(binding.incLayoutVariation, variation)
+                            binding.incLayoutVariation.tvVariation.text =
+                                getFormattedCurrencyValue(assetUiModel.currency, variation)
+                            binding.incLayoutVariation.tvVariationPercent.text =
+                                getFormattedValueForPercent(variationPercent)
+                            BindingUtil.setupColorsAndArrow(binding.incLayoutVariation, variation)
+                            setupLoadingLayout(false)
                         }
 
-                        is UiState.Error -> Unit
+                        is UiState.Error -> {
+                            setupLoadingLayout(false)
+                            setupErrorLayout()
+                        }
+
                         else -> Unit
                     }
                 }

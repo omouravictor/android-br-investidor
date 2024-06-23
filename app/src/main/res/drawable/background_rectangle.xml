@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item>
-        <shape android:shape="rectangle">
-            <solid android:color="@color/itemListBackColor" />
-            <corners android:bottomLeftRadius="@dimen/defaultBackgroundRadius" android:bottomRightRadius="@dimen/defaultBackgroundRadius" android:topLeftRadius="@dimen/defaultBackgroundRadius" android:topRightRadius="@dimen/defaultBackgroundRadius" />
-        </shape>
-    </item>
-</selector>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/white" />
+    <corners
+        android:bottomLeftRadius="@dimen/defaultBackgroundRadius"
+        android:bottomRightRadius="@dimen/defaultBackgroundRadius"
+        android:topLeftRadius="@dimen/defaultBackgroundRadius"
+        android:topRightRadius="@dimen/defaultBackgroundRadius" />
+</shape>
