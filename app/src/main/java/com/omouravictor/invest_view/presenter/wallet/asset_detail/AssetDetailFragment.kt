@@ -19,7 +19,7 @@ import com.omouravictor.invest_view.presenter.wallet.model.getFormattedPriceCurr
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalInvested
 import com.omouravictor.invest_view.util.BindingUtil
-import com.omouravictor.invest_view.util.BindingUtil.setupColorsAndVisibilitiesOnVariationLayout
+import com.omouravictor.invest_view.util.BindingUtil.setupColorsAndArrow
 import com.omouravictor.invest_view.util.LocaleUtil.getFormattedCurrencyValue
 import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForPercent
 import kotlinx.coroutines.flow.collectLatest
@@ -89,7 +89,7 @@ class AssetDetailFragment : Fragment() {
 
                             binding.incLayoutVariation.tvVariation.text = formattedVariation
                             binding.incLayoutVariation.tvVariationPercent.text = formattedVariationPercent
-                            setupColorsAndVisibilitiesOnVariationLayout(binding.incLayoutVariation, variation)
+                            setupColorsAndArrow(binding.incLayoutVariation, variation)
                         }
 
                         is UiState.Error -> Unit

@@ -1,7 +1,7 @@
 package com.omouravictor.invest_view.util
 
-import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.LayoutVariationBinding
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
@@ -11,7 +11,7 @@ import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForPercent
 
 object BindingUtil {
 
-    fun setupColorsAndVisibilitiesOnVariationLayout(binding: LayoutVariationBinding, variation: Double) {
+    fun setupColorsAndArrow(binding: LayoutVariationBinding, variation: Double) {
         when {
             variation > 0 -> {
                 val color = ContextCompat.getColor(binding.root.context, R.color.green)
@@ -19,9 +19,7 @@ object BindingUtil {
                 binding.tvVariationPercent.setTextColor(color)
                 binding.tvBracketStart.setTextColor(color)
                 binding.tvBracketEnd.setTextColor(color)
-                binding.tvBracketStart.visibility = View.VISIBLE
-                binding.tvBracketEnd.visibility = View.VISIBLE
-                binding.ivArrow.visibility = View.VISIBLE
+                binding.ivArrow.isVisible = true
                 binding.ivArrow.setImageResource(R.drawable.ic_arrow_up)
             }
 
@@ -31,9 +29,7 @@ object BindingUtil {
                 binding.tvVariationPercent.setTextColor(color)
                 binding.tvBracketStart.setTextColor(color)
                 binding.tvBracketEnd.setTextColor(color)
-                binding.tvBracketStart.visibility = View.VISIBLE
-                binding.tvBracketEnd.visibility = View.VISIBLE
-                binding.ivArrow.visibility = View.VISIBLE
+                binding.ivArrow.isVisible = true
                 binding.ivArrow.setImageResource(R.drawable.ic_arrow_down)
             }
 
@@ -43,7 +39,7 @@ object BindingUtil {
                 binding.tvVariationPercent.setTextColor(color)
                 binding.tvBracketStart.setTextColor(color)
                 binding.tvBracketEnd.setTextColor(color)
-                binding.ivArrow.visibility = View.GONE
+                binding.ivArrow.isVisible = false
             }
         }
     }
@@ -55,18 +51,40 @@ object BindingUtil {
         totalReference: Double
     ) {
         val variation = NumberUtil.getRoundedDouble(reference - totalReference)
-        binding.tvVariation.text = getFormattedCurrencyValue(currency, variation)
-        binding.tvVariationPercent.text = getFormattedValueForPercent(variation / totalReference)
-        setupColorsAndVisibilitiesOnVariationLayout(binding, variation)
+        setupVariationTexts(binding, currency, variation, totalReference)
+        setupVisibilityOfViews(binding, true)
+        setupColorsAndArrow(binding, variation)
     }
 
     fun calculateAndSetupVariationLayout(binding: LayoutVariationBinding, assetUiModel: AssetUiModel) {
-        calculateAndSetupVariationLayout(
-            binding = binding,
-            currency = assetUiModel.currency,
-            reference = assetUiModel.getPriceCurrentPosition(),
-            totalReference = assetUiModel.totalInvested
-        )
+        if (assetUiModel.totalInvested == 0.0)
+            setupVisibilityOfViews(binding, false)
+        else {
+            calculateAndSetupVariationLayout(
+                binding = binding,
+                currency = assetUiModel.currency,
+                reference = assetUiModel.getPriceCurrentPosition(),
+                totalReference = assetUiModel.totalInvested
+            )
+        }
+    }
+
+    private fun setupVisibilityOfViews(binding: LayoutVariationBinding, isVisible: Boolean) {
+        binding.tvVariation.isVisible = isVisible
+        binding.tvVariationPercent.isVisible = isVisible
+        binding.tvBracketStart.isVisible = isVisible
+        binding.tvBracketEnd.isVisible = isVisible
+        binding.ivArrow.isVisible = isVisible
+    }
+
+    private fun setupVariationTexts(
+        binding: LayoutVariationBinding,
+        currency: String,
+        variation: Double,
+        totalReference: Double
+    ) {
+        binding.tvVariation.text = getFormattedCurrencyValue(currency, variation)
+        binding.tvVariationPercent.text = getFormattedValueForPercent(variation / totalReference)
     }
 
 }
