@@ -5,22 +5,13 @@ import androidx.core.content.ContextCompat
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.LayoutVariationBinding
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
-import com.omouravictor.invest_view.presenter.wallet.model.getCurrentPosition
+import com.omouravictor.invest_view.presenter.wallet.model.getPriceCurrentPosition
 import com.omouravictor.invest_view.util.LocaleUtil.getFormattedCurrencyValue
 import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForPercent
 
 object BindingUtil {
 
-    fun setupVariationLayout(
-        binding: LayoutVariationBinding,
-        currency: String,
-        totalInvested: Double,
-        totalAssetPrice: Double
-    ) {
-        val variation = NumberUtil.getRoundedDouble(totalAssetPrice - totalInvested)
-        val formattedVariation = getFormattedCurrencyValue(currency, variation)
-        val formattedVariationPercent = getFormattedValueForPercent(variation / totalInvested)
-
+    fun setupColorsAndVisibilitiesOnVariationLayout(binding: LayoutVariationBinding, variation: Double) {
         when {
             variation > 0 -> {
                 val color = ContextCompat.getColor(binding.root.context, R.color.green)
@@ -55,17 +46,26 @@ object BindingUtil {
                 binding.ivArrow.visibility = View.GONE
             }
         }
-
-        binding.tvVariation.text = formattedVariation
-        binding.tvVariationPercent.text = formattedVariationPercent
     }
 
-    fun setupVariationLayout(binding: LayoutVariationBinding, assetUiModel: AssetUiModel) {
-        setupVariationLayout(
-            binding,
-            assetUiModel.currency,
-            assetUiModel.totalInvested,
-            assetUiModel.getCurrentPosition()
+    fun calculateAndSetupVariationLayout(
+        binding: LayoutVariationBinding,
+        currency: String,
+        reference: Double,
+        totalReference: Double
+    ) {
+        val variation = NumberUtil.getRoundedDouble(reference - totalReference)
+        binding.tvVariation.text = getFormattedCurrencyValue(currency, variation)
+        binding.tvVariationPercent.text = getFormattedValueForPercent(variation / totalReference)
+        setupColorsAndVisibilitiesOnVariationLayout(binding, variation)
+    }
+
+    fun calculateAndSetupVariationLayout(binding: LayoutVariationBinding, assetUiModel: AssetUiModel) {
+        calculateAndSetupVariationLayout(
+            binding = binding,
+            currency = assetUiModel.currency,
+            reference = assetUiModel.getPriceCurrentPosition(),
+            totalReference = assetUiModel.totalInvested
         )
     }
 

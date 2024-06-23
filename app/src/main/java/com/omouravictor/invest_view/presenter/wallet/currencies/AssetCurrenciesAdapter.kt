@@ -8,7 +8,7 @@ import com.omouravictor.invest_view.databinding.ItemListAssetBinding
 import com.omouravictor.invest_view.presenter.base.BaseRecyclerViewAdapter
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAmount
-import com.omouravictor.invest_view.presenter.wallet.model.getFormattedCurrentPosition
+import com.omouravictor.invest_view.presenter.wallet.model.getFormattedPriceCurrentPosition
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.util.AssetUtil
 import com.omouravictor.invest_view.util.BindingUtil
@@ -31,9 +31,9 @@ class AssetCurrenciesAdapter : BaseRecyclerViewAdapter<AssetUiModel, AssetCurren
             binding.tvSymbol.text = assetUiModel.getFormattedSymbol()
             binding.tvAmount.text = "(${assetUiModel.getFormattedAmount()})"
             binding.tvName.text = assetUiModel.name
-            binding.tvTotal.text = assetUiModel.getFormattedCurrentPosition()
+            binding.tvTotal.text = assetUiModel.getFormattedPriceCurrentPosition()
             itemView.setOnClickListener { onClickItem(assetUiModel) }
-            BindingUtil.setupVariationLayout(binding.incLayoutVariation, assetUiModel)
+            BindingUtil.calculateAndSetupVariationLayout(binding.incLayoutVariation, assetUiModel)
         }
     }
 }

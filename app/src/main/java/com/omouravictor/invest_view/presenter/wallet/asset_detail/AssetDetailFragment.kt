@@ -4,24 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetDetailBinding
-import com.omouravictor.invest_view.databinding.LayoutVariationBinding
 import com.omouravictor.invest_view.presenter.base.UiState
 import com.omouravictor.invest_view.presenter.wallet.asset_search.AssetSearchViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAmount
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAssetPrice
-import com.omouravictor.invest_view.presenter.wallet.model.getFormattedCurrentPosition
+import com.omouravictor.invest_view.presenter.wallet.model.getFormattedPriceCurrentPosition
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalInvested
 import com.omouravictor.invest_view.util.BindingUtil
+import com.omouravictor.invest_view.util.BindingUtil.setupColorsAndVisibilitiesOnVariationLayout
 import com.omouravictor.invest_view.util.LocaleUtil.getFormattedCurrencyValue
 import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForPercent
 import kotlinx.coroutines.flow.collectLatest
@@ -67,51 +65,14 @@ class AssetDetailFragment : Fragment() {
         )
     }
 
-    private fun setupVariationLayouts(variation: Double, binding: LayoutVariationBinding) {
-        when {
-            variation > 0 -> {
-                val color = ContextCompat.getColor(requireContext(), R.color.green)
-                binding.tvVariation.setTextColor(color)
-                binding.tvVariationPercent.setTextColor(color)
-                binding.tvBracketStart.setTextColor(color)
-                binding.tvBracketEnd.setTextColor(color)
-                binding.tvBracketStart.visibility = View.VISIBLE
-                binding.tvBracketEnd.visibility = View.VISIBLE
-                binding.ivArrow.visibility = View.VISIBLE
-                binding.ivArrow.setImageResource(R.drawable.ic_arrow_up)
-            }
-
-            variation < 0 -> {
-                val color = ContextCompat.getColor(requireContext(), R.color.red)
-                binding.tvVariation.setTextColor(color)
-                binding.tvVariationPercent.setTextColor(color)
-                binding.tvBracketStart.setTextColor(color)
-                binding.tvBracketEnd.setTextColor(color)
-                binding.tvBracketStart.visibility = View.VISIBLE
-                binding.tvBracketEnd.visibility = View.VISIBLE
-                binding.ivArrow.visibility = View.VISIBLE
-                binding.ivArrow.setImageResource(R.drawable.ic_arrow_down)
-            }
-
-            else -> {
-                val color = ContextCompat.getColor(requireContext(), R.color.gray)
-                binding.tvVariation.setTextColor(color)
-                binding.tvVariationPercent.setTextColor(color)
-                binding.tvBracketStart.setTextColor(color)
-                binding.tvBracketEnd.setTextColor(color)
-                binding.ivArrow.visibility = View.GONE
-            }
-        }
-    }
-
     private fun setupViews() {
         binding.tvSymbol.text = assetUiModel.getFormattedSymbol()
         binding.tvName.text = assetUiModel.name
         binding.tvPrice.text = assetUiModel.getFormattedAssetPrice()
         binding.tvAmount.text = assetUiModel.getFormattedAmount()
         binding.tvTotalInvested.text = assetUiModel.getFormattedTotalInvested()
-        binding.tvCurrentPosition.text = assetUiModel.getFormattedCurrentPosition()
-        BindingUtil.setupVariationLayout(binding.incLayoutYield, assetUiModel)
+        binding.tvCurrentPosition.text = assetUiModel.getFormattedPriceCurrentPosition()
+        BindingUtil.calculateAndSetupVariationLayout(binding.incLayoutYield, assetUiModel)
     }
 
     private fun observeAssetQuote() {
@@ -128,7 +89,7 @@ class AssetDetailFragment : Fragment() {
 
                             binding.incLayoutVariation.tvVariation.text = formattedVariation
                             binding.incLayoutVariation.tvVariationPercent.text = formattedVariationPercent
-                            setupVariationLayouts(variation, binding.incLayoutVariation)
+                            setupColorsAndVisibilitiesOnVariationLayout(binding.incLayoutVariation, variation)
                         }
 
                         is UiState.Error -> Unit
