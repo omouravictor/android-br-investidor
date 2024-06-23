@@ -3,6 +3,7 @@ package com.omouravictor.invest_view.presenter.wallet.model
 import android.os.Parcelable
 import com.omouravictor.invest_view.presenter.wallet.asset_types.AssetTypes
 import com.omouravictor.invest_view.util.AssetUtil
+import com.omouravictor.invest_view.util.LocaleUtil
 import com.omouravictor.invest_view.util.LocaleUtil.getFormattedCurrencyValue
 import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForLongNumber
 import com.omouravictor.invest_view.util.NumberUtil.getRoundedDouble
@@ -24,6 +25,8 @@ fun AssetUiModel.getFormattedSymbol() = AssetUtil.getFormattedSymbol(symbol)
 
 fun AssetUiModel.getCurrentPosition() = price * amount
 
+fun AssetUiModel.getYield() = getRoundedDouble(getCurrentPosition() - totalInvested)
+
 fun AssetUiModel.getFormattedAmount() = getFormattedValueForLongNumber(amount)
 
 fun AssetUiModel.getFormattedAssetPrice() = getFormattedCurrencyValue(currency, price)
@@ -32,8 +35,10 @@ fun AssetUiModel.getFormattedCurrentPosition() = getFormattedCurrencyValue(curre
 
 fun AssetUiModel.getFormattedTotalInvested() = getFormattedCurrencyValue(currency, totalInvested)
 
+fun AssetUiModel.getFormattedYieldPercent() = LocaleUtil.getFormattedValueForPercent(getYield() / totalInvested)
+
 fun AssetUiModel.getFormattedYield(): String {
-    val variation = getRoundedDouble(getCurrentPosition() - totalInvested)
-    val variationFormatted = getFormattedCurrencyValue(currency, variation)
-    return if (variation > 0) "+$variationFormatted" else variationFormatted
+    val yield = getYield()
+    val formattedYield = getFormattedCurrencyValue(currency, yield)
+    return if (yield > 0) "+$formattedYield" else formattedYield
 }

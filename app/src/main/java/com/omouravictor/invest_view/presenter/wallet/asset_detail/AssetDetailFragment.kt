@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetDetailBinding
+import com.omouravictor.invest_view.databinding.LayoutVariationBinding
 import com.omouravictor.invest_view.presenter.base.UiState
 import com.omouravictor.invest_view.presenter.wallet.asset_search.AssetSearchViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
@@ -21,7 +22,10 @@ import com.omouravictor.invest_view.presenter.wallet.model.getFormattedCurrentPo
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalInvested
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedYield
-import com.omouravictor.invest_view.util.LocaleUtil
+import com.omouravictor.invest_view.presenter.wallet.model.getFormattedYieldPercent
+import com.omouravictor.invest_view.presenter.wallet.model.getYield
+import com.omouravictor.invest_view.util.LocaleUtil.getFormattedCurrencyValue
+import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForPercent
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -65,14 +69,53 @@ class AssetDetailFragment : Fragment() {
         )
     }
 
+    private fun setupVariationLayouts(variation: Double, binding: LayoutVariationBinding) {
+        when {
+            variation > 0 -> {
+                val color = ContextCompat.getColor(requireContext(), R.color.green)
+                binding.tvVariation.setTextColor(color)
+                binding.tvVariationPercent.setTextColor(color)
+                binding.tvBracketStart.setTextColor(color)
+                binding.tvBracketEnd.setTextColor(color)
+                binding.tvBracketStart.visibility = View.VISIBLE
+                binding.tvBracketEnd.visibility = View.VISIBLE
+                binding.ivArrow.visibility = View.VISIBLE
+                binding.ivArrow.setImageResource(R.drawable.ic_arrow_up)
+            }
+
+            variation < 0 -> {
+                val color = ContextCompat.getColor(requireContext(), R.color.red)
+                binding.tvVariation.setTextColor(color)
+                binding.tvVariationPercent.setTextColor(color)
+                binding.tvBracketStart.setTextColor(color)
+                binding.tvBracketEnd.setTextColor(color)
+                binding.tvBracketStart.visibility = View.VISIBLE
+                binding.tvBracketEnd.visibility = View.VISIBLE
+                binding.ivArrow.visibility = View.VISIBLE
+                binding.ivArrow.setImageResource(R.drawable.ic_arrow_down)
+            }
+
+            else -> {
+                val color = ContextCompat.getColor(requireContext(), R.color.gray)
+                binding.tvVariation.setTextColor(color)
+                binding.tvVariationPercent.setTextColor(color)
+                binding.tvBracketStart.setTextColor(color)
+                binding.tvBracketEnd.setTextColor(color)
+                binding.ivArrow.visibility = View.GONE
+            }
+        }
+    }
+
     private fun setupViews() {
         binding.tvSymbol.text = assetUiModel.getFormattedSymbol()
         binding.tvName.text = assetUiModel.name
         binding.tvPrice.text = assetUiModel.getFormattedAssetPrice()
         binding.tvAmount.text = assetUiModel.getFormattedAmount()
         binding.tvTotalInvested.text = assetUiModel.getFormattedTotalInvested()
-        binding.tvYield.text = assetUiModel.getFormattedYield()
+        binding.incLayoutYield.tvVariation.text = assetUiModel.getFormattedYield()
+        binding.incLayoutYield.tvVariationPercent.text = assetUiModel.getFormattedYieldPercent()
         binding.tvCurrentPosition.text = assetUiModel.getFormattedCurrentPosition()
+        setupVariationLayouts(assetUiModel.getYield(), binding.incLayoutYield)
     }
 
     private fun observeAssetQuote() {
@@ -80,59 +123,20 @@ class AssetDetailFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 assetSearchViewModel.assetQuoteStateFlow.collectLatest {
                     when (it) {
-                        is UiState.Loading -> {
-                            // Show loading
-                        }
-
+                        is UiState.Loading -> Unit
                         is UiState.Success -> {
-                            val data = it.data
-                            val change = data.change
+                            val variation = it.data.change
+                            val formattedVariation = getFormattedCurrencyValue(assetUiModel.currency, variation)
+                            val variationPercent = it.data.changePercent.removeSuffix("%").toDoubleOrNull()?.div(100)
+                            val formattedVariationPercent = getFormattedValueForPercent(variationPercent)
 
-                            when {
-                                change > 0 -> {
-                                    val color = ContextCompat.getColor(requireContext(), R.color.green)
-                                    binding.tvVariation.setTextColor(color)
-                                    binding.tvVariationPercent.setTextColor(color)
-                                    binding.tvBracketStart.setTextColor(color)
-                                    binding.tvBracketEnd.setTextColor(color)
-                                    binding.ivArrow.visibility = View.VISIBLE
-                                    binding.ivArrow.setImageResource(R.drawable.ic_arrow_up)
-                                }
-
-                                change < 0 -> {
-                                    val color = ContextCompat.getColor(requireContext(), R.color.red)
-                                    binding.tvVariation.setTextColor(color)
-                                    binding.tvVariationPercent.setTextColor(color)
-                                    binding.tvBracketStart.setTextColor(color)
-                                    binding.tvBracketEnd.setTextColor(color)
-                                    binding.ivArrow.visibility = View.VISIBLE
-                                    binding.ivArrow.setImageResource(R.drawable.ic_arrow_down)
-                                }
-
-                                else -> {
-                                    val color = ContextCompat.getColor(requireContext(), R.color.gray)
-                                    binding.tvVariation.setTextColor(color)
-                                    binding.tvVariationPercent.setTextColor(color)
-                                    binding.tvBracketStart.setTextColor(color)
-                                    binding.tvBracketEnd.setTextColor(color)
-                                    binding.ivArrow.visibility = View.GONE
-                                }
-                            }
-
-                            val changeFormatted =
-                                LocaleUtil.getFormattedCurrencyValue(assetUiModel.currency, change)
-                            val changePercent = data.changePercent.removeSuffix("%").toDoubleOrNull()?.div(100)
-                            val formattedChangePercent = LocaleUtil.getFormattedValueForPercent(changePercent)
-
-                            binding.tvVariation.text = changeFormatted
-                            binding.tvVariationPercent.text = formattedChangePercent
+                            binding.incLayoutVariation.tvVariation.text = formattedVariation
+                            binding.incLayoutVariation.tvVariationPercent.text = formattedVariationPercent
+                            setupVariationLayouts(variation, binding.incLayoutVariation)
                         }
 
-                        is UiState.Error -> {
-                            // Show error
-                        }
-
-                        is UiState.Initial -> Unit
+                        is UiState.Error -> Unit
+                        else -> Unit
                     }
                 }
             }
