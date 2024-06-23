@@ -4,12 +4,26 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.LayoutVariationBinding
-import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
-import com.omouravictor.invest_view.presenter.wallet.model.getPriceCurrentPosition
 import com.omouravictor.invest_view.util.LocaleUtil.getFormattedCurrencyValue
 import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForPercent
 
 object BindingUtil {
+
+    fun calculateAndSetupVariationLayout(
+        binding: LayoutVariationBinding,
+        currency: String,
+        reference: Double,
+        totalReference: Double
+    ) {
+        if (totalReference == 0.0)
+            setupVisibilities(binding, false)
+        else {
+            val variation = NumberUtil.getRoundedDouble(reference - totalReference)
+            setupTexts(binding, currency, variation, totalReference)
+            setupVisibilities(binding, true)
+            setupColorsAndArrow(binding, variation)
+        }
+    }
 
     fun setupColorsAndArrow(binding: LayoutVariationBinding, variation: Double) {
         when {
@@ -44,32 +58,7 @@ object BindingUtil {
         }
     }
 
-    fun calculateAndSetupVariationLayout(
-        binding: LayoutVariationBinding,
-        currency: String,
-        reference: Double,
-        totalReference: Double
-    ) {
-        val variation = NumberUtil.getRoundedDouble(reference - totalReference)
-        setupVariationTexts(binding, currency, variation, totalReference)
-        setupVisibilityOfViews(binding, true)
-        setupColorsAndArrow(binding, variation)
-    }
-
-    fun calculateAndSetupVariationLayout(binding: LayoutVariationBinding, assetUiModel: AssetUiModel) {
-        if (assetUiModel.totalInvested == 0.0)
-            setupVisibilityOfViews(binding, false)
-        else {
-            calculateAndSetupVariationLayout(
-                binding = binding,
-                currency = assetUiModel.currency,
-                reference = assetUiModel.getPriceCurrentPosition(),
-                totalReference = assetUiModel.totalInvested
-            )
-        }
-    }
-
-    private fun setupVisibilityOfViews(binding: LayoutVariationBinding, isVisible: Boolean) {
+    private fun setupVisibilities(binding: LayoutVariationBinding, isVisible: Boolean) {
         binding.tvVariation.isVisible = isVisible
         binding.tvVariationPercent.isVisible = isVisible
         binding.tvBracketStart.isVisible = isVisible
@@ -77,7 +66,7 @@ object BindingUtil {
         binding.ivArrow.isVisible = isVisible
     }
 
-    private fun setupVariationTexts(
+    private fun setupTexts(
         binding: LayoutVariationBinding,
         currency: String,
         variation: Double,

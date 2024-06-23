@@ -18,6 +18,7 @@ import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAssetPric
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedPriceCurrentPosition
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalInvested
+import com.omouravictor.invest_view.presenter.wallet.model.getPriceCurrentPosition
 import com.omouravictor.invest_view.util.BindingUtil
 import com.omouravictor.invest_view.util.BindingUtil.setupColorsAndArrow
 import com.omouravictor.invest_view.util.LocaleUtil.getFormattedCurrencyValue
@@ -72,7 +73,12 @@ class AssetDetailFragment : Fragment() {
         binding.tvAmount.text = assetUiModel.getFormattedAmount()
         binding.tvTotalInvested.text = assetUiModel.getFormattedTotalInvested()
         binding.tvCurrentPosition.text = assetUiModel.getFormattedPriceCurrentPosition()
-        BindingUtil.calculateAndSetupVariationLayout(binding.incLayoutYield, assetUiModel)
+        BindingUtil.calculateAndSetupVariationLayout(
+            binding = binding.incLayoutYield,
+            currency = assetUiModel.currency,
+            reference = assetUiModel.getPriceCurrentPosition(),
+            totalReference = assetUiModel.totalInvested
+        )
     }
 
     private fun observeAssetQuote() {

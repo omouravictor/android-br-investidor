@@ -10,6 +10,7 @@ import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAmount
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedPriceCurrentPosition
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
+import com.omouravictor.invest_view.presenter.wallet.model.getPriceCurrentPosition
 import com.omouravictor.invest_view.util.BindingUtil
 
 class AssetTypesAdapter : BaseRecyclerViewAdapter<AssetUiModel, AssetTypesAdapter.AssetViewHolder>() {
@@ -32,7 +33,12 @@ class AssetTypesAdapter : BaseRecyclerViewAdapter<AssetUiModel, AssetTypesAdapte
             binding.tvName.text = assetUiModel.name
             binding.tvTotal.text = assetUiModel.getFormattedPriceCurrentPosition()
             itemView.setOnClickListener { onClickItem(assetUiModel) }
-            BindingUtil.calculateAndSetupVariationLayout(binding.incLayoutVariation, assetUiModel)
+            BindingUtil.calculateAndSetupVariationLayout(
+                binding = binding.incLayoutVariation,
+                currency = assetUiModel.currency,
+                reference = assetUiModel.getPriceCurrentPosition(),
+                totalReference = assetUiModel.totalInvested
+            )
         }
     }
 }
