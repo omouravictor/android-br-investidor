@@ -151,7 +151,7 @@ class SaveAssetFragment : Fragment() {
                 tvInfoMessage.visibility = View.INVISIBLE
                 layoutAssetInfo.visibility = View.VISIBLE
                 binding.btnSave.isEnabled = true
-                BindingUtil.setupVariationViews(this, currency, totalInvested, totalAssetPrice)
+                BindingUtil.setupVariationLayout(this.incLayoutVariation, currency, totalInvested, totalAssetPrice)
 
             } else {
                 tvInfoMessage.hint = getString(R.string.fillTheFieldsToView)

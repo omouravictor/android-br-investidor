@@ -1,88 +1,67 @@
 package com.omouravictor.invest_view.util
 
+import android.view.View
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import com.omouravictor.invest_view.R
-import com.omouravictor.invest_view.databinding.ItemListAssetBinding
+import com.omouravictor.invest_view.databinding.LayoutVariationBinding
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getCurrentPosition
-import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAmount
-import com.omouravictor.invest_view.presenter.wallet.model.getFormattedCurrentPosition
-import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
+import com.omouravictor.invest_view.util.LocaleUtil.getFormattedCurrencyValue
+import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForPercent
 
 object BindingUtil {
 
-    fun setupVariationViews(
-        binding: ItemListAssetBinding,
+    fun setupVariationLayout(
+        binding: LayoutVariationBinding,
         currency: String,
         totalInvested: Double,
         totalAssetPrice: Double
     ) {
-        val context = binding.root.context
         val variation = NumberUtil.getRoundedDouble(totalAssetPrice - totalInvested)
-        val variationFormatted = LocaleUtil.getFormattedCurrencyValue(currency, variation)
-        val percentFormatted = LocaleUtil.getFormattedValueForPercent(variation / totalInvested)
+        val formattedVariation = getFormattedCurrencyValue(currency, variation)
+        val formattedVariationPercent = getFormattedValueForPercent(variation / totalInvested)
 
-        if (variation > 0) {
-            val color = ContextCompat.getColor(context, R.color.green)
-            binding.tvVariation.setTextColor(color)
-            binding.tvVariation.text = "+$variationFormatted"
-            if (totalInvested == 0.0) {
-                binding.tvVariationPercent.isVisible = false
-                binding.tvBracketStart.isVisible = false
-                binding.tvBracketEnd.isVisible = false
-                binding.ivArrow.isVisible = false
-            } else {
-                binding.tvVariationPercent.isVisible = true
+        when {
+            variation > 0 -> {
+                val color = ContextCompat.getColor(binding.root.context, R.color.green)
+                binding.tvVariation.setTextColor(color)
                 binding.tvVariationPercent.setTextColor(color)
-                binding.tvVariationPercent.text = percentFormatted
                 binding.tvBracketStart.setTextColor(color)
                 binding.tvBracketEnd.setTextColor(color)
-                binding.tvBracketStart.isVisible = true
-                binding.tvBracketEnd.isVisible = true
-                binding.ivArrow.isVisible = true
+                binding.tvBracketStart.visibility = View.VISIBLE
+                binding.tvBracketEnd.visibility = View.VISIBLE
+                binding.ivArrow.visibility = View.VISIBLE
                 binding.ivArrow.setImageResource(R.drawable.ic_arrow_up)
             }
-        } else if (variation < 0) {
-            val color = ContextCompat.getColor(context, R.color.red)
-            binding.tvVariation.setTextColor(color)
-            binding.tvVariation.text = variationFormatted
-            binding.tvVariationPercent.isVisible = true
-            binding.tvVariationPercent.setTextColor(color)
-            binding.tvVariationPercent.text = percentFormatted
-            binding.tvBracketStart.setTextColor(color)
-            binding.tvBracketEnd.setTextColor(color)
-            binding.tvBracketStart.isVisible = true
-            binding.tvBracketEnd.isVisible = true
-            binding.ivArrow.isVisible = true
-            binding.ivArrow.setImageResource(R.drawable.ic_arrow_down)
-        } else {
-            val color = ContextCompat.getColor(context, R.color.gray)
-            binding.tvVariation.setTextColor(color)
-            binding.tvVariation.text = variationFormatted
-            binding.tvVariationPercent.isVisible = true
-            binding.tvVariationPercent.setTextColor(color)
-            binding.tvVariationPercent.text = " $percentFormatted"
-            binding.tvBracketStart.setTextColor(color)
-            binding.tvBracketEnd.setTextColor(color)
-            binding.tvBracketStart.isVisible = true
-            binding.tvBracketEnd.isVisible = true
-            binding.ivArrow.isVisible = false
+
+            variation < 0 -> {
+                val color = ContextCompat.getColor(binding.root.context, R.color.red)
+                binding.tvVariation.setTextColor(color)
+                binding.tvVariationPercent.setTextColor(color)
+                binding.tvBracketStart.setTextColor(color)
+                binding.tvBracketEnd.setTextColor(color)
+                binding.tvBracketStart.visibility = View.VISIBLE
+                binding.tvBracketEnd.visibility = View.VISIBLE
+                binding.ivArrow.visibility = View.VISIBLE
+                binding.ivArrow.setImageResource(R.drawable.ic_arrow_down)
+            }
+
+            else -> {
+                val color = ContextCompat.getColor(binding.root.context, R.color.gray)
+                binding.tvVariation.setTextColor(color)
+                binding.tvVariationPercent.setTextColor(color)
+                binding.tvBracketStart.setTextColor(color)
+                binding.tvBracketEnd.setTextColor(color)
+                binding.ivArrow.visibility = View.GONE
+            }
         }
+
+        binding.tvVariation.text = formattedVariation
+        binding.tvVariationPercent.text = formattedVariationPercent
     }
 
-    fun setupAdapterItemListAssetBinding(
-        binding: ItemListAssetBinding,
-        assetUiModel: AssetUiModel,
-        color: Int
-    ) {
-        val context = binding.root.context
-        binding.color.setBackgroundColor(ContextCompat.getColor(context, color))
-        binding.tvSymbol.text = assetUiModel.getFormattedSymbol()
-        binding.tvAmount.text = "(${assetUiModel.getFormattedAmount()})"
-        binding.tvName.text = assetUiModel.name
-        binding.tvTotal.text = assetUiModel.getFormattedCurrentPosition()
-        setupVariationViews(
+    fun setupVariationLayout(binding: LayoutVariationBinding, assetUiModel: AssetUiModel) {
+        setupVariationLayout(
             binding,
             assetUiModel.currency,
             assetUiModel.totalInvested,

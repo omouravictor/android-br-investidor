@@ -80,71 +80,19 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textSize="@dimen/textSize1"
-                app:layout_constraintEnd_toStartOf="@+id/tvVariation"
+                app:layout_constraintEnd_toStartOf="@+id/incLayoutVariation"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvSymbol"
                 tools:text="Ação" />
 
-            <TextView
-                android:id="@+id/tvVariation"
+            <include
+                android:id="@+id/incLayoutVariation"
+                layout="@layout/layout_variation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="2dp"
-                android:ellipsize="end"
-                android:maxWidth="200dp"
-                android:maxLines="1"
-                android:textAlignment="textEnd"
-                android:textSize="@dimen/textSize1"
                 app:layout_constraintBottom_toBottomOf="@+id/tvName"
-                app:layout_constraintEnd_toStartOf="@+id/tvBracketStart"
-                app:layout_constraintTop_toTopOf="@+id/tvName"
-                tools:text="+R$ 100.000.000.000,00"
-                tools:textColor="@color/green" />
-
-            <TextView
-                android:id="@+id/tvBracketStart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="("
-                android:textSize="@dimen/textSize1"
-                app:layout_constraintBottom_toBottomOf="@+id/tvVariation"
-                app:layout_constraintEnd_toStartOf="@+id/ivArrow"
-                app:layout_constraintTop_toTopOf="@+id/tvVariation"
-                tools:textColor="@color/green" />
-
-            <ImageView
-                android:id="@+id/ivArrow"
-                android:layout_width="12dp"
-                android:layout_height="0dp"
-                android:src="@drawable/ic_arrow_up"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="@+id/tvVariation"
-                app:layout_constraintEnd_toStartOf="@+id/tvVariationPercent"
-                app:layout_constraintTop_toTopOf="@+id/tvVariation"
-                tools:visibility="visible" />
-
-            <TextView
-                android:id="@+id/tvVariationPercent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="2dp"
-                android:textSize="@dimen/textSize1"
-                app:layout_constraintBottom_toBottomOf="@+id/tvVariation"
-                app:layout_constraintEnd_toStartOf="@+id/tvBracketEnd"
-                app:layout_constraintTop_toTopOf="@+id/tvVariation"
-                tools:text="23,18%"
-                tools:textColor="@color/green" />
-
-            <TextView
-                android:id="@+id/tvBracketEnd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=")"
-                android:textSize="@dimen/textSize1"
-                app:layout_constraintBottom_toBottomOf="@+id/tvVariation"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tvVariation"
-                tools:textColor="@color/green" />
+                app:layout_constraintTop_toTopOf="@+id/tvName" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

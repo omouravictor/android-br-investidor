@@ -2,10 +2,14 @@ package com.omouravictor.invest_view.presenter.wallet.currencies
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.omouravictor.invest_view.databinding.ItemListAssetBinding
 import com.omouravictor.invest_view.presenter.base.BaseRecyclerViewAdapter
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
+import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAmount
+import com.omouravictor.invest_view.presenter.wallet.model.getFormattedCurrentPosition
+import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.util.AssetUtil
 import com.omouravictor.invest_view.util.BindingUtil
 
@@ -23,8 +27,13 @@ class AssetCurrenciesAdapter : BaseRecyclerViewAdapter<AssetUiModel, AssetCurren
     inner class AssetViewHolder(private val binding: ItemListAssetBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(assetUiModel: AssetUiModel) {
             val currencyResColor = AssetUtil.getCurrencyResColor(assetUiModel.currency)
-            BindingUtil.setupAdapterItemListAssetBinding(binding, assetUiModel, currencyResColor)
+            binding.color.setBackgroundColor(ContextCompat.getColor(binding.root.context, currencyResColor))
+            binding.tvSymbol.text = assetUiModel.getFormattedSymbol()
+            binding.tvAmount.text = "(${assetUiModel.getFormattedAmount()})"
+            binding.tvName.text = assetUiModel.name
+            binding.tvTotal.text = assetUiModel.getFormattedCurrentPosition()
             itemView.setOnClickListener { onClickItem(assetUiModel) }
+            BindingUtil.setupVariationLayout(binding.incLayoutVariation, assetUiModel)
         }
     }
 }

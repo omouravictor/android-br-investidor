@@ -21,9 +21,7 @@ import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAssetPric
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedCurrentPosition
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalInvested
-import com.omouravictor.invest_view.presenter.wallet.model.getFormattedYield
-import com.omouravictor.invest_view.presenter.wallet.model.getFormattedYieldPercent
-import com.omouravictor.invest_view.presenter.wallet.model.getYield
+import com.omouravictor.invest_view.util.BindingUtil
 import com.omouravictor.invest_view.util.LocaleUtil.getFormattedCurrencyValue
 import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForPercent
 import kotlinx.coroutines.flow.collectLatest
@@ -112,10 +110,8 @@ class AssetDetailFragment : Fragment() {
         binding.tvPrice.text = assetUiModel.getFormattedAssetPrice()
         binding.tvAmount.text = assetUiModel.getFormattedAmount()
         binding.tvTotalInvested.text = assetUiModel.getFormattedTotalInvested()
-        binding.incLayoutYield.tvVariation.text = assetUiModel.getFormattedYield()
-        binding.incLayoutYield.tvVariationPercent.text = assetUiModel.getFormattedYieldPercent()
         binding.tvCurrentPosition.text = assetUiModel.getFormattedCurrentPosition()
-        setupVariationLayouts(assetUiModel.getYield(), binding.incLayoutYield)
+        BindingUtil.setupVariationLayout(binding.incLayoutYield, assetUiModel)
     }
 
     private fun observeAssetQuote() {
