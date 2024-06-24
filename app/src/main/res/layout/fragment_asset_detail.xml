@@ -34,16 +34,17 @@
         layout="@layout/shimmer_item"
         android:layout_width="0dp"
         android:layout_height="6dp"
-        app:layout_constraintWidth_percent=".25"
         app:layout_constraintBottom_toBottomOf="@+id/incLayoutVariation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/incLayoutVariation" />
+        app:layout_constraintTop_toTopOf="@+id/incLayoutVariation"
+        app:layout_constraintWidth_percent=".25" />
 
     <include
         android:id="@+id/incLayoutVariation"
         layout="@layout/layout_variation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
         android:ellipsize="end"
         android:maxLines="1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -75,6 +76,12 @@
                 tools:text="1" />
         </TableRow>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="4dp"
+            android:background="@android:color/darker_gray" />
+
         <TableRow>
 
             <TextView
@@ -90,6 +97,12 @@
                 android:gravity="end"
                 tools:text="R$ 100,00" />
         </TableRow>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="4dp"
+            android:background="@android:color/darker_gray" />
 
         <TableRow>
 
@@ -107,6 +120,12 @@
                 tools:text="R$ 38,26" />
         </TableRow>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="4dp"
+            android:background="@android:color/darker_gray" />
+
         <TableRow>
 
             <TextView
@@ -122,6 +141,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end" />
         </TableRow>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="4dp"
+            android:background="@android:color/darker_gray" />
+
     </TableLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
