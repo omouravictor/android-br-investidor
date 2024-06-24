@@ -15,15 +15,10 @@
         android:text="@string/somethingWentWrong"
         android:textAlignment="center" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnTryAgain"
+    <include
+        android:id="@+id/incBtnTryAgain"
+        layout="@layout/button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/selector_button"
-        android:text="@string/tryAgain"
-        android:textAllCaps="false"
-        android:textColor="@color/buttonTextColorEnabledTrue"
-        android:textSize="@dimen/textSize3"
-        android:textStyle="bold" />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

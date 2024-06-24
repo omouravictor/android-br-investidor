@@ -54,6 +54,7 @@ class AssetDetailFragment : Fragment() {
         initEssentialVars()
         setupToolbar()
         setupViews()
+        setupButtons()
         observeAssetQuote()
         assetSearchViewModel.getAssetQuote(assetUiModel.symbol)
     }
@@ -116,6 +117,15 @@ class AssetDetailFragment : Fragment() {
             reference = assetUiModel.getPriceCurrentPosition(),
             totalReference = assetUiModel.totalInvested
         )
+    }
+
+    private fun setupButtons() {
+        binding.incBtnNewContribution.root.apply {
+            text = getString(R.string.newContribution)
+            setOnClickListener {
+                AppUtil.showSuccessSnackBar(requireActivity(), "Testandoooooooooo")
+            }
+        }
     }
 
     private fun setupLoadingLayout(isLoading: Boolean) {

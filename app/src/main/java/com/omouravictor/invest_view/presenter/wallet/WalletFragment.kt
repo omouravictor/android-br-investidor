@@ -44,12 +44,18 @@ class WalletFragment : Fragment() {
         setupTabLayoutWithViewPager2()
         observeAssetsList()
 
-        binding.incEmptyWalletLayout.btnAddAssets.setOnClickListener {
-            findNavController().navigate(WalletFragmentDirections.navToAssetSearchFragment())
+        binding.incEmptyWalletLayout.incBtnAddAssets.root.apply {
+            text = getString(R.string.addAssets)
+            setOnClickListener {
+                findNavController().navigate(WalletFragmentDirections.navToAssetSearchFragment())
+            }
         }
 
-        binding.incWalletErrorLayout.btnTryAgain.setOnClickListener {
-            walletViewModel.loadAssets()
+        binding.incWalletErrorLayout.incBtnTryAgain.root.apply {
+            text = getString(R.string.tryAgain)
+            setOnClickListener {
+                walletViewModel.loadAssets()
+            }
         }
     }
 

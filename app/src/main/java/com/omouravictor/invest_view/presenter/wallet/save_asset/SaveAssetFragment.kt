@@ -150,7 +150,7 @@ class SaveAssetFragment : Fragment() {
                 tvTotal.text = LocaleUtil.getFormattedCurrencyValue(currency, priceCurrentPosition)
                 tvInfoMessage.visibility = View.INVISIBLE
                 layoutAssetInfo.visibility = View.VISIBLE
-                binding.btnSave.isEnabled = true
+                binding.incBtnSave.root.isEnabled = true
                 BindingUtil.calculateAndSetupVariationLayout(
                     binding = this.incLayoutVariation,
                     textSize = 12f,
@@ -163,7 +163,7 @@ class SaveAssetFragment : Fragment() {
                 tvInfoMessage.hint = getString(R.string.fillTheFieldsToView)
                 tvInfoMessage.visibility = View.VISIBLE
                 layoutAssetInfo.visibility = View.INVISIBLE
-                binding.btnSave.isEnabled = false
+                binding.incBtnSave.root.isEnabled = false
             }
         }
     }
@@ -198,10 +198,13 @@ class SaveAssetFragment : Fragment() {
     }
 
     private fun setupBtnSave() {
-        binding.btnSave.setOnClickListener {
-            assetUiModel.amount = getAmount()
-            assetUiModel.totalInvested = getTotalInvested()
-            saveViewModel.saveAsset(assetUiModel)
+        binding.incBtnSave.root.apply {
+            text = getString(R.string.save)
+            setOnClickListener {
+                assetUiModel.amount = getAmount()
+                assetUiModel.totalInvested = getTotalInvested()
+                saveViewModel.saveAsset(assetUiModel)
+            }
         }
     }
 

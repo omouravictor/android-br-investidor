@@ -13,5 +13,6 @@
     <color name="buttonBackColor">@color/green</color>
     <color name="buttonTextColorEnabledTrue">@color/black</color>
     <color name="buttonTextColorEnabledFalse">@color/appWindowBackColor</color>
+    <color name="lineColor">#303030</color>
     <color name="mtrl_textinput_default_box_stroke_color" tools:ignore="PrivateResource">#6F6F6F</color>
 </resources>

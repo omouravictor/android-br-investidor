@@ -32,22 +32,17 @@
         android:paddingVertical="@dimen/defaultPadding"
         android:text="123456" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnLogin"
+    <include
+        android:id="@+id/incBtnLogin"
+        layout="@layout/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/defaultMargin"
-        android:background="@drawable/selector_button"
-        android:text="@string/login"
-        android:textAllCaps="false"
-        android:textColor="@drawable/selector_button_text_color" />
+        android:layout_marginBottom="@dimen/defaultMargin" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnRegister"
+    <include
+        android:id="@+id/incBtnRegister"
+        layout="@layout/button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/selector_button"
-        android:text="@string/register"
-        android:textAllCaps="false"
-        android:textColor="@drawable/selector_button_text_color" />
+        android:layout_height="wrap_content" />
+
 </LinearLayout>

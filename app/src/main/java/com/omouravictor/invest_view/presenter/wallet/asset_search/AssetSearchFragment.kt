@@ -72,12 +72,15 @@ class AssetSearchFragment : Fragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean = false
         }, viewLifecycleOwner)
 
-        binding.incLayoutError.btnTryAgain.setOnClickListener {
-            val query = searchView.query.toString()
-            if (query.isNotEmpty()) {
-                assetSearchViewModel.getAssetsBySearch(query)
-            } else {
-                showErrorSnackBar(activity, message = getString(R.string.enterAssetSymbolForTryAgain))
+        binding.incLayoutError.incBtnTryAgain.root.apply {
+            text = getString(R.string.tryAgain)
+            setOnClickListener {
+                val query = searchView.query.toString()
+                if (query.isNotEmpty()) {
+                    assetSearchViewModel.getAssetsBySearch(query)
+                } else {
+                    showErrorSnackBar(activity, message = getString(R.string.enterAssetSymbolForTryAgain))
+                }
             }
         }
     }
@@ -180,7 +183,7 @@ class AssetSearchFragment : Fragment() {
         binding.progressBar.isVisible = false
         binding.shimmerLayout.isVisible = isLoading
         binding.incLayoutError.tvInfoMessage.isVisible = isSuccessResultsEmpty || isError
-        binding.incLayoutError.btnTryAgain.isVisible = isError
+        binding.incLayoutError.incBtnTryAgain.root.isVisible = isError
         binding.recyclerView.isVisible = !isLoading && !isSuccessResultsEmpty && !isError
 
         if (isLoading) binding.shimmerLayout.startShimmer()

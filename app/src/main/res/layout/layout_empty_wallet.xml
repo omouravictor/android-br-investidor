@@ -33,16 +33,11 @@
         android:textColor="@color/grayDayNightColor"
         android:textSize="@dimen/textSize4" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnAddAssets"
+    <include
+        android:id="@+id/incBtnAddAssets"
+        layout="@layout/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:background="@drawable/selector_button"
-        android:text="@string/addAssets"
-        android:textAllCaps="false"
-        android:textColor="@color/buttonTextColorEnabledTrue"
-        android:textSize="@dimen/textSize3"
-        android:textStyle="bold" />
+        android:layout_marginBottom="32dp" />
 
 </LinearLayout>

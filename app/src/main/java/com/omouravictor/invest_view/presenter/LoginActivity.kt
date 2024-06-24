@@ -23,8 +23,15 @@ class LoginActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        binding.btnLogin.setOnClickListener { login() }
-        binding.btnRegister.setOnClickListener { register() }
+        binding.incBtnLogin.root.apply {
+            text = getString(R.string.login)
+            setOnClickListener { login() }
+        }
+
+        binding.incBtnRegister.root.apply {
+            text = getString(R.string.register)
+            setOnClickListener { register() }
+        }
     }
 
     override fun onStart() {
