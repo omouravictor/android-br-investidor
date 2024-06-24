@@ -7,46 +7,37 @@
     android:padding="@dimen/defaultPadding">
 
     <TextView
-        android:id="@+id/tvSymbol"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="48dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        app:layout_constraintEnd_toStartOf="@+id/tvPrice"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="PETR3" />
-
-    <TextView
         android:id="@+id/tvName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:maxLines="1"
+        android:maxLines="2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSymbol"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent=".4"
         tools:text="Petrobras" />
 
     <TextView
         android:id="@+id/tvPrice"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/tvSymbol"
+        android:ellipsize="end"
+        android:gravity="end"
+        android:maxLines="1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvSymbol"
+        app:layout_constraintTop_toTopOf="@+id/tvName"
+        app:layout_constraintWidth_percent=".5"
         tools:text="R$ 38,47" />
 
     <include
         android:id="@+id/incShimmerItemVariation"
         layout="@layout/shimmer_item"
-        android:layout_width="100dp"
-        android:layout_height="0dp"
-        android:layout_marginVertical="5dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvName"
+        android:layout_width="0dp"
+        android:layout_height="6dp"
+        app:layout_constraintWidth_percent=".25"
+        app:layout_constraintBottom_toBottomOf="@+id/incLayoutVariation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvName" />
+        app:layout_constraintTop_toTopOf="@+id/incLayoutVariation" />
 
     <include
         android:id="@+id/incLayoutVariation"
@@ -55,9 +46,8 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="1"
-        app:layout_constraintBottom_toBottomOf="@+id/tvName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvName"
+        app:layout_constraintTop_toBottomOf="@+id/tvPrice"
         app:layout_constraintWidth_percent=".5" />
 
     <TableLayout

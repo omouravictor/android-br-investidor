@@ -13,7 +13,6 @@ import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -105,7 +104,6 @@ class AssetDetailFragment : Fragment() {
     }
 
     private fun setupViews() {
-        binding.tvSymbol.text = assetUiModel.getFormattedSymbol()
         binding.tvName.text = assetUiModel.name
         binding.tvPrice.text = assetUiModel.getFormattedAssetPrice()
         binding.tvAmount.text = assetUiModel.getFormattedAmount()
@@ -122,17 +120,17 @@ class AssetDetailFragment : Fragment() {
     private fun setupLoadingLayout(isLoading: Boolean) {
         if (isLoading) {
             binding.incShimmerItemVariation.root.startShimmer()
-            binding.incShimmerItemVariation.root.isVisible = true
-            binding.incLayoutVariation.root.isVisible = false
+            binding.incShimmerItemVariation.root.visibility = View.VISIBLE
+            binding.incLayoutVariation.root.visibility = View.INVISIBLE
         } else {
             binding.incShimmerItemVariation.root.stopShimmer()
-            binding.incShimmerItemVariation.root.isVisible = false
-            binding.incLayoutVariation.root.isVisible = true
+            binding.incShimmerItemVariation.root.visibility = View.INVISIBLE
+            binding.incLayoutVariation.root.visibility = View.VISIBLE
         }
     }
 
     private fun setupErrorLayout() {
-        binding.incLayoutVariation.root.isVisible = false
+        binding.incLayoutVariation.root.visibility = View.GONE
     }
 
     private fun observeAssetQuote() {
