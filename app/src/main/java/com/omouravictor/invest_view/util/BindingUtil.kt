@@ -11,6 +11,7 @@ object BindingUtil {
 
     fun calculateAndSetupVariationLayout(
         binding: LayoutVariationBinding,
+        textSize: Float,
         currency: String,
         reference: Double,
         totalReference: Double
@@ -19,7 +20,7 @@ object BindingUtil {
             setupVisibilities(binding, false)
         else {
             val variation = NumberUtil.getRoundedDouble(reference - totalReference)
-            setupTexts(binding, currency, variation, totalReference)
+            setupTexts(binding, textSize, currency, variation, totalReference)
             setupVisibilities(binding, true)
             setupColorsAndArrow(binding, variation)
         }
@@ -68,12 +69,18 @@ object BindingUtil {
 
     private fun setupTexts(
         binding: LayoutVariationBinding,
+        textSize: Float,
         currency: String,
         variation: Double,
         totalReference: Double
     ) {
         binding.tvVariation.text = getFormattedCurrencyValue(currency, variation)
         binding.tvVariationPercent.text = getFormattedValueForPercent(variation / totalReference)
+
+        binding.tvVariation.textSize = textSize
+        binding.tvVariationPercent.textSize = textSize
+        binding.tvBracketStart.textSize = textSize
+        binding.tvBracketEnd.textSize = textSize
     }
 
 }

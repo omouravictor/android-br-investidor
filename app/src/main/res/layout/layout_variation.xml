@@ -13,7 +13,6 @@
         android:ellipsize="end"
         android:maxWidth="200dp"
         android:maxLines="1"
-        android:textSize="@dimen/textSize1"
         tools:text="+R$ 100,00"
         tools:textColor="@color/green" />
 
@@ -22,22 +21,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="("
-        android:textSize="@dimen/textSize1"
         tools:textColor="@color/green" />
 
     <ImageView
         android:id="@+id/ivArrow"
         android:layout_width="12dp"
         android:layout_height="match_parent"
-        android:src="@drawable/ic_arrow_up"
-        android:textSize="@dimen/textSize1" />
+        android:src="@drawable/ic_arrow_up" />
 
     <TextView
         android:id="@+id/tvVariationPercent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="2dp"
-        android:textSize="@dimen/textSize1"
         tools:text="23,18%"
         tools:textColor="@color/green" />
 
@@ -46,7 +42,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=")"
-        android:textSize="@dimen/textSize1"
         tools:textColor="@color/green" />
 
 </LinearLayout>

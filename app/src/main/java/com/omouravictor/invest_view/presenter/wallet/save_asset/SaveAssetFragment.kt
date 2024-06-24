@@ -153,6 +153,7 @@ class SaveAssetFragment : Fragment() {
                 binding.btnSave.isEnabled = true
                 BindingUtil.calculateAndSetupVariationLayout(
                     binding = this.incLayoutVariation,
+                    textSize = 12f,
                     currency = currency,
                     reference = priceCurrentPosition,
                     totalReference = totalInvested

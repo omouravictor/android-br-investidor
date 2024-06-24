@@ -36,6 +36,7 @@ class AssetCurrenciesAdapter : BaseRecyclerViewAdapter<AssetUiModel, AssetCurren
             itemView.setOnClickListener { onClickItem(assetUiModel) }
             BindingUtil.calculateAndSetupVariationLayout(
                 binding = binding.incLayoutVariation,
+                textSize = 12f,
                 currency = assetUiModel.currency,
                 reference = assetUiModel.getPriceCurrentPosition(),
                 totalReference = assetUiModel.totalInvested

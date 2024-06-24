@@ -111,6 +111,7 @@ class AssetDetailFragment : Fragment() {
         binding.tvCurrentPosition.text = assetUiModel.getFormattedPriceCurrentPosition()
         BindingUtil.calculateAndSetupVariationLayout(
             binding = binding.incLayoutYield,
+            textSize = 14f,
             currency = assetUiModel.currency,
             reference = assetUiModel.getPriceCurrentPosition(),
             totalReference = assetUiModel.totalInvested
