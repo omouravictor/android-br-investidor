@@ -55,32 +55,31 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupMainNavigation() {
+        val appBarConfiguration =
+            AppBarConfiguration(setOf(R.id.fragmentWallet, R.id.fragmentProfile))
+
         navController =
             (supportFragmentManager.findFragmentById(R.id.navHostFragmentMain) as NavHostFragment).navController
-
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.fragmentWallet, R.id.fragmentProfile)
-        )
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             val destinationId = destination.id
 
             when (destination.id) {
-                R.id.fragmentWallet -> {
-                    setupOptionsMenuForWallet()
-                }
-
-                else -> {
-                    setupOptionsMenu()
-                }
+                R.id.fragmentWallet -> setupOptionsMenuForWallet()
+                else -> setupOptionsMenu()
             }
 
-            binding.tvToolbarCenterText.isGone = destinationId != R.id.fragmentSaveAsset
+            setupToolbarCenterTextVisibility(destinationId)
         }
 
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
         binding.bottomNav.setupWithNavController(navController)
         supportActionBar?.title = navController.currentDestination?.label
+    }
+
+    private fun setupToolbarCenterTextVisibility(destinationId: Int) {
+        binding.tvToolbarCenterText.isGone =
+            destinationId != R.id.fragmentSaveAsset && destinationId != R.id.fragmentAssetDetail
     }
 
     private fun setupBottomNavigationView() {

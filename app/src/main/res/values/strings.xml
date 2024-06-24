@@ -77,5 +77,6 @@
     <string name="login">Login</string>
     <string name="register">Cadastrar</string>
     <string name="yield">Rendimento</string>
+    <string name="edit">Editar</string>
 
 </resources>

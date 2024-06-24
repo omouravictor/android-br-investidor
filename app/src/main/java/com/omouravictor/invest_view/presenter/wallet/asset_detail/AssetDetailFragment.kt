@@ -1,15 +1,25 @@
 package com.omouravictor.invest_view.presenter.wallet.asset_detail
 
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
+import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetDetailBinding
 import com.omouravictor.invest_view.presenter.base.UiState
 import com.omouravictor.invest_view.presenter.wallet.asset_search.AssetSearchViewModel
@@ -20,6 +30,7 @@ import com.omouravictor.invest_view.presenter.wallet.model.getFormattedPriceCurr
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalInvested
 import com.omouravictor.invest_view.presenter.wallet.model.getPriceCurrentPosition
+import com.omouravictor.invest_view.util.AppUtil
 import com.omouravictor.invest_view.util.BindingUtil
 import com.omouravictor.invest_view.util.LocaleUtil.getFormattedCurrencyValue
 import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForPercent
@@ -42,6 +53,7 @@ class AssetDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initEssentialVars()
+        setupToolbar()
         setupViews()
         observeAssetQuote()
         assetSearchViewModel.getAssetQuote(assetUiModel.symbol)
@@ -64,6 +76,32 @@ class AssetDetailFragment : Fragment() {
             assetUiModel.amount,
             assetUiModel.totalInvested
         )
+    }
+
+    private fun setupToolbar() {
+        val activity = requireActivity()
+
+        activity.findViewById<Toolbar>(R.id.toolbar).apply {
+            title = ""
+            findViewById<TextView>(R.id.tvToolbarCenterText).text = assetUiModel.getFormattedSymbol()
+        }
+
+        activity.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.options_menu_edit, menu)
+                val menuItem = menu.findItem(R.id.editMenuItem)
+                val spanStr = SpannableString(menuItem.title.toString())
+                spanStr.setSpan(
+                    ForegroundColorSpan(ContextCompat.getColor(activity, R.color.green)), 0, spanStr.length, 0
+                )
+                menuItem.title = spanStr
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                AppUtil.showSuccessSnackBar(activity, "Testandoooooooooo")
+                return true
+            }
+        }, viewLifecycleOwner)
     }
 
     private fun setupViews() {

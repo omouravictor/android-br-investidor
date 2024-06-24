@@ -66,7 +66,7 @@ class SaveAssetFragment : Fragment() {
 
         activity.findViewById<Toolbar>(R.id.toolbar).apply {
             title = ""
-            findViewById<TextView>(R.id.tvToolbarCenterText).apply { text = getString(assetType.nameResId) }
+            findViewById<TextView>(R.id.tvToolbarCenterText).text = getString(assetType.nameResId)
         }
 
         activity.addMenuProvider(object : MenuProvider {
