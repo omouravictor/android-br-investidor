@@ -184,7 +184,7 @@ class SaveAssetFragment : Fragment() {
                             val activity = requireActivity()
                             binding.layout.visibility = View.VISIBLE
                             binding.progressBar.visibility = View.INVISIBLE
-                            AppUtil.showErrorSnackBar(activity, AppUtil.getGenericErrorMessage(activity, it.e))
+                            AppUtil.showErrorSnackBar(activity, AppUtil.getGenericErrorMessage(activity, it.e), true)
                         }
 
                         is UiState.Success -> {

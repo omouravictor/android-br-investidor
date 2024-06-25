@@ -58,7 +58,7 @@ object AppUtil {
                 setTextColor(ContextCompat.getColor(context, R.color.white))
             }
             snackbar.duration = Snackbar.LENGTH_INDEFINITE
-            snackbar.setAction("Fechar") { snackbar.dismiss() }
+            snackbar.setAction(activity.getString(R.string.understood)) { snackbar.dismiss() }
         }
 
         snackbar.setBackgroundTint(ContextCompat.getColor(context, R.color.red))

@@ -80,5 +80,6 @@
     <string name="edit">Editar</string>
     <string name="delete">Excluir</string>
     <string name="newContribution">Novo aporte</string>
+    <string name="understood">Entendi</string>
 
 </resources>
