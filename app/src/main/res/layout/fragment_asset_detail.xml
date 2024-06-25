@@ -61,6 +61,7 @@
         android:ellipsize="end"
         android:gravity="end"
         android:maxLines="1"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tvAssetType"
         app:layout_constraintWidth_percent=".5"
@@ -117,7 +118,8 @@
                 android:id="@+id/tvAmountTittle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/amount" />
+                android:text="@string/amount"
+                android:textColor="@color/tableTittleTextColor" />
 
             <TextView
                 android:id="@+id/tvAmount"
@@ -139,7 +141,8 @@
                 android:id="@+id/tvTittleTotalInvested"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/totalInvested" />
+                android:text="@string/totalInvested"
+                android:textColor="@color/tableTittleTextColor" />
 
             <TextView
                 android:id="@+id/tvTotalInvested"
@@ -161,7 +164,8 @@
                 android:id="@+id/tvTittleCurrentPosition"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/currentPosition" />
+                android:text="@string/currentPosition"
+                android:textColor="@color/tableTittleTextColor" />
 
             <TextView
                 android:id="@+id/tvCurrentPosition"
@@ -183,7 +187,8 @@
                 android:id="@+id/tvTittleYield"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/yield" />
+                android:text="@string/yield"
+                android:textColor="@color/tableTittleTextColor" />
 
             <include
                 android:id="@+id/incLayoutYield"
