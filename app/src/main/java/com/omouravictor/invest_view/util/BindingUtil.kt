@@ -4,8 +4,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.LayoutVariationBinding
-import com.omouravictor.invest_view.util.LocaleUtil.getFormattedCurrencyValue
-import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForPercent
 
 object BindingUtil {
 
@@ -20,10 +18,19 @@ object BindingUtil {
             setupVisibilities(binding, false)
         else {
             val variation = NumberUtil.getRoundedDouble(reference - totalReference)
-            setupTexts(binding, textSize, currency, variation, totalReference)
+            setupTextsSize(binding, textSize)
             setupVisibilities(binding, true)
             setupColorsAndArrow(binding, variation)
+            binding.tvVariation.text = LocaleUtil.getFormattedCurrencyValue(currency, variation)
+            binding.tvVariationPercent.text = LocaleUtil.getFormattedValueForPercent(variation / totalReference)
         }
+    }
+
+    fun setupTextsSize(binding: LayoutVariationBinding, textSize: Float) {
+        binding.tvVariation.textSize = textSize
+        binding.tvVariationPercent.textSize = textSize
+        binding.tvBracketStart.textSize = textSize
+        binding.tvBracketEnd.textSize = textSize
     }
 
     fun setupColorsAndArrow(binding: LayoutVariationBinding, variation: Double) {
@@ -65,22 +72,6 @@ object BindingUtil {
         binding.tvBracketStart.isVisible = isVisible
         binding.tvBracketEnd.isVisible = isVisible
         binding.ivArrow.isVisible = isVisible
-    }
-
-    private fun setupTexts(
-        binding: LayoutVariationBinding,
-        textSize: Float,
-        currency: String,
-        variation: Double,
-        totalReference: Double
-    ) {
-        binding.tvVariation.text = getFormattedCurrencyValue(currency, variation)
-        binding.tvVariationPercent.text = getFormattedValueForPercent(variation / totalReference)
-
-        binding.tvVariation.textSize = textSize
-        binding.tvVariationPercent.textSize = textSize
-        binding.tvBracketStart.textSize = textSize
-        binding.tvBracketEnd.textSize = textSize
     }
 
 }

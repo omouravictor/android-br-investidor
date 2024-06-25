@@ -10,6 +10,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.content.res.AppCompatResources.getColorStateList
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
@@ -30,6 +31,7 @@ import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalInvested
 import com.omouravictor.invest_view.presenter.wallet.model.getPriceCurrentPosition
 import com.omouravictor.invest_view.util.AppUtil
+import com.omouravictor.invest_view.util.AssetUtil
 import com.omouravictor.invest_view.util.BindingUtil
 import com.omouravictor.invest_view.util.LocaleUtil.getFormattedCurrencyValue
 import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForPercent
@@ -105,6 +107,12 @@ class AssetDetailFragment : Fragment() {
     }
 
     private fun setupViews() {
+        val context = requireContext()
+        binding.tvAssetType.text = getString(assetUiModel.assetType.nameResId)
+        binding.tvAssetType.backgroundTintList = getColorStateList(context, assetUiModel.assetType.colorResId)
+        binding.tvAssetCurrency.text = assetUiModel.currency
+        binding.tvAssetCurrency.backgroundTintList =
+            getColorStateList(context, AssetUtil.getCurrencyResColor(assetUiModel.currency))
         binding.tvName.text = assetUiModel.name
         binding.tvPrice.text = assetUiModel.getFormattedAssetPrice()
         binding.tvAmount.text = assetUiModel.getFormattedAmount()
@@ -159,6 +167,7 @@ class AssetDetailFragment : Fragment() {
                             binding.incLayoutVariation.apply {
                                 tvVariation.text = getFormattedCurrencyValue(assetUiModel.currency, variation)
                                 tvVariationPercent.text = getFormattedValueForPercent(variationPercent)
+                                BindingUtil.setupTextsSize(this, 13f)
                                 BindingUtil.setupColorsAndArrow(this, variation)
                             }
                         }

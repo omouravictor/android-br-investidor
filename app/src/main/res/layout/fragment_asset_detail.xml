@@ -3,17 +3,53 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/defaultPadding">
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tvAssetType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/background_rectangle_1"
+        android:elevation="@dimen/defaultElevation"
+        android:paddingHorizontal="8dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:backgroundTint="@color/stock"
+        tools:text="Stock" />
+
+    <TextView
+        android:id="@+id/tvAssetCurrency"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/background_rectangle_1"
+        android:elevation="@dimen/defaultElevation"
+        android:paddingHorizontal="8dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tvAssetType"
+        app:layout_constraintEnd_toStartOf="@+id/tvPrice"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/tvAssetType"
+        app:layout_constraintTop_toTopOf="@+id/tvAssetType"
+        tools:backgroundTint="@color/usd"
+        tools:text="USD" />
 
     <TextView
         android:id="@+id/tvName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/defaultMargin"
+        android:layout_marginTop="4dp"
         android:ellipsize="end"
         android:maxLines="2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvAssetType"
         app:layout_constraintWidth_percent=".4"
         tools:text="Petrobras" />
 
@@ -21,11 +57,12 @@
         android:id="@+id/tvPrice"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/defaultMargin"
         android:ellipsize="end"
         android:gravity="end"
         android:maxLines="1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvAssetType"
         app:layout_constraintWidth_percent=".5"
         tools:text="R$ 38,47" />
 
@@ -35,7 +72,7 @@
         android:layout_width="0dp"
         android:layout_height="6dp"
         app:layout_constraintBottom_toBottomOf="@+id/incLayoutVariation"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/incLayoutVariation"
         app:layout_constraintTop_toTopOf="@+id/incLayoutVariation"
         app:layout_constraintWidth_percent=".25" />
 
@@ -46,7 +83,7 @@
         android:src="@drawable/ic_reload"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/incLayoutVariation"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/incLayoutVariation"
         app:layout_constraintTop_toTopOf="@+id/incLayoutVariation"
         tools:visibility="visible" />
 
@@ -56,6 +93,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:layout_marginEnd="@dimen/defaultMargin"
         android:ellipsize="end"
         android:maxLines="1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -66,11 +104,12 @@
         android:id="@+id/tableLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/defaultMargin"
         android:layout_marginTop="32dp"
         android:stretchColumns="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/incLayoutVariation">
+        app:layout_constraintTop_toBottomOf="@+id/tvName">
 
         <TableRow>
 
@@ -167,6 +206,7 @@
         layout="@layout/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/defaultMargin"
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
