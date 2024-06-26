@@ -34,14 +34,14 @@
 
     <include
         android:id="@+id/incBtnLogin"
-        layout="@layout/button"
+        layout="@layout/default_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/defaultMargin" />
 
     <include
         android:id="@+id/incBtnRegister"
-        layout="@layout/button"
+        layout="@layout/default_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
