@@ -7,10 +7,12 @@
     <color name="appBottomSheetBackColor">@color/white</color>
     <color name="itemListPressedTrueColor">#1A000000</color>
     <color name="itemListBackColor">@color/white</color>
-    <color name="buttonPressedTrueColor">#CB000000</color>
+    <color name="redButtonPressedTrueColor">#A60000</color>
+    <color name="greenButtonPressedTrueColor">#00953E</color>
+    <color name="defaultButtonPressedTrueColor">#CB000000</color>
     <color name="shimmerBackColor">#656565</color>
     <color name="grayDayNightColor">#616161</color>
-    <color name="buttonBackColor">@color/black</color>
+    <color name="defaultButtonBackgroundColor">@color/black</color>
     <color name="lineColor">#CFCFCF</color>
     <color name="tableTittleTextColor">#5C5C5C</color>
     <color name="mtrl_textinput_default_box_stroke_color" tools:ignore="PrivateResource">@color/gray</color>
