@@ -129,12 +129,6 @@ class AssetDetailFragment : Fragment() {
     }
 
     private fun setupButtons() {
-        binding.incBtnNewContribution.root.apply {
-            text = getString(R.string.newContribution)
-            setOnClickListener {
-                AppUtil.showSuccessSnackBar(requireActivity(), "Testandoooooooooo")
-            }
-        }
     }
 
     private fun setupLoadingLayoutForAssetQuote(isLoading: Boolean) {
