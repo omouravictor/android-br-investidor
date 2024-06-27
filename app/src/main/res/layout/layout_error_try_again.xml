@@ -17,7 +17,7 @@
 
     <include
         android:id="@+id/incBtnTryAgain"
-        layout="@layout/default_button"
+        layout="@layout/button_default"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

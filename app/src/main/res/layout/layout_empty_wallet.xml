@@ -35,7 +35,7 @@
 
     <include
         android:id="@+id/incBtnAddAssets"
-        layout="@layout/default_button"
+        layout="@layout/button_default"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp" />

@@ -20,7 +20,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.omouravictor.invest_view.R
-import com.omouravictor.invest_view.databinding.FragmentAssetDetailBinding
+import com.omouravictor.invest_view.databinding.FragmentAssetDetailsBinding
 import com.omouravictor.invest_view.presenter.base.UiState
 import com.omouravictor.invest_view.presenter.wallet.asset_search.AssetSearchViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
@@ -38,16 +38,16 @@ import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForPercent
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class AssetDetailFragment : Fragment() {
+class AssetDetailsFragment : Fragment() {
 
-    private lateinit var binding: FragmentAssetDetailBinding
+    private lateinit var binding: FragmentAssetDetailsBinding
     private lateinit var assetUiModel: AssetUiModel
     private val assetSearchViewModel: AssetSearchViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        binding = FragmentAssetDetailBinding.inflate(inflater, container, false)
+        binding = FragmentAssetDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -67,7 +67,7 @@ class AssetDetailFragment : Fragment() {
     }
 
     private fun initEssentialVars() {
-        val assetUiModel = AssetDetailFragmentArgs.fromBundle(requireArguments()).assetUiModel
+        val assetUiModel = AssetDetailsFragmentArgs.fromBundle(requireArguments()).assetUiModel
         this.assetUiModel = AssetUiModel(
             assetUiModel.symbol,
             assetUiModel.name,
@@ -129,6 +129,19 @@ class AssetDetailFragment : Fragment() {
     }
 
     private fun setupButtons() {
+        binding.incBtnDelete.root.apply {
+            text = getString(R.string.delete)
+            setOnClickListener {
+                AppUtil.showErrorSnackBar(requireActivity(), "Testandoooooooooo")
+            }
+        }
+
+        binding.incBtnNewContribution.root.apply {
+            text = getString(R.string.newContribution)
+            setOnClickListener {
+                AppUtil.showSuccessSnackBar(requireActivity(), "Testandoooooooooo")
+            }
+        }
     }
 
     private fun setupLoadingLayoutForAssetQuote(isLoading: Boolean) {

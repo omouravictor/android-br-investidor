@@ -39,8 +39,8 @@
 
     <fragment
         android:id="@+id/fragmentAssetDetail"
-        android:name="com.omouravictor.invest_view.presenter.wallet.asset_detail.AssetDetailFragment"
-        tools:layout="@layout/fragment_asset_detail">
+        android:name="com.omouravictor.invest_view.presenter.wallet.asset_detail.AssetDetailsFragment"
+        tools:layout="@layout/fragment_asset_details">
         <argument
             android:name="assetUiModel"
             app:argType="com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel" />
