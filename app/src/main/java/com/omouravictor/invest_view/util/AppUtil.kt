@@ -5,7 +5,6 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -14,10 +13,8 @@ import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.formatter.PercentFormatter
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import com.omouravictor.invest_view.R
-import com.omouravictor.invest_view.presenter.wallet.asset_types.AssetTypes
 
 object AppUtil {
 
@@ -46,7 +43,7 @@ object AppUtil {
     fun showErrorSnackBar(activity: Activity, message: String, hasCloseAction: Boolean = false) {
         val view = activity.findViewById<View>(android.R.id.content)
         val context = view.context
-        val snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT)
+        val snackbar = Snackbar.make(view, message, 7000)
         val isBottomNavVisible = view.findViewById<View>(R.id.bottomNav)?.isVisible ?: false
 
         if (isBottomNavVisible)
@@ -64,17 +61,6 @@ object AppUtil {
         snackbar.setBackgroundTint(ContextCompat.getColor(context, R.color.red))
         snackbar.setTextColor(ContextCompat.getColor(context, R.color.white))
         snackbar.show()
-    }
-
-    fun showInfoBottomSheetDialog(activity: Activity, assetTypes: AssetTypes) {
-        with(BottomSheetDialog(activity, R.style.Theme_App_OverlayBottomSheetDialog)) {
-            setContentView(R.layout.bottom_sheet_dialog_info)
-            findViewById<ImageView>(R.id.ivTitle)!!.imageTintList =
-                ContextCompat.getColorStateList(activity, assetTypes.colorResId)
-            findViewById<TextView>(R.id.tvTitle)!!.text = activity.getString(assetTypes.nameResId)
-            findViewById<TextView>(R.id.tvInfo)!!.text = activity.getString(assetTypes.descriptionResId)
-            show()
-        }
     }
 
     fun showPieChart(

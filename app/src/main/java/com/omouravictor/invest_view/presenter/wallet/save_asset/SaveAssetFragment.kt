@@ -7,8 +7,10 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -16,10 +18,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentSaveAssetBinding
 import com.omouravictor.invest_view.presenter.base.UiState
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
+import com.omouravictor.invest_view.presenter.wallet.asset_types.AssetTypes
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.util.AppUtil
@@ -75,7 +79,7 @@ class SaveAssetFragment : Fragment() {
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                AppUtil.showInfoBottomSheetDialog(activity, assetType)
+                showInfoBottomSheetDialog(assetType)
                 return true
             }
         }, viewLifecycleOwner)
@@ -112,6 +116,18 @@ class SaveAssetFragment : Fragment() {
         EditTextUtil.setEditTextCurrencyFormatMask(ietTotalInvested, currency)
         incItemListAsset.color.setBackgroundColor(assetTypeColor)
         ietAmount.setText("1")
+    }
+
+    private fun showInfoBottomSheetDialog(assetTypes: AssetTypes) {
+        val context = requireContext()
+        with(BottomSheetDialog(context, R.style.Theme_App_OverlayBottomSheetDialog)) {
+            setContentView(R.layout.bottom_sheet_dialog_info)
+            findViewById<ImageView>(R.id.ivTitle)!!.imageTintList =
+                ContextCompat.getColorStateList(context, assetTypes.colorResId)
+            findViewById<TextView>(R.id.tvTitle)!!.text = getString(assetTypes.nameResId)
+            findViewById<TextView>(R.id.tvInfo)!!.text = getString(assetTypes.descriptionResId)
+            show()
+        }
     }
 
     private fun requiredFieldsNotEmpty(): Boolean {

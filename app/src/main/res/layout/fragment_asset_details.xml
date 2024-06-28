@@ -54,7 +54,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/defaultMargin"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
                 android:ellipsize="end"
                 android:maxLines="2"
                 app:layout_constraintStart_toStartOf="parent"
@@ -65,12 +65,13 @@
             <TextView
                 android:id="@+id/tvPrice"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginEnd="@dimen/defaultMargin"
                 android:ellipsize="end"
                 android:gravity="end"
                 android:maxLines="1"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/tvAssetType"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tvAssetType"
                 app:layout_constraintWidth_percent=".5"
@@ -102,12 +103,11 @@
                 layout="@layout/layout_variation"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
                 android:layout_marginEnd="@dimen/defaultMargin"
                 android:ellipsize="end"
                 android:maxLines="1"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvPrice"
+                app:layout_constraintTop_toTopOf="@+id/tvName"
                 app:layout_constraintWidth_percent=".5" />
 
             <TableLayout
@@ -141,7 +141,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginVertical="8dp"
+                    android:layout_marginVertical="10dp"
                     android:background="@color/lineColor" />
 
                 <TableRow>
@@ -164,7 +164,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginVertical="8dp"
+                    android:layout_marginVertical="10dp"
                     android:background="@color/lineColor" />
 
                 <TableRow>
@@ -187,7 +187,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginVertical="8dp"
+                    android:layout_marginVertical="10dp"
                     android:background="@color/lineColor" />
 
                 <TableRow>
@@ -210,7 +210,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginVertical="8dp"
+                    android:layout_marginVertical="10dp"
                     android:background="@color/lineColor" />
 
             </TableLayout>
