@@ -145,7 +145,7 @@ class AssetDetailsFragment : Fragment() {
                     setMessage(getString(R.string.deleteAssetAlertMessage))
                     setPositiveButton(getString(R.string.yes)) { _, _ -> assetDetailsViewModel.deleteAsset(assetUiModel) }
                     setNegativeButton(getString(R.string.not)) { dialog, _ -> dialog.dismiss() }
-                }.create().show()
+                }.show()
             }
         }
 
