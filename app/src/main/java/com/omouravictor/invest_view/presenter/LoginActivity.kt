@@ -9,7 +9,7 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.ActivityLoginBinding
-import com.omouravictor.invest_view.util.AppUtil.showErrorSnackBar
+import com.omouravictor.invest_view.util.AppUtil
 
 class LoginActivity : AppCompatActivity() {
 
@@ -61,11 +61,11 @@ class LoginActivity : AppCompatActivity() {
                         else -> "${getString(R.string.loginError)}: ${exception?.message}"
                     }
 
-                    showErrorSnackBar(this, message, hasCloseAction = true)
+                    AppUtil.showErrorSnackBar(this, message, hasCloseAction = true)
                 }
             }
         } else {
-            showErrorSnackBar(this, getString(R.string.fillAllFields), hasCloseAction = true)
+            AppUtil.showErrorSnackBar(this, getString(R.string.fillAllFields), hasCloseAction = true)
         }
     }
 
@@ -84,11 +84,11 @@ class LoginActivity : AppCompatActivity() {
                         else -> "${getString(R.string.registerError)}: ${exception?.message}."
                     }
 
-                    showErrorSnackBar(this, message, hasCloseAction = true)
+                    AppUtil.showErrorSnackBar(this, message, hasCloseAction = true)
                 }
             }
         } else {
-            showErrorSnackBar(this, getString(R.string.fillAllFields), hasCloseAction = true)
+            AppUtil.showErrorSnackBar(this, getString(R.string.fillAllFields), hasCloseAction = true)
         }
     }
 

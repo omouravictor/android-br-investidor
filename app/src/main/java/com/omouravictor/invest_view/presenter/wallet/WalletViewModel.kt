@@ -54,4 +54,9 @@ class WalletViewModel @Inject constructor(
         _walletUiStateFlow.value = UiState.Success(Unit)
     }
 
+    fun removeAsset(asset: AssetUiModel) {
+        _assetsListStateFlow.value -= asset
+        _walletUiStateFlow.value = UiState.Success(Unit)
+    }
+
 }

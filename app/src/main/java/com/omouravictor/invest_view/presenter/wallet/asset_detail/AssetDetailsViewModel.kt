@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.presenter.wallet.save_asset
+package com.omouravictor.invest_view.presenter.wallet.asset_detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,20 +14,20 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class SaveViewModel @Inject constructor(
+class AssetDetailsViewModel @Inject constructor(
     private val firebaseRepository: FirebaseRepository,
     private val dispatchers: DispatcherProvider
 ) : ViewModel() {
 
-    private val _uiStateFlow = MutableStateFlow<UiState<AssetUiModel>>(UiState.Initial)
+    private val _uiStateFlow = MutableStateFlow<UiState<Boolean>>(UiState.Initial)
     val uiStateFlow = _uiStateFlow.asStateFlow()
 
-    fun saveAsset(asset: AssetUiModel) {
+    fun deleteAsset(asset: AssetUiModel) {
         _uiStateFlow.value = UiState.Loading
 
         viewModelScope.launch {
             try {
-                val result = withContext(dispatchers.io) { firebaseRepository.saveAsset(asset) }
+                val result = withContext(dispatchers.io) { firebaseRepository.deleteAsset(asset) }
                 if (result.isSuccess)
                     _uiStateFlow.value = UiState.Success(result.getOrThrow())
                 else

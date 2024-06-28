@@ -1,5 +1,6 @@
 package com.omouravictor.invest_view.presenter.wallet.asset_detail
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -19,9 +20,11 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetDetailsBinding
 import com.omouravictor.invest_view.presenter.base.UiState
+import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.asset_search.AssetSearchViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAmount
@@ -35,6 +38,7 @@ import com.omouravictor.invest_view.util.AssetUtil
 import com.omouravictor.invest_view.util.BindingUtil
 import com.omouravictor.invest_view.util.LocaleUtil.getFormattedCurrencyValue
 import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForPercent
+import com.omouravictor.invest_view.util.NavigationUtil
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -43,6 +47,8 @@ class AssetDetailsFragment : Fragment() {
     private lateinit var binding: FragmentAssetDetailsBinding
     private lateinit var assetUiModel: AssetUiModel
     private val assetSearchViewModel: AssetSearchViewModel by activityViewModels()
+    private val walletViewModel: WalletViewModel by activityViewModels()
+    private val assetDetailsViewModel: AssetDetailsViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -58,12 +64,14 @@ class AssetDetailsFragment : Fragment() {
         setupViews()
         setupButtons()
         observeAssetQuote()
+        observeAssetDetailsUiState()
         assetSearchViewModel.getAssetQuote(assetUiModel.symbol)
     }
 
     override fun onStop() {
         super.onStop()
         assetSearchViewModel.resetAssetQuoteLiveData()
+        assetDetailsViewModel.resetUiStateFlow()
     }
 
     private fun initEssentialVars() {
@@ -132,7 +140,12 @@ class AssetDetailsFragment : Fragment() {
         binding.incBtnDelete.root.apply {
             text = getString(R.string.delete)
             setOnClickListener {
-                AppUtil.showErrorSnackBar(requireActivity(), "Testandoooooooooo")
+                AlertDialog.Builder(context).apply {
+                    setTitle(getString(R.string.deleteAsset))
+                    setMessage(getString(R.string.deleteAssetAlertMessage))
+                    setPositiveButton(getString(R.string.yes)) { _, _ -> assetDetailsViewModel.deleteAsset(assetUiModel) }
+                    setNegativeButton(getString(R.string.not)) { dialog, _ -> dialog.dismiss() }
+                }.create().show()
             }
         }
 
@@ -183,6 +196,34 @@ class AssetDetailsFragment : Fragment() {
                             setupLoadingLayoutForAssetQuote(false)
                             binding.incLayoutVariation.root.visibility = View.INVISIBLE
                             binding.ivReloadVariation.visibility = View.VISIBLE
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun observeAssetDetailsUiState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                assetDetailsViewModel.uiStateFlow.collectLatest {
+                    when (it) {
+                        is UiState.Initial -> Unit
+                        is UiState.Loading -> {
+                            binding.mainLayout.visibility = View.INVISIBLE
+                            binding.progressBar.visibility = View.VISIBLE
+                        }
+
+                        is UiState.Success -> {
+                            walletViewModel.removeAsset(assetUiModel)
+                            NavigationUtil.clearPileAndNavigateToStart(findNavController())
+                        }
+
+                        is UiState.Error -> {
+                            val activity = requireActivity()
+                            binding.mainLayout.visibility = View.VISIBLE
+                            binding.progressBar.visibility = View.GONE
+                            AppUtil.showErrorSnackBar(activity, AppUtil.getGenericErrorMessage(activity, it.e))
                         }
                     }
                 }

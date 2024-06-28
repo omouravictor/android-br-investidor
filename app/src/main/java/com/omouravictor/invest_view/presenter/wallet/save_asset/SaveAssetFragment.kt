@@ -174,22 +174,21 @@ class SaveAssetFragment : Fragment() {
                 saveViewModel.uiStateFlow.collectLatest {
                     when (it) {
                         is UiState.Initial -> Unit
-
                         is UiState.Loading -> {
                             binding.layout.visibility = View.INVISIBLE
                             binding.progressBar.visibility = View.VISIBLE
                         }
 
-                        is UiState.Error -> {
-                            val activity = requireActivity()
-                            binding.layout.visibility = View.VISIBLE
-                            binding.progressBar.visibility = View.INVISIBLE
-                            AppUtil.showErrorSnackBar(activity, AppUtil.getGenericErrorMessage(activity, it.e), true)
-                        }
-
                         is UiState.Success -> {
                             walletViewModel.addAsset(it.data)
                             NavigationUtil.clearPileAndNavigateToStart(findNavController())
+                        }
+
+                        is UiState.Error -> {
+                            val activity = requireActivity()
+                            binding.layout.visibility = View.VISIBLE
+                            binding.progressBar.visibility = View.GONE
+                            AppUtil.showErrorSnackBar(activity, AppUtil.getGenericErrorMessage(activity, it.e))
                         }
                     }
                 }

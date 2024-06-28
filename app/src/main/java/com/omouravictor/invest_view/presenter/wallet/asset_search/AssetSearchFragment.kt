@@ -23,7 +23,6 @@ import com.omouravictor.invest_view.presenter.base.UiState
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetBySearchUiModel
 import com.omouravictor.invest_view.util.AppUtil
-import com.omouravictor.invest_view.util.AppUtil.showErrorSnackBar
 import com.omouravictor.invest_view.util.SystemServiceUtil
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -79,7 +78,7 @@ class AssetSearchFragment : Fragment() {
                 if (query.isNotEmpty()) {
                     assetSearchViewModel.getAssetsBySearch(query)
                 } else {
-                    showErrorSnackBar(activity, message = getString(R.string.enterAssetSymbolForTryAgain))
+                    AppUtil.showErrorSnackBar(activity, message = getString(R.string.enterAssetSymbolForTryAgain))
                 }
             }
         }
@@ -93,7 +92,7 @@ class AssetSearchFragment : Fragment() {
                 this.assetBySearchUiModel = assetBySearchUiModel
                 assetSearchViewModel.getAssetQuote(symbol)
             } else {
-                showErrorSnackBar(requireActivity(), getString(R.string.assetAlreadyExists))
+                AppUtil.showErrorSnackBar(requireActivity(), getString(R.string.assetAlreadyExists))
             }
         }
     }
