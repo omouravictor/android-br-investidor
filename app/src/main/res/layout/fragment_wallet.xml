@@ -12,10 +12,6 @@
         android:indeterminateTint="@color/green" />
 
     <include
-        android:id="@+id/incEmptyWalletLayout"
-        layout="@layout/layout_empty_wallet" />
-
-    <include
         android:id="@+id/incWalletSuccessLayout"
         layout="@layout/layout_wallet_success" />
 

@@ -35,12 +35,8 @@ class WalletViewModel @Inject constructor(
             try {
                 val result = withContext(dispatchers.io) { firebaseRepository.getAssetsList() }
                 if (result.isSuccess) {
-                    val assetsList = result.getOrNull()
-                    if (!assetsList.isNullOrEmpty()) {
-                        _assetsListStateFlow.value = assetsList
-                        _walletUiStateFlow.value = UiState.Success(Unit)
-                    } else
-                        _walletUiStateFlow.value = UiState.Initial
+                    _assetsListStateFlow.value = result.getOrThrow()
+                    _walletUiStateFlow.value = UiState.Success(Unit)
                 } else
                     _walletUiStateFlow.value = UiState.Error(result.exceptionOrNull() as Exception)
             } catch (e: Exception) {

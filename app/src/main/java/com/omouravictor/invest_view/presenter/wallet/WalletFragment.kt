@@ -28,9 +28,8 @@ class WalletFragment : Fragment() {
 
     companion object {
         const val VIEW_FLIPPER_CHILD_PROGRESS_BAR = 0
-        const val VIEW_FLIPPER_CHILD_WALLET_EMPTY_LAYOUT = 1
-        const val VIEW_FLIPPER_CHILD_WALLET_SUCCESS_LAYOUT = 2
-        const val VIEW_FLIPPER_CHILD_WALLET_ERROR_LAYOUT = 3
+        const val VIEW_FLIPPER_CHILD_WALLET_SUCCESS_LAYOUT = 1
+        const val VIEW_FLIPPER_CHILD_WALLET_ERROR_LAYOUT = 2
     }
 
     override fun onCreateView(
@@ -45,7 +44,7 @@ class WalletFragment : Fragment() {
         setupTabLayoutWithViewPager2()
         observeAssetsList()
 
-        binding.incEmptyWalletLayout.incBtnAddAssets.root.apply {
+        binding.incWalletSuccessLayout.incEmptyWalletLayout.incBtnAddAssets.root.apply {
             text = getString(R.string.addAssets)
             setOnClickListener {
                 findNavController().navigate(WalletFragmentDirections.navToAssetSearchFragment())
@@ -80,16 +79,19 @@ class WalletFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 walletViewModel.walletUiStateFlow.collectLatest {
                     when (it) {
-                        is UiState.Loading -> {
-                            binding.viewFlipper.displayedChild = VIEW_FLIPPER_CHILD_PROGRESS_BAR
-                        }
-
-                        is UiState.Initial -> {
-                            binding.viewFlipper.displayedChild = VIEW_FLIPPER_CHILD_WALLET_EMPTY_LAYOUT
-                        }
+                        is UiState.Initial -> Unit
+                        is UiState.Loading -> binding.viewFlipper.displayedChild = VIEW_FLIPPER_CHILD_PROGRESS_BAR
 
                         is UiState.Success -> {
                             binding.viewFlipper.displayedChild = VIEW_FLIPPER_CHILD_WALLET_SUCCESS_LAYOUT
+
+                            if (walletViewModel.assetsListStateFlow.value.isEmpty()) {
+                                binding.incWalletSuccessLayout.incEmptyWalletLayout.root.visibility = View.VISIBLE
+                                binding.incWalletSuccessLayout.mainLayout.visibility = View.GONE
+                            } else {
+                                binding.incWalletSuccessLayout.incEmptyWalletLayout.root.visibility = View.GONE
+                                binding.incWalletSuccessLayout.mainLayout.visibility = View.VISIBLE
+                            }
                         }
 
                         is UiState.Error -> {
