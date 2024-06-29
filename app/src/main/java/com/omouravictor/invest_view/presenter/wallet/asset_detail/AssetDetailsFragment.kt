@@ -74,16 +74,15 @@ class AssetDetailsFragment : Fragment() {
         assetDetailsViewModel.resetUiStateFlow()
     }
 
-    // TODO: Refatorar esse método
     private fun initEssentialVars() {
-        val assetUiModelSavedState =
+        val updatedAssetUiModel =
             findNavController().currentBackStackEntry?.savedStateHandle?.get<AssetUiModel>("updatedAsset")
 
-        if (assetUiModelSavedState != null) {
-            assetUiModel = assetUiModelSavedState
+        assetUiModel = if (updatedAssetUiModel != null) {
+            updatedAssetUiModel
         } else {
             val assetUiModelArg = AssetDetailsFragmentArgs.fromBundle(requireArguments()).assetUiModel
-            assetUiModel = AssetUiModel(
+            AssetUiModel(
                 assetUiModelArg.symbol,
                 assetUiModelArg.name,
                 assetUiModelArg.originalType,
