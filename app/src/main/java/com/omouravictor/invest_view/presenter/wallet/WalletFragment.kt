@@ -27,9 +27,10 @@ class WalletFragment : Fragment() {
     private val walletViewModel: WalletViewModel by activityViewModels()
 
     companion object {
-        const val VIEW_FLIPPER_CHILD_PROGRESS_BAR = 0
-        const val VIEW_FLIPPER_CHILD_WALLET_SUCCESS_LAYOUT = 1
-        const val VIEW_FLIPPER_CHILD_WALLET_ERROR_LAYOUT = 2
+        const val VIEW_FLIPPER_CHILD_FILLED_WALLET_LAYOUT = 0
+        const val VIEW_FLIPPER_CHILD_EMPTY_WALLET_LAYOUT = 1
+        const val VIEW_FLIPPER_CHILD_PROGRESS_BAR = 2
+        const val VIEW_FLIPPER_CHILD_WALLET_ERROR_LAYOUT = 3
     }
 
     override fun onCreateView(
@@ -44,7 +45,7 @@ class WalletFragment : Fragment() {
         setupTabLayoutWithViewPager2()
         observeAssetsList()
 
-        binding.incWalletSuccessLayout.incEmptyWalletLayout.incBtnAddAssets.root.apply {
+        binding.incEmptyWalletLayout.incBtnAddAssets.root.apply {
             text = getString(R.string.addAssets)
             setOnClickListener {
                 findNavController().navigate(WalletFragmentDirections.navToAssetSearchFragment())
@@ -64,12 +65,11 @@ class WalletFragment : Fragment() {
             Pair(AssetTypesFragment(), getString(R.string.Assets)),
             Pair(CurrenciesFragment(), getString(R.string.currencies)),
         )
-        val walletLayout = binding.incWalletSuccessLayout
-        val viewPager2 = walletLayout.viewPager2
+        val viewPager2 = binding.viewPager2
 
         viewPager2.adapter = BaseViewPagerAdapter(requireActivity(), fragments)
 
-        TabLayoutMediator(walletLayout.tabLayout, viewPager2) { tab, position ->
+        TabLayoutMediator(binding.tabLayout, viewPager2) { tab, position ->
             tab.text = fragments[position].second
         }.attach()
     }
@@ -83,15 +83,10 @@ class WalletFragment : Fragment() {
                         is UiState.Loading -> binding.viewFlipper.displayedChild = VIEW_FLIPPER_CHILD_PROGRESS_BAR
 
                         is UiState.Success -> {
-                            binding.viewFlipper.displayedChild = VIEW_FLIPPER_CHILD_WALLET_SUCCESS_LAYOUT
-
-                            if (walletViewModel.assetsListStateFlow.value.isEmpty()) {
-                                binding.incWalletSuccessLayout.incEmptyWalletLayout.root.visibility = View.VISIBLE
-                                binding.incWalletSuccessLayout.mainLayout.visibility = View.GONE
-                            } else {
-                                binding.incWalletSuccessLayout.incEmptyWalletLayout.root.visibility = View.GONE
-                                binding.incWalletSuccessLayout.mainLayout.visibility = View.VISIBLE
-                            }
+                            if (it.data.isNotEmpty())
+                                binding.viewFlipper.displayedChild = VIEW_FLIPPER_CHILD_FILLED_WALLET_LAYOUT
+                            else
+                                binding.viewFlipper.displayedChild = VIEW_FLIPPER_CHILD_EMPTY_WALLET_LAYOUT
                         }
 
                         is UiState.Error -> {

@@ -12,6 +12,6 @@
     <color name="grayDayNightColor">#A3A3A3</color>
     <color name="defaultButtonBackgroundColor">@color/green</color>
     <color name="lineColor">#303030</color>
-    <color name="tableTittleTextColor">#9C9C9C</color>
+    <color name="tableTittleTextColor">#8F8F8F</color>
     <color name="mtrl_textinput_default_box_stroke_color" tools:ignore="PrivateResource">#6F6F6F</color>
 </resources>

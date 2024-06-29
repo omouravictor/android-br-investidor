@@ -19,7 +19,7 @@ class WalletViewModel @Inject constructor(
     private val dispatchers: DispatcherProvider
 ) : ViewModel() {
 
-    private val _walletUiStateFlow = MutableStateFlow<UiState<Unit>>(UiState.Initial)
+    private val _walletUiStateFlow = MutableStateFlow<UiState<List<AssetUiModel>>>(UiState.Initial)
     private val _assetsListStateFlow = MutableStateFlow<List<AssetUiModel>>(emptyList())
     val walletUiStateFlow = _walletUiStateFlow.asStateFlow()
     val assetsListStateFlow = _assetsListStateFlow.asStateFlow()
@@ -35,8 +35,9 @@ class WalletViewModel @Inject constructor(
             try {
                 val result = withContext(dispatchers.io) { firebaseRepository.getAssetsList() }
                 if (result.isSuccess) {
-                    _assetsListStateFlow.value = result.getOrThrow()
-                    _walletUiStateFlow.value = UiState.Success(Unit)
+                    val resultsList = result.getOrThrow()
+                    _assetsListStateFlow.value = resultsList
+                    _walletUiStateFlow.value = UiState.Success(resultsList)
                 } else
                     _walletUiStateFlow.value = UiState.Error(result.exceptionOrNull() as Exception)
             } catch (e: Exception) {
@@ -47,12 +48,12 @@ class WalletViewModel @Inject constructor(
 
     fun addAsset(asset: AssetUiModel) {
         _assetsListStateFlow.value += asset
-        _walletUiStateFlow.value = UiState.Success(Unit)
+        _walletUiStateFlow.value = UiState.Success(_assetsListStateFlow.value)
     }
 
     fun removeAsset(asset: AssetUiModel) {
         _assetsListStateFlow.value -= asset
-        _walletUiStateFlow.value = UiState.Success(Unit)
+        _walletUiStateFlow.value = UiState.Success(_assetsListStateFlow.value)
     }
 
 }

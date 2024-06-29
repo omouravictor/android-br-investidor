@@ -1,19 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/viewFlipper"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:indeterminateTint="@color/green" />
+    <LinearLayout
+        android:id="@+id/filledWalletLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/black"
+            android:elevation="@dimen/defaultElevation"
+            app:tabIndicatorColor="@color/green"
+            app:tabSelectedTextColor="@color/green"
+            app:tabTextAppearance="@style/MyTabTextAppearance"
+            app:tabTextColor="@color/gray" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
 
     <include
-        android:id="@+id/incWalletSuccessLayout"
-        layout="@layout/layout_wallet_success" />
+        android:id="@+id/incEmptyWalletLayout"
+        layout="@layout/layout_empty_wallet" />
+
+    <include
+        android:id="@+id/incProgressBar"
+        layout="@layout/progress_bar" />
 
     <include
         android:id="@+id/incWalletErrorLayout"
