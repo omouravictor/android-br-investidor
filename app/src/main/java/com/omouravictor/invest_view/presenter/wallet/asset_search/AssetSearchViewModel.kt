@@ -3,12 +3,12 @@ package com.omouravictor.invest_view.presenter.wallet.asset_search
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.omouravictor.invest_view.data.network.remote.model.asset_quote.toAssetQuoteUiModel
-import com.omouravictor.invest_view.data.network.remote.model.assets_by_search.toAssetsBySearchUiModel
+import com.omouravictor.invest_view.data.network.remote.model.assets_by_search.toAssetsUiModel
 import com.omouravictor.invest_view.data.network.remote.repository.AssetsApiRepository
 import com.omouravictor.invest_view.di.base.DispatcherProvider
 import com.omouravictor.invest_view.presenter.base.UiState
-import com.omouravictor.invest_view.presenter.wallet.model.AssetBySearchUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetQuoteUiModel
+import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -22,7 +22,7 @@ class AssetSearchViewModel @Inject constructor(
     private val dispatchers: DispatcherProvider
 ) : ViewModel() {
 
-    private val _assetsBySearchListStateFlow = MutableStateFlow<UiState<List<AssetBySearchUiModel>>>(UiState.Initial)
+    private val _assetsBySearchListStateFlow = MutableStateFlow<UiState<List<AssetUiModel>>>(UiState.Initial)
     private val _assetQuoteStateFlow = MutableStateFlow<UiState<AssetQuoteUiModel>>(UiState.Initial)
     val assetsBySearchListStateFlow = _assetsBySearchListStateFlow.asStateFlow()
     val assetQuoteStateFlow = _assetQuoteStateFlow.asStateFlow()
@@ -34,7 +34,7 @@ class AssetSearchViewModel @Inject constructor(
             try {
                 val result = withContext(dispatchers.io) { assetsApiRepository.getAssetsBySearch(keywords) }
                 if (result.isSuccess) {
-                    val assetsBySearchList = result.getOrThrow().toAssetsBySearchUiModel()
+                    val assetsBySearchList = result.getOrThrow().toAssetsUiModel()
                     _assetsBySearchListStateFlow.value = UiState.Success(assetsBySearchList)
                 } else
                     _assetsBySearchListStateFlow.value = UiState.Error(result.exceptionOrNull() as Exception)

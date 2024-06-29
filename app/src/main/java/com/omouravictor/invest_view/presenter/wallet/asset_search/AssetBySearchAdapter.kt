@@ -8,12 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.ItemListAssetBySearchBinding
 import com.omouravictor.invest_view.presenter.base.BaseRecyclerViewAdapter
-import com.omouravictor.invest_view.presenter.wallet.model.AssetBySearchUiModel
+import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
-import com.omouravictor.invest_view.util.AssetUtil
 
 class AssetBySearchAdapter :
-    BaseRecyclerViewAdapter<AssetBySearchUiModel, AssetBySearchAdapter.AssetBySearchViewHolder>() {
+    BaseRecyclerViewAdapter<AssetUiModel, AssetBySearchAdapter.AssetBySearchViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AssetBySearchViewHolder {
         val binding = ItemListAssetBySearchBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -30,14 +29,13 @@ class AssetBySearchAdapter :
         private val context = binding.root.context
 
         @SuppressLint("SetTextI18n")
-        fun bind(assetBySearchUiModel: AssetBySearchUiModel) {
-            val assetType = AssetUtil.getAssetType(assetBySearchUiModel.symbol, assetBySearchUiModel.type)
+        fun bind(assetUiModel: AssetUiModel) {
             binding.color.setBackgroundColor(ContextCompat.getColor(context, R.color.green))
-            binding.tvSymbol.text = assetBySearchUiModel.getFormattedSymbol()
-            binding.tvName.text = assetBySearchUiModel.name
-            binding.tvCurrency.text = "(${assetBySearchUiModel.currency})"
-            binding.tvAssetType.text = context.getString(assetType.nameResId)
-            itemView.setOnClickListener { onClickItem(assetBySearchUiModel) }
+            binding.tvSymbol.text = assetUiModel.getFormattedSymbol()
+            binding.tvName.text = assetUiModel.name
+            binding.tvCurrency.text = "(${assetUiModel.currency})"
+            binding.tvAssetType.text = context.getString(assetUiModel.assetType.nameResId)
+            itemView.setOnClickListener { onClickItem(assetUiModel) }
         }
     }
 }

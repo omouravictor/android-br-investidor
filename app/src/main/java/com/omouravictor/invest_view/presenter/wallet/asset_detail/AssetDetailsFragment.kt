@@ -75,16 +75,17 @@ class AssetDetailsFragment : Fragment() {
     }
 
     private fun initEssentialVars() {
-        val assetUiModel = AssetDetailsFragmentArgs.fromBundle(requireArguments()).assetUiModel
-        this.assetUiModel = AssetUiModel(
-            assetUiModel.symbol,
-            assetUiModel.name,
-            assetUiModel.assetType,
-            assetUiModel.region,
-            assetUiModel.currency,
-            assetUiModel.price,
-            assetUiModel.amount,
-            assetUiModel.totalInvested
+        val assetUiModelArg = AssetDetailsFragmentArgs.fromBundle(requireArguments()).assetUiModel
+        assetUiModel = AssetUiModel(
+            assetUiModelArg.symbol,
+            assetUiModelArg.name,
+            assetUiModelArg.originalType,
+            assetUiModelArg.assetType,
+            assetUiModelArg.region,
+            assetUiModelArg.currency,
+            assetUiModelArg.price,
+            assetUiModelArg.amount,
+            assetUiModelArg.totalInvested
         )
     }
 
@@ -153,7 +154,7 @@ class AssetDetailsFragment : Fragment() {
         binding.incBtnNewContribution.root.apply {
             text = getString(R.string.newContribution)
             setOnClickListener {
-                AppUtil.showSuccessSnackBar(requireActivity(), "Testandoooooooooo")
+                findNavController().navigate(AssetDetailsFragmentDirections.navToSaveAssetFragment(assetUiModel))
             }
         }
     }

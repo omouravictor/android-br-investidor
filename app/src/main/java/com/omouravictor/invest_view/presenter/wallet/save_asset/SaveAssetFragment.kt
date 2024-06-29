@@ -27,7 +27,6 @@ import com.omouravictor.invest_view.presenter.wallet.asset_types.AssetTypes
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.util.AppUtil
-import com.omouravictor.invest_view.util.AssetUtil
 import com.omouravictor.invest_view.util.BindingUtil
 import com.omouravictor.invest_view.util.EditTextUtil
 import com.omouravictor.invest_view.util.LocaleUtil
@@ -86,14 +85,14 @@ class SaveAssetFragment : Fragment() {
     }
 
     private fun initEssentialVars() {
-        val assetBySearchUiModel = SaveAssetFragmentArgs.fromBundle(requireArguments()).assetBySearchUiModel
+        val assetUiModelArg = SaveAssetFragmentArgs.fromBundle(requireArguments()).assetUiModel
         assetUiModel = AssetUiModel(
-            symbol = assetBySearchUiModel.symbol,
-            name = assetBySearchUiModel.name,
-            assetType = AssetUtil.getAssetType(assetBySearchUiModel.symbol, assetBySearchUiModel.type),
-            region = assetBySearchUiModel.region,
-            currency = assetBySearchUiModel.currency,
-            price = assetBySearchUiModel.price
+            symbol = assetUiModelArg.symbol,
+            name = assetUiModelArg.name,
+            assetType = assetUiModelArg.assetType,
+            region = assetUiModelArg.region,
+            currency = assetUiModelArg.currency,
+            price = assetUiModelArg.price
         )
     }
 

@@ -11,6 +11,7 @@ import kotlinx.parcelize.Parcelize
 data class AssetUiModel(
     val symbol: String = "",
     val name: String = "",
+    val originalType: String = "",
     val assetType: AssetTypes = AssetTypes.OTHER,
     val region: String = "",
     val currency: String = "",

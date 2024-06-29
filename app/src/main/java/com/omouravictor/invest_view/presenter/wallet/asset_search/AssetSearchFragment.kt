@@ -21,7 +21,7 @@ import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetSearchBinding
 import com.omouravictor.invest_view.presenter.base.UiState
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
-import com.omouravictor.invest_view.presenter.wallet.model.AssetBySearchUiModel
+import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.util.AppUtil
 import com.omouravictor.invest_view.util.SystemServiceUtil
 import kotlinx.coroutines.flow.collectLatest
@@ -31,7 +31,7 @@ class AssetSearchFragment : Fragment() {
 
     private lateinit var binding: FragmentAssetSearchBinding
     private lateinit var searchView: SearchView
-    private lateinit var assetBySearchUiModel: AssetBySearchUiModel
+    private lateinit var assetUiModel: AssetUiModel
     private val walletViewModel: WalletViewModel by activityViewModels()
     private val assetSearchViewModel: AssetSearchViewModel by activityViewModels()
     private val assetBySearchAdapter = AssetBySearchAdapter()
@@ -85,11 +85,11 @@ class AssetSearchFragment : Fragment() {
     }
 
     private fun setupAdapter() {
-        assetBySearchAdapter.updateOnClickItem { assetBySearchUiModel ->
-            val symbol = assetBySearchUiModel.symbol
+        assetBySearchAdapter.updateOnClickItem { assetUiModel ->
+            val symbol = assetUiModel.symbol
             val existingAsset = walletViewModel.assetsListStateFlow.value.find { it.symbol == symbol }
             if (existingAsset == null) {
-                this.assetBySearchUiModel = assetBySearchUiModel
+                this.assetUiModel = assetUiModel
                 assetSearchViewModel.getAssetQuote(symbol)
             } else {
                 AppUtil.showErrorSnackBar(requireActivity(), getString(R.string.assetAlreadyExists))
@@ -161,9 +161,9 @@ class AssetSearchFragment : Fragment() {
                         }
 
                         is UiState.Success -> {
-                            assetBySearchUiModel.price = it.data.price
+                            assetUiModel.price = it.data.price
                             findNavController().navigate(
-                                AssetSearchFragmentDirections.navToSaveAssetFragment(assetBySearchUiModel)
+                                AssetSearchFragmentDirections.navToSaveAssetFragment(assetUiModel)
                             )
                         }
 
