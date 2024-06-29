@@ -157,7 +157,7 @@ class AssetSearchFragment : Fragment() {
                         is UiState.Initial -> Unit
                         is UiState.Loading -> {
                             binding.recyclerView.isVisible = false
-                            binding.progressBar.isVisible = true
+                            binding.incProgressBar.root.isVisible = true
                         }
 
                         is UiState.Success -> {
@@ -179,7 +179,7 @@ class AssetSearchFragment : Fragment() {
         isSuccessResultsEmpty: Boolean = false,
         isError: Boolean = false,
     ) {
-        binding.progressBar.isVisible = false
+        binding.incProgressBar.root.isVisible = false
         binding.shimmerLayout.isVisible = isLoading
         binding.incLayoutError.tvInfoMessage.isVisible = isSuccessResultsEmpty || isError
         binding.incLayoutError.incBtnTryAgain.root.isVisible = isError

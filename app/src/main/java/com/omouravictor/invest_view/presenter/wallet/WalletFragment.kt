@@ -79,8 +79,8 @@ class WalletFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 walletViewModel.walletUiStateFlow.collectLatest {
                     when (it) {
-                        is UiState.Initial -> Unit
-                        is UiState.Loading -> binding.viewFlipper.displayedChild = VIEW_FLIPPER_CHILD_PROGRESS_BAR
+                        is UiState.Initial, UiState.Loading -> binding.viewFlipper.displayedChild =
+                            VIEW_FLIPPER_CHILD_PROGRESS_BAR
 
                         is UiState.Success -> {
                             if (it.data.isNotEmpty())

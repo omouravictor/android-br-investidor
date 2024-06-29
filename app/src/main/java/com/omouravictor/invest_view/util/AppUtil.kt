@@ -43,7 +43,7 @@ object AppUtil {
     fun showErrorSnackBar(activity: Activity, message: String, hasCloseAction: Boolean = false) {
         val view = activity.findViewById<View>(android.R.id.content)
         val context = view.context
-        val snackbar = Snackbar.make(view, message, 7000)
+        val snackbar = Snackbar.make(view, message, 5000)
         val isBottomNavVisible = view.findViewById<View>(R.id.bottomNav)?.isVisible ?: false
 
         if (isBottomNavVisible)
