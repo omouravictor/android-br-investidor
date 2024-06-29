@@ -105,10 +105,10 @@ class SaveAssetFragment : Fragment() {
         binding.incItemListAsset.color.setBackgroundColor(context.getColor(assetUiModel.assetType.colorResId))
         binding.etSymbol.setText(assetUiModel.getFormattedSymbol())
         binding.etLocation.setText(assetUiModel.region)
-        setupAmountAndTotalInvested()
+        setupAmountAndTotalInvestedViews()
     }
 
-    private fun setupAmountAndTotalInvested() {
+    private fun setupAmountAndTotalInvestedViews() {
         val currency = assetUiModel.currency
         val ietAmount = binding.ietAmount
         val ietTotalInvested = binding.ietTotalInvested
@@ -118,7 +118,7 @@ class SaveAssetFragment : Fragment() {
         EditTextUtil.setEditTextCurrencyFormatMask(ietTotalInvested, currency)
 
         val amount = assetUiModel.amount
-        ietAmount.setText(if (amount != 0L) amount.toString() else "1")
+        ietAmount.setText(if (amount != 0L) LocaleUtil.getFormattedValueForLongNumber(amount) else "1")
 
         ietTotalInvested.hint = LocaleUtil.getFormattedCurrencyValue(currency, 0.0)
         val totalInvested = assetUiModel.totalInvested
