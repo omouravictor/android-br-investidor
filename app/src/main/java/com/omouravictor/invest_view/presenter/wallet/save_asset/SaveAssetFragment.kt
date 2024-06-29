@@ -206,12 +206,14 @@ class SaveAssetFragment : Fragment() {
 
                         is UiState.Success -> {
                             val navController = findNavController()
-                            val previousNavigation = navController.previousBackStackEntry?.destination?.id ?: -1
-                            if (previousNavigation == R.id.fragmentAssetSearch) {
+                            val previousBackStackEntry = navController.previousBackStackEntry
+                            val previousDestinationId = previousBackStackEntry?.destination?.id ?: -1
+                            if (previousDestinationId == R.id.fragmentAssetSearch) {
                                 walletViewModel.addAsset(it.data)
                                 NavigationUtil.clearPileAndNavigateToStart(navController)
                             } else {
                                 walletViewModel.updateAsset(it.data)
+                                previousBackStackEntry?.savedStateHandle?.set("updatedAsset", it.data)
                                 navController.popBackStack()
                             }
                         }

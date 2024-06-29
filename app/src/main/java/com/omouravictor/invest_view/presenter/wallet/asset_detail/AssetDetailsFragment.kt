@@ -74,19 +74,27 @@ class AssetDetailsFragment : Fragment() {
         assetDetailsViewModel.resetUiStateFlow()
     }
 
+    // TODO: Refatorar esse método
     private fun initEssentialVars() {
-        val assetUiModelArg = AssetDetailsFragmentArgs.fromBundle(requireArguments()).assetUiModel
-        assetUiModel = AssetUiModel(
-            assetUiModelArg.symbol,
-            assetUiModelArg.name,
-            assetUiModelArg.originalType,
-            assetUiModelArg.assetType,
-            assetUiModelArg.region,
-            assetUiModelArg.currency,
-            assetUiModelArg.price,
-            assetUiModelArg.amount,
-            assetUiModelArg.totalInvested
-        )
+        val assetUiModelSavedState =
+            findNavController().currentBackStackEntry?.savedStateHandle?.get<AssetUiModel>("updatedAsset")
+
+        if (assetUiModelSavedState != null) {
+            assetUiModel = assetUiModelSavedState
+        } else {
+            val assetUiModelArg = AssetDetailsFragmentArgs.fromBundle(requireArguments()).assetUiModel
+            assetUiModel = AssetUiModel(
+                assetUiModelArg.symbol,
+                assetUiModelArg.name,
+                assetUiModelArg.originalType,
+                assetUiModelArg.assetType,
+                assetUiModelArg.region,
+                assetUiModelArg.currency,
+                assetUiModelArg.price,
+                assetUiModelArg.amount,
+                assetUiModelArg.totalInvested
+            )
+        }
     }
 
     private fun setupToolbar() {
