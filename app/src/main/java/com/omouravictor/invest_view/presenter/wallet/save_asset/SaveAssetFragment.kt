@@ -89,32 +89,42 @@ class SaveAssetFragment : Fragment() {
         assetUiModel = AssetUiModel(
             symbol = assetUiModelArg.symbol,
             name = assetUiModelArg.name,
+            originalType = assetUiModelArg.originalType,
             assetType = assetUiModelArg.assetType,
             region = assetUiModelArg.region,
             currency = assetUiModelArg.currency,
-            price = assetUiModelArg.price
+            price = assetUiModelArg.price,
+            amount = assetUiModelArg.amount,
+            totalInvested = assetUiModelArg.totalInvested
         )
     }
 
     private fun setupViews() {
         val context = requireContext()
-        val assetType = assetUiModel.assetType
-        val assetTypeColor = context.getColor(assetType.colorResId)
+
+        binding.incItemListAsset.color.setBackgroundColor(context.getColor(assetUiModel.assetType.colorResId))
+        binding.etSymbol.setText(assetUiModel.getFormattedSymbol())
+        binding.etLocation.setText(assetUiModel.region)
+        setupAmountAndTotalInvested()
+    }
+
+    private fun setupAmountAndTotalInvested() {
+        val currency = assetUiModel.currency
         val ietAmount = binding.ietAmount
         val ietTotalInvested = binding.ietTotalInvested
-        val currency = assetUiModel.currency
-        val etSymbol = binding.etSymbol
-        val etLocation = binding.etLocation
-        val incItemListAsset = binding.incItemListAsset
 
-        etSymbol.setText(assetUiModel.getFormattedSymbol())
-        etLocation.setText(assetUiModel.region)
-        ietTotalInvested.hint = LocaleUtil.getFormattedCurrencyValue(currency, 0.0)
         EditTextUtil.setEditTextsAfterTextChanged({ updateCurrentPosition() }, ietAmount, ietTotalInvested)
         EditTextUtil.setEditTextLongNumberFormatMask(ietAmount)
         EditTextUtil.setEditTextCurrencyFormatMask(ietTotalInvested, currency)
-        incItemListAsset.color.setBackgroundColor(assetTypeColor)
-        ietAmount.setText("1")
+
+        val amount = assetUiModel.amount
+        ietAmount.setText(if (amount != 0L) amount.toString() else "1")
+
+        ietTotalInvested.hint = LocaleUtil.getFormattedCurrencyValue(currency, 0.0)
+        val totalInvested = assetUiModel.totalInvested
+        ietTotalInvested.setText(
+            if (totalInvested != 0.0) LocaleUtil.getFormattedCurrencyValue(currency, totalInvested) else ""
+        )
     }
 
     private fun showInfoBottomSheetDialog(assetTypes: AssetTypes) {

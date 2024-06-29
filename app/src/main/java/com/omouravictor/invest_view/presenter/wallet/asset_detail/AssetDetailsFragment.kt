@@ -109,7 +109,7 @@ class AssetDetailsFragment : Fragment() {
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                AppUtil.showSuccessSnackBar(activity, "Testandoooooooooo")
+                findNavController().navigate(AssetDetailsFragmentDirections.navToSaveAssetFragment(assetUiModel))
                 return true
             }
         }, viewLifecycleOwner)
@@ -154,7 +154,7 @@ class AssetDetailsFragment : Fragment() {
         binding.incBtnNewContribution.root.apply {
             text = getString(R.string.newContribution)
             setOnClickListener {
-                findNavController().navigate(AssetDetailsFragmentDirections.navToSaveAssetFragment(assetUiModel))
+                AppUtil.showSuccessSnackBar(requireActivity(), "Testandoooo")
             }
         }
     }
