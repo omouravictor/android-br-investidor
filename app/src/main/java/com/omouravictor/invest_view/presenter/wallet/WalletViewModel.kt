@@ -56,4 +56,15 @@ class WalletViewModel @Inject constructor(
         _walletUiStateFlow.value = UiState.Success(_assetsListStateFlow.value)
     }
 
+    fun updateAsset(data: AssetUiModel) {
+        val assetsList = _assetsListStateFlow.value.toMutableList()
+        val index = assetsList.indexOfFirst { it.symbol == data.symbol }
+        if (index != -1) {
+            assetsList[index] = data
+            _assetsListStateFlow.value = assetsList
+            _walletUiStateFlow.value = UiState.Success(_assetsListStateFlow.value)
+        }
+    }
+
+
 }
