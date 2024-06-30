@@ -45,7 +45,7 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initEssentialVars()
+        initPieChart()
         setupChart()
         setupAdapter()
         setupRecyclerView()
@@ -67,7 +67,7 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
         assetTypesAdapter.updateItemsList(assetsList)
     }
 
-    private fun initEssentialVars() {
+    private fun initPieChart() {
         pieChart = binding.pieChart.also { it.setOnChartValueSelectedListener(this) }
     }
 

@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.presenter.wallet.asset_detail
+package com.omouravictor.invest_view.presenter.wallet.asset_details
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -50,6 +50,11 @@ class AssetDetailsFragment : Fragment() {
     private val walletViewModel: WalletViewModel by activityViewModels()
     private val assetDetailsViewModel: AssetDetailsViewModel by activityViewModels()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initEssentialVars()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -59,7 +64,6 @@ class AssetDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initEssentialVars()
         setupToolbar()
         setupViews()
         setupButtons()
@@ -158,8 +162,8 @@ class AssetDetailsFragment : Fragment() {
             }
         }
 
-        binding.incBtnNewContribution.root.apply {
-            text = getString(R.string.newContribution)
+        binding.incBtnNewAddition.root.apply {
+            text = getString(R.string.newAddition)
             setOnClickListener {
                 AppUtil.showSuccessSnackBar(requireActivity(), "Testandoooo")
             }

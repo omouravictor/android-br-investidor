@@ -222,12 +222,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/defaultMargin"
                 android:layout_marginTop="32dp"
-                app:layout_constraintEnd_toStartOf="@+id/incBtnNewContribution"
+                app:layout_constraintEnd_toStartOf="@+id/incBtnNewAddition"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
 
             <include
-                android:id="@+id/incBtnNewContribution"
+                android:id="@+id/incBtnNewAddition"
                 layout="@layout/button_green"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

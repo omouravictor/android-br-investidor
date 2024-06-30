@@ -39,7 +39,7 @@
 
     <fragment
         android:id="@+id/fragmentAssetDetail"
-        android:name="com.omouravictor.invest_view.presenter.wallet.asset_detail.AssetDetailsFragment"
+        android:name="com.omouravictor.invest_view.presenter.wallet.asset_details.AssetDetailsFragment"
         tools:layout="@layout/fragment_asset_details">
         <argument
             android:name="assetUiModel"

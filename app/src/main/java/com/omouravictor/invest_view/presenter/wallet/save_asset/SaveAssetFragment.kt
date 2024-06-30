@@ -42,6 +42,11 @@ class SaveAssetFragment : Fragment() {
     private val walletViewModel: WalletViewModel by activityViewModels()
     private val saveViewModel: SaveViewModel by activityViewModels()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initEssentialVars()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -51,7 +56,6 @@ class SaveAssetFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initEssentialVars()
         setupToolbar()
         setupViews()
         setupBtnSave()
@@ -61,6 +65,21 @@ class SaveAssetFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         saveViewModel.resetUiStateFlow()
+    }
+
+    private fun initEssentialVars() {
+        val assetUiModelArg = SaveAssetFragmentArgs.fromBundle(requireArguments()).assetUiModel
+        assetUiModel = AssetUiModel(
+            symbol = assetUiModelArg.symbol,
+            name = assetUiModelArg.name,
+            originalType = assetUiModelArg.originalType,
+            assetType = assetUiModelArg.assetType,
+            region = assetUiModelArg.region,
+            currency = assetUiModelArg.currency,
+            price = assetUiModelArg.price,
+            amount = assetUiModelArg.amount,
+            totalInvested = assetUiModelArg.totalInvested
+        )
     }
 
     private fun setupToolbar() {
@@ -82,21 +101,6 @@ class SaveAssetFragment : Fragment() {
                 return true
             }
         }, viewLifecycleOwner)
-    }
-
-    private fun initEssentialVars() {
-        val assetUiModelArg = SaveAssetFragmentArgs.fromBundle(requireArguments()).assetUiModel
-        assetUiModel = AssetUiModel(
-            symbol = assetUiModelArg.symbol,
-            name = assetUiModelArg.name,
-            originalType = assetUiModelArg.originalType,
-            assetType = assetUiModelArg.assetType,
-            region = assetUiModelArg.region,
-            currency = assetUiModelArg.currency,
-            price = assetUiModelArg.price,
-            amount = assetUiModelArg.amount,
-            totalInvested = assetUiModelArg.totalInvested
-        )
     }
 
     private fun setupViews() {

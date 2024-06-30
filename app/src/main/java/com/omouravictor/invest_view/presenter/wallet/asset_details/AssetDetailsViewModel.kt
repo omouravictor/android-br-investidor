@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.presenter.wallet.asset_detail
+package com.omouravictor.invest_view.presenter.wallet.asset_details
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

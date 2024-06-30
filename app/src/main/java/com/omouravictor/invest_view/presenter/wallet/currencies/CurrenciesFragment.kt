@@ -45,7 +45,7 @@ class CurrenciesFragment : Fragment(), OnChartValueSelectedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initEssentialVars()
+        initPieChart()
         setupChart()
         setupAdapter()
         setupRecyclerView()
@@ -66,7 +66,7 @@ class CurrenciesFragment : Fragment(), OnChartValueSelectedListener {
         assetCurrenciesAdapter.updateItemsList(assetsList)
     }
 
-    private fun initEssentialVars() {
+    private fun initPieChart() {
         pieChart = binding.pieChart.also { it.setOnChartValueSelectedListener(this) }
     }
 
