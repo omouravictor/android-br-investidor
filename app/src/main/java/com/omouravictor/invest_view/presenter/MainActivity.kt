@@ -79,7 +79,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupToolbarCenterTextVisibility(destinationId: Int) {
         binding.tvToolbarCenterText.isGone =
-            destinationId != R.id.fragmentSaveAsset && destinationId != R.id.fragmentAssetDetail
+            destinationId != R.id.fragmentSaveAsset &&
+                    destinationId != R.id.fragmentAssetDetail &&
+                    destinationId != R.id.fragmentNewAddition
     }
 
     private fun setupBottomNavigationView() {

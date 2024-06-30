@@ -23,6 +23,7 @@
 
     <!-- Messages -->
     <string name="totalInvestedDescription">O total investido é utilizado para o cálculo do rendimento do ativo. O seu preenchimento é opcional.</string>
+    <string name="unitValuePerUnitDescription">O valor por unidade é utilizado para o cálculo do rendimento do ativo.</string>
     <string name="fillTheFieldsToView">Preencha os campos para visualizar</string>
     <string name="noResultsFound">Nenhum resultado encontrado</string>
     <string name="enterAssetSymbolForTryAgain">Pesquise um ativo para tentar novamente.</string>
@@ -65,6 +66,8 @@
     <string name="amount_form">Quantidade *</string>
     <string name="amount">Quantidade</string>
     <string name="totalInvested">Total investido</string>
+    <string name="valuePerUnit">Valor por unidade</string>
+    <string name="valuePerUnit_form">Valor por unidade *</string>
     <string name="currentPosition">Posição atual</string>
     <string name="save">Salvar</string>
     <string name="tryAgain">Tentar novamente</string>

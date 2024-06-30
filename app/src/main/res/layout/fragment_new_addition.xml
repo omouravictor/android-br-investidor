@@ -16,65 +16,13 @@
             android:paddingVertical="@dimen/defaultPadding">
 
             <TextView
-                android:id="@+id/tvTittleAsset"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/defaultMargin"
-                android:text="@string/Asset"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/etSymbol"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/defaultMargin"
-                android:layout_marginEnd="8dp"
-                android:cursorVisible="false"
-                android:focusable="false"
-                android:maxLines="1"
-                android:textAlignment="center"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/etLocation"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvTittleAsset"
-                tools:text="VALE3" />
-
-            <TextView
-                android:id="@+id/tvTittleLocation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/location"
-                app:layout_constraintStart_toStartOf="@+id/etLocation"
-                app:layout_constraintTop_toTopOf="@+id/tvTittleAsset" />
-
-            <EditText
-                android:id="@+id/etLocation"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="@dimen/defaultMargin"
-                android:cursorVisible="false"
-                android:focusable="false"
-                android:maxLines="1"
-                android:textAlignment="center"
-                android:textSize="@dimen/textSize3"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/etSymbol"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/etSymbol"
-                app:layout_constraintTop_toBottomOf="@+id/tvTittleLocation"
-                tools:text="Brazil/Sao Paulo" />
-
-            <TextView
                 android:id="@+id/tvTittleQuantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/defaultMargin"
-                android:layout_marginTop="@dimen/defaultMargin"
                 android:text="@string/amount_form"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/etSymbol" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayoutAmount"
@@ -107,17 +55,17 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
-                android:id="@+id/tvTittleTotalInvested"
+                android:id="@+id/tvTittleUnitValuePerUnit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/defaultMargin"
                 android:layout_marginTop="@dimen/defaultMargin"
-                android:text="@string/totalInvested"
+                android:text="@string/valuePerUnit_form"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayoutAmount" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayoutTotalInvested"
+                android:id="@+id/textInputLayoutUnitValuePerUnit"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -131,10 +79,10 @@
                 app:hintEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvTittleTotalInvested">
+                app:layout_constraintTop_toBottomOf="@+id/tvTittleUnitValuePerUnit">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/ietTotalInvested"
+                    android:id="@+id/ietUnitValuePerUnit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/defaultMargin"
@@ -152,11 +100,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/defaultMargin"
                 android:layout_marginTop="8dp"
-                android:text="@string/totalInvestedDescription"
+                android:text="@string/unitValuePerUnitDescription"
                 android:textColor="@color/grayDayNightColor"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutTotalInvested" />
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutUnitValuePerUnit" />
 
             <TextView
                 android:id="@+id/tvTittleCurrentPosition"
