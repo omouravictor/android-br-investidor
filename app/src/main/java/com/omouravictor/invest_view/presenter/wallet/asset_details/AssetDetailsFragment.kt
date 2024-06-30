@@ -38,7 +38,7 @@ import com.omouravictor.invest_view.util.AssetUtil
 import com.omouravictor.invest_view.util.BindingUtil
 import com.omouravictor.invest_view.util.LocaleUtil.getFormattedCurrencyValue
 import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForPercent
-import com.omouravictor.invest_view.util.NavigationUtil
+import com.omouravictor.invest_view.util.clearPileAndNavigateToStart
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -165,7 +165,7 @@ class AssetDetailsFragment : Fragment() {
         binding.incBtnNewAddition.root.apply {
             text = getString(R.string.newAddition)
             setOnClickListener {
-                AppUtil.showSuccessSnackBar(requireActivity(), "Testandoooo")
+                findNavController().navigate(AssetDetailsFragmentDirections.navToNewAdditionFragment(assetUiModel))
             }
         }
     }
@@ -229,7 +229,7 @@ class AssetDetailsFragment : Fragment() {
 
                         is UiState.Success -> {
                             walletViewModel.removeAsset(assetUiModel)
-                            NavigationUtil.clearPileAndNavigateToStart(findNavController())
+                            findNavController().clearPileAndNavigateToStart()
                         }
 
                         is UiState.Error -> {

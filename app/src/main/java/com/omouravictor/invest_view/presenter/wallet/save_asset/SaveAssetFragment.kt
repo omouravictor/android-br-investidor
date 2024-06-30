@@ -30,8 +30,8 @@ import com.omouravictor.invest_view.util.AppUtil
 import com.omouravictor.invest_view.util.BindingUtil
 import com.omouravictor.invest_view.util.EditTextUtil
 import com.omouravictor.invest_view.util.LocaleUtil
-import com.omouravictor.invest_view.util.NavigationUtil
 import com.omouravictor.invest_view.util.StringUtil
+import com.omouravictor.invest_view.util.clearPileAndNavigateToStart
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -214,7 +214,7 @@ class SaveAssetFragment : Fragment() {
                             val previousDestinationId = previousBackStackEntry?.destination?.id ?: -1
                             if (previousDestinationId == R.id.fragmentAssetSearch) {
                                 walletViewModel.addAsset(it.data)
-                                NavigationUtil.clearPileAndNavigateToStart(navController)
+                                navController.clearPileAndNavigateToStart()
                             } else {
                                 walletViewModel.updateAsset(it.data)
                                 previousBackStackEntry?.savedStateHandle?.set("updatedAsset", it.data)

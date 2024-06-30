@@ -22,7 +22,7 @@
     <string name="intNumber_1">1</string>
 
     <!-- Messages -->
-    <string name="totalInvestedDescription">O total investido é utilizado para o cálculo da variação do ativo. O seu preenchimento é opcional.</string>
+    <string name="totalInvestedDescription">O total investido é utilizado para o cálculo do rendimento do ativo. O seu preenchimento é opcional.</string>
     <string name="fillTheFieldsToView">Preencha os campos para visualizar</string>
     <string name="noResultsFound">Nenhum resultado encontrado</string>
     <string name="enterAssetSymbolForTryAgain">Pesquise um ativo para tentar novamente.</string>

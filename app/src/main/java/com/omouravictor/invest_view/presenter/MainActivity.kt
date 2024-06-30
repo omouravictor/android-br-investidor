@@ -14,7 +14,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.ActivityMainBinding
 import com.omouravictor.invest_view.presenter.wallet.WalletFragmentDirections
-import com.omouravictor.invest_view.util.NavigationUtil
+import com.omouravictor.invest_view.util.clearPileAndNavigateTo
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNav.itemIconTintList = null
         binding.bottomNav.setOnItemSelectedListener { menuItem ->
             val menuItemStartDestination = navController.graph.findNode(menuItem.itemId)!!.id
-            NavigationUtil.clearPileAndNavigateTo(menuItemStartDestination, navController)
+            navController.clearPileAndNavigateTo(menuItemStartDestination)
             true
         }
     }
