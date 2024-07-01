@@ -1,6 +1,7 @@
 package com.omouravictor.invest_view.presenter.wallet.asset_details
 
 import android.app.AlertDialog
+import android.graphics.Typeface
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -38,6 +39,7 @@ import com.omouravictor.invest_view.util.calculateAndSetupVariationLayout
 import com.omouravictor.invest_view.util.clearPileAndNavigateToStart
 import com.omouravictor.invest_view.util.getGenericErrorMessage
 import com.omouravictor.invest_view.util.setupColorsAndArrow
+import com.omouravictor.invest_view.util.setupTextStyles
 import com.omouravictor.invest_view.util.setupTextsSize
 import com.omouravictor.invest_view.util.setupToolbarCenterText
 import com.omouravictor.invest_view.util.showErrorSnackBar
@@ -199,6 +201,7 @@ class AssetDetailsFragment : Fragment() {
                                 tvVariation.text = getFormattedCurrencyValue(assetUiModel.currency, variation)
                                 tvVariationPercent.text = getFormattedValueForPercent(variationPercent)
                                 this.setupTextsSize(13f)
+                                this.setupTextStyles(Typeface.DEFAULT_BOLD)
                                 this.setupColorsAndArrow(variation)
                             }
                         }

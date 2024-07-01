@@ -1,5 +1,6 @@
 package com.omouravictor.invest_view.util
 
+import android.graphics.Typeface
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.omouravictor.invest_view.R
@@ -36,6 +37,13 @@ fun LayoutVariationBinding.setupVisibilities(isVisible: Boolean) {
     this.tvBracketStart.isVisible = isVisible
     this.tvBracketEnd.isVisible = isVisible
     this.ivArrow.isVisible = isVisible
+}
+
+fun LayoutVariationBinding.setupTextStyles(typeface: Typeface) {
+    this.tvVariation.typeface = typeface
+    this.tvVariationPercent.typeface = typeface
+    this.tvBracketStart.typeface = typeface
+    this.tvBracketEnd.typeface = typeface
 }
 
 fun LayoutVariationBinding.setupColorsAndArrow(variation: Double) {

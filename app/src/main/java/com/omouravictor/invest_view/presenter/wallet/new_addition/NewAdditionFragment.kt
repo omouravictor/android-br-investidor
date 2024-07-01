@@ -43,6 +43,7 @@ class NewAdditionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireActivity().setupToolbarCenterText(getString(R.string.newAddition))
         setupViews()
         setupBtnSave()
     }
@@ -63,21 +64,31 @@ class NewAdditionFragment : Fragment() {
     }
 
     private fun setupViews() {
-        requireActivity().setupToolbarCenterText(getString(R.string.newAddition))
         setupAmountAndTotalInvestedViews()
         setupCurrentPosition()
+        setupUpdatedPosition()
     }
 
     private fun setupBtnSave() {
         binding.incBtnSave.root.apply {
             text = getString(R.string.save)
             isEnabled = false
-            setOnClickListener {
-//                assetUiModel.amount = getAmount()
-//                assetUiModel.totalInvested = getTotalInvested()
-//                saveViewModel.saveAsset(assetUiModel)
-            }
+            setOnClickListener { }
         }
+    }
+
+    private fun setupAmountAndTotalInvestedViews() {
+        val currency = assetUiModel.currency
+        val ietAmount = binding.ietAmount
+        val ietUnitValuePerUnit = binding.ietUnitValuePerUnit
+
+        ietAmount.doAfterTextChanged { updateCurrentPosition() }
+        ietUnitValuePerUnit.doAfterTextChanged { updateCurrentPosition() }
+        ietAmount.setEditTextLongNumberFormatMask()
+        ietUnitValuePerUnit.setEditTextCurrencyFormatMask(currency)
+
+        ietAmount.hint = LocaleUtil.getFormattedValueForLongNumber(0)
+        ietUnitValuePerUnit.hint = LocaleUtil.getFormattedCurrencyValue(currency, 0.0)
     }
 
     @SuppressLint("SetTextI18n")
@@ -97,18 +108,14 @@ class NewAdditionFragment : Fragment() {
         }
     }
 
-    private fun setupAmountAndTotalInvestedViews() {
-        val currency = assetUiModel.currency
-        val ietAmount = binding.ietAmount
-        val ietUnitValuePerUnit = binding.ietUnitValuePerUnit
-
-        ietAmount.doAfterTextChanged { updateCurrentPosition() }
-        ietUnitValuePerUnit.doAfterTextChanged { updateCurrentPosition() }
-        ietAmount.setEditTextLongNumberFormatMask()
-        ietUnitValuePerUnit.setEditTextCurrencyFormatMask(currency)
-
-        ietAmount.hint = LocaleUtil.getFormattedValueForLongNumber(0)
-        ietUnitValuePerUnit.hint = LocaleUtil.getFormattedCurrencyValue(currency, 0.0)
+    private fun setupUpdatedPosition() {
+        binding.incUpdatedItemListAsset.apply {
+            color.setBackgroundColor(root.context.getColor(assetUiModel.assetType.colorResId))
+            tvInfoMessage.hint = getString(R.string.fillTheFieldsToView)
+            tvInfoMessage.visibility = View.VISIBLE
+            layoutAssetInfo.visibility = View.INVISIBLE
+            binding.incBtnSave.root.isEnabled = false
+        }
     }
 
     private fun requiredFieldsNotEmpty(): Boolean {
@@ -137,7 +144,7 @@ class NewAdditionFragment : Fragment() {
     }
 
     private fun updateCurrentPosition() {
-        binding.incItemListAsset.apply {
+        binding.incUpdatedItemListAsset.apply {
             if (requiredFieldsNotEmpty()) {
                 val priceCurrentPosition = assetUiModel.price * getAmount()
                 val totalInvested = getTotalInvested()
@@ -158,10 +165,7 @@ class NewAdditionFragment : Fragment() {
                 )
 
             } else {
-                tvInfoMessage.hint = getString(R.string.fillTheFieldsToView)
-                tvInfoMessage.visibility = View.VISIBLE
-                layoutAssetInfo.visibility = View.INVISIBLE
-                binding.incBtnSave.root.isEnabled = false
+                setupUpdatedPosition()
             }
         }
     }
