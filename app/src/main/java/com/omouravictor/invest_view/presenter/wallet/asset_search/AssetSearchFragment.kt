@@ -22,8 +22,8 @@ import com.omouravictor.invest_view.databinding.FragmentAssetSearchBinding
 import com.omouravictor.invest_view.presenter.base.UiState
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
-import com.omouravictor.invest_view.util.SystemServiceUtil
 import com.omouravictor.invest_view.util.getGenericErrorMessage
+import com.omouravictor.invest_view.util.hideKeyboard
 import com.omouravictor.invest_view.util.showErrorSnackBar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -55,7 +55,7 @@ class AssetSearchFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
-        SystemServiceUtil.hideKeyboard(requireActivity(), searchView)
+        requireActivity().hideKeyboard(searchView)
         assetSearchViewModel.resetAssetQuoteLiveData()
     }
 
