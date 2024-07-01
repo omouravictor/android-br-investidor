@@ -22,12 +22,12 @@ data class AssetUiModel(
 
 fun AssetUiModel.getFormattedSymbol() = AssetUtil.getFormattedSymbol(symbol)
 
-fun AssetUiModel.getPriceCurrentPosition() = price * amount
+fun AssetUiModel.getTotalPrice() = price * amount
 
 fun AssetUiModel.getFormattedAmount() = getFormattedValueForLongNumber(amount)
 
 fun AssetUiModel.getFormattedAssetPrice() = getFormattedCurrencyValue(currency, price)
 
-fun AssetUiModel.getFormattedPriceCurrentPosition() = getFormattedCurrencyValue(currency, getPriceCurrentPosition())
+fun AssetUiModel.getFormattedTotalPrice() = getFormattedCurrencyValue(currency, getTotalPrice())
 
 fun AssetUiModel.getFormattedTotalInvested() = getFormattedCurrencyValue(currency, totalInvested)

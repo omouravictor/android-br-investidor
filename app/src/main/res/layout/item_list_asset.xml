@@ -53,13 +53,13 @@
                 android:textSize="@dimen/textSize1"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/tvSymbol"
-                app:layout_constraintEnd_toStartOf="@+id/tvTotal"
+                app:layout_constraintEnd_toStartOf="@+id/tvTotalPrice"
                 app:layout_constraintStart_toEndOf="@+id/tvSymbol"
                 app:layout_constraintTop_toTopOf="@+id/tvSymbol"
                 tools:text="(100.000.000)" />
 
             <TextView
-                android:id="@+id/tvTotal"
+                android:id="@+id/tvTotalPrice"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"

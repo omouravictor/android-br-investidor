@@ -1,5 +1,6 @@
 package com.omouravictor.invest_view.presenter.wallet.new_addition
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +13,10 @@ import androidx.fragment.app.activityViewModels
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentNewAdditionBinding
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
+import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAmount
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
+import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalPrice
+import com.omouravictor.invest_view.presenter.wallet.model.getTotalPrice
 import com.omouravictor.invest_view.presenter.wallet.save_asset.SaveViewModel
 import com.omouravictor.invest_view.util.LocaleUtil
 import com.omouravictor.invest_view.util.calculateAndSetupVariationLayout
@@ -68,10 +72,8 @@ class NewAdditionFragment : Fragment() {
     }
 
     private fun setupViews() {
-        val context = requireContext()
-
-        binding.incItemListAsset.color.setBackgroundColor(context.getColor(assetUiModel.assetType.colorResId))
         setupAmountAndTotalInvestedViews()
+        setupCurrentPosition()
     }
 
     private fun setupBtnSave() {
@@ -83,6 +85,23 @@ class NewAdditionFragment : Fragment() {
 //                assetUiModel.totalInvested = getTotalInvested()
 //                saveViewModel.saveAsset(assetUiModel)
             }
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setupCurrentPosition() {
+        binding.incItemListAsset.apply {
+            color.setBackgroundColor(root.context.getColor(assetUiModel.assetType.colorResId))
+            tvSymbol.text = assetUiModel.getFormattedSymbol()
+            tvAmount.text = "(${assetUiModel.getFormattedAmount()})"
+            tvName.text = assetUiModel.name
+            tvTotalPrice.text = assetUiModel.getFormattedTotalPrice()
+            incLayoutVariation.calculateAndSetupVariationLayout(
+                textSize = 12f,
+                currency = assetUiModel.currency,
+                reference = assetUiModel.getTotalPrice(),
+                totalReference = assetUiModel.totalInvested
+            )
         }
     }
 
@@ -135,7 +154,7 @@ class NewAdditionFragment : Fragment() {
                 tvSymbol.text = assetUiModel.getFormattedSymbol()
                 tvAmount.text = getString(R.string.placeholderAssetAmount, binding.ietAmount.text.toString())
                 tvName.text = assetUiModel.name
-                tvTotal.text = LocaleUtil.getFormattedCurrencyValue(currency, priceCurrentPosition)
+                tvTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, priceCurrentPosition)
                 tvInfoMessage.visibility = View.INVISIBLE
                 layoutAssetInfo.visibility = View.VISIBLE
                 binding.incBtnSave.root.isEnabled = true

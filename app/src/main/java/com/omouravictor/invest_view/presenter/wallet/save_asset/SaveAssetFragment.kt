@@ -180,7 +180,7 @@ class SaveAssetFragment : Fragment() {
                 tvSymbol.text = binding.etSymbol.text.toString()
                 tvAmount.text = getString(R.string.placeholderAssetAmount, binding.ietAmount.text.toString())
                 tvName.text = assetUiModel.name
-                tvTotal.text = LocaleUtil.getFormattedCurrencyValue(currency, priceCurrentPosition)
+                tvTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, priceCurrentPosition)
                 tvInfoMessage.visibility = View.INVISIBLE
                 layoutAssetInfo.visibility = View.VISIBLE
                 binding.incBtnSave.root.isEnabled = true

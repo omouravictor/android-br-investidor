@@ -29,10 +29,10 @@ import com.omouravictor.invest_view.presenter.wallet.asset_search.AssetSearchVie
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAmount
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAssetPrice
-import com.omouravictor.invest_view.presenter.wallet.model.getFormattedPriceCurrentPosition
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalInvested
-import com.omouravictor.invest_view.presenter.wallet.model.getPriceCurrentPosition
+import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalPrice
+import com.omouravictor.invest_view.presenter.wallet.model.getTotalPrice
 import com.omouravictor.invest_view.util.AssetUtil
 import com.omouravictor.invest_view.util.LocaleUtil.getFormattedCurrencyValue
 import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForPercent
@@ -140,11 +140,11 @@ class AssetDetailsFragment : Fragment() {
         binding.tvPrice.text = assetUiModel.getFormattedAssetPrice()
         binding.tvAmount.text = assetUiModel.getFormattedAmount()
         binding.tvTotalInvested.text = assetUiModel.getFormattedTotalInvested()
-        binding.tvCurrentPosition.text = assetUiModel.getFormattedPriceCurrentPosition()
+        binding.tvTotalPrice.text = assetUiModel.getFormattedTotalPrice()
         binding.incLayoutYield.calculateAndSetupVariationLayout(
             textSize = 14f,
             currency = assetUiModel.currency,
-            reference = assetUiModel.getPriceCurrentPosition(),
+            reference = assetUiModel.getTotalPrice(),
             totalReference = assetUiModel.totalInvested
         )
         binding.ivReloadVariation.setOnClickListener { assetSearchViewModel.getAssetQuote(assetUiModel.symbol) }
