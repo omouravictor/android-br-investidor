@@ -1,60 +1,72 @@
 package com.omouravictor.invest_view.util
 
-import android.text.Editable
-import android.text.TextWatcher
-import android.widget.EditText
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
+import com.omouravictor.invest_view.R
+import com.omouravictor.invest_view.databinding.LayoutVariationBinding
 
-fun EditText.setEditTextLongNumberFormatMask() {
-    this.addTextChangedListener(object : TextWatcher {
-        override fun beforeTextChanged(cs: CharSequence?, s: Int, c: Int, a: Int) = Unit
-
-        override fun onTextChanged(
-            text: CharSequence, start: Int, before: Int, count: Int
-        ) {
-            if (text.isEmpty()) return
-
-            removeTextChangedListener(this)
-
-            val amount = text.toString().getOnlyNumbers().toLong()
-            val formattedAmount = LocaleUtil.getFormattedValueForLongNumber(amount)
-            setText(formattedAmount)
-            setSelection(formattedAmount.length)
-
-            addTextChangedListener(this)
-        }
-
-        override fun afterTextChanged(s: Editable?) = Unit
-    })
+fun LayoutVariationBinding.calculateAndSetupVariationLayout(
+    textSize: Float,
+    currency: String,
+    reference: Double,
+    totalReference: Double
+) {
+    if (totalReference == 0.0)
+        setupVisibilities(false)
+    else {
+        val variation = (reference - totalReference).getRoundedDouble()
+        this.setupTextsSize(textSize)
+        this.setupVisibilities(true)
+        this.setupColorsAndArrow(variation)
+        this.tvVariation.text = LocaleUtil.getFormattedCurrencyValue(currency, variation)
+        this.tvVariationPercent.text = LocaleUtil.getFormattedValueForPercent(variation / totalReference)
+    }
 }
 
-fun EditText.setEditTextCurrencyFormatMask(currency: String) {
-    this.addTextChangedListener(object : TextWatcher {
-        override fun beforeTextChanged(cs: CharSequence?, s: Int, c: Int, a: Int) = Unit
+fun LayoutVariationBinding.setupTextsSize(textSize: Float) {
+    this.tvVariation.textSize = textSize
+    this.tvVariationPercent.textSize = textSize
+    this.tvBracketStart.textSize = textSize
+    this.tvBracketEnd.textSize = textSize
+}
 
-        override fun onTextChanged(
-            text: CharSequence, start: Int, before: Int, count: Int
-        ) {
-            if (text.isEmpty()) return
+fun LayoutVariationBinding.setupVisibilities(isVisible: Boolean) {
+    this.tvVariation.isVisible = isVisible
+    this.tvVariationPercent.isVisible = isVisible
+    this.tvBracketStart.isVisible = isVisible
+    this.tvBracketEnd.isVisible = isVisible
+    this.ivArrow.isVisible = isVisible
+}
 
-            var cleanText = text.toString().getOnlyNumbers()
-
-            if (cleanText == "00") {
-                setText("")
-                return
-            }
-
-            if (cleanText.length == 15) cleanText = cleanText.take(14)
-
-            removeTextChangedListener(this)
-
-            val value = cleanText.toDouble() / 100
-            val formattedAmount = LocaleUtil.getFormattedCurrencyValue(currency, value)
-            setText(formattedAmount)
-            setSelection(formattedAmount.length)
-
-            addTextChangedListener(this)
+fun LayoutVariationBinding.setupColorsAndArrow(variation: Double) {
+    when {
+        variation > 0 -> {
+            val color = ContextCompat.getColor(this.root.context, R.color.green)
+            this.tvVariation.setTextColor(color)
+            this.tvVariationPercent.setTextColor(color)
+            this.tvBracketStart.setTextColor(color)
+            this.tvBracketEnd.setTextColor(color)
+            this.ivArrow.isVisible = true
+            this.ivArrow.setImageResource(R.drawable.ic_arrow_up)
         }
 
-        override fun afterTextChanged(s: Editable?) = Unit
-    })
+        variation < 0 -> {
+            val color = ContextCompat.getColor(this.root.context, R.color.red)
+            this.tvVariation.setTextColor(color)
+            this.tvVariationPercent.setTextColor(color)
+            this.tvBracketStart.setTextColor(color)
+            this.tvBracketEnd.setTextColor(color)
+            this.ivArrow.isVisible = true
+            this.ivArrow.setImageResource(R.drawable.ic_arrow_down)
+        }
+
+        else -> {
+            val color = ContextCompat.getColor(this.root.context, R.color.gray)
+            this.tvVariation.setTextColor(color)
+            this.tvVariationPercent.setTextColor(color)
+            this.tvBracketStart.setTextColor(color)
+            this.tvBracketEnd.setTextColor(color)
+            this.ivArrow.isVisible = false
+        }
+    }
 }
