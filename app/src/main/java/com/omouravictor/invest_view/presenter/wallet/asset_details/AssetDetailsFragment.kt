@@ -33,14 +33,15 @@ import com.omouravictor.invest_view.presenter.wallet.model.getFormattedPriceCurr
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalInvested
 import com.omouravictor.invest_view.presenter.wallet.model.getPriceCurrentPosition
-import com.omouravictor.invest_view.util.AppUtil
 import com.omouravictor.invest_view.util.AssetUtil
 import com.omouravictor.invest_view.util.LocaleUtil.getFormattedCurrencyValue
 import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForPercent
 import com.omouravictor.invest_view.util.calculateAndSetupVariationLayout
 import com.omouravictor.invest_view.util.clearPileAndNavigateToStart
+import com.omouravictor.invest_view.util.getGenericErrorMessage
 import com.omouravictor.invest_view.util.setupColorsAndArrow
 import com.omouravictor.invest_view.util.setupTextsSize
+import com.omouravictor.invest_view.util.showErrorSnackBar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -237,7 +238,7 @@ class AssetDetailsFragment : Fragment() {
                             val activity = requireActivity()
                             binding.mainLayout.visibility = View.VISIBLE
                             binding.incProgressBar.root.visibility = View.GONE
-                            AppUtil.showErrorSnackBar(activity, AppUtil.getGenericErrorMessage(activity, it.e))
+                            activity.showErrorSnackBar(activity.getGenericErrorMessage(it.e))
                         }
                     }
                 }

@@ -22,8 +22,9 @@ import com.omouravictor.invest_view.databinding.FragmentAssetSearchBinding
 import com.omouravictor.invest_view.presenter.base.UiState
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
-import com.omouravictor.invest_view.util.AppUtil
 import com.omouravictor.invest_view.util.SystemServiceUtil
+import com.omouravictor.invest_view.util.getGenericErrorMessage
+import com.omouravictor.invest_view.util.showErrorSnackBar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -78,7 +79,7 @@ class AssetSearchFragment : Fragment() {
                 if (query.isNotEmpty()) {
                     assetSearchViewModel.getAssetsBySearch(query)
                 } else {
-                    AppUtil.showErrorSnackBar(activity, message = getString(R.string.enterAssetSymbolForTryAgain))
+                    activity.showErrorSnackBar(message = getString(R.string.enterAssetSymbolForTryAgain))
                 }
             }
         }
@@ -92,7 +93,7 @@ class AssetSearchFragment : Fragment() {
                 this.assetUiModel = assetUiModel
                 assetSearchViewModel.getAssetQuote(symbol)
             } else {
-                AppUtil.showErrorSnackBar(requireActivity(), getString(R.string.assetAlreadyExists))
+                requireActivity().showErrorSnackBar(getString(R.string.assetAlreadyExists))
             }
         }
     }
@@ -126,7 +127,7 @@ class AssetSearchFragment : Fragment() {
 
     private fun handleErrors(e: Exception) {
         setupViewsForAssetsBySearch(isError = true)
-        binding.incLayoutError.tvInfoMessage.text = AppUtil.getGenericErrorMessage(requireContext(), e)
+        binding.incLayoutError.tvInfoMessage.text = requireContext().getGenericErrorMessage(e)
     }
 
     private fun observeAssetsBySearch() {

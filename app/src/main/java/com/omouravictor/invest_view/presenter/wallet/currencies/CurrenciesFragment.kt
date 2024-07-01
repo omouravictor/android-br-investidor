@@ -24,8 +24,8 @@ import com.google.android.material.snackbar.Snackbar
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetsBinding
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
-import com.omouravictor.invest_view.util.AppUtil
 import com.omouravictor.invest_view.util.AssetUtil
+import com.omouravictor.invest_view.util.showPieChart
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -95,7 +95,7 @@ class CurrenciesFragment : Fragment(), OnChartValueSelectedListener {
             setDrawIcons(false)
         }
 
-        AppUtil.showPieChart(context, pieChart, pieDataSet)
+        context.showPieChart(pieChart, pieDataSet)
         updatePieChartCenterText(assets.size)
     }
 

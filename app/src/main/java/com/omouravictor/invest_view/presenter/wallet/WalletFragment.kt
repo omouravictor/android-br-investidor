@@ -17,7 +17,7 @@ import com.omouravictor.invest_view.presenter.base.BaseViewPagerAdapter
 import com.omouravictor.invest_view.presenter.base.UiState
 import com.omouravictor.invest_view.presenter.wallet.asset_types.AssetTypesFragment
 import com.omouravictor.invest_view.presenter.wallet.currencies.CurrenciesFragment
-import com.omouravictor.invest_view.util.AppUtil
+import com.omouravictor.invest_view.util.getGenericErrorMessage
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -92,7 +92,7 @@ class WalletFragment : Fragment() {
                         is UiState.Error -> {
                             binding.viewFlipper.displayedChild = VIEW_FLIPPER_CHILD_WALLET_ERROR_LAYOUT
                             binding.incWalletErrorLayout.tvInfoMessage.text =
-                                AppUtil.getGenericErrorMessage(requireContext(), it.e)
+                                binding.root.context.getGenericErrorMessage(it.e)
                         }
                     }
                 }
