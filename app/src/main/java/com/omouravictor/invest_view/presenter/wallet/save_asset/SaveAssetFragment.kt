@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
 import androidx.core.widget.doAfterTextChanged
@@ -34,6 +33,7 @@ import com.omouravictor.invest_view.util.getGenericErrorMessage
 import com.omouravictor.invest_view.util.getOnlyNumbers
 import com.omouravictor.invest_view.util.setEditTextCurrencyFormatMask
 import com.omouravictor.invest_view.util.setEditTextLongNumberFormatMask
+import com.omouravictor.invest_view.util.setupToolbarCenterText
 import com.omouravictor.invest_view.util.showErrorSnackBar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -89,10 +89,7 @@ class SaveAssetFragment : Fragment() {
         val activity = requireActivity()
         val assetType = assetUiModel.assetType
 
-        activity.findViewById<Toolbar>(R.id.toolbar).apply {
-            title = ""
-            findViewById<TextView>(R.id.tvToolbarCenterText).text = getString(assetType.nameResId)
-        }
+        activity.setupToolbarCenterText(getString(assetType.nameResId))
 
         activity.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {

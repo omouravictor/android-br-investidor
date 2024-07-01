@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.view.View
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.github.mikephil.charting.animation.Easing
@@ -15,6 +16,13 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.formatter.PercentFormatter
 import com.google.android.material.snackbar.Snackbar
 import com.omouravictor.invest_view.R
+
+fun Activity.setupToolbarCenterText(centerText: String) {
+    this.findViewById<Toolbar>(R.id.toolbar).apply {
+        title = ""
+        findViewById<TextView>(R.id.tvToolbarCenterText).text = centerText
+    }
+}
 
 fun Context.getGenericErrorMessage(e: Exception): String {
     return when (e) {

@@ -10,9 +10,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources.getColorStateList
-import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -41,6 +39,7 @@ import com.omouravictor.invest_view.util.clearPileAndNavigateToStart
 import com.omouravictor.invest_view.util.getGenericErrorMessage
 import com.omouravictor.invest_view.util.setupColorsAndArrow
 import com.omouravictor.invest_view.util.setupTextsSize
+import com.omouravictor.invest_view.util.setupToolbarCenterText
 import com.omouravictor.invest_view.util.showErrorSnackBar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -106,10 +105,7 @@ class AssetDetailsFragment : Fragment() {
     private fun setupToolbar() {
         val activity = requireActivity()
 
-        activity.findViewById<Toolbar>(R.id.toolbar).apply {
-            title = ""
-            findViewById<TextView>(R.id.tvToolbarCenterText).text = assetUiModel.getFormattedSymbol()
-        }
+        activity.setupToolbarCenterText(assetUiModel.getFormattedSymbol())
 
         activity.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
