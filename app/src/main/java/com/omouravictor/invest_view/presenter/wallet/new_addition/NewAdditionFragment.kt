@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.omouravictor.invest_view.R
@@ -13,10 +14,11 @@ import com.omouravictor.invest_view.databinding.FragmentNewAdditionBinding
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.presenter.wallet.save_asset.SaveViewModel
-import com.omouravictor.invest_view.util.EditTextUtil
 import com.omouravictor.invest_view.util.LocaleUtil
 import com.omouravictor.invest_view.util.calculateAndSetupVariationLayout
 import com.omouravictor.invest_view.util.getOnlyNumbers
+import com.omouravictor.invest_view.util.setEditTextCurrencyFormatMask
+import com.omouravictor.invest_view.util.setEditTextLongNumberFormatMask
 
 class NewAdditionFragment : Fragment() {
 
@@ -89,9 +91,10 @@ class NewAdditionFragment : Fragment() {
         val ietAmount = binding.ietAmount
         val ietUnitValuePerUnit = binding.ietUnitValuePerUnit
 
-        EditTextUtil.setEditTextsAfterTextChanged({ updateCurrentPosition() }, ietAmount, ietUnitValuePerUnit)
-        EditTextUtil.setEditTextLongNumberFormatMask(ietAmount)
-        EditTextUtil.setEditTextCurrencyFormatMask(ietUnitValuePerUnit, currency)
+        ietAmount.doAfterTextChanged { updateCurrentPosition() }
+        ietUnitValuePerUnit.doAfterTextChanged { updateCurrentPosition() }
+        ietAmount.setEditTextLongNumberFormatMask()
+        ietUnitValuePerUnit.setEditTextCurrencyFormatMask(currency)
 
         ietAmount.hint = LocaleUtil.getFormattedValueForLongNumber(0)
         ietUnitValuePerUnit.hint = LocaleUtil.getFormattedCurrencyValue(currency, 0.0)

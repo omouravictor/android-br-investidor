@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -26,12 +27,13 @@ import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.asset_types.AssetTypes
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
-import com.omouravictor.invest_view.util.EditTextUtil
 import com.omouravictor.invest_view.util.LocaleUtil
 import com.omouravictor.invest_view.util.calculateAndSetupVariationLayout
 import com.omouravictor.invest_view.util.clearPileAndNavigateToStart
 import com.omouravictor.invest_view.util.getGenericErrorMessage
 import com.omouravictor.invest_view.util.getOnlyNumbers
+import com.omouravictor.invest_view.util.setEditTextCurrencyFormatMask
+import com.omouravictor.invest_view.util.setEditTextLongNumberFormatMask
 import com.omouravictor.invest_view.util.showErrorSnackBar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -118,9 +120,10 @@ class SaveAssetFragment : Fragment() {
         val ietAmount = binding.ietAmount
         val ietTotalInvested = binding.ietTotalInvested
 
-        EditTextUtil.setEditTextsAfterTextChanged({ updateCurrentPosition() }, ietAmount, ietTotalInvested)
-        EditTextUtil.setEditTextLongNumberFormatMask(ietAmount)
-        EditTextUtil.setEditTextCurrencyFormatMask(ietTotalInvested, currency)
+        ietAmount.doAfterTextChanged { updateCurrentPosition() }
+        ietTotalInvested.doAfterTextChanged { updateCurrentPosition() }
+        ietAmount.setEditTextLongNumberFormatMask()
+        ietTotalInvested.setEditTextCurrencyFormatMask(currency)
 
         val amount = assetUiModel.amount
         ietAmount.setText(if (amount != 0L) LocaleUtil.getFormattedValueForLongNumber(amount) else "1")
