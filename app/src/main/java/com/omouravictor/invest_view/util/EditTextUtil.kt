@@ -7,14 +7,6 @@ import androidx.core.widget.doAfterTextChanged
 
 object EditTextUtil {
 
-    fun setEditTextsHighLightColor(
-        color: Int, vararg editTexts: EditText
-    ) {
-        editTexts.forEach { editText ->
-            editText.highlightColor = color
-        }
-    }
-
     fun setEditTextsAfterTextChanged(
         doAfterTextChangedFunction: () -> Unit, vararg editTexts: EditText
     ) {
@@ -35,7 +27,7 @@ object EditTextUtil {
                 ) {
                     if (text.isEmpty()) return
 
-                    var cleanText = StringUtil.getOnlyNumbers(text.toString())
+                    var cleanText = text.toString().getOnlyNumbers()
 
                     if (cleanText == "00") {
                         setText("")
@@ -71,7 +63,7 @@ object EditTextUtil {
 
                     removeTextChangedListener(this)
 
-                    val amount = StringUtil.getOnlyNumbers(text.toString()).toLong()
+                    val amount = text.toString().getOnlyNumbers().toLong()
                     val formattedAmount = LocaleUtil.getFormattedValueForLongNumber(amount)
                     setText(formattedAmount)
                     setSelection(formattedAmount.length)

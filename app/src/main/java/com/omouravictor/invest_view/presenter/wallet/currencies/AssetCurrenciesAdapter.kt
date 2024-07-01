@@ -12,7 +12,7 @@ import com.omouravictor.invest_view.presenter.wallet.model.getFormattedPriceCurr
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.presenter.wallet.model.getPriceCurrentPosition
 import com.omouravictor.invest_view.util.AssetUtil
-import com.omouravictor.invest_view.util.BindingUtil
+import com.omouravictor.invest_view.util.calculateAndSetupVariationLayout
 
 class AssetCurrenciesAdapter : BaseRecyclerViewAdapter<AssetUiModel, AssetCurrenciesAdapter.AssetViewHolder>() {
 
@@ -34,8 +34,7 @@ class AssetCurrenciesAdapter : BaseRecyclerViewAdapter<AssetUiModel, AssetCurren
             binding.tvName.text = assetUiModel.name
             binding.tvTotal.text = assetUiModel.getFormattedPriceCurrentPosition()
             itemView.setOnClickListener { onClickItem(assetUiModel) }
-            BindingUtil.calculateAndSetupVariationLayout(
-                binding = binding.incLayoutVariation,
+            binding.incLayoutVariation.calculateAndSetupVariationLayout(
                 textSize = 12f,
                 currency = assetUiModel.currency,
                 reference = assetUiModel.getPriceCurrentPosition(),

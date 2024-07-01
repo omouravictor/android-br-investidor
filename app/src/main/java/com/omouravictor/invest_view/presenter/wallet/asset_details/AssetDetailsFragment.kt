@@ -35,10 +35,12 @@ import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalInve
 import com.omouravictor.invest_view.presenter.wallet.model.getPriceCurrentPosition
 import com.omouravictor.invest_view.util.AppUtil
 import com.omouravictor.invest_view.util.AssetUtil
-import com.omouravictor.invest_view.util.BindingUtil
 import com.omouravictor.invest_view.util.LocaleUtil.getFormattedCurrencyValue
 import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForPercent
+import com.omouravictor.invest_view.util.calculateAndSetupVariationLayout
 import com.omouravictor.invest_view.util.clearPileAndNavigateToStart
+import com.omouravictor.invest_view.util.setupColorsAndArrow
+import com.omouravictor.invest_view.util.setupTextsSize
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -138,8 +140,7 @@ class AssetDetailsFragment : Fragment() {
         binding.tvAmount.text = assetUiModel.getFormattedAmount()
         binding.tvTotalInvested.text = assetUiModel.getFormattedTotalInvested()
         binding.tvCurrentPosition.text = assetUiModel.getFormattedPriceCurrentPosition()
-        BindingUtil.calculateAndSetupVariationLayout(
-            binding = binding.incLayoutYield,
+        binding.incLayoutYield.calculateAndSetupVariationLayout(
             textSize = 14f,
             currency = assetUiModel.currency,
             reference = assetUiModel.getPriceCurrentPosition(),
@@ -200,8 +201,8 @@ class AssetDetailsFragment : Fragment() {
                             binding.incLayoutVariation.apply {
                                 tvVariation.text = getFormattedCurrencyValue(assetUiModel.currency, variation)
                                 tvVariationPercent.text = getFormattedValueForPercent(variationPercent)
-                                BindingUtil.setupTextsSize(this, 13f)
-                                BindingUtil.setupColorsAndArrow(this, variation)
+                                this.setupTextsSize(13f)
+                                this.setupColorsAndArrow(variation)
                             }
                         }
 

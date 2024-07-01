@@ -27,11 +27,11 @@ import com.omouravictor.invest_view.presenter.wallet.asset_types.AssetTypes
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.util.AppUtil
-import com.omouravictor.invest_view.util.BindingUtil
 import com.omouravictor.invest_view.util.EditTextUtil
 import com.omouravictor.invest_view.util.LocaleUtil
-import com.omouravictor.invest_view.util.StringUtil
+import com.omouravictor.invest_view.util.calculateAndSetupVariationLayout
 import com.omouravictor.invest_view.util.clearPileAndNavigateToStart
+import com.omouravictor.invest_view.util.getOnlyNumbers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -151,7 +151,7 @@ class SaveAssetFragment : Fragment() {
     private fun getAmount(): Long {
         val amount = binding.ietAmount.text.toString()
         return if (amount.isNotEmpty()) {
-            StringUtil.getOnlyNumbers(amount).toLong()
+            amount.getOnlyNumbers().toLong()
         } else {
             0
         }
@@ -160,7 +160,7 @@ class SaveAssetFragment : Fragment() {
     private fun getTotalInvested(): Double {
         val totalInvested = binding.ietTotalInvested.text.toString()
         return if (totalInvested.isNotEmpty()) {
-            StringUtil.getOnlyNumbers(totalInvested).toDouble() / 100
+            totalInvested.getOnlyNumbers().toDouble() / 100
         } else {
             0.0
         }
@@ -180,8 +180,7 @@ class SaveAssetFragment : Fragment() {
                 tvInfoMessage.visibility = View.INVISIBLE
                 layoutAssetInfo.visibility = View.VISIBLE
                 binding.incBtnSave.root.isEnabled = true
-                BindingUtil.calculateAndSetupVariationLayout(
-                    binding = this.incLayoutVariation,
+                this.incLayoutVariation.calculateAndSetupVariationLayout(
                     textSize = 12f,
                     currency = currency,
                     reference = priceCurrentPosition,

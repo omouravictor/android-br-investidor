@@ -13,10 +13,10 @@ import com.omouravictor.invest_view.databinding.FragmentNewAdditionBinding
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.presenter.wallet.save_asset.SaveViewModel
-import com.omouravictor.invest_view.util.BindingUtil
 import com.omouravictor.invest_view.util.EditTextUtil
 import com.omouravictor.invest_view.util.LocaleUtil
-import com.omouravictor.invest_view.util.StringUtil
+import com.omouravictor.invest_view.util.calculateAndSetupVariationLayout
+import com.omouravictor.invest_view.util.getOnlyNumbers
 
 class NewAdditionFragment : Fragment() {
 
@@ -107,7 +107,7 @@ class NewAdditionFragment : Fragment() {
     private fun getAmount(): Long {
         val amount = binding.ietAmount.text.toString()
         return if (amount.isNotEmpty()) {
-            StringUtil.getOnlyNumbers(amount).toLong()
+            amount.getOnlyNumbers().toLong()
         } else {
             0
         }
@@ -116,7 +116,7 @@ class NewAdditionFragment : Fragment() {
     private fun getTotalInvested(): Double {
         val totalInvested = binding.ietUnitValuePerUnit.text.toString()
         return if (totalInvested.isNotEmpty()) {
-            StringUtil.getOnlyNumbers(totalInvested).toDouble() / 100
+            totalInvested.getOnlyNumbers().toDouble() / 100
         } else {
             0.0
         }
@@ -136,8 +136,7 @@ class NewAdditionFragment : Fragment() {
                 tvInfoMessage.visibility = View.INVISIBLE
                 layoutAssetInfo.visibility = View.VISIBLE
                 binding.incBtnSave.root.isEnabled = true
-                BindingUtil.calculateAndSetupVariationLayout(
-                    binding = this.incLayoutVariation,
+                this.incLayoutVariation.calculateAndSetupVariationLayout(
                     textSize = 12f,
                     currency = currency,
                     reference = priceCurrentPosition,
