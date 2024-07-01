@@ -128,6 +128,28 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvTittleCurrentPosition" />
 
+            <TextView
+                android:id="@+id/tvTittleUpdatedPosition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/defaultMargin"
+                android:layout_marginTop="@dimen/defaultMargin"
+                android:text="@string/updatedPosition"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/incItemListAsset" />
+
+            <include
+                android:id="@+id/incUpdatedItemListAsset"
+                layout="@layout/item_list_asset"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/defaultMargin"
+                android:layout_marginTop="6dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTittleUpdatedPosition" />
+
             <include
                 android:id="@+id/incBtnSave"
                 layout="@layout/button_default"
@@ -137,7 +159,7 @@
                 android:layout_marginTop="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/incItemListAsset" />
+                app:layout_constraintTop_toBottomOf="@+id/incUpdatedItemListAsset" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

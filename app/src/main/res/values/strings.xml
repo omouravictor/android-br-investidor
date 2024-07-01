@@ -89,5 +89,6 @@
     <string name="yes">Sim</string>
     <string name="not">Não</string>
     <string name="deleteAsset">Excluir ativo</string>
+    <string name="updatedPosition">Posição atualizada</string>
 
 </resources>
