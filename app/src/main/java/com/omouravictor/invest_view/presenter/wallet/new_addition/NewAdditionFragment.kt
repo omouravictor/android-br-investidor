@@ -66,7 +66,7 @@ class NewAdditionFragment : Fragment() {
     private fun setupViews() {
         setupAmountAndTotalInvestedViews()
         setupCurrentPosition()
-        setupUpdatedPosition()
+        setupInitialUpdatedPositionLayout()
     }
 
     private fun setupBtnSave() {
@@ -82,8 +82,8 @@ class NewAdditionFragment : Fragment() {
         val ietAmount = binding.ietAmount
         val ietUnitValuePerUnit = binding.ietUnitValuePerUnit
 
-        ietAmount.doAfterTextChanged { updateCurrentPosition() }
-        ietUnitValuePerUnit.doAfterTextChanged { updateCurrentPosition() }
+        ietAmount.doAfterTextChanged { updateUpdatedPosition() }
+        ietUnitValuePerUnit.doAfterTextChanged { updateUpdatedPosition() }
         ietAmount.setEditTextLongNumberFormatMask()
         ietUnitValuePerUnit.setEditTextCurrencyFormatMask(currency)
 
@@ -108,7 +108,7 @@ class NewAdditionFragment : Fragment() {
         }
     }
 
-    private fun setupUpdatedPosition() {
+    private fun setupInitialUpdatedPositionLayout() {
         binding.incUpdatedItemListAsset.apply {
             color.setBackgroundColor(root.context.getColor(assetUiModel.assetType.colorResId))
             tvInfoMessage.hint = getString(R.string.fillTheFieldsToView)
@@ -143,7 +143,7 @@ class NewAdditionFragment : Fragment() {
         }
     }
 
-    private fun updateCurrentPosition() {
+    private fun updateUpdatedPosition() {
         binding.incUpdatedItemListAsset.apply {
             if (requiredFieldsNotEmpty()) {
                 val priceCurrentPosition = assetUiModel.price * getAmount()
@@ -165,7 +165,7 @@ class NewAdditionFragment : Fragment() {
                 )
 
             } else {
-                setupUpdatedPosition()
+                setupInitialUpdatedPositionLayout()
             }
         }
     }
