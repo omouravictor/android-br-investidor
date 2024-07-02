@@ -40,13 +40,13 @@ class CurrenciesFragment : Fragment(), OnChartValueSelectedListener {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentAssetsBinding.inflate(inflater, container, false)
+        pieChart = binding.pieChart.also { it.setOnChartValueSelectedListener(this) }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initPieChart()
-        setupChart()
+        setupPieChart()
         setupAdapterAndRecyclerView()
         observeAssetsList()
     }
@@ -65,10 +65,6 @@ class CurrenciesFragment : Fragment(), OnChartValueSelectedListener {
         assetCurrenciesAdapter.updateItemsList(assetsList)
     }
 
-    private fun initPieChart() {
-        pieChart = binding.pieChart.also { it.setOnChartValueSelectedListener(this) }
-    }
-
     private fun updatePieChartCenterText(assetSize: Int) {
         val assetText = getString(if (assetSize == 1) R.string.asset else R.string.assets)
         val spannableString = SpannableString("$assetSize\n$assetText").apply {
@@ -78,7 +74,7 @@ class CurrenciesFragment : Fragment(), OnChartValueSelectedListener {
         pieChart.centerText = spannableString
     }
 
-    private fun setupChart() {
+    private fun setupPieChart() {
         val context = requireContext()
         val assets = walletViewModel.assetsListStateFlow.value
         val assetCurrencies = assets.map { it.currency }.distinct()
