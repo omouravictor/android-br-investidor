@@ -133,9 +133,8 @@ class NewAdditionFragment : Fragment() {
                     totalReference = valuePerUnit
                 )
 
-            } else {
+            } else
                 setupInitialUpdatedPositionLayout()
-            }
         }
     }
 
