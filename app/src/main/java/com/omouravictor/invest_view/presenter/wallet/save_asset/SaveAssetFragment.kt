@@ -94,9 +94,9 @@ class SaveAssetFragment : Fragment() {
         val context = requireContext()
         val formattedSymbol = assetUiModelArg.getFormattedSymbol()
 
-        binding.incItemListAsset.color.setBackgroundColor(context.getColor(assetUiModelArg.assetType.colorResId))
         binding.etSymbol.setText(formattedSymbol)
         binding.etLocation.setText(assetUiModelArg.region)
+        binding.incItemListAsset.color.setBackgroundColor(context.getColor(assetUiModelArg.assetType.colorResId))
         binding.incItemListAsset.tvSymbol.text = formattedSymbol
         binding.incItemListAsset.tvName.text = assetUiModelArg.name
         setupAmountAndTotalInvestedViews()
