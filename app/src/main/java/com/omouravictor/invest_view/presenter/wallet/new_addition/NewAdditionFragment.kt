@@ -120,8 +120,8 @@ class NewAdditionFragment : Fragment() {
             if (amount != 0L && valuePerUnit != 0.0) {
                 val currency = assetUiModelArg.currency
                 val updatedAmount = amount + assetUiModelArg.amount
-                val updatedTotalPrice = assetUiModelArg.price * amount + assetUiModelArg.getTotalPrice()
-                val updatedTotalInvested = valuePerUnit * amount + assetUiModelArg.totalInvested
+                val updatedTotalPrice = (assetUiModelArg.price * amount) + assetUiModelArg.getTotalPrice()
+                val updatedTotalInvested = (valuePerUnit * amount) + assetUiModelArg.totalInvested
 
                 tvAmount.text = "(${LocaleUtil.getFormattedValueForLongNumber(updatedAmount)})"
                 tvTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, updatedTotalPrice)
