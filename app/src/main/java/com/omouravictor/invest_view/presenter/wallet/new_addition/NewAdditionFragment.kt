@@ -118,19 +118,21 @@ class NewAdditionFragment : Fragment() {
             val amount = getAmount()
             val valuePerUnit = getValuePerUnit()
             if (amount != 0L && valuePerUnit != 0.0) {
-                val priceCurrentPosition = assetUiModelArg.price * getAmount()
                 val currency = assetUiModelArg.currency
+                val updatedAmount = amount + assetUiModelArg.amount
+                val updatedTotalPrice = assetUiModelArg.price * amount + assetUiModelArg.getTotalPrice()
+                val updatedTotalInvested = valuePerUnit * amount + assetUiModelArg.totalInvested
 
-                tvAmount.text = "(${LocaleUtil.getFormattedValueForLongNumber(amount + assetUiModelArg.amount)})"
-                tvTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, priceCurrentPosition)
+                tvAmount.text = "(${LocaleUtil.getFormattedValueForLongNumber(updatedAmount)})"
+                tvTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, updatedTotalPrice)
                 layoutAssetInfo.visibility = View.VISIBLE
                 tvInfoMessage.visibility = View.INVISIBLE
                 binding.incBtnSave.root.isEnabled = true
                 incLayoutVariation.calculateAndSetupVariationLayout(
                     textSize = 12f,
                     currency = currency,
-                    reference = priceCurrentPosition,
-                    totalReference = valuePerUnit
+                    reference = updatedTotalPrice,
+                    totalReference = updatedTotalInvested
                 )
 
             } else
