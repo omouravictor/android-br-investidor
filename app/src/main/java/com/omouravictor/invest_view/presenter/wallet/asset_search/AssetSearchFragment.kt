@@ -32,10 +32,10 @@ class AssetSearchFragment : Fragment() {
 
     private lateinit var binding: FragmentAssetSearchBinding
     private lateinit var searchView: SearchView
-    private lateinit var assetUiModel: AssetUiModel
     private val walletViewModel: WalletViewModel by activityViewModels()
     private val assetSearchViewModel: AssetSearchViewModel by activityViewModels()
     private val assetBySearchAdapter = AssetBySearchAdapter()
+    private var assetUiModel = AssetUiModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
