@@ -150,16 +150,16 @@ class SaveAssetFragment : Fragment() {
         binding.incItemListAsset.apply {
             val amount = getAmount()
             if (amount != 0L) {
-                val priceCurrentPosition = assetUiModelArg.price * amount
+                val totalPrice = assetUiModelArg.price * amount
                 val totalInvested = getTotalInvested()
                 val currency = assetUiModelArg.currency
 
                 tvAmount.text = "(${binding.ietAmount.text.toString()})"
-                tvTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, priceCurrentPosition)
+                tvTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, totalPrice)
                 incLayoutVariation.calculateAndSetupVariationLayout(
                     textSize = 12f,
                     currency = currency,
-                    reference = priceCurrentPosition,
+                    reference = totalPrice,
                     totalReference = totalInvested
                 )
                 layoutAssetInfo.visibility = View.VISIBLE
