@@ -46,8 +46,12 @@ class NewAdditionFragment : Fragment() {
     }
 
     private fun setupViews() {
+        val context = requireContext()
+
+        binding.incUpdatedItemListAsset.color.setBackgroundColor(context.getColor(assetUiModelArg.assetType.colorResId))
         binding.incUpdatedItemListAsset.tvSymbol.text = assetUiModelArg.getFormattedSymbol()
         binding.incUpdatedItemListAsset.tvName.text = assetUiModelArg.name
+        binding.incUpdatedItemListAsset.tvInfoMessage.hint = getString(R.string.fillTheFieldsToView)
         setupAmountAndValuePerUnit()
         setupCurrentPosition()
         setupInitialUpdatedPositionLayout()
@@ -94,8 +98,6 @@ class NewAdditionFragment : Fragment() {
 
     private fun setupInitialUpdatedPositionLayout() {
         binding.incUpdatedItemListAsset.apply {
-            color.setBackgroundColor(root.context.getColor(assetUiModelArg.assetType.colorResId))
-            tvInfoMessage.hint = getString(R.string.fillTheFieldsToView)
             tvInfoMessage.visibility = View.VISIBLE
             layoutAssetInfo.visibility = View.INVISIBLE
             binding.incBtnSave.root.isEnabled = false
@@ -125,15 +127,15 @@ class NewAdditionFragment : Fragment() {
 
                 tvAmount.text = "(${LocaleUtil.getFormattedValueForLongNumber(updatedAmount)})"
                 tvTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, updatedTotalPrice)
-                layoutAssetInfo.visibility = View.VISIBLE
-                tvInfoMessage.visibility = View.INVISIBLE
-                binding.incBtnSave.root.isEnabled = true
                 incLayoutVariation.calculateAndSetupVariationLayout(
                     textSize = 12f,
                     currency = currency,
                     reference = updatedTotalPrice,
                     totalReference = updatedTotalInvested
                 )
+                layoutAssetInfo.visibility = View.VISIBLE
+                tvInfoMessage.visibility = View.INVISIBLE
+                binding.incBtnSave.root.isEnabled = true
 
             } else
                 setupInitialUpdatedPositionLayout()

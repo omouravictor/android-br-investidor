@@ -99,10 +99,11 @@ class SaveAssetFragment : Fragment() {
         binding.incItemListAsset.color.setBackgroundColor(context.getColor(assetUiModelArg.assetType.colorResId))
         binding.incItemListAsset.tvSymbol.text = formattedSymbol
         binding.incItemListAsset.tvName.text = assetUiModelArg.name
-        setupAmountAndTotalInvestedViews()
+        binding.incItemListAsset.tvInfoMessage.hint = getString(R.string.fillTheFieldsToView)
+        setupAmountAndTotalInvested()
     }
 
-    private fun setupAmountAndTotalInvestedViews() {
+    private fun setupAmountAndTotalInvested() {
         val currency = assetUiModelArg.currency
         val ietAmount = binding.ietAmount
         val ietTotalInvested = binding.ietTotalInvested
@@ -166,7 +167,6 @@ class SaveAssetFragment : Fragment() {
                 binding.incBtnSave.root.isEnabled = true
 
             } else {
-                tvInfoMessage.hint = getString(R.string.fillTheFieldsToView)
                 tvInfoMessage.visibility = View.VISIBLE
                 layoutAssetInfo.visibility = View.INVISIBLE
                 binding.incBtnSave.root.isEnabled = false
