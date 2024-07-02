@@ -123,10 +123,10 @@ class NewAdditionFragment : Fragment() {
                 tvAmount.text = "(${LocaleUtil.getFormattedValueForLongNumber(amount + assetUiModelArg.amount)})"
                 tvName.text = assetUiModelArg.name
                 tvTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, priceCurrentPosition)
-                tvInfoMessage.visibility = View.INVISIBLE
                 layoutAssetInfo.visibility = View.VISIBLE
+                tvInfoMessage.visibility = View.INVISIBLE
                 binding.incBtnSave.root.isEnabled = true
-                this.incLayoutVariation.calculateAndSetupVariationLayout(
+                incLayoutVariation.calculateAndSetupVariationLayout(
                     textSize = 12f,
                     currency = currency,
                     reference = priceCurrentPosition,
