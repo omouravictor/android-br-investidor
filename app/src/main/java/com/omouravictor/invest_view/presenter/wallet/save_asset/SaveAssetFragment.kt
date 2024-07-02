@@ -27,6 +27,7 @@ import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.asset_types.AssetTypes
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
+import com.omouravictor.invest_view.util.ConstantUtil
 import com.omouravictor.invest_view.util.LocaleUtil
 import com.omouravictor.invest_view.util.calculateAndSetupVariationLayout
 import com.omouravictor.invest_view.util.clearPileAndNavigateToStart
@@ -189,9 +190,12 @@ class SaveAssetFragment : Fragment() {
                             if (previousDestinationId == R.id.fragmentAssetSearch) {
                                 walletViewModel.addAsset(it.data)
                                 navController.clearPileAndNavigateToStart()
-                            } else {
-                                walletViewModel.updateAsset(it.data)
-                                previousBackStackEntry?.savedStateHandle?.set("updatedAsset", it.data)
+                            } else if (previousDestinationId == R.id.fragmentAssetDetail) {
+                                val assetUiModel = it.data
+                                walletViewModel.updateAsset(assetUiModel)
+                                previousBackStackEntry?.savedStateHandle?.set(
+                                    ConstantUtil.SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL, assetUiModel
+                                )
                                 navController.popBackStack()
                             }
                         }

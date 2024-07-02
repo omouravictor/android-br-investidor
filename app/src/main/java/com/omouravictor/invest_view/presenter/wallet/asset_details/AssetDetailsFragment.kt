@@ -33,6 +33,7 @@ import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalInve
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalPrice
 import com.omouravictor.invest_view.presenter.wallet.model.getTotalPrice
 import com.omouravictor.invest_view.util.AssetUtil
+import com.omouravictor.invest_view.util.ConstantUtil
 import com.omouravictor.invest_view.util.LocaleUtil.getFormattedCurrencyValue
 import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForPercent
 import com.omouravictor.invest_view.util.calculateAndSetupVariationLayout
@@ -79,8 +80,9 @@ class AssetDetailsFragment : Fragment() {
     }
 
     private fun initAssetUiModel() {
-        assetUiModel = findNavController().currentBackStackEntry?.savedStateHandle?.get<AssetUiModel>("updatedAsset")
-            ?: AssetDetailsFragmentArgs.fromBundle(requireArguments()).assetUiModel
+        assetUiModel = findNavController().currentBackStackEntry?.savedStateHandle?.get<AssetUiModel>(
+            ConstantUtil.SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL
+        ) ?: AssetDetailsFragmentArgs.fromBundle(requireArguments()).assetUiModel
     }
 
     private fun setupToolbar() {
