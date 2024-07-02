@@ -71,18 +71,7 @@ class SaveAssetFragment : Fragment() {
     }
 
     private fun initArguments() {
-        val assetUiModelArg = SaveAssetFragmentArgs.fromBundle(requireArguments()).assetUiModel
-        this.assetUiModelArg = AssetUiModel(
-            symbol = assetUiModelArg.symbol,
-            name = assetUiModelArg.name,
-            originalType = assetUiModelArg.originalType,
-            assetType = assetUiModelArg.assetType,
-            region = assetUiModelArg.region,
-            currency = assetUiModelArg.currency,
-            price = assetUiModelArg.price,
-            amount = assetUiModelArg.amount,
-            totalInvested = assetUiModelArg.totalInvested
-        )
+        assetUiModelArg = SaveAssetFragmentArgs.fromBundle(requireArguments()).assetUiModel
     }
 
     private fun setupToolbar() {

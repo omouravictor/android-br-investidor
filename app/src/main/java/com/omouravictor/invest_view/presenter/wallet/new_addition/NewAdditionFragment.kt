@@ -46,7 +46,7 @@ class NewAdditionFragment : Fragment() {
     }
 
     private fun initArguments() {
-        this.assetUiModelArg = NewAdditionFragmentArgs.fromBundle(requireArguments()).assetUiModel
+        assetUiModelArg = NewAdditionFragmentArgs.fromBundle(requireArguments()).assetUiModel
     }
 
     private fun setupViews() {
