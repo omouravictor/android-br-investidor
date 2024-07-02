@@ -79,25 +79,8 @@ class AssetDetailsFragment : Fragment() {
     }
 
     private fun initAssetUiModel() {
-        val updatedAssetUiModel =
-            findNavController().currentBackStackEntry?.savedStateHandle?.get<AssetUiModel>("updatedAsset")
-
-        assetUiModel = if (updatedAssetUiModel != null) {
-            updatedAssetUiModel
-        } else {
-            val assetUiModelArg = AssetDetailsFragmentArgs.fromBundle(requireArguments()).assetUiModel
-            AssetUiModel(
-                assetUiModelArg.symbol,
-                assetUiModelArg.name,
-                assetUiModelArg.originalType,
-                assetUiModelArg.assetType,
-                assetUiModelArg.region,
-                assetUiModelArg.currency,
-                assetUiModelArg.price,
-                assetUiModelArg.amount,
-                assetUiModelArg.totalInvested
-            )
-        }
+        assetUiModel = findNavController().currentBackStackEntry?.savedStateHandle?.get<AssetUiModel>("updatedAsset")
+            ?: AssetDetailsFragmentArgs.fromBundle(requireArguments()).assetUiModel
     }
 
     private fun setupToolbar() {
