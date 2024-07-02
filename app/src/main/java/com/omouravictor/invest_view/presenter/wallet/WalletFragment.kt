@@ -43,21 +43,8 @@ class WalletFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupTabLayoutWithViewPager2()
-        observeAssetsList()
-
-        binding.incEmptyWalletLayout.incBtnAddAssets.root.apply {
-            text = getString(R.string.addAssets)
-            setOnClickListener {
-                findNavController().navigate(WalletFragmentDirections.navToAssetSearchFragment())
-            }
-        }
-
-        binding.incWalletErrorLayout.incBtnTryAgain.root.apply {
-            text = getString(R.string.tryAgain)
-            setOnClickListener {
-                walletViewModel.loadAssets()
-            }
-        }
+        setupButtons()
+        observeAssetsListUiState()
     }
 
     private fun setupTabLayoutWithViewPager2() {
@@ -74,7 +61,23 @@ class WalletFragment : Fragment() {
         }.attach()
     }
 
-    private fun observeAssetsList() {
+    private fun setupButtons() {
+        binding.incEmptyWalletLayout.incBtnAddAssets.root.apply {
+            text = getString(R.string.addAssets)
+            setOnClickListener {
+                findNavController().navigate(WalletFragmentDirections.navToAssetSearchFragment())
+            }
+        }
+
+        binding.incWalletErrorLayout.incBtnTryAgain.root.apply {
+            text = getString(R.string.tryAgain)
+            setOnClickListener {
+                walletViewModel.loadAssets()
+            }
+        }
+    }
+
+    private fun observeAssetsListUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 walletViewModel.assetsListUiStateFlow.collectLatest {

@@ -47,8 +47,7 @@ class CurrenciesFragment : Fragment(), OnChartValueSelectedListener {
         super.onViewCreated(view, savedInstanceState)
         initPieChart()
         setupChart()
-        setupAdapter()
-        setupRecyclerView()
+        setupAdapterAndRecyclerView()
         observeAssetsList()
     }
 
@@ -99,13 +98,11 @@ class CurrenciesFragment : Fragment(), OnChartValueSelectedListener {
         updatePieChartCenterText(assets.size)
     }
 
-    private fun setupAdapter() {
+    private fun setupAdapterAndRecyclerView() {
         assetCurrenciesAdapter.updateOnClickItem {
             Snackbar.make(binding.root, "Item clicked: $it", Snackbar.LENGTH_SHORT).show()
         }
-    }
 
-    private fun setupRecyclerView() {
         binding.recyclerView.apply {
             adapter = assetCurrenciesAdapter
             layoutManager = LinearLayoutManager(context)

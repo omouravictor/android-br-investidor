@@ -47,8 +47,7 @@ class AssetSearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         addMenuProvider()
-        setupAdapter()
-        setupRecyclerView()
+        setupAdapterAndRecyclerView()
         observeAssetsBySearch()
         observeAssetQuote()
     }
@@ -85,7 +84,7 @@ class AssetSearchFragment : Fragment() {
         }
     }
 
-    private fun setupAdapter() {
+    private fun setupAdapterAndRecyclerView() {
         assetBySearchAdapter.updateOnClickItem { assetUiModel ->
             val symbol = assetUiModel.symbol
             val existingAsset = walletViewModel.assetsListStateFlow.value.find { it.symbol == symbol }
@@ -95,6 +94,11 @@ class AssetSearchFragment : Fragment() {
             } else {
                 requireActivity().showErrorSnackBar(getString(R.string.assetAlreadyExists))
             }
+        }
+
+        binding.recyclerView.apply {
+            adapter = assetBySearchAdapter
+            layoutManager = LinearLayoutManager(context)
         }
     }
 
@@ -116,13 +120,6 @@ class AssetSearchFragment : Fragment() {
         searchView.queryHint = getString(R.string.searchYourAsset)
         searchView.setOnQueryTextListener(queryTextListener)
         searchView.setQuery("VALE", true) // TODO: Remove this line after testing
-    }
-
-    private fun setupRecyclerView() {
-        binding.recyclerView.apply {
-            adapter = assetBySearchAdapter
-            layoutManager = LinearLayoutManager(context)
-        }
     }
 
     private fun handleErrors(e: Exception) {

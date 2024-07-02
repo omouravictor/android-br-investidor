@@ -47,8 +47,7 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
         super.onViewCreated(view, savedInstanceState)
         initPieChart()
         setupChart()
-        setupAdapter()
-        setupRecyclerView()
+        setupAdapterAndRecyclerView()
         observeAssetsList()
     }
 
@@ -100,13 +99,11 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
         updatePieChartCenterText(assets.size)
     }
 
-    private fun setupAdapter() {
+    private fun setupAdapterAndRecyclerView() {
         assetTypesAdapter.updateOnClickItem {
             findNavController().navigate(WalletFragmentDirections.navToAssetDetailFragment(it))
         }
-    }
 
-    private fun setupRecyclerView() {
         binding.recyclerView.apply {
             adapter = assetTypesAdapter
             layoutManager = LinearLayoutManager(context)

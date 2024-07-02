@@ -61,7 +61,7 @@ class SaveAssetFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupToolbar()
         setupViews()
-        setupBtnSave()
+        setupButtons()
         observeWalletUiState()
     }
 
@@ -234,7 +234,7 @@ class SaveAssetFragment : Fragment() {
         }
     }
 
-    private fun setupBtnSave() {
+    private fun setupButtons() {
         binding.incBtnSave.root.apply {
             text = getString(R.string.save)
             setOnClickListener {

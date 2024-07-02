@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentNewAdditionBinding
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
@@ -15,7 +14,6 @@ import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAmount
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalPrice
 import com.omouravictor.invest_view.presenter.wallet.model.getTotalPrice
-import com.omouravictor.invest_view.presenter.wallet.save_asset.SaveViewModel
 import com.omouravictor.invest_view.util.LocaleUtil
 import com.omouravictor.invest_view.util.calculateAndSetupVariationLayout
 import com.omouravictor.invest_view.util.getOnlyNumbers
@@ -27,7 +25,6 @@ class NewAdditionFragment : Fragment() {
 
     private lateinit var binding: FragmentNewAdditionBinding
     private lateinit var assetUiModelArg: AssetUiModel
-    private val saveViewModel: SaveViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,18 +46,7 @@ class NewAdditionFragment : Fragment() {
     }
 
     private fun initArguments() {
-        val assetUiModelArg = NewAdditionFragmentArgs.fromBundle(requireArguments()).assetUiModel
-        this.assetUiModelArg = AssetUiModel(
-            symbol = assetUiModelArg.symbol,
-            name = assetUiModelArg.name,
-            originalType = assetUiModelArg.originalType,
-            assetType = assetUiModelArg.assetType,
-            region = assetUiModelArg.region,
-            currency = assetUiModelArg.currency,
-            price = assetUiModelArg.price,
-            amount = assetUiModelArg.amount,
-            totalInvested = assetUiModelArg.totalInvested
-        )
+        this.assetUiModelArg = NewAdditionFragmentArgs.fromBundle(requireArguments()).assetUiModel
     }
 
     private fun setupViews() {
