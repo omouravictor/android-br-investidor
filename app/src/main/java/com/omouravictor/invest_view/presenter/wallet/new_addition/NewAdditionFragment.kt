@@ -46,6 +46,8 @@ class NewAdditionFragment : Fragment() {
     }
 
     private fun setupViews() {
+        binding.incUpdatedItemListAsset.tvSymbol.text = assetUiModelArg.getFormattedSymbol()
+        binding.incUpdatedItemListAsset.tvName.text = assetUiModelArg.name
         setupAmountAndValuePerUnit()
         setupCurrentPosition()
         setupInitialUpdatedPositionLayout()
@@ -119,9 +121,7 @@ class NewAdditionFragment : Fragment() {
                 val priceCurrentPosition = assetUiModelArg.price * getAmount()
                 val currency = assetUiModelArg.currency
 
-                tvSymbol.text = assetUiModelArg.getFormattedSymbol()
                 tvAmount.text = "(${LocaleUtil.getFormattedValueForLongNumber(amount + assetUiModelArg.amount)})"
-                tvName.text = assetUiModelArg.name
                 tvTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, priceCurrentPosition)
                 layoutAssetInfo.visibility = View.VISIBLE
                 tvInfoMessage.visibility = View.INVISIBLE
