@@ -28,7 +28,7 @@ class NewAdditionFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initArguments()
+        assetUiModelArg = NewAdditionFragmentArgs.fromBundle(requireArguments()).assetUiModel
     }
 
     override fun onCreateView(
@@ -43,10 +43,6 @@ class NewAdditionFragment : Fragment() {
         requireActivity().setupToolbarCenterText(getString(R.string.newAddition))
         setupViews()
         setupBtnSave()
-    }
-
-    private fun initArguments() {
-        assetUiModelArg = NewAdditionFragmentArgs.fromBundle(requireArguments()).assetUiModel
     }
 
     private fun setupViews() {

@@ -47,7 +47,7 @@ class SaveAssetFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initArguments()
+        assetUiModelArg = SaveAssetFragmentArgs.fromBundle(requireArguments()).assetUiModel
     }
 
     override fun onCreateView(
@@ -68,10 +68,6 @@ class SaveAssetFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         saveViewModel.resetUiStateFlow()
-    }
-
-    private fun initArguments() {
-        assetUiModelArg = SaveAssetFragmentArgs.fromBundle(requireArguments()).assetUiModel
     }
 
     private fun setupToolbar() {
