@@ -191,10 +191,10 @@ class SaveAssetFragment : Fragment() {
                                 walletViewModel.addAsset(it.data)
                                 navController.clearPileAndNavigateToStart()
                             } else if (previousDestinationId == R.id.fragmentAssetDetail) {
-                                val assetUiModel = it.data
-                                walletViewModel.updateAsset(assetUiModel)
+                                val updatedAssetUiModel = it.data
+                                walletViewModel.updateAsset(updatedAssetUiModel)
                                 previousBackStackEntry?.savedStateHandle?.set(
-                                    ConstantUtil.SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL, assetUiModel
+                                    ConstantUtil.SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL, updatedAssetUiModel
                                 )
                                 navController.popBackStack()
                             }
