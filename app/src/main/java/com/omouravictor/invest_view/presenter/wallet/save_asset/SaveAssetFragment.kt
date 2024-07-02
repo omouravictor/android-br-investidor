@@ -92,10 +92,13 @@ class SaveAssetFragment : Fragment() {
 
     private fun setupViews() {
         val context = requireContext()
+        val formattedSymbol = assetUiModelArg.getFormattedSymbol()
 
         binding.incItemListAsset.color.setBackgroundColor(context.getColor(assetUiModelArg.assetType.colorResId))
-        binding.etSymbol.setText(assetUiModelArg.getFormattedSymbol())
+        binding.etSymbol.setText(formattedSymbol)
         binding.etLocation.setText(assetUiModelArg.region)
+        binding.incItemListAsset.tvSymbol.text = formattedSymbol
+        binding.incItemListAsset.tvName.text = assetUiModelArg.name
         setupAmountAndTotalInvestedViews()
     }
 
@@ -144,24 +147,23 @@ class SaveAssetFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun updateCurrentPosition() {
         binding.incItemListAsset.apply {
-            if (getAmount() != 0L) {
-                val priceCurrentPosition = assetUiModelArg.price * getAmount()
+            val amount = getAmount()
+            if (amount != 0L) {
+                val priceCurrentPosition = assetUiModelArg.price * amount
                 val totalInvested = getTotalInvested()
                 val currency = assetUiModelArg.currency
 
-                tvSymbol.text = binding.etSymbol.text.toString()
                 tvAmount.text = "(${binding.ietAmount.text.toString()})"
-                tvName.text = assetUiModelArg.name
                 tvTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, priceCurrentPosition)
-                layoutAssetInfo.visibility = View.VISIBLE
-                tvInfoMessage.visibility = View.INVISIBLE
-                binding.incBtnSave.root.isEnabled = true
                 incLayoutVariation.calculateAndSetupVariationLayout(
                     textSize = 12f,
                     currency = currency,
                     reference = priceCurrentPosition,
                     totalReference = totalInvested
                 )
+                layoutAssetInfo.visibility = View.VISIBLE
+                tvInfoMessage.visibility = View.INVISIBLE
+                binding.incBtnSave.root.isEnabled = true
 
             } else {
                 tvInfoMessage.hint = getString(R.string.fillTheFieldsToView)
