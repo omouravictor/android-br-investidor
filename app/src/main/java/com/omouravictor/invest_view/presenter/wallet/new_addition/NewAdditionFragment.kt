@@ -110,15 +110,17 @@ class NewAdditionFragment : Fragment() {
         return if (valuePerUnitText.isNotEmpty()) valuePerUnitText.getOnlyNumbers().toDouble() / 100 else 0.0
     }
 
+    @SuppressLint("SetTextI18n")
     private fun updateUpdatedPosition() {
         binding.incUpdatedItemListAsset.apply {
-            if (getAmount() != 0L && getValuePerUnit() != 0.0) {
+            val amount = getAmount()
+            val valuePerUnit = getValuePerUnit()
+            if (amount != 0L && valuePerUnit != 0.0) {
                 val priceCurrentPosition = assetUiModelArg.price * getAmount()
-                val valuePerUnit = getValuePerUnit()
                 val currency = assetUiModelArg.currency
 
                 tvSymbol.text = assetUiModelArg.getFormattedSymbol()
-                tvAmount.text = getString(R.string.placeholderAssetAmount, binding.ietAmount.text.toString())
+                tvAmount.text = "(${LocaleUtil.getFormattedValueForLongNumber(amount + assetUiModelArg.amount)})"
                 tvName.text = assetUiModelArg.name
                 tvTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, priceCurrentPosition)
                 tvInfoMessage.visibility = View.INVISIBLE

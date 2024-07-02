@@ -14,9 +14,6 @@
     <string name="stockDescription">Uma stock, assim como as ações, representa uma parcela de propriedade em uma empresa de capital aberto, porém sendo negociada em bolsas de valores estrangeiras, como a NASDAQ, NYSE, entre outras. Ao adquirir uma stock, os investidores têm direito a receber dividendos e podem lucrar com a valorização das stocks ao longo do tempo, embora os investimentos em stocks envolvam riscos devido à volatilidade do mercado.</string>
     <string name="otherDescription">Este tipo de ativo ainda não foi mapeado em nosso aplicativo.</string>
 
-    <!-- Placeholders -->
-    <string name="placeholderAssetAmount">(%1$s)</string>
-
     <!-- Numbers -->
     <string name="intNumber_0">0</string>
     <string name="intNumber_1">1</string>

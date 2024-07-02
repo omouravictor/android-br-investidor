@@ -1,5 +1,6 @@
 package com.omouravictor.invest_view.presenter.wallet.save_asset
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -139,6 +140,7 @@ class SaveAssetFragment : Fragment() {
         return if (totalInvestedText.isNotEmpty()) totalInvestedText.getOnlyNumbers().toDouble() / 100 else 0.0
     }
 
+    @SuppressLint("SetTextI18n")
     private fun updateCurrentPosition() {
         binding.incItemListAsset.apply {
             if (getAmount() != 0L) {
@@ -147,7 +149,7 @@ class SaveAssetFragment : Fragment() {
                 val currency = assetUiModelArg.currency
 
                 tvSymbol.text = binding.etSymbol.text.toString()
-                tvAmount.text = getString(R.string.placeholderAssetAmount, binding.ietAmount.text.toString())
+                tvAmount.text = "(${binding.ietAmount.text.toString()})"
                 tvName.text = assetUiModelArg.name
                 tvTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, priceCurrentPosition)
                 tvInfoMessage.visibility = View.INVISIBLE
