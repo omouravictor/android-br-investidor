@@ -54,11 +54,6 @@ class AssetDetailsFragment : Fragment() {
     private val walletViewModel: WalletViewModel by activityViewModels()
     private val assetDetailsViewModel: AssetDetailsViewModel by activityViewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initEssentialVars()
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -68,6 +63,7 @@ class AssetDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initAssetUiModel()
         setupToolbar()
         setupViews()
         setupButtons()
@@ -82,7 +78,7 @@ class AssetDetailsFragment : Fragment() {
         assetDetailsViewModel.resetUiStateFlow()
     }
 
-    private fun initEssentialVars() {
+    private fun initAssetUiModel() {
         val updatedAssetUiModel =
             findNavController().currentBackStackEntry?.savedStateHandle?.get<AssetUiModel>("updatedAsset")
 

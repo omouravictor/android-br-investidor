@@ -26,12 +26,12 @@ import com.omouravictor.invest_view.util.setupToolbarCenterText
 class NewAdditionFragment : Fragment() {
 
     private lateinit var binding: FragmentNewAdditionBinding
-    private lateinit var assetUiModel: AssetUiModel
+    private lateinit var assetUiModelArg: AssetUiModel
     private val saveViewModel: SaveViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initEssentialVars()
+        initArguments()
     }
 
     override fun onCreateView(
@@ -48,9 +48,9 @@ class NewAdditionFragment : Fragment() {
         setupBtnSave()
     }
 
-    private fun initEssentialVars() {
+    private fun initArguments() {
         val assetUiModelArg = NewAdditionFragmentArgs.fromBundle(requireArguments()).assetUiModel
-        assetUiModel = AssetUiModel(
+        this.assetUiModelArg = AssetUiModel(
             symbol = assetUiModelArg.symbol,
             name = assetUiModelArg.name,
             originalType = assetUiModelArg.originalType,
@@ -78,7 +78,7 @@ class NewAdditionFragment : Fragment() {
     }
 
     private fun setupAmountAndTotalInvestedViews() {
-        val currency = assetUiModel.currency
+        val currency = assetUiModelArg.currency
         val ietAmount = binding.ietAmount
         val ietUnitValuePerUnit = binding.ietUnitValuePerUnit
 
@@ -94,23 +94,23 @@ class NewAdditionFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun setupCurrentPosition() {
         binding.incItemListAsset.apply {
-            color.setBackgroundColor(root.context.getColor(assetUiModel.assetType.colorResId))
-            tvSymbol.text = assetUiModel.getFormattedSymbol()
-            tvAmount.text = "(${assetUiModel.getFormattedAmount()})"
-            tvName.text = assetUiModel.name
-            tvTotalPrice.text = assetUiModel.getFormattedTotalPrice()
+            color.setBackgroundColor(root.context.getColor(assetUiModelArg.assetType.colorResId))
+            tvSymbol.text = assetUiModelArg.getFormattedSymbol()
+            tvAmount.text = "(${assetUiModelArg.getFormattedAmount()})"
+            tvName.text = assetUiModelArg.name
+            tvTotalPrice.text = assetUiModelArg.getFormattedTotalPrice()
             incLayoutVariation.calculateAndSetupVariationLayout(
                 textSize = 12f,
-                currency = assetUiModel.currency,
-                reference = assetUiModel.getTotalPrice(),
-                totalReference = assetUiModel.totalInvested
+                currency = assetUiModelArg.currency,
+                reference = assetUiModelArg.getTotalPrice(),
+                totalReference = assetUiModelArg.totalInvested
             )
         }
     }
 
     private fun setupInitialUpdatedPositionLayout() {
         binding.incUpdatedItemListAsset.apply {
-            color.setBackgroundColor(root.context.getColor(assetUiModel.assetType.colorResId))
+            color.setBackgroundColor(root.context.getColor(assetUiModelArg.assetType.colorResId))
             tvInfoMessage.hint = getString(R.string.fillTheFieldsToView)
             tvInfoMessage.visibility = View.VISIBLE
             layoutAssetInfo.visibility = View.INVISIBLE
@@ -146,13 +146,13 @@ class NewAdditionFragment : Fragment() {
     private fun updateUpdatedPosition() {
         binding.incUpdatedItemListAsset.apply {
             if (requiredFieldsNotEmpty()) {
-                val priceCurrentPosition = assetUiModel.price * getAmount()
+                val priceCurrentPosition = assetUiModelArg.price * getAmount()
                 val totalInvested = getTotalInvested()
-                val currency = assetUiModel.currency
+                val currency = assetUiModelArg.currency
 
-                tvSymbol.text = assetUiModel.getFormattedSymbol()
+                tvSymbol.text = assetUiModelArg.getFormattedSymbol()
                 tvAmount.text = getString(R.string.placeholderAssetAmount, binding.ietAmount.text.toString())
-                tvName.text = assetUiModel.name
+                tvName.text = assetUiModelArg.name
                 tvTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, priceCurrentPosition)
                 tvInfoMessage.visibility = View.INVISIBLE
                 layoutAssetInfo.visibility = View.VISIBLE

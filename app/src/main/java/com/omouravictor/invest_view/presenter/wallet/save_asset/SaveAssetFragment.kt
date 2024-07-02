@@ -41,13 +41,13 @@ import kotlinx.coroutines.launch
 class SaveAssetFragment : Fragment() {
 
     private lateinit var binding: FragmentSaveAssetBinding
-    private lateinit var assetUiModel: AssetUiModel
+    private lateinit var assetUiModelArg: AssetUiModel
     private val walletViewModel: WalletViewModel by activityViewModels()
     private val saveViewModel: SaveViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initEssentialVars()
+        initArguments()
     }
 
     override fun onCreateView(
@@ -70,9 +70,9 @@ class SaveAssetFragment : Fragment() {
         saveViewModel.resetUiStateFlow()
     }
 
-    private fun initEssentialVars() {
+    private fun initArguments() {
         val assetUiModelArg = SaveAssetFragmentArgs.fromBundle(requireArguments()).assetUiModel
-        assetUiModel = AssetUiModel(
+        this.assetUiModelArg = AssetUiModel(
             symbol = assetUiModelArg.symbol,
             name = assetUiModelArg.name,
             originalType = assetUiModelArg.originalType,
@@ -87,7 +87,7 @@ class SaveAssetFragment : Fragment() {
 
     private fun setupToolbar() {
         val activity = requireActivity()
-        val assetType = assetUiModel.assetType
+        val assetType = assetUiModelArg.assetType
 
         activity.setupToolbarCenterText(getString(assetType.nameResId))
 
@@ -106,14 +106,14 @@ class SaveAssetFragment : Fragment() {
     private fun setupViews() {
         val context = requireContext()
 
-        binding.incItemListAsset.color.setBackgroundColor(context.getColor(assetUiModel.assetType.colorResId))
-        binding.etSymbol.setText(assetUiModel.getFormattedSymbol())
-        binding.etLocation.setText(assetUiModel.region)
+        binding.incItemListAsset.color.setBackgroundColor(context.getColor(assetUiModelArg.assetType.colorResId))
+        binding.etSymbol.setText(assetUiModelArg.getFormattedSymbol())
+        binding.etLocation.setText(assetUiModelArg.region)
         setupAmountAndTotalInvestedViews()
     }
 
     private fun setupAmountAndTotalInvestedViews() {
-        val currency = assetUiModel.currency
+        val currency = assetUiModelArg.currency
         val ietAmount = binding.ietAmount
         val ietTotalInvested = binding.ietTotalInvested
 
@@ -122,11 +122,11 @@ class SaveAssetFragment : Fragment() {
         ietAmount.setEditTextLongNumberFormatMask()
         ietTotalInvested.setEditTextCurrencyFormatMask(currency)
 
-        val amount = assetUiModel.amount
+        val amount = assetUiModelArg.amount
         ietAmount.setText(if (amount != 0L) LocaleUtil.getFormattedValueForLongNumber(amount) else "1")
 
         ietTotalInvested.hint = LocaleUtil.getFormattedCurrencyValue(currency, 0.0)
-        val totalInvested = assetUiModel.totalInvested
+        val totalInvested = assetUiModelArg.totalInvested
         ietTotalInvested.setText(
             if (totalInvested != 0.0) LocaleUtil.getFormattedCurrencyValue(currency, totalInvested) else ""
         )
@@ -170,13 +170,13 @@ class SaveAssetFragment : Fragment() {
     private fun updateCurrentPosition() {
         binding.incItemListAsset.apply {
             if (requiredFieldsNotEmpty()) {
-                val priceCurrentPosition = assetUiModel.price * getAmount()
+                val priceCurrentPosition = assetUiModelArg.price * getAmount()
                 val totalInvested = getTotalInvested()
-                val currency = assetUiModel.currency
+                val currency = assetUiModelArg.currency
 
                 tvSymbol.text = binding.etSymbol.text.toString()
                 tvAmount.text = getString(R.string.placeholderAssetAmount, binding.ietAmount.text.toString())
-                tvName.text = assetUiModel.name
+                tvName.text = assetUiModelArg.name
                 tvTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, priceCurrentPosition)
                 tvInfoMessage.visibility = View.INVISIBLE
                 layoutAssetInfo.visibility = View.VISIBLE
@@ -238,9 +238,9 @@ class SaveAssetFragment : Fragment() {
         binding.incBtnSave.root.apply {
             text = getString(R.string.save)
             setOnClickListener {
-                assetUiModel.amount = getAmount()
-                assetUiModel.totalInvested = getTotalInvested()
-                saveViewModel.saveAsset(assetUiModel)
+                assetUiModelArg.amount = getAmount()
+                assetUiModelArg.totalInvested = getTotalInvested()
+                saveViewModel.saveAsset(assetUiModelArg)
             }
         }
     }
