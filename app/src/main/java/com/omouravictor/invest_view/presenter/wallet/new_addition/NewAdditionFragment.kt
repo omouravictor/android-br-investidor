@@ -46,7 +46,7 @@ class NewAdditionFragment : Fragment() {
     }
 
     private fun setupViews() {
-        setupAmountAndTotalInvestedViews()
+        setupAmountAndValuePerUnit()
         setupCurrentPosition()
         setupInitialUpdatedPositionLayout()
     }
@@ -59,18 +59,18 @@ class NewAdditionFragment : Fragment() {
         }
     }
 
-    private fun setupAmountAndTotalInvestedViews() {
+    private fun setupAmountAndValuePerUnit() {
         val currency = assetUiModelArg.currency
         val ietAmount = binding.ietAmount
-        val ietUnitValuePerUnit = binding.ietUnitValuePerUnit
+        val ietValuePerUnit = binding.ietValuePerUnit
 
         ietAmount.doAfterTextChanged { updateUpdatedPosition() }
-        ietUnitValuePerUnit.doAfterTextChanged { updateUpdatedPosition() }
+        ietValuePerUnit.doAfterTextChanged { updateUpdatedPosition() }
         ietAmount.setEditTextLongNumberFormatMask()
-        ietUnitValuePerUnit.setEditTextCurrencyFormatMask(currency)
+        ietValuePerUnit.setEditTextCurrencyFormatMask(currency)
 
         ietAmount.hint = LocaleUtil.getFormattedValueForLongNumber(0)
-        ietUnitValuePerUnit.hint = LocaleUtil.getFormattedCurrencyValue(currency, 0.0)
+        ietValuePerUnit.hint = LocaleUtil.getFormattedCurrencyValue(currency, 0.0)
     }
 
     @SuppressLint("SetTextI18n")
@@ -100,36 +100,21 @@ class NewAdditionFragment : Fragment() {
         }
     }
 
-    private fun requiredFieldsNotEmpty(): Boolean {
-        val ietAmountText = binding.ietAmount.text.toString()
-        val ietTotalInvestedText = binding.ietUnitValuePerUnit.text.toString()
-        return ietAmountText.isNotEmpty() && ietAmountText != "0" &&
-                ietTotalInvestedText.isNotEmpty() && ietTotalInvestedText != "0"
-    }
-
     private fun getAmount(): Long {
-        val amount = binding.ietAmount.text.toString()
-        return if (amount.isNotEmpty()) {
-            amount.getOnlyNumbers().toLong()
-        } else {
-            0
-        }
+        val amountText = binding.ietAmount.text.toString()
+        return if (amountText.isNotEmpty()) amountText.getOnlyNumbers().toLong() else 0
     }
 
-    private fun getTotalInvested(): Double {
-        val totalInvested = binding.ietUnitValuePerUnit.text.toString()
-        return if (totalInvested.isNotEmpty()) {
-            totalInvested.getOnlyNumbers().toDouble() / 100
-        } else {
-            0.0
-        }
+    private fun getValuePerUnit(): Double {
+        val valuePerUnitText = binding.ietValuePerUnit.text.toString()
+        return if (valuePerUnitText.isNotEmpty()) valuePerUnitText.getOnlyNumbers().toDouble() / 100 else 0.0
     }
 
     private fun updateUpdatedPosition() {
         binding.incUpdatedItemListAsset.apply {
-            if (requiredFieldsNotEmpty()) {
+            if (getAmount() != 0L && getValuePerUnit() != 0.0) {
                 val priceCurrentPosition = assetUiModelArg.price * getAmount()
-                val totalInvested = getTotalInvested()
+                val valuePerUnit = getValuePerUnit()
                 val currency = assetUiModelArg.currency
 
                 tvSymbol.text = assetUiModelArg.getFormattedSymbol()
@@ -143,7 +128,7 @@ class NewAdditionFragment : Fragment() {
                     textSize = 12f,
                     currency = currency,
                     reference = priceCurrentPosition,
-                    totalReference = totalInvested
+                    totalReference = valuePerUnit
                 )
 
             } else {

@@ -129,32 +129,19 @@ class SaveAssetFragment : Fragment() {
         }
     }
 
-    private fun requiredFieldsNotEmpty(): Boolean {
-        val ietAmountText = binding.ietAmount.text.toString()
-        return ietAmountText.isNotEmpty() && ietAmountText != "0"
-    }
-
     private fun getAmount(): Long {
-        val amount = binding.ietAmount.text.toString()
-        return if (amount.isNotEmpty()) {
-            amount.getOnlyNumbers().toLong()
-        } else {
-            0
-        }
+        val amountText = binding.ietAmount.text.toString()
+        return if (amountText.isNotEmpty()) amountText.getOnlyNumbers().toLong() else 0
     }
 
     private fun getTotalInvested(): Double {
-        val totalInvested = binding.ietTotalInvested.text.toString()
-        return if (totalInvested.isNotEmpty()) {
-            totalInvested.getOnlyNumbers().toDouble() / 100
-        } else {
-            0.0
-        }
+        val totalInvestedText = binding.ietTotalInvested.text.toString()
+        return if (totalInvestedText.isNotEmpty()) totalInvestedText.getOnlyNumbers().toDouble() / 100 else 0.0
     }
 
     private fun updateCurrentPosition() {
         binding.incItemListAsset.apply {
-            if (requiredFieldsNotEmpty()) {
+            if (getAmount() != 0L) {
                 val priceCurrentPosition = assetUiModelArg.price * getAmount()
                 val totalInvested = getTotalInvested()
                 val currency = assetUiModelArg.currency
