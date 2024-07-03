@@ -73,14 +73,14 @@ class AssetCurrenciesFragment : Fragment(), OnChartValueSelectedListener {
         val context = requireContext()
         val assets = walletViewModel.assetsListStateFlow.value
         val assetCurrencies = assets.map { it.currency }.distinct()
-        val colors = arrayListOf<Int>()
+        val colorsList = arrayListOf<Int>()
         val pieEntries = assetCurrencies.map { currency ->
-            colors.add(AssetUtil.getCurrencyResColor(currency))
+            colorsList.add(AssetUtil.getCurrencyResColor(currency))
             val count = assets.count { it.currency == currency }
             PieEntry(count.toFloat(), currency)
         }
         val pieDataSet = PieDataSet(pieEntries, getString(R.string.currencies)).apply {
-            this.colors = colors.map { ContextCompat.getColor(context, it) }
+            colors = colorsList.map { ContextCompat.getColor(context, it) }
             sliceSpace = 3f
             setDrawIcons(false)
         }
