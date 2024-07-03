@@ -33,7 +33,7 @@ class WalletFragment : Fragment() {
         private const val VIEW_FLIPPER_CHILD_PROGRESS_BAR = 2
         private const val VIEW_FLIPPER_CHILD_WALLET_ERROR_LAYOUT = 3
 
-        private class BaseFragmentStateAdapter(
+        private class WalletFragmentStateAdapter(
             fragmentManager: FragmentManager,
             lifecycle: Lifecycle,
             private val fragments: List<Pair<Fragment, String>>
@@ -59,12 +59,12 @@ class WalletFragment : Fragment() {
 
     private fun setupTabLayoutWithViewPager2() {
         val fragments = listOf(
-            Pair(AssetTypesFragment(), getString(R.string.Assets)),
-            Pair(CurrenciesFragment(), getString(R.string.currencies)),
+            AssetTypesFragment() to getString(R.string.Assets),
+            CurrenciesFragment() to getString(R.string.currencies)
         )
         val viewPager2 = binding.viewPager2
 
-        viewPager2.adapter = BaseFragmentStateAdapter(
+        viewPager2.adapter = WalletFragmentStateAdapter(
             fragmentManager = childFragmentManager,
             lifecycle = viewLifecycleOwner.lifecycle,
             fragments = fragments
