@@ -22,47 +22,47 @@ class AssetSearchViewModel @Inject constructor(
     private val dispatchers: DispatcherProvider
 ) : ViewModel() {
 
-    private val _assetsBySearchListStateFlow = MutableStateFlow<UiState<List<AssetUiModel>>>(UiState.Initial)
-    private val _assetQuoteStateFlow = MutableStateFlow<UiState<AssetQuoteUiModel>>(UiState.Initial)
-    val assetsBySearchListStateFlow = _assetsBySearchListStateFlow.asStateFlow()
-    val assetQuoteStateFlow = _assetQuoteStateFlow.asStateFlow()
+    private val _assetsBySearchUiStateFlow = MutableStateFlow<UiState<List<AssetUiModel>>>(UiState.Initial)
+    private val _assetQuoteUiStateFlow = MutableStateFlow<UiState<AssetQuoteUiModel>>(UiState.Initial)
+    val assetsBySearchUiStateFlow = _assetsBySearchUiStateFlow.asStateFlow()
+    val assetQuoteUiStateFlow = _assetQuoteUiStateFlow.asStateFlow()
 
-    fun getAssetsBySearch(keywords: String) {
-        _assetsBySearchListStateFlow.value = UiState.Loading
+    fun loadAssetsBySearch(keywords: String) {
+        _assetsBySearchUiStateFlow.value = UiState.Loading
 
         viewModelScope.launch {
             try {
                 val result = withContext(dispatchers.io) { assetsApiRepository.getAssetsBySearch(keywords) }
                 if (result.isSuccess) {
                     val assetsBySearchList = result.getOrThrow().toAssetsUiModel()
-                    _assetsBySearchListStateFlow.value = UiState.Success(assetsBySearchList)
+                    _assetsBySearchUiStateFlow.value = UiState.Success(assetsBySearchList)
                 } else
-                    _assetsBySearchListStateFlow.value = UiState.Error(result.exceptionOrNull() as Exception)
+                    _assetsBySearchUiStateFlow.value = UiState.Error(result.exceptionOrNull() as Exception)
             } catch (e: Exception) {
-                _assetsBySearchListStateFlow.value = UiState.Error(e)
+                _assetsBySearchUiStateFlow.value = UiState.Error(e)
             }
         }
     }
 
-    fun getAssetQuote(symbol: String) {
-        _assetQuoteStateFlow.value = UiState.Loading
+    fun loadAssetQuote(symbol: String) {
+        _assetQuoteUiStateFlow.value = UiState.Loading
 
         viewModelScope.launch {
             try {
                 val result = withContext(dispatchers.io) { assetsApiRepository.getAssetGlobalQuote(symbol) }
                 if (result.isSuccess) {
                     val assetQuoteUiModel = result.getOrThrow().toAssetQuoteUiModel()
-                    _assetQuoteStateFlow.value = UiState.Success(assetQuoteUiModel)
+                    _assetQuoteUiStateFlow.value = UiState.Success(assetQuoteUiModel)
                 } else
-                    _assetQuoteStateFlow.value = UiState.Error(result.exceptionOrNull() as Exception)
+                    _assetQuoteUiStateFlow.value = UiState.Error(result.exceptionOrNull() as Exception)
             } catch (e: Exception) {
-                _assetQuoteStateFlow.value = UiState.Error(e)
+                _assetQuoteUiStateFlow.value = UiState.Error(e)
             }
         }
     }
 
-    fun resetAssetQuoteLiveData() {
-        _assetQuoteStateFlow.value = UiState.Initial
+    fun resetAssetQuoteUiState() {
+        _assetQuoteUiStateFlow.value = UiState.Initial
     }
 
 }

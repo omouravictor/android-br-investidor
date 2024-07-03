@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.presenter.wallet.asset_details
+package com.omouravictor.invest_view.presenter.wallet
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,13 +14,29 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class AssetDetailsViewModel @Inject constructor(
+class WalletViewModel @Inject constructor(
     private val firebaseRepository: FirebaseRepository,
     private val dispatchers: DispatcherProvider
 ) : ViewModel() {
 
-    private val _uiStateFlow = MutableStateFlow<UiState<Boolean>>(UiState.Initial)
+    private val _uiStateFlow = MutableStateFlow<UiState<AssetUiModel>>(UiState.Initial)
     val uiStateFlow = _uiStateFlow.asStateFlow()
+
+    fun saveAsset(asset: AssetUiModel) {
+        _uiStateFlow.value = UiState.Loading
+
+        viewModelScope.launch {
+            try {
+                val result = withContext(dispatchers.io) { firebaseRepository.saveAsset(asset) }
+                if (result.isSuccess)
+                    _uiStateFlow.value = UiState.Success(result.getOrThrow())
+                else
+                    _uiStateFlow.value = UiState.Error(result.exceptionOrNull() as Exception)
+            } catch (e: Exception) {
+                _uiStateFlow.value = UiState.Error(e)
+            }
+        }
+    }
 
     fun deleteAsset(asset: AssetUiModel) {
         _uiStateFlow.value = UiState.Loading
@@ -38,7 +54,7 @@ class AssetDetailsViewModel @Inject constructor(
         }
     }
 
-    fun resetUiStateFlow() {
+    fun resetUiState() {
         _uiStateFlow.value = UiState.Initial
     }
 

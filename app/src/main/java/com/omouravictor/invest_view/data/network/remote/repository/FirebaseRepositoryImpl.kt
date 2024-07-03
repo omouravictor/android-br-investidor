@@ -12,6 +12,7 @@ class FirebaseRepositoryImpl(
 
     override suspend fun saveAsset(assetUiModel: AssetUiModel): Result<AssetUiModel> {
         return try {
+            // TODO: altenticar antes e não aqui
             val userId = auth.currentUser?.uid ?: throw Exception("Usuário não autenticado.")
 
             firestore.collection("users").document(userId)
@@ -25,7 +26,7 @@ class FirebaseRepositoryImpl(
         }
     }
 
-    override suspend fun deleteAsset(assetUiModel: AssetUiModel): Result<Boolean> {
+    override suspend fun deleteAsset(assetUiModel: AssetUiModel): Result<AssetUiModel> {
         return try {
             val userId = auth.currentUser?.uid ?: throw Exception("Usuário não autenticado.")
 
@@ -33,7 +34,7 @@ class FirebaseRepositoryImpl(
                 .collection("assets").document(assetUiModel.symbol)
                 .delete().await()
 
-            Result.success(true)
+            Result.success(assetUiModel)
 
         } catch (e: Exception) {
             Result.failure(e)

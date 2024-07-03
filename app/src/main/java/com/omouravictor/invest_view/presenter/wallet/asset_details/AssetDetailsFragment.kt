@@ -24,6 +24,7 @@ import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetDetailsBinding
 import com.omouravictor.invest_view.presenter.base.UiState
 import com.omouravictor.invest_view.presenter.wallet.AssetsListViewModel
+import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.asset_search.AssetSearchViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAmount
@@ -53,7 +54,7 @@ class AssetDetailsFragment : Fragment() {
     private lateinit var assetUiModel: AssetUiModel
     private val assetSearchViewModel: AssetSearchViewModel by activityViewModels()
     private val assetsListViewModel: AssetsListViewModel by activityViewModels()
-    private val assetDetailsViewModel: AssetDetailsViewModel by activityViewModels()
+    private val walletViewModel: WalletViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -70,13 +71,13 @@ class AssetDetailsFragment : Fragment() {
         setupButtons()
         observeAssetQuote()
         observeAssetDetailsUiState()
-        assetSearchViewModel.getAssetQuote(assetUiModel.symbol)
+        assetSearchViewModel.loadAssetQuote(assetUiModel.symbol)
     }
 
     override fun onStop() {
         super.onStop()
-        assetSearchViewModel.resetAssetQuoteLiveData()
-        assetDetailsViewModel.resetUiStateFlow()
+        assetSearchViewModel.resetAssetQuoteUiState()
+        walletViewModel.resetUiState()
     }
 
     private fun initAssetUiModel() {
@@ -126,7 +127,7 @@ class AssetDetailsFragment : Fragment() {
             reference = assetUiModel.getTotalPrice(),
             totalReference = assetUiModel.totalInvested
         )
-        binding.ivReloadVariation.setOnClickListener { assetSearchViewModel.getAssetQuote(assetUiModel.symbol) }
+        binding.ivReloadVariation.setOnClickListener { assetSearchViewModel.loadAssetQuote(assetUiModel.symbol) }
     }
 
     private fun setupButtons() {
@@ -136,7 +137,7 @@ class AssetDetailsFragment : Fragment() {
                 AlertDialog.Builder(context).apply {
                     setTitle(getString(R.string.deleteAsset))
                     setMessage(getString(R.string.deleteAssetAlertMessage))
-                    setPositiveButton(getString(R.string.yes)) { _, _ -> assetDetailsViewModel.deleteAsset(assetUiModel) }
+                    setPositiveButton(getString(R.string.yes)) { _, _ -> walletViewModel.deleteAsset(assetUiModel) }
                     setNegativeButton(getString(R.string.not)) { dialog, _ -> dialog.dismiss() }
                     setIcon(R.drawable.ic_delete)
                 }.show()
@@ -168,7 +169,7 @@ class AssetDetailsFragment : Fragment() {
     private fun observeAssetQuote() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                assetSearchViewModel.assetQuoteStateFlow.collectLatest {
+                assetSearchViewModel.assetQuoteUiStateFlow.collectLatest {
                     when (it) {
                         is UiState.Initial -> Unit
                         is UiState.Loading -> setupLoadingLayoutForAssetQuote(true)
@@ -201,7 +202,7 @@ class AssetDetailsFragment : Fragment() {
     private fun observeAssetDetailsUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                assetDetailsViewModel.uiStateFlow.collectLatest {
+                walletViewModel.uiStateFlow.collectLatest {
                     when (it) {
                         is UiState.Initial -> Unit
                         is UiState.Loading -> {

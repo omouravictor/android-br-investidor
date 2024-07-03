@@ -24,6 +24,7 @@ import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentSaveAssetBinding
 import com.omouravictor.invest_view.presenter.base.UiState
 import com.omouravictor.invest_view.presenter.wallet.AssetsListViewModel
+import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.asset_types.AssetTypes
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
@@ -45,7 +46,7 @@ class SaveAssetFragment : Fragment() {
     private lateinit var binding: FragmentSaveAssetBinding
     private lateinit var assetUiModelArg: AssetUiModel
     private val assetsListViewModel: AssetsListViewModel by activityViewModels()
-    private val saveViewModel: SaveViewModel by activityViewModels()
+    private val walletViewModel: WalletViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,7 +70,7 @@ class SaveAssetFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
-        saveViewModel.resetUiStateFlow()
+        walletViewModel.resetUiState()
     }
 
     private fun setupToolbar() {
@@ -177,7 +178,7 @@ class SaveAssetFragment : Fragment() {
     private fun observeSaveUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                saveViewModel.uiStateFlow.collectLatest {
+                walletViewModel.uiStateFlow.collectLatest {
                     when (it) {
                         is UiState.Initial -> Unit
                         is UiState.Loading -> {
@@ -220,7 +221,7 @@ class SaveAssetFragment : Fragment() {
             setOnClickListener {
                 assetUiModelArg.amount = getAmount()
                 assetUiModelArg.totalInvested = getTotalInvested()
-                saveViewModel.saveAsset(assetUiModelArg)
+                walletViewModel.saveAsset(assetUiModelArg)
             }
         }
     }

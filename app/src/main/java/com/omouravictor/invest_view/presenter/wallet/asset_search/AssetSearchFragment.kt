@@ -55,7 +55,7 @@ class AssetSearchFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         requireActivity().hideKeyboard(searchView)
-        assetSearchViewModel.resetAssetQuoteLiveData()
+        assetSearchViewModel.resetAssetQuoteUiState()
     }
 
     private fun addMenuProvider() {
@@ -76,7 +76,7 @@ class AssetSearchFragment : Fragment() {
             setOnClickListener {
                 val query = searchView.query.toString()
                 if (query.isNotEmpty()) {
-                    assetSearchViewModel.getAssetsBySearch(query)
+                    assetSearchViewModel.loadAssetsBySearch(query)
                 } else {
                     activity.showErrorSnackBar(message = getString(R.string.enterAssetSymbolForTryAgain))
                 }
@@ -90,7 +90,7 @@ class AssetSearchFragment : Fragment() {
             val existingAsset = assetsListViewModel.assetsListStateFlow.value.find { it.symbol == symbol }
             if (existingAsset == null) {
                 this.assetUiModel = assetUiModel
-                assetSearchViewModel.getAssetQuote(symbol)
+                assetSearchViewModel.loadAssetQuote(symbol)
             } else {
                 requireActivity().showErrorSnackBar(getString(R.string.assetAlreadyExists))
             }
@@ -105,7 +105,7 @@ class AssetSearchFragment : Fragment() {
     private fun setupSearchView(searchView: SearchView) {
         val queryTextListener = object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                query?.let { assetSearchViewModel.getAssetsBySearch(it) }
+                query?.let { assetSearchViewModel.loadAssetsBySearch(it) }
                 return true
             }
 
@@ -130,7 +130,7 @@ class AssetSearchFragment : Fragment() {
     private fun observeAssetsBySearch() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                assetSearchViewModel.assetsBySearchListStateFlow.collectLatest {
+                assetSearchViewModel.assetsBySearchUiStateFlow.collectLatest {
                     when (it) {
                         is UiState.Initial -> Unit
                         is UiState.Loading -> setupViewsForAssetsBySearch(isLoading = true)
@@ -150,7 +150,7 @@ class AssetSearchFragment : Fragment() {
     private fun observeAssetQuote() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                assetSearchViewModel.assetQuoteStateFlow.collectLatest {
+                assetSearchViewModel.assetQuoteUiStateFlow.collectLatest {
                     when (it) {
                         is UiState.Initial -> Unit
                         is UiState.Loading -> {

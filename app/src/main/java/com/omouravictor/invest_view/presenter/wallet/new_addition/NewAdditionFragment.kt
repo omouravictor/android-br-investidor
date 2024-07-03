@@ -16,12 +16,12 @@ import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentNewAdditionBinding
 import com.omouravictor.invest_view.presenter.base.UiState
 import com.omouravictor.invest_view.presenter.wallet.AssetsListViewModel
+import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAmount
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalPrice
 import com.omouravictor.invest_view.presenter.wallet.model.getTotalPrice
-import com.omouravictor.invest_view.presenter.wallet.save_asset.SaveViewModel
 import com.omouravictor.invest_view.util.ConstantUtil
 import com.omouravictor.invest_view.util.LocaleUtil
 import com.omouravictor.invest_view.util.calculateAndSetupVariationLayout
@@ -39,7 +39,7 @@ class NewAdditionFragment : Fragment() {
     private lateinit var binding: FragmentNewAdditionBinding
     private lateinit var assetUiModelArg: AssetUiModel
     private val assetsListViewModel: AssetsListViewModel by activityViewModels()
-    private val saveViewModel: SaveViewModel by activityViewModels()
+    private val walletViewModel: WalletViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +59,11 @@ class NewAdditionFragment : Fragment() {
         setupViews()
         setupButtons()
         observeSaveUiState()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        walletViewModel.resetUiState()
     }
 
     private fun setupViews() {
@@ -158,7 +163,7 @@ class NewAdditionFragment : Fragment() {
                 val totalInvested = getValuePerUnit() * amount
                 assetUiModelArg.amount += amount
                 assetUiModelArg.totalInvested += totalInvested
-                saveViewModel.saveAsset(assetUiModelArg)
+                walletViewModel.saveAsset(assetUiModelArg)
             }
         }
     }
@@ -166,7 +171,7 @@ class NewAdditionFragment : Fragment() {
     private fun observeSaveUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                saveViewModel.uiStateFlow.collectLatest {
+                walletViewModel.uiStateFlow.collectLatest {
                     when (it) {
                         is UiState.Initial -> Unit
                         is UiState.Loading -> {
