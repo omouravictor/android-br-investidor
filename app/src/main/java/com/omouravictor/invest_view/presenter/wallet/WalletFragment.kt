@@ -16,8 +16,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentWalletBinding
 import com.omouravictor.invest_view.presenter.base.UiState
+import com.omouravictor.invest_view.presenter.wallet.asset_currencies.AssetCurrenciesFragment
 import com.omouravictor.invest_view.presenter.wallet.asset_types.AssetTypesFragment
-import com.omouravictor.invest_view.presenter.wallet.currencies.CurrenciesFragment
 import com.omouravictor.invest_view.util.getGenericErrorMessage
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -60,7 +60,7 @@ class WalletFragment : Fragment() {
     private fun setupTabLayoutWithViewPager2() {
         val fragments = listOf(
             AssetTypesFragment() to getString(R.string.Assets),
-            CurrenciesFragment() to getString(R.string.currencies)
+            AssetCurrenciesFragment() to getString(R.string.currencies)
         )
         val viewPager2 = binding.viewPager2
 

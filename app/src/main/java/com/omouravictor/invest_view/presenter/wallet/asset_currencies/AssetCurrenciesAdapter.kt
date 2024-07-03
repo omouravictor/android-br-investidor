@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.presenter.wallet.currencies
+package com.omouravictor.invest_view.presenter.wallet.asset_currencies
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

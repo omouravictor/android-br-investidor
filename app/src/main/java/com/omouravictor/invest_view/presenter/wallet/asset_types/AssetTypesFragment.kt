@@ -90,10 +90,9 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
     }
 
     private fun setupAdapterAndRecyclerView() {
-        assetTypesAdapter.updateItemsList(walletViewModel.assetsListStateFlow.value)
-
-        assetTypesAdapter.updateOnClickItem {
-            findNavController().navigate(WalletFragmentDirections.navToAssetDetailFragment(it))
+        assetTypesAdapter.apply {
+            updateItemsList(walletViewModel.assetsListStateFlow.value)
+            updateOnClickItem { findNavController().navigate(WalletFragmentDirections.navToAssetDetailFragment(it)) }
         }
 
         binding.recyclerView.apply {

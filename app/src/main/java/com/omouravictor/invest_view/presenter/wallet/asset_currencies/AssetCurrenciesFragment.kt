@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.presenter.wallet.currencies
+package com.omouravictor.invest_view.presenter.wallet.asset_currencies
 
 import android.graphics.Typeface
 import android.os.Bundle
@@ -25,7 +25,7 @@ import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.util.AssetUtil
 import com.omouravictor.invest_view.util.showPieChart
 
-class CurrenciesFragment : Fragment(), OnChartValueSelectedListener {
+class AssetCurrenciesFragment : Fragment(), OnChartValueSelectedListener {
 
     private lateinit var binding: FragmentAssetsBinding
     private lateinit var pieChart: PieChart
@@ -90,10 +90,9 @@ class CurrenciesFragment : Fragment(), OnChartValueSelectedListener {
     }
 
     private fun setupAdapterAndRecyclerView() {
-        assetCurrenciesAdapter.updateItemsList(walletViewModel.assetsListStateFlow.value)
-
-        assetCurrenciesAdapter.updateOnClickItem {
-            findNavController().navigate(WalletFragmentDirections.navToAssetDetailFragment(it))
+        assetCurrenciesAdapter.apply {
+            updateItemsList(walletViewModel.assetsListStateFlow.value)
+            updateOnClickItem { findNavController().navigate(WalletFragmentDirections.navToAssetDetailFragment(it)) }
         }
 
         binding.recyclerView.apply {
