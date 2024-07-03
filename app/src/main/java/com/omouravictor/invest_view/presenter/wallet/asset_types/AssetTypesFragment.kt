@@ -10,9 +10,6 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.mikephil.charting.charts.PieChart
@@ -26,8 +23,6 @@ import com.omouravictor.invest_view.databinding.FragmentAssetsBinding
 import com.omouravictor.invest_view.presenter.wallet.WalletFragmentDirections
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.util.showPieChart
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
 
@@ -48,7 +43,6 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
         super.onViewCreated(view, savedInstanceState)
         setupPieChart()
         setupAdapterAndRecyclerView()
-        observeAssetsList()
     }
 
     override fun onValueSelected(e: Entry?, h: Highlight?) {
@@ -96,6 +90,8 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
     }
 
     private fun setupAdapterAndRecyclerView() {
+        assetTypesAdapter.updateItemsList(walletViewModel.assetsListStateFlow.value)
+
         assetTypesAdapter.updateOnClickItem {
             findNavController().navigate(WalletFragmentDirections.navToAssetDetailFragment(it))
         }
@@ -103,16 +99,6 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
         binding.recyclerView.apply {
             adapter = assetTypesAdapter
             layoutManager = LinearLayoutManager(context)
-        }
-    }
-
-    private fun observeAssetsList() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                walletViewModel.assetsListStateFlow.collectLatest {
-                    assetTypesAdapter.updateItemsList(it)
-                }
-            }
         }
     }
 
