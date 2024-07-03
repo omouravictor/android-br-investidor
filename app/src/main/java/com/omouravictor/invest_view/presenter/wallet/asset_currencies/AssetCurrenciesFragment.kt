@@ -79,12 +79,12 @@ class AssetCurrenciesFragment : Fragment(), OnChartValueSelectedListener {
 
     private fun setupPieChart() {
         val context = requireContext()
-        val assets = walletViewModel.assetsListStateFlow.value
-        val assetCurrencies = assets.map { it.currency }.distinct()
+        val assetsList = walletViewModel.assetsListStateFlow.value
+        val assetCurrencies = assetsList.map { it.currency }.distinct()
         val colorsList = arrayListOf<Int>()
         val pieEntries = assetCurrencies.map { currency ->
             colorsList.add(AssetUtil.getCurrencyResColor(currency))
-            val count = assets.count { it.currency == currency }
+            val count = assetsList.count { it.currency == currency }
             PieEntry(count.toFloat(), currency)
         }
         val pieDataSet = PieDataSet(pieEntries, getString(R.string.currencies)).apply {
@@ -94,7 +94,7 @@ class AssetCurrenciesFragment : Fragment(), OnChartValueSelectedListener {
         }
 
         context.showPieChart(pieChart, pieDataSet)
-        updatePieChartCenterText(assets.size)
+        updatePieChartCenterText(assetsList.size)
     }
 
     private fun setupRecyclerView() {
