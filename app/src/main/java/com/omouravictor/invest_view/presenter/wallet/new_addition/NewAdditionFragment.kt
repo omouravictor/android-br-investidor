@@ -7,24 +7,39 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentNewAdditionBinding
+import com.omouravictor.invest_view.presenter.base.UiState
+import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAmount
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalPrice
 import com.omouravictor.invest_view.presenter.wallet.model.getTotalPrice
+import com.omouravictor.invest_view.presenter.wallet.save_asset.SaveViewModel
+import com.omouravictor.invest_view.util.ConstantUtil
 import com.omouravictor.invest_view.util.LocaleUtil
 import com.omouravictor.invest_view.util.calculateAndSetupVariationLayout
+import com.omouravictor.invest_view.util.getGenericErrorMessage
 import com.omouravictor.invest_view.util.getOnlyNumbers
 import com.omouravictor.invest_view.util.setEditTextCurrencyFormatMask
 import com.omouravictor.invest_view.util.setEditTextLongNumberFormatMask
 import com.omouravictor.invest_view.util.setupToolbarCenterText
+import com.omouravictor.invest_view.util.showErrorSnackBar
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class NewAdditionFragment : Fragment() {
 
     private lateinit var binding: FragmentNewAdditionBinding
     private lateinit var assetUiModelArg: AssetUiModel
+    private val walletViewModel: WalletViewModel by activityViewModels()
+    private val saveViewModel: SaveViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +57,8 @@ class NewAdditionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().setupToolbarCenterText(getString(R.string.newAddition))
         setupViews()
-        setupBtnSave()
+        setupButtons()
+        observeSaveUiState()
     }
 
     private fun setupViews() {
@@ -55,14 +71,6 @@ class NewAdditionFragment : Fragment() {
         setupAmountAndValuePerUnit()
         setupCurrentPosition()
         setupInitialUpdatedPositionLayout()
-    }
-
-    private fun setupBtnSave() {
-        binding.incBtnSave.root.apply {
-            text = getString(R.string.save)
-            isEnabled = false
-            setOnClickListener { }
-        }
     }
 
     private fun setupAmountAndValuePerUnit() {
@@ -139,6 +147,53 @@ class NewAdditionFragment : Fragment() {
 
             } else
                 setupInitialUpdatedPositionLayout()
+        }
+    }
+
+    private fun setupButtons() {
+        binding.incBtnSave.root.apply {
+            text = getString(R.string.save)
+            setOnClickListener {
+                val amount = getAmount()
+                val totalInvested = getValuePerUnit() * amount
+                assetUiModelArg.amount += amount
+                assetUiModelArg.totalInvested += totalInvested
+                saveViewModel.saveAsset(assetUiModelArg)
+            }
+        }
+    }
+
+    private fun observeSaveUiState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                saveViewModel.uiStateFlow.collectLatest {
+                    when (it) {
+                        is UiState.Initial -> Unit
+                        is UiState.Loading -> {
+                            binding.newAdditionLayout.visibility = View.INVISIBLE
+                            binding.incProgressBar.root.visibility = View.VISIBLE
+                        }
+
+                        is UiState.Success -> {
+                            val navController = findNavController()
+                            val previousBackStackEntry = navController.previousBackStackEntry
+                            val updatedAssetUiModel = it.data
+                            walletViewModel.updateAsset(updatedAssetUiModel)
+                            previousBackStackEntry?.savedStateHandle?.set(
+                                ConstantUtil.SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL, updatedAssetUiModel
+                            )
+                            navController.popBackStack()
+                        }
+
+                        is UiState.Error -> {
+                            val activity = requireActivity()
+                            binding.newAdditionLayout.visibility = View.VISIBLE
+                            binding.incProgressBar.root.visibility = View.GONE
+                            activity.showErrorSnackBar(activity.getGenericErrorMessage(it.e))
+                        }
+                    }
+                }
+            }
         }
     }
 

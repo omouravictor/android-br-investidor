@@ -64,7 +64,7 @@ class SaveAssetFragment : Fragment() {
         setupToolbar()
         setupViews()
         setupButtons()
-        observeWalletUiState()
+        observeSaveUiState()
     }
 
     override fun onStop() {
@@ -174,14 +174,14 @@ class SaveAssetFragment : Fragment() {
         }
     }
 
-    private fun observeWalletUiState() {
+    private fun observeSaveUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 saveViewModel.uiStateFlow.collectLatest {
                     when (it) {
                         is UiState.Initial -> Unit
                         is UiState.Loading -> {
-                            binding.layout.visibility = View.INVISIBLE
+                            binding.saveLayout.visibility = View.INVISIBLE
                             binding.incProgressBar.root.visibility = View.VISIBLE
                         }
 
@@ -192,7 +192,7 @@ class SaveAssetFragment : Fragment() {
                             if (previousDestinationId == R.id.fragmentAssetSearch) {
                                 walletViewModel.addAsset(it.data)
                                 navController.clearPileAndNavigateToStart()
-                            } else if (previousDestinationId == R.id.fragmentAssetDetail) {
+                            } else {
                                 val updatedAssetUiModel = it.data
                                 walletViewModel.updateAsset(updatedAssetUiModel)
                                 previousBackStackEntry?.savedStateHandle?.set(
@@ -204,7 +204,7 @@ class SaveAssetFragment : Fragment() {
 
                         is UiState.Error -> {
                             val activity = requireActivity()
-                            binding.layout.visibility = View.VISIBLE
+                            binding.saveLayout.visibility = View.VISIBLE
                             binding.incProgressBar.root.visibility = View.GONE
                             activity.showErrorSnackBar(activity.getGenericErrorMessage(it.e))
                         }
