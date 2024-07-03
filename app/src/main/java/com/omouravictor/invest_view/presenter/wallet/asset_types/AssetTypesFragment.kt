@@ -31,6 +31,14 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
     private val walletViewModel: WalletViewModel by activityViewModels()
     private val assetTypesAdapter = AssetTypesAdapter()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        assetTypesAdapter.apply {
+            updateItemsList(walletViewModel.assetsListStateFlow.value)
+            updateOnClickItem { findNavController().navigate(WalletFragmentDirections.navToAssetDetailFragment(it)) }
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -42,7 +50,7 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupPieChart()
-        setupAdapterAndRecyclerView()
+        setupRecyclerView()
     }
 
     override fun onValueSelected(e: Entry?, h: Highlight?) {
@@ -89,12 +97,7 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
         updatePieChartCenterText(assets.size)
     }
 
-    private fun setupAdapterAndRecyclerView() {
-        assetTypesAdapter.apply {
-            updateItemsList(walletViewModel.assetsListStateFlow.value)
-            updateOnClickItem { findNavController().navigate(WalletFragmentDirections.navToAssetDetailFragment(it)) }
-        }
-
+    private fun setupRecyclerView() {
         binding.recyclerView.apply {
             adapter = assetTypesAdapter
             layoutManager = LinearLayoutManager(context)

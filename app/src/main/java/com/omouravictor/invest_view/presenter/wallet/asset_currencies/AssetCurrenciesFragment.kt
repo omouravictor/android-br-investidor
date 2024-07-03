@@ -32,6 +32,14 @@ class AssetCurrenciesFragment : Fragment(), OnChartValueSelectedListener {
     private val walletViewModel: WalletViewModel by activityViewModels()
     private val assetCurrenciesAdapter = AssetCurrenciesAdapter()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        assetCurrenciesAdapter.apply {
+            updateItemsList(walletViewModel.assetsListStateFlow.value)
+            updateOnClickItem { findNavController().navigate(WalletFragmentDirections.navToAssetDetailFragment(it)) }
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -43,7 +51,7 @@ class AssetCurrenciesFragment : Fragment(), OnChartValueSelectedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupPieChart()
-        setupAdapterAndRecyclerView()
+        setupRecyclerView()
     }
 
     override fun onValueSelected(e: Entry?, h: Highlight?) {
@@ -89,12 +97,7 @@ class AssetCurrenciesFragment : Fragment(), OnChartValueSelectedListener {
         updatePieChartCenterText(assets.size)
     }
 
-    private fun setupAdapterAndRecyclerView() {
-        assetCurrenciesAdapter.apply {
-            updateItemsList(walletViewModel.assetsListStateFlow.value)
-            updateOnClickItem { findNavController().navigate(WalletFragmentDirections.navToAssetDetailFragment(it)) }
-        }
-
+    private fun setupRecyclerView() {
         binding.recyclerView.apply {
             adapter = assetCurrenciesAdapter
             layoutManager = LinearLayoutManager(context)
