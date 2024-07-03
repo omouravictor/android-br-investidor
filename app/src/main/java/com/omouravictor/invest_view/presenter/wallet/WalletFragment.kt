@@ -5,15 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentWalletBinding
-import com.omouravictor.invest_view.presenter.base.BaseViewPagerAdapter
 import com.omouravictor.invest_view.presenter.base.UiState
 import com.omouravictor.invest_view.presenter.wallet.asset_types.AssetTypesFragment
 import com.omouravictor.invest_view.presenter.wallet.currencies.CurrenciesFragment
@@ -27,10 +28,19 @@ class WalletFragment : Fragment() {
     private val walletViewModel: WalletViewModel by activityViewModels()
 
     companion object {
-        const val VIEW_FLIPPER_CHILD_FILLED_WALLET_LAYOUT = 0
-        const val VIEW_FLIPPER_CHILD_EMPTY_WALLET_LAYOUT = 1
-        const val VIEW_FLIPPER_CHILD_PROGRESS_BAR = 2
-        const val VIEW_FLIPPER_CHILD_WALLET_ERROR_LAYOUT = 3
+        private const val VIEW_FLIPPER_CHILD_FILLED_WALLET_LAYOUT = 0
+        private const val VIEW_FLIPPER_CHILD_EMPTY_WALLET_LAYOUT = 1
+        private const val VIEW_FLIPPER_CHILD_PROGRESS_BAR = 2
+        private const val VIEW_FLIPPER_CHILD_WALLET_ERROR_LAYOUT = 3
+
+        private class BaseFragmentStateAdapter(
+            fragmentManager: FragmentManager,
+            lifecycle: Lifecycle,
+            private val fragments: List<Pair<Fragment, String>>
+        ) : FragmentStateAdapter(fragmentManager, lifecycle) {
+            override fun getItemCount() = fragments.size
+            override fun createFragment(position: Int) = fragments[position].first
+        }
     }
 
     override fun onCreateView(
@@ -54,7 +64,11 @@ class WalletFragment : Fragment() {
         )
         val viewPager2 = binding.viewPager2
 
-        viewPager2.adapter = BaseViewPagerAdapter(requireActivity(), fragments)
+        viewPager2.adapter = BaseFragmentStateAdapter(
+            fragmentManager = childFragmentManager,
+            lifecycle = viewLifecycleOwner.lifecycle,
+            fragments = fragments
+        )
 
         TabLayoutMediator(binding.tabLayout, viewPager2) { tab, position ->
             tab.text = fragments[position].second
