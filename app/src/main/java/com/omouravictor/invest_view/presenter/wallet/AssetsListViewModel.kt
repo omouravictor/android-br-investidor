@@ -14,7 +14,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class WalletViewModel @Inject constructor(
+class AssetsListViewModel @Inject constructor(
     private val firebaseRepository: FirebaseRepository,
     private val dispatchers: DispatcherProvider
 ) : ViewModel() {

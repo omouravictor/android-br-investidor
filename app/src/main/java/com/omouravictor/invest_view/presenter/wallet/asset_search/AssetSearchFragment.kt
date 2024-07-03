@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetSearchBinding
 import com.omouravictor.invest_view.presenter.base.UiState
-import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
+import com.omouravictor.invest_view.presenter.wallet.AssetsListViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.util.getGenericErrorMessage
 import com.omouravictor.invest_view.util.hideKeyboard
@@ -32,7 +32,7 @@ class AssetSearchFragment : Fragment() {
 
     private lateinit var binding: FragmentAssetSearchBinding
     private lateinit var searchView: SearchView
-    private val walletViewModel: WalletViewModel by activityViewModels()
+    private val assetsListViewModel: AssetsListViewModel by activityViewModels()
     private val assetSearchViewModel: AssetSearchViewModel by activityViewModels()
     private val assetBySearchAdapter = AssetBySearchAdapter()
     private var assetUiModel = AssetUiModel()
@@ -87,7 +87,7 @@ class AssetSearchFragment : Fragment() {
     private fun setupAdapterAndRecyclerView() {
         assetBySearchAdapter.updateOnClickItem { assetUiModel ->
             val symbol = assetUiModel.symbol
-            val existingAsset = walletViewModel.assetsListStateFlow.value.find { it.symbol == symbol }
+            val existingAsset = assetsListViewModel.assetsListStateFlow.value.find { it.symbol == symbol }
             if (existingAsset == null) {
                 this.assetUiModel = assetUiModel
                 assetSearchViewModel.getAssetQuote(symbol)

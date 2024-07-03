@@ -15,7 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentNewAdditionBinding
 import com.omouravictor.invest_view.presenter.base.UiState
-import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
+import com.omouravictor.invest_view.presenter.wallet.AssetsListViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAmount
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
@@ -38,7 +38,7 @@ class NewAdditionFragment : Fragment() {
 
     private lateinit var binding: FragmentNewAdditionBinding
     private lateinit var assetUiModelArg: AssetUiModel
-    private val walletViewModel: WalletViewModel by activityViewModels()
+    private val assetsListViewModel: AssetsListViewModel by activityViewModels()
     private val saveViewModel: SaveViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -178,7 +178,7 @@ class NewAdditionFragment : Fragment() {
                             val navController = findNavController()
                             val previousBackStackEntry = navController.previousBackStackEntry
                             val updatedAssetUiModel = it.data
-                            walletViewModel.updateAsset(updatedAssetUiModel)
+                            assetsListViewModel.updateAsset(updatedAssetUiModel)
                             previousBackStackEntry?.savedStateHandle?.set(
                                 ConstantUtil.SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL, updatedAssetUiModel
                             )

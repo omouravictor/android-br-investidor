@@ -23,7 +23,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentSaveAssetBinding
 import com.omouravictor.invest_view.presenter.base.UiState
-import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
+import com.omouravictor.invest_view.presenter.wallet.AssetsListViewModel
 import com.omouravictor.invest_view.presenter.wallet.asset_types.AssetTypes
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
@@ -44,7 +44,7 @@ class SaveAssetFragment : Fragment() {
 
     private lateinit var binding: FragmentSaveAssetBinding
     private lateinit var assetUiModelArg: AssetUiModel
-    private val walletViewModel: WalletViewModel by activityViewModels()
+    private val assetsListViewModel: AssetsListViewModel by activityViewModels()
     private val saveViewModel: SaveViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -190,11 +190,11 @@ class SaveAssetFragment : Fragment() {
                             val previousBackStackEntry = navController.previousBackStackEntry
                             val previousDestinationId = previousBackStackEntry?.destination?.id ?: -1
                             if (previousDestinationId == R.id.fragmentAssetSearch) {
-                                walletViewModel.addAsset(it.data)
+                                assetsListViewModel.addAsset(it.data)
                                 navController.clearPileAndNavigateToStart()
                             } else {
                                 val updatedAssetUiModel = it.data
-                                walletViewModel.updateAsset(updatedAssetUiModel)
+                                assetsListViewModel.updateAsset(updatedAssetUiModel)
                                 previousBackStackEntry?.savedStateHandle?.set(
                                     ConstantUtil.SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL, updatedAssetUiModel
                                 )

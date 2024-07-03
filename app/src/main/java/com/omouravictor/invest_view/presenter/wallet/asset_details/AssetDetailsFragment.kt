@@ -23,7 +23,7 @@ import androidx.navigation.fragment.findNavController
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetDetailsBinding
 import com.omouravictor.invest_view.presenter.base.UiState
-import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
+import com.omouravictor.invest_view.presenter.wallet.AssetsListViewModel
 import com.omouravictor.invest_view.presenter.wallet.asset_search.AssetSearchViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAmount
@@ -52,7 +52,7 @@ class AssetDetailsFragment : Fragment() {
     private lateinit var binding: FragmentAssetDetailsBinding
     private lateinit var assetUiModel: AssetUiModel
     private val assetSearchViewModel: AssetSearchViewModel by activityViewModels()
-    private val walletViewModel: WalletViewModel by activityViewModels()
+    private val assetsListViewModel: AssetsListViewModel by activityViewModels()
     private val assetDetailsViewModel: AssetDetailsViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -210,7 +210,7 @@ class AssetDetailsFragment : Fragment() {
                         }
 
                         is UiState.Success -> {
-                            walletViewModel.removeAsset(assetUiModel)
+                            assetsListViewModel.removeAsset(assetUiModel)
                             findNavController().clearPileAndNavigateToStart()
                         }
 
