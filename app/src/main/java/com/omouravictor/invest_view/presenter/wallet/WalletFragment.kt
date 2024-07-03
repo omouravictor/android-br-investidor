@@ -94,7 +94,7 @@ class WalletFragment : Fragment() {
     private fun observeAssetsListUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                walletViewModel.assetsListUiStateFlow.collectLatest {
+                walletViewModel.uiStateFlow.collectLatest {
                     when (it) {
                         is UiState.Initial, UiState.Loading -> binding.viewFlipper.displayedChild =
                             VIEW_FLIPPER_CHILD_PROGRESS_BAR

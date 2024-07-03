@@ -19,9 +19,9 @@ class WalletViewModel @Inject constructor(
     private val dispatchers: DispatcherProvider
 ) : ViewModel() {
 
-    private val _assetsListUiStateFlow = MutableStateFlow<UiState<List<AssetUiModel>>>(UiState.Initial)
+    private val _uiStateFlow = MutableStateFlow<UiState<List<AssetUiModel>>>(UiState.Initial)
     private val _assetsListStateFlow = MutableStateFlow<List<AssetUiModel>>(emptyList())
-    val assetsListUiStateFlow = _assetsListUiStateFlow.asStateFlow()
+    val uiStateFlow = _uiStateFlow.asStateFlow()
     val assetsListStateFlow = _assetsListStateFlow.asStateFlow()
 
     init {
@@ -29,7 +29,7 @@ class WalletViewModel @Inject constructor(
     }
 
     fun loadAssets() {
-        _assetsListUiStateFlow.value = UiState.Loading
+        _uiStateFlow.value = UiState.Loading
 
         viewModelScope.launch {
             try {
@@ -37,23 +37,23 @@ class WalletViewModel @Inject constructor(
                 if (result.isSuccess) {
                     val resultsList = result.getOrThrow()
                     _assetsListStateFlow.value = resultsList
-                    _assetsListUiStateFlow.value = UiState.Success(resultsList)
+                    _uiStateFlow.value = UiState.Success(resultsList)
                 } else
-                    _assetsListUiStateFlow.value = UiState.Error(result.exceptionOrNull() as Exception)
+                    _uiStateFlow.value = UiState.Error(result.exceptionOrNull() as Exception)
             } catch (e: Exception) {
-                _assetsListUiStateFlow.value = UiState.Error(e)
+                _uiStateFlow.value = UiState.Error(e)
             }
         }
     }
 
     fun addAsset(asset: AssetUiModel) {
         _assetsListStateFlow.value += asset
-        _assetsListUiStateFlow.value = UiState.Success(_assetsListStateFlow.value)
+        _uiStateFlow.value = UiState.Success(_assetsListStateFlow.value)
     }
 
     fun removeAsset(asset: AssetUiModel) {
         _assetsListStateFlow.value -= asset
-        _assetsListUiStateFlow.value = UiState.Success(_assetsListStateFlow.value)
+        _uiStateFlow.value = UiState.Success(_assetsListStateFlow.value)
     }
 
     fun updateAsset(data: AssetUiModel) {
@@ -62,7 +62,7 @@ class WalletViewModel @Inject constructor(
         if (index != -1) {
             assetsList[index] = data
             _assetsListStateFlow.value = assetsList
-            _assetsListUiStateFlow.value = UiState.Success(_assetsListStateFlow.value)
+            _uiStateFlow.value = UiState.Success(_assetsListStateFlow.value)
         }
     }
 
