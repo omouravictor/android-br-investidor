@@ -56,7 +56,7 @@ class NewAdditionFragment : Fragment() {
         requireActivity().setupToolbarCenterText(getString(R.string.newAddition))
         setupViews()
         setupButtons()
-        observeSaveUiState()
+        observeAssetUiState()
     }
 
     override fun onStop() {
@@ -166,7 +166,7 @@ class NewAdditionFragment : Fragment() {
         }
     }
 
-    private fun observeSaveUiState() {
+    private fun observeAssetUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 walletViewModel.assetUiState.collectLatest {

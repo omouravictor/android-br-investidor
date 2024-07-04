@@ -22,10 +22,10 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentSaveAssetBinding
+import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.asset_types.AssetTypes
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
-import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.util.ConstantUtil
 import com.omouravictor.invest_view.util.LocaleUtil
@@ -63,7 +63,7 @@ class SaveAssetFragment : Fragment() {
         setupToolbar()
         setupViews()
         setupButtons()
-        observeSaveUiState()
+        observeAssetUiState()
     }
 
     override fun onStop() {
@@ -173,7 +173,7 @@ class SaveAssetFragment : Fragment() {
         }
     }
 
-    private fun observeSaveUiState() {
+    private fun observeAssetUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 walletViewModel.assetUiState.collectLatest {

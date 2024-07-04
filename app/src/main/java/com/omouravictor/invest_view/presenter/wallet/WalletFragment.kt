@@ -15,9 +15,9 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentWalletBinding
+import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.presenter.wallet.asset_currencies.AssetCurrenciesFragment
 import com.omouravictor.invest_view.presenter.wallet.asset_types.AssetTypesFragment
-import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.util.getGenericErrorMessage
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -54,7 +54,7 @@ class WalletFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupTabLayoutWithViewPager2()
         setupButtons()
-        observeAssetsListUiState()
+        observeAssetListUiState()
     }
 
     private fun setupTabLayoutWithViewPager2() {
@@ -91,10 +91,10 @@ class WalletFragment : Fragment() {
         }
     }
 
-    private fun observeAssetsListUiState() {
+    private fun observeAssetListUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                walletViewModel.assetsListUiState.collectLatest {
+                walletViewModel.assetListUiState.collectLatest {
                     when (it) {
                         is UiState.Success -> {
                             if (it.data.isNotEmpty())

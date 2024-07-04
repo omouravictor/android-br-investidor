@@ -22,10 +22,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetDetailsBinding
+import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.asset_search.AssetSearchViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
-import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAmount
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAssetPrice
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
@@ -67,8 +67,8 @@ class AssetDetailsFragment : Fragment() {
         setupToolbar()
         setupViews()
         setupButtons()
-        observeAssetQuote()
-        observeAssetDetailsUiState()
+        observeAssetQuoteUiState()
+        observeAssetUiState()
         assetSearchViewModel.loadAssetQuote(assetUiModel.symbol)
     }
 
@@ -164,10 +164,10 @@ class AssetDetailsFragment : Fragment() {
         }
     }
 
-    private fun observeAssetQuote() {
+    private fun observeAssetQuoteUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                assetSearchViewModel.assetQuoteUiStateFlow.collectLatest {
+                assetSearchViewModel.assetQuoteUiState.collectLatest {
                     when (it) {
                         is UiState.Loading -> setupLoadingLayoutForAssetQuote(true)
                         is UiState.Success -> {
@@ -198,7 +198,7 @@ class AssetDetailsFragment : Fragment() {
         }
     }
 
-    private fun observeAssetDetailsUiState() {
+    private fun observeAssetUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 walletViewModel.assetUiState.collectLatest {

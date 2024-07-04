@@ -22,30 +22,30 @@ class WalletViewModel @Inject constructor(
     private val _assetUiState = MutableStateFlow<UiState<AssetUiModel>>(UiState.Initial)
     val assetUiState = _assetUiState.asStateFlow()
 
-    private val _assetsList = MutableStateFlow<List<AssetUiModel>>(emptyList())
-    val assetsList = _assetsList.asStateFlow()
+    private val _assetList = MutableStateFlow<List<AssetUiModel>>(emptyList())
+    val assetList = _assetList.asStateFlow()
 
-    private val _assetsListUiState = MutableStateFlow<UiState<List<AssetUiModel>>>(UiState.Initial)
-    val assetsListUiState = _assetsListUiState.asStateFlow()
+    private val _assetListUiState = MutableStateFlow<UiState<List<AssetUiModel>>>(UiState.Initial)
+    val assetListUiState = _assetListUiState.asStateFlow()
 
     init {
         loadAssetsList()
     }
 
     fun loadAssetsList() {
-        _assetsListUiState.value = UiState.Loading
+        _assetListUiState.value = UiState.Loading
 
         viewModelScope.launch {
             try {
                 val result = withContext(dispatchers.io) { firebaseRepository.getAssetsList() }
                 if (result.isSuccess) {
                     val assetsListResult = result.getOrThrow()
-                    _assetsList.value = assetsListResult
-                    _assetsListUiState.value = UiState.Success(assetsListResult)
+                    _assetList.value = assetsListResult
+                    _assetListUiState.value = UiState.Success(assetsListResult)
                 } else
-                    _assetsListUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
+                    _assetListUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
             } catch (e: Exception) {
-                _assetsListUiState.value = UiState.Error(e)
+                _assetListUiState.value = UiState.Error(e)
             }
         }
     }
@@ -58,16 +58,10 @@ class WalletViewModel @Inject constructor(
                 val result = withContext(dispatchers.io) { firebaseRepository.saveAsset(asset) }
                 if (result.isSuccess) {
                     val assetResult = result.getOrThrow()
-                    val updatedList = _assetsList.value.toMutableList().apply {
-                        val index = indexOfFirst { it.symbol == assetResult.symbol }
-                        if (index > -1)
-                            set(index, assetResult)
-                        else
-                            add(assetResult)
-                    }
+                    val updatedList = getUpdatedList(assetResult)
                     _assetUiState.value = UiState.Success(assetResult)
-                    _assetsList.value = updatedList
-                    _assetsListUiState.value = UiState.Success(updatedList)
+                    _assetList.value = updatedList
+                    _assetListUiState.value = UiState.Success(updatedList)
                 } else
                     _assetUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
             } catch (e: Exception) {
@@ -85,8 +79,8 @@ class WalletViewModel @Inject constructor(
                 if (result.isSuccess) {
                     val assetResult = result.getOrThrow()
                     _assetUiState.value = UiState.Success(assetResult)
-                    _assetsList.value -= assetResult
-                    _assetsListUiState.value = UiState.Success(_assetsList.value)
+                    _assetList.value -= assetResult
+                    _assetListUiState.value = UiState.Success(_assetList.value)
                 } else
                     _assetUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
             } catch (e: Exception) {
@@ -97,6 +91,16 @@ class WalletViewModel @Inject constructor(
 
     fun resetUiState() {
         _assetUiState.value = UiState.Initial
+    }
+
+    private fun getUpdatedList(asset: AssetUiModel): List<AssetUiModel> {
+        return _assetList.value.toMutableList().apply {
+            val index = indexOfFirst { it.symbol == asset.symbol }
+            if (index > -1)
+                set(index, asset)
+            else
+                add(asset)
+        }
     }
 
 }

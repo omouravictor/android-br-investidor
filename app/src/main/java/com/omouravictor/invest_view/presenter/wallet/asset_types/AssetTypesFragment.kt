@@ -34,7 +34,7 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         assetTypesAdapter.apply {
-            updateItemsList(walletViewModel.assetsList.value)
+            updateItemsList(walletViewModel.assetList.value)
             updateOnClickItem { findNavController().navigate(WalletFragmentDirections.navToAssetDetailFragment(it)) }
         }
     }
@@ -55,17 +55,16 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
 
     override fun onValueSelected(e: Entry?, h: Highlight?) {
         val assetType = (e as PieEntry).label
-        val filteredAssets =
-            walletViewModel.assetsList.value.filter { getString(it.assetType.nameResId) == assetType }
+        val filteredList = walletViewModel.assetList.value.filter { getString(it.assetType.nameResId) == assetType }
 
-        updatePieChartCenterText(filteredAssets.size)
-        assetTypesAdapter.updateItemsList(filteredAssets)
+        updatePieChartCenterText(filteredList.size)
+        assetTypesAdapter.updateItemsList(filteredList)
     }
 
     override fun onNothingSelected() {
-        val assetsList = walletViewModel.assetsList.value
-        updatePieChartCenterText(assetsList.size)
-        assetTypesAdapter.updateItemsList(assetsList)
+        val assetList = walletViewModel.assetList.value
+        updatePieChartCenterText(assetList.size)
+        assetTypesAdapter.updateItemsList(assetList)
     }
 
     private fun updatePieChartCenterText(assetSize: Int) {
@@ -79,22 +78,22 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
 
     private fun setupPieChart() {
         val context = requireContext()
-        val assetsList = walletViewModel.assetsList.value
-        val assetTypes = assetsList.map { it.assetType }.distinct()
-        val colorsList = arrayListOf<Int>()
-        val pieEntries = assetTypes.map { assetType ->
-            colorsList.add(assetType.colorResId)
-            val count = assetsList.count { it.assetType == assetType }
+        val assetList = walletViewModel.assetList.value
+        val assetTypeList = assetList.map { it.assetType }.distinct()
+        val colorList = arrayListOf<Int>()
+        val pieEntryList = assetTypeList.map { assetType ->
+            colorList.add(assetType.colorResId)
+            val count = assetList.count { it.assetType == assetType }
             PieEntry(count.toFloat(), getString(assetType.nameResId))
         }
-        val pieDataSet = PieDataSet(pieEntries, getString(R.string.assetTypes)).apply {
-            colors = colorsList.map { ContextCompat.getColor(context, it) }
+        val pieDataSet = PieDataSet(pieEntryList, getString(R.string.assetTypes)).apply {
+            colors = colorList.map { ContextCompat.getColor(context, it) }
             sliceSpace = 3f
             setDrawIcons(false)
         }
 
         context.showPieChart(pieChart, pieDataSet)
-        updatePieChartCenterText(assetsList.size)
+        updatePieChartCenterText(assetList.size)
     }
 
     private fun setupRecyclerView() {
