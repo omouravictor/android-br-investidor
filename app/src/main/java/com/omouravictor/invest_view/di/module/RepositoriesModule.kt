@@ -6,6 +6,7 @@ import com.omouravictor.invest_view.data.network.remote.repository.AssetsApiRepo
 import com.omouravictor.invest_view.data.network.remote.repository.AssetsApiRepositoryImpl
 import com.omouravictor.invest_view.data.network.remote.repository.FirebaseRepository
 import com.omouravictor.invest_view.data.network.remote.repository.FirebaseRepositoryImpl
+import com.omouravictor.invest_view.di.model.DispatcherProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,13 +20,15 @@ object RepositoriesModule {
     @Singleton
     @Provides
     fun provideAssetsApiRepository(
+        dispatchers: DispatcherProvider,
         alphaVantageService: AlphaVantageService
-    ): AssetsApiRepository = AssetsApiRepositoryImpl(alphaVantageService)
+    ): AssetsApiRepository = AssetsApiRepositoryImpl(dispatchers, alphaVantageService)
 
     @Singleton
     @Provides
     fun provideFirebaseRepository(
+        dispatchers: DispatcherProvider,
         firestore: FirebaseFirestore
-    ): FirebaseRepository = FirebaseRepositoryImpl(firestore)
+    ): FirebaseRepository = FirebaseRepositoryImpl(dispatchers, firestore)
 
 }

@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.omouravictor.invest_view.data.network.remote.model.asset_quote.toAssetQuoteUiModel
 import com.omouravictor.invest_view.data.network.remote.model.assets_by_search.toAssetsUiModel
 import com.omouravictor.invest_view.data.network.remote.repository.AssetsApiRepository
-import com.omouravictor.invest_view.di.model.DispatcherProvider
 import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.presenter.wallet.model.AssetQuoteUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
@@ -13,13 +12,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class AssetSearchViewModel @Inject constructor(
-    private val assetsApiRepository: AssetsApiRepository,
-    private val dispatchers: DispatcherProvider
+    private val assetsApiRepository: AssetsApiRepository
 ) : ViewModel() {
 
     private val _assetBySearchListUiState = MutableStateFlow<UiState<List<AssetUiModel>>>(UiState.Initial)
@@ -33,7 +30,7 @@ class AssetSearchViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-                val result = withContext(dispatchers.io) { assetsApiRepository.getAssetsBySearch(keywords) }
+                val result = assetsApiRepository.getAssetsBySearch(keywords)
                 if (result.isSuccess) {
                     val assetsBySearchList = result.getOrThrow().toAssetsUiModel()
                     _assetBySearchListUiState.value = UiState.Success(assetsBySearchList)
@@ -50,7 +47,7 @@ class AssetSearchViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-                val result = withContext(dispatchers.io) { assetsApiRepository.getAssetGlobalQuote(symbol) }
+                val result = assetsApiRepository.getAssetGlobalQuote(symbol)
                 if (result.isSuccess) {
                     val assetQuoteUiModel = result.getOrThrow().toAssetQuoteUiModel()
                     _assetQuoteUiState.value = UiState.Success(assetQuoteUiModel)
