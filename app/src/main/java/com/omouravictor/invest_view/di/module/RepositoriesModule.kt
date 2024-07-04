@@ -1,6 +1,5 @@
 package com.omouravictor.invest_view.di.module
 
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.omouravictor.invest_view.data.network.remote.api.AlphaVantageService
 import com.omouravictor.invest_view.data.network.remote.repository.AssetsApiRepository
@@ -26,8 +25,7 @@ object RepositoriesModule {
     @Singleton
     @Provides
     fun provideFirebaseRepository(
-        auth: FirebaseAuth,
         firestore: FirebaseFirestore
-    ): FirebaseRepository = FirebaseRepositoryImpl(auth, firestore)
+    ): FirebaseRepository = FirebaseRepositoryImpl(firestore)
 
 }

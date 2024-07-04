@@ -2,6 +2,7 @@ package com.omouravictor.invest_view.presenter.wallet
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.FirebaseAuth
 import com.omouravictor.invest_view.data.network.remote.repository.FirebaseRepository
 import com.omouravictor.invest_view.di.model.DispatcherProvider
 import com.omouravictor.invest_view.presenter.model.UiState
@@ -15,6 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WalletViewModel @Inject constructor(
+    auth: FirebaseAuth,
     private val firebaseRepository: FirebaseRepository,
     private val dispatchers: DispatcherProvider
 ) : ViewModel() {
@@ -28,16 +30,18 @@ class WalletViewModel @Inject constructor(
     private val _assetListUiState = MutableStateFlow<UiState<List<AssetUiModel>>>(UiState.Initial)
     val assetListUiState = _assetListUiState.asStateFlow()
 
+    private val userId: String = auth.currentUser?.uid ?: ""
+
     init {
-        loadAssetsList()
+        loadAssetList()
     }
 
-    fun loadAssetsList() {
+    fun loadAssetList() {
         _assetListUiState.value = UiState.Loading
 
         viewModelScope.launch {
             try {
-                val result = withContext(dispatchers.io) { firebaseRepository.getAssetsList() }
+                val result = withContext(dispatchers.io) { firebaseRepository.getAssetList(userId) }
                 if (result.isSuccess) {
                     val assetsListResult = result.getOrThrow()
                     _assetList.value = assetsListResult
@@ -55,7 +59,7 @@ class WalletViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-                val result = withContext(dispatchers.io) { firebaseRepository.saveAsset(asset) }
+                val result = withContext(dispatchers.io) { firebaseRepository.saveAsset(userId, asset) }
                 if (result.isSuccess) {
                     val assetResult = result.getOrThrow()
                     val updatedList = getUpdatedList(assetResult)
@@ -75,7 +79,7 @@ class WalletViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-                val result = withContext(dispatchers.io) { firebaseRepository.deleteAsset(asset) }
+                val result = withContext(dispatchers.io) { firebaseRepository.deleteAsset(userId, asset) }
                 if (result.isSuccess) {
                     val assetResult = result.getOrThrow()
                     _assetUiState.value = UiState.Success(assetResult)

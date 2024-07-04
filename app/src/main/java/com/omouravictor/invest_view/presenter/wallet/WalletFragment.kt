@@ -86,7 +86,7 @@ class WalletFragment : Fragment() {
         binding.incWalletErrorLayout.incBtnTryAgain.root.apply {
             text = getString(R.string.tryAgain)
             setOnClickListener {
-                walletViewModel.loadAssetsList()
+                walletViewModel.loadAssetList()
             }
         }
     }
