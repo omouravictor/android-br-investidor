@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.omouravictor.invest_view.data.network.remote.repository.FirebaseRepository
 import com.omouravictor.invest_view.di.model.DispatcherProvider
-import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.model.UiState
+import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -58,16 +58,16 @@ class WalletViewModel @Inject constructor(
                 val result = withContext(dispatchers.io) { firebaseRepository.saveAsset(asset) }
                 if (result.isSuccess) {
                     val assetResult = result.getOrThrow()
-
-                    _assetUiState.value = UiState.Success(assetResult)
-                    if (!_assetsList.value.contains(assetResult)) {
-                        _assetsList.value += assetResult
-                    } else {
-                        _assetsList.value =
-                            _assetsList.value.map { if (it.symbol == assetResult.symbol) assetResult else it }
+                    val updatedList = _assetsList.value.toMutableList().apply {
+                        val index = indexOfFirst { it.symbol == assetResult.symbol }
+                        if (index > -1)
+                            set(index, assetResult)
+                        else
+                            add(assetResult)
                     }
-                    _assetsListUiState.value = UiState.Success(_assetsList.value)
-
+                    _assetUiState.value = UiState.Success(assetResult)
+                    _assetsList.value = updatedList
+                    _assetsListUiState.value = UiState.Success(updatedList)
                 } else
                     _assetUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
             } catch (e: Exception) {
