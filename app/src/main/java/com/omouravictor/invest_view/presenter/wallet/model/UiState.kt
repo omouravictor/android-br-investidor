@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.presenter.base
+package com.omouravictor.invest_view.presenter.wallet.model
 
 sealed class UiState<out T> {
     data object Initial : UiState<Nothing>()

@@ -3,9 +3,9 @@ package com.omouravictor.invest_view.presenter.wallet
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.omouravictor.invest_view.data.network.remote.repository.FirebaseRepository
-import com.omouravictor.invest_view.di.base.DispatcherProvider
-import com.omouravictor.invest_view.presenter.base.UiState
+import com.omouravictor.invest_view.di.model.DispatcherProvider
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
+import com.omouravictor.invest_view.presenter.wallet.model.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

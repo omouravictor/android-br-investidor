@@ -2,7 +2,7 @@ package com.omouravictor.invest_view.di.module
 
 import com.omouravictor.invest_view.BuildConfig
 import com.omouravictor.invest_view.data.network.remote.api.AlphaVantageService
-import com.omouravictor.invest_view.di.base.AuthenticationInterceptor
+import com.omouravictor.invest_view.di.model.AuthenticationInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -19,9 +19,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetSearchBinding
-import com.omouravictor.invest_view.presenter.base.UiState
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
+import com.omouravictor.invest_view.presenter.wallet.model.UiState
 import com.omouravictor.invest_view.util.getGenericErrorMessage
 import com.omouravictor.invest_view.util.hideKeyboard
 import com.omouravictor.invest_view.util.showErrorSnackBar

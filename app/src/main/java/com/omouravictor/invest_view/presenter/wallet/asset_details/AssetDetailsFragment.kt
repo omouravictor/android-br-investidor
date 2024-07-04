@@ -22,10 +22,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetDetailsBinding
-import com.omouravictor.invest_view.presenter.base.UiState
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.asset_search.AssetSearchViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
+import com.omouravictor.invest_view.presenter.wallet.model.UiState
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAmount
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAssetPrice
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
