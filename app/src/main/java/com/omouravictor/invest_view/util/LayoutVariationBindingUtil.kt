@@ -13,11 +13,11 @@ fun LayoutVariationBinding.calculateAndSetupVariationLayout(
     totalReference: Double
 ) {
     if (totalReference == 0.0)
-        setupVisibilities(false)
+        this.setupLayoutVariationVisibility(false)
     else {
         val variation = (reference - totalReference).getRoundedDouble()
         this.setupTextsSize(textSize)
-        this.setupVisibilities(true)
+        this.setupLayoutVariationVisibility(true)
         this.setupColorsAndArrow(variation)
         this.tvVariation.text = LocaleUtil.getFormattedCurrencyValue(currency, variation)
         this.tvVariationPercent.text = LocaleUtil.getFormattedValueForPercent(variation / totalReference)
@@ -31,12 +31,10 @@ fun LayoutVariationBinding.setupTextsSize(textSize: Float) {
     this.tvBracketEnd.textSize = textSize
 }
 
-fun LayoutVariationBinding.setupVisibilities(isVisible: Boolean) {
-    this.tvVariation.isVisible = isVisible
-    this.tvVariationPercent.isVisible = isVisible
-    this.tvBracketStart.isVisible = isVisible
-    this.tvBracketEnd.isVisible = isVisible
-    this.ivArrow.isVisible = isVisible
+fun LayoutVariationBinding.setupLayoutVariationVisibility(isVisible: Boolean, infoMessage: String = "") {
+    this.layoutVariation.isVisible = isVisible
+    this.tvInfoMessage.isVisible = !isVisible
+    this.tvInfoMessage.text = infoMessage
 }
 
 fun LayoutVariationBinding.setupTextStyles(typeface: Typeface) {

@@ -40,6 +40,7 @@ import com.omouravictor.invest_view.util.calculateAndSetupVariationLayout
 import com.omouravictor.invest_view.util.clearPileAndNavigateToStart
 import com.omouravictor.invest_view.util.getGenericErrorMessage
 import com.omouravictor.invest_view.util.setupColorsAndArrow
+import com.omouravictor.invest_view.util.setupLayoutVariationVisibility
 import com.omouravictor.invest_view.util.setupTextStyles
 import com.omouravictor.invest_view.util.setupTextsSize
 import com.omouravictor.invest_view.util.setupToolbarCenterText
@@ -119,12 +120,18 @@ class AssetDetailsFragment : Fragment() {
         binding.tvAmount.text = assetUiModel.getFormattedAmount()
         binding.tvTotalInvested.text = assetUiModel.getFormattedTotalInvested()
         binding.tvTotalPrice.text = assetUiModel.getFormattedTotalPrice()
-        binding.incLayoutYield.calculateAndSetupVariationLayout(
-            textSize = 14f,
-            currency = assetUiModel.currency,
-            reference = assetUiModel.getTotalPrice(),
-            totalReference = assetUiModel.totalInvested
-        )
+
+        if (assetUiModel.totalInvested > 0.0) {
+            binding.incLayoutYield.calculateAndSetupVariationLayout(
+                textSize = 14f,
+                currency = assetUiModel.currency,
+                reference = assetUiModel.getTotalPrice(),
+                totalReference = assetUiModel.totalInvested
+            )
+        } else {
+            binding.incLayoutYield.setupLayoutVariationVisibility(false, "-")
+        }
+
         binding.ivReloadVariation.setOnClickListener { assetSearchViewModel.loadAssetQuote(assetUiModel.symbol) }
     }
 
