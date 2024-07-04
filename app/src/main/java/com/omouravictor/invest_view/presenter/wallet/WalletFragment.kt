@@ -17,7 +17,7 @@ import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentWalletBinding
 import com.omouravictor.invest_view.presenter.wallet.asset_currencies.AssetCurrenciesFragment
 import com.omouravictor.invest_view.presenter.wallet.asset_types.AssetTypesFragment
-import com.omouravictor.invest_view.presenter.wallet.model.UiState
+import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.util.getGenericErrorMessage
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

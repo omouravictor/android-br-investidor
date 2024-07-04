@@ -8,7 +8,7 @@ import com.omouravictor.invest_view.data.network.remote.repository.AssetsApiRepo
 import com.omouravictor.invest_view.di.model.DispatcherProvider
 import com.omouravictor.invest_view.presenter.wallet.model.AssetQuoteUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
-import com.omouravictor.invest_view.presenter.wallet.model.UiState
+import com.omouravictor.invest_view.presenter.model.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
