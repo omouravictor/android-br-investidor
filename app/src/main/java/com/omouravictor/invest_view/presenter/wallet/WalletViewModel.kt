@@ -27,7 +27,7 @@ class WalletViewModel @Inject constructor(
     private val _assetListUiState = MutableStateFlow<UiState<List<AssetUiModel>>>(UiState.Initial)
     val assetListUiState = _assetListUiState.asStateFlow()
 
-    private val userId: String = auth.currentUser?.uid ?: "Empty"
+    private val userId: String = auth.currentUser?.uid ?: ""
 
     init {
         loadAssetList()
