@@ -23,7 +23,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentSaveAssetBinding
 import com.omouravictor.invest_view.presenter.base.UiState
-import com.omouravictor.invest_view.presenter.wallet.AssetsListViewModel
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.asset_types.AssetTypes
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
@@ -45,7 +44,6 @@ class SaveAssetFragment : Fragment() {
 
     private lateinit var binding: FragmentSaveAssetBinding
     private lateinit var assetUiModelArg: AssetUiModel
-    private val assetsListViewModel: AssetsListViewModel by activityViewModels()
     private val walletViewModel: WalletViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -178,9 +176,8 @@ class SaveAssetFragment : Fragment() {
     private fun observeSaveUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                walletViewModel.uiStateFlow.collectLatest {
+                walletViewModel.assetUiState.collectLatest {
                     when (it) {
-                        is UiState.Initial -> Unit
                         is UiState.Loading -> {
                             binding.saveLayout.visibility = View.INVISIBLE
                             binding.incProgressBar.root.visibility = View.VISIBLE
@@ -191,11 +188,9 @@ class SaveAssetFragment : Fragment() {
                             val previousBackStackEntry = navController.previousBackStackEntry
                             val previousDestinationId = previousBackStackEntry?.destination?.id ?: -1
                             if (previousDestinationId == R.id.fragmentAssetSearch) {
-                                assetsListViewModel.addAsset(it.data)
                                 navController.clearPileAndNavigateToStart()
-                            } else {
+                            } else if (previousDestinationId == R.id.fragmentAssetDetail) {
                                 val updatedAssetUiModel = it.data
-                                assetsListViewModel.updateAsset(updatedAssetUiModel)
                                 previousBackStackEntry?.savedStateHandle?.set(
                                     ConstantUtil.SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL, updatedAssetUiModel
                                 )
@@ -209,6 +204,8 @@ class SaveAssetFragment : Fragment() {
                             binding.incProgressBar.root.visibility = View.GONE
                             activity.showErrorSnackBar(activity.getGenericErrorMessage(it.e))
                         }
+
+                        else -> Unit
                     }
                 }
             }

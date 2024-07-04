@@ -25,7 +25,7 @@ import kotlinx.coroutines.launch
 class WalletFragment : Fragment() {
 
     private lateinit var binding: FragmentWalletBinding
-    private val assetsListViewModel: AssetsListViewModel by activityViewModels()
+    private val walletViewModel: WalletViewModel by activityViewModels()
 
     companion object {
         private const val VIEW_FLIPPER_CHILD_FILLED_WALLET_LAYOUT = 0
@@ -86,7 +86,7 @@ class WalletFragment : Fragment() {
         binding.incWalletErrorLayout.incBtnTryAgain.root.apply {
             text = getString(R.string.tryAgain)
             setOnClickListener {
-                assetsListViewModel.loadAssets()
+                walletViewModel.loadAssetsList()
             }
         }
     }
@@ -94,11 +94,8 @@ class WalletFragment : Fragment() {
     private fun observeAssetsListUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                assetsListViewModel.uiStateFlow.collectLatest {
+                walletViewModel.assetsListUiState.collectLatest {
                     when (it) {
-                        is UiState.Initial, UiState.Loading -> binding.viewFlipper.displayedChild =
-                            VIEW_FLIPPER_CHILD_PROGRESS_BAR
-
                         is UiState.Success -> {
                             if (it.data.isNotEmpty())
                                 binding.viewFlipper.displayedChild = VIEW_FLIPPER_CHILD_FILLED_WALLET_LAYOUT
@@ -111,6 +108,8 @@ class WalletFragment : Fragment() {
                             binding.incWalletErrorLayout.tvInfoMessage.text =
                                 binding.root.context.getGenericErrorMessage(it.e)
                         }
+
+                        else -> binding.viewFlipper.displayedChild = VIEW_FLIPPER_CHILD_PROGRESS_BAR
                     }
                 }
             }

@@ -19,43 +19,84 @@ class WalletViewModel @Inject constructor(
     private val dispatchers: DispatcherProvider
 ) : ViewModel() {
 
-    private val _uiStateFlow = MutableStateFlow<UiState<AssetUiModel>>(UiState.Initial)
-    val uiStateFlow = _uiStateFlow.asStateFlow()
+    private val _assetUiState = MutableStateFlow<UiState<AssetUiModel>>(UiState.Initial)
+    val assetUiState = _assetUiState.asStateFlow()
+
+    private val _assetsList = MutableStateFlow<List<AssetUiModel>>(emptyList())
+    val assetsList = _assetsList.asStateFlow()
+
+    private val _assetsListUiState = MutableStateFlow<UiState<List<AssetUiModel>>>(UiState.Initial)
+    val assetsListUiState = _assetsListUiState.asStateFlow()
+
+    init {
+        loadAssetsList()
+    }
+
+    fun loadAssetsList() {
+        _assetsListUiState.value = UiState.Loading
+
+        viewModelScope.launch {
+            try {
+                val result = withContext(dispatchers.io) { firebaseRepository.getAssetsList() }
+                if (result.isSuccess) {
+                    val assetsListResult = result.getOrThrow()
+                    _assetsList.value = assetsListResult
+                    _assetsListUiState.value = UiState.Success(assetsListResult)
+                } else
+                    _assetsListUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
+            } catch (e: Exception) {
+                _assetsListUiState.value = UiState.Error(e)
+            }
+        }
+    }
 
     fun saveAsset(asset: AssetUiModel) {
-        _uiStateFlow.value = UiState.Loading
+        _assetUiState.value = UiState.Loading
 
         viewModelScope.launch {
             try {
                 val result = withContext(dispatchers.io) { firebaseRepository.saveAsset(asset) }
-                if (result.isSuccess)
-                    _uiStateFlow.value = UiState.Success(result.getOrThrow())
-                else
-                    _uiStateFlow.value = UiState.Error(result.exceptionOrNull() as Exception)
+                if (result.isSuccess) {
+                    val assetResult = result.getOrThrow()
+
+                    _assetUiState.value = UiState.Success(assetResult)
+                    if (!_assetsList.value.contains(assetResult)) {
+                        _assetsList.value += assetResult
+                    } else {
+                        _assetsList.value =
+                            _assetsList.value.map { if (it.symbol == assetResult.symbol) assetResult else it }
+                    }
+                    _assetsListUiState.value = UiState.Success(_assetsList.value)
+
+                } else
+                    _assetUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
             } catch (e: Exception) {
-                _uiStateFlow.value = UiState.Error(e)
+                _assetUiState.value = UiState.Error(e)
             }
         }
     }
 
     fun deleteAsset(asset: AssetUiModel) {
-        _uiStateFlow.value = UiState.Loading
+        _assetUiState.value = UiState.Loading
 
         viewModelScope.launch {
             try {
                 val result = withContext(dispatchers.io) { firebaseRepository.deleteAsset(asset) }
-                if (result.isSuccess)
-                    _uiStateFlow.value = UiState.Success(result.getOrThrow())
-                else
-                    _uiStateFlow.value = UiState.Error(result.exceptionOrNull() as Exception)
+                if (result.isSuccess) {
+                    val assetResult = result.getOrThrow()
+                    _assetUiState.value = UiState.Success(assetResult)
+                    _assetsList.value -= assetResult
+                    _assetsListUiState.value = UiState.Success(_assetsList.value)
+                } else
+                    _assetUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
             } catch (e: Exception) {
-                _uiStateFlow.value = UiState.Error(e)
+                _assetUiState.value = UiState.Error(e)
             }
         }
     }
 
     fun resetUiState() {
-        _uiStateFlow.value = UiState.Initial
+        _assetUiState.value = UiState.Initial
     }
 
 }

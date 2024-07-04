@@ -23,7 +23,6 @@ import androidx.navigation.fragment.findNavController
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetDetailsBinding
 import com.omouravictor.invest_view.presenter.base.UiState
-import com.omouravictor.invest_view.presenter.wallet.AssetsListViewModel
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.asset_search.AssetSearchViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
@@ -53,7 +52,6 @@ class AssetDetailsFragment : Fragment() {
     private lateinit var binding: FragmentAssetDetailsBinding
     private lateinit var assetUiModel: AssetUiModel
     private val assetSearchViewModel: AssetSearchViewModel by activityViewModels()
-    private val assetsListViewModel: AssetsListViewModel by activityViewModels()
     private val walletViewModel: WalletViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -171,7 +169,6 @@ class AssetDetailsFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 assetSearchViewModel.assetQuoteUiStateFlow.collectLatest {
                     when (it) {
-                        is UiState.Initial -> Unit
                         is UiState.Loading -> setupLoadingLayoutForAssetQuote(true)
                         is UiState.Success -> {
                             setupLoadingLayoutForAssetQuote(false)
@@ -193,6 +190,8 @@ class AssetDetailsFragment : Fragment() {
                             binding.incLayoutVariation.root.visibility = View.INVISIBLE
                             binding.ivReloadVariation.visibility = View.VISIBLE
                         }
+
+                        else -> Unit
                     }
                 }
             }
@@ -202,18 +201,14 @@ class AssetDetailsFragment : Fragment() {
     private fun observeAssetDetailsUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                walletViewModel.uiStateFlow.collectLatest {
+                walletViewModel.assetUiState.collectLatest {
                     when (it) {
-                        is UiState.Initial -> Unit
                         is UiState.Loading -> {
                             binding.mainLayout.visibility = View.INVISIBLE
                             binding.incProgressBar.root.visibility = View.VISIBLE
                         }
 
-                        is UiState.Success -> {
-                            assetsListViewModel.removeAsset(assetUiModel)
-                            findNavController().clearPileAndNavigateToStart()
-                        }
+                        is UiState.Success -> findNavController().clearPileAndNavigateToStart()
 
                         is UiState.Error -> {
                             val activity = requireActivity()
@@ -221,6 +216,8 @@ class AssetDetailsFragment : Fragment() {
                             binding.incProgressBar.root.visibility = View.GONE
                             activity.showErrorSnackBar(activity.getGenericErrorMessage(it.e))
                         }
+
+                        else -> Unit
                     }
                 }
             }

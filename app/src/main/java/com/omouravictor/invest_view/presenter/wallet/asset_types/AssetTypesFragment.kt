@@ -21,20 +21,20 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetsBinding
 import com.omouravictor.invest_view.presenter.wallet.WalletFragmentDirections
-import com.omouravictor.invest_view.presenter.wallet.AssetsListViewModel
+import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.util.showPieChart
 
 class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
 
     private lateinit var binding: FragmentAssetsBinding
     private lateinit var pieChart: PieChart
-    private val assetsListViewModel: AssetsListViewModel by activityViewModels()
+    private val walletViewModel: WalletViewModel by activityViewModels()
     private val assetTypesAdapter = AssetTypesAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         assetTypesAdapter.apply {
-            updateItemsList(assetsListViewModel.assetsListStateFlow.value)
+            updateItemsList(walletViewModel.assetsList.value)
             updateOnClickItem { findNavController().navigate(WalletFragmentDirections.navToAssetDetailFragment(it)) }
         }
     }
@@ -56,14 +56,14 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
     override fun onValueSelected(e: Entry?, h: Highlight?) {
         val assetType = (e as PieEntry).label
         val filteredAssets =
-            assetsListViewModel.assetsListStateFlow.value.filter { getString(it.assetType.nameResId) == assetType }
+            walletViewModel.assetsList.value.filter { getString(it.assetType.nameResId) == assetType }
 
         updatePieChartCenterText(filteredAssets.size)
         assetTypesAdapter.updateItemsList(filteredAssets)
     }
 
     override fun onNothingSelected() {
-        val assetsList = assetsListViewModel.assetsListStateFlow.value
+        val assetsList = walletViewModel.assetsList.value
         updatePieChartCenterText(assetsList.size)
         assetTypesAdapter.updateItemsList(assetsList)
     }
@@ -79,7 +79,7 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
 
     private fun setupPieChart() {
         val context = requireContext()
-        val assetsList = assetsListViewModel.assetsListStateFlow.value
+        val assetsList = walletViewModel.assetsList.value
         val assetTypes = assetsList.map { it.assetType }.distinct()
         val colorsList = arrayListOf<Int>()
         val pieEntries = assetTypes.map { assetType ->

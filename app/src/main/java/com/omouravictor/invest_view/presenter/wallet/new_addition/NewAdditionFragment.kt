@@ -15,7 +15,6 @@ import androidx.navigation.fragment.findNavController
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentNewAdditionBinding
 import com.omouravictor.invest_view.presenter.base.UiState
-import com.omouravictor.invest_view.presenter.wallet.AssetsListViewModel
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAmount
@@ -38,7 +37,6 @@ class NewAdditionFragment : Fragment() {
 
     private lateinit var binding: FragmentNewAdditionBinding
     private lateinit var assetUiModelArg: AssetUiModel
-    private val assetsListViewModel: AssetsListViewModel by activityViewModels()
     private val walletViewModel: WalletViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -171,9 +169,8 @@ class NewAdditionFragment : Fragment() {
     private fun observeSaveUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                walletViewModel.uiStateFlow.collectLatest {
+                walletViewModel.assetUiState.collectLatest {
                     when (it) {
-                        is UiState.Initial -> Unit
                         is UiState.Loading -> {
                             binding.newAdditionLayout.visibility = View.INVISIBLE
                             binding.incProgressBar.root.visibility = View.VISIBLE
@@ -183,7 +180,6 @@ class NewAdditionFragment : Fragment() {
                             val navController = findNavController()
                             val previousBackStackEntry = navController.previousBackStackEntry
                             val updatedAssetUiModel = it.data
-                            assetsListViewModel.updateAsset(updatedAssetUiModel)
                             previousBackStackEntry?.savedStateHandle?.set(
                                 ConstantUtil.SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL, updatedAssetUiModel
                             )
@@ -196,6 +192,8 @@ class NewAdditionFragment : Fragment() {
                             binding.incProgressBar.root.visibility = View.GONE
                             activity.showErrorSnackBar(activity.getGenericErrorMessage(it.e))
                         }
+
+                        else -> Unit
                     }
                 }
             }

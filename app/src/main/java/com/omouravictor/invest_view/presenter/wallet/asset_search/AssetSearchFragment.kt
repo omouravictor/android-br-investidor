@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetSearchBinding
 import com.omouravictor.invest_view.presenter.base.UiState
-import com.omouravictor.invest_view.presenter.wallet.AssetsListViewModel
+import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.util.getGenericErrorMessage
 import com.omouravictor.invest_view.util.hideKeyboard
@@ -32,7 +32,7 @@ class AssetSearchFragment : Fragment() {
 
     private lateinit var binding: FragmentAssetSearchBinding
     private lateinit var searchView: SearchView
-    private val assetsListViewModel: AssetsListViewModel by activityViewModels()
+    private val walletViewModel: WalletViewModel by activityViewModels()
     private val assetSearchViewModel: AssetSearchViewModel by activityViewModels()
     private val assetBySearchAdapter = AssetBySearchAdapter()
     private var assetUiModel = AssetUiModel()
@@ -87,7 +87,7 @@ class AssetSearchFragment : Fragment() {
     private fun setupAdapterAndRecyclerView() {
         assetBySearchAdapter.updateOnClickItem { assetUiModel ->
             val symbol = assetUiModel.symbol
-            val existingAsset = assetsListViewModel.assetsListStateFlow.value.find { it.symbol == symbol }
+            val existingAsset = walletViewModel.assetsList.value.find { it.symbol == symbol }
             if (existingAsset == null) {
                 this.assetUiModel = assetUiModel
                 assetSearchViewModel.loadAssetQuote(symbol)
@@ -132,7 +132,6 @@ class AssetSearchFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 assetSearchViewModel.assetsBySearchUiStateFlow.collectLatest {
                     when (it) {
-                        is UiState.Initial -> Unit
                         is UiState.Loading -> setupViewsForAssetsBySearch(isLoading = true)
                         is UiState.Success -> {
                             val assetsBySearchList = it.data
@@ -141,6 +140,7 @@ class AssetSearchFragment : Fragment() {
                         }
 
                         is UiState.Error -> handleErrors(it.e)
+                        else -> Unit
                     }
                 }
             }
@@ -152,7 +152,6 @@ class AssetSearchFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 assetSearchViewModel.assetQuoteUiStateFlow.collectLatest {
                     when (it) {
-                        is UiState.Initial -> Unit
                         is UiState.Loading -> {
                             binding.recyclerView.isVisible = false
                             binding.incProgressBar.root.isVisible = true
@@ -166,6 +165,7 @@ class AssetSearchFragment : Fragment() {
                         }
 
                         is UiState.Error -> handleErrors(it.e)
+                        else -> Unit
                     }
                 }
             }
