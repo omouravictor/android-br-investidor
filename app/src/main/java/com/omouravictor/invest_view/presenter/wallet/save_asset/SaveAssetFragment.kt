@@ -27,9 +27,11 @@ import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.asset_types.AssetTypes
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
+import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbolAndAmount
+import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalPrice
+import com.omouravictor.invest_view.presenter.wallet.model.getFormattedYield
 import com.omouravictor.invest_view.util.ConstantUtil
 import com.omouravictor.invest_view.util.LocaleUtil
-import com.omouravictor.invest_view.util.calculateAndSetupVariationLayout
 import com.omouravictor.invest_view.util.clearPileAndNavigateToStart
 import com.omouravictor.invest_view.util.getGenericErrorMessage
 import com.omouravictor.invest_view.util.getOnlyNumbers
@@ -91,12 +93,11 @@ class SaveAssetFragment : Fragment() {
 
     private fun setupViews() {
         val context = requireContext()
-        val formattedSymbol = assetUiModelArg.getFormattedSymbol()
 
-        binding.etSymbol.setText(formattedSymbol)
+        binding.etSymbol.setText(assetUiModelArg.getFormattedSymbol())
         binding.etLocation.setText(assetUiModelArg.region)
         binding.incItemListAsset.color.setBackgroundColor(context.getColor(assetUiModelArg.assetType.colorResId))
-        binding.incItemListAsset.tvSymbol.text = formattedSymbol
+        binding.incItemListAsset.tvSymbolAmount.text = assetUiModelArg.getFormattedSymbolAndAmount()
         binding.incItemListAsset.tvName.text = assetUiModelArg.name
         binding.incItemListAsset.tvInfoMessage.hint = getString(R.string.fillTheFieldsToView)
         setupAmountAndTotalInvested()
@@ -149,25 +150,20 @@ class SaveAssetFragment : Fragment() {
         binding.incItemListAsset.apply {
             val amount = getAmount()
             if (amount != 0L) {
-                val totalPrice = assetUiModelArg.price * amount
-                val totalInvested = getTotalInvested()
-                val currency = assetUiModelArg.currency
+                assetUiModelArg.amount = amount
+                assetUiModelArg.totalInvested = getTotalInvested()
 
-                tvAmount.text = "(${binding.ietAmount.text.toString()})"
-                tvTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, totalPrice)
-                incLayoutVariation.calculateAndSetupVariationLayout(
-                    textSize = 12f,
-                    currency = currency,
-                    reference = totalPrice,
-                    totalReference = totalInvested
-                )
-                layoutAssetInfo.visibility = View.VISIBLE
+                tvSymbolAmount.text = assetUiModelArg.getFormattedSymbolAndAmount()
+                tvTotalPrice.text = assetUiModelArg.getFormattedTotalPrice()
+                tvYield.text = assetUiModelArg.getFormattedYield()
+
+                tvYield.visibility = View.VISIBLE
                 tvInfoMessage.visibility = View.INVISIBLE
                 binding.incBtnSave.root.isEnabled = true
 
             } else {
                 tvInfoMessage.visibility = View.VISIBLE
-                layoutAssetInfo.visibility = View.INVISIBLE
+                tvYield.visibility = View.INVISIBLE
                 binding.incBtnSave.root.isEnabled = false
             }
         }

@@ -38,8 +38,6 @@ object AssetUtil {
         }
     }
 
-    fun getFormattedSymbol(symbol: String): String {
-        return symbol.substringBefore(".")
-    }
+    fun getFormattedSymbol(symbol: String) = symbol.substringBefore(".")
 
 }

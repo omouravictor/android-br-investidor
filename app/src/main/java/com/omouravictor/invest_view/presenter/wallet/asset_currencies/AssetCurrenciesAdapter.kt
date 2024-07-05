@@ -8,12 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.omouravictor.invest_view.databinding.ItemListAssetBinding
 import com.omouravictor.invest_view.presenter.base.BaseRecyclerViewAdapter
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
-import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAmount
-import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
+import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbolAndAmount
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalPrice
-import com.omouravictor.invest_view.presenter.wallet.model.getTotalPrice
+import com.omouravictor.invest_view.presenter.wallet.model.getFormattedYield
 import com.omouravictor.invest_view.util.AssetUtil
-import com.omouravictor.invest_view.util.calculateAndSetupVariationLayout
 
 class AssetCurrenciesAdapter : BaseRecyclerViewAdapter<AssetUiModel, AssetCurrenciesAdapter.AssetViewHolder>() {
 
@@ -31,17 +29,11 @@ class AssetCurrenciesAdapter : BaseRecyclerViewAdapter<AssetUiModel, AssetCurren
         fun bind(assetUiModel: AssetUiModel) {
             val currencyResColor = AssetUtil.getCurrencyResColor(assetUiModel.currency)
             binding.color.setBackgroundColor(ContextCompat.getColor(binding.root.context, currencyResColor))
-            binding.tvSymbol.text = assetUiModel.getFormattedSymbol()
-            binding.tvAmount.text = "(${assetUiModel.getFormattedAmount()})"
+            binding.tvSymbolAmount.text = assetUiModel.getFormattedSymbolAndAmount()
             binding.tvName.text = assetUiModel.name
             binding.tvTotalPrice.text = assetUiModel.getFormattedTotalPrice()
+            binding.tvYield.text = assetUiModel.getFormattedYield()
             itemView.setOnClickListener { onClickItem(assetUiModel) }
-            binding.incLayoutVariation.calculateAndSetupVariationLayout(
-                textSize = 12f,
-                currency = assetUiModel.currency,
-                reference = assetUiModel.getTotalPrice(),
-                totalReference = assetUiModel.totalInvested
-            )
         }
     }
 }

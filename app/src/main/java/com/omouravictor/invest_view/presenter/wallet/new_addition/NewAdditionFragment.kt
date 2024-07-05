@@ -17,15 +17,16 @@ import com.omouravictor.invest_view.databinding.FragmentNewAdditionBinding
 import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
-import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAmount
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
+import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbolAndAmount
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalPrice
+import com.omouravictor.invest_view.presenter.wallet.model.getFormattedYield
 import com.omouravictor.invest_view.presenter.wallet.model.getTotalPrice
 import com.omouravictor.invest_view.util.ConstantUtil
 import com.omouravictor.invest_view.util.LocaleUtil
-import com.omouravictor.invest_view.util.calculateAndSetupVariationLayout
 import com.omouravictor.invest_view.util.getGenericErrorMessage
 import com.omouravictor.invest_view.util.getOnlyNumbers
+import com.omouravictor.invest_view.util.getRoundedDouble
 import com.omouravictor.invest_view.util.setEditTextCurrencyFormatMask
 import com.omouravictor.invest_view.util.setEditTextLongNumberFormatMask
 import com.omouravictor.invest_view.util.setupToolbarCenterText
@@ -68,7 +69,7 @@ class NewAdditionFragment : Fragment() {
         val context = requireContext()
 
         binding.incUpdatedItemListAsset.color.setBackgroundColor(context.getColor(assetUiModelArg.assetType.colorResId))
-        binding.incUpdatedItemListAsset.tvSymbol.text = assetUiModelArg.getFormattedSymbol()
+        binding.incUpdatedItemListAsset.tvSymbolAmount.text = assetUiModelArg.getFormattedSymbolAndAmount()
         binding.incUpdatedItemListAsset.tvName.text = assetUiModelArg.name
         binding.incUpdatedItemListAsset.tvInfoMessage.hint = getString(R.string.fillTheFieldsToView)
         setupAmountAndValuePerUnit()
@@ -94,23 +95,17 @@ class NewAdditionFragment : Fragment() {
     private fun setupCurrentPosition() {
         binding.incItemListAsset.apply {
             color.setBackgroundColor(root.context.getColor(assetUiModelArg.assetType.colorResId))
-            tvSymbol.text = assetUiModelArg.getFormattedSymbol()
-            tvAmount.text = "(${assetUiModelArg.getFormattedAmount()})"
+            tvSymbolAmount.text = assetUiModelArg.getFormattedSymbolAndAmount()
             tvName.text = assetUiModelArg.name
             tvTotalPrice.text = assetUiModelArg.getFormattedTotalPrice()
-            incLayoutVariation.calculateAndSetupVariationLayout(
-                textSize = 12f,
-                currency = assetUiModelArg.currency,
-                reference = assetUiModelArg.getTotalPrice(),
-                totalReference = assetUiModelArg.totalInvested
-            )
+            tvYield.text = assetUiModelArg.getFormattedYield()
         }
     }
 
     private fun setupInitialUpdatedPositionLayout() {
         binding.incUpdatedItemListAsset.apply {
             tvInfoMessage.visibility = View.VISIBLE
-            layoutAssetInfo.visibility = View.INVISIBLE
+            tableLayout.visibility = View.INVISIBLE
             binding.incBtnSave.root.isEnabled = false
         }
     }
@@ -136,21 +131,29 @@ class NewAdditionFragment : Fragment() {
                 val updatedTotalPrice = (assetUiModelArg.price * amount) + assetUiModelArg.getTotalPrice()
                 val updatedTotalInvested = (valuePerUnit * amount) + assetUiModelArg.totalInvested
 
-                tvAmount.text = "(${LocaleUtil.getFormattedValueForLongNumber(updatedAmount)})"
+                tvSymbolAmount.text =
+                    "${assetUiModelArg.getFormattedSymbol()} (${LocaleUtil.getFormattedValueForLongNumber(updatedAmount)})"
                 tvTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, updatedTotalPrice)
-                incLayoutVariation.calculateAndSetupVariationLayout(
-                    textSize = 12f,
-                    currency = currency,
-                    reference = updatedTotalPrice,
-                    totalReference = updatedTotalInvested
-                )
-                layoutAssetInfo.visibility = View.VISIBLE
+                tvYield.text = getFormattedYield(currency, updatedTotalPrice, updatedTotalInvested)
+
+                tvYield.visibility = View.VISIBLE
                 tvInfoMessage.visibility = View.INVISIBLE
                 binding.incBtnSave.root.isEnabled = true
 
             } else
                 setupInitialUpdatedPositionLayout()
         }
+    }
+
+    private fun getFormattedYield(currency: String, totalPrice: Double, totalInvested: Double): String {
+        val yield = (totalPrice - totalInvested).getRoundedDouble()
+        val yieldPercent = yield / totalInvested
+
+        return "${LocaleUtil.getFormattedCurrencyValue(currency, yield)} (${
+            LocaleUtil.getFormattedValueForPercent(
+                yieldPercent
+            )
+        })"
     }
 
     private fun setupButtons() {
