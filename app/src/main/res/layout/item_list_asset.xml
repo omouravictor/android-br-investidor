@@ -42,6 +42,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:ellipsize="end"
+                    android:gravity="top"
                     android:maxLines="1"
                     android:textSize="@dimen/textSize2"
                     android:textStyle="bold"
@@ -53,8 +54,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:ellipsize="end"
+                    android:gravity="top|end"
                     android:maxLines="1"
-                    android:textAlignment="textEnd"
                     android:textSize="@dimen/textSize2"
                     tools:text="US$ 11,61" />
             </TableRow>
@@ -80,8 +81,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:ellipsize="end"
+                    android:gravity="bottom|end"
                     android:maxLines="1"
-                    android:textAlignment="textEnd"
                     android:textSize="@dimen/textSize1"
                     tools:text="+US$ 1,61 (16,1%)"
                     tools:textColor="@color/green" />
