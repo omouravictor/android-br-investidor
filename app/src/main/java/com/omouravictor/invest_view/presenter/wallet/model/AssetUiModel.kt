@@ -44,7 +44,7 @@ fun AssetUiModel.getFormattedYield(yield: Double): String {
     val formattedPercent = LocaleUtil.getFormattedValueForPercent(getYieldPercent(yield))
 
     return if (yield > 0)
-        "+$formattedYield ($formattedPercent)"
+        "+$formattedYield (+$formattedPercent)"
     else
         "$formattedYield ($formattedPercent)"
 }
