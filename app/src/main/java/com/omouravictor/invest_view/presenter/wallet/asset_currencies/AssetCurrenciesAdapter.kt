@@ -10,7 +10,7 @@ import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbolAndAmount
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalPrice
 import com.omouravictor.invest_view.util.AssetUtil
-import com.omouravictor.invest_view.util.setupVariationForAsset
+import com.omouravictor.invest_view.util.setupYieldForAsset
 
 class AssetCurrenciesAdapter : BaseRecyclerViewAdapter<AssetUiModel, AssetCurrenciesAdapter.AssetViewHolder>() {
 
@@ -30,7 +30,7 @@ class AssetCurrenciesAdapter : BaseRecyclerViewAdapter<AssetUiModel, AssetCurren
             binding.tvSymbolAmount.text = assetUiModel.getFormattedSymbolAndAmount()
             binding.tvName.text = assetUiModel.name
             binding.tvTotalPrice.text = assetUiModel.getFormattedTotalPrice()
-            binding.tvYield.setupVariationForAsset(assetUiModel)
+            binding.tvYield.setupYieldForAsset(assetUiModel)
             itemView.setOnClickListener { onClickItem(assetUiModel) }
         }
     }

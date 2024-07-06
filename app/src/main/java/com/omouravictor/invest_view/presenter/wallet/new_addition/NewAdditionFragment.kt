@@ -29,7 +29,7 @@ import com.omouravictor.invest_view.util.getRoundedDouble
 import com.omouravictor.invest_view.util.setEditTextCurrencyFormatMask
 import com.omouravictor.invest_view.util.setEditTextLongNumberFormatMask
 import com.omouravictor.invest_view.util.setupToolbarCenterText
-import com.omouravictor.invest_view.util.setupVariationForAsset
+import com.omouravictor.invest_view.util.setupYieldForAsset
 import com.omouravictor.invest_view.util.showErrorSnackBar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -75,7 +75,7 @@ class NewAdditionFragment : Fragment() {
             incCurrentPosition.tvSymbolAmount.text = formattedSymbolAndAmount
             incCurrentPosition.tvName.text = assetUiModelArg.name
             incCurrentPosition.tvTotalPrice.text = assetUiModelArg.getFormattedTotalPrice()
-            incCurrentPosition.tvYield.setupVariationForAsset(assetUiModelArg)
+            incCurrentPosition.tvYield.setupYieldForAsset(assetUiModelArg)
 
             incUpdatedPosition.color.setBackgroundColor(color)
             incUpdatedPosition.tvSymbolAmount.text = formattedSymbolAndAmount

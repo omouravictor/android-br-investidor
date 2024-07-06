@@ -36,7 +36,7 @@ import com.omouravictor.invest_view.util.clearPileAndNavigateToStart
 import com.omouravictor.invest_view.util.getGenericErrorMessage
 import com.omouravictor.invest_view.util.setupToolbarCenterText
 import com.omouravictor.invest_view.util.setupVariation
-import com.omouravictor.invest_view.util.setupVariationForAsset
+import com.omouravictor.invest_view.util.setupYieldForAsset
 import com.omouravictor.invest_view.util.showErrorSnackBar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -114,7 +114,7 @@ class AssetDetailsFragment : Fragment() {
             tvAmount.text = assetUiModel.getFormattedAmount()
             tvTotalInvested.text = assetUiModel.getFormattedTotalInvested()
             tvTotalPrice.text = assetUiModel.getFormattedTotalPrice()
-            tvYield.setupVariationForAsset(assetUiModel)
+            tvYield.setupYieldForAsset(assetUiModel)
             ivReloadVariation.setOnClickListener { assetSearchViewModel.loadAssetQuote(assetUiModel.symbol) }
         }
     }

@@ -36,7 +36,7 @@ import com.omouravictor.invest_view.util.getOnlyNumbers
 import com.omouravictor.invest_view.util.setEditTextCurrencyFormatMask
 import com.omouravictor.invest_view.util.setEditTextLongNumberFormatMask
 import com.omouravictor.invest_view.util.setupToolbarCenterText
-import com.omouravictor.invest_view.util.setupVariationForAsset
+import com.omouravictor.invest_view.util.setupYieldForAsset
 import com.omouravictor.invest_view.util.showErrorSnackBar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -151,7 +151,7 @@ class SaveAssetFragment : Fragment() {
 
                 tvSymbolAmount.text = assetUiModelArg.getFormattedSymbolAndAmount()
                 tvTotalPrice.text = assetUiModelArg.getFormattedTotalPrice()
-                tvYield.setupVariationForAsset(assetUiModelArg)
+                tvYield.setupYieldForAsset(assetUiModelArg)
 
                 tableLayout.visibility = View.VISIBLE
                 tvInfoMessage.visibility = View.INVISIBLE

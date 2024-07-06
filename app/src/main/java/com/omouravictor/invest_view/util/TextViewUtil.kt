@@ -32,7 +32,7 @@ fun TextView.setupVariation(currency: String, variation: Double, variationPercen
 }
 
 @SuppressLint("SetTextI18n")
-fun TextView.setupVariationForAsset(assetUiModel: AssetUiModel) {
+fun TextView.setupYieldForAsset(assetUiModel: AssetUiModel) {
     if (assetUiModel.totalInvested == 0.0) {
         text = ""
         return
