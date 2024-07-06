@@ -103,19 +103,25 @@ class AssetDetailsFragment : Fragment() {
     }
 
     private fun setupViews() {
-        val context = requireContext()
-        binding.tvAssetType.text = getString(assetUiModel.assetType.nameResId)
-        binding.tvAssetType.backgroundTintList = getColorStateList(context, assetUiModel.assetType.colorResId)
-        binding.tvAssetCurrency.text = assetUiModel.currency
-        binding.tvAssetCurrency.backgroundTintList =
-            getColorStateList(context, AssetUtil.getCurrencyResColor(assetUiModel.currency))
-        binding.tvName.text = assetUiModel.name
-        binding.tvPrice.text = assetUiModel.getFormattedAssetPrice()
-        binding.tvAmount.text = assetUiModel.getFormattedAmount()
-        binding.tvTotalInvested.text = assetUiModel.getFormattedTotalInvested()
-        binding.tvTotalPrice.text = assetUiModel.getFormattedTotalPrice()
-        binding.tvYield.setupVariationTextView(assetUiModel.currency, assetUiModel.getYield(), assetUiModel.getYieldPercent())
-        binding.ivReloadVariation.setOnClickListener { assetSearchViewModel.loadAssetQuote(assetUiModel.symbol) }
+        binding.apply {
+            val context = root.context
+            tvAssetType.text = getString(assetUiModel.assetType.nameResId)
+            tvAssetType.backgroundTintList = getColorStateList(context, assetUiModel.assetType.colorResId)
+            tvAssetCurrency.text = assetUiModel.currency
+            tvAssetCurrency.backgroundTintList =
+                getColorStateList(context, AssetUtil.getCurrencyResColor(assetUiModel.currency))
+            tvName.text = assetUiModel.name
+            tvPrice.text = assetUiModel.getFormattedAssetPrice()
+            tvAmount.text = assetUiModel.getFormattedAmount()
+            tvTotalInvested.text = assetUiModel.getFormattedTotalInvested()
+            tvTotalPrice.text = assetUiModel.getFormattedTotalPrice()
+            tvYield.setupVariationTextView(
+                assetUiModel.currency,
+                assetUiModel.getYield(),
+                assetUiModel.getYieldPercent()
+            )
+            ivReloadVariation.setOnClickListener { assetSearchViewModel.loadAssetQuote(assetUiModel.symbol) }
+        }
     }
 
     private fun setupButtons() {
