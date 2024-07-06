@@ -1,6 +1,5 @@
 package com.omouravictor.invest_view.presenter.wallet.asset_currencies
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -11,7 +10,9 @@ import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbolAndAmount
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalPrice
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedYield
+import com.omouravictor.invest_view.presenter.wallet.model.getYield
 import com.omouravictor.invest_view.util.AssetUtil
+import com.omouravictor.invest_view.util.setupYieldTextColor
 
 class AssetCurrenciesAdapter : BaseRecyclerViewAdapter<AssetUiModel, AssetCurrenciesAdapter.AssetViewHolder>() {
 
@@ -24,7 +25,6 @@ class AssetCurrenciesAdapter : BaseRecyclerViewAdapter<AssetUiModel, AssetCurren
         holder.bind(itemsList[position])
     }
 
-    @SuppressLint("SetTextI18n")
     inner class AssetViewHolder(private val binding: ItemListAssetBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(assetUiModel: AssetUiModel) {
             val currencyResColor = AssetUtil.getCurrencyResColor(assetUiModel.currency)
@@ -33,6 +33,7 @@ class AssetCurrenciesAdapter : BaseRecyclerViewAdapter<AssetUiModel, AssetCurren
             binding.tvName.text = assetUiModel.name
             binding.tvTotalPrice.text = assetUiModel.getFormattedTotalPrice()
             binding.tvYield.text = assetUiModel.getFormattedYield()
+            binding.setupYieldTextColor(assetUiModel.getYield())
             itemView.setOnClickListener { onClickItem(assetUiModel) }
         }
     }

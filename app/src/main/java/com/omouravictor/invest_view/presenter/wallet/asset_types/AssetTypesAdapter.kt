@@ -1,6 +1,5 @@
 package com.omouravictor.invest_view.presenter.wallet.asset_types
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -11,6 +10,8 @@ import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbolAndAmount
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalPrice
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedYield
+import com.omouravictor.invest_view.presenter.wallet.model.getYield
+import com.omouravictor.invest_view.util.setupYieldTextColor
 
 class AssetTypesAdapter : BaseRecyclerViewAdapter<AssetUiModel, AssetTypesAdapter.AssetViewHolder>() {
 
@@ -23,7 +24,6 @@ class AssetTypesAdapter : BaseRecyclerViewAdapter<AssetUiModel, AssetTypesAdapte
         holder.bind(itemsList[position])
     }
 
-    @SuppressLint("SetTextI18n")
     inner class AssetViewHolder(private val binding: ItemListAssetBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(assetUiModel: AssetUiModel) {
             binding.color
@@ -32,6 +32,7 @@ class AssetTypesAdapter : BaseRecyclerViewAdapter<AssetUiModel, AssetTypesAdapte
             binding.tvName.text = assetUiModel.name
             binding.tvTotalPrice.text = assetUiModel.getFormattedTotalPrice()
             binding.tvYield.text = assetUiModel.getFormattedYield()
+            binding.setupYieldTextColor(assetUiModel.getYield())
             itemView.setOnClickListener { onClickItem(assetUiModel) }
         }
     }

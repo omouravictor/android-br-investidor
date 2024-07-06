@@ -40,5 +40,10 @@ fun AssetUiModel.getFormattedTotalPrice() = getFormattedCurrencyValue(currency, 
 
 fun AssetUiModel.getFormattedTotalInvested() = getFormattedCurrencyValue(currency, totalInvested)
 
-fun AssetUiModel.getFormattedYield() =
-    "${getFormattedCurrencyValue(currency, getYield())} (${getFormattedValueForPercent(getYieldPercent())})"
+fun AssetUiModel.getFormattedYield(): String {
+    val yield = getYield()
+    return if (yield > 0)
+        "+${getFormattedCurrencyValue(currency, yield)} (${getFormattedValueForPercent(getYieldPercent())})"
+    else
+        "${getFormattedCurrencyValue(currency, yield)} (${getFormattedValueForPercent(getYieldPercent())})"
+}
