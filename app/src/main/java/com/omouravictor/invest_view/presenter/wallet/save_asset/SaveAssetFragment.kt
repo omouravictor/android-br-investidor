@@ -71,7 +71,7 @@ class SaveAssetFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
-        walletViewModel.resetUiState()
+        walletViewModel.resetAssetUiState()
     }
 
     private fun setupToolbar() {

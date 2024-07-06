@@ -90,7 +90,7 @@ class WalletViewModel @Inject constructor(
         }
     }
 
-    fun resetUiState() {
+    fun resetAssetUiState() {
         _assetUiState.value = UiState.Initial
     }
 

@@ -70,7 +70,7 @@ class AssetDetailsFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         assetSearchViewModel.resetAssetQuoteUiState()
-        walletViewModel.resetUiState()
+        walletViewModel.resetAssetUiState()
     }
 
     private fun initAssetUiModel() {
