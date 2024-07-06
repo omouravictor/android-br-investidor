@@ -93,14 +93,15 @@ class SaveAssetFragment : Fragment() {
     }
 
     private fun setupViews() {
-        val context = requireContext()
-
-        binding.etSymbol.setText(assetUiModelArg.getFormattedSymbol())
-        binding.etLocation.setText(assetUiModelArg.region)
-        binding.incItemListAsset.color.setBackgroundColor(context.getColor(assetUiModelArg.assetType.colorResId))
-        binding.incItemListAsset.tvSymbolAmount.text = assetUiModelArg.getFormattedSymbolAndAmount()
-        binding.incItemListAsset.tvName.text = assetUiModelArg.name
-        binding.incItemListAsset.tvInfoMessage.hint = getString(R.string.fillTheFieldsToView)
+        binding.apply {
+            val context = root.context
+            etSymbol.setText(assetUiModelArg.getFormattedSymbol())
+            etLocation.setText(assetUiModelArg.region)
+            incItemListAsset.color.setBackgroundColor(context.getColor(assetUiModelArg.assetType.colorResId))
+            incItemListAsset.tvSymbolAmount.text = assetUiModelArg.getFormattedSymbolAndAmount()
+            incItemListAsset.tvName.text = assetUiModelArg.name
+            incItemListAsset.tvInfoMessage.hint = getString(R.string.fillTheFieldsToView)
+        }
         setupAmountAndTotalInvested()
     }
 
