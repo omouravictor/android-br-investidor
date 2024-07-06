@@ -147,29 +147,6 @@
                 <TableRow>
 
                     <TextView
-                        android:id="@+id/tvTittleTotalInvested"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/totalInvested"
-                        android:textColor="@color/tableTittleTextColor" />
-
-                    <TextView
-                        android:id="@+id/tvTotalInvested"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
-                        tools:text="R$ 100,00" />
-                </TableRow>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginVertical="10dp"
-                    android:background="@color/lineColor" />
-
-                <TableRow>
-
-                    <TextView
                         android:id="@+id/tvTittleCurrentPosition"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -182,6 +159,29 @@
                         android:layout_height="wrap_content"
                         android:gravity="end"
                         tools:text="R$ 38,26" />
+                </TableRow>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginVertical="10dp"
+                    android:background="@color/lineColor" />
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/tvTittleTotalInvested"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/totalInvested"
+                        android:textColor="@color/tableTittleTextColor" />
+
+                    <TextView
+                        android:id="@+id/tvTotalInvested"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        tools:text="R$ 100,00" />
                 </TableRow>
 
                 <View
