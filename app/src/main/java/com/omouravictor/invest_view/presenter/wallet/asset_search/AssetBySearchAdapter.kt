@@ -30,11 +30,13 @@ class AssetBySearchAdapter :
 
         @SuppressLint("SetTextI18n")
         fun bind(assetUiModel: AssetUiModel) {
-            binding.color.setBackgroundColor(ContextCompat.getColor(context, R.color.green))
-            binding.tvSymbol.text = assetUiModel.getFormattedSymbol()
+            val assetType = assetUiModel.assetType
+            binding.color.setBackgroundColor(ContextCompat.getColor(context, R.color.gray))
+            binding.tvSymbol.text = "${assetUiModel.getFormattedSymbol()} (${assetUiModel.currency})"
             binding.tvName.text = assetUiModel.name
-            binding.tvCurrency.text = "(${assetUiModel.currency})"
-            binding.tvAssetType.text = context.getString(assetUiModel.assetType.nameResId)
+            binding.tvAssetType.text = context.getString(assetType.nameResId)
+            binding.tvAssetType.backgroundTintList =
+                ContextCompat.getColorStateList(context, assetType.colorResId)
             itemView.setOnClickListener { onClickItem(assetUiModel) }
         }
     }
