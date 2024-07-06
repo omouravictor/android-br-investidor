@@ -110,7 +110,7 @@ class SaveAssetFragment : Fragment() {
             doAfterTextChanged { setupCurrentPosition() }
             setEditTextLongNumberFormatMask()
             val amount = assetUiModelArg.amount
-            setText(if (amount != 0L) LocaleUtil.getFormattedValueForLongNumber(amount) else "1")
+            setText(if (amount != 0L) LocaleUtil.getFormattedLong(amount) else "1")
         }
 
         binding.ietTotalInvested.apply {

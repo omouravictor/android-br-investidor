@@ -16,7 +16,7 @@ fun EditText.setEditTextLongNumberFormatMask() {
             removeTextChangedListener(this)
 
             val amount = text.toString().getOnlyNumbers().toLong()
-            val formattedAmount = LocaleUtil.getFormattedValueForLongNumber(amount)
+            val formattedAmount = LocaleUtil.getFormattedLong(amount)
             setText(formattedAmount)
             setSelection(formattedAmount.length)
 

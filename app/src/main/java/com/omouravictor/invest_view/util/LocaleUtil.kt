@@ -14,12 +14,12 @@ object LocaleUtil {
         return currencyFormat.format(value)
     }
 
-    fun getFormattedValueForLongNumber(value: Long): String {
+    fun getFormattedLong(value: Long): String {
         val intNumberFormat = NumberFormat.getIntegerInstance(appLocale)
         return intNumberFormat.format(value)
     }
 
-    fun getFormattedValueForPercent(value: Double): String {
+    fun getFormattedPercent(value: Double): String {
         val percentFormat = NumberFormat.getPercentInstance(appLocale)
         percentFormat.maximumFractionDigits = 2
         return percentFormat.format(value)

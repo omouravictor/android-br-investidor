@@ -28,7 +28,7 @@ fun AssetUiModel.getYieldPercent() = getYield() / totalInvested
 
 fun AssetUiModel.getFormattedSymbol() = AssetUtil.getFormattedSymbol(symbol)
 
-fun AssetUiModel.getFormattedAmount() = LocaleUtil.getFormattedValueForLongNumber(amount)
+fun AssetUiModel.getFormattedAmount() = LocaleUtil.getFormattedLong(amount)
 
 fun AssetUiModel.getFormattedSymbolAndAmount() = "${getFormattedSymbol()} (${getFormattedAmount()})"
 
@@ -41,7 +41,7 @@ fun AssetUiModel.getFormattedTotalInvested() = LocaleUtil.getFormattedCurrencyVa
 fun AssetUiModel.getFormattedYield(yield: Double): String {
     if (totalInvested == 0.0) return ""
     val formattedYield = LocaleUtil.getFormattedCurrencyValue(currency, yield)
-    val formattedPercent = LocaleUtil.getFormattedValueForPercent(getYieldPercent())
+    val formattedPercent = LocaleUtil.getFormattedPercent(getYieldPercent())
 
     return if (yield > 0)
         "+$formattedYield (+$formattedPercent)"

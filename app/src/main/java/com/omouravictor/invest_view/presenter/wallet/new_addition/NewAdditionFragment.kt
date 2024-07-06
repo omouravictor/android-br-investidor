@@ -88,7 +88,7 @@ class NewAdditionFragment : Fragment() {
         ietAmount.setEditTextLongNumberFormatMask()
         ietValuePerUnit.setEditTextCurrencyFormatMask(currency)
 
-        ietAmount.hint = LocaleUtil.getFormattedValueForLongNumber(0)
+        ietAmount.hint = LocaleUtil.getFormattedLong(0)
         ietValuePerUnit.hint = LocaleUtil.getFormattedCurrencyValue(currency, 0.0)
     }
 
@@ -132,7 +132,7 @@ class NewAdditionFragment : Fragment() {
                 val updatedTotalInvested = (valuePerUnit * amount) + assetUiModelArg.totalInvested
 
                 tvSymbolAmount.text =
-                    "${assetUiModelArg.getFormattedSymbol()} (${LocaleUtil.getFormattedValueForLongNumber(updatedAmount)})"
+                    "${assetUiModelArg.getFormattedSymbol()} (${LocaleUtil.getFormattedLong(updatedAmount)})"
                 tvTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, updatedTotalPrice)
                 tvYield.text = getFormattedYield(currency, updatedTotalPrice, updatedTotalInvested)
 
@@ -150,7 +150,7 @@ class NewAdditionFragment : Fragment() {
         val yieldPercent = yield / totalInvested
 
         return "${LocaleUtil.getFormattedCurrencyValue(currency, yield)} (${
-            LocaleUtil.getFormattedValueForPercent(
+            LocaleUtil.getFormattedPercent(
                 yieldPercent
             )
         })"

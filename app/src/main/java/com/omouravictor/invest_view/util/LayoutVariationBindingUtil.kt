@@ -20,7 +20,7 @@ fun LayoutVariationBinding.calculateAndSetupVariationLayout(
         this.setupLayoutVariationVisibility(true)
         this.setupColorsAndArrow(variation)
         this.tvVariation.text = LocaleUtil.getFormattedCurrencyValue(currency, variation)
-        this.tvVariationPercent.text = LocaleUtil.getFormattedValueForPercent(variation / totalReference)
+        this.tvVariationPercent.text = LocaleUtil.getFormattedPercent(variation / totalReference)
     }
 }
 

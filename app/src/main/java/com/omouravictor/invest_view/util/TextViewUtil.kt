@@ -11,8 +11,8 @@ fun TextView.setupVariationTextView(currency: String, variation: Double, variati
         .let { if (variation > 0) "+$it" else it }
 
     val formattedPercent = variationPercent?.let {
-        if (variation > 0) "+${LocaleUtil.getFormattedValueForPercent(it)}"
-        else LocaleUtil.getFormattedValueForPercent(it)
+        if (variation > 0) "+${LocaleUtil.getFormattedPercent(it)}"
+        else LocaleUtil.getFormattedPercent(it)
     }
 
     text = if (formattedPercent != null) "$formattedValue ($formattedPercent)" else formattedValue
