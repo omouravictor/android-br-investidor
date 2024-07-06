@@ -106,23 +106,21 @@ class SaveAssetFragment : Fragment() {
     }
 
     private fun setupAmountAndTotalInvested() {
-        val currency = assetUiModelArg.currency
-        val ietAmount = binding.ietAmount
-        val ietTotalInvested = binding.ietTotalInvested
+        binding.ietAmount.apply {
+            doAfterTextChanged { setupCurrentPosition() }
+            setEditTextLongNumberFormatMask()
+            val amount = assetUiModelArg.amount
+            setText(if (amount != 0L) LocaleUtil.getFormattedValueForLongNumber(amount) else "1")
+        }
 
-        ietAmount.doAfterTextChanged { updateCurrentPosition() }
-        ietTotalInvested.doAfterTextChanged { updateCurrentPosition() }
-        ietAmount.setEditTextLongNumberFormatMask()
-        ietTotalInvested.setEditTextCurrencyFormatMask(currency)
-
-        val amount = assetUiModelArg.amount
-        ietAmount.setText(if (amount != 0L) LocaleUtil.getFormattedValueForLongNumber(amount) else "1")
-
-        ietTotalInvested.hint = LocaleUtil.getFormattedCurrencyValue(currency, 0.0)
-        val totalInvested = assetUiModelArg.totalInvested
-        ietTotalInvested.setText(
-            if (totalInvested != 0.0) LocaleUtil.getFormattedCurrencyValue(currency, totalInvested) else ""
-        )
+        binding.ietTotalInvested.apply {
+            val currency = assetUiModelArg.currency
+            doAfterTextChanged { setupCurrentPosition() }
+            setEditTextCurrencyFormatMask(currency)
+            hint = LocaleUtil.getFormattedCurrencyValue(currency, 0.0)
+            val totalInvested = assetUiModelArg.totalInvested
+            setText(if (totalInvested != 0.0) LocaleUtil.getFormattedCurrencyValue(currency, totalInvested) else "")
+        }
     }
 
     private fun showInfoBottomSheetDialog(assetTypes: AssetTypes) {
@@ -147,7 +145,7 @@ class SaveAssetFragment : Fragment() {
         return if (totalInvestedText.isNotEmpty()) totalInvestedText.getOnlyNumbers().toDouble() / 100 else 0.0
     }
 
-    private fun updateCurrentPosition() {
+    private fun setupCurrentPosition() {
         binding.incItemListAsset.apply {
             val amount = getAmount()
             if (amount != 0L) {
