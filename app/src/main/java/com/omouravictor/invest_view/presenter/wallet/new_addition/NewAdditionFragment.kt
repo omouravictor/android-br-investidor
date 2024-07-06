@@ -29,6 +29,7 @@ import com.omouravictor.invest_view.util.getRoundedDouble
 import com.omouravictor.invest_view.util.setEditTextCurrencyFormatMask
 import com.omouravictor.invest_view.util.setEditTextLongNumberFormatMask
 import com.omouravictor.invest_view.util.setupToolbarCenterText
+import com.omouravictor.invest_view.util.setupVariation
 import com.omouravictor.invest_view.util.setupYieldForAsset
 import com.omouravictor.invest_view.util.showErrorSnackBar
 import kotlinx.coroutines.flow.collectLatest
@@ -129,11 +130,13 @@ class NewAdditionFragment : Fragment() {
                 val updatedAmount = additionAmount + assetUiModelArg.amount
                 val updatedTotalPrice = (assetUiModelArg.price * additionAmount) + assetUiModelArg.getTotalPrice()
                 val updatedTotalInvested = (valuePerUnit * additionAmount) + assetUiModelArg.totalInvested
+                val updatedYield = (updatedTotalPrice - updatedTotalInvested).getRoundedDouble()
+                val updatedYieldPercent = updatedYield / updatedTotalInvested
 
                 tvSymbolAmount.text =
                     "${assetUiModelArg.getFormattedSymbol()} (${LocaleUtil.getFormattedLong(updatedAmount)})"
                 tvTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, updatedTotalPrice)
-                tvYield.text = getFormattedYield(currency, updatedTotalPrice, updatedTotalInvested)
+                tvYield.setupVariation(currency, updatedYield, updatedYieldPercent)
 
                 tableLayout.visibility = View.VISIBLE
                 tvInfoMessage.visibility = View.INVISIBLE
@@ -142,17 +145,6 @@ class NewAdditionFragment : Fragment() {
             } else
                 showInitialUpdatedPositionLayout()
         }
-    }
-
-    private fun getFormattedYield(currency: String, totalPrice: Double, totalInvested: Double): String {
-        val yield = (totalPrice - totalInvested).getRoundedDouble()
-        val yieldPercent = yield / totalInvested
-
-        return "${LocaleUtil.getFormattedCurrencyValue(currency, yield)} (${
-            LocaleUtil.getFormattedPercent(
-                yieldPercent
-            )
-        })"
     }
 
     private fun setupButtons() {
