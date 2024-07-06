@@ -56,7 +56,8 @@
                     android:ellipsize="end"
                     android:gravity="top|end"
                     android:maxLines="1"
-                    android:textSize="@dimen/textSize2"
+                    android:textSize="@dimen/textSize1"
+                    android:textStyle="bold"
                     tools:text="US$ 11,61" />
             </TableRow>
 
@@ -71,7 +72,7 @@
                     android:gravity="bottom"
                     android:maxLines="1"
                     android:text="@string/totalInvested"
-                    android:textColor="@color/tableTittleTextColor"
+                    android:textColor="@color/grayDayNightColor"
                     android:textSize="@dimen/textSize1"
                     tools:text="Vale S.A." />
 
