@@ -36,6 +36,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_rectangle_1"
                 android:backgroundTint="@color/shimmerBackColor"
+                android:textSize="@dimen/textSize1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent=".2" />

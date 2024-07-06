@@ -115,7 +115,7 @@ class AssetDetailsFragment : Fragment() {
             tvTotalInvested.text = assetUiModel.getFormattedTotalInvested()
             tvTotalPrice.text = assetUiModel.getFormattedTotalPrice()
             tvYield.setupYieldForAsset(assetUiModel)
-            ivReloadVariation.setOnClickListener { assetSearchViewModel.loadAssetQuote(assetUiModel.symbol) }
+            ivReloadChange.setOnClickListener { assetSearchViewModel.loadAssetQuote(assetUiModel.symbol) }
         }
     }
 
@@ -146,12 +146,12 @@ class AssetDetailsFragment : Fragment() {
             binding.incShimmerItemVariation.root.startShimmer()
             binding.incShimmerItemVariation.root.visibility = View.VISIBLE
             binding.tvChange.visibility = View.INVISIBLE
-            binding.ivReloadVariation.visibility = View.INVISIBLE
+            binding.ivReloadChange.visibility = View.INVISIBLE
         } else {
             binding.incShimmerItemVariation.root.stopShimmer()
             binding.incShimmerItemVariation.root.visibility = View.INVISIBLE
             binding.tvChange.visibility = View.VISIBLE
-            binding.ivReloadVariation.visibility = View.INVISIBLE
+            binding.ivReloadChange.visibility = View.INVISIBLE
         }
     }
 
@@ -173,7 +173,7 @@ class AssetDetailsFragment : Fragment() {
                         is UiState.Error -> {
                             setupLoadingLayoutForAssetQuote(false)
                             binding.tvChange.visibility = View.INVISIBLE
-                            binding.ivReloadVariation.visibility = View.VISIBLE
+                            binding.ivReloadChange.visibility = View.VISIBLE
                         }
 
                         else -> Unit
