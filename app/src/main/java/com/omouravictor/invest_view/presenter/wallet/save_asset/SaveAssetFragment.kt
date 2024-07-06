@@ -28,8 +28,6 @@ import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbolAndAmount
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalPrice
-import com.omouravictor.invest_view.presenter.wallet.model.getFormattedYield
-import com.omouravictor.invest_view.presenter.wallet.model.getYield
 import com.omouravictor.invest_view.util.ConstantUtil
 import com.omouravictor.invest_view.util.LocaleUtil
 import com.omouravictor.invest_view.util.clearPileAndNavigateToStart
@@ -38,7 +36,7 @@ import com.omouravictor.invest_view.util.getOnlyNumbers
 import com.omouravictor.invest_view.util.setEditTextCurrencyFormatMask
 import com.omouravictor.invest_view.util.setEditTextLongNumberFormatMask
 import com.omouravictor.invest_view.util.setupToolbarCenterText
-import com.omouravictor.invest_view.util.setupYieldTextColor
+import com.omouravictor.invest_view.util.setupVariationForAsset
 import com.omouravictor.invest_view.util.showErrorSnackBar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -98,7 +96,6 @@ class SaveAssetFragment : Fragment() {
             etSymbol.setText(assetUiModelArg.getFormattedSymbol())
             etLocation.setText(assetUiModelArg.region)
             incItemListAsset.color.setBackgroundColor(context.getColor(assetUiModelArg.assetType.colorResId))
-            incItemListAsset.tvSymbolAmount.text = assetUiModelArg.getFormattedSymbolAndAmount()
             incItemListAsset.tvName.text = assetUiModelArg.name
             incItemListAsset.tvInfoMessage.hint = getString(R.string.fillTheFieldsToView)
         }
@@ -154,9 +151,7 @@ class SaveAssetFragment : Fragment() {
 
                 tvSymbolAmount.text = assetUiModelArg.getFormattedSymbolAndAmount()
                 tvTotalPrice.text = assetUiModelArg.getFormattedTotalPrice()
-                val yield = assetUiModelArg.getYield()
-                tvYield.text = assetUiModelArg.getFormattedYield(yield)
-                setupYieldTextColor(yield)
+                tvYield.setupVariationForAsset(assetUiModelArg)
 
                 tableLayout.visibility = View.VISIBLE
                 tvInfoMessage.visibility = View.INVISIBLE

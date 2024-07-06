@@ -33,21 +33,26 @@ fun TextView.setupVariation(currency: String, variation: Double, variationPercen
 
 @SuppressLint("SetTextI18n")
 fun TextView.setupVariationForAsset(assetUiModel: AssetUiModel) {
-    val variation = assetUiModel.getYield()
+    if (assetUiModel.totalInvested == 0.0) {
+        text = ""
+        return
+    }
 
-    val formattedValue = LocaleUtil.getFormattedCurrencyValue(assetUiModel.currency, variation)
-        .let { if (variation > 0) "+$it" else it }
-
+    val yield = assetUiModel.getYield()
+    val formattedValue = LocaleUtil.getFormattedCurrencyValue(assetUiModel.currency, yield)
     val formattedPercent = LocaleUtil.getFormattedPercent(assetUiModel.getYieldPercent())
-        .let { if (variation > 0) "+$it" else it }
 
-    text = "$formattedValue ($formattedPercent)"
+    text = if (yield > 0) {
+        "+$formattedValue (+$formattedPercent)"
+    } else {
+        "$formattedValue ($formattedPercent)"
+    }
 
     setTextColor(
         ContextCompat.getColor(
             context, when {
-                variation > 0 -> R.color.green
-                variation < 0 -> R.color.red
+                yield > 0 -> R.color.green
+                yield < 0 -> R.color.red
                 else -> R.color.gray
             }
         )
