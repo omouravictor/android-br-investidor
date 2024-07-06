@@ -82,9 +82,9 @@
                 layout="@layout/shimmer_item"
                 android:layout_width="0dp"
                 android:layout_height="6dp"
-                app:layout_constraintBottom_toBottomOf="@+id/incLayoutVariation"
-                app:layout_constraintEnd_toEndOf="@+id/incLayoutVariation"
-                app:layout_constraintTop_toTopOf="@+id/incLayoutVariation"
+                app:layout_constraintBottom_toBottomOf="@+id/tvChange"
+                app:layout_constraintEnd_toEndOf="@+id/tvChange"
+                app:layout_constraintTop_toTopOf="@+id/tvChange"
                 app:layout_constraintWidth_percent=".25" />
 
             <ImageView
@@ -93,22 +93,25 @@
                 android:layout_height="0dp"
                 android:src="@drawable/ic_reload"
                 android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/incLayoutVariation"
-                app:layout_constraintEnd_toEndOf="@+id/incLayoutVariation"
-                app:layout_constraintTop_toTopOf="@+id/incLayoutVariation"
+                app:layout_constraintBottom_toBottomOf="@+id/tvChange"
+                app:layout_constraintEnd_toEndOf="@+id/tvChange"
+                app:layout_constraintTop_toTopOf="@+id/tvChange"
                 tools:visibility="visible" />
 
-            <include
-                android:id="@+id/incLayoutVariation"
-                layout="@layout/layout_variation"
+            <TextView
+                android:id="@+id/tvChange"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/defaultMargin"
                 android:ellipsize="end"
+                android:gravity="end"
                 android:maxLines="1"
+                android:textSize="13sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tvName"
-                app:layout_constraintWidth_percent=".5" />
+                app:layout_constraintWidth_percent=".5"
+                tools:text="+R$ 100,00 (+15,45%)"
+                tools:textColor="@color/green" />
 
             <TableLayout
                 android:id="@+id/tableLayout"

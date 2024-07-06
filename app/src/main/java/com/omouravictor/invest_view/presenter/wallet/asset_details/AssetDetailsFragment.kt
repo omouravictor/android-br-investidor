@@ -1,7 +1,6 @@
 package com.omouravictor.invest_view.presenter.wallet.asset_details
 
 import android.app.AlertDialog
-import android.graphics.Typeface
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -39,10 +38,7 @@ import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForPercent
 import com.omouravictor.invest_view.util.calculateAndSetupVariationLayout
 import com.omouravictor.invest_view.util.clearPileAndNavigateToStart
 import com.omouravictor.invest_view.util.getGenericErrorMessage
-import com.omouravictor.invest_view.util.setupColorsAndArrow
 import com.omouravictor.invest_view.util.setupLayoutVariationVisibility
-import com.omouravictor.invest_view.util.setupTextStyles
-import com.omouravictor.invest_view.util.setupTextsSize
 import com.omouravictor.invest_view.util.setupToolbarCenterText
 import com.omouravictor.invest_view.util.showErrorSnackBar
 import kotlinx.coroutines.flow.collectLatest
@@ -161,13 +157,31 @@ class AssetDetailsFragment : Fragment() {
         if (isLoading) {
             binding.incShimmerItemVariation.root.startShimmer()
             binding.incShimmerItemVariation.root.visibility = View.VISIBLE
-            binding.incLayoutVariation.root.visibility = View.INVISIBLE
+            binding.tvChange.visibility = View.INVISIBLE
             binding.ivReloadVariation.visibility = View.INVISIBLE
         } else {
             binding.incShimmerItemVariation.root.stopShimmer()
             binding.incShimmerItemVariation.root.visibility = View.INVISIBLE
-            binding.incLayoutVariation.root.visibility = View.VISIBLE
+            binding.tvChange.visibility = View.VISIBLE
             binding.ivReloadVariation.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun setupChangeTextView(change: Double, changePercent: Double?) {
+        val formattedValue = getFormattedCurrencyValue(assetUiModel.currency, change)
+        val formattedPercent = getFormattedValueForPercent(changePercent?.div(100) ?: 0.0)
+
+        binding.tvChange.apply {
+            if (change > 0) {
+                text = if (changePercent != null) "+$formattedValue (+$formattedPercent)" else "+$formattedValue"
+                setTextColor(ContextCompat.getColor(context, R.color.green))
+            } else if (change < 0) {
+                text = if (changePercent != null) "$formattedValue ($formattedPercent)" else formattedValue
+                setTextColor(ContextCompat.getColor(context, R.color.red))
+            } else {
+                text = if (changePercent != null) "$formattedValue ($formattedPercent)" else formattedValue
+                setTextColor(ContextCompat.getColor(context, R.color.gray))
+            }
         }
     }
 
@@ -179,22 +193,14 @@ class AssetDetailsFragment : Fragment() {
                         is UiState.Loading -> setupLoadingLayoutForAssetQuote(true)
                         is UiState.Success -> {
                             setupLoadingLayoutForAssetQuote(false)
-                            val variation = it.data.change
-                            val variationPercent =
-                                it.data.changePercent.removeSuffix("%").toDoubleOrNull()?.div(100)
-
-                            binding.incLayoutVariation.apply {
-                                tvVariation.text = getFormattedCurrencyValue(assetUiModel.currency, variation)
-                                tvVariationPercent.text = getFormattedValueForPercent(variationPercent)
-                                this.setupTextsSize(13f)
-                                this.setupTextStyles(Typeface.DEFAULT_BOLD)
-                                this.setupColorsAndArrow(variation)
-                            }
+                            val change = it.data.change
+                            val changePercent = it.data.changePercent.removeSuffix("%").toDoubleOrNull()
+                            setupChangeTextView(change, changePercent)
                         }
 
                         is UiState.Error -> {
                             setupLoadingLayoutForAssetQuote(false)
-                            binding.incLayoutVariation.root.visibility = View.INVISIBLE
+                            binding.tvChange.visibility = View.INVISIBLE
                             binding.ivReloadVariation.visibility = View.VISIBLE
                         }
 
