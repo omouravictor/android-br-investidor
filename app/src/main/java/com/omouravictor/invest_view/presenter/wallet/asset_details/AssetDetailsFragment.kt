@@ -170,7 +170,9 @@ class AssetDetailsFragment : Fragment() {
                             setupLoadingLayoutForAssetQuote(false)
                             val change = it.data.change
                             val changePercent = it.data.changePercent.removeSuffix("%").toDoubleOrNull()
-                            binding.tvChange.setupVariationTextView(assetUiModel.currency, change, changePercent)
+                            binding.tvChange.setupVariationTextView(
+                                assetUiModel.currency, change, changePercent?.div(100)
+                            )
                         }
 
                         is UiState.Error -> {
