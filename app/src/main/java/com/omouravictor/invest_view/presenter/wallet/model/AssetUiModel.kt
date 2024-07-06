@@ -26,7 +26,7 @@ fun AssetUiModel.getTotalPrice() = price * amount
 
 fun AssetUiModel.getYield() = (getTotalPrice() - totalInvested).getRoundedDouble()
 
-fun AssetUiModel.getYieldPercent() = getYield() / totalInvested
+fun AssetUiModel.getYieldPercent(yield: Double) = yield / totalInvested
 
 fun AssetUiModel.getFormattedSymbol() = AssetUtil.getFormattedSymbol(symbol)
 
@@ -43,7 +43,7 @@ fun AssetUiModel.getFormattedTotalInvested() = getFormattedCurrencyValue(currenc
 fun AssetUiModel.getFormattedYield(): String {
     val yield = getYield()
     return if (yield > 0)
-        "+${getFormattedCurrencyValue(currency, yield)} (${getFormattedValueForPercent(getYieldPercent())})"
+        "+${getFormattedCurrencyValue(currency, yield)} (${getFormattedValueForPercent(getYieldPercent(yield))})"
     else
-        "${getFormattedCurrencyValue(currency, yield)} (${getFormattedValueForPercent(getYieldPercent())})"
+        "${getFormattedCurrencyValue(currency, yield)} (${getFormattedValueForPercent(getYieldPercent(yield))})"
 }
