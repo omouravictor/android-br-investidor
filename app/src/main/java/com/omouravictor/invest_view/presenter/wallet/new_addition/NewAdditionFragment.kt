@@ -67,50 +67,50 @@ class NewAdditionFragment : Fragment() {
     }
 
     private fun setupViews() {
-        val context = requireContext()
+        binding.apply {
+            val context = root.context
+            val color = context.getColor(assetUiModelArg.assetType.colorResId)
+            val formattedSymbolAndAmount = assetUiModelArg.getFormattedSymbolAndAmount()
 
-        binding.incUpdatedItemListAsset.color.setBackgroundColor(context.getColor(assetUiModelArg.assetType.colorResId))
-        binding.incUpdatedItemListAsset.tvSymbolAmount.text = assetUiModelArg.getFormattedSymbolAndAmount()
-        binding.incUpdatedItemListAsset.tvName.text = assetUiModelArg.name
-        binding.incUpdatedItemListAsset.tvInfoMessage.hint = getString(R.string.fillTheFieldsToView)
+            incCurrentPosition.color.setBackgroundColor(color)
+            incCurrentPosition.tvSymbolAmount.text = formattedSymbolAndAmount
+            incCurrentPosition.tvName.text = assetUiModelArg.name
+            incCurrentPosition.tvTotalPrice.text = assetUiModelArg.getFormattedTotalPrice()
+            incCurrentPosition.tvYield.text = assetUiModelArg.getFormattedYield(assetUiModelArg.getYield())
+
+            incUpdatedPosition.color.setBackgroundColor(color)
+            incUpdatedPosition.tvSymbolAmount.text = formattedSymbolAndAmount
+            incUpdatedPosition.tvName.text = assetUiModelArg.name
+            incUpdatedPosition.tvInfoMessage.hint = getString(R.string.fillTheFieldsToView)
+        }
         setupAmountAndValuePerUnit()
-        setupCurrentPosition()
         setupInitialUpdatedPositionLayout()
     }
 
     private fun setupAmountAndValuePerUnit() {
-        val currency = assetUiModelArg.currency
-        val ietAmount = binding.ietAmount
-        val ietValuePerUnit = binding.ietValuePerUnit
+        binding.ietAmount.apply {
+            doAfterTextChanged { updatePosition() }
+            setEditTextLongNumberFormatMask()
+            hint = LocaleUtil.getFormattedLong(0)
+        }
 
-        ietAmount.doAfterTextChanged { updateUpdatedPosition() }
-        ietValuePerUnit.doAfterTextChanged { updateUpdatedPosition() }
-        ietAmount.setEditTextLongNumberFormatMask()
-        ietValuePerUnit.setEditTextCurrencyFormatMask(currency)
-
-        ietAmount.hint = LocaleUtil.getFormattedLong(0)
-        ietValuePerUnit.hint = LocaleUtil.getFormattedCurrencyValue(currency, 0.0)
-    }
-
-    private fun setupCurrentPosition() {
-        binding.incItemListAsset.apply {
-            color.setBackgroundColor(root.context.getColor(assetUiModelArg.assetType.colorResId))
-            tvSymbolAmount.text = assetUiModelArg.getFormattedSymbolAndAmount()
-            tvName.text = assetUiModelArg.name
-            tvTotalPrice.text = assetUiModelArg.getFormattedTotalPrice()
-            tvYield.text = assetUiModelArg.getFormattedYield(assetUiModelArg.getYield())
+        binding.ietValuePerUnit.apply {
+            val currency = assetUiModelArg.currency
+            doAfterTextChanged { updatePosition() }
+            setEditTextCurrencyFormatMask(currency)
+            hint = LocaleUtil.getFormattedCurrencyValue(currency, 0.0)
         }
     }
 
     private fun setupInitialUpdatedPositionLayout() {
-        binding.incUpdatedItemListAsset.apply {
+        binding.incUpdatedPosition.apply {
             tvInfoMessage.visibility = View.VISIBLE
             tableLayout.visibility = View.INVISIBLE
             binding.incBtnSave.root.isEnabled = false
         }
     }
 
-    private fun getAmount(): Long {
+    private fun getAdditionAmount(): Long {
         val amountText = binding.ietAmount.text.toString()
         return if (amountText.isNotEmpty()) amountText.getOnlyNumbers().toLong() else 0
     }
@@ -121,15 +121,15 @@ class NewAdditionFragment : Fragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun updateUpdatedPosition() {
-        binding.incUpdatedItemListAsset.apply {
-            val amount = getAmount()
+    private fun updatePosition() {
+        binding.incUpdatedPosition.apply {
+            val additionAmount = getAdditionAmount()
             val valuePerUnit = getValuePerUnit()
-            if (amount != 0L && valuePerUnit != 0.0) {
+            if (additionAmount != 0L && valuePerUnit != 0.0) {
                 val currency = assetUiModelArg.currency
-                val updatedAmount = amount + assetUiModelArg.amount
-                val updatedTotalPrice = (assetUiModelArg.price * amount) + assetUiModelArg.getTotalPrice()
-                val updatedTotalInvested = (valuePerUnit * amount) + assetUiModelArg.totalInvested
+                val updatedAmount = additionAmount + assetUiModelArg.amount
+                val updatedTotalPrice = (assetUiModelArg.price * additionAmount) + assetUiModelArg.getTotalPrice()
+                val updatedTotalInvested = (valuePerUnit * additionAmount) + assetUiModelArg.totalInvested
 
                 tvSymbolAmount.text =
                     "${assetUiModelArg.getFormattedSymbol()} (${LocaleUtil.getFormattedLong(updatedAmount)})"
@@ -160,10 +160,10 @@ class NewAdditionFragment : Fragment() {
         binding.incBtnSave.root.apply {
             text = getString(R.string.save)
             setOnClickListener {
-                val amount = getAmount()
-                val totalInvested = getValuePerUnit() * amount
-                assetUiModelArg.amount += amount
-                assetUiModelArg.totalInvested += totalInvested
+                val additionAmount = getAdditionAmount()
+                val additionTotalInvested = getValuePerUnit() * additionAmount
+                assetUiModelArg.amount += additionAmount
+                assetUiModelArg.totalInvested += additionTotalInvested
                 walletViewModel.saveAsset(assetUiModelArg)
             }
         }
