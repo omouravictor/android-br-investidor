@@ -1,6 +1,5 @@
 package com.omouravictor.invest_view.presenter.wallet.asset_details
 
-import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
 import android.text.SpannableString
@@ -31,16 +30,14 @@ import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAssetPric
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalInvested
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalPrice
-import com.omouravictor.invest_view.presenter.wallet.model.getTotalPrice
+import com.omouravictor.invest_view.presenter.wallet.model.getYield
+import com.omouravictor.invest_view.presenter.wallet.model.getYieldPercent
 import com.omouravictor.invest_view.util.AssetUtil
 import com.omouravictor.invest_view.util.ConstantUtil
-import com.omouravictor.invest_view.util.LocaleUtil.getFormattedCurrencyValue
-import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForPercent
-import com.omouravictor.invest_view.util.calculateAndSetupVariationLayout
 import com.omouravictor.invest_view.util.clearPileAndNavigateToStart
 import com.omouravictor.invest_view.util.getGenericErrorMessage
-import com.omouravictor.invest_view.util.setupLayoutVariationVisibility
 import com.omouravictor.invest_view.util.setupToolbarCenterText
+import com.omouravictor.invest_view.util.setupVariationTextView
 import com.omouravictor.invest_view.util.showErrorSnackBar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -117,18 +114,7 @@ class AssetDetailsFragment : Fragment() {
         binding.tvAmount.text = assetUiModel.getFormattedAmount()
         binding.tvTotalInvested.text = assetUiModel.getFormattedTotalInvested()
         binding.tvTotalPrice.text = assetUiModel.getFormattedTotalPrice()
-
-        if (assetUiModel.totalInvested > 0.0) {
-            binding.incLayoutYield.calculateAndSetupVariationLayout(
-                textSize = 14f,
-                currency = assetUiModel.currency,
-                reference = assetUiModel.getTotalPrice(),
-                totalReference = assetUiModel.totalInvested
-            )
-        } else {
-            binding.incLayoutYield.setupLayoutVariationVisibility(false, "-")
-        }
-
+        binding.tvYield.setupVariationTextView(assetUiModel.currency, assetUiModel.getYield(), assetUiModel.getYieldPercent())
         binding.ivReloadVariation.setOnClickListener { assetSearchViewModel.loadAssetQuote(assetUiModel.symbol) }
     }
 
@@ -168,27 +154,6 @@ class AssetDetailsFragment : Fragment() {
         }
     }
 
-    @SuppressLint("SetTextI18n")
-    private fun setupChangeTextView(change: Double, changePercent: Double?) {
-        val formattedValue = getFormattedCurrencyValue(assetUiModel.currency, change)
-            .let { if (change > 0) "+$it" else it }
-        val formattedPercent = changePercent?.div(100)
-            ?.let { if (change > 0) "+${getFormattedValueForPercent(it)}" else getFormattedValueForPercent(it) }
-
-        binding.tvChange.apply {
-            text = "$formattedValue ($formattedPercent)"
-            setTextColor(
-                ContextCompat.getColor(
-                    context, when {
-                        change > 0 -> R.color.green
-                        change < 0 -> R.color.red
-                        else -> R.color.gray
-                    }
-                )
-            )
-        }
-    }
-
     private fun observeAssetQuoteUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -199,7 +164,7 @@ class AssetDetailsFragment : Fragment() {
                             setupLoadingLayoutForAssetQuote(false)
                             val change = it.data.change
                             val changePercent = it.data.changePercent.removeSuffix("%").toDoubleOrNull()
-                            setupChangeTextView(change, changePercent)
+                            binding.tvChange.setupVariationTextView(assetUiModel.currency, change, changePercent)
                         }
 
                         is UiState.Error -> {

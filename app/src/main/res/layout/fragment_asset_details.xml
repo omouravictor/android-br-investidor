@@ -202,12 +202,15 @@
                         android:text="@string/yield"
                         android:textColor="@color/tableTittleTextColor" />
 
-                    <include
-                        android:id="@+id/incLayoutYield"
-                        layout="@layout/layout_variation"
+                    <TextView
+                        android:id="@+id/tvYield"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="end" />
+                        android:ellipsize="end"
+                        android:gravity="end"
+                        android:maxLines="1"
+                        tools:text="+R$ 100,00 (+15,45%)"
+                        tools:textColor="@color/green" />
                 </TableRow>
 
                 <View
