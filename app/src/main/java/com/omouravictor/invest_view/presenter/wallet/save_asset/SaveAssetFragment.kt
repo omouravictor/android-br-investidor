@@ -159,13 +159,13 @@ class SaveAssetFragment : Fragment() {
                 tvYield.text = assetUiModelArg.getFormattedYield(yield)
                 setupYieldTextColor(yield)
 
-                tvYield.visibility = View.VISIBLE
+                tableLayout.visibility = View.VISIBLE
                 tvInfoMessage.visibility = View.INVISIBLE
                 binding.incBtnSave.root.isEnabled = true
 
             } else {
+                tableLayout.visibility = View.INVISIBLE
                 tvInfoMessage.visibility = View.VISIBLE
-                tvYield.visibility = View.INVISIBLE
                 binding.incBtnSave.root.isEnabled = false
             }
         }
