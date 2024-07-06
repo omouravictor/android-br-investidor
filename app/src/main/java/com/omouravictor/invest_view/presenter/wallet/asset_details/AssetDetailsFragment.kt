@@ -1,5 +1,6 @@
 package com.omouravictor.invest_view.presenter.wallet.asset_details
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
 import android.text.SpannableString
@@ -167,16 +168,15 @@ class AssetDetailsFragment : Fragment() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setupChangeTextView(change: Double, changePercent: Double?) {
         val formattedValue = getFormattedCurrencyValue(assetUiModel.currency, change)
-        val formattedPercent = changePercent?.div(100)?.let { getFormattedValueForPercent(it) }
+            .let { if (change > 0) "+$it" else it }
+        val formattedPercent = changePercent?.div(100)
+            ?.let { if (change > 0) "+${getFormattedValueForPercent(it)}" else getFormattedValueForPercent(it) }
 
         binding.tvChange.apply {
-            text = when {
-                changePercent != null -> "$formattedValue (${if (change > 0) "+" else ""}$formattedPercent)"
-                change > 0 -> "+$formattedValue"
-                else -> formattedValue
-            }
+            text = "$formattedValue ($formattedPercent)"
             setTextColor(
                 ContextCompat.getColor(
                     context, when {
