@@ -171,21 +171,21 @@ class AssetDetailsFragment : Fragment() {
         val formattedValue = getFormattedCurrencyValue(assetUiModel.currency, change)
         val formattedPercent = changePercent?.div(100)?.let { getFormattedValueForPercent(it) }
 
-        val textColor = when {
-            change > 0 -> R.color.green
-            change < 0 -> R.color.red
-            else -> R.color.gray
-        }
-
-        val changeText = when {
-            changePercent != null -> "$formattedValue (${if (change > 0) "+" else ""}$formattedPercent)"
-            change > 0 -> "+$formattedValue"
-            else -> formattedValue
-        }
-
         binding.tvChange.apply {
-            text = changeText
-            setTextColor(ContextCompat.getColor(context, textColor))
+            text = when {
+                changePercent != null -> "$formattedValue (${if (change > 0) "+" else ""}$formattedPercent)"
+                change > 0 -> "+$formattedValue"
+                else -> formattedValue
+            }
+            setTextColor(
+                ContextCompat.getColor(
+                    context, when {
+                        change > 0 -> R.color.green
+                        change < 0 -> R.color.red
+                        else -> R.color.gray
+                    }
+                )
+            )
         }
     }
 
