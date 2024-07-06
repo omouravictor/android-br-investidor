@@ -3,9 +3,7 @@ package com.omouravictor.invest_view.presenter.wallet.model
 import android.os.Parcelable
 import com.omouravictor.invest_view.presenter.wallet.asset_types.AssetTypes
 import com.omouravictor.invest_view.util.AssetUtil
-import com.omouravictor.invest_view.util.LocaleUtil.getFormattedCurrencyValue
-import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForLongNumber
-import com.omouravictor.invest_view.util.LocaleUtil.getFormattedValueForPercent
+import com.omouravictor.invest_view.util.LocaleUtil
 import com.omouravictor.invest_view.util.getRoundedDouble
 import kotlinx.parcelize.Parcelize
 
@@ -30,20 +28,20 @@ fun AssetUiModel.getYieldPercent(yield: Double) = yield / totalInvested
 
 fun AssetUiModel.getFormattedSymbol() = AssetUtil.getFormattedSymbol(symbol)
 
-fun AssetUiModel.getFormattedAmount() = getFormattedValueForLongNumber(amount)
+fun AssetUiModel.getFormattedAmount() = LocaleUtil.getFormattedValueForLongNumber(amount)
 
 fun AssetUiModel.getFormattedSymbolAndAmount() = "${getFormattedSymbol()} (${getFormattedAmount()})"
 
-fun AssetUiModel.getFormattedAssetPrice() = getFormattedCurrencyValue(currency, price)
+fun AssetUiModel.getFormattedAssetPrice() = LocaleUtil.getFormattedCurrencyValue(currency, price)
 
-fun AssetUiModel.getFormattedTotalPrice() = getFormattedCurrencyValue(currency, getTotalPrice())
+fun AssetUiModel.getFormattedTotalPrice() = LocaleUtil.getFormattedCurrencyValue(currency, getTotalPrice())
 
-fun AssetUiModel.getFormattedTotalInvested() = getFormattedCurrencyValue(currency, totalInvested)
+fun AssetUiModel.getFormattedTotalInvested() = LocaleUtil.getFormattedCurrencyValue(currency, totalInvested)
 
 fun AssetUiModel.getFormattedYield(): String {
     val yield = getYield()
     return if (yield > 0)
-        "+${getFormattedCurrencyValue(currency, yield)} (${getFormattedValueForPercent(getYieldPercent(yield))})"
+        "+${LocaleUtil.getFormattedCurrencyValue(currency, yield)} (${LocaleUtil.getFormattedValueForPercent(getYieldPercent(yield))})"
     else
-        "${getFormattedCurrencyValue(currency, yield)} (${getFormattedValueForPercent(getYieldPercent(yield))})"
+        "${LocaleUtil.getFormattedCurrencyValue(currency, yield)} (${LocaleUtil.getFormattedValueForPercent(getYieldPercent(yield))})"
 }
