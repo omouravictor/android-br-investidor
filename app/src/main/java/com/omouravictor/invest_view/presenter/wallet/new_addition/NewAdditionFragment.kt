@@ -22,6 +22,7 @@ import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbolAnd
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalPrice
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedYield
 import com.omouravictor.invest_view.presenter.wallet.model.getTotalPrice
+import com.omouravictor.invest_view.presenter.wallet.model.getYield
 import com.omouravictor.invest_view.util.ConstantUtil
 import com.omouravictor.invest_view.util.LocaleUtil
 import com.omouravictor.invest_view.util.getGenericErrorMessage
@@ -91,14 +92,13 @@ class NewAdditionFragment : Fragment() {
         ietValuePerUnit.hint = LocaleUtil.getFormattedCurrencyValue(currency, 0.0)
     }
 
-    @SuppressLint("SetTextI18n")
     private fun setupCurrentPosition() {
         binding.incItemListAsset.apply {
             color.setBackgroundColor(root.context.getColor(assetUiModelArg.assetType.colorResId))
             tvSymbolAmount.text = assetUiModelArg.getFormattedSymbolAndAmount()
             tvName.text = assetUiModelArg.name
             tvTotalPrice.text = assetUiModelArg.getFormattedTotalPrice()
-            tvYield.text = assetUiModelArg.getFormattedYield()
+            tvYield.text = assetUiModelArg.getFormattedYield(assetUiModelArg.getYield())
         }
     }
 

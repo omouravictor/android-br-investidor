@@ -1,6 +1,5 @@
 package com.omouravictor.invest_view.presenter.wallet.save_asset
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -30,6 +29,7 @@ import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbolAndAmount
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalPrice
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedYield
+import com.omouravictor.invest_view.presenter.wallet.model.getYield
 import com.omouravictor.invest_view.util.ConstantUtil
 import com.omouravictor.invest_view.util.LocaleUtil
 import com.omouravictor.invest_view.util.clearPileAndNavigateToStart
@@ -38,6 +38,7 @@ import com.omouravictor.invest_view.util.getOnlyNumbers
 import com.omouravictor.invest_view.util.setEditTextCurrencyFormatMask
 import com.omouravictor.invest_view.util.setEditTextLongNumberFormatMask
 import com.omouravictor.invest_view.util.setupToolbarCenterText
+import com.omouravictor.invest_view.util.setupYieldTextColor
 import com.omouravictor.invest_view.util.showErrorSnackBar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -145,7 +146,6 @@ class SaveAssetFragment : Fragment() {
         return if (totalInvestedText.isNotEmpty()) totalInvestedText.getOnlyNumbers().toDouble() / 100 else 0.0
     }
 
-    @SuppressLint("SetTextI18n")
     private fun updateCurrentPosition() {
         binding.incItemListAsset.apply {
             val amount = getAmount()
@@ -155,7 +155,9 @@ class SaveAssetFragment : Fragment() {
 
                 tvSymbolAmount.text = assetUiModelArg.getFormattedSymbolAndAmount()
                 tvTotalPrice.text = assetUiModelArg.getFormattedTotalPrice()
-                tvYield.text = assetUiModelArg.getFormattedYield()
+                val yield = assetUiModelArg.getYield()
+                tvYield.text = assetUiModelArg.getFormattedYield(yield)
+                setupYieldTextColor(yield)
 
                 tvYield.visibility = View.VISIBLE
                 tvInfoMessage.visibility = View.INVISIBLE
@@ -212,8 +214,6 @@ class SaveAssetFragment : Fragment() {
         binding.incBtnSave.root.apply {
             text = getString(R.string.save)
             setOnClickListener {
-                assetUiModelArg.amount = getAmount()
-                assetUiModelArg.totalInvested = getTotalInvested()
                 walletViewModel.saveAsset(assetUiModelArg)
             }
         }

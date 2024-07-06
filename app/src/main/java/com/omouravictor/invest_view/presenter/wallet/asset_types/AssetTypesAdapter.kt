@@ -31,8 +31,9 @@ class AssetTypesAdapter : BaseRecyclerViewAdapter<AssetUiModel, AssetTypesAdapte
             binding.tvSymbolAmount.text = assetUiModel.getFormattedSymbolAndAmount()
             binding.tvName.text = assetUiModel.name
             binding.tvTotalPrice.text = assetUiModel.getFormattedTotalPrice()
-            binding.tvYield.text = assetUiModel.getFormattedYield()
-            binding.setupYieldTextColor(assetUiModel.getYield())
+            val yield = assetUiModel.getYield()
+            binding.tvYield.text = assetUiModel.getFormattedYield(yield)
+            binding.setupYieldTextColor(yield)
             itemView.setOnClickListener { onClickItem(assetUiModel) }
         }
     }

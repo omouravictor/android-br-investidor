@@ -38,10 +38,13 @@ fun AssetUiModel.getFormattedTotalPrice() = LocaleUtil.getFormattedCurrencyValue
 
 fun AssetUiModel.getFormattedTotalInvested() = LocaleUtil.getFormattedCurrencyValue(currency, totalInvested)
 
-fun AssetUiModel.getFormattedYield(): String {
-    val yield = getYield()
+fun AssetUiModel.getFormattedYield(yield: Double): String {
+    if (totalInvested == 0.0) return ""
+    val formattedYield = LocaleUtil.getFormattedCurrencyValue(currency, yield)
+    val formattedPercent = LocaleUtil.getFormattedValueForPercent(getYieldPercent(yield))
+
     return if (yield > 0)
-        "+${LocaleUtil.getFormattedCurrencyValue(currency, yield)} (${LocaleUtil.getFormattedValueForPercent(getYieldPercent(yield))})"
+        "+$formattedYield ($formattedPercent)"
     else
-        "${LocaleUtil.getFormattedCurrencyValue(currency, yield)} (${LocaleUtil.getFormattedValueForPercent(getYieldPercent(yield))})"
+        "$formattedYield ($formattedPercent)"
 }
