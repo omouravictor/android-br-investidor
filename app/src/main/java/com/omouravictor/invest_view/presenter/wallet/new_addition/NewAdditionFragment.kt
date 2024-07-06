@@ -84,7 +84,7 @@ class NewAdditionFragment : Fragment() {
             incUpdatedPosition.tvInfoMessage.hint = getString(R.string.fillTheFieldsToView)
         }
         setupAmountAndValuePerUnit()
-        setupInitialUpdatedPositionLayout()
+        showInitialUpdatedPositionLayout()
     }
 
     private fun setupAmountAndValuePerUnit() {
@@ -102,7 +102,7 @@ class NewAdditionFragment : Fragment() {
         }
     }
 
-    private fun setupInitialUpdatedPositionLayout() {
+    private fun showInitialUpdatedPositionLayout() {
         binding.incUpdatedPosition.apply {
             tvInfoMessage.visibility = View.VISIBLE
             tableLayout.visibility = View.INVISIBLE
@@ -141,7 +141,7 @@ class NewAdditionFragment : Fragment() {
                 binding.incBtnSave.root.isEnabled = true
 
             } else
-                setupInitialUpdatedPositionLayout()
+                showInitialUpdatedPositionLayout()
         }
     }
 
