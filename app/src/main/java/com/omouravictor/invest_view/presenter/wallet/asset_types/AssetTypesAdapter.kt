@@ -9,9 +9,7 @@ import com.omouravictor.invest_view.presenter.base.BaseRecyclerViewAdapter
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbolAndAmount
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalPrice
-import com.omouravictor.invest_view.presenter.wallet.model.getFormattedYield
-import com.omouravictor.invest_view.presenter.wallet.model.getYield
-import com.omouravictor.invest_view.util.setupYieldTextColor
+import com.omouravictor.invest_view.util.setupVariationForAsset
 
 class AssetTypesAdapter : BaseRecyclerViewAdapter<AssetUiModel, AssetTypesAdapter.AssetViewHolder>() {
 
@@ -31,9 +29,7 @@ class AssetTypesAdapter : BaseRecyclerViewAdapter<AssetUiModel, AssetTypesAdapte
             binding.tvSymbolAmount.text = assetUiModel.getFormattedSymbolAndAmount()
             binding.tvName.text = assetUiModel.name
             binding.tvTotalPrice.text = assetUiModel.getFormattedTotalPrice()
-            val yield = assetUiModel.getYield()
-            binding.tvYield.text = assetUiModel.getFormattedYield(yield)
-            binding.setupYieldTextColor(yield)
+            binding.tvYield.setupVariationForAsset(assetUiModel)
             itemView.setOnClickListener { onClickItem(assetUiModel) }
         }
     }

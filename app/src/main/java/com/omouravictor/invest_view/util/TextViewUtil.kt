@@ -4,9 +4,12 @@ import android.annotation.SuppressLint
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.omouravictor.invest_view.R
+import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
+import com.omouravictor.invest_view.presenter.wallet.model.getYield
+import com.omouravictor.invest_view.presenter.wallet.model.getYieldPercent
 
 @SuppressLint("SetTextI18n")
-fun TextView.setupVariationTextView(currency: String, variation: Double, variationPercent: Double?) {
+fun TextView.setupVariation(currency: String, variation: Double, variationPercent: Double?) {
     val formattedValue = LocaleUtil.getFormattedCurrencyValue(currency, variation)
         .let { if (variation > 0) "+$it" else it }
 
@@ -16,6 +19,29 @@ fun TextView.setupVariationTextView(currency: String, variation: Double, variati
     }
 
     text = if (formattedPercent != null) "$formattedValue ($formattedPercent)" else formattedValue
+
+    setTextColor(
+        ContextCompat.getColor(
+            context, when {
+                variation > 0 -> R.color.green
+                variation < 0 -> R.color.red
+                else -> R.color.gray
+            }
+        )
+    )
+}
+
+@SuppressLint("SetTextI18n")
+fun TextView.setupVariationForAsset(assetUiModel: AssetUiModel) {
+    val variation = assetUiModel.getYield()
+
+    val formattedValue = LocaleUtil.getFormattedCurrencyValue(assetUiModel.currency, variation)
+        .let { if (variation > 0) "+$it" else it }
+
+    val formattedPercent = LocaleUtil.getFormattedPercent(assetUiModel.getYieldPercent())
+        .let { if (variation > 0) "+$it" else it }
+
+    text = "$formattedValue ($formattedPercent)"
 
     setTextColor(
         ContextCompat.getColor(

@@ -30,14 +30,13 @@ import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAssetPric
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalInvested
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalPrice
-import com.omouravictor.invest_view.presenter.wallet.model.getYield
-import com.omouravictor.invest_view.presenter.wallet.model.getYieldPercent
 import com.omouravictor.invest_view.util.AssetUtil
 import com.omouravictor.invest_view.util.ConstantUtil
 import com.omouravictor.invest_view.util.clearPileAndNavigateToStart
 import com.omouravictor.invest_view.util.getGenericErrorMessage
 import com.omouravictor.invest_view.util.setupToolbarCenterText
-import com.omouravictor.invest_view.util.setupVariationTextView
+import com.omouravictor.invest_view.util.setupVariation
+import com.omouravictor.invest_view.util.setupVariationForAsset
 import com.omouravictor.invest_view.util.showErrorSnackBar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -115,11 +114,7 @@ class AssetDetailsFragment : Fragment() {
             tvAmount.text = assetUiModel.getFormattedAmount()
             tvTotalInvested.text = assetUiModel.getFormattedTotalInvested()
             tvTotalPrice.text = assetUiModel.getFormattedTotalPrice()
-            tvYield.setupVariationTextView(
-                assetUiModel.currency,
-                assetUiModel.getYield(),
-                assetUiModel.getYieldPercent()
-            )
+            tvYield.setupVariationForAsset(assetUiModel)
             ivReloadVariation.setOnClickListener { assetSearchViewModel.loadAssetQuote(assetUiModel.symbol) }
         }
     }
@@ -170,7 +165,7 @@ class AssetDetailsFragment : Fragment() {
                             setupLoadingLayoutForAssetQuote(false)
                             val change = it.data.change
                             val changePercent = it.data.changePercent.removeSuffix("%").toDoubleOrNull()
-                            binding.tvChange.setupVariationTextView(
+                            binding.tvChange.setupVariation(
                                 assetUiModel.currency, change, changePercent?.div(100)
                             )
                         }

@@ -20,9 +20,7 @@ import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbolAndAmount
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalPrice
-import com.omouravictor.invest_view.presenter.wallet.model.getFormattedYield
 import com.omouravictor.invest_view.presenter.wallet.model.getTotalPrice
-import com.omouravictor.invest_view.presenter.wallet.model.getYield
 import com.omouravictor.invest_view.util.ConstantUtil
 import com.omouravictor.invest_view.util.LocaleUtil
 import com.omouravictor.invest_view.util.getGenericErrorMessage
@@ -31,6 +29,7 @@ import com.omouravictor.invest_view.util.getRoundedDouble
 import com.omouravictor.invest_view.util.setEditTextCurrencyFormatMask
 import com.omouravictor.invest_view.util.setEditTextLongNumberFormatMask
 import com.omouravictor.invest_view.util.setupToolbarCenterText
+import com.omouravictor.invest_view.util.setupVariationForAsset
 import com.omouravictor.invest_view.util.showErrorSnackBar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -76,7 +75,7 @@ class NewAdditionFragment : Fragment() {
             incCurrentPosition.tvSymbolAmount.text = formattedSymbolAndAmount
             incCurrentPosition.tvName.text = assetUiModelArg.name
             incCurrentPosition.tvTotalPrice.text = assetUiModelArg.getFormattedTotalPrice()
-            incCurrentPosition.tvYield.text = assetUiModelArg.getFormattedYield(assetUiModelArg.getYield())
+            incCurrentPosition.tvYield.setupVariationForAsset(assetUiModelArg)
 
             incUpdatedPosition.color.setBackgroundColor(color)
             incUpdatedPosition.tvSymbolAmount.text = formattedSymbolAndAmount
