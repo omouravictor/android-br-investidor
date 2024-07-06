@@ -55,8 +55,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupMainNavigation() {
-        val appBarConfiguration =
-            AppBarConfiguration(setOf(R.id.fragmentWallet, R.id.fragmentProfile))
+        val appBarConfiguration = AppBarConfiguration(setOf(R.id.fragmentWallet, R.id.fragmentProfile))
 
         navController =
             (supportFragmentManager.findFragmentById(R.id.navHostFragmentMain) as NavHostFragment).navController
@@ -108,7 +107,6 @@ class MainActivity : AppCompatActivity() {
         menu.setGroupVisible(R.id.walletGroup, walletGroupVisible)
     }
 
-    private fun setupOptionsMenuForWallet() =
-        setupOptionsMenu(walletGroupVisible = true)
+    private fun setupOptionsMenuForWallet() = setupOptionsMenu(walletGroupVisible = true)
 
 }

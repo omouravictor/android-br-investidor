@@ -9,6 +9,10 @@ import androidx.core.view.isVisible
 import com.google.android.material.snackbar.Snackbar
 import com.omouravictor.invest_view.R
 
+fun Activity.toolbarIsVisible(isVisible: Boolean) {
+    this.findViewById<Toolbar>(R.id.toolbar).isVisible = isVisible
+}
+
 fun Activity.setupToolbarCenterText(centerText: String) {
     this.findViewById<Toolbar>(R.id.toolbar).apply {
         title = ""
