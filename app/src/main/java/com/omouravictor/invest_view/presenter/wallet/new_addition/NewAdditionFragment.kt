@@ -103,8 +103,8 @@ class NewAdditionFragment : Fragment() {
 
     private fun showInitialUpdatedPositionLayout() {
         binding.incUpdatedPosition.apply {
-            tvInfoMessage.visibility = View.VISIBLE
             tableLayout.visibility = View.INVISIBLE
+            tvInfoMessage.visibility = View.VISIBLE
             binding.incBtnSave.root.isEnabled = false
         }
     }
@@ -135,7 +135,7 @@ class NewAdditionFragment : Fragment() {
                 tvTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, updatedTotalPrice)
                 tvYield.text = getFormattedYield(currency, updatedTotalPrice, updatedTotalInvested)
 
-                tvYield.visibility = View.VISIBLE
+                tableLayout.visibility = View.VISIBLE
                 tvInfoMessage.visibility = View.INVISIBLE
                 binding.incBtnSave.root.isEnabled = true
 
