@@ -166,6 +166,15 @@ class SaveAssetFragment : Fragment() {
         }
     }
 
+    private fun setupButtons() {
+        binding.incBtnSave.root.apply {
+            text = getString(R.string.save)
+            setOnClickListener {
+                walletViewModel.saveAsset(assetUiModelArg)
+            }
+        }
+    }
+
     private fun observeAssetUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -201,15 +210,6 @@ class SaveAssetFragment : Fragment() {
                         else -> Unit
                     }
                 }
-            }
-        }
-    }
-
-    private fun setupButtons() {
-        binding.incBtnSave.root.apply {
-            text = getString(R.string.save)
-            setOnClickListener {
-                walletViewModel.saveAsset(assetUiModelArg)
             }
         }
     }
