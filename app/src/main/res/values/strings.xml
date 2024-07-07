@@ -29,6 +29,14 @@
     <string name="fillAllFields">Preencha todos os campos.</string>
     <string name="deleteAssetAlertMessage">Tem certeza que deseja excluir este ativo da sua carteira?</string>
 
+    <!-- String arrays -->
+    <string-array name="assetFilterOptions">
+        <item>Posição atual</item>
+        <item>Rendimento</item>
+        <item>Quantidade</item>
+        <item>Símbolo</item>
+    </string-array>
+
     <!-- Error messages -->
     <string name="assetAlreadyExists">Você já possui este ativo na carteira.</string>
     <string name="assetLoadFailed">Não foi possível carregar este ativo</string>
