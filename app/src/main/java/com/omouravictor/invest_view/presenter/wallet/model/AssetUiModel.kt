@@ -22,9 +22,7 @@ data class AssetUiModel(
 
 fun AssetUiModel.getTotalPrice() = price * amount
 
-fun AssetUiModel.getYield() = (getTotalPrice() - totalInvested).getRoundedDouble()
-
-fun AssetUiModel.getYieldPercent() = getYield() / totalInvested
+fun AssetUiModel.getYield() = if (totalInvested == 0.0) null else (getTotalPrice() - totalInvested).getRoundedDouble()
 
 fun AssetUiModel.getFormattedSymbol() = AssetUtil.getFormattedSymbol(symbol)
 

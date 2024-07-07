@@ -6,7 +6,6 @@ import androidx.core.content.ContextCompat
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getYield
-import com.omouravictor.invest_view.presenter.wallet.model.getYieldPercent
 import java.lang.Double.NEGATIVE_INFINITY
 import java.lang.Double.POSITIVE_INFINITY
 
@@ -44,14 +43,15 @@ fun TextView.setupVariation(currency: String, variation: Double, variationPercen
 
 @SuppressLint("SetTextI18n")
 fun TextView.setupYieldForAsset(assetUiModel: AssetUiModel) {
-    if (assetUiModel.totalInvested == 0.0) {
+    val yield = assetUiModel.getYield()
+
+    if (yield == null) {
         text = ""
         return
     }
 
-    val yield = assetUiModel.getYield()
     val formattedValue = LocaleUtil.getFormattedCurrencyValue(assetUiModel.currency, yield)
-    val formattedPercent = LocaleUtil.getFormattedPercent(assetUiModel.getYieldPercent())
+    val formattedPercent = LocaleUtil.getFormattedPercent(yield / assetUiModel.totalInvested)
 
     text = if (yield > 0) {
         "+$formattedValue (+$formattedPercent)"
