@@ -25,7 +25,11 @@ fun TextView.setupVariation(currency: String, variation: Double, variationPercen
         else LocaleUtil.getFormattedPercent(it)
     }
 
-    text = if (formattedPercent != null) "$formattedValue ($formattedPercent)" else formattedValue
+    text = if (formattedPercent != null) {
+        "$formattedValue ($formattedPercent)"
+    } else {
+        formattedValue
+    }
 
     setTextColor(
         ContextCompat.getColor(
