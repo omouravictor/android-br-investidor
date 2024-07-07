@@ -7,9 +7,16 @@ import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getYield
 import com.omouravictor.invest_view.presenter.wallet.model.getYieldPercent
+import java.lang.Double.NEGATIVE_INFINITY
+import java.lang.Double.POSITIVE_INFINITY
 
 @SuppressLint("SetTextI18n")
 fun TextView.setupVariation(currency: String, variation: Double, variationPercent: Double?) {
+    if (variationPercent == POSITIVE_INFINITY || variationPercent == NEGATIVE_INFINITY) {
+        text = ""
+        return
+    }
+
     val formattedValue = LocaleUtil.getFormattedCurrencyValue(currency, variation)
         .let { if (variation > 0) "+$it" else it }
 
