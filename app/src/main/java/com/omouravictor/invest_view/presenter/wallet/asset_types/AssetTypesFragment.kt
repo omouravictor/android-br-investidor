@@ -7,6 +7,8 @@ import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -22,6 +24,8 @@ import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetsBinding
 import com.omouravictor.invest_view.presenter.wallet.WalletFragmentDirections
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
+import com.omouravictor.invest_view.presenter.wallet.model.getTotalPrice
+import com.omouravictor.invest_view.presenter.wallet.model.getYield
 import com.omouravictor.invest_view.util.showPieChart
 
 class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
@@ -30,6 +34,13 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
     private lateinit var pieChart: PieChart
     private val walletViewModel: WalletViewModel by activityViewModels()
     private val assetTypesAdapter = AssetTypesAdapter()
+
+    companion object {
+        private const val FILTER_BY_TOTAL_PRICE = 0
+        private const val FILTER_BY_YIELD = 1
+        private const val FILTER_BY_AMOUNT = 2
+        private const val FILTER_BY_SYMBOL = 3
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +61,7 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupPieChart()
+        setupSpinner()
         setupRecyclerView()
     }
 
@@ -94,6 +106,35 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
 
         context.showPieChart(pieChart, pieDataSet)
         updatePieChartCenterText(assetList.size)
+    }
+
+    private fun setupSpinner() {
+        val context = binding.spinner.context
+        val spinnerItems = context.resources.getStringArray(R.array.assetFilterOptions)
+        val spinnerAdapter = ArrayAdapter(context, R.layout.spinner_text_view, spinnerItems)
+            .apply { setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
+
+        binding.spinner.apply {
+            adapter = spinnerAdapter
+            onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    walletViewModel.assetList.value.let { assetList ->
+                        val filteredList = when (position) {
+                            FILTER_BY_TOTAL_PRICE -> assetList.sortedByDescending { it.getTotalPrice() }
+                            FILTER_BY_YIELD -> assetList.sortedByDescending { it.getYield() }
+                            FILTER_BY_AMOUNT -> assetList.sortedByDescending { it.amount }
+                            FILTER_BY_SYMBOL -> assetList.sortedBy { it.symbol }
+                            else -> assetList
+                        }
+
+                        updatePieChartCenterText(filteredList.size)
+                        assetTypesAdapter.updateItemsList(filteredList)
+                    }
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) = Unit
+            }
+        }
     }
 
     private fun setupRecyclerView() {
