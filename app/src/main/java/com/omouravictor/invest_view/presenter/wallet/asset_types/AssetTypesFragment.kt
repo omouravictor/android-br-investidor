@@ -127,7 +127,6 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
                             else -> assetList
                         }
 
-                        updatePieChartCenterText(filteredList.size)
                         assetTypesAdapter.updateItemsList(filteredList)
                     }
                 }
