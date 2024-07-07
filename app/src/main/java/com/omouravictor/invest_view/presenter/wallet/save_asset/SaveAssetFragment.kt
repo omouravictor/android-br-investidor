@@ -154,8 +154,7 @@ class SaveAssetFragment : Fragment() {
                 val yield = (totalPrice - totalInvested).getRoundedDouble()
                 val yieldPercent = yield / totalInvested
 
-                tvSymbolAmount.text =
-                    "${assetUiModelArg.getFormattedSymbol()} (${LocaleUtil.getFormattedLong(amount)})"
+                tvSymbolAmount.text = "${assetUiModelArg.getFormattedSymbol()} (${LocaleUtil.getFormattedLong(amount)})"
                 tvTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, totalPrice)
                 tvYield.setupVariation(currency, yield, yieldPercent)
 
