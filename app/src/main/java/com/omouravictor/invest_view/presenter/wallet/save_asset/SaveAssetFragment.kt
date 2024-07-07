@@ -81,6 +81,7 @@ class SaveAssetFragment : Fragment() {
         activity.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.options_menu_info, menu)
+                menu.findItem(R.id.infoMenuItem).icon?.setTint(ContextCompat.getColor(activity, assetType.colorResId))
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
