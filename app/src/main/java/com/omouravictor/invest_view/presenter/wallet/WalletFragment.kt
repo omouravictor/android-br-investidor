@@ -70,6 +70,8 @@ class WalletFragment : Fragment() {
             fragments = fragments
         )
 
+        viewPager2.offscreenPageLimit = fragments.size
+
         TabLayoutMediator(binding.tabLayout, viewPager2) { tab, position ->
             tab.text = fragments[position].second
         }.attach()
