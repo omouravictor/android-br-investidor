@@ -1,5 +1,6 @@
 package com.omouravictor.invest_view.presenter.wallet.save_asset
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -26,17 +27,16 @@ import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.asset_types.AssetTypes
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
-import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbolAndAmount
-import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalPrice
 import com.omouravictor.invest_view.util.ConstantUtil
 import com.omouravictor.invest_view.util.LocaleUtil
 import com.omouravictor.invest_view.util.clearPileAndNavigateToStart
 import com.omouravictor.invest_view.util.getGenericErrorMessage
 import com.omouravictor.invest_view.util.getOnlyNumbers
+import com.omouravictor.invest_view.util.getRoundedDouble
 import com.omouravictor.invest_view.util.setEditTextCurrencyFormatMask
 import com.omouravictor.invest_view.util.setEditTextLongNumberFormatMask
 import com.omouravictor.invest_view.util.setupToolbarCenterText
-import com.omouravictor.invest_view.util.setupYieldForAsset
+import com.omouravictor.invest_view.util.setupVariation
 import com.omouravictor.invest_view.util.showErrorSnackBar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -143,16 +143,21 @@ class SaveAssetFragment : Fragment() {
         return if (totalInvestedText.isNotEmpty()) totalInvestedText.getOnlyNumbers().toDouble() / 100 else 0.0
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setupCurrentPosition() {
         binding.incItemListAsset.apply {
             val amount = getAmount()
             if (amount != 0L) {
-                assetUiModelArg.amount = amount
-                assetUiModelArg.totalInvested = getTotalInvested()
+                val currency = assetUiModelArg.currency
+                val totalPrice = amount * assetUiModelArg.price
+                val totalInvested = getTotalInvested()
+                val yield = (totalPrice - totalInvested).getRoundedDouble()
+                val yieldPercent = yield / totalInvested
 
-                tvSymbolAmount.text = assetUiModelArg.getFormattedSymbolAndAmount()
-                tvTotalPrice.text = assetUiModelArg.getFormattedTotalPrice()
-                tvYield.setupYieldForAsset(assetUiModelArg)
+                tvSymbolAmount.text =
+                    "${assetUiModelArg.getFormattedSymbol()} (${LocaleUtil.getFormattedLong(amount)})"
+                tvTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, totalPrice)
+                tvYield.setupVariation(currency, yield, yieldPercent)
 
                 tableLayout.visibility = View.VISIBLE
                 tvInfoMessage.visibility = View.INVISIBLE
@@ -170,6 +175,8 @@ class SaveAssetFragment : Fragment() {
         binding.incBtnSave.root.apply {
             text = getString(R.string.save)
             setOnClickListener {
+                assetUiModelArg.amount = getAmount()
+                assetUiModelArg.totalInvested = getTotalInvested()
                 walletViewModel.saveAsset(assetUiModelArg)
             }
         }
