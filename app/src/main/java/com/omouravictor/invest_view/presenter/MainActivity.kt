@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat.Type.ime
 import androidx.core.view.WindowInsetsCompat.toWindowInsetsCompat
 import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -61,26 +62,27 @@ class MainActivity : AppCompatActivity() {
             (supportFragmentManager.findFragmentById(R.id.navHostFragmentMain) as NavHostFragment).navController
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            val destinationId = destination.id
+            when (destination.id) {
+                R.id.fragmentWallet -> {
+                    binding.tvToolbarCenterText.isVisible = false
+                    setupOptionsMenuForWallet()
+                }
 
-            when (destinationId) {
-                R.id.fragmentWallet -> setupOptionsMenuForWallet()
-                else -> setupOptionsMenu()
+                R.id.fragmentSaveAsset, R.id.fragmentAssetDetail, R.id.fragmentNewAddition -> {
+                    binding.tvToolbarCenterText.isVisible = true
+                    setupOptionsMenu()
+                }
+
+                else -> {
+                    binding.tvToolbarCenterText.isVisible = false
+                    setupOptionsMenu()
+                }
             }
-
-            setupToolbarCenterTextVisibility(destinationId)
         }
 
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
         binding.bottomNav.setupWithNavController(navController)
         supportActionBar?.title = navController.currentDestination?.label
-    }
-
-    private fun setupToolbarCenterTextVisibility(destinationId: Int) {
-        binding.tvToolbarCenterText.isGone =
-            destinationId != R.id.fragmentSaveAsset &&
-                    destinationId != R.id.fragmentAssetDetail &&
-                    destinationId != R.id.fragmentNewAddition
     }
 
     private fun setupBottomNavigationView() {
