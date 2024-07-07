@@ -6,5 +6,5 @@
     android:layout_height="wrap_content"
     android:drawablePadding="8dp"
     android:gravity="center_vertical"
-    tools:text="Posição atual"
-    app:drawableRightCompat="@drawable/ic_arrow_down" />
+    app:drawableRightCompat="@drawable/ic_arrow_down"
+    tools:text="Posição atual" />
