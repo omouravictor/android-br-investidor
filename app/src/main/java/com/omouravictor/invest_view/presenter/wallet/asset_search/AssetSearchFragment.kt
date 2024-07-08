@@ -136,7 +136,7 @@ class AssetSearchFragment : Fragment() {
                         is UiState.Success -> {
                             val assetsBySearchList = it.data
                             setupViewsForAssetsBySearch(isSuccessResultsEmpty = assetsBySearchList.isEmpty())
-                            assetBySearchAdapter.updateItemsList(assetsBySearchList)
+                            assetBySearchAdapter.setList(assetsBySearchList)
                         }
 
                         is UiState.Error -> handleErrors(it.e)

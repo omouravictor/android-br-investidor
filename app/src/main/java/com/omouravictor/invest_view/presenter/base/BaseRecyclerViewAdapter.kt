@@ -9,7 +9,11 @@ abstract class BaseRecyclerViewAdapter<T, VH : RecyclerView.ViewHolder> : Recycl
     protected var itemsList = listOf<T>()
     protected var onClickItem: (T) -> Unit = {}
 
-    fun updateItemsList(list: List<T>) {
+    override fun getItemCount(): Int = itemsList.size
+
+    fun getList(): List<T> = itemsList
+
+    fun setList(list: List<T>) {
         itemsList = list
         notifyDataSetChanged()
     }
@@ -17,7 +21,5 @@ abstract class BaseRecyclerViewAdapter<T, VH : RecyclerView.ViewHolder> : Recycl
     fun updateOnClickItem(action: (T) -> Unit) {
         onClickItem = action
     }
-
-    override fun getItemCount(): Int = itemsList.size
 
 }

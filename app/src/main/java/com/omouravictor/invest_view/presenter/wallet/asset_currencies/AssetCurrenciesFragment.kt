@@ -46,7 +46,7 @@ class AssetCurrenciesFragment : Fragment(), OnChartValueSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         assetCurrenciesAdapter.apply {
-            updateItemsList(walletViewModel.assetList.value)
+            setList(walletViewModel.assetList.value)
             updateOnClickItem { findNavController().navigate(WalletFragmentDirections.navToAssetDetailFragment(it)) }
         }
     }
@@ -71,13 +71,13 @@ class AssetCurrenciesFragment : Fragment(), OnChartValueSelectedListener {
         val filteredList = walletViewModel.assetList.value.filter { it.currency == currency }
 
         updatePieChartCenterText(filteredList.size)
-        assetCurrenciesAdapter.updateItemsList(filteredList)
+        assetCurrenciesAdapter.setList(filteredList)
     }
 
     override fun onNothingSelected() {
         val assetList = walletViewModel.assetList.value
         updatePieChartCenterText(assetList.size)
-        assetCurrenciesAdapter.updateItemsList(assetList)
+        assetCurrenciesAdapter.setList(assetList)
     }
 
     private fun updatePieChartCenterText(assetSize: Int) {
@@ -128,7 +128,7 @@ class AssetCurrenciesFragment : Fragment(), OnChartValueSelectedListener {
                             else -> assetList
                         }
 
-                        assetCurrenciesAdapter.updateItemsList(filteredList)
+                        assetCurrenciesAdapter.setList(filteredList)
                     }
                 }
 
