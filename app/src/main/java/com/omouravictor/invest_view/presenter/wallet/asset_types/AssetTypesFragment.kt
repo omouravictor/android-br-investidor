@@ -24,6 +24,7 @@ import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetsBinding
 import com.omouravictor.invest_view.presenter.wallet.WalletFragmentDirections
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
+import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getTotalPrice
 import com.omouravictor.invest_view.presenter.wallet.model.getYield
 import com.omouravictor.invest_view.util.showPieChart
@@ -33,19 +34,20 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
     private lateinit var binding: FragmentAssetsBinding
     private lateinit var pieChart: PieChart
     private val walletViewModel: WalletViewModel by activityViewModels()
+    private val originalAssetList by lazy { walletViewModel.assetList.value }
     private val assetTypesAdapter = AssetTypesAdapter()
 
     companion object {
-        private const val FILTER_BY_TOTAL_PRICE = 0
-        private const val FILTER_BY_YIELD = 1
-        private const val FILTER_BY_AMOUNT = 2
-        private const val FILTER_BY_SYMBOL = 3
+        private const val SPINNER_ITEM_TOTAL_PRICE = 0
+        private const val SPINNER_ITEM_YIELD = 1
+        private const val SPINNER_ITEM_AMOUNT = 2
+        private const val SPINNER_ITEM_SYMBOL = 3
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         assetTypesAdapter.apply {
-            setList(walletViewModel.assetList.value)
+            setList(originalAssetList)
             updateOnClickItem { findNavController().navigate(WalletFragmentDirections.navToAssetDetailFragment(it)) }
         }
     }
@@ -67,16 +69,17 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
 
     override fun onValueSelected(e: Entry?, h: Highlight?) {
         val assetType = (e as PieEntry).label
-        val filteredList = walletViewModel.assetList.value.filter { getString(it.assetType.nameResId) == assetType }
+        val filteredList = originalAssetList.filter { getString(it.assetType.nameResId) == assetType }
 
         updatePieChartCenterText(filteredList.size)
         assetTypesAdapter.setList(filteredList)
+        filterAssetListBySpinnerItem(binding.spinner.selectedItemPosition, filteredList)
     }
 
     override fun onNothingSelected() {
-        val assetList = walletViewModel.assetList.value
-        updatePieChartCenterText(assetList.size)
-        assetTypesAdapter.setList(assetList)
+        updatePieChartCenterText(originalAssetList.size)
+        assetTypesAdapter.setList(originalAssetList)
+        filterAssetListBySpinnerItem(binding.spinner.selectedItemPosition, originalAssetList)
     }
 
     private fun updatePieChartCenterText(assetSize: Int) {
@@ -90,12 +93,11 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
 
     private fun setupPieChart() {
         val context = requireContext()
-        val assetList = walletViewModel.assetList.value
-        val assetTypeList = assetList.map { it.assetType }.distinct()
+        val assetTypeList = originalAssetList.map { it.assetType }.distinct()
         val colorList = arrayListOf<Int>()
         val pieEntryList = assetTypeList.map { assetType ->
             colorList.add(assetType.colorResId)
-            val count = assetList.count { it.assetType == assetType }
+            val count = originalAssetList.count { it.assetType == assetType }
             PieEntry(count.toFloat(), getString(assetType.nameResId))
         }
         val pieDataSet = PieDataSet(pieEntryList, getString(R.string.assetTypes)).apply {
@@ -105,7 +107,19 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
         }
 
         context.showPieChart(pieChart, pieDataSet)
-        updatePieChartCenterText(assetList.size)
+        updatePieChartCenterText(originalAssetList.size)
+    }
+
+    private fun filterAssetListBySpinnerItem(itemPosition: Int, assetList: List<AssetUiModel>) {
+        val filteredList = when (itemPosition) {
+            SPINNER_ITEM_TOTAL_PRICE -> assetList.sortedByDescending { it.getTotalPrice() }
+            SPINNER_ITEM_YIELD -> assetList.sortedByDescending { it.getYield() }
+            SPINNER_ITEM_AMOUNT -> assetList.sortedByDescending { it.amount }
+            SPINNER_ITEM_SYMBOL -> assetList.sortedBy { it.symbol }
+            else -> assetList
+        }
+
+        assetTypesAdapter.setList(filteredList)
     }
 
     private fun setupSpinner() {
@@ -118,17 +132,7 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
             adapter = spinnerAdapter
             onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    walletViewModel.assetList.value.let { assetList ->
-                        val filteredList = when (position) {
-                            FILTER_BY_TOTAL_PRICE -> assetList.sortedByDescending { it.getTotalPrice() }
-                            FILTER_BY_YIELD -> assetList.sortedByDescending { it.getYield() }
-                            FILTER_BY_AMOUNT -> assetList.sortedByDescending { it.amount }
-                            FILTER_BY_SYMBOL -> assetList.sortedBy { it.symbol }
-                            else -> assetList
-                        }
-
-                        assetTypesAdapter.setList(filteredList)
-                    }
+                    filterAssetListBySpinnerItem(position, assetTypesAdapter.getList())
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) = Unit
