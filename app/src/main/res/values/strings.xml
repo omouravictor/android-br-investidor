@@ -31,7 +31,6 @@
 
     <!-- String arrays -->
     <string-array name="assetFilterOptions">
-        <item>Posição atual</item>
         <item>Rendimento</item>
         <item>Quantidade</item>
         <item>Símbolo</item>

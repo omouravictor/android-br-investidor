@@ -25,7 +25,6 @@ import com.omouravictor.invest_view.databinding.FragmentAssetsBinding
 import com.omouravictor.invest_view.presenter.wallet.WalletFragmentDirections
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
-import com.omouravictor.invest_view.presenter.wallet.model.getTotalPrice
 import com.omouravictor.invest_view.presenter.wallet.model.getYield
 import com.omouravictor.invest_view.util.showPieChart
 
@@ -38,10 +37,9 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
     private val assetTypesAdapter = AssetTypesAdapter()
 
     companion object {
-        private const val SPINNER_ITEM_TOTAL_PRICE = 0
-        private const val SPINNER_ITEM_YIELD = 1
-        private const val SPINNER_ITEM_AMOUNT = 2
-        private const val SPINNER_ITEM_SYMBOL = 3
+        private const val SPINNER_ITEM_YIELD = 0
+        private const val SPINNER_ITEM_AMOUNT = 1
+        private const val SPINNER_ITEM_SYMBOL = 2
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -112,7 +110,6 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
 
     private fun filterAssetListBySpinnerItem(itemPosition: Int, assetList: List<AssetUiModel>) {
         val filteredList = when (itemPosition) {
-            SPINNER_ITEM_TOTAL_PRICE -> assetList.sortedByDescending { it.getTotalPrice() }
             SPINNER_ITEM_YIELD -> assetList.sortedByDescending { it.getYield() }
             SPINNER_ITEM_AMOUNT -> assetList.sortedByDescending { it.amount }
             SPINNER_ITEM_SYMBOL -> assetList.sortedBy { it.symbol }
