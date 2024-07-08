@@ -8,21 +8,21 @@ import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getYield
 
-class SpinnerFilter(private val spinner: Spinner) {
+class SpinnerForAssetSort(private val spinner: Spinner) {
 
     private var onItemSelected: (Int) -> Unit = {}
 
     companion object {
-        private const val HIGHER_YIELD_FILTER = 0
-        private const val HIGHER_AMOUNT_FILTER = 1
-        private const val LOWER_YIELD_FILTER = 2
-        private const val LOWER_AMOUNT_FILTER = 3
-        private const val SYMBOL_FILTER = 4
+        private const val SORT_BY_HIGHEST_YIELD = 0
+        private const val SORT_BY_HIGHEST_AMOUNT = 1
+        private const val SORT_BY_LOWEST_YIELD = 2
+        private const val SORT_BY_LOWEST_AMOUNT = 3
+        private const val SORT_BY_SYMBOL = 4
     }
 
     init {
         val context = spinner.context
-        val spinnerItems = context.resources.getStringArray(R.array.spinnerAssetFilterOptions)
+        val spinnerItems = context.resources.getStringArray(R.array.assetSortTypesArray)
         val spinnerAdapter = ArrayAdapter(context, R.layout.spinner_text_view, spinnerItems)
             .apply { setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
 
@@ -42,11 +42,11 @@ class SpinnerFilter(private val spinner: Spinner) {
 
     fun getFilteredAssetList(assetList: List<AssetUiModel>): List<AssetUiModel> {
         return when (spinner.selectedItemPosition) {
-            HIGHER_YIELD_FILTER -> assetList.sortedByDescending { it.getYield() }
-            HIGHER_AMOUNT_FILTER -> assetList.sortedByDescending { it.amount }
-            LOWER_YIELD_FILTER -> assetList.sortedBy { it.getYield() }
-            LOWER_AMOUNT_FILTER -> assetList.sortedBy { it.amount }
-            SYMBOL_FILTER -> assetList.sortedBy { it.symbol }
+            SORT_BY_HIGHEST_YIELD -> assetList.sortedByDescending { it.getYield() }
+            SORT_BY_HIGHEST_AMOUNT -> assetList.sortedByDescending { it.amount }
+            SORT_BY_LOWEST_YIELD -> assetList.sortedBy { it.getYield() }
+            SORT_BY_LOWEST_AMOUNT -> assetList.sortedBy { it.amount }
+            SORT_BY_SYMBOL -> assetList.sortedBy { it.symbol }
             else -> assetList
         }
     }

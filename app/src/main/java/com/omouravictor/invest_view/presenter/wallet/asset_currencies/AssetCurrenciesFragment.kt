@@ -21,7 +21,7 @@ import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetsBinding
 import com.omouravictor.invest_view.presenter.wallet.WalletFragmentDirections
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
-import com.omouravictor.invest_view.presenter.wallet.base.SpinnerFilter
+import com.omouravictor.invest_view.presenter.wallet.base.SpinnerForAssetSort
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.util.AssetUtil
 import com.omouravictor.invest_view.util.setupRecyclerViewWithLinearLayout
@@ -32,7 +32,7 @@ class AssetCurrenciesFragment : Fragment(), OnChartValueSelectedListener {
     private lateinit var originalAssetList: List<AssetUiModel>
     private lateinit var binding: FragmentAssetsBinding
     private lateinit var pieChart: PieChart
-    private lateinit var spinnerFilter: SpinnerFilter
+    private lateinit var spinnerForAssetSort: SpinnerForAssetSort
     private val assetCurrenciesAdapter = AssetCurrenciesAdapter()
     private val walletViewModel: WalletViewModel by activityViewModels()
 
@@ -49,7 +49,7 @@ class AssetCurrenciesFragment : Fragment(), OnChartValueSelectedListener {
     ): View {
         binding = FragmentAssetsBinding.inflate(inflater, container, false)
         pieChart = binding.pieChart.also { it.setOnChartValueSelectedListener(this) }
-        spinnerFilter = SpinnerFilter(binding.spinnerFilter)
+        spinnerForAssetSort = SpinnerForAssetSort(binding.spinnerFilter)
         return binding.root
     }
 
@@ -102,8 +102,8 @@ class AssetCurrenciesFragment : Fragment(), OnChartValueSelectedListener {
     }
 
     private fun setupSpinnerFilter() {
-        spinnerFilter.setOnItemSelected {
-            val filteredList = spinnerFilter.getFilteredAssetList(
+        spinnerForAssetSort.setOnItemSelected {
+            val filteredList = spinnerForAssetSort.getFilteredAssetList(
                 assetCurrenciesAdapter.getList().ifEmpty { originalAssetList }
             )
             assetCurrenciesAdapter.setList(filteredList)
@@ -111,7 +111,7 @@ class AssetCurrenciesFragment : Fragment(), OnChartValueSelectedListener {
     }
 
     private fun filterAssetListBySpinner(assetList: List<AssetUiModel>) {
-        val filteredList = spinnerFilter.getFilteredAssetList(assetList)
+        val filteredList = spinnerForAssetSort.getFilteredAssetList(assetList)
         assetCurrenciesAdapter.setList(filteredList)
     }
 

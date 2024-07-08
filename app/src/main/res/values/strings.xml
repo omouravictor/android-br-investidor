@@ -30,11 +30,11 @@
     <string name="deleteAssetAlertMessage">Tem certeza que deseja excluir este ativo da sua carteira?</string>
 
     <!-- String arrays -->
-    <string-array name="spinnerAssetFilterOptions">
-        <item>Maior rendimento</item>
-        <item>Maior quantidade</item>
-        <item>Menor rendimento</item>
-        <item>Menor quantidade</item>
+    <string-array name="assetSortTypesArray">
+        <item>Ordenar por maior rendimento</item>
+        <item>Ordenar por maior quantidade</item>
+        <item>Ordenar por menor rendimento</item>
+        <item>Ordenar por menor quantidade</item>
         <item>Símbolo</item>
     </string-array>
 
