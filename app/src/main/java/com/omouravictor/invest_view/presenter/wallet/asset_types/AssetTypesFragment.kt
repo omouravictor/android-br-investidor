@@ -7,8 +7,6 @@ import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -25,7 +23,8 @@ import com.omouravictor.invest_view.databinding.FragmentAssetsBinding
 import com.omouravictor.invest_view.presenter.wallet.WalletFragmentDirections
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
-import com.omouravictor.invest_view.presenter.wallet.model.getYield
+import com.omouravictor.invest_view.util.getFilteredAssetList
+import com.omouravictor.invest_view.util.setupSpinner
 import com.omouravictor.invest_view.util.showPieChart
 
 class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
@@ -35,12 +34,6 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
     private val walletViewModel: WalletViewModel by activityViewModels()
     private val originalAssetList by lazy { walletViewModel.assetList.value }
     private val assetTypesAdapter = AssetTypesAdapter()
-
-    companion object {
-        private const val SPINNER_ITEM_YIELD = 0
-        private const val SPINNER_ITEM_AMOUNT = 1
-        private const val SPINNER_ITEM_SYMBOL = 2
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,14 +63,12 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
         val filteredList = originalAssetList.filter { getString(it.assetType.nameResId) == assetType }
 
         updatePieChartCenterText(filteredList.size)
-        assetTypesAdapter.setList(filteredList)
-        filterAssetListBySpinnerItem(binding.spinner.selectedItemPosition, filteredList)
+        filterAssetListBySpinner(filteredList)
     }
 
     override fun onNothingSelected() {
         updatePieChartCenterText(originalAssetList.size)
-        assetTypesAdapter.setList(originalAssetList)
-        filterAssetListBySpinnerItem(binding.spinner.selectedItemPosition, originalAssetList)
+        filterAssetListBySpinner(originalAssetList)
     }
 
     private fun updatePieChartCenterText(assetSize: Int) {
@@ -108,31 +99,16 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
         updatePieChartCenterText(originalAssetList.size)
     }
 
-    private fun filterAssetListBySpinnerItem(itemPosition: Int, assetList: List<AssetUiModel>) {
-        val filteredList = when (itemPosition) {
-            SPINNER_ITEM_YIELD -> assetList.sortedByDescending { it.getYield() }
-            SPINNER_ITEM_AMOUNT -> assetList.sortedByDescending { it.amount }
-            SPINNER_ITEM_SYMBOL -> assetList.sortedBy { it.symbol }
-            else -> assetList
-        }
-
+    private fun filterAssetListBySpinner(assetList: List<AssetUiModel>) {
+        val filteredList = binding.spinner.getFilteredAssetList(assetList)
         assetTypesAdapter.setList(filteredList)
     }
 
     private fun setupSpinner() {
-        val context = binding.spinner.context
-        val spinnerItems = context.resources.getStringArray(R.array.assetFilterOptions)
-        val spinnerAdapter = ArrayAdapter(context, R.layout.spinner_text_view, spinnerItems)
-            .apply { setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
-
         binding.spinner.apply {
-            adapter = spinnerAdapter
-            onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    filterAssetListBySpinnerItem(position, assetTypesAdapter.getList())
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) = Unit
+            setupSpinner {
+                val filteredList = getFilteredAssetList(it, assetTypesAdapter.getList())
+                assetTypesAdapter.setList(filteredList)
             }
         }
     }
