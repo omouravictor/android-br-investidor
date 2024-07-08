@@ -116,7 +116,6 @@ class AssetSearchFragment : Fragment() {
         searchView.maxWidth = Int.MAX_VALUE
         searchView.queryHint = getString(R.string.searchYourAsset)
         searchView.setOnQueryTextListener(queryTextListener)
-        searchView.setQuery("VALE", true) // TODO: Remove this line after testing
     }
 
     private fun handleErrors(e: Exception) {
