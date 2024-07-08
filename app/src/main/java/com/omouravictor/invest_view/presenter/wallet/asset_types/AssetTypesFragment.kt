@@ -22,9 +22,8 @@ import com.omouravictor.invest_view.databinding.FragmentAssetsBinding
 import com.omouravictor.invest_view.presenter.wallet.WalletFragmentDirections
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
-import com.omouravictor.invest_view.util.getFilteredAssetList
+import com.omouravictor.invest_view.util.SpinnerFilterAssetListUtil
 import com.omouravictor.invest_view.util.setupRecyclerViewWithLinearLayout
-import com.omouravictor.invest_view.util.setupSpinnerFilterForAssetList
 import com.omouravictor.invest_view.util.showPieChart
 
 class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
@@ -99,16 +98,16 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
         updatePieChartCenterText(originalAssetList.size)
     }
 
-    private fun filterAssetListBySpinner(assetList: List<AssetUiModel>) {
-        val filteredList = getFilteredAssetList(binding.spinner, assetList)
-        assetTypesAdapter.setList(filteredList)
-    }
-
     private fun setupSpinner() {
-        setupSpinnerFilterForAssetList(binding.spinner) {
-            val filteredList = getFilteredAssetList(it, assetTypesAdapter.getList())
+        SpinnerFilterAssetListUtil.setupSpinnerFilterForAssetList(binding.spinnerFilter) {
+            val filteredList = SpinnerFilterAssetListUtil.getFilteredAssetList(it, assetTypesAdapter.getList())
             assetTypesAdapter.setList(filteredList)
         }
+    }
+
+    private fun filterAssetListBySpinner(assetList: List<AssetUiModel>) {
+        val filteredList = SpinnerFilterAssetListUtil.getFilteredAssetList(binding.spinnerFilter, assetList)
+        assetTypesAdapter.setList(filteredList)
     }
 
 }
