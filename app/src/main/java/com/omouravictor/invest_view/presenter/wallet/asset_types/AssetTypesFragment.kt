@@ -24,7 +24,7 @@ import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.util.getFilteredAssetList
 import com.omouravictor.invest_view.util.setupRecyclerViewWithLinearLayout
-import com.omouravictor.invest_view.util.setupSpinnerFilterAssetList
+import com.omouravictor.invest_view.util.setupSpinnerFilterForAssetList
 import com.omouravictor.invest_view.util.showPieChart
 
 class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
@@ -100,16 +100,14 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
     }
 
     private fun filterAssetListBySpinner(assetList: List<AssetUiModel>) {
-        val filteredList = binding.spinner.getFilteredAssetList(assetList)
+        val filteredList = getFilteredAssetList(binding.spinner, assetList)
         assetTypesAdapter.setList(filteredList)
     }
 
     private fun setupSpinner() {
-        binding.spinner.apply {
-            setupSpinnerFilterAssetList {
-                val filteredList = getFilteredAssetList(it, assetTypesAdapter.getList())
-                assetTypesAdapter.setList(filteredList)
-            }
+        setupSpinnerFilterForAssetList(binding.spinner) {
+            val filteredList = getFilteredAssetList(it, assetTypesAdapter.getList())
+            assetTypesAdapter.setList(filteredList)
         }
     }
 
