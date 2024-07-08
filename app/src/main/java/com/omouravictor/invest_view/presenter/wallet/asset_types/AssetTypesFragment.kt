@@ -36,9 +36,8 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        assetTypesAdapter.apply {
-            setList(originalAssetList)
-            updateOnClickItem { findNavController().navigate(WalletFragmentDirections.navToAssetDetailFragment(it)) }
+        assetTypesAdapter.updateOnClickItem {
+            findNavController().navigate(WalletFragmentDirections.navToAssetDetailFragment(it))
         }
     }
 
@@ -99,8 +98,11 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
     }
 
     private fun setupSpinner() {
-        SpinnerFilterAssetListUtil.setupSpinnerFilterForAssetList(binding.spinnerFilter) {
-            val filteredList = SpinnerFilterAssetListUtil.getFilteredAssetList(it, assetTypesAdapter.getList())
+        SpinnerFilterAssetListUtil.setupSpinnerFilterForAssetList(binding.spinnerFilter) { selectedItemPosition ->
+            val filteredList = SpinnerFilterAssetListUtil.getFilteredAssetList(
+                selectedItemPosition,
+                assetTypesAdapter.getList().ifEmpty { originalAssetList }
+            )
             assetTypesAdapter.setList(filteredList)
         }
     }
