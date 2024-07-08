@@ -14,7 +14,7 @@ private const val LOWER_YIELD_FILTER = 2
 private const val LOWER_AMOUNT_FILTER = 3
 private const val SYMBOL_FILTER = 4
 
-fun Spinner.setupSpinner(onItemSelected: (Int) -> Unit) {
+fun Spinner.setupSpinnerFilterAssetList(onItemSelected: (Int) -> Unit) {
     val spinnerItems = context.resources.getStringArray(R.array.spinnerAssetFilterOptions)
     val spinnerAdapter = ArrayAdapter(context, R.layout.spinner_text_view, spinnerItems)
         .apply { setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
@@ -37,8 +37,8 @@ fun Spinner.getFilteredAssetList(itemPosition: Int, assetList: List<AssetUiModel
     return getFilteredList(itemPosition, assetList)
 }
 
-private fun getFilteredList(filter: Int, assetList: List<AssetUiModel>): List<AssetUiModel> {
-    return when (filter) {
+private fun getFilteredList(itemPosition: Int, assetList: List<AssetUiModel>): List<AssetUiModel> {
+    return when (itemPosition) {
         HIGHER_YIELD_FILTER -> assetList.sortedByDescending { it.getYield() }
         HIGHER_AMOUNT_FILTER -> assetList.sortedByDescending { it.amount }
         LOWER_YIELD_FILTER -> assetList.sortedBy { it.getYield() }
