@@ -11,7 +11,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.PieDataSet
@@ -24,6 +23,7 @@ import com.omouravictor.invest_view.presenter.wallet.WalletFragmentDirections
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.util.getFilteredAssetList
+import com.omouravictor.invest_view.util.setupRecyclerViewWithLinearLayout
 import com.omouravictor.invest_view.util.setupSpinner
 import com.omouravictor.invest_view.util.showPieChart
 
@@ -55,7 +55,7 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
         super.onViewCreated(view, savedInstanceState)
         setupPieChart()
         setupSpinner()
-        setupRecyclerView()
+        binding.recyclerView.setupRecyclerViewWithLinearLayout(assetTypesAdapter)
     }
 
     override fun onValueSelected(e: Entry?, h: Highlight?) {
@@ -110,13 +110,6 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
                 val filteredList = getFilteredAssetList(it, assetTypesAdapter.getList())
                 assetTypesAdapter.setList(filteredList)
             }
-        }
-    }
-
-    private fun setupRecyclerView() {
-        binding.recyclerView.apply {
-            adapter = assetTypesAdapter
-            layoutManager = LinearLayoutManager(context)
         }
     }
 

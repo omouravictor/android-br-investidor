@@ -16,7 +16,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetSearchBinding
 import com.omouravictor.invest_view.presenter.model.UiState
@@ -24,6 +23,7 @@ import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.util.getGenericErrorMessage
 import com.omouravictor.invest_view.util.hideKeyboard
+import com.omouravictor.invest_view.util.setupRecyclerViewWithLinearLayout
 import com.omouravictor.invest_view.util.showErrorSnackBar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -96,10 +96,7 @@ class AssetSearchFragment : Fragment() {
             }
         }
 
-        binding.recyclerView.apply {
-            adapter = assetBySearchAdapter
-            layoutManager = LinearLayoutManager(context)
-        }
+        binding.recyclerView.setupRecyclerViewWithLinearLayout(assetBySearchAdapter)
     }
 
     private fun setupSearchView(searchView: SearchView) {
