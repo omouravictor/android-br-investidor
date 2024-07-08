@@ -31,10 +31,10 @@
 
     <!-- String arrays -->
     <string-array name="spinnerAssetFilterOptions">
-        <item>Maior rendimento</item>
-        <item>Maior quantidade</item>
-        <item>Menor rendimento</item>
-        <item>Menor quantidade</item>
+        <item>Maior Rendimento</item>
+        <item>Maior Quantidade</item>
+        <item>Menor Rendimento</item>
+        <item>Menor Quantidade</item>
         <item>Símbolo</item>
     </string-array>
 
