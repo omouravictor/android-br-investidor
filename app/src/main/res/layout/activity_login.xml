@@ -19,8 +19,10 @@
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:autofillHints="emailAddress"
             android:drawableStart="@drawable/ic_email"
             android:drawablePadding="8dp"
+            android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:paddingVertical="@dimen/defaultPadding"
             tools:text="omouravictor@gmail.com" />
@@ -41,6 +43,7 @@
             android:layout_height="match_parent"
             android:drawableStart="@drawable/ic_lock"
             android:drawablePadding="8dp"
+            android:hint="@string/password"
             android:inputType="textPassword"
             android:paddingVertical="@dimen/defaultPadding"
             tools:text="123456" />
