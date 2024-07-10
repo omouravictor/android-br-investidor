@@ -13,6 +13,7 @@
     <color name="shimmerBackColor">#656565</color>
     <color name="grayDayNightColor">#616161</color>
     <color name="defaultButtonBackgroundColor">@color/black</color>
+    <color name="defaultButtonTextColor">@color/green</color>
     <color name="lineColor">#CFCFCF</color>
     <color name="tableTittleTextColor">#686868</color>
     <color name="mtrl_textinput_default_box_stroke_color" tools:ignore="PrivateResource">@color/gray</color>

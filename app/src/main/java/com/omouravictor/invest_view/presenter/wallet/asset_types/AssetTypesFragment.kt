@@ -1,9 +1,6 @@
 package com.omouravictor.invest_view.presenter.wallet.asset_types
 
-import android.graphics.Typeface
 import android.os.Bundle
-import android.text.SpannableString
-import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,8 +20,9 @@ import com.omouravictor.invest_view.presenter.wallet.WalletFragmentDirections
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.base.SpinnerForAssetSort
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
+import com.omouravictor.invest_view.util.setupPieChart
 import com.omouravictor.invest_view.util.setupRecyclerViewWithLinearLayout
-import com.omouravictor.invest_view.util.showPieChart
+import com.omouravictor.invest_view.util.updateCenterText
 
 class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
 
@@ -63,22 +61,11 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
         val assetType = (e as PieEntry).label
         val filteredList = originalAssetList.filter { getString(it.assetType.nameResId) == assetType }
 
-        updatePieChartCenterText(filteredList.size)
         filterAssetListBySpinner(filteredList)
     }
 
     override fun onNothingSelected() {
-        updatePieChartCenterText(originalAssetList.size)
         filterAssetListBySpinner(originalAssetList)
-    }
-
-    private fun updatePieChartCenterText(assetSize: Int) {
-        val assetText = getString(if (assetSize == 1) R.string.asset else R.string.assets)
-        val spannableString = SpannableString("$assetSize\n$assetText").apply {
-            setSpan(StyleSpan(Typeface.ITALIC), 0, length, 0)
-        }
-
-        pieChart.centerText = spannableString
     }
 
     private fun setupPieChart() {
@@ -96,8 +83,8 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
             setDrawIcons(false)
         }
 
-        context.showPieChart(pieChart, pieDataSet)
-        updatePieChartCenterText(originalAssetList.size)
+        pieChart.setupPieChart(pieDataSet)
+        pieChart.updateCenterText(originalAssetList.size)
     }
 
     private fun setupSpinnerFilter() {
@@ -112,6 +99,7 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
     private fun filterAssetListBySpinner(assetList: List<AssetUiModel>) {
         val filteredList = spinnerForAssetSort.getFilteredAssetList(assetList)
         assetTypesAdapter.setList(filteredList)
+        pieChart.updateCenterText(filteredList.size)
     }
 
 }
