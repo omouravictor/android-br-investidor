@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
@@ -21,7 +22,8 @@
             android:drawableStart="@drawable/ic_email"
             android:drawablePadding="8dp"
             android:inputType="textEmailAddress"
-            android:text="123456" />
+            android:paddingVertical="@dimen/defaultPadding"
+            tools:text="omouravictor@gmail.com" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -40,7 +42,8 @@
             android:drawableStart="@drawable/ic_lock"
             android:drawablePadding="8dp"
             android:inputType="textPassword"
-            android:text="123456" />
+            android:paddingVertical="@dimen/defaultPadding"
+            tools:text="123456" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
