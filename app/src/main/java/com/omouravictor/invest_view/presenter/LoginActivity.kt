@@ -9,6 +9,7 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.ActivityLoginBinding
+import com.omouravictor.invest_view.util.getGenericErrorMessage
 import com.omouravictor.invest_view.util.showErrorSnackBar
 
 class LoginActivity : AppCompatActivity() {
@@ -58,7 +59,7 @@ class LoginActivity : AppCompatActivity() {
                 } else {
                     val message = when (val exception = task.exception) {
                         is FirebaseAuthInvalidCredentialsException -> getString(R.string.invalidCredentials)
-                        else -> "${getString(R.string.loginError)}: ${exception?.message}"
+                        else -> "${getString(R.string.loginError)}: ${getGenericErrorMessage(exception)}."
                     }
 
                     this.showErrorSnackBar(message, hasCloseAction = true)
@@ -81,7 +82,7 @@ class LoginActivity : AppCompatActivity() {
                     val message = when (val exception = task.exception) {
                         is FirebaseAuthWeakPasswordException -> getString(R.string.weakPassword)
                         is FirebaseAuthUserCollisionException -> getString(R.string.userAlreadyExists)
-                        else -> "${getString(R.string.registerError)}: ${exception?.message}."
+                        else -> "${getString(R.string.registerError)}: ${getGenericErrorMessage(exception)}."
                     }
 
                     this.showErrorSnackBar(message, hasCloseAction = true)

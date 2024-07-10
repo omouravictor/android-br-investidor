@@ -9,13 +9,17 @@ import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.formatter.PercentFormatter
+import com.google.firebase.FirebaseNetworkException
 import com.omouravictor.invest_view.R
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 
-fun Context.getGenericErrorMessage(e: Exception): String {
+fun Context.getGenericErrorMessage(e: Exception?): String {
     return when (e) {
-        is java.net.UnknownHostException -> this.getString(R.string.noInternetConnection)
-        is java.net.SocketTimeoutException -> this.getString(R.string.checkInternetConnection)
-        else -> this.getString(R.string.somethingWentWrong)
+        is UnknownHostException -> getString(R.string.noInternetConnection)
+        is FirebaseNetworkException -> getString(R.string.noInternetConnection)
+        is SocketTimeoutException -> getString(R.string.checkInternetConnection)
+        else -> getString(R.string.somethingWentWrong)
     }
 }
 
