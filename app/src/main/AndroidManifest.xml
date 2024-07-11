@@ -18,7 +18,7 @@
         android:theme="@style/Theme.InvestView"
         tools:targetApi="31">
         <activity
-            android:name=".presenter.LoginActivity"
+            android:name=".presenter.login.LoginActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
