@@ -12,6 +12,7 @@ import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
+import com.google.firebase.auth.FirebaseUser
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.ActivityLoginBinding
 import com.omouravictor.invest_view.presenter.MainActivity
@@ -43,25 +44,8 @@ class LoginActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                loginViewModel.userUiState.collectLatest { uiState ->
-                    when (uiState) {
-                        is UiState.Initial -> loginLayoutIsVisible(true)
-                        is UiState.Loading -> loginLayoutIsVisible(false)
-                        is UiState.Success -> startMainActivity()
-                        is UiState.Error -> {
-                            loginLayoutIsVisible(true)
-
-                            val message = when (val exception = uiState.e) {
-                                is FirebaseAuthWeakPasswordException -> getString(R.string.weakPassword)
-                                is FirebaseAuthInvalidCredentialsException -> getString(R.string.invalidCredentials)
-                                is FirebaseAuthUserCollisionException -> getString(R.string.userAlreadyExists)
-                                is FirebaseTooManyRequestsException -> getString(R.string.tooManyRequests)
-                                else -> "${getString(R.string.loginError)}: ${getGenericErrorMessage(exception)}."
-                            }
-
-                            showErrorSnackBar(message)
-                        }
-                    }
+                loginViewModel.userUiState.collectLatest {
+                    handleUserUiState(it)
                 }
             }
         }
@@ -75,6 +59,27 @@ class LoginActivity : AppCompatActivity() {
     private fun startMainActivity() {
         startActivity(Intent(this, MainActivity::class.java))
         finish()
+    }
+
+    private fun handleUserUiState(userUiState: UiState<FirebaseUser?>) {
+        when (userUiState) {
+            is UiState.Initial -> loginLayoutIsVisible(true)
+            is UiState.Loading -> loginLayoutIsVisible(false)
+            is UiState.Success -> startMainActivity()
+            is UiState.Error -> {
+                loginLayoutIsVisible(true)
+
+                val message = when (val exception = userUiState.e) {
+                    is FirebaseAuthWeakPasswordException -> getString(R.string.weakPassword)
+                    is FirebaseAuthInvalidCredentialsException -> getString(R.string.invalidCredentials)
+                    is FirebaseAuthUserCollisionException -> getString(R.string.userAlreadyExists)
+                    is FirebaseTooManyRequestsException -> getString(R.string.tooManyRequests)
+                    else -> "${getString(R.string.loginError)}: ${getGenericErrorMessage(exception)}."
+                }
+
+                showErrorSnackBar(message)
+            }
+        }
     }
 
     private fun login() {
