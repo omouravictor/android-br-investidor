@@ -32,7 +32,7 @@
         <item name="colorControlActivated">@color/green</item>
     </style>
 
-    <style name="ToolbarTitleTextSize" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+    <style name="ToolbarTitleTextStyle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">@dimen/textSize4</item>
         <item name="android:textStyle">bold</item>
     </style>

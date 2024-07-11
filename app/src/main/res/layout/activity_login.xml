@@ -5,6 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.InvestView.AppBarOverlay"
+        app:elevation="@dimen/defaultElevation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/black"
+            android:theme="@style/Toolbar"
+            app:contentInsetStartWithNavigation="0dp"
+            app:popupTheme="@style/Theme.InvestView.PopupOverlay"
+            app:title="@string/appName"
+            app:titleTextAppearance="@style/ToolbarTitleTextStyle" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
     <LinearLayout
         android:id="@+id/loginLayout"
         android:layout_width="match_parent"

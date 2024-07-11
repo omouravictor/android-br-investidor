@@ -24,7 +24,7 @@
             android:theme="@style/Toolbar"
             app:contentInsetStartWithNavigation="0dp"
             app:popupTheme="@style/Theme.InvestView.PopupOverlay"
-            app:titleTextAppearance="@style/ToolbarTitleTextSize"
+            app:titleTextAppearance="@style/ToolbarTitleTextStyle"
             tools:title="Carteira">
 
             <TextView
