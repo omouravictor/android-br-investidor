@@ -5,7 +5,9 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
@@ -40,37 +42,34 @@ class LoginActivity : AppCompatActivity() {
         }
 
         lifecycleScope.launch {
-            loginViewModel.userUiState.collectLatest { uiState ->
-                when (uiState) {
-                    is UiState.Initial -> {
-                        binding.loginLayout.isVisible = true
-                        binding.incProgressBar.root.isVisible = false
-                    }
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                loginViewModel.userUiState.collectLatest { uiState ->
+                    when (uiState) {
+                        is UiState.Initial -> loginLayoutIsVisible(true)
+                        is UiState.Loading -> loginLayoutIsVisible(false)
+                        is UiState.Success -> startMainActivity()
+                        is UiState.Error -> {
+                            loginLayoutIsVisible(true)
 
-                    is UiState.Loading -> {
-                        binding.loginLayout.isVisible = false
-                        binding.incProgressBar.root.isVisible = true
-                    }
+                            val message = when (val exception = uiState.e) {
+                                is FirebaseAuthWeakPasswordException -> getString(R.string.weakPassword)
+                                is FirebaseAuthInvalidCredentialsException -> getString(R.string.invalidCredentials)
+                                is FirebaseAuthUserCollisionException -> getString(R.string.userAlreadyExists)
+                                is FirebaseTooManyRequestsException -> getString(R.string.tooManyRequests)
+                                else -> "${getString(R.string.loginError)}: ${getGenericErrorMessage(exception)}."
+                            }
 
-                    is UiState.Success -> startMainActivity()
-
-                    is UiState.Error -> {
-                        binding.loginLayout.isVisible = true
-                        binding.incProgressBar.root.isVisible = false
-
-                        val message = when (val exception = uiState.e) {
-                            is FirebaseAuthWeakPasswordException -> getString(R.string.weakPassword)
-                            is FirebaseAuthInvalidCredentialsException -> getString(R.string.invalidCredentials)
-                            is FirebaseAuthUserCollisionException -> getString(R.string.userAlreadyExists)
-                            is FirebaseTooManyRequestsException -> getString(R.string.tooManyRequests)
-                            else -> "${getString(R.string.loginError)}: ${getGenericErrorMessage(exception)}."
+                            showErrorSnackBar(message, hasCloseAction = true)
                         }
-
-                        showErrorSnackBar(message, hasCloseAction = true)
                     }
                 }
             }
         }
+    }
+
+    private fun loginLayoutIsVisible(isVisible: Boolean) {
+        binding.loginLayout.isVisible = isVisible
+        binding.incProgressBar.root.isVisible = !isVisible
     }
 
     private fun startMainActivity() {

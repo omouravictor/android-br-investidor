@@ -1,17 +1,21 @@
 package com.omouravictor.invest_view.presenter.login
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.omouravictor.invest_view.presenter.model.UiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 class LoginViewModel : ViewModel() {
 
     private val _userUiState = MutableStateFlow<UiState<FirebaseUser?>>(UiState.Initial)
     val userUiState = _userUiState.asStateFlow()
-    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
+
+    private val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
 
     init {
         val currentUser = auth.currentUser
@@ -22,11 +26,12 @@ class LoginViewModel : ViewModel() {
     fun login(email: String, password: String) {
         _userUiState.value = UiState.Loading
 
-        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                _userUiState.value = UiState.Success(task.result.user)
-            } else {
-                _userUiState.value = UiState.Error(task.exception ?: Exception())
+        viewModelScope.launch {
+            try {
+                val authResult = auth.signInWithEmailAndPassword(email, password).await()
+                _userUiState.value = UiState.Success(authResult.user)
+            } catch (e: Exception) {
+                _userUiState.value = UiState.Error(e)
             }
         }
     }
@@ -34,11 +39,12 @@ class LoginViewModel : ViewModel() {
     fun register(email: String, password: String) {
         _userUiState.value = UiState.Loading
 
-        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                _userUiState.value = UiState.Success(task.result.user)
-            } else {
-                _userUiState.value = UiState.Error(task.exception ?: Exception())
+        viewModelScope.launch {
+            try {
+                val authResult = auth.createUserWithEmailAndPassword(email, password).await()
+                _userUiState.value = UiState.Success(authResult.user)
+            } catch (e: Exception) {
+                _userUiState.value = UiState.Error(e)
             }
         }
     }
