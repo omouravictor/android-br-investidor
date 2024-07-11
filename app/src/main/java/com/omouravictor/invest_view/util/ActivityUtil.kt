@@ -16,10 +16,10 @@ fun Activity.setupToolbarCenterText(centerText: String) {
     }
 }
 
-fun Activity.showErrorSnackBar(message: String, hasCloseAction: Boolean = false) {
+fun Activity.showErrorSnackBar(message: String, duration: Int = Snackbar.LENGTH_LONG, hasCloseAction: Boolean = false) {
     val view = this.findViewById<View>(android.R.id.content)
     val context = view.context
-    val snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG)
+    val snackbar = Snackbar.make(view, message, duration)
     val isBottomNavVisible = view.findViewById<View>(R.id.bottomNav)?.isVisible ?: false
 
     if (isBottomNavVisible)

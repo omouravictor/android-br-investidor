@@ -59,7 +59,7 @@ class LoginActivity : AppCompatActivity() {
                                 else -> "${getString(R.string.loginError)}: ${getGenericErrorMessage(exception)}."
                             }
 
-                            showErrorSnackBar(message, hasCloseAction = true)
+                            showErrorSnackBar(message)
                         }
                     }
                 }
@@ -84,7 +84,7 @@ class LoginActivity : AppCompatActivity() {
         if (email.isNotEmpty() && password.isNotEmpty())
             loginViewModel.login(email, password)
         else
-            showErrorSnackBar(getString(R.string.fillAllFields), hasCloseAction = true)
+            showErrorSnackBar(getString(R.string.fillAllFields))
     }
 
     private fun register() {
@@ -94,7 +94,7 @@ class LoginActivity : AppCompatActivity() {
         if (email.isNotEmpty() && password.isNotEmpty())
             loginViewModel.register(email, password)
         else
-            showErrorSnackBar(getString(R.string.fillAllFields), hasCloseAction = true)
+            showErrorSnackBar(getString(R.string.fillAllFields))
     }
 
 }
