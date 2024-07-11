@@ -49,6 +49,7 @@
                 android:drawableStart="@drawable/ic_lock"
                 android:drawablePadding="8dp"
                 android:hint="@string/password"
+                android:imeOptions="actionGo"
                 android:inputType="textPassword"
                 android:paddingVertical="@dimen/defaultPadding"
                 tools:text="123456" />
