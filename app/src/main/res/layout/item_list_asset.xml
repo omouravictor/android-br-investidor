@@ -46,7 +46,7 @@
                     android:maxLines="1"
                     android:textSize="@dimen/textSize2"
                     android:textStyle="bold"
-                    tools:text="VALE (1)" />
+                    tools:text="VALE3 (1)" />
 
                 <TextView
                     android:id="@+id/tvTotalPrice"
@@ -58,7 +58,7 @@
                     android:maxLines="1"
                     android:textSize="@dimen/textSize1"
                     android:textStyle="bold"
-                    tools:text="US$ 11,61" />
+                    tools:text="R$ 57,61" />
             </TableRow>
 
             <TableRow>
@@ -85,7 +85,7 @@
                     android:gravity="bottom|end"
                     android:maxLines="1"
                     android:textSize="@dimen/textSize1"
-                    tools:text="+US$ 1,61 (16,1%)"
+                    tools:text="+R$ 1,61 (16,1%)"
                     tools:textColor="@color/green" />
             </TableRow>
 
