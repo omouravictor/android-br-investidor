@@ -57,6 +57,11 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
         binding.recyclerView.setupRecyclerViewWithLinearLayout(assetTypesAdapter)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        filterAssetListBySpinner(originalAssetList)
+    }
+
     override fun onValueSelected(e: Entry?, h: Highlight?) {
         val assetType = (e as PieEntry).label
         val filteredList = originalAssetList.filter { getString(it.assetType.nameResId) == assetType }

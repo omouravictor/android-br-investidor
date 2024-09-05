@@ -58,6 +58,11 @@ class AssetCurrenciesFragment : Fragment(), OnChartValueSelectedListener {
         binding.recyclerView.setupRecyclerViewWithLinearLayout(assetCurrenciesAdapter)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        filterAssetListBySpinner(originalAssetList)
+    }
+
     override fun onValueSelected(e: Entry?, h: Highlight?) {
         val currency = (e as PieEntry).label
         val filteredList = originalAssetList.filter { it.currency == currency }
