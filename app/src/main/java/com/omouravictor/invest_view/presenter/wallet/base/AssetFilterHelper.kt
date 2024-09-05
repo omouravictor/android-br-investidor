@@ -16,8 +16,6 @@ class AssetFilterHelper(
     private val adapter: BaseRecyclerViewAdapter<AssetUiModel, *>
 ) {
 
-    private var onSpinnerItemSelected: (Int) -> Unit = {}
-
     companion object {
         private const val SORT_BY_HIGHEST_YIELD = 0
         private const val SORT_BY_HIGHEST_AMOUNT = 1
@@ -35,19 +33,11 @@ class AssetFilterHelper(
         spinner.adapter = spinnerAdapter
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                onSpinnerItemSelected(position)
+                val filteredList = getSortedAssetList(selectedItemPosition = position)
+                adapter.setList(filteredList)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) = Unit
-        }
-    }
-
-    fun setupOnSpinnerItemSelected(assetList: List<AssetUiModel>) {
-        onSpinnerItemSelected = {
-            val filteredList = getSortedAssetList(
-                adapter.getList().ifEmpty { assetList }
-            )
-            adapter.setList(filteredList)
         }
     }
 
@@ -57,8 +47,11 @@ class AssetFilterHelper(
         pieChart.updateCenterText(filteredList.size)
     }
 
-    private fun getSortedAssetList(assetList: List<AssetUiModel>): List<AssetUiModel> {
-        return when (spinner.selectedItemPosition) {
+    private fun getSortedAssetList(
+        assetList: List<AssetUiModel> = adapter.getList(),
+        selectedItemPosition: Int = spinner.selectedItemPosition
+    ): List<AssetUiModel> {
+        return when (selectedItemPosition) {
             SORT_BY_HIGHEST_YIELD -> assetList.sortedByDescending { it.getYield() }
             SORT_BY_HIGHEST_AMOUNT -> assetList.sortedByDescending { it.amount }
             SORT_BY_LOWEST_YIELD -> assetList.sortedBy { it.getYield() }

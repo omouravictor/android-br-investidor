@@ -37,6 +37,7 @@ class AssetCurrenciesFragment : Fragment(), OnChartValueSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         originalAssetList = walletViewModel.assetList.value
+        assetCurrenciesAdapter.setList(originalAssetList)
         assetCurrenciesAdapter.updateOnClickItem {
             findNavController().navigate(WalletFragmentDirections.navToAssetDetailFragment(it))
         }
@@ -54,7 +55,6 @@ class AssetCurrenciesFragment : Fragment(), OnChartValueSelectedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupPieChart()
-        assetFilterHelper.setupOnSpinnerItemSelected(originalAssetList)
         binding.recyclerView.setupRecyclerViewWithLinearLayout(assetCurrenciesAdapter)
     }
 
