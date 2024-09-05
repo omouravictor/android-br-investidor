@@ -4,13 +4,19 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import com.github.mikephil.charting.charts.PieChart
 import com.omouravictor.invest_view.R
+import com.omouravictor.invest_view.presenter.base.BaseRecyclerViewAdapter
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getYield
+import com.omouravictor.invest_view.util.updateCenterText
 
-class SpinnerForAssetSort(private val spinner: Spinner) {
+class AssetFilterHelper(
+    private val spinner: Spinner,
+    private val adapter: BaseRecyclerViewAdapter<AssetUiModel, *>
+) {
 
-    private var onItemSelected: (Int) -> Unit = {}
+    private var onSpinnerItemSelected: (Int) -> Unit = {}
 
     companion object {
         private const val SORT_BY_HIGHEST_YIELD = 0
@@ -29,18 +35,29 @@ class SpinnerForAssetSort(private val spinner: Spinner) {
         spinner.adapter = spinnerAdapter
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                onItemSelected(position)
+                onSpinnerItemSelected(position)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) = Unit
         }
     }
 
-    fun setOnItemSelected(action: (Int) -> Unit) {
-        onItemSelected = action
+    fun setupOnSpinnerItemSelected(assetList: List<AssetUiModel>) {
+        onSpinnerItemSelected = {
+            val filteredList = getSortedAssetList(
+                adapter.getList().ifEmpty { assetList }
+            )
+            adapter.setList(filteredList)
+        }
     }
 
-    fun getFilteredAssetList(assetList: List<AssetUiModel>): List<AssetUiModel> {
+    fun updateAdapterAndPieChart(assetList: List<AssetUiModel>, pieChart: PieChart) {
+        val filteredList = getSortedAssetList(assetList)
+        adapter.setList(filteredList)
+        pieChart.updateCenterText(filteredList.size)
+    }
+
+    private fun getSortedAssetList(assetList: List<AssetUiModel>): List<AssetUiModel> {
         return when (spinner.selectedItemPosition) {
             SORT_BY_HIGHEST_YIELD -> assetList.sortedByDescending { it.getYield() }
             SORT_BY_HIGHEST_AMOUNT -> assetList.sortedByDescending { it.amount }

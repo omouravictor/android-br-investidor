@@ -18,7 +18,7 @@ import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetsBinding
 import com.omouravictor.invest_view.presenter.wallet.WalletFragmentDirections
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
-import com.omouravictor.invest_view.presenter.wallet.base.SpinnerForAssetSort
+import com.omouravictor.invest_view.presenter.wallet.base.AssetFilterHelper
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.util.setupPieChart
 import com.omouravictor.invest_view.util.setupRecyclerViewWithLinearLayout
@@ -29,7 +29,7 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
     private lateinit var originalAssetList: List<AssetUiModel>
     private lateinit var binding: FragmentAssetsBinding
     private lateinit var pieChart: PieChart
-    private lateinit var spinnerForAssetSort: SpinnerForAssetSort
+    private lateinit var assetFilterHelper: AssetFilterHelper
     private val assetTypesAdapter = AssetTypesAdapter()
     private val walletViewModel: WalletViewModel by activityViewModels()
 
@@ -46,31 +46,31 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
     ): View {
         binding = FragmentAssetsBinding.inflate(inflater, container, false)
         pieChart = binding.pieChart.also { it.setOnChartValueSelectedListener(this) }
-        spinnerForAssetSort = SpinnerForAssetSort(binding.spinnerFilter)
+        assetFilterHelper = AssetFilterHelper(binding.spinnerFilter, assetTypesAdapter)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupPieChart()
-        setupSpinnerFilter()
+        assetFilterHelper.setupOnSpinnerItemSelected(originalAssetList)
         binding.recyclerView.setupRecyclerViewWithLinearLayout(assetTypesAdapter)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        filterAssetListBySpinner(originalAssetList)
+        assetFilterHelper.updateAdapterAndPieChart(originalAssetList, pieChart)
     }
 
     override fun onValueSelected(e: Entry?, h: Highlight?) {
         val assetType = (e as PieEntry).label
         val filteredList = originalAssetList.filter { getString(it.assetType.nameResId) == assetType }
 
-        filterAssetListBySpinner(filteredList)
+        assetFilterHelper.updateAdapterAndPieChart(filteredList, pieChart)
     }
 
     override fun onNothingSelected() {
-        filterAssetListBySpinner(originalAssetList)
+        assetFilterHelper.updateAdapterAndPieChart(originalAssetList, pieChart)
     }
 
     private fun setupPieChart() {
@@ -90,21 +90,6 @@ class AssetTypesFragment : Fragment(), OnChartValueSelectedListener {
 
         pieChart.setupPieChart(pieDataSet)
         pieChart.updateCenterText(originalAssetList.size)
-    }
-
-    private fun setupSpinnerFilter() {
-        spinnerForAssetSort.setOnItemSelected {
-            val filteredList = spinnerForAssetSort.getFilteredAssetList(
-                assetTypesAdapter.getList().ifEmpty { originalAssetList }
-            )
-            assetTypesAdapter.setList(filteredList)
-        }
-    }
-
-    private fun filterAssetListBySpinner(assetList: List<AssetUiModel>) {
-        val filteredList = spinnerForAssetSort.getFilteredAssetList(assetList)
-        assetTypesAdapter.setList(filteredList)
-        pieChart.updateCenterText(filteredList.size)
     }
 
 }
