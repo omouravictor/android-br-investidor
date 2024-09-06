@@ -5,6 +5,7 @@
     app:startDestination="@id/walletNavMenu">
 
     <include app:graph="@navigation/wallet_nav" />
+    <include app:graph="@navigation/news_nav" />
     <include app:graph="@navigation/profile_nav" />
 
 </navigation>

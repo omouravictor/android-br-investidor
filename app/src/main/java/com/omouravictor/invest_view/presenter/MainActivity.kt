@@ -56,7 +56,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupMainNavigation() {
-        val appBarConfiguration = AppBarConfiguration(setOf(R.id.fragmentWallet, R.id.fragmentProfile))
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.fragmentWallet,
+                R.id.fragmentNews,
+                R.id.fragmentProfile
+            )
+        )
 
         navController =
             (supportFragmentManager.findFragmentById(R.id.navHostFragmentMain) as NavHostFragment).navController
@@ -88,7 +94,8 @@ class MainActivity : AppCompatActivity() {
     private fun setupBottomNavigationView() {
         binding.bottomNav.itemIconTintList = null
         binding.bottomNav.setOnItemSelectedListener { menuItem ->
-            val menuItemStartDestination = navController.graph.findNode(menuItem.itemId)!!.id
+            val menuItemStartDestination = navController.graph.findNode(menuItem.itemId)?.id
+                ?: return@setOnItemSelectedListener false
             navController.clearPileAndNavigateTo(menuItemStartDestination)
             true
         }

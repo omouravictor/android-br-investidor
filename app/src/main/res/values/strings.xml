@@ -97,5 +97,6 @@
     <string name="not">Não</string>
     <string name="deleteAsset">Excluir ativo</string>
     <string name="updatedPosition">Posição atualizada</string>
+    <string name="news">Notícias</string>
 
 </resources>
