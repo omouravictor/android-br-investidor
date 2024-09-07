@@ -7,8 +7,24 @@
 
     <fragment
         android:id="@+id/fragmentNews"
-        android:name="com.omouravictor.invest_view.presenter.news.NewsFragment"
+        android:name="com.omouravictor.invest_view.presenter.news.SearchFragment"
         android:label="@string/news"
-        tools:layout="@layout/fragment_news" />
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/navToArticleFragment"
+            app:destination="@id/fragmentArticle" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentArticle"
+        android:name="com.omouravictor.invest_view.presenter.news.ArticleFragment"
+        android:label="ArticleFragment"
+        tools:layout="@layout/fragment_article">
+
+        <argument
+            android:name="article"
+            app:argType="com.omouravictor.invest_view.data.remote.model.news.ArticleResponse" />
+
+    </fragment>
 
 </navigation>
