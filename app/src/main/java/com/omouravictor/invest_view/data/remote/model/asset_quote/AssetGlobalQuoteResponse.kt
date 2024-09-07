@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.data.network.remote.model.asset_quote
+package com.omouravictor.invest_view.data.remote.model.asset_quote
 
 import com.google.gson.annotations.SerializedName
 import com.omouravictor.invest_view.presenter.wallet.model.AssetQuoteUiModel

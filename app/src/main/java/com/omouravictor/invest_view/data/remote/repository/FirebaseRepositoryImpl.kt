@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.data.network.remote.repository
+package com.omouravictor.invest_view.data.remote.repository
 
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore

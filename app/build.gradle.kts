@@ -26,8 +26,10 @@ android {
         val apiPropertiesFile = rootProject.file("api.properties")
         val apiProperties = Properties().apply { load(apiPropertiesFile.inputStream()) }
 
-        buildConfigField("String", "API_BASE_URL", apiProperties.getProperty("API_BASE_URL"))
-        buildConfigField("String", "API_KEY", apiProperties.getProperty("API_KEY"))
+        buildConfigField("String", "ALPHA_VANTAGE_API_BASE_URL", apiProperties.getProperty("ALPHA_VANTAGE_API_BASE_URL"))
+        buildConfigField("String", "ALPHA_VANTAGE_API_KEY", apiProperties.getProperty("ALPHA_VANTAGE_API_KEY"))
+        buildConfigField("String", "NEWS_API_BASE_URL", apiProperties.getProperty("NEWS_API_BASE_URL"))
+        buildConfigField("String", "NEWS_API_KEY", apiProperties.getProperty("NEWS_API_KEY"))
     }
 
     buildTypes {

@@ -1,10 +1,10 @@
-package com.omouravictor.invest_view.data.network.remote.model.assets_by_search
+package com.omouravictor.invest_view.data.remote.model.assets_by_search
 
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.util.AssetUtil
 
 data class AssetsBySearchResponse(
-    val bestMatches: List<AssetBySearchItemResponse>
+    val bestMatches: List<AssetsBySearchItemResponse>
 )
 
 fun AssetsBySearchResponse.toAssetsUiModel(): List<AssetUiModel> {

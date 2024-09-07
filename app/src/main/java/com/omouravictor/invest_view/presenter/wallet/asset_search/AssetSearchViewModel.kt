@@ -2,9 +2,9 @@ package com.omouravictor.invest_view.presenter.wallet.asset_search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.omouravictor.invest_view.data.network.remote.model.asset_quote.toAssetQuoteUiModel
-import com.omouravictor.invest_view.data.network.remote.model.assets_by_search.toAssetsUiModel
-import com.omouravictor.invest_view.data.network.remote.repository.AssetsApiRepository
+import com.omouravictor.invest_view.data.remote.model.asset_quote.toAssetQuoteUiModel
+import com.omouravictor.invest_view.data.remote.model.assets_by_search.toAssetsUiModel
+import com.omouravictor.invest_view.data.remote.repository.AssetsApiRepository
 import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.presenter.wallet.model.AssetQuoteUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel

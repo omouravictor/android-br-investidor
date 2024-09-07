@@ -1,7 +1,7 @@
-package com.omouravictor.invest_view.data.network.remote.api
+package com.omouravictor.invest_view.data.remote.api
 
-import com.omouravictor.invest_view.data.network.remote.model.asset_quote.AssetGlobalQuoteResponse
-import com.omouravictor.invest_view.data.network.remote.model.assets_by_search.AssetsBySearchResponse
+import com.omouravictor.invest_view.data.remote.model.asset_quote.AssetGlobalQuoteResponse
+import com.omouravictor.invest_view.data.remote.model.assets_by_search.AssetsBySearchResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

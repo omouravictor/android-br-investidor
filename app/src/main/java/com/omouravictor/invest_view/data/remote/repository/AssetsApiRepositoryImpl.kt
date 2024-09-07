@@ -1,9 +1,9 @@
-package com.omouravictor.invest_view.data.network.remote.repository
+package com.omouravictor.invest_view.data.remote.repository
 
 import android.util.Log
-import com.omouravictor.invest_view.data.network.remote.api.AlphaVantageService
-import com.omouravictor.invest_view.data.network.remote.model.asset_quote.AssetGlobalQuoteResponse
-import com.omouravictor.invest_view.data.network.remote.model.assets_by_search.AssetsBySearchResponse
+import com.omouravictor.invest_view.data.remote.api.AlphaVantageService
+import com.omouravictor.invest_view.data.remote.model.asset_quote.AssetGlobalQuoteResponse
+import com.omouravictor.invest_view.data.remote.model.assets_by_search.AssetsBySearchResponse
 import com.omouravictor.invest_view.di.model.DispatcherProvider
 import kotlinx.coroutines.withContext
 

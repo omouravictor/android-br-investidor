@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.data.network.remote.repository
+package com.omouravictor.invest_view.data.remote.repository
 
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 

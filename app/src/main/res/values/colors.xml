@@ -25,6 +25,7 @@
     <color name="green">#00C853</color>
     <color name="red">#EE0000</color>
     <color name="yellow">#FFD600</color>
+    <color name="purple">#593c8f</color>
 
     <!-- Asset type colors -->
     <color name="brazilianStock">#FFBF00</color>
