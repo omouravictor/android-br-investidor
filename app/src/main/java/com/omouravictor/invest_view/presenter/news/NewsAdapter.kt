@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.omouravictor.invest_view.databinding.ItemNewsBinding
 import com.omouravictor.invest_view.presenter.base.BaseRecyclerViewAdapter
-import com.omouravictor.invest_view.presenter.model.NewsUiModel
+import com.omouravictor.invest_view.presenter.model.ArticleUiModel
 
-class NewsAdapter : BaseRecyclerViewAdapter<NewsUiModel, NewsAdapter.NewsBySearchViewHolder>() {
+class NewsAdapter : BaseRecyclerViewAdapter<ArticleUiModel, NewsAdapter.NewsBySearchViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsBySearchViewHolder {
         val binding = ItemNewsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -24,16 +24,16 @@ class NewsAdapter : BaseRecyclerViewAdapter<NewsUiModel, NewsAdapter.NewsBySearc
         RecyclerView.ViewHolder(binding.root) {
 
         @SuppressLint("SetTextI18n")
-        fun bind(newsUiModel: NewsUiModel) {
+        fun bind(articleUiModel: ArticleUiModel) {
             binding.apply {
                 Glide.with(itemView)
-                    .load(newsUiModel.urlToImage)
+                    .load(articleUiModel.urlToImage)
                     .into(articleImage)
-                articleSource.text = newsUiModel.source.name
-                articleTitle.text = newsUiModel.title
-                articleDescription.text = newsUiModel.description
-                articleDateTime.text = newsUiModel.publishedAt
-                itemView.setOnClickListener { onClickItem(newsUiModel) }
+                articleSource.text = articleUiModel.source.name
+                articleTitle.text = articleUiModel.title
+                articleDescription.text = articleUiModel.description
+                articleDateTime.text = articleUiModel.publishedAt
+                itemView.setOnClickListener { onClickItem(articleUiModel) }
             }
         }
     }

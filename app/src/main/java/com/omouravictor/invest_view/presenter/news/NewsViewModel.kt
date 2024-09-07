@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.omouravictor.invest_view.data.remote.model.news.toNewsUiModel
 import com.omouravictor.invest_view.data.remote.repository.NewsApiRepository
-import com.omouravictor.invest_view.presenter.model.NewsUiModel
+import com.omouravictor.invest_view.presenter.model.ArticleUiModel
 import com.omouravictor.invest_view.presenter.model.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +17,7 @@ class NewsViewModel @Inject constructor(
     private val newsApiRepository: NewsApiRepository
 ) : ViewModel() {
 
-    private val _newsBySearchListUiState = MutableStateFlow<UiState<List<NewsUiModel>>>(UiState.Initial)
+    private val _newsBySearchListUiState = MutableStateFlow<UiState<List<ArticleUiModel>>>(UiState.Initial)
     val newsBySearchListUiState = _newsBySearchListUiState.asStateFlow()
 
     fun loadNewsBySearch(keywords: String) {

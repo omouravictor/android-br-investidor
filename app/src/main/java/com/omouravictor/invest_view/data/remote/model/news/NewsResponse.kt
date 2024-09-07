@@ -1,6 +1,6 @@
 package com.omouravictor.invest_view.data.remote.model.news
 
-import com.omouravictor.invest_view.presenter.model.NewsUiModel
+import com.omouravictor.invest_view.presenter.model.ArticleUiModel
 
 data class NewsResponse(
     val status: String,
@@ -8,9 +8,9 @@ data class NewsResponse(
     val articles: List<ArticleResponse>
 )
 
-fun NewsResponse.toNewsUiModel(): List<NewsUiModel> {
+fun NewsResponse.toNewsUiModel(): List<ArticleUiModel> {
     return articles.map {
-        NewsUiModel(
+        ArticleUiModel(
             author = it.author,
             content = it.content,
             description = it.description,

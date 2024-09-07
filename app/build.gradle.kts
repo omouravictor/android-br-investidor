@@ -7,7 +7,6 @@ plugins {
     id("androidx.navigation.safeargs")
     id("kotlin-parcelize")
     id("com.google.dagger.hilt.android")
-    id("com.google.devtools.ksp")
     kotlin("kapt")
 }
 
@@ -112,9 +111,8 @@ dependencies {
     val firebaseFirestoreVersion = "25.0.0"
     implementation("com.google.firebase:firebase-firestore:$firebaseFirestoreVersion")
 
-    val glideVersion = "4.12.0"
-    implementation ("com.github.bumptech.glide:glide:$glideVersion")
-    ksp ("com.github.bumptech.glide:compiler:$glideVersion")
+    val glideVersion = "4.16.0"
+    implementation("com.github.bumptech.glide:glide:$glideVersion")
 }
 
 kapt {

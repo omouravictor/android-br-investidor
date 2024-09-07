@@ -20,11 +20,9 @@
         android:name="com.omouravictor.invest_view.presenter.news.ArticleFragment"
         android:label="ArticleFragment"
         tools:layout="@layout/fragment_article">
-
         <argument
-            android:name="article"
-            app:argType="com.omouravictor.invest_view.data.remote.model.news.ArticleResponse" />
-
+            android:name="articleUiModel"
+            app:argType="com.omouravictor.invest_view.presenter.model.ArticleUiModel" />
     </fragment>
 
 </navigation>
