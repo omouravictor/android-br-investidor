@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.omouravictor.invest_view.databinding.ItemNewsBinding
 import com.omouravictor.invest_view.presenter.base.BaseRecyclerViewAdapter
 import com.omouravictor.invest_view.presenter.model.ArticleUiModel
+import com.omouravictor.invest_view.util.LocaleUtil
 
 class NewsAdapter : BaseRecyclerViewAdapter<ArticleUiModel, NewsAdapter.NewsBySearchViewHolder>() {
 
@@ -29,10 +30,10 @@ class NewsAdapter : BaseRecyclerViewAdapter<ArticleUiModel, NewsAdapter.NewsBySe
                 Glide.with(itemView)
                     .load(articleUiModel.urlToImage)
                     .into(articleImage)
-                articleSource.text = articleUiModel.source?.name
+                articleSource.text = articleUiModel.source.name
                 articleTitle.text = articleUiModel.title
                 articleDescription.text = articleUiModel.description
-                articleDateTime.text = articleUiModel.publishedAt
+                articleDateTime.text = LocaleUtil.getFormattedDateTime(articleUiModel.publishedAt)
                 itemView.setOnClickListener { onClickItem(articleUiModel) }
             }
         }

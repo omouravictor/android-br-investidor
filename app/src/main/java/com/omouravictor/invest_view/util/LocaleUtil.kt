@@ -1,12 +1,18 @@
 package com.omouravictor.invest_view.util
 
 import java.text.NumberFormat
+import java.text.SimpleDateFormat
 import java.util.Currency
 import java.util.Locale
+import java.util.TimeZone
 
 object LocaleUtil {
 
     val appLocale = Locale("pt", "BR")
+    private val appTimeZone = TimeZone.getTimeZone("America/Sao_Paulo")
+    private val appDateTimeFormat = SimpleDateFormat("dd/MM/yyyy HH:mm", appLocale)
+        .apply { timeZone = appTimeZone }
+    private val isoDateTimeFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", appLocale)
 
     fun getFormattedCurrencyValue(currency: String, value: Number): String {
         val currencyFormat = NumberFormat.getCurrencyInstance(appLocale)
@@ -23,6 +29,13 @@ object LocaleUtil {
         val percentFormat = NumberFormat.getPercentInstance(appLocale)
         percentFormat.maximumFractionDigits = 2
         return percentFormat.format(value)
+    }
+
+    fun getFormattedDateTime(dateTimeString: String?): String {
+        if (dateTimeString.isNullOrEmpty()) return ""
+
+        val parsedDate = isoDateTimeFormat.parse(dateTimeString) ?: return ""
+        return appDateTimeFormat.format(parsedDate)
     }
 
 }
