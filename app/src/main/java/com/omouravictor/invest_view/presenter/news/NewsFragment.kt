@@ -91,7 +91,6 @@ class NewsFragment : Fragment() {
             }
         }
 
-        searchView.onActionViewExpanded()
         searchView.maxWidth = Int.MAX_VALUE
         searchView.queryHint = getString(R.string.searchASubject)
         searchView.setOnQueryTextListener(queryTextListener)
