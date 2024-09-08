@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/fragmentNews"
-        android:name="com.omouravictor.invest_view.presenter.news.SearchFragment"
+        android:name="com.omouravictor.invest_view.presenter.news.NewsFragment"
         android:label="@string/news"
-        tools:layout="@layout/fragment_search">
+        tools:layout="@layout/fragment_news">
         <action
             android:id="@+id/navToArticleFragment"
             app:destination="@id/fragmentArticle" />

@@ -17,18 +17,18 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.omouravictor.invest_view.R
-import com.omouravictor.invest_view.databinding.FragmentSearchBinding
+import com.omouravictor.invest_view.databinding.FragmentNewsBinding
+import com.omouravictor.invest_view.presenter.model.ArticleUiModel
 import com.omouravictor.invest_view.presenter.model.UiState
-import com.omouravictor.invest_view.util.getGenericErrorMessage
 import com.omouravictor.invest_view.util.hideKeyboard
 import com.omouravictor.invest_view.util.setupRecyclerViewWithLinearLayout
 import com.omouravictor.invest_view.util.showErrorSnackBar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class SearchFragment : Fragment() {
+class NewsFragment : Fragment() {
 
-    private lateinit var binding: FragmentSearchBinding
+    private lateinit var binding: FragmentNewsBinding
     private lateinit var searchView: SearchView
     private val newsViewModel: NewsViewModel by activityViewModels()
     private val newsAdapter = NewsAdapter()
@@ -36,7 +36,7 @@ class SearchFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        binding = FragmentSearchBinding.inflate(inflater, container, false)
+        binding = FragmentNewsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -99,7 +99,7 @@ class SearchFragment : Fragment() {
 
     private fun setupAdapterAndRecyclerView() {
         newsAdapter.updateOnClickItem { articleUiModel ->
-            findNavController().navigate(SearchFragmentDirections.navToArticleFragment(articleUiModel))
+            findNavController().navigate(NewsFragmentDirections.navToArticleFragment(articleUiModel))
         }
 
         binding.recyclerView.setupRecyclerViewWithLinearLayout(newsAdapter)
@@ -110,14 +110,9 @@ class SearchFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 newsViewModel.newsBySearchListUiState.collectLatest {
                     when (it) {
-                        is UiState.Loading -> setupViewsForAssetsBySearch(isLoading = true)
-                        is UiState.Success -> {
-                            val newsBySearchList = it.data
-                            setupViewsForAssetsBySearch(isSuccessResultsEmpty = newsBySearchList.isEmpty())
-                            newsAdapter.setList(newsBySearchList)
-                        }
-
-                        is UiState.Error -> handleErrors(it.e)
+                        is UiState.Loading -> handleLoading()
+                        is UiState.Success -> handleSuccess(it.data)
+                        is UiState.Error -> handleError(it.e)
                         else -> Unit
                     }
                 }
@@ -125,26 +120,36 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun setupViewsForAssetsBySearch(
-        isLoading: Boolean = false,
-        isSuccessResultsEmpty: Boolean = false,
-        isError: Boolean = false,
-    ) {
-        binding.incProgressBar.root.isVisible = false
-        binding.shimmerLayout.isVisible = isLoading
-        binding.incLayoutError.tvInfoMessage.isVisible = isSuccessResultsEmpty || isError
-        binding.incLayoutError.incBtnTryAgain.root.isVisible = isError
-        binding.recyclerView.isVisible = !isLoading && !isSuccessResultsEmpty && !isError
+    private fun handleSuccess(results: List<ArticleUiModel>) {
+        binding.shimmerLayout.isVisible = false
+        binding.shimmerLayout.stopShimmer()
 
-        if (isLoading) binding.shimmerLayout.startShimmer()
-        else binding.shimmerLayout.stopShimmer()
+        val isResultsEmpty = results.isEmpty()
 
-        if (isSuccessResultsEmpty) binding.incLayoutError.tvInfoMessage.text = getString(R.string.noResultsFound)
+        binding.recyclerView.isVisible = !isResultsEmpty
+
+        if (isResultsEmpty) {
+            binding.incLayoutError.root.isVisible = true
+            binding.incLayoutError.tvInfoMessage.text = getString(R.string.noResultsFound)
+            return
+        }
+
+        newsAdapter.setList(results)
     }
 
-    private fun handleErrors(e: Exception) {
-        setupViewsForAssetsBySearch(isError = true)
-        binding.incLayoutError.tvInfoMessage.text = requireContext().getGenericErrorMessage(e)
+    private fun handleLoading() {
+        binding.shimmerLayout.isVisible = true
+        binding.shimmerLayout.startShimmer()
+        binding.recyclerView.isVisible = false
+        binding.incLayoutError.root.isVisible = false
+    }
+
+    private fun handleError(e: Exception) {
+        binding.shimmerLayout.isVisible = false
+        binding.shimmerLayout.stopShimmer()
+        binding.recyclerView.isVisible = false
+        binding.incLayoutError.root.isVisible = true
+        binding.incLayoutError.tvInfoMessage.text = e.message.toString()
     }
 
 }

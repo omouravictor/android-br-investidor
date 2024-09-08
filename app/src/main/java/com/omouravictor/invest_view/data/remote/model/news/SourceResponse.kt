@@ -4,7 +4,7 @@ import com.omouravictor.invest_view.presenter.model.SourceUiModel
 
 data class SourceResponse(
     val id: String?,
-    val name: String
+    val name: String?
 )
 
 fun SourceResponse.toSourceUiModel(): SourceUiModel {
