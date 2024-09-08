@@ -12,7 +12,6 @@ fun AssetsBySearchResponse.toAssetsUiModel(): List<AssetUiModel> {
         AssetUiModel(
             symbol = it.symbol,
             name = it.name,
-            originalType = it.type,
             assetType = AssetUtil.getAssetType(it.symbol, it.type),
             region = it.region,
             currency = it.currency

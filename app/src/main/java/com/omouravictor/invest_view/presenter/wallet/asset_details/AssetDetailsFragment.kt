@@ -158,7 +158,7 @@ class AssetDetailsFragment : Fragment() {
     private fun observeAssetQuoteUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                assetSearchViewModel.assetQuoteUiState.collectLatest {
+                assetSearchViewModel.quoteUiState.collectLatest {
                     when (it) {
                         is UiState.Loading -> setupLoadingLayoutForAssetQuote(true)
                         is UiState.Success -> {

@@ -20,7 +20,6 @@ import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetSearchBinding
 import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
-import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.util.getGenericErrorMessage
 import com.omouravictor.invest_view.util.hideKeyboard
 import com.omouravictor.invest_view.util.setupRecyclerViewWithLinearLayout
@@ -35,7 +34,6 @@ class AssetSearchFragment : Fragment() {
     private val walletViewModel: WalletViewModel by activityViewModels()
     private val assetSearchViewModel: AssetSearchViewModel by activityViewModels()
     private val assetBySearchAdapter = AssetBySearchAdapter()
-    private var assetUiModel = AssetUiModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -86,11 +84,9 @@ class AssetSearchFragment : Fragment() {
 
     private fun setupAdapterAndRecyclerView() {
         assetBySearchAdapter.updateOnClickItem { assetUiModel ->
-            val symbol = assetUiModel.symbol
-            val existingAsset = walletViewModel.assetList.value.find { it.symbol == symbol }
+            val existingAsset = walletViewModel.assetList.value.find { it.symbol == assetUiModel.symbol }
             if (existingAsset == null) {
-                this.assetUiModel = assetUiModel
-                assetSearchViewModel.loadAssetQuote(symbol)
+                assetSearchViewModel.loadAssetQuote(assetUiModel)
             } else {
                 requireActivity().showErrorSnackBar(getString(R.string.assetAlreadyExists))
             }
@@ -126,7 +122,7 @@ class AssetSearchFragment : Fragment() {
     private fun observeAssetBySearchListUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                assetSearchViewModel.assetBySearchListUiState.collectLatest {
+                assetSearchViewModel.assetListUiState.collectLatest {
                     when (it) {
                         is UiState.Loading -> setupViewsForAssetsBySearch(isLoading = true)
                         is UiState.Success -> {
@@ -146,7 +142,7 @@ class AssetSearchFragment : Fragment() {
     private fun observeAssetQuoteUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                assetSearchViewModel.assetQuoteUiState.collectLatest {
+                assetSearchViewModel.assetUiState.collectLatest {
                     when (it) {
                         is UiState.Loading -> {
                             binding.recyclerView.isVisible = false
@@ -154,9 +150,8 @@ class AssetSearchFragment : Fragment() {
                         }
 
                         is UiState.Success -> {
-                            assetUiModel.price = it.data.price
                             findNavController().navigate(
-                                AssetSearchFragmentDirections.navToSaveAssetFragment(assetUiModel)
+                                AssetSearchFragmentDirections.navToSaveAssetFragment(it.data)
                             )
                         }
 
