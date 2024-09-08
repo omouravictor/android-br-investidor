@@ -107,7 +107,7 @@ class NewsFragment : Fragment() {
     private fun observeNewsBySearchListUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                newsViewModel.newsBySearchListUiState.collectLatest {
+                newsViewModel.newsListUiState.collectLatest {
                     when (it) {
                         is UiState.Loading -> handleLoading()
                         is UiState.Success -> handleSuccess(it.data)
