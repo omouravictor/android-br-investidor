@@ -6,7 +6,7 @@ import java.util.Locale
 
 object LocaleUtil {
 
-    private val appLocale = Locale("pt", "BR")
+    val appLocale = Locale("pt", "BR")
 
     fun getFormattedCurrencyValue(currency: String, value: Number): String {
         val currencyFormat = NumberFormat.getCurrencyInstance(appLocale)
