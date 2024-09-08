@@ -24,7 +24,8 @@ import com.omouravictor.invest_view.presenter.wallet.model.getTotalPrice
 import com.omouravictor.invest_view.util.ConstantUtil
 import com.omouravictor.invest_view.util.LocaleUtil
 import com.omouravictor.invest_view.util.getGenericErrorMessage
-import com.omouravictor.invest_view.util.getOnlyNumbers
+import com.omouravictor.invest_view.util.getLongValue
+import com.omouravictor.invest_view.util.getMonetaryValueDouble
 import com.omouravictor.invest_view.util.getRoundedDouble
 import com.omouravictor.invest_view.util.setEditTextCurrencyFormatMask
 import com.omouravictor.invest_view.util.setEditTextLongNumberFormatMask
@@ -78,10 +79,10 @@ class NewAdditionFragment : Fragment() {
             incCurrentPosition.tvTotalPrice.text = assetUiModelArg.getFormattedTotalPrice()
             incCurrentPosition.tvYield.setupYieldForAsset(assetUiModelArg)
 
-            incUpdatedPosition.color.setBackgroundColor(color)
-            incUpdatedPosition.tvSymbolAmount.text = formattedSymbolAndAmount
-            incUpdatedPosition.tvName.text = assetUiModelArg.name
-            incUpdatedPosition.tvInfoMessage.hint = getString(R.string.fillTheFieldsToView)
+            incNewPosition.color.setBackgroundColor(color)
+            incNewPosition.tvSymbolAmount.text = formattedSymbolAndAmount
+            incNewPosition.tvName.text = assetUiModelArg.name
+            incNewPosition.tvInfoMessage.hint = getString(R.string.fillTheFieldsToView)
         }
         setupAmountAndValuePerUnit()
         showInitialUpdatedPositionLayout()
@@ -89,42 +90,32 @@ class NewAdditionFragment : Fragment() {
 
     private fun setupAmountAndValuePerUnit() {
         binding.ietAmount.apply {
-            doAfterTextChanged { updatePosition() }
+            doAfterTextChanged { updateNewPosition() }
             setEditTextLongNumberFormatMask()
             hint = LocaleUtil.getFormattedLong(0)
         }
 
         binding.ietValuePerUnit.apply {
             val currency = assetUiModelArg.currency
-            doAfterTextChanged { updatePosition() }
+            doAfterTextChanged { updateNewPosition() }
             setEditTextCurrencyFormatMask(currency)
             hint = LocaleUtil.getFormattedCurrencyValue(currency, 0.0)
         }
     }
 
     private fun showInitialUpdatedPositionLayout() {
-        binding.incUpdatedPosition.apply {
+        binding.incNewPosition.apply {
             tableLayout.visibility = View.INVISIBLE
             tvInfoMessage.visibility = View.VISIBLE
             binding.incBtnSave.root.isEnabled = false
         }
     }
 
-    private fun getAdditionAmount(): Long {
-        val amountText = binding.ietAmount.text.toString()
-        return if (amountText.isNotEmpty()) amountText.getOnlyNumbers().toLong() else 0
-    }
-
-    private fun getValuePerUnit(): Double {
-        val valuePerUnitText = binding.ietValuePerUnit.text.toString()
-        return if (valuePerUnitText.isNotEmpty()) valuePerUnitText.getOnlyNumbers().toDouble() / 100 else 0.0
-    }
-
     @SuppressLint("SetTextI18n")
-    private fun updatePosition() {
-        binding.incUpdatedPosition.apply {
-            val additionAmount = getAdditionAmount()
-            val valuePerUnit = getValuePerUnit()
+    private fun updateNewPosition() {
+        binding.incNewPosition.apply {
+            val additionAmount = binding.ietAmount.getLongValue()
+            val valuePerUnit = binding.ietValuePerUnit.getMonetaryValueDouble()
             if (additionAmount != 0L && valuePerUnit != 0.0) {
                 val currency = assetUiModelArg.currency
                 val updatedAmount = additionAmount + assetUiModelArg.amount
@@ -151,8 +142,8 @@ class NewAdditionFragment : Fragment() {
         binding.incBtnSave.root.apply {
             text = getString(R.string.save)
             setOnClickListener {
-                val additionAmount = getAdditionAmount()
-                val additionTotalInvested = getValuePerUnit() * additionAmount
+                val additionAmount = binding.ietAmount.getLongValue()
+                val additionTotalInvested = binding.ietValuePerUnit.getMonetaryValueDouble() * additionAmount
                 assetUiModelArg.amount += additionAmount
                 assetUiModelArg.totalInvested += additionTotalInvested
                 walletViewModel.saveAsset(assetUiModelArg)

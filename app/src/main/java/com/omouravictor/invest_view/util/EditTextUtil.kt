@@ -58,3 +58,13 @@ fun EditText.setEditTextCurrencyFormatMask(currency: String) {
         override fun afterTextChanged(s: Editable?) = Unit
     })
 }
+
+fun EditText.getLongValue(): Long {
+    val text = this.text.toString()
+    return if (text.isNotEmpty()) text.getOnlyNumbers().toLong() else 0
+}
+
+fun EditText.getMonetaryValueDouble(): Double {
+    val text = this.text.toString()
+    return if (text.isNotEmpty()) text.getOnlyNumbers().toDouble() / 100 else 0.0
+}

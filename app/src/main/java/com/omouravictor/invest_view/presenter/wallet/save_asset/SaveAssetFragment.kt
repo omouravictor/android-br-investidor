@@ -31,7 +31,8 @@ import com.omouravictor.invest_view.util.ConstantUtil
 import com.omouravictor.invest_view.util.LocaleUtil
 import com.omouravictor.invest_view.util.clearPileAndNavigateToStart
 import com.omouravictor.invest_view.util.getGenericErrorMessage
-import com.omouravictor.invest_view.util.getOnlyNumbers
+import com.omouravictor.invest_view.util.getLongValue
+import com.omouravictor.invest_view.util.getMonetaryValueDouble
 import com.omouravictor.invest_view.util.getRoundedDouble
 import com.omouravictor.invest_view.util.setEditTextCurrencyFormatMask
 import com.omouravictor.invest_view.util.setEditTextLongNumberFormatMask
@@ -133,24 +134,14 @@ class SaveAssetFragment : Fragment() {
         }
     }
 
-    private fun getAmount(): Long {
-        val amountText = binding.ietAmount.text.toString()
-        return if (amountText.isNotEmpty()) amountText.getOnlyNumbers().toLong() else 0
-    }
-
-    private fun getTotalInvested(): Double {
-        val totalInvestedText = binding.ietTotalInvested.text.toString()
-        return if (totalInvestedText.isNotEmpty()) totalInvestedText.getOnlyNumbers().toDouble() / 100 else 0.0
-    }
-
     @SuppressLint("SetTextI18n")
     private fun setupCurrentPosition() {
         binding.incItemListAsset.apply {
-            val amount = getAmount()
+            val amount = binding.ietAmount.getLongValue()
             if (amount != 0L) {
                 val currency = assetUiModelArg.currency
                 val totalPrice = amount * assetUiModelArg.price
-                val totalInvested = getTotalInvested()
+                val totalInvested = binding.ietTotalInvested.getMonetaryValueDouble()
                 val yield = (totalPrice - totalInvested).getRoundedDouble()
                 val yieldPercent = yield / totalInvested
 
@@ -174,8 +165,8 @@ class SaveAssetFragment : Fragment() {
         binding.incBtnSave.root.apply {
             text = getString(R.string.save)
             setOnClickListener {
-                assetUiModelArg.amount = getAmount()
-                assetUiModelArg.totalInvested = getTotalInvested()
+                assetUiModelArg.amount = binding.ietAmount.getLongValue()
+                assetUiModelArg.totalInvested = binding.ietTotalInvested.getMonetaryValueDouble()
                 walletViewModel.saveAsset(assetUiModelArg)
             }
         }
