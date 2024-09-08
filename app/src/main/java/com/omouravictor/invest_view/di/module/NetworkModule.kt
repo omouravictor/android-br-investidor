@@ -54,7 +54,7 @@ object NetworkModule {
         val interceptor = Interceptor { chain ->
             val request = chain.request()
                 .newBuilder()
-                .addHeader("apiKey", BuildConfig.NEWS_API_KEY)
+                .addHeader("x-api-key", BuildConfig.NEWS_API_KEY)
                 .build()
             chain.proceed(request)
         }

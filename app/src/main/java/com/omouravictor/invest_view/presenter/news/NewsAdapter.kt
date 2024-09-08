@@ -29,7 +29,7 @@ class NewsAdapter : BaseRecyclerViewAdapter<ArticleUiModel, NewsAdapter.NewsBySe
                 Glide.with(itemView)
                     .load(articleUiModel.urlToImage)
                     .into(articleImage)
-                articleSource.text = articleUiModel.source.name
+                articleSource.text = articleUiModel.source?.name
                 articleTitle.text = articleUiModel.title
                 articleDescription.text = articleUiModel.description
                 articleDateTime.text = articleUiModel.publishedAt

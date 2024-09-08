@@ -1,77 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Search"
-        android:textSize="30sp"
-        android:textColor="@color/purple"
-        android:textStyle="bold"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <EditText
-        android:id="@+id/searchEdit"
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Search news..."
-        android:layout_marginTop="70dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:padding="8dp"
-        android:textSize="14sp"
-        android:drawableTint="@color/purple"
-        android:background="@drawable/search_border"
-        android:drawableEnd="@drawable/ic_search"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
+
+        <include
+            layout="@layout/shimmer_item_list_news_by_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/defaultMargin" />
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerSearch"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:paddingBottom="50dp"
+        android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchEdit"
-        tools:layout_editor_absoluteX="0dp" />
+        android:paddingHorizontal="@dimen/defaultPadding"
+        android:paddingTop="@dimen/defaultPadding"
+        android:visibility="gone"
+        tools:listitem="@layout/item_news"
+        tools:visibility="visible" />
 
     <include
-        android:id="@+id/itemSearchError"
-        layout="@layout/item_error"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ProgressBar
-        android:id="@+id/paginationProgressBar"
-        style="?attr/progressBarStyle"
+        android:id="@+id/incProgressBar"
+        layout="@layout/progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="invisible"
-        android:background="@android:color/transparent"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+    <include
+        android:id="@+id/incLayoutError"
+        layout="@layout/layout_error_try_again"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
