@@ -18,8 +18,8 @@ class WalletViewModel @Inject constructor(
     private val firebaseRepository: FirebaseRepository
 ) : ViewModel() {
 
-    private val _assetUiState = MutableStateFlow<UiState<AssetUiModel>>(UiState.Initial)
-    val assetUiState = _assetUiState.asStateFlow()
+    private val _assetInOperationUiState = MutableStateFlow<UiState<AssetUiModel>>(UiState.Initial)
+    val assetInOperationUiState = _assetInOperationUiState.asStateFlow()
 
     private val _assetList = MutableStateFlow<List<AssetUiModel>>(emptyList())
     val assetList = _assetList.asStateFlow()
@@ -52,7 +52,7 @@ class WalletViewModel @Inject constructor(
     }
 
     fun saveAsset(asset: AssetUiModel) {
-        _assetUiState.value = UiState.Loading
+        _assetInOperationUiState.value = UiState.Loading
 
         viewModelScope.launch {
             try {
@@ -60,38 +60,38 @@ class WalletViewModel @Inject constructor(
                 if (result.isSuccess) {
                     val assetResult = result.getOrThrow()
                     val updatedList = getUpdatedList(assetResult)
-                    _assetUiState.value = UiState.Success(assetResult)
+                    _assetInOperationUiState.value = UiState.Success(assetResult)
                     _assetList.value = updatedList
                     _assetListUiState.value = UiState.Success(updatedList)
                 } else
-                    _assetUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
+                    _assetInOperationUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
             } catch (e: Exception) {
-                _assetUiState.value = UiState.Error(e)
+                _assetInOperationUiState.value = UiState.Error(e)
             }
         }
     }
 
     fun deleteAsset(asset: AssetUiModel) {
-        _assetUiState.value = UiState.Loading
+        _assetInOperationUiState.value = UiState.Loading
 
         viewModelScope.launch {
             try {
                 val result = firebaseRepository.deleteAsset(userId, asset)
                 if (result.isSuccess) {
                     val assetResult = result.getOrThrow()
-                    _assetUiState.value = UiState.Success(assetResult)
+                    _assetInOperationUiState.value = UiState.Success(assetResult)
                     _assetList.value -= assetResult
                     _assetListUiState.value = UiState.Success(_assetList.value)
                 } else
-                    _assetUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
+                    _assetInOperationUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
             } catch (e: Exception) {
-                _assetUiState.value = UiState.Error(e)
+                _assetInOperationUiState.value = UiState.Error(e)
             }
         }
     }
 
-    fun resetAssetUiState() {
-        _assetUiState.value = UiState.Initial
+    fun resetAssetInOperationUiState() {
+        _assetInOperationUiState.value = UiState.Initial
     }
 
     private fun getUpdatedList(asset: AssetUiModel): List<AssetUiModel> {

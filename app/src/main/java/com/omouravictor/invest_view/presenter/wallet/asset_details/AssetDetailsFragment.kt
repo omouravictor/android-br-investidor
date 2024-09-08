@@ -69,7 +69,7 @@ class AssetDetailsFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         assetSearchViewModel.resetAssetQuoteUiState()
-        walletViewModel.resetAssetUiState()
+        walletViewModel.resetAssetInOperationUiState()
     }
 
     private fun initAssetUiModel() {
@@ -186,7 +186,7 @@ class AssetDetailsFragment : Fragment() {
     private fun observeAssetUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                walletViewModel.assetUiState.collectLatest {
+                walletViewModel.assetInOperationUiState.collectLatest {
                     when (it) {
                         is UiState.Loading -> {
                             binding.mainLayout.visibility = View.INVISIBLE

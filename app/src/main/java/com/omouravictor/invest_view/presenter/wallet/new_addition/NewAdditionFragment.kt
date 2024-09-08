@@ -63,7 +63,7 @@ class NewAdditionFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
-        walletViewModel.resetAssetUiState()
+        walletViewModel.resetAssetInOperationUiState()
     }
 
     private fun setupViews() {
@@ -163,7 +163,7 @@ class NewAdditionFragment : Fragment() {
     private fun observeAssetUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                walletViewModel.assetUiState.collectLatest {
+                walletViewModel.assetInOperationUiState.collectLatest {
                     when (it) {
                         is UiState.Loading -> {
                             binding.newAdditionLayout.visibility = View.INVISIBLE

@@ -69,7 +69,7 @@ class SaveAssetFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
-        walletViewModel.resetAssetUiState()
+        walletViewModel.resetAssetInOperationUiState()
     }
 
     private fun setupToolbar() {
@@ -184,7 +184,7 @@ class SaveAssetFragment : Fragment() {
     private fun observeAssetUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                walletViewModel.assetUiState.collectLatest {
+                walletViewModel.assetInOperationUiState.collectLatest {
                     when (it) {
                         is UiState.Loading -> {
                             binding.saveLayout.visibility = View.INVISIBLE
