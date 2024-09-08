@@ -20,6 +20,10 @@ class NewsViewModel @Inject constructor(
     private val _newsListUiState = MutableStateFlow<UiState<List<ArticleUiModel>>>(UiState.Initial)
     val newsListUiState = _newsListUiState.asStateFlow()
 
+    init {
+        loadNewsBySearch("Bolsa de valores")
+    }
+
     fun loadNewsBySearch(keywords: String) {
         _newsListUiState.value = UiState.Loading
 

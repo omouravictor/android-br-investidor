@@ -45,7 +45,6 @@ class NewsFragment : Fragment() {
         addMenuProvider()
         setupAdapterAndRecyclerView()
         observeNewsBySearchListUiState()
-        newsViewModel.loadNewsBySearch(getString(R.string.defaultNewsSearch))
     }
 
     override fun onStop() {
