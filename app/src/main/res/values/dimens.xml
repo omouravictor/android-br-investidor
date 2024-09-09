@@ -1,7 +1,7 @@
 <resources>
     <dimen name="defaultElevation">5dp</dimen>
     <dimen name="defaultButtonRadius">50dp</dimen>
-    <dimen name="defaultBackgroundRadius">30dp</dimen>
+    <dimen name="defaultBottomSheetDialogRadius">30dp</dimen>
     <dimen name="defaultRadius">5dp</dimen>
     <dimen name="defaultMargin">16dp</dimen>
     <dimen name="defaultPadding">16dp</dimen>
