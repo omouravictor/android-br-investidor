@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingHorizontal="@dimen/defaultPadding"
+    android:paddingTop="@dimen/defaultPadding">
 
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingHorizontal="@dimen/defaultPadding"
-        android:paddingTop="@dimen/defaultPadding"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,8 +29,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:paddingHorizontal="@dimen/defaultPadding"
-        android:paddingTop="@dimen/defaultPadding"
         android:visibility="gone"
         tools:listitem="@layout/item_news"
         tools:visibility="visible" />
