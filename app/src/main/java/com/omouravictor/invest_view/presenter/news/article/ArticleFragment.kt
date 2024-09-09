@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.presenter.news
+package com.omouravictor.invest_view.presenter.news.article
 
 import android.os.Bundle
 import android.view.LayoutInflater

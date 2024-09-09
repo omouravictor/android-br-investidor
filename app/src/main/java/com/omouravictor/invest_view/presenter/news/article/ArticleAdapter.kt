@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.presenter.news
+package com.omouravictor.invest_view.presenter.news.article
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -13,7 +13,7 @@ import com.omouravictor.invest_view.presenter.model.ArticleUiModel
 import com.omouravictor.invest_view.util.LocaleUtil
 
 
-class NewsAdapter : BaseRecyclerViewAdapter<ArticleUiModel, NewsAdapter.NewsBySearchViewHolder>() {
+class ArticleAdapter : BaseRecyclerViewAdapter<ArticleUiModel, ArticleAdapter.NewsBySearchViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsBySearchViewHolder {
         val binding = ItemNewsBinding.inflate(LayoutInflater.from(parent.context), parent, false)

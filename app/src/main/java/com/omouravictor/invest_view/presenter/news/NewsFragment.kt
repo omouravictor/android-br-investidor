@@ -20,6 +20,7 @@ import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentNewsBinding
 import com.omouravictor.invest_view.presenter.model.ArticleUiModel
 import com.omouravictor.invest_view.presenter.model.UiState
+import com.omouravictor.invest_view.presenter.news.article.ArticleAdapter
 import com.omouravictor.invest_view.util.hideKeyboard
 import com.omouravictor.invest_view.util.setupRecyclerViewWithLinearLayout
 import com.omouravictor.invest_view.util.showErrorSnackBar
@@ -31,7 +32,7 @@ class NewsFragment : Fragment() {
     private lateinit var binding: FragmentNewsBinding
     private lateinit var searchView: SearchView
     private val newsViewModel: NewsViewModel by activityViewModels()
-    private val newsAdapter = NewsAdapter()
+    private val articleAdapter = ArticleAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -97,11 +98,11 @@ class NewsFragment : Fragment() {
     }
 
     private fun setupAdapterAndRecyclerView() {
-        newsAdapter.updateOnClickItem { articleUiModel ->
+        articleAdapter.updateOnClickItem { articleUiModel ->
             findNavController().navigate(NewsFragmentDirections.navToArticleFragment(articleUiModel))
         }
 
-        binding.recyclerView.setupRecyclerViewWithLinearLayout(newsAdapter)
+        binding.recyclerView.setupRecyclerViewWithLinearLayout(articleAdapter)
     }
 
     private fun observeNewsListUiState() {
@@ -140,7 +141,7 @@ class NewsFragment : Fragment() {
             return
         }
 
-        newsAdapter.setList(results)
+        articleAdapter.setList(results)
     }
 
     private fun handleError(e: Exception) {

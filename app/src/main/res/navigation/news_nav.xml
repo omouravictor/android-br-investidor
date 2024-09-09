@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/fragmentArticle"
-        android:name="com.omouravictor.invest_view.presenter.news.ArticleFragment"
+        android:name="com.omouravictor.invest_view.presenter.news.article.ArticleFragment"
         android:label="ArticleFragment"
         tools:layout="@layout/fragment_article">
         <argument

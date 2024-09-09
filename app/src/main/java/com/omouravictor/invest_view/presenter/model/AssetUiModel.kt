@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.presenter.wallet.model
+package com.omouravictor.invest_view.presenter.model
 
 import android.os.Parcelable
 import com.omouravictor.invest_view.presenter.wallet.asset_types.AssetTypes

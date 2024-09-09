@@ -1,6 +1,6 @@
 package com.omouravictor.invest_view.data.remote.model.assets_by_search
 
-import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
+import com.omouravictor.invest_view.presenter.model.AssetUiModel
 import com.omouravictor.invest_view.util.AssetUtil
 
 data class AssetsBySearchResponse(
