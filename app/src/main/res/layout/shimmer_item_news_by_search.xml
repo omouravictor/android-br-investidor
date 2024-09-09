@@ -3,12 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <View
+    <androidx.cardview.widget.CardView
         android:id="@+id/image"
         android:layout_width="160dp"
         android:layout_height="90dp"
-        android:background="@drawable/background_rectangle_1"
         android:backgroundTint="@color/shimmerBackColor"
+        app:cardCornerRadius="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -17,7 +17,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:background="@drawable/background_rectangle_1"
+        android:background="@drawable/background_rectangle"
         android:backgroundTint="@color/shimmerBackColor"
         android:textSize="15sp"
         android:textStyle="bold"
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/background_rectangle_1"
+        android:background="@drawable/background_rectangle"
         android:backgroundTint="@color/shimmerBackColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image"
@@ -42,7 +42,7 @@
         android:layout_width="0dp"
         android:layout_height="12dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/background_rectangle_1"
+        android:background="@drawable/background_rectangle"
         android:backgroundTint="@color/shimmerBackColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image"
@@ -52,7 +52,7 @@
         android:id="@+id/dateTime"
         android:layout_width="0dp"
         android:layout_height="12dp"
-        android:background="@drawable/background_rectangle_1"
+        android:background="@drawable/background_rectangle"
         android:backgroundTint="@color/shimmerBackColor"
         app:layout_constraintBottom_toBottomOf="@+id/source"
         app:layout_constraintEnd_toEndOf="parent"
