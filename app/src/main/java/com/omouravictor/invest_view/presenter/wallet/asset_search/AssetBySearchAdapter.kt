@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.omouravictor.invest_view.databinding.ItemListAssetBySearchBinding
+import com.omouravictor.invest_view.databinding.ItemAssetBySearchBinding
 import com.omouravictor.invest_view.presenter.base.BaseRecyclerViewAdapter
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
@@ -14,7 +14,7 @@ class AssetBySearchAdapter :
     BaseRecyclerViewAdapter<AssetUiModel, AssetBySearchAdapter.AssetBySearchViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AssetBySearchViewHolder {
-        val binding = ItemListAssetBySearchBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemAssetBySearchBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return AssetBySearchViewHolder(binding)
     }
 
@@ -22,7 +22,7 @@ class AssetBySearchAdapter :
         holder.bind(itemsList[position])
     }
 
-    inner class AssetBySearchViewHolder(private val binding: ItemListAssetBySearchBinding) :
+    inner class AssetBySearchViewHolder(private val binding: ItemAssetBySearchBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         private val context = binding.root.context
