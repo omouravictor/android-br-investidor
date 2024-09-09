@@ -21,8 +21,8 @@ class AssetSearchViewModel @Inject constructor(
     private val _assetListUiState = MutableStateFlow<UiState<List<AssetUiModel>>>(UiState.Initial)
     val assetListUiState = _assetListUiState.asStateFlow()
 
-    private val _assetUiState = MutableStateFlow<UiState<AssetUiModel>>(UiState.Initial)
-    val assetUiState = _assetUiState.asStateFlow()
+    private val _assetInOperationUiState = MutableStateFlow<UiState<AssetUiModel>>(UiState.Initial)
+    val assetInOperationUiState = _assetInOperationUiState.asStateFlow()
 
     private val _quoteUiState = MutableStateFlow<UiState<AssetGlobalQuoteItemResponse>>(UiState.Initial)
     val quoteUiState = _quoteUiState.asStateFlow()
@@ -45,7 +45,7 @@ class AssetSearchViewModel @Inject constructor(
     }
 
     fun loadAssetQuote(assetUiModel: AssetUiModel) {
-        _assetUiState.value = UiState.Loading
+        _assetInOperationUiState.value = UiState.Loading
 
         viewModelScope.launch {
             try {
@@ -53,11 +53,11 @@ class AssetSearchViewModel @Inject constructor(
                 if (result.isSuccess) {
                     val assetQuote = result.getOrThrow().globalQuote
                     assetUiModel.price = assetQuote.price
-                    _assetUiState.value = UiState.Success(assetUiModel)
+                    _assetInOperationUiState.value = UiState.Success(assetUiModel)
                 } else
-                    _assetUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
+                    _assetInOperationUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
             } catch (e: Exception) {
-                _assetUiState.value = UiState.Error(e)
+                _assetInOperationUiState.value = UiState.Error(e)
             }
         }
     }

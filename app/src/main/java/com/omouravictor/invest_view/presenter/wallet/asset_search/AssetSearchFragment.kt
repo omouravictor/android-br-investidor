@@ -46,8 +46,8 @@ class AssetSearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         addMenuProvider()
         setupAdapterAndRecyclerView()
-        observeAssetBySearchListUiState()
-        observeAssetQuoteUiState()
+        observeAssetListUiState()
+        observeAssetInOperationUiState()
     }
 
     override fun onStop() {
@@ -114,7 +114,7 @@ class AssetSearchFragment : Fragment() {
         binding.recyclerView.setupRecyclerViewWithLinearLayout(assetBySearchAdapter)
     }
 
-    private fun observeAssetBySearchListUiState() {
+    private fun observeAssetListUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 assetSearchViewModel.assetListUiState.collectLatest {
@@ -161,10 +161,10 @@ class AssetSearchFragment : Fragment() {
         binding.incLayoutError.tvInfoMessage.text = e.message.toString()
     }
 
-    private fun observeAssetQuoteUiState() {
+    private fun observeAssetInOperationUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                assetSearchViewModel.assetUiState.collectLatest {
+                assetSearchViewModel.assetInOperationUiState.collectLatest {
                     when (it) {
                         is UiState.Loading -> handleQuoteLoading()
                         is UiState.Success -> handleQuoteSuccess(it.data)

@@ -44,7 +44,7 @@ class NewsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         addMenuProvider()
         setupAdapterAndRecyclerView()
-        observeNewsBySearchListUiState()
+        observeNewsListUiState()
     }
 
     override fun onStop() {
@@ -104,7 +104,7 @@ class NewsFragment : Fragment() {
         binding.recyclerView.setupRecyclerViewWithLinearLayout(newsAdapter)
     }
 
-    private fun observeNewsBySearchListUiState() {
+    private fun observeNewsListUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 newsViewModel.newsListUiState.collectLatest {
