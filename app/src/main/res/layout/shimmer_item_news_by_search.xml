@@ -4,7 +4,7 @@
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/image"
+        android:id="@+id/articleImage"
         android:layout_width="160dp"
         android:layout_height="90dp"
         android:backgroundTint="@color/shimmerBackColor"
@@ -13,7 +13,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/articleTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -22,11 +22,11 @@
         android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/image"
+        app:layout_constraintStart_toEndOf="@+id/articleImage"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/description"
+        android:id="@+id/articleDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -34,29 +34,29 @@
         android:background="@drawable/background_rectangle"
         android:backgroundTint="@color/shimmerBackColor"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/image"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+        app:layout_constraintStart_toEndOf="@+id/articleImage"
+        app:layout_constraintTop_toBottomOf="@+id/articleTitle" />
 
     <View
-        android:id="@+id/source"
+        android:id="@+id/articleSource"
         android:layout_width="0dp"
         android:layout_height="12dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/background_rectangle"
         android:backgroundTint="@color/shimmerBackColor"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image"
+        app:layout_constraintTop_toBottomOf="@+id/articleImage"
         app:layout_constraintWidth_percent=".2" />
 
     <View
-        android:id="@+id/dateTime"
+        android:id="@+id/articleDateTime"
         android:layout_width="0dp"
         android:layout_height="12dp"
         android:background="@drawable/background_rectangle"
         android:backgroundTint="@color/shimmerBackColor"
-        app:layout_constraintBottom_toBottomOf="@+id/source"
+        app:layout_constraintBottom_toBottomOf="@+id/articleSource"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/source"
+        app:layout_constraintTop_toTopOf="@+id/articleSource"
         app:layout_constraintWidth_percent=".2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
