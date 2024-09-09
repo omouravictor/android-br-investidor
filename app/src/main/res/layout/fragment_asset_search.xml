@@ -31,7 +31,7 @@
         android:paddingHorizontal="@dimen/defaultPadding"
         android:paddingTop="@dimen/defaultPadding"
         android:visibility="gone"
-        tools:listitem="@layout/item_list_asset_by_search"
+        tools:listitem="@layout/item_asset_by_search"
         tools:visibility="visible" />
 
     <include

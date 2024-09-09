@@ -107,7 +107,7 @@
 
             <include
                 android:id="@+id/incCurrentPosition"
-                layout="@layout/item_list_asset"
+                layout="@layout/item_asset"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/defaultMargin"
@@ -129,7 +129,7 @@
 
             <include
                 android:id="@+id/incNewPosition"
-                layout="@layout/item_list_asset"
+                layout="@layout/item_asset"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/defaultMargin"
