@@ -29,11 +29,11 @@ class NewsAdapter : BaseRecyclerViewAdapter<ArticleUiModel, NewsAdapter.NewsBySe
             binding.apply {
                 Glide.with(itemView)
                     .load(articleUiModel.urlToImage)
-                    .into(articleImage)
-                articleSource.text = articleUiModel.source.name
-                articleTitle.text = articleUiModel.title
-                articleDescription.text = articleUiModel.description
-                articleDateTime.text = LocaleUtil.getFormattedDateTime(articleUiModel.publishedAt)
+                    .into(image)
+                source.text = articleUiModel.source.name
+                title.text = articleUiModel.title
+                description.text = articleUiModel.description
+                dateTime.text = LocaleUtil.getFormattedDateTime(articleUiModel.publishedAt)
                 itemView.setOnClickListener { onClickItem(articleUiModel) }
             }
         }
