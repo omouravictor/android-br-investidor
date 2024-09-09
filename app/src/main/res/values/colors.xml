@@ -15,6 +15,7 @@
     <color name="defaultButtonBackgroundColor">@color/black</color>
     <color name="defaultButtonTextColor">@color/green</color>
     <color name="lineColor">#CFCFCF</color>
+    <color name="newsDescriptionColor">@color/black</color>
     <color name="tableTittleTextColor">#686868</color>
     <color name="mtrl_textinput_default_box_stroke_color" tools:ignore="PrivateResource">@color/gray</color>
 

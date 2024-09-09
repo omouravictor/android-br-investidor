@@ -50,7 +50,7 @@
         android:layout_marginTop="4dp"
         android:ellipsize="end"
         android:maxLines="2"
-        android:textColor="@color/appTextColor"
+        android:textColor="@color/newsDescriptionColor"
         android:textSize="@dimen/textSize2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image"
