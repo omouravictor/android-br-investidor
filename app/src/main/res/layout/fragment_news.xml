@@ -8,7 +8,9 @@
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmerLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="@dimen/defaultPadding"
+        android:paddingTop="@dimen/defaultPadding"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,8 +20,7 @@
         <include
             layout="@layout/shimmer_item_news_by_search"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/defaultMargin" />
+            android:layout_height="match_parent" />
 
     </com.facebook.shimmer.ShimmerFrameLayout>
 
