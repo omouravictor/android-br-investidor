@@ -1,12 +1,15 @@
 package com.omouravictor.invest_view.presenter.news
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.data.remote.model.news.toNewsUiModel
 import com.omouravictor.invest_view.data.remote.repository.NewsApiRepository
 import com.omouravictor.invest_view.presenter.model.ArticleUiModel
 import com.omouravictor.invest_view.presenter.model.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -14,6 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NewsViewModel @Inject constructor(
+    @ApplicationContext context: Context,
     private val newsApiRepository: NewsApiRepository
 ) : ViewModel() {
 
@@ -21,7 +25,7 @@ class NewsViewModel @Inject constructor(
     val getNewsListUiState = _getNewsListUiState.asStateFlow()
 
     init {
-        loadNewsBySearch("Bolsa de valores")
+        loadNewsBySearch(context.getString(R.string.defaultNewsSearch))
     }
 
     fun loadNewsBySearch(keywords: String) {
