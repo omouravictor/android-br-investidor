@@ -48,6 +48,12 @@ class AssetDetailsFragment : Fragment() {
     private val assetSearchViewModel: AssetSearchViewModel by activityViewModels()
     private val walletViewModel: WalletViewModel by activityViewModels()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        assetUiModel = AssetDetailsFragmentArgs.fromBundle(requireArguments()).assetUiModel
+        assetSearchViewModel.loadAssetQuote(assetUiModel.symbol)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -57,25 +63,23 @@ class AssetDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initAssetUiModel()
+        updateAssetUiModel()
         setupToolbar()
         setupViews()
         setupButtons()
         observeQuoteUiState()
         observeAssetInOperationUiState()
-        assetSearchViewModel.loadAssetQuote(assetUiModel.symbol)
     }
 
     override fun onStop() {
         super.onStop()
-        assetSearchViewModel.resetAssetQuoteUiState()
         walletViewModel.resetAssetInOperationUiState()
     }
 
-    private fun initAssetUiModel() {
+    private fun updateAssetUiModel() {
         assetUiModel = findNavController().currentBackStackEntry?.savedStateHandle?.get<AssetUiModel>(
             ConstantUtil.SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL
-        ) ?: AssetDetailsFragmentArgs.fromBundle(requireArguments()).assetUiModel
+        ) ?: assetUiModel
     }
 
     private fun setupToolbar() {

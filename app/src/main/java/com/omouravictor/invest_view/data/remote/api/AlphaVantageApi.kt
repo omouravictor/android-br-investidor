@@ -5,7 +5,7 @@ import com.omouravictor.invest_view.data.remote.model.assets_by_search.AssetsByS
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface AlphaVantageService {
+interface AlphaVantageApi {
 
     @GET("query?function=SYMBOL_SEARCH&datatype=json")
     suspend fun getAssetsBySearch(

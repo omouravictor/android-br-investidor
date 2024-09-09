@@ -5,7 +5,7 @@ import com.omouravictor.invest_view.util.LocaleUtil
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface NewsService {
+interface NewsApi {
 
     @GET("v2/everything")
     suspend fun getNewsBySearch(

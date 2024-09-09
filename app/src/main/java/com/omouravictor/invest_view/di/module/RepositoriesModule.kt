@@ -1,8 +1,8 @@
 package com.omouravictor.invest_view.di.module
 
 import com.google.firebase.firestore.FirebaseFirestore
-import com.omouravictor.invest_view.data.remote.api.AlphaVantageService
-import com.omouravictor.invest_view.data.remote.api.NewsService
+import com.omouravictor.invest_view.data.remote.api.AlphaVantageApi
+import com.omouravictor.invest_view.data.remote.api.NewsApi
 import com.omouravictor.invest_view.data.remote.repository.AssetsApiRepository
 import com.omouravictor.invest_view.data.remote.repository.AssetsApiRepositoryImpl
 import com.omouravictor.invest_view.data.remote.repository.FirebaseRepository
@@ -24,15 +24,15 @@ object RepositoriesModule {
     @Provides
     fun provideAssetsApiRepository(
         dispatchers: DispatcherProvider,
-        alphaVantageService: AlphaVantageService
-    ): AssetsApiRepository = AssetsApiRepositoryImpl(dispatchers, alphaVantageService)
+        alphaVantageApi: AlphaVantageApi
+    ): AssetsApiRepository = AssetsApiRepositoryImpl(dispatchers, alphaVantageApi)
 
     @Singleton
     @Provides
     fun provideNewsApiRepository(
         dispatchers: DispatcherProvider,
-        newsService: NewsService
-    ): NewsApiRepository = NewsApiRepositoryImpl(dispatchers, newsService)
+        newsApi: NewsApi
+    ): NewsApiRepository = NewsApiRepositoryImpl(dispatchers, newsApi)
 
     @Singleton
     @Provides

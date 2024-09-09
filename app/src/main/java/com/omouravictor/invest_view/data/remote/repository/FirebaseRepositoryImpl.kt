@@ -15,14 +15,15 @@ class FirebaseRepositoryImpl(
     override suspend fun getAssetList(userId: String): Result<List<AssetUiModel>> {
         return withContext(dispatchers.io) {
             try {
-                val assetsList = firestore.collection("users").document(userId)
+                val assetsList = firestore.collection("users")
+                    .document(userId)
                     .collection("assets").get().await()
                     .toObjects(AssetUiModel::class.java)
 
                 Result.success(assetsList)
 
             } catch (e: Exception) {
-                Log.e("GetAssetList", "User $userId", e)
+                Log.e("GetAssetList", "UserId: $userId", e)
                 Result.failure(e)
             }
         }
@@ -31,14 +32,16 @@ class FirebaseRepositoryImpl(
     override suspend fun saveAsset(userId: String, assetUiModel: AssetUiModel): Result<AssetUiModel> {
         return withContext(dispatchers.io) {
             try {
-                firestore.collection("users").document(userId)
-                    .collection("assets").document(assetUiModel.symbol)
+                firestore.collection("users")
+                    .document(userId)
+                    .collection("assets")
+                    .document(assetUiModel.symbol)
                     .set(assetUiModel).await()
 
                 Result.success(assetUiModel)
 
             } catch (e: Exception) {
-                Log.e("SaveAsset", "User $userId | Asset ${assetUiModel.symbol}", e)
+                Log.e("SaveAsset", "UserId: $userId | Asset: ${assetUiModel.symbol}", e)
                 Result.failure(e)
             }
         }
@@ -47,14 +50,16 @@ class FirebaseRepositoryImpl(
     override suspend fun deleteAsset(userId: String, assetUiModel: AssetUiModel): Result<AssetUiModel> {
         return withContext(dispatchers.io) {
             try {
-                firestore.collection("users").document(userId)
-                    .collection("assets").document(assetUiModel.symbol)
+                firestore.collection("users")
+                    .document(userId)
+                    .collection("assets")
+                    .document(assetUiModel.symbol)
                     .delete().await()
 
                 Result.success(assetUiModel)
 
             } catch (e: Exception) {
-                Log.e("DeleteAsset", "User $userId | Asset ${assetUiModel.symbol}", e)
+                Log.e("DeleteAsset", "UserId: $userId | Asset: ${assetUiModel.symbol}", e)
                 Result.failure(e)
             }
         }

@@ -1,8 +1,8 @@
 package com.omouravictor.invest_view.di.module
 
 import com.omouravictor.invest_view.BuildConfig
-import com.omouravictor.invest_view.data.remote.api.AlphaVantageService
-import com.omouravictor.invest_view.data.remote.api.NewsService
+import com.omouravictor.invest_view.data.remote.api.AlphaVantageApi
+import com.omouravictor.invest_view.data.remote.api.NewsApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,7 +33,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideAlphaVantageService(httpLoggingInterceptor: HttpLoggingInterceptor): AlphaVantageService {
+    fun provideAlphaVantageApi(httpLoggingInterceptor: HttpLoggingInterceptor): AlphaVantageApi {
         val interceptor = Interceptor { chain ->
             val request = chain.request()
                 .newBuilder()
@@ -45,12 +45,12 @@ object NetworkModule {
         val okHttpClient = createOkHttpClient(interceptor, httpLoggingInterceptor)
         val retrofit = createRetrofit(BuildConfig.ALPHA_VANTAGE_API_BASE_URL, okHttpClient)
 
-        return retrofit.create(AlphaVantageService::class.java)
+        return retrofit.create(AlphaVantageApi::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideNewsService(httpLoggingInterceptor: HttpLoggingInterceptor): NewsService {
+    fun provideNewsApi(httpLoggingInterceptor: HttpLoggingInterceptor): NewsApi {
         val interceptor = Interceptor { chain ->
             val request = chain.request()
                 .newBuilder()
@@ -62,7 +62,7 @@ object NetworkModule {
         val okHttpClient = createOkHttpClient(interceptor, httpLoggingInterceptor)
         val retrofit = createRetrofit(BuildConfig.NEWS_API_BASE_URL, okHttpClient)
 
-        return retrofit.create(NewsService::class.java)
+        return retrofit.create(NewsApi::class.java)
     }
 
     private fun createOkHttpClient(

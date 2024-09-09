@@ -15,7 +15,7 @@ object AsyncModule {
 
     @Singleton
     @Provides
-    fun provideDispatchers(): DispatcherProvider = object : DispatcherProvider {
+    fun provideCoroutineDispatchers(): DispatcherProvider = object : DispatcherProvider {
         override val main: CoroutineDispatcher
             get() = Dispatchers.Main
         override val io: CoroutineDispatcher
