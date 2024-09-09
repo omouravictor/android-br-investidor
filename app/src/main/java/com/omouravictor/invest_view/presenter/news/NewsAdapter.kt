@@ -5,10 +5,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.omouravictor.invest_view.databinding.ItemNewsBinding
 import com.omouravictor.invest_view.presenter.base.BaseRecyclerViewAdapter
 import com.omouravictor.invest_view.presenter.model.ArticleUiModel
 import com.omouravictor.invest_view.util.LocaleUtil
+
 
 class NewsAdapter : BaseRecyclerViewAdapter<ArticleUiModel, NewsAdapter.NewsBySearchViewHolder>() {
 
@@ -29,6 +32,7 @@ class NewsAdapter : BaseRecyclerViewAdapter<ArticleUiModel, NewsAdapter.NewsBySe
             binding.apply {
                 Glide.with(itemView)
                     .load(articleUiModel.urlToImage)
+                    .transform(CenterCrop(), RoundedCorners(24))
                     .into(image)
                 source.text = articleUiModel.source.name
                 title.text = articleUiModel.title
