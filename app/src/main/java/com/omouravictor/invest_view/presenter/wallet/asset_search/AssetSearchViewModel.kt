@@ -18,34 +18,34 @@ class AssetSearchViewModel @Inject constructor(
     private val assetsApiRepository: AssetsApiRepository
 ) : ViewModel() {
 
-    private val _assetListUiState = MutableStateFlow<UiState<List<AssetUiModel>>>(UiState.Initial)
-    val assetListUiState = _assetListUiState.asStateFlow()
+    private val _getAssetListUiState = MutableStateFlow<UiState<List<AssetUiModel>>>(UiState.Initial)
+    val getAssetListUiState = _getAssetListUiState.asStateFlow()
 
-    private val _assetInOperationUiState = MutableStateFlow<UiState<AssetUiModel>>(UiState.Initial)
-    val assetInOperationUiState = _assetInOperationUiState.asStateFlow()
+    private val _getAssetUiState = MutableStateFlow<UiState<AssetUiModel>>(UiState.Initial)
+    val getAssetUiState = _getAssetUiState.asStateFlow()
 
-    private val _quoteUiState = MutableStateFlow<UiState<AssetGlobalQuoteItemResponse>>(UiState.Initial)
-    val quoteUiState = _quoteUiState.asStateFlow()
+    private val _getQuoteUiState = MutableStateFlow<UiState<AssetGlobalQuoteItemResponse>>(UiState.Initial)
+    val getQuoteUiState = _getQuoteUiState.asStateFlow()
 
     fun loadAssetsBySearch(keywords: String) {
-        _assetListUiState.value = UiState.Loading
+        _getAssetListUiState.value = UiState.Loading
 
         viewModelScope.launch {
             try {
                 val result = assetsApiRepository.getAssetsBySearch(keywords)
                 if (result.isSuccess) {
                     val assetsBySearchList = result.getOrThrow().toAssetsUiModel()
-                    _assetListUiState.value = UiState.Success(assetsBySearchList)
+                    _getAssetListUiState.value = UiState.Success(assetsBySearchList)
                 } else
-                    _assetListUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
+                    _getAssetListUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
             } catch (e: Exception) {
-                _assetListUiState.value = UiState.Error(e)
+                _getAssetListUiState.value = UiState.Error(e)
             }
         }
     }
 
-    fun loadAssetQuote(assetUiModel: AssetUiModel) {
-        _assetInOperationUiState.value = UiState.Loading
+    fun loadQuoteFor(assetUiModel: AssetUiModel) {
+        _getAssetUiState.value = UiState.Loading
 
         viewModelScope.launch {
             try {
@@ -53,38 +53,38 @@ class AssetSearchViewModel @Inject constructor(
                 if (result.isSuccess) {
                     val assetQuote = result.getOrThrow().globalQuote
                     assetUiModel.price = assetQuote.price
-                    _assetInOperationUiState.value = UiState.Success(assetUiModel)
+                    _getAssetUiState.value = UiState.Success(assetUiModel)
                 } else
-                    _assetInOperationUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
+                    _getAssetUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
             } catch (e: Exception) {
-                _assetInOperationUiState.value = UiState.Error(e)
+                _getAssetUiState.value = UiState.Error(e)
             }
         }
     }
 
-    fun loadAssetQuote(symbol: String) {
-        _quoteUiState.value = UiState.Loading
+    fun loadQuoteFor(symbol: String) {
+        _getQuoteUiState.value = UiState.Loading
 
         viewModelScope.launch {
             try {
                 val result = assetsApiRepository.getAssetGlobalQuote(symbol)
                 if (result.isSuccess) {
                     val assetQuote = result.getOrThrow().globalQuote
-                    _quoteUiState.value = UiState.Success(assetQuote)
+                    _getQuoteUiState.value = UiState.Success(assetQuote)
                 } else
-                    _quoteUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
+                    _getQuoteUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
             } catch (e: Exception) {
-                _quoteUiState.value = UiState.Error(e)
+                _getQuoteUiState.value = UiState.Error(e)
             }
         }
     }
 
-    fun resetAssetInOperationUiState() {
-        _assetInOperationUiState.value = UiState.Initial
+    fun resetGetAssetUiState() {
+        _getAssetUiState.value = UiState.Initial
     }
 
-    fun resetQuoteUiState() {
-        _quoteUiState.value = UiState.Initial
+    fun resetGetQuoteUiState() {
+        _getQuoteUiState.value = UiState.Initial
     }
 
 }

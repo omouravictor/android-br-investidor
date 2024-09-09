@@ -46,15 +46,15 @@ class AssetSearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         addMenuProvider()
         setupAdapterAndRecyclerView()
-        observeAssetListUiState()
-        observeAssetInOperationUiState()
+        observeGetAssetListUiState()
+        observeGetAssetUiState()
     }
 
     override fun onStop() {
         super.onStop()
         requireActivity().hideKeyboard(searchView)
-        assetSearchViewModel.resetQuoteUiState()
-        assetSearchViewModel.resetAssetInOperationUiState()
+        assetSearchViewModel.resetGetQuoteUiState()
+        assetSearchViewModel.resetGetAssetUiState()
     }
 
     private fun addMenuProvider() {
@@ -106,7 +106,7 @@ class AssetSearchFragment : Fragment() {
         assetBySearchAdapter.updateOnClickItem { assetUiModel ->
             val existingAsset = walletViewModel.assetList.value.find { it.symbol == assetUiModel.symbol }
             if (existingAsset == null) {
-                assetSearchViewModel.loadAssetQuote(assetUiModel)
+                assetSearchViewModel.loadQuoteFor(assetUiModel)
             } else {
                 requireActivity().showErrorSnackBar(getString(R.string.assetAlreadyExists))
             }
@@ -115,10 +115,10 @@ class AssetSearchFragment : Fragment() {
         binding.recyclerView.setupRecyclerViewWithLinearLayout(assetBySearchAdapter)
     }
 
-    private fun observeAssetListUiState() {
+    private fun observeGetAssetListUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                assetSearchViewModel.assetListUiState.collectLatest {
+                assetSearchViewModel.getAssetListUiState.collectLatest {
                     when (it) {
                         is UiState.Loading -> handleSearchLoading()
                         is UiState.Success -> handleSearchSuccess(it.data)
@@ -162,10 +162,10 @@ class AssetSearchFragment : Fragment() {
         binding.incLayoutError.tvInfoMessage.text = e.message.toString()
     }
 
-    private fun observeAssetInOperationUiState() {
+    private fun observeGetAssetUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                assetSearchViewModel.assetInOperationUiState.collectLatest {
+                assetSearchViewModel.getAssetUiState.collectLatest {
                     when (it) {
                         is UiState.Loading -> handleQuoteLoading()
                         is UiState.Success -> handleQuoteSuccess(it.data)

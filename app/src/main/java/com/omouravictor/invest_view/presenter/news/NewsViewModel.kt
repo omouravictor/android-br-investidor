@@ -17,26 +17,26 @@ class NewsViewModel @Inject constructor(
     private val newsApiRepository: NewsApiRepository
 ) : ViewModel() {
 
-    private val _newsListUiState = MutableStateFlow<UiState<List<ArticleUiModel>>>(UiState.Initial)
-    val newsListUiState = _newsListUiState.asStateFlow()
+    private val _getNewsListUiState = MutableStateFlow<UiState<List<ArticleUiModel>>>(UiState.Initial)
+    val getNewsListUiState = _getNewsListUiState.asStateFlow()
 
     init {
         loadNewsBySearch("Bolsa de valores")
     }
 
     fun loadNewsBySearch(keywords: String) {
-        _newsListUiState.value = UiState.Loading
+        _getNewsListUiState.value = UiState.Loading
 
         viewModelScope.launch {
             try {
                 val result = newsApiRepository.getNewsBySearch(keywords)
                 if (result.isSuccess) {
                     val newsBySearchList = result.getOrThrow().toNewsUiModel()
-                    _newsListUiState.value = UiState.Success(newsBySearchList)
+                    _getNewsListUiState.value = UiState.Success(newsBySearchList)
                 } else
-                    _newsListUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
+                    _getNewsListUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
             } catch (e: Exception) {
-                _newsListUiState.value = UiState.Error(e)
+                _getNewsListUiState.value = UiState.Error(e)
             }
         }
     }

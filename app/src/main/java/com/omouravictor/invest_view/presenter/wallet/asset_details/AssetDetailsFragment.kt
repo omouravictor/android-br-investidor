@@ -51,7 +51,7 @@ class AssetDetailsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         assetUiModel = AssetDetailsFragmentArgs.fromBundle(requireArguments()).assetUiModel
-        assetSearchViewModel.loadAssetQuote(assetUiModel.symbol)
+        assetSearchViewModel.loadQuoteFor(assetUiModel.symbol)
     }
 
     override fun onCreateView(
@@ -119,7 +119,7 @@ class AssetDetailsFragment : Fragment() {
             tvTotalInvested.text = assetUiModel.getFormattedTotalInvested()
             tvTotalPrice.text = assetUiModel.getFormattedTotalPrice()
             tvYield.setupYieldForAsset(assetUiModel)
-            ivReloadChange.setOnClickListener { assetSearchViewModel.loadAssetQuote(assetUiModel.symbol) }
+            ivReloadChange.setOnClickListener { assetSearchViewModel.loadQuoteFor(assetUiModel.symbol) }
         }
     }
 
@@ -162,7 +162,7 @@ class AssetDetailsFragment : Fragment() {
     private fun observeQuoteUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                assetSearchViewModel.quoteUiState.collectLatest {
+                assetSearchViewModel.getQuoteUiState.collectLatest {
                     when (it) {
                         is UiState.Loading -> setupLoadingLayoutForAssetQuote(true)
                         is UiState.Success -> {
