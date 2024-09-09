@@ -31,7 +31,9 @@ class NewsViewModel @Inject constructor(
             try {
                 val result = newsApiRepository.getNewsBySearch(keywords)
                 if (result.isSuccess) {
-                    val newsBySearchList = result.getOrThrow().toNewsUiModel()
+                    val newsBySearchList = result.getOrThrow()
+                        .toNewsUiModel()
+                        .filter { it.urlToImage != null }
                     _getNewsListUiState.value = UiState.Success(newsBySearchList)
                 } else
                     _getNewsListUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
