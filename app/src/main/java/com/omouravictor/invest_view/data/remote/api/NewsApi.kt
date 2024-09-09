@@ -11,6 +11,7 @@ interface NewsApi {
     suspend fun getNewsBySearch(
         @Query("q") keywords: String,
         @Query("language") language: String = LocaleUtil.appLocale.language,
+        @Query("sortBy") sortBy: String = "publishedAt",
         @Query("pageSize") pageSize: Int = 50,
         @Query("page") page: Int = 1,
     ): NewsResponse
