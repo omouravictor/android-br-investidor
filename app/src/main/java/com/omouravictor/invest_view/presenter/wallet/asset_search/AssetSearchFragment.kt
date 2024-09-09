@@ -18,9 +18,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetSearchBinding
+import com.omouravictor.invest_view.presenter.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
-import com.omouravictor.invest_view.presenter.model.AssetUiModel
+import com.omouravictor.invest_view.util.getGenericErrorMessage
 import com.omouravictor.invest_view.util.hideKeyboard
 import com.omouravictor.invest_view.util.setupRecyclerViewWithLinearLayout
 import com.omouravictor.invest_view.util.showErrorSnackBar
@@ -159,7 +160,7 @@ class AssetSearchFragment : Fragment() {
         binding.shimmerLayout.stopShimmer()
         binding.recyclerView.isVisible = false
         binding.incLayoutError.root.isVisible = true
-        binding.incLayoutError.tvInfoMessage.text = e.message.toString()
+        binding.incLayoutError.tvInfoMessage.text = requireContext().getGenericErrorMessage(e)
     }
 
     private fun observeGetAssetUiState() {
