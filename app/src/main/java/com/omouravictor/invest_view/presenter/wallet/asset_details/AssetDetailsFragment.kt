@@ -61,8 +61,8 @@ class AssetDetailsFragment : Fragment() {
         setupToolbar()
         setupViews()
         setupButtons()
-        observeAssetQuoteUiState()
-        observeAssetUiState()
+        observeQuoteUiState()
+        observeAssetInOperationUiState()
         assetSearchViewModel.loadAssetQuote(assetUiModel.symbol)
     }
 
@@ -155,7 +155,7 @@ class AssetDetailsFragment : Fragment() {
         }
     }
 
-    private fun observeAssetQuoteUiState() {
+    private fun observeQuoteUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 assetSearchViewModel.quoteUiState.collectLatest {
@@ -183,7 +183,7 @@ class AssetDetailsFragment : Fragment() {
         }
     }
 
-    private fun observeAssetUiState() {
+    private fun observeAssetInOperationUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 walletViewModel.assetInOperationUiState.collectLatest {

@@ -119,6 +119,13 @@ class NewsFragment : Fragment() {
         }
     }
 
+    private fun handleLoading() {
+        binding.shimmerLayout.isVisible = true
+        binding.shimmerLayout.startShimmer()
+        binding.recyclerView.isVisible = false
+        binding.incLayoutError.root.isVisible = false
+    }
+
     private fun handleSuccess(results: List<ArticleUiModel>) {
         binding.shimmerLayout.isVisible = false
         binding.shimmerLayout.stopShimmer()
@@ -134,13 +141,6 @@ class NewsFragment : Fragment() {
         }
 
         newsAdapter.setList(results)
-    }
-
-    private fun handleLoading() {
-        binding.shimmerLayout.isVisible = true
-        binding.shimmerLayout.startShimmer()
-        binding.recyclerView.isVisible = false
-        binding.incLayoutError.root.isVisible = false
     }
 
     private fun handleError(e: Exception) {
