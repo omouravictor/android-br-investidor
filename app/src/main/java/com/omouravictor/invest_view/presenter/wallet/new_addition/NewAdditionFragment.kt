@@ -59,12 +59,12 @@ class NewAdditionFragment : Fragment() {
         requireActivity().setupToolbarCenterText(getString(R.string.newAddition))
         setupViews()
         setupButtons()
-        observeAssetUiState()
+        observeSaveAssetUiState()
     }
 
     override fun onStop() {
         super.onStop()
-        walletViewModel.resetAssetInOperationUiState()
+        walletViewModel.resetSaveAssetUiState()
     }
 
     private fun setupViews() {
@@ -151,10 +151,10 @@ class NewAdditionFragment : Fragment() {
         }
     }
 
-    private fun observeAssetUiState() {
+    private fun observeSaveAssetUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                walletViewModel.assetInOperationUiState.collectLatest {
+                walletViewModel.saveAssetUiState.collectLatest {
                     when (it) {
                         is UiState.Loading -> {
                             binding.newAdditionLayout.visibility = View.INVISIBLE

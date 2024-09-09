@@ -18,14 +18,17 @@ class WalletViewModel @Inject constructor(
     private val firebaseRepository: FirebaseRepository
 ) : ViewModel() {
 
-    private val _assetInOperationUiState = MutableStateFlow<UiState<AssetUiModel>>(UiState.Initial)
-    val assetInOperationUiState = _assetInOperationUiState.asStateFlow()
+    private val _saveAssetUiState = MutableStateFlow<UiState<AssetUiModel>>(UiState.Initial)
+    val saveAssetUiState = _saveAssetUiState.asStateFlow()
+
+    private val _deleteAssetUiState = MutableStateFlow<UiState<Boolean>>(UiState.Initial)
+    val deleteAssetUiState = _deleteAssetUiState.asStateFlow()
+
+    private val _getAssetListUiState = MutableStateFlow<UiState<List<AssetUiModel>>>(UiState.Initial)
+    val getAssetListUiState = _getAssetListUiState.asStateFlow()
 
     private val _assetList = MutableStateFlow<List<AssetUiModel>>(emptyList())
     val assetList = _assetList.asStateFlow()
-
-    private val _assetListUiState = MutableStateFlow<UiState<List<AssetUiModel>>>(UiState.Initial)
-    val assetListUiState = _assetListUiState.asStateFlow()
 
     private val userId: String = auth.currentUser?.uid ?: ""
 
@@ -34,7 +37,7 @@ class WalletViewModel @Inject constructor(
     }
 
     fun loadAssetList() {
-        _assetListUiState.value = UiState.Loading
+        _getAssetListUiState.value = UiState.Loading
 
         viewModelScope.launch {
             try {
@@ -42,17 +45,17 @@ class WalletViewModel @Inject constructor(
                 if (result.isSuccess) {
                     val assetsListResult = result.getOrThrow()
                     _assetList.value = assetsListResult
-                    _assetListUiState.value = UiState.Success(assetsListResult)
+                    _getAssetListUiState.value = UiState.Success(assetsListResult)
                 } else
-                    _assetListUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
+                    _getAssetListUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
             } catch (e: Exception) {
-                _assetListUiState.value = UiState.Error(e)
+                _getAssetListUiState.value = UiState.Error(e)
             }
         }
     }
 
     fun saveAsset(asset: AssetUiModel) {
-        _assetInOperationUiState.value = UiState.Loading
+        _saveAssetUiState.value = UiState.Loading
 
         viewModelScope.launch {
             try {
@@ -60,38 +63,42 @@ class WalletViewModel @Inject constructor(
                 if (result.isSuccess) {
                     val assetResult = result.getOrThrow()
                     val updatedList = getUpdatedList(assetResult)
-                    _assetInOperationUiState.value = UiState.Success(assetResult)
+                    _saveAssetUiState.value = UiState.Success(assetResult)
                     _assetList.value = updatedList
-                    _assetListUiState.value = UiState.Success(updatedList)
+                    _getAssetListUiState.value = UiState.Success(updatedList)
                 } else
-                    _assetInOperationUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
+                    _saveAssetUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
             } catch (e: Exception) {
-                _assetInOperationUiState.value = UiState.Error(e)
+                _saveAssetUiState.value = UiState.Error(e)
             }
         }
     }
 
     fun deleteAsset(asset: AssetUiModel) {
-        _assetInOperationUiState.value = UiState.Loading
+        _deleteAssetUiState.value = UiState.Loading
 
         viewModelScope.launch {
             try {
                 val result = firebaseRepository.deleteAsset(userId, asset)
                 if (result.isSuccess) {
                     val assetResult = result.getOrThrow()
-                    _assetInOperationUiState.value = UiState.Success(assetResult)
+                    _deleteAssetUiState.value = UiState.Success(true)
                     _assetList.value -= assetResult
-                    _assetListUiState.value = UiState.Success(_assetList.value)
+                    _getAssetListUiState.value = UiState.Success(_assetList.value)
                 } else
-                    _assetInOperationUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
+                    _deleteAssetUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
             } catch (e: Exception) {
-                _assetInOperationUiState.value = UiState.Error(e)
+                _deleteAssetUiState.value = UiState.Error(e)
             }
         }
     }
 
-    fun resetAssetInOperationUiState() {
-        _assetInOperationUiState.value = UiState.Initial
+    fun resetSaveAssetUiState() {
+        _saveAssetUiState.value = UiState.Initial
+    }
+
+    fun resetDeleteAssetUiState() {
+        _deleteAssetUiState.value = UiState.Initial
     }
 
     private fun getUpdatedList(asset: AssetUiModel): List<AssetUiModel> {

@@ -54,7 +54,7 @@ class WalletFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupTabLayoutWithViewPager2()
         setupButtons()
-        observeAssetListUiState()
+        observeGetAssetListUiState()
     }
 
     private fun setupTabLayoutWithViewPager2() {
@@ -93,10 +93,10 @@ class WalletFragment : Fragment() {
         }
     }
 
-    private fun observeAssetListUiState() {
+    private fun observeGetAssetListUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                walletViewModel.assetListUiState.collectLatest {
+                walletViewModel.getAssetListUiState.collectLatest {
                     when (it) {
                         is UiState.Success -> {
                             if (it.data.isNotEmpty())
