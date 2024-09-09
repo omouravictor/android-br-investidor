@@ -30,7 +30,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/defaultMargin"
         android:background="@drawable/background_rectangle"
         android:backgroundTint="@color/shimmerBackColor"
         app:layout_constraintEnd_toEndOf="parent"
