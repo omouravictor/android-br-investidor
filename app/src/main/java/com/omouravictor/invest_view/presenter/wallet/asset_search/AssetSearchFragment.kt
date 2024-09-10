@@ -1,12 +1,10 @@
 package com.omouravictor.invest_view.presenter.wallet.asset_search
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
@@ -28,7 +26,7 @@ import com.omouravictor.invest_view.util.showErrorSnackBar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class AssetSearchFragment : Fragment() {
+class AssetSearchFragment : Fragment(R.layout.fragment_asset_search) {
 
     private lateinit var binding: FragmentAssetSearchBinding
     private lateinit var searchView: SearchView
@@ -36,15 +34,9 @@ class AssetSearchFragment : Fragment() {
     private val assetSearchViewModel: AssetSearchViewModel by activityViewModels()
     private val assetBySearchAdapter = AssetBySearchAdapter()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentAssetSearchBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding = FragmentAssetSearchBinding.bind(view)
         addMenuProvider()
         setupAdapterAndRecyclerView()
         observeGetAssetListUiState()

@@ -1,12 +1,10 @@
 package com.omouravictor.invest_view.presenter.news
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
@@ -28,22 +26,16 @@ import com.omouravictor.invest_view.util.showErrorSnackBar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class NewsFragment : Fragment() {
+class NewsFragment : Fragment(R.layout.fragment_news) {
 
     private lateinit var binding: FragmentNewsBinding
     private lateinit var searchView: SearchView
     private val newsViewModel: NewsViewModel by activityViewModels()
     private val articleAdapter = ArticleAdapter()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentNewsBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding = FragmentNewsBinding.bind(view)
         addMenuProvider()
         setupAdapterAndRecyclerView()
         observeNewsListUiState()

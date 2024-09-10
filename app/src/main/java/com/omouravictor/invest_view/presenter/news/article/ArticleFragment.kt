@@ -1,25 +1,29 @@
 package com.omouravictor.invest_view.presenter.news.article
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
+import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentArticleBinding
 
-class ArticleFragment : Fragment() {
+class ArticleFragment : Fragment(R.layout.fragment_article) {
 
     private lateinit var binding: FragmentArticleBinding
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentArticleBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    private val args by navArgs<ArticleFragmentArgs>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding = FragmentArticleBinding.bind(view)
+
+        val article = args.articleUiModel
+
+        binding.webView.apply {
+            webViewClient = WebViewClient()
+            article.url?.let { loadUrl(it) }
+        }
+
     }
 
 }

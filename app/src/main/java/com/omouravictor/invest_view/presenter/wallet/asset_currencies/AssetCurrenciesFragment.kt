@@ -1,9 +1,7 @@
 package com.omouravictor.invest_view.presenter.wallet.asset_currencies
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -16,16 +14,16 @@ import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetsBinding
+import com.omouravictor.invest_view.presenter.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.WalletFragmentDirections
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.base.AssetFilterHelper
-import com.omouravictor.invest_view.presenter.model.AssetUiModel
 import com.omouravictor.invest_view.util.AssetUtil
 import com.omouravictor.invest_view.util.setupPieChart
 import com.omouravictor.invest_view.util.setupRecyclerViewWithLinearLayout
 import com.omouravictor.invest_view.util.updateCenterText
 
-class AssetCurrenciesFragment : Fragment(), OnChartValueSelectedListener {
+class AssetCurrenciesFragment : Fragment(R.layout.fragment_assets), OnChartValueSelectedListener {
 
     private lateinit var originalAssetList: List<AssetUiModel>
     private lateinit var binding: FragmentAssetsBinding
@@ -43,17 +41,10 @@ class AssetCurrenciesFragment : Fragment(), OnChartValueSelectedListener {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentAssetsBinding.inflate(inflater, container, false)
-        pieChart = binding.pieChart.also { it.setOnChartValueSelectedListener(this) }
-        assetFilterHelper = AssetFilterHelper(binding.spinnerFilter, assetCurrenciesAdapter)
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding = FragmentAssetsBinding.bind(view)
+        assetFilterHelper = AssetFilterHelper(binding.spinnerFilter, assetCurrenciesAdapter)
         setupPieChart()
         binding.recyclerView.setupRecyclerViewWithLinearLayout(assetCurrenciesAdapter)
     }
@@ -75,6 +66,8 @@ class AssetCurrenciesFragment : Fragment(), OnChartValueSelectedListener {
     }
 
     private fun setupPieChart() {
+        pieChart = binding.pieChart.also { it.setOnChartValueSelectedListener(this) }
+
         val context = requireContext()
         val currencyList = originalAssetList.map { it.currency }.distinct()
         val colorList = arrayListOf<Int>()

@@ -4,12 +4,10 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources.getColorStateList
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
@@ -19,17 +17,18 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetDetailsBinding
-import com.omouravictor.invest_view.presenter.model.UiState
-import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
-import com.omouravictor.invest_view.presenter.wallet.asset_search.AssetSearchViewModel
 import com.omouravictor.invest_view.presenter.model.AssetUiModel
+import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.presenter.model.getFormattedAmount
 import com.omouravictor.invest_view.presenter.model.getFormattedAssetPrice
 import com.omouravictor.invest_view.presenter.model.getFormattedSymbol
 import com.omouravictor.invest_view.presenter.model.getFormattedTotalInvested
 import com.omouravictor.invest_view.presenter.model.getFormattedTotalPrice
+import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
+import com.omouravictor.invest_view.presenter.wallet.asset_search.AssetSearchViewModel
 import com.omouravictor.invest_view.util.AssetUtil
 import com.omouravictor.invest_view.util.ConstantUtil
 import com.omouravictor.invest_view.util.clearPileAndNavigateToStart
@@ -41,28 +40,23 @@ import com.omouravictor.invest_view.util.showErrorSnackBar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class AssetDetailsFragment : Fragment() {
+class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
 
     private lateinit var binding: FragmentAssetDetailsBinding
     private lateinit var assetUiModel: AssetUiModel
+    private val args by navArgs<AssetDetailsFragmentArgs>()
     private val assetSearchViewModel: AssetSearchViewModel by activityViewModels()
     private val walletViewModel: WalletViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        assetUiModel = AssetDetailsFragmentArgs.fromBundle(requireArguments()).assetUiModel
+        assetUiModel = args.assetUiModel
         assetSearchViewModel.loadQuoteFor(assetUiModel.symbol)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentAssetDetailsBinding.inflate(inflater, container, false)
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding = FragmentAssetDetailsBinding.bind(view)
         updateAssetUiModel()
         setupToolbar()
         setupViews()

@@ -2,12 +2,10 @@ package com.omouravictor.invest_view.presenter.wallet.save_asset
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -19,14 +17,15 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentSaveAssetBinding
+import com.omouravictor.invest_view.presenter.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.model.UiState
+import com.omouravictor.invest_view.presenter.model.getFormattedSymbol
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.asset_types.AssetTypes
-import com.omouravictor.invest_view.presenter.model.AssetUiModel
-import com.omouravictor.invest_view.presenter.model.getFormattedSymbol
 import com.omouravictor.invest_view.util.ConstantUtil
 import com.omouravictor.invest_view.util.LocaleUtil
 import com.omouravictor.invest_view.util.clearPileAndNavigateToStart
@@ -42,26 +41,21 @@ import com.omouravictor.invest_view.util.showErrorSnackBar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class SaveAssetFragment : Fragment() {
+class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
 
     private lateinit var binding: FragmentSaveAssetBinding
-    private lateinit var assetUiModelArg: AssetUiModel
+    private lateinit var assetUiModel: AssetUiModel
+    private val args by navArgs<SaveAssetFragmentArgs>()
     private val walletViewModel: WalletViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        assetUiModelArg = SaveAssetFragmentArgs.fromBundle(requireArguments()).assetUiModel
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentSaveAssetBinding.inflate(inflater, container, false)
-        return binding.root
+        assetUiModel = args.assetUiModel
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding = FragmentSaveAssetBinding.bind(view)
         setupToolbar()
         setupViews()
         setupButtons()
@@ -75,7 +69,7 @@ class SaveAssetFragment : Fragment() {
 
     private fun setupToolbar() {
         val activity = requireActivity()
-        val assetType = assetUiModelArg.assetType
+        val assetType = assetUiModel.assetType
 
         activity.setupToolbarCenterText(getString(assetType.nameResId))
 
@@ -95,10 +89,10 @@ class SaveAssetFragment : Fragment() {
     private fun setupViews() {
         binding.apply {
             val context = root.context
-            etSymbol.setText(assetUiModelArg.getFormattedSymbol())
-            etLocation.setText(assetUiModelArg.region)
-            incItemListAsset.color.setBackgroundColor(context.getColor(assetUiModelArg.assetType.colorResId))
-            incItemListAsset.tvName.text = assetUiModelArg.name
+            etSymbol.setText(assetUiModel.getFormattedSymbol())
+            etLocation.setText(assetUiModel.region)
+            incItemListAsset.color.setBackgroundColor(context.getColor(assetUiModel.assetType.colorResId))
+            incItemListAsset.tvName.text = assetUiModel.name
             incItemListAsset.tvInfoMessage.hint = getString(R.string.fillTheFieldsToView)
         }
         setupAmountAndTotalInvested()
@@ -108,16 +102,16 @@ class SaveAssetFragment : Fragment() {
         binding.ietAmount.apply {
             doAfterTextChanged { setupCurrentPosition() }
             setEditTextLongNumberFormatMask()
-            val amount = assetUiModelArg.amount
+            val amount = assetUiModel.amount
             setText(if (amount != 0L) LocaleUtil.getFormattedLong(amount) else "1")
         }
 
         binding.ietTotalInvested.apply {
-            val currency = assetUiModelArg.currency
+            val currency = assetUiModel.currency
             doAfterTextChanged { setupCurrentPosition() }
             setEditTextCurrencyFormatMask(currency)
             hint = LocaleUtil.getFormattedCurrencyValue(currency, 0.0)
-            val totalInvested = assetUiModelArg.totalInvested
+            val totalInvested = assetUiModel.totalInvested
             setText(if (totalInvested != 0.0) LocaleUtil.getFormattedCurrencyValue(currency, totalInvested) else "")
         }
     }
@@ -139,13 +133,13 @@ class SaveAssetFragment : Fragment() {
         binding.incItemListAsset.apply {
             val amount = binding.ietAmount.getLongValue()
             if (amount != 0L) {
-                val currency = assetUiModelArg.currency
-                val totalPrice = amount * assetUiModelArg.price
+                val currency = assetUiModel.currency
+                val totalPrice = amount * assetUiModel.price
                 val totalInvested = binding.ietTotalInvested.getMonetaryValueDouble()
                 val yield = (totalPrice - totalInvested).getRoundedDouble()
                 val yieldPercent = yield / totalInvested
 
-                tvSymbolAmount.text = "${assetUiModelArg.getFormattedSymbol()} (${LocaleUtil.getFormattedLong(amount)})"
+                tvSymbolAmount.text = "${assetUiModel.getFormattedSymbol()} (${LocaleUtil.getFormattedLong(amount)})"
                 tvTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, totalPrice)
                 tvYield.setupVariation(currency, yield, yieldPercent)
 
@@ -165,9 +159,9 @@ class SaveAssetFragment : Fragment() {
         binding.incBtnSave.root.apply {
             text = getString(R.string.save)
             setOnClickListener {
-                assetUiModelArg.amount = binding.ietAmount.getLongValue()
-                assetUiModelArg.totalInvested = binding.ietTotalInvested.getMonetaryValueDouble()
-                walletViewModel.saveAsset(assetUiModelArg)
+                assetUiModel.amount = binding.ietAmount.getLongValue()
+                assetUiModel.totalInvested = binding.ietTotalInvested.getMonetaryValueDouble()
+                walletViewModel.saveAsset(assetUiModel)
             }
         }
     }
