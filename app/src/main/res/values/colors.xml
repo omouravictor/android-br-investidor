@@ -9,7 +9,7 @@
     <color name="itemListBackColor">@color/white</color>
     <color name="redButtonPressedTrueColor">#A60000</color>
     <color name="greenButtonPressedTrueColor">#00953E</color>
-    <color name="defaultPressedTrueColor">#CB000000</color>
+    <color name="defaultPressedTrueColor">#B2000000</color>
     <color name="defaultButtonPressedTrueColor">@color/defaultPressedTrueColor</color>
     <color name="shimmerBackColor">#656565</color>
     <color name="grayDayNightColor">#616161</color>
