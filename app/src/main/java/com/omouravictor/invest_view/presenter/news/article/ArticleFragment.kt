@@ -22,13 +22,20 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
         super.onViewCreated(view, savedInstanceState)
         articleUiModel = args.articleUiModel
         binding = FragmentArticleBinding.bind(view)
-
         requireActivity().setupToolbarTitle(articleUiModel.source.name ?: articleUiModel.url)
+        setupWebViewNavigation()
+    }
 
-        val ivBack = binding.ivBack
-        val ivForward = binding.ivForward
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.webView.destroy()
+    }
+
+    private fun setupWebViewNavigation() {
         val progressBar = binding.incProgressBar.progressBar
         val webView = binding.webView
+        val ivBack = binding.ivBack
+        val ivForward = binding.ivForward
 
         webView.apply {
             webViewClient = object : WebViewClient() {
@@ -51,11 +58,6 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
         ivForward.setOnClickListener {
             webView.goForward()
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding.webView.destroy()
     }
 
 }
