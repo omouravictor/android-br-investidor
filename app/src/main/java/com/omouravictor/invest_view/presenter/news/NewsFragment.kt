@@ -41,8 +41,8 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
         observeNewsListUiState()
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroyView() {
+        super.onDestroyView()
         requireActivity().hideKeyboard(searchView)
     }
 

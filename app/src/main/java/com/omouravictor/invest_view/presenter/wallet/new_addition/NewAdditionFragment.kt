@@ -52,8 +52,8 @@ class NewAdditionFragment : Fragment(R.layout.fragment_new_addition) {
         observeSaveAssetUiState()
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroyView() {
+        super.onDestroyView()
         walletViewModel.resetSaveAssetUiState()
     }
 

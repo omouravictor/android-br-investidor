@@ -65,8 +65,8 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         observeDeleteAssetUiState()
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroyView() {
+        super.onDestroyView()
         walletViewModel.resetDeleteAssetUiState()
     }
 
