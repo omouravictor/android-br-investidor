@@ -18,6 +18,7 @@
         android:background="@drawable/selector_navigation"
         android:padding="8dp"
         android:src="@drawable/ic_arrow_back"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:tint="@color/green" />
@@ -31,6 +32,7 @@
         android:background="@drawable/selector_navigation"
         android:padding="8dp"
         android:src="@drawable/ic_arrow_forward"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@color/green" />

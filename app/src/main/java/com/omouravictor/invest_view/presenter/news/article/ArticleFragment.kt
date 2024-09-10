@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.omouravictor.invest_view.R
@@ -27,7 +28,11 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
         binding.webView.apply {
             webViewClient = object : WebViewClient() {
                 override fun onPageFinished(view: WebView?, url: String?) {
-                    binding.incProgressBar.progressBar.visibility = View.GONE
+                    binding.incProgressBar.progressBar.isVisible = false
+                    binding.ivBack.isVisible = true
+                    binding.ivBack.isEnabled = view?.canGoBack() ?: false
+                    binding.ivForward.isVisible = true
+                    binding.ivForward.isEnabled = view?.canGoForward() ?: false
                 }
             }
 
