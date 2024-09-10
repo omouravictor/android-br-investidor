@@ -11,7 +11,6 @@ object LocaleUtil {
     val appLocale = Locale("pt", "BR")
     private val appTimeZone = TimeZone.getTimeZone("America/Sao_Paulo")
     private val appDateTimeFormat = SimpleDateFormat("dd/MM/yyyy HH:mm", appLocale)
-        .apply { timeZone = appTimeZone }
     private val isoDateTimeFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", appLocale)
 
     fun getFormattedCurrencyValue(currency: String, value: Number): String {
@@ -35,6 +34,8 @@ object LocaleUtil {
         if (dateTimeString.isNullOrEmpty()) return ""
 
         val parsedDate = isoDateTimeFormat.parse(dateTimeString) ?: return ""
+        parsedDate.time += appTimeZone.rawOffset
+
         return appDateTimeFormat.format(parsedDate)
     }
 
