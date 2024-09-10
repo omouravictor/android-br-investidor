@@ -12,6 +12,6 @@ data class ArticleUiModel(
     val publishedAt: String?,
     val source: SourceResponse,
     val title: String?,
-    val url: String?,
+    val url: String,
     val urlToImage: String?
 ) : Parcelable

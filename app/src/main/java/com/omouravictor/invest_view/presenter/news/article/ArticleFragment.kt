@@ -7,21 +7,26 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentArticleBinding
+import com.omouravictor.invest_view.presenter.model.ArticleUiModel
 
 class ArticleFragment : Fragment(R.layout.fragment_article) {
 
     private lateinit var binding: FragmentArticleBinding
+    private lateinit var articleUiModel: ArticleUiModel
     private val args by navArgs<ArticleFragmentArgs>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        articleUiModel = args.articleUiModel
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentArticleBinding.bind(view)
 
-        val article = args.articleUiModel
-
         binding.webView.apply {
             webViewClient = WebViewClient()
-            article.url?.let { loadUrl(it) }
+            loadUrl(articleUiModel.url)
         }
 
     }
