@@ -24,7 +24,6 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
             webViewClient = WebViewClient()
             loadUrl(articleUiModel.url)
         }
-
     }
 
 }
