@@ -15,13 +15,9 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
     private lateinit var articleUiModel: ArticleUiModel
     private val args by navArgs<ArticleFragmentArgs>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        articleUiModel = args.articleUiModel
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        articleUiModel = args.articleUiModel
         binding = FragmentArticleBinding.bind(view)
 
         binding.webView.apply {

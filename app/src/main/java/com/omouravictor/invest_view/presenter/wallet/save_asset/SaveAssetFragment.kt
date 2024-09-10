@@ -48,13 +48,9 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
     private val args by navArgs<SaveAssetFragmentArgs>()
     private val walletViewModel: WalletViewModel by activityViewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        assetUiModel = args.assetUiModel
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        assetUiModel = args.assetUiModel
         binding = FragmentSaveAssetBinding.bind(view)
         setupToolbar()
         setupViews()

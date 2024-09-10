@@ -42,13 +42,9 @@ class NewAdditionFragment : Fragment(R.layout.fragment_new_addition) {
     private val args by navArgs<NewAdditionFragmentArgs>()
     private val walletViewModel: WalletViewModel by activityViewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        assetUiModel = args.assetUiModel
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        assetUiModel = args.assetUiModel
         binding = FragmentNewAdditionBinding.bind(view)
         requireActivity().setupToolbarCenterText(getString(R.string.newAddition))
         setupViews()
