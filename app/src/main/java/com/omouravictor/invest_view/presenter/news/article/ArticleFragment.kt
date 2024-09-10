@@ -19,13 +19,19 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         articleUiModel = args.articleUiModel
-        requireActivity().setupToolbarTitle(articleUiModel.url)
-
         binding = FragmentArticleBinding.bind(view)
+
+        requireActivity().setupToolbarTitle(articleUiModel.source.name ?: articleUiModel.url)
+
         binding.webView.apply {
             webViewClient = WebViewClient()
             loadUrl(articleUiModel.url)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.webView.destroy()
     }
 
 }
