@@ -33,10 +33,10 @@ object LocaleUtil {
     fun getFormattedDateTime(dateTimeString: String?): String {
         if (dateTimeString.isNullOrEmpty()) return ""
 
-        val parsedDate = isoDateTimeFormat.parse(dateTimeString) ?: return ""
-        parsedDate.time += appTimeZone.rawOffset
+        val date = isoDateTimeFormat.parse(dateTimeString) ?: return ""
+        date.time += appTimeZone.rawOffset
 
-        return appDateTimeFormat.format(parsedDate)
+        return appDateTimeFormat.format(date)
     }
 
 }
