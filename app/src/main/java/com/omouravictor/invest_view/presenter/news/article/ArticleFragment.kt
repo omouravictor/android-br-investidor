@@ -33,6 +33,14 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
 
             loadUrl(articleUiModel.url)
         }
+
+        binding.ivBack.setOnClickListener {
+            binding.webView.goBack()
+        }
+
+        binding.ivForward.setOnClickListener {
+            binding.webView.goForward()
+        }
     }
 
     override fun onDestroyView() {
