@@ -2,6 +2,7 @@ package com.omouravictor.invest_view.presenter.news.article
 
 import android.os.Bundle
 import android.view.View
+import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
@@ -24,7 +25,12 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
         requireActivity().setupToolbarTitle(articleUiModel.source.name ?: articleUiModel.url)
 
         binding.webView.apply {
-            webViewClient = WebViewClient()
+            webViewClient = object : WebViewClient() {
+                override fun onPageFinished(view: WebView?, url: String?) {
+                    binding.incProgressBar.progressBar.visibility = View.GONE
+                }
+            }
+
             loadUrl(articleUiModel.url)
         }
     }
