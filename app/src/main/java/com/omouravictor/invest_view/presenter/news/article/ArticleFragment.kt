@@ -8,6 +8,7 @@ import androidx.navigation.fragment.navArgs
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentArticleBinding
 import com.omouravictor.invest_view.presenter.model.ArticleUiModel
+import com.omouravictor.invest_view.util.setupToolbarTitle
 
 class ArticleFragment : Fragment(R.layout.fragment_article) {
 
@@ -18,8 +19,9 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         articleUiModel = args.articleUiModel
-        binding = FragmentArticleBinding.bind(view)
+        requireActivity().setupToolbarTitle(articleUiModel.url)
 
+        binding = FragmentArticleBinding.bind(view)
         binding.webView.apply {
             webViewClient = WebViewClient()
             loadUrl(articleUiModel.url)

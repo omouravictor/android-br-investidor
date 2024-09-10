@@ -9,8 +9,12 @@ import androidx.core.view.isVisible
 import com.google.android.material.snackbar.Snackbar
 import com.omouravictor.invest_view.R
 
+fun Activity.setupToolbarTitle(tittle: String) {
+    findViewById<Toolbar>(R.id.toolbar).title = tittle
+}
+
 fun Activity.setupToolbarCenterText(centerText: String) {
-    this.findViewById<Toolbar>(R.id.toolbar).apply {
+    findViewById<Toolbar>(R.id.toolbar).apply {
         title = ""
         findViewById<TextView>(R.id.tvToolbarCenterText).text = centerText
     }
