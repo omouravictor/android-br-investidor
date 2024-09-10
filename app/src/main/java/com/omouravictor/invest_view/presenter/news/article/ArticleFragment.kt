@@ -25,26 +25,31 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
 
         requireActivity().setupToolbarTitle(articleUiModel.source.name ?: articleUiModel.url)
 
-        binding.webView.apply {
+        val ivBack = binding.ivBack
+        val ivForward = binding.ivForward
+        val progressBar = binding.incProgressBar.progressBar
+        val webView = binding.webView
+
+        webView.apply {
             webViewClient = object : WebViewClient() {
                 override fun onPageFinished(view: WebView?, url: String?) {
-                    binding.incProgressBar.progressBar.isVisible = false
-                    binding.ivBack.isVisible = true
-                    binding.ivBack.isEnabled = view?.canGoBack() ?: false
-                    binding.ivForward.isVisible = true
-                    binding.ivForward.isEnabled = view?.canGoForward() ?: false
+                    progressBar.isVisible = false
+                    ivBack.isVisible = true
+                    ivBack.isEnabled = canGoBack()
+                    ivForward.isVisible = true
+                    ivForward.isEnabled = canGoForward()
                 }
             }
 
             loadUrl(articleUiModel.url)
         }
 
-        binding.ivBack.setOnClickListener {
-            binding.webView.goBack()
+        ivBack.setOnClickListener {
+            webView.goBack()
         }
 
-        binding.ivForward.setOnClickListener {
-            binding.webView.goForward()
+        ivForward.setOnClickListener {
+            webView.goForward()
         }
     }
 
