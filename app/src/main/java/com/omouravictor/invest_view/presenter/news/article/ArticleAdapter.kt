@@ -16,7 +16,7 @@ import com.omouravictor.invest_view.util.LocaleUtil
 class ArticleAdapter : BaseRecyclerViewAdapter<ArticleUiModel, ArticleAdapter.NewsBySearchViewHolder>() {
 
     private val glideRequestOptions = RequestOptions()
-        .transform(CenterCrop(), RoundedCorners(24))
+        .transform(CenterCrop(), RoundedCorners(16))
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsBySearchViewHolder {
         val binding = ItemNewsBinding.inflate(LayoutInflater.from(parent.context), parent, false)

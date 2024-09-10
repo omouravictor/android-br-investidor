@@ -100,6 +100,6 @@
     <string name="deleteAsset">Excluir ativo</string>
     <string name="updatedPosition">Posição atualizada</string>
     <string name="news">Notícias</string>
-    <string name="defaultNewsSearch">Bolsa de valores AND Ações</string>
+    <string name="defaultNewsSearch">bolsa de valores AND Ações</string>
 
 </resources>
