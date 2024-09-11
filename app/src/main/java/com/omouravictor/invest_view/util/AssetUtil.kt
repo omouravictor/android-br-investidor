@@ -22,7 +22,7 @@ object AssetUtil {
 
             "Mutual Fund" -> AssetTypes.FI
             "ETF" -> AssetTypes.ETF
-            else -> AssetTypes.OTHER
+            else -> AssetTypes.DEFAULT
         }
     }
 

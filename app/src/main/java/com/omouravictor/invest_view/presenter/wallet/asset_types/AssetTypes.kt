@@ -9,6 +9,6 @@ enum class AssetTypes(val nameResId: Int, val descriptionResId: Int, val colorRe
     FI(R.string.fi, R.string.fiDescription, R.color.fi),
     ETF(R.string.etf, R.string.etfDescription, R.color.etf),
     STOCK(R.string.stock, R.string.stockDescription, R.color.stock),
-    OTHER(R.string.other, R.string.otherDescription, R.color.other);
+    DEFAULT(R.string.other, R.string.otherDescription, R.color.other);
 
 }
