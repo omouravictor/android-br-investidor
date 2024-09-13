@@ -61,7 +61,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         setupToolbar()
         setupViews()
         setupButtons()
-        observeQuoteUiState()
+        observeGetQuoteUiState()
         observeDeleteAssetUiState()
     }
 
@@ -153,7 +153,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         }
     }
 
-    private fun observeQuoteUiState() {
+    private fun observeGetQuoteUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 assetSearchViewModel.getQuoteUiState.collectLatest {
