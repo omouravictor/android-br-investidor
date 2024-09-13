@@ -78,7 +78,7 @@
                 tools:text="R$ 38,47" />
 
             <include
-                android:id="@+id/incShimmerItemVariation"
+                android:id="@+id/incChangeShimmer"
                 layout="@layout/shimmer_item"
                 android:layout_width="0dp"
                 android:layout_height="6dp"
@@ -88,7 +88,7 @@
                 app:layout_constraintWidth_percent=".25" />
 
             <ImageView
-                android:id="@+id/ivReloadChange"
+                android:id="@+id/ivChangeReload"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:src="@drawable/ic_reload"

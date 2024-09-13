@@ -113,7 +113,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
             tvTotalInvested.text = assetUiModel.getFormattedTotalInvested()
             tvTotalPrice.text = assetUiModel.getFormattedTotalPrice()
             tvYield.setupYieldForAsset(assetUiModel)
-            ivReloadChange.setOnClickListener { assetSearchViewModel.loadQuoteFor(assetUiModel.symbol) }
+            ivChangeReload.setOnClickListener { assetSearchViewModel.loadQuoteFor(assetUiModel.symbol) }
         }
     }
 
@@ -141,15 +141,15 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
 
     private fun setupLoadingLayoutForAssetQuote(isLoading: Boolean) {
         if (isLoading) {
-            binding.incShimmerItemVariation.root.startShimmer()
-            binding.incShimmerItemVariation.root.visibility = View.VISIBLE
+            binding.incChangeShimmer.root.startShimmer()
+            binding.incChangeShimmer.root.visibility = View.VISIBLE
             binding.tvChange.visibility = View.INVISIBLE
-            binding.ivReloadChange.visibility = View.INVISIBLE
+            binding.ivChangeReload.visibility = View.INVISIBLE
         } else {
-            binding.incShimmerItemVariation.root.stopShimmer()
-            binding.incShimmerItemVariation.root.visibility = View.INVISIBLE
+            binding.incChangeShimmer.root.stopShimmer()
+            binding.incChangeShimmer.root.visibility = View.INVISIBLE
             binding.tvChange.visibility = View.VISIBLE
-            binding.ivReloadChange.visibility = View.INVISIBLE
+            binding.ivChangeReload.visibility = View.INVISIBLE
         }
     }
 
@@ -171,7 +171,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
                         is UiState.Error -> {
                             setupLoadingLayoutForAssetQuote(false)
                             binding.tvChange.visibility = View.INVISIBLE
-                            binding.ivReloadChange.visibility = View.VISIBLE
+                            binding.ivChangeReload.visibility = View.VISIBLE
                         }
 
                         else -> Unit
