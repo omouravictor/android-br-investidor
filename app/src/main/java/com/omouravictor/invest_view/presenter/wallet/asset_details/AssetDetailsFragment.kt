@@ -83,7 +83,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
 
         activity.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                menuInflater.inflate(R.menu.options_menu_edit, menu)
+                menuInflater.inflate(R.menu.options_menu_details, menu)
                 val menuItem = menu.findItem(R.id.editMenuItem)
                 val spanStr = SpannableString(menuItem.title.toString())
                 spanStr.setSpan(
