@@ -102,8 +102,8 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
     private fun setupViews() {
         binding.apply {
             val context = root.context
-            tvAssetType.text = getString(assetUiModel.assetType.nameResId)
-            tvAssetType.backgroundTintList = getColorStateList(context, assetUiModel.assetType.colorResId)
+            tvAssetType.text = getString(assetUiModel.type.nameResId)
+            tvAssetType.backgroundTintList = getColorStateList(context, assetUiModel.type.colorResId)
             tvAssetCurrency.text = assetUiModel.currency
             tvAssetCurrency.backgroundTintList =
                 getColorStateList(context, AssetUtil.getCurrencyResColor(assetUiModel.currency))

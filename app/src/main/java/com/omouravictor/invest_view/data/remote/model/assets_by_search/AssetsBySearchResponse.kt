@@ -12,7 +12,7 @@ fun AssetsBySearchResponse.toAssetsUiModel(): List<AssetUiModel> {
         AssetUiModel(
             symbol = it.symbol,
             name = it.name,
-            assetType = AssetUtil.getAssetType(it.symbol, it.type),
+            type = AssetUtil.getAssetType(it.symbol, it.type),
             region = it.region,
             currency = it.currency
         )

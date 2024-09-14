@@ -29,7 +29,7 @@ class AssetBySearchAdapter :
 
         @SuppressLint("SetTextI18n")
         fun bind(assetUiModel: AssetUiModel) {
-            val assetType = assetUiModel.assetType
+            val assetType = assetUiModel.type
             binding.color.setBackgroundColor(ContextCompat.getColor(context, assetType.colorResId))
             binding.tvSymbol.text = "${assetUiModel.getFormattedSymbol()} (${assetUiModel.currency})"
             binding.tvName.text = assetUiModel.name

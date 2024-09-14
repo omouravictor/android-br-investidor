@@ -55,7 +55,7 @@ class AssetTypesFragment : Fragment(R.layout.fragment_assets), OnChartValueSelec
 
     override fun onValueSelected(e: Entry?, h: Highlight?) {
         val assetType = (e as PieEntry).label
-        val filteredList = originalAssetList.filter { getString(it.assetType.nameResId) == assetType }
+        val filteredList = originalAssetList.filter { getString(it.type.nameResId) == assetType }
 
         assetFilterHelper.updateAdapterAndPieChart(filteredList, pieChart)
     }
@@ -68,11 +68,11 @@ class AssetTypesFragment : Fragment(R.layout.fragment_assets), OnChartValueSelec
         pieChart = binding.pieChart.also { it.setOnChartValueSelectedListener(this) }
 
         val context = requireContext()
-        val assetTypeList = originalAssetList.map { it.assetType }.distinct()
+        val assetTypeList = originalAssetList.map { it.type }.distinct()
         val colorList = arrayListOf<Int>()
         val pieEntryList = assetTypeList.map { assetType ->
             colorList.add(assetType.colorResId)
-            val count = originalAssetList.count { it.assetType == assetType }
+            val count = originalAssetList.count { it.type == assetType }
             PieEntry(count.toFloat(), getString(assetType.nameResId))
         }
         val pieDataSet = PieDataSet(pieEntryList, getString(R.string.assetTypes)).apply {

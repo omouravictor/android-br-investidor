@@ -65,7 +65,7 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
 
     private fun setupToolbar() {
         val activity = requireActivity()
-        val assetType = assetUiModel.assetType
+        val assetType = assetUiModel.type
 
         activity.setupToolbarCenterText(getString(assetType.nameResId))
 
@@ -87,7 +87,7 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
             val context = root.context
             etSymbol.setText(assetUiModel.getFormattedSymbol())
             etLocation.setText(assetUiModel.region)
-            incItemListAsset.color.setBackgroundColor(context.getColor(assetUiModel.assetType.colorResId))
+            incItemListAsset.color.setBackgroundColor(context.getColor(assetUiModel.type.colorResId))
             incItemListAsset.tvName.text = assetUiModel.name
             incItemListAsset.tvInfoMessage.hint = getString(R.string.fillTheFieldsToView)
         }

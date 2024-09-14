@@ -60,7 +60,7 @@ class NewAdditionFragment : Fragment(R.layout.fragment_new_addition) {
     private fun setupViews() {
         binding.apply {
             val context = root.context
-            val color = context.getColor(assetUiModel.assetType.colorResId)
+            val color = context.getColor(assetUiModel.type.colorResId)
             val formattedSymbolAndAmount = assetUiModel.getFormattedSymbolAndAmount()
 
             incCurrentPosition.color.setBackgroundColor(color)
