@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.omouravictor.invest_view.data.remote.repository.FirebaseRepository
-import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.presenter.model.AssetUiModel
+import com.omouravictor.invest_view.presenter.model.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -21,7 +21,7 @@ class WalletViewModel @Inject constructor(
     private val _saveAssetUiState = MutableStateFlow<UiState<AssetUiModel>>(UiState.Initial)
     val saveAssetUiState = _saveAssetUiState.asStateFlow()
 
-    private val _deleteAssetUiState = MutableStateFlow<UiState<Boolean>>(UiState.Initial)
+    private val _deleteAssetUiState = MutableStateFlow<UiState<AssetUiModel>>(UiState.Initial)
     val deleteAssetUiState = _deleteAssetUiState.asStateFlow()
 
     private val _getAssetListUiState = MutableStateFlow<UiState<List<AssetUiModel>>>(UiState.Initial)
@@ -61,9 +61,8 @@ class WalletViewModel @Inject constructor(
             try {
                 val result = firebaseRepository.saveAsset(userId, asset)
                 if (result.isSuccess) {
-                    val assetResult = result.getOrThrow()
-                    val updatedList = getUpdatedList(assetResult)
-                    _saveAssetUiState.value = UiState.Success(assetResult)
+                    val updatedList = getUpdatedList(asset)
+                    _saveAssetUiState.value = UiState.Success(asset)
                     _assetList.value = updatedList
                     _getAssetListUiState.value = UiState.Success(updatedList)
                 } else
@@ -81,9 +80,8 @@ class WalletViewModel @Inject constructor(
             try {
                 val result = firebaseRepository.deleteAsset(userId, asset)
                 if (result.isSuccess) {
-                    val assetResult = result.getOrThrow()
-                    _deleteAssetUiState.value = UiState.Success(true)
-                    _assetList.value -= assetResult
+                    _deleteAssetUiState.value = UiState.Success(asset)
+                    _assetList.value -= asset
                     _getAssetListUiState.value = UiState.Success(_assetList.value)
                 } else
                     _deleteAssetUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
