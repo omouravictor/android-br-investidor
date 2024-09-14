@@ -12,12 +12,17 @@ class FirebaseRepositoryImpl(
     private val firestore: FirebaseFirestore
 ) : FirebaseRepository {
 
+    companion object {
+        private const val COLLECTION_USERS = "users"
+        private const val COLLECTION_ASSETS = "assets"
+    }
+
     override suspend fun getAssetList(userId: String): Result<List<AssetUiModel>> {
         return withContext(dispatchers.io) {
             try {
-                val assetsList = firestore.collection("users")
+                val assetsList = firestore.collection(COLLECTION_USERS)
                     .document(userId)
-                    .collection("assets").get().await()
+                    .collection(COLLECTION_ASSETS).get().await()
                     .toObjects(AssetUiModel::class.java)
 
                 Result.success(assetsList)
@@ -32,9 +37,9 @@ class FirebaseRepositoryImpl(
     override suspend fun saveAsset(userId: String, assetUiModel: AssetUiModel): Result<AssetUiModel> {
         return withContext(dispatchers.io) {
             try {
-                firestore.collection("users")
+                firestore.collection(COLLECTION_USERS)
                     .document(userId)
-                    .collection("assets")
+                    .collection(COLLECTION_ASSETS)
                     .document(assetUiModel.symbol)
                     .set(assetUiModel).await()
 
@@ -50,9 +55,9 @@ class FirebaseRepositoryImpl(
     override suspend fun deleteAsset(userId: String, assetUiModel: AssetUiModel): Result<AssetUiModel> {
         return withContext(dispatchers.io) {
             try {
-                firestore.collection("users")
+                firestore.collection(COLLECTION_USERS)
                     .document(userId)
-                    .collection("assets")
+                    .collection(COLLECTION_ASSETS)
                     .document(assetUiModel.symbol)
                     .delete().await()
 
