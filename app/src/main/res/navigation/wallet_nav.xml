@@ -48,14 +48,14 @@
             android:id="@+id/navToSaveAssetFragment"
             app:destination="@id/fragmentSaveAsset" />
         <action
-            android:id="@+id/navToNewAdditionFragment"
-            app:destination="@id/fragmentNewAddition" />
+            android:id="@+id/navToTransactionFragment"
+            app:destination="@id/fragmentTransaction" />
     </fragment>
 
     <fragment
-        android:id="@+id/fragmentNewAddition"
-        android:name="com.omouravictor.invest_view.presenter.wallet.new_addition.NewAdditionFragment"
-        tools:layout="@layout/fragment_new_addition">
+        android:id="@+id/fragmentTransaction"
+        android:name="com.omouravictor.invest_view.presenter.wallet.transaction.TransactionFragment"
+        tools:layout="@layout/fragment_transaction">
         <argument
             android:name="assetUiModel"
             app:argType="com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel" />

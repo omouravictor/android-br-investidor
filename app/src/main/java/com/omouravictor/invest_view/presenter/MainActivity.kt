@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
                     setupOptionsMenuForWallet()
                 }
 
-                R.id.fragmentSaveAsset, R.id.fragmentNewAddition -> {
+                R.id.fragmentSaveAsset, R.id.fragmentTransaction -> {
                     binding.tvToolbarCenterText.isVisible = true
                     setupOptionsMenu()
                 }

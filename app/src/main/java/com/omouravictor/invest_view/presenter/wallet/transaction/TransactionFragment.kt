@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.presenter.wallet.new_addition
+package com.omouravictor.invest_view.presenter.wallet.transaction
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -12,14 +12,14 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.omouravictor.invest_view.R
-import com.omouravictor.invest_view.databinding.FragmentNewAdditionBinding
-import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
+import com.omouravictor.invest_view.databinding.FragmentTransactionBinding
 import com.omouravictor.invest_view.presenter.model.UiState
+import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
+import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbolAndAmount
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalPrice
 import com.omouravictor.invest_view.presenter.wallet.model.getTotalPrice
-import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.util.ConstantUtil
 import com.omouravictor.invest_view.util.LocaleUtil
 import com.omouravictor.invest_view.util.getGenericErrorMessage
@@ -35,17 +35,17 @@ import com.omouravictor.invest_view.util.showErrorSnackBar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class NewAdditionFragment : Fragment(R.layout.fragment_new_addition) {
+class TransactionFragment : Fragment(R.layout.fragment_transaction) {
 
-    private lateinit var binding: FragmentNewAdditionBinding
+    private lateinit var binding: FragmentTransactionBinding
     private lateinit var assetUiModel: AssetUiModel
-    private val args by navArgs<NewAdditionFragmentArgs>()
+    private val args by navArgs<TransactionFragmentArgs>()
     private val walletViewModel: WalletViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         assetUiModel = args.assetUiModel
-        binding = FragmentNewAdditionBinding.bind(view)
+        binding = FragmentTransactionBinding.bind(view)
         requireActivity().setupToolbarCenterText(getString(R.string.newAddition))
         setupViews()
         setupButtons()
@@ -147,7 +147,7 @@ class NewAdditionFragment : Fragment(R.layout.fragment_new_addition) {
                 walletViewModel.saveAssetUiState.collectLatest {
                     when (it) {
                         is UiState.Loading -> {
-                            binding.newAdditionLayout.visibility = View.INVISIBLE
+                            binding.mainLayout.visibility = View.INVISIBLE
                             binding.incProgressBar.root.visibility = View.VISIBLE
                         }
 
@@ -163,7 +163,7 @@ class NewAdditionFragment : Fragment(R.layout.fragment_new_addition) {
 
                         is UiState.Error -> {
                             val activity = requireActivity()
-                            binding.newAdditionLayout.visibility = View.VISIBLE
+                            binding.mainLayout.visibility = View.VISIBLE
                             binding.incProgressBar.root.visibility = View.GONE
                             activity.showErrorSnackBar(activity.getGenericErrorMessage(it.e))
                         }

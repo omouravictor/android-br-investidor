@@ -141,7 +141,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         binding.incBtnNewAddition.root.apply {
             text = getString(R.string.newAddition)
             setOnClickListener {
-                findNavController().navigate(AssetDetailsFragmentDirections.navToNewAdditionFragment(assetUiModel))
+                findNavController().navigate(AssetDetailsFragmentDirections.navToTransactionFragment(assetUiModel))
             }
         }
     }
