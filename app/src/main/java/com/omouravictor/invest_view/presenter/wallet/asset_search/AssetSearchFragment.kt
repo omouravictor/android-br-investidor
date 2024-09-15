@@ -16,9 +16,9 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetSearchBinding
-import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
+import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.util.getGenericErrorMessage
 import com.omouravictor.invest_view.util.hideKeyboard
 import com.omouravictor.invest_view.util.setupRecyclerViewWithLinearLayout
@@ -108,29 +108,14 @@ class AssetSearchFragment : Fragment(R.layout.fragment_asset_search) {
         binding.recyclerView.setupRecyclerViewWithLinearLayout(assetBySearchAdapter)
     }
 
-    private fun observeGetAssetListUiState() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                assetSearchViewModel.getAssetListUiState.collectLatest {
-                    when (it) {
-                        is UiState.Loading -> handleSearchLoading()
-                        is UiState.Success -> handleSearchSuccess(it.data)
-                        is UiState.Error -> handleSearchError(it.e)
-                        else -> Unit
-                    }
-                }
-            }
-        }
-    }
-
-    private fun handleSearchLoading() {
+    private fun handleAssetListLoading() {
         binding.shimmerLayout.isVisible = true
         binding.shimmerLayout.startShimmer()
         binding.recyclerView.isVisible = false
         binding.incLayoutError.root.isVisible = false
     }
 
-    private fun handleSearchSuccess(results: List<AssetUiModel>) {
+    private fun handleAssetListSuccess(results: List<AssetUiModel>) {
         binding.shimmerLayout.isVisible = false
         binding.shimmerLayout.stopShimmer()
 
@@ -147,7 +132,7 @@ class AssetSearchFragment : Fragment(R.layout.fragment_asset_search) {
         assetBySearchAdapter.setList(results)
     }
 
-    private fun handleSearchError(e: Exception) {
+    private fun handleAssetListError(e: Exception) {
         binding.shimmerLayout.isVisible = false
         binding.shimmerLayout.stopShimmer()
         binding.recyclerView.isVisible = false
@@ -155,14 +140,14 @@ class AssetSearchFragment : Fragment(R.layout.fragment_asset_search) {
         binding.incLayoutError.tvInfoMessage.text = requireContext().getGenericErrorMessage(e)
     }
 
-    private fun observeGetAssetUiState() {
+    private fun observeGetAssetListUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                assetSearchViewModel.getAssetUiState.collectLatest {
+                assetSearchViewModel.getAssetListUiState.collectLatest {
                     when (it) {
-                        is UiState.Loading -> handleQuoteLoading()
-                        is UiState.Success -> handleQuoteSuccess(it.data)
-                        is UiState.Error -> handleQuoteError(it.e)
+                        is UiState.Loading -> handleAssetListLoading()
+                        is UiState.Success -> handleAssetListSuccess(it.data)
+                        is UiState.Error -> handleAssetListError(it.e)
                         else -> Unit
                     }
                 }
@@ -170,20 +155,35 @@ class AssetSearchFragment : Fragment(R.layout.fragment_asset_search) {
         }
     }
 
-    private fun handleQuoteLoading() {
+    private fun handleAssetLoading() {
         binding.recyclerView.isVisible = false
         binding.incProgressBar.root.isVisible = true
     }
 
-    private fun handleQuoteSuccess(assetUiModel: AssetUiModel) {
+    private fun handleAssetSuccess(assetUiModel: AssetUiModel) {
         findNavController().navigate(AssetSearchFragmentDirections.navToSaveAssetFragment(assetUiModel))
     }
 
-    private fun handleQuoteError(e: Exception) {
+    private fun handleAssetError(e: Exception) {
         binding.recyclerView.isVisible = false
         binding.incProgressBar.root.isVisible = false
         binding.incLayoutError.root.isVisible = true
         binding.incLayoutError.tvInfoMessage.text = e.message.toString()
+    }
+
+    private fun observeGetAssetUiState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                assetSearchViewModel.getAssetUiState.collectLatest {
+                    when (it) {
+                        is UiState.Loading -> handleAssetLoading()
+                        is UiState.Success -> handleAssetSuccess(it.data)
+                        is UiState.Error -> handleAssetError(it.e)
+                        else -> Unit
+                    }
+                }
+            }
+        }
     }
 
 }
