@@ -1,6 +1,6 @@
 package com.omouravictor.invest_view.data.remote.model.news
 
-import com.omouravictor.invest_view.presenter.model.ArticleUiModel
+import com.omouravictor.invest_view.presenter.news.model.ArticleUiModel
 
 data class NewsResponse(
     val status: String,

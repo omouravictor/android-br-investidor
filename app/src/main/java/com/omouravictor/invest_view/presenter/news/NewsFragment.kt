@@ -16,7 +16,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentNewsBinding
-import com.omouravictor.invest_view.presenter.model.ArticleUiModel
+import com.omouravictor.invest_view.presenter.news.model.ArticleUiModel
 import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.presenter.news.article.ArticleAdapter
 import com.omouravictor.invest_view.util.getGenericErrorMessage

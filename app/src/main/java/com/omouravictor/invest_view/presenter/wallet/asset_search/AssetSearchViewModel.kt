@@ -6,7 +6,7 @@ import com.omouravictor.invest_view.data.remote.model.asset_quote.AssetGlobalQuo
 import com.omouravictor.invest_view.data.remote.model.assets_by_search.toAssetsUiModel
 import com.omouravictor.invest_view.data.remote.repository.AssetsApiRepository
 import com.omouravictor.invest_view.presenter.model.UiState
-import com.omouravictor.invest_view.presenter.model.AssetUiModel
+import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

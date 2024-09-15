@@ -3,7 +3,7 @@ package com.omouravictor.invest_view.data.remote.repository
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.omouravictor.invest_view.di.model.DispatcherProvider
-import com.omouravictor.invest_view.presenter.model.AssetUiModel
+import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
@@ -15,6 +15,7 @@ class FirebaseRepositoryImpl(
     companion object {
         private const val COLLECTION_USERS = "users"
         private const val COLLECTION_ASSETS = "assets"
+        private const val COLLECTION_TRANSACTIONS = "transactions"
     }
 
     override suspend fun getAssetList(userId: String): Result<List<AssetUiModel>> {

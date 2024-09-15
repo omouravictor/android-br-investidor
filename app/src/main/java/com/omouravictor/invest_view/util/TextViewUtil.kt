@@ -4,8 +4,8 @@ import android.annotation.SuppressLint
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.omouravictor.invest_view.R
-import com.omouravictor.invest_view.presenter.model.AssetUiModel
-import com.omouravictor.invest_view.presenter.model.getYield
+import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
+import com.omouravictor.invest_view.presenter.wallet.model.getYield
 import java.lang.Double.NEGATIVE_INFINITY
 import java.lang.Double.POSITIVE_INFINITY
 

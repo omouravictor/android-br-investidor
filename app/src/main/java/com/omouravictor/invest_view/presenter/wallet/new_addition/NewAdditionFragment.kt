@@ -13,12 +13,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentNewAdditionBinding
-import com.omouravictor.invest_view.presenter.model.AssetUiModel
+import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.model.UiState
-import com.omouravictor.invest_view.presenter.model.getFormattedSymbol
-import com.omouravictor.invest_view.presenter.model.getFormattedSymbolAndAmount
-import com.omouravictor.invest_view.presenter.model.getFormattedTotalPrice
-import com.omouravictor.invest_view.presenter.model.getTotalPrice
+import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
+import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbolAndAmount
+import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalPrice
+import com.omouravictor.invest_view.presenter.wallet.model.getTotalPrice
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.util.ConstantUtil
 import com.omouravictor.invest_view.util.LocaleUtil

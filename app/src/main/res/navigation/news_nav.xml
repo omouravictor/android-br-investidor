@@ -22,7 +22,7 @@
         tools:layout="@layout/fragment_article">
         <argument
             android:name="articleUiModel"
-            app:argType="com.omouravictor.invest_view.presenter.model.ArticleUiModel" />
+            app:argType="com.omouravictor.invest_view.presenter.news.model.ArticleUiModel" />
     </fragment>
 
 </navigation>

@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.data.remote.model.news.toNewsUiModel
 import com.omouravictor.invest_view.data.remote.repository.NewsApiRepository
-import com.omouravictor.invest_view.presenter.model.ArticleUiModel
+import com.omouravictor.invest_view.presenter.news.model.ArticleUiModel
 import com.omouravictor.invest_view.presenter.model.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext

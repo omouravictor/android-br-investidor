@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.presenter.model
+package com.omouravictor.invest_view.presenter.news.model
 
 import android.os.Parcelable
 import com.omouravictor.invest_view.data.remote.model.news.SourceResponse

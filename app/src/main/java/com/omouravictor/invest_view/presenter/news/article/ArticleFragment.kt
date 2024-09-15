@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentArticleBinding
-import com.omouravictor.invest_view.presenter.model.ArticleUiModel
+import com.omouravictor.invest_view.presenter.news.model.ArticleUiModel
 import com.omouravictor.invest_view.util.setupToolbarTitle
 
 class ArticleFragment : Fragment(R.layout.fragment_article) {

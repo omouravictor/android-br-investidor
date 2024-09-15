@@ -6,9 +6,9 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.omouravictor.invest_view.databinding.ItemAssetBinding
 import com.omouravictor.invest_view.presenter.base.BaseRecyclerViewAdapter
-import com.omouravictor.invest_view.presenter.model.AssetUiModel
-import com.omouravictor.invest_view.presenter.model.getFormattedSymbolAndAmount
-import com.omouravictor.invest_view.presenter.model.getFormattedTotalPrice
+import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
+import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbolAndAmount
+import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalPrice
 import com.omouravictor.invest_view.util.setupYieldForAsset
 
 class AssetTypesAdapter : BaseRecyclerViewAdapter<AssetUiModel, AssetTypesAdapter.AssetViewHolder>() {
