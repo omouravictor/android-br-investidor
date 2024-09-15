@@ -17,6 +17,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.omouravictor.invest_view.R
+import com.omouravictor.invest_view.data.remote.model.asset_quote.AssetGlobalQuoteItemResponse
 import com.omouravictor.invest_view.databinding.FragmentAssetDetailsBinding
 import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
@@ -146,7 +147,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         }
     }
 
-    private fun setupLoadingLayoutForQuote(isLoading: Boolean) {
+    private fun handleQuoteLoading(isLoading: Boolean) {
         if (isLoading) {
             binding.incChangeShimmer.root.startShimmer()
             binding.incChangeShimmer.root.visibility = View.VISIBLE
@@ -160,27 +161,29 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         }
     }
 
+    private fun handleQuoteSuccess(quote: AssetGlobalQuoteItemResponse) {
+        handleQuoteLoading(false)
+        val change = quote.change
+        val changePercent = quote.changePercent.removeSuffix("%").toDoubleOrNull()
+        binding.tvChange.setupVariation(
+            assetUiModel.currency, change, changePercent?.div(100)
+        )
+    }
+
+    private fun handleQuoteError() {
+        handleQuoteLoading(false)
+        binding.tvChange.visibility = View.INVISIBLE
+        binding.ivChangeReload.visibility = View.VISIBLE
+    }
+
     private fun observeGetQuoteUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 assetSearchViewModel.getQuoteUiState.collectLatest {
                     when (it) {
-                        is UiState.Loading -> setupLoadingLayoutForQuote(true)
-                        is UiState.Success -> {
-                            setupLoadingLayoutForQuote(false)
-                            val change = it.data.change
-                            val changePercent = it.data.changePercent.removeSuffix("%").toDoubleOrNull()
-                            binding.tvChange.setupVariation(
-                                assetUiModel.currency, change, changePercent?.div(100)
-                            )
-                        }
-
-                        is UiState.Error -> {
-                            setupLoadingLayoutForQuote(false)
-                            binding.tvChange.visibility = View.INVISIBLE
-                            binding.ivChangeReload.visibility = View.VISIBLE
-                        }
-
+                        is UiState.Loading -> handleQuoteLoading(true)
+                        is UiState.Success -> handleQuoteSuccess(it.data)
+                        is UiState.Error -> handleQuoteError()
                         else -> Unit
                     }
                 }
@@ -188,25 +191,29 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         }
     }
 
+    private fun handleDeleteAssetLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.mainLayout.visibility = View.INVISIBLE
+            binding.incProgressBar.root.visibility = View.VISIBLE
+        } else {
+            binding.mainLayout.visibility = View.VISIBLE
+            binding.incProgressBar.root.visibility = View.GONE
+        }
+    }
+
+    private fun handleDeleteAssetError(e: Exception) {
+        handleDeleteAssetLoading(false)
+        with(requireActivity()) { showErrorSnackBar(getGenericErrorMessage(e)) }
+    }
+
     private fun observeDeleteAssetUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 walletViewModel.deleteAssetUiState.collectLatest {
                     when (it) {
-                        is UiState.Loading -> {
-                            binding.mainLayout.visibility = View.INVISIBLE
-                            binding.incProgressBar.root.visibility = View.VISIBLE
-                        }
-
+                        is UiState.Loading -> handleDeleteAssetLoading(true)
                         is UiState.Success -> findNavController().clearPileAndNavigateToStart()
-
-                        is UiState.Error -> {
-                            val activity = requireActivity()
-                            binding.mainLayout.visibility = View.VISIBLE
-                            binding.incProgressBar.root.visibility = View.GONE
-                            activity.showErrorSnackBar(activity.getGenericErrorMessage(it.e))
-                        }
-
+                        is UiState.Error -> handleDeleteAssetError(it.e)
                         else -> Unit
                     }
                 }
