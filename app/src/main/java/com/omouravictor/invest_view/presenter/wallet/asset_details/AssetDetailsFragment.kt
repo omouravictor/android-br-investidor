@@ -6,7 +6,6 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources.getColorStateList
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -132,15 +131,8 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
     }
 
     private fun setupButtons() {
-        binding.incBtnDelete.root.apply {
-            text = getString(R.string.newSale)
-            setOnClickListener {
-                Toast.makeText(context, getString(R.string.newSale), Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        binding.incBtnNewAddition.root.apply {
-            text = getString(R.string.newAddition)
+        binding.incBtnNewTransaction.root.apply {
+            text = getString(R.string.newTransaction)
             setOnClickListener {
                 findNavController().navigate(AssetDetailsFragmentDirections.navToTransactionFragment(assetUiModel))
             }
