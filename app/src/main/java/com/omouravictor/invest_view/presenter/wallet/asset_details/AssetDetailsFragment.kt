@@ -146,7 +146,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         }
     }
 
-    private fun setupLoadingLayoutForAssetQuote(isLoading: Boolean) {
+    private fun setupLoadingLayoutForQuote(isLoading: Boolean) {
         if (isLoading) {
             binding.incChangeShimmer.root.startShimmer()
             binding.incChangeShimmer.root.visibility = View.VISIBLE
@@ -165,9 +165,9 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 assetSearchViewModel.getQuoteUiState.collectLatest {
                     when (it) {
-                        is UiState.Loading -> setupLoadingLayoutForAssetQuote(true)
+                        is UiState.Loading -> setupLoadingLayoutForQuote(true)
                         is UiState.Success -> {
-                            setupLoadingLayoutForAssetQuote(false)
+                            setupLoadingLayoutForQuote(false)
                             val change = it.data.change
                             val changePercent = it.data.changePercent.removeSuffix("%").toDoubleOrNull()
                             binding.tvChange.setupVariation(
@@ -176,7 +176,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
                         }
 
                         is UiState.Error -> {
-                            setupLoadingLayoutForAssetQuote(false)
+                            setupLoadingLayoutForQuote(false)
                             binding.tvChange.visibility = View.INVISIBLE
                             binding.ivChangeReload.visibility = View.VISIBLE
                         }
