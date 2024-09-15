@@ -2,14 +2,12 @@ package com.omouravictor.invest_view.presenter.wallet.asset_details
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources.getColorStateList
-import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -20,20 +18,20 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetDetailsBinding
-import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.model.UiState
+import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
+import com.omouravictor.invest_view.presenter.wallet.asset_search.AssetSearchViewModel
+import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAmount
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAssetPrice
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalInvested
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalPrice
-import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
-import com.omouravictor.invest_view.presenter.wallet.asset_search.AssetSearchViewModel
 import com.omouravictor.invest_view.util.AssetUtil
 import com.omouravictor.invest_view.util.ConstantUtil
 import com.omouravictor.invest_view.util.clearPileAndNavigateToStart
 import com.omouravictor.invest_view.util.getGenericErrorMessage
-import com.omouravictor.invest_view.util.setupToolbarCenterText
+import com.omouravictor.invest_view.util.setupToolbarTitle
 import com.omouravictor.invest_view.util.setupVariation
 import com.omouravictor.invest_view.util.setupYieldForAsset
 import com.omouravictor.invest_view.util.showErrorSnackBar
@@ -76,25 +74,40 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         ) ?: assetUiModel
     }
 
+    private fun showAlertDialogForDelete() {
+        AlertDialog.Builder(context).apply {
+            setTitle(getString(R.string.deleteAsset))
+            setMessage(getString(R.string.deleteAssetAlertMessage))
+            setPositiveButton(getString(R.string.yes)) { _, _ -> walletViewModel.deleteAsset(assetUiModel) }
+            setNegativeButton(getString(R.string.not)) { dialog, _ -> dialog.dismiss() }
+            setIcon(R.drawable.ic_delete)
+        }.show()
+    }
+
     private fun setupToolbar() {
         val activity = requireActivity()
 
-        activity.setupToolbarCenterText(assetUiModel.getFormattedSymbol())
+        activity.setupToolbarTitle(assetUiModel.getFormattedSymbol())
 
         activity.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.options_menu_details, menu)
-                val menuItem = menu.findItem(R.id.editMenuItem)
-                val spanStr = SpannableString(menuItem.title.toString())
-                spanStr.setSpan(
-                    ForegroundColorSpan(ContextCompat.getColor(activity, R.color.green)), 0, spanStr.length, 0
-                )
-                menuItem.title = spanStr
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                findNavController().navigate(AssetDetailsFragmentDirections.navToSaveAssetFragment(assetUiModel))
-                return true
+                return when (menuItem.itemId) {
+                    R.id.editMenuItem -> {
+                        findNavController().navigate(AssetDetailsFragmentDirections.navToSaveAssetFragment(assetUiModel))
+                        true
+                    }
+
+                    R.id.deleteMenuItem -> {
+                        showAlertDialogForDelete()
+                        true
+                    }
+
+                    else -> false
+                }
             }
         }, viewLifecycleOwner)
     }
@@ -119,15 +132,9 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
 
     private fun setupButtons() {
         binding.incBtnDelete.root.apply {
-            text = getString(R.string.delete)
+            text = getString(R.string.newSale)
             setOnClickListener {
-                AlertDialog.Builder(context).apply {
-                    setTitle(getString(R.string.deleteAsset))
-                    setMessage(getString(R.string.deleteAssetAlertMessage))
-                    setPositiveButton(getString(R.string.yes)) { _, _ -> walletViewModel.deleteAsset(assetUiModel) }
-                    setNegativeButton(getString(R.string.not)) { dialog, _ -> dialog.dismiss() }
-                    setIcon(R.drawable.ic_delete)
-                }.show()
+                Toast.makeText(context, getString(R.string.newSale), Toast.LENGTH_SHORT).show()
             }
         }
 
