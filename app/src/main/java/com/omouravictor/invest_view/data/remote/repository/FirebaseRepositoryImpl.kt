@@ -15,7 +15,6 @@ class FirebaseRepositoryImpl(
     companion object {
         private const val COLLECTION_USERS = "users"
         private const val COLLECTION_ASSETS = "assets"
-        private const val COLLECTION_TRANSACTIONS = "transactions"
     }
 
     override suspend fun getAssetList(userId: String): Result<List<AssetUiModel>> {
