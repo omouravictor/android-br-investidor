@@ -16,9 +16,9 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentNewsBinding
-import com.omouravictor.invest_view.presenter.news.model.ArticleUiModel
 import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.presenter.news.article.ArticleAdapter
+import com.omouravictor.invest_view.presenter.news.model.ArticleUiModel
 import com.omouravictor.invest_view.util.getGenericErrorMessage
 import com.omouravictor.invest_view.util.hideKeyboard
 import com.omouravictor.invest_view.util.setupRecyclerViewWithLinearLayout
@@ -103,9 +103,9 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 newsViewModel.getNewsListUiState.collectLatest {
                     when (it) {
-                        is UiState.Loading -> handleLoading()
-                        is UiState.Success -> handleSuccess(it.data)
-                        is UiState.Error -> handleError(it.e)
+                        is UiState.Loading -> handleNewsListLoading()
+                        is UiState.Success -> handleNewsListSuccess(it.data)
+                        is UiState.Error -> handleNewsListError(it.e)
                         else -> Unit
                     }
                 }
@@ -113,14 +113,14 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
         }
     }
 
-    private fun handleLoading() {
+    private fun handleNewsListLoading() {
         binding.shimmerLayout.isVisible = true
         binding.shimmerLayout.startShimmer()
         binding.recyclerView.isVisible = false
         binding.incLayoutError.root.isVisible = false
     }
 
-    private fun handleSuccess(results: List<ArticleUiModel>) {
+    private fun handleNewsListSuccess(results: List<ArticleUiModel>) {
         binding.shimmerLayout.isVisible = false
         binding.shimmerLayout.stopShimmer()
 
@@ -137,7 +137,7 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
         articleAdapter.setList(results)
     }
 
-    private fun handleError(e: Exception) {
+    private fun handleNewsListError(e: Exception) {
         binding.shimmerLayout.isVisible = false
         binding.shimmerLayout.stopShimmer()
         binding.recyclerView.isVisible = false
