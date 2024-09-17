@@ -83,8 +83,8 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
     private fun setupViews() {
         setupIncCurrentPositionAndIncNewPosition()
         setupAmountAndValuePerUnit()
-        showInitialUpdatedPositionLayout()
         setupButtons()
+        showInitialUpdatedPositionLayout()
     }
 
     private fun setupIncCurrentPositionAndIncNewPosition() {

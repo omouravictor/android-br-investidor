@@ -54,7 +54,6 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
         binding = FragmentSaveAssetBinding.bind(view)
         setupToolbar()
         setupViews()
-        setupButtons()
         observeSaveAssetUiState()
     }
 
@@ -92,6 +91,7 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
             incItemListAsset.tvInfoMessage.hint = getString(R.string.fillTheFieldsToView)
         }
         setupAmountAndTotalInvested()
+        setupButtons()
     }
 
     private fun setupAmountAndTotalInvested() {
