@@ -10,6 +10,7 @@
     <color name="defaultButtonPressedTrueColor">#B200C853</color>
     <color name="shimmerBackColor">#B1B1B1</color>
     <color name="grayDayNightColor">#A3A3A3</color>
+    <color name="grayStrokeColor">#777777</color>
     <color name="defaultButtonBackgroundColor">@color/green</color>
     <color name="defaultButtonTextColor">@color/black</color>
     <color name="lineColor">#303030</color>

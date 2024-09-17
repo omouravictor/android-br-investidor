@@ -19,26 +19,29 @@
                 android:id="@+id/tvBuy"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
-                android:background="@drawable/rectangle_no_background"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/rectangle_green_stroke"
                 android:gravity="center"
                 android:text="@string/buy"
-                android:textColor="@color/appTextColor"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/tvSale"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:background="@drawable/rectangle_green_stroke" />
 
             <TextView
                 android:id="@+id/tvSale"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:background="@drawable/rectangle_gray_stroke"
                 android:gravity="center"
                 android:text="@string/sale"
                 android:textColor="@color/appTextColor"
                 app:layout_constraintBottom_toBottomOf="@+id/tvBuy"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tvBuy"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:background="@drawable/rectangle_gray_stroke" />
 
             <TextView
                 android:id="@+id/tvTittleQuantity"
