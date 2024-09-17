@@ -46,7 +46,7 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
         super.onViewCreated(view, savedInstanceState)
         assetUiModel = args.assetUiModel
         binding = FragmentTransactionBinding.bind(view)
-        requireActivity().setupToolbarCenterText(getString(R.string.newAddition))
+        requireActivity().setupToolbarCenterText(getString(R.string.newTransaction))
         setupViews()
         setupButtons()
         observeSaveAssetUiState()

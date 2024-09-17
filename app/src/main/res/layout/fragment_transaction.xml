@@ -13,16 +13,41 @@
             android:id="@+id/mainLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingVertical="@dimen/defaultPadding">
+            android:padding="@dimen/defaultPadding">
+
+            <TextView
+                android:id="@+id/tvBuy"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:background="@drawable/rectangle_no_background"
+                android:gravity="center"
+                android:text="@string/buy"
+                android:textColor="@color/appTextColor"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/tvSale"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvSale"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:text="@string/sale"
+                android:textColor="@color/appTextColor"
+                app:layout_constraintBottom_toBottomOf="@+id/tvBuy"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvBuy"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvTittleQuantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/defaultMargin"
+                android:layout_marginTop="24dp"
                 android:text="@string/amount_form"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/tvBuy" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayoutAmount"
@@ -45,7 +70,6 @@
                     android:id="@+id/ietAmount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/defaultMargin"
                     android:hint="@string/intNumber_0"
                     android:inputType="number"
                     android:maxLength="15"
@@ -58,7 +82,6 @@
                 android:id="@+id/tvTittleUnitValuePerUnit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/defaultMargin"
                 android:layout_marginTop="@dimen/defaultMargin"
                 android:text="@string/valuePerUnit_form"
                 app:layout_constraintStart_toStartOf="parent"
@@ -85,7 +108,6 @@
                     android:id="@+id/ietValuePerUnit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/defaultMargin"
                     android:imeOptions="actionDone"
                     android:inputType="number"
                     android:textAlignment="center"
@@ -98,7 +120,6 @@
                 android:id="@+id/tvTittleCurrentPosition"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/defaultMargin"
                 android:layout_marginTop="@dimen/defaultMargin"
                 android:text="@string/currentPosition"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -110,7 +131,6 @@
                 layout="@layout/item_asset"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/defaultMargin"
                 android:layout_marginTop="6dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -120,7 +140,6 @@
                 android:id="@+id/tvTittleUpdatedPosition"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/defaultMargin"
                 android:layout_marginTop="@dimen/defaultMargin"
                 android:text="@string/updatedPosition"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -132,7 +151,6 @@
                 layout="@layout/item_asset"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/defaultMargin"
                 android:layout_marginTop="6dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -143,7 +161,6 @@
                 layout="@layout/button_default"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/defaultMargin"
                 android:layout_marginTop="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
