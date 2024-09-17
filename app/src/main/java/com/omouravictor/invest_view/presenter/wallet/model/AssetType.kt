@@ -2,7 +2,7 @@ package com.omouravictor.invest_view.presenter.wallet.model
 
 import com.omouravictor.invest_view.R
 
-enum class AssetTypes(val nameResId: Int, val descriptionResId: Int, val colorResId: Int) {
+enum class AssetType(val nameResId: Int, val descriptionResId: Int, val colorResId: Int) {
 
     BRAZILIAN_STOCK(R.string.brazilianStock, R.string.brazilianStockDescription, R.color.brazilianStock),
     BDR(R.string.localDepositaryReceipts, R.string.bdrDescription, R.color.bdr),

@@ -23,7 +23,7 @@ import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentSaveAssetBinding
 import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
-import com.omouravictor.invest_view.presenter.wallet.model.AssetTypes
+import com.omouravictor.invest_view.presenter.wallet.model.AssetType
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.util.ConstantUtil
@@ -112,14 +112,14 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
         }
     }
 
-    private fun showInfoBottomSheetDialog(assetTypes: AssetTypes) {
+    private fun showInfoBottomSheetDialog(assetType: AssetType) {
         val context = requireContext()
         with(BottomSheetDialog(context, R.style.Theme_App_OverlayBottomSheetDialog)) {
             setContentView(R.layout.bottom_sheet_dialog_info)
             findViewById<ImageView>(R.id.ivTitle)!!.imageTintList =
-                ContextCompat.getColorStateList(context, assetTypes.colorResId)
-            findViewById<TextView>(R.id.tvTitle)!!.text = getString(assetTypes.nameResId)
-            findViewById<TextView>(R.id.tvInfo)!!.text = getString(assetTypes.descriptionResId)
+                ContextCompat.getColorStateList(context, assetType.colorResId)
+            findViewById<TextView>(R.id.tvTitle)!!.text = getString(assetType.nameResId)
+            findViewById<TextView>(R.id.tvInfo)!!.text = getString(assetType.descriptionResId)
             show()
         }
     }

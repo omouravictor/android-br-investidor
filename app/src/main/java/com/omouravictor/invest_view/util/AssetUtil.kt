@@ -1,28 +1,28 @@
 package com.omouravictor.invest_view.util
 
 import com.omouravictor.invest_view.R
-import com.omouravictor.invest_view.presenter.wallet.model.AssetTypes
+import com.omouravictor.invest_view.presenter.wallet.model.AssetType
 
 object AssetUtil {
 
-    fun getAssetType(symbol: String, type: String): AssetTypes {
+    fun getAssetType(symbol: String, type: String): AssetType {
         return when (type) {
             "Equity" -> {
                 if (symbol.substringAfter(".") == "SAO") {
                     val formattedSymbol = getFormattedSymbol(symbol)
                     val lastTwoDigits = formattedSymbol.takeLast(2)
                     if (lastTwoDigits == "34" || lastTwoDigits == "35" || lastTwoDigits == "32" || lastTwoDigits == "33")
-                        AssetTypes.BDR
+                        AssetType.BDR
                     else
-                        AssetTypes.BRAZILIAN_STOCK
+                        AssetType.BRAZILIAN_STOCK
                 } else {
-                    AssetTypes.STOCK
+                    AssetType.STOCK
                 }
             }
 
-            "Mutual Fund" -> AssetTypes.FI
-            "ETF" -> AssetTypes.ETF
-            else -> AssetTypes.DEFAULT
+            "Mutual Fund" -> AssetType.FI
+            "ETF" -> AssetType.ETF
+            else -> AssetType.DEFAULT
         }
     }
 
