@@ -52,7 +52,6 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
         binding = FragmentTransactionBinding.bind(view)
         requireActivity().setupToolbarCenterText(getString(R.string.newTransaction))
         setupViews()
-        setupButtons()
         observeSaveAssetUiState()
 
         val context = requireContext()
@@ -82,6 +81,13 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
     }
 
     private fun setupViews() {
+        setupIncCurrentPositionAndIncNewPosition()
+        setupAmountAndValuePerUnit()
+        showInitialUpdatedPositionLayout()
+        setupButtons()
+    }
+
+    private fun setupIncCurrentPositionAndIncNewPosition() {
         binding.apply {
             val context = root.context
             val color = context.getColor(assetUiModel.type.colorResId)
@@ -98,8 +104,6 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
             incNewPosition.tvName.text = assetUiModel.name
             incNewPosition.tvInfoMessage.hint = getString(R.string.fillTheFieldsToView)
         }
-        setupAmountAndValuePerUnit()
-        showInitialUpdatedPositionLayout()
     }
 
     private fun setupAmountAndValuePerUnit() {
