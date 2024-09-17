@@ -1,6 +1,6 @@
 package com.omouravictor.invest_view.presenter.wallet.model
 
-enum class Transactions {
+enum class Transaction {
     BUY,
     SALE
 }

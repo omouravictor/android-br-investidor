@@ -1,8 +1,10 @@
 package com.omouravictor.invest_view.presenter.wallet.transaction
 
 import android.annotation.SuppressLint
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -16,6 +18,7 @@ import com.omouravictor.invest_view.databinding.FragmentTransactionBinding
 import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
+import com.omouravictor.invest_view.presenter.wallet.model.Transaction
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbolAndAmount
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalPrice
@@ -41,6 +44,7 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
     private lateinit var assetUiModel: AssetUiModel
     private val args by navArgs<TransactionFragmentArgs>()
     private val walletViewModel: WalletViewModel by activityViewModels()
+    private var transaction = Transaction.BUY
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -50,6 +54,26 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
         setupViews()
         setupButtons()
         observeSaveAssetUiState()
+
+        val context = requireContext()
+
+        binding.tvBuy.setOnClickListener {
+            transaction = Transaction.BUY
+            binding.tvBuy.typeface = Typeface.DEFAULT_BOLD
+            binding.tvBuy.background = AppCompatResources.getDrawable(context, R.drawable.rectangle_green_stroke)
+            binding.tvSale.typeface = null
+            binding.tvSale.background = AppCompatResources.getDrawable(context, R.drawable.rectangle_gray_stroke)
+            updateNewPosition(transaction)
+        }
+
+        binding.tvSale.setOnClickListener {
+            transaction = Transaction.SALE
+            binding.tvSale.typeface = Typeface.DEFAULT_BOLD
+            binding.tvSale.background = AppCompatResources.getDrawable(context, R.drawable.rectangle_green_stroke)
+            binding.tvBuy.typeface = null
+            binding.tvBuy.background = AppCompatResources.getDrawable(context, R.drawable.rectangle_gray_stroke)
+            updateNewPosition(transaction)
+        }
     }
 
     override fun onDestroyView() {
@@ -80,14 +104,14 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
 
     private fun setupAmountAndValuePerUnit() {
         binding.ietAmount.apply {
-            doAfterTextChanged { updateNewPosition() }
+            doAfterTextChanged { updateNewPosition(transaction) }
             setEditTextLongNumberFormatMask()
             hint = LocaleUtil.getFormattedLong(0)
         }
 
         binding.ietValuePerUnit.apply {
             val currency = assetUiModel.currency
-            doAfterTextChanged { updateNewPosition() }
+            doAfterTextChanged { updateNewPosition(transaction) }
             setEditTextCurrencyFormatMask(currency)
             hint = LocaleUtil.getFormattedCurrencyValue(currency, 0.0)
         }
@@ -102,7 +126,7 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun updateNewPosition() {
+    private fun updateNewPosition(transaction: Transaction) {
         binding.incNewPosition.apply {
             val additionAmount = binding.ietAmount.getLongValue()
             val valuePerUnit = binding.ietValuePerUnit.getMonetaryValueDouble()
