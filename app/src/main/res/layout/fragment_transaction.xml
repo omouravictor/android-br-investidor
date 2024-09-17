@@ -26,8 +26,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/tvSale"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:background="@drawable/rectangle_green_stroke" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvSale"
@@ -40,8 +39,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/tvBuy"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tvBuy"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:background="@drawable/rectangle_gray_stroke" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvTittleQuantity"
