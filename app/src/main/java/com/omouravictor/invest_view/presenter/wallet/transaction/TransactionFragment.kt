@@ -141,33 +141,39 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
         }
     }
 
+    private fun handleSaveAssetLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.mainLayout.visibility = View.INVISIBLE
+            binding.incProgressBar.root.visibility = View.VISIBLE
+        } else {
+            binding.mainLayout.visibility = View.VISIBLE
+            binding.incProgressBar.root.visibility = View.GONE
+        }
+    }
+
+    private fun handleSaveAssetSuccess(asset: AssetUiModel) {
+        val navController = findNavController()
+        val previousBackStackEntry = navController.previousBackStackEntry
+        previousBackStackEntry?.savedStateHandle?.set(
+            ConstantUtil.SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL,
+            asset
+        )
+        navController.popBackStack()
+    }
+
+    private fun handleSaveAssetError(e: Exception) {
+        handleSaveAssetLoading(false)
+        with(requireActivity()) { showErrorSnackBar(getGenericErrorMessage(e)) }
+    }
+
     private fun observeSaveAssetUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 walletViewModel.saveAssetUiState.collectLatest {
                     when (it) {
-                        is UiState.Loading -> {
-                            binding.mainLayout.visibility = View.INVISIBLE
-                            binding.incProgressBar.root.visibility = View.VISIBLE
-                        }
-
-                        is UiState.Success -> {
-                            val navController = findNavController()
-                            val previousBackStackEntry = navController.previousBackStackEntry
-                            val updatedAssetUiModel = it.data
-                            previousBackStackEntry?.savedStateHandle?.set(
-                                ConstantUtil.SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL, updatedAssetUiModel
-                            )
-                            navController.popBackStack()
-                        }
-
-                        is UiState.Error -> {
-                            val activity = requireActivity()
-                            binding.mainLayout.visibility = View.VISIBLE
-                            binding.incProgressBar.root.visibility = View.GONE
-                            activity.showErrorSnackBar(activity.getGenericErrorMessage(it.e))
-                        }
-
+                        is UiState.Loading -> handleSaveAssetLoading(true)
+                        is UiState.Success -> handleSaveAssetSuccess(it.data)
+                        is UiState.Error -> handleSaveAssetError(it.e)
                         else -> Unit
                     }
                 }

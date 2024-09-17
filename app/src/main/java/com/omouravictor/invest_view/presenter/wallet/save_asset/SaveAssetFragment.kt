@@ -21,11 +21,11 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentSaveAssetBinding
-import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.model.UiState
-import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetTypes
+import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
+import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.util.ConstantUtil
 import com.omouravictor.invest_view.util.LocaleUtil
 import com.omouravictor.invest_view.util.clearPileAndNavigateToStart
@@ -162,38 +162,44 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
         }
     }
 
+    private fun handleSaveAssetLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.saveLayout.visibility = View.INVISIBLE
+            binding.incProgressBar.root.visibility = View.VISIBLE
+        } else {
+            binding.saveLayout.visibility = View.VISIBLE
+            binding.incProgressBar.root.visibility = View.GONE
+        }
+    }
+
+    private fun handleSaveAssetSuccess(asset: AssetUiModel) {
+        val navController = findNavController()
+        val previousBackStackEntry = navController.previousBackStackEntry
+        val previousDestinationId = previousBackStackEntry?.destination?.id ?: -1
+        if (previousDestinationId == R.id.fragmentAssetSearch) {
+            navController.clearPileAndNavigateToStart()
+        } else if (previousDestinationId == R.id.fragmentAssetDetail) {
+            previousBackStackEntry?.savedStateHandle?.set(
+                ConstantUtil.SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL,
+                asset
+            )
+            navController.popBackStack()
+        }
+    }
+
+    private fun handleSaveAssetError(e: Exception) {
+        handleSaveAssetLoading(false)
+        with(requireActivity()) { showErrorSnackBar(getGenericErrorMessage(e)) }
+    }
+
     private fun observeSaveAssetUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 walletViewModel.saveAssetUiState.collectLatest {
                     when (it) {
-                        is UiState.Loading -> {
-                            binding.saveLayout.visibility = View.INVISIBLE
-                            binding.incProgressBar.root.visibility = View.VISIBLE
-                        }
-
-                        is UiState.Success -> {
-                            val navController = findNavController()
-                            val previousBackStackEntry = navController.previousBackStackEntry
-                            val previousDestinationId = previousBackStackEntry?.destination?.id ?: -1
-                            if (previousDestinationId == R.id.fragmentAssetSearch) {
-                                navController.clearPileAndNavigateToStart()
-                            } else if (previousDestinationId == R.id.fragmentAssetDetail) {
-                                val updatedAssetUiModel = it.data
-                                previousBackStackEntry?.savedStateHandle?.set(
-                                    ConstantUtil.SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL, updatedAssetUiModel
-                                )
-                                navController.popBackStack()
-                            }
-                        }
-
-                        is UiState.Error -> {
-                            val activity = requireActivity()
-                            binding.saveLayout.visibility = View.VISIBLE
-                            binding.incProgressBar.root.visibility = View.GONE
-                            activity.showErrorSnackBar(activity.getGenericErrorMessage(it.e))
-                        }
-
+                        is UiState.Loading -> handleSaveAssetLoading(true)
+                        is UiState.Success -> handleSaveAssetSuccess(it.data)
+                        is UiState.Error -> handleSaveAssetError(it.e)
                         else -> Unit
                     }
                 }
