@@ -90,14 +90,14 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
 
     private fun setupAmountAndValuePerUnit() {
         binding.ietAmount.apply {
-            doAfterTextChanged { updateNewPosition(transaction) }
+            doAfterTextChanged { updateNewPosition() }
             setEditTextLongNumberFormatMask()
             hint = LocaleUtil.getFormattedLong(0)
         }
 
         binding.ietValuePerUnit.apply {
             val currency = assetUiModel.currency
-            doAfterTextChanged { updateNewPosition(transaction) }
+            doAfterTextChanged { updateNewPosition() }
             setEditTextCurrencyFormatMask(currency)
             hint = LocaleUtil.getFormattedCurrencyValue(currency, 0.0)
         }
@@ -111,7 +111,7 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
                 tvBuy.background = AppCompatResources.getDrawable(it.context, R.drawable.rectangle_green_stroke)
                 tvSale.typeface = null
                 tvSale.background = AppCompatResources.getDrawable(it.context, R.drawable.rectangle_gray_stroke)
-                updateNewPosition(transaction)
+                updateNewPosition()
             }
         }
     }
@@ -124,7 +124,7 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
                 tvSale.background = AppCompatResources.getDrawable(it.context, R.drawable.rectangle_green_stroke)
                 tvBuy.typeface = null
                 tvBuy.background = AppCompatResources.getDrawable(it.context, R.drawable.rectangle_gray_stroke)
-                updateNewPosition(transaction)
+                updateNewPosition()
             }
         }
     }
@@ -138,7 +138,7 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun updateNewPosition(transaction: Transaction) {
+    private fun updateNewPosition() {
         if (transaction == Transaction.BUY) {
             binding.incNewPosition.apply {
                 val additionAmount = binding.ietAmount.getLongValue()
