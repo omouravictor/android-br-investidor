@@ -53,26 +53,6 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
         requireActivity().setupToolbarCenterText(getString(R.string.newTransaction))
         setupViews()
         observeSaveAssetUiState()
-
-        val context = requireContext()
-
-        binding.tvBuy.setOnClickListener {
-            transaction = Transaction.BUY
-            binding.tvBuy.typeface = Typeface.DEFAULT_BOLD
-            binding.tvBuy.background = AppCompatResources.getDrawable(context, R.drawable.rectangle_green_stroke)
-            binding.tvSale.typeface = null
-            binding.tvSale.background = AppCompatResources.getDrawable(context, R.drawable.rectangle_gray_stroke)
-            updateNewPosition(transaction)
-        }
-
-        binding.tvSale.setOnClickListener {
-            transaction = Transaction.SALE
-            binding.tvSale.typeface = Typeface.DEFAULT_BOLD
-            binding.tvSale.background = AppCompatResources.getDrawable(context, R.drawable.rectangle_green_stroke)
-            binding.tvBuy.typeface = null
-            binding.tvBuy.background = AppCompatResources.getDrawable(context, R.drawable.rectangle_gray_stroke)
-            updateNewPosition(transaction)
-        }
     }
 
     override fun onDestroyView() {
@@ -84,6 +64,8 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
         setupIncCurrentPositionAndIncNewPosition()
         setupAmountAndValuePerUnit()
         setupButtons()
+        setupTextViewBuy()
+        setupTextViewSale()
         showInitialUpdatedPositionLayout()
     }
 
@@ -118,6 +100,34 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
             doAfterTextChanged { updateNewPosition(transaction) }
             setEditTextCurrencyFormatMask(currency)
             hint = LocaleUtil.getFormattedCurrencyValue(currency, 0.0)
+        }
+    }
+
+    private fun setupTextViewBuy() {
+        binding.apply {
+            tvBuy.setOnClickListener {
+                val context = it.context
+                transaction = Transaction.BUY
+                tvBuy.typeface = Typeface.DEFAULT_BOLD
+                tvBuy.background = AppCompatResources.getDrawable(context, R.drawable.rectangle_green_stroke)
+                tvSale.typeface = null
+                tvSale.background = AppCompatResources.getDrawable(context, R.drawable.rectangle_gray_stroke)
+                updateNewPosition(transaction)
+            }
+        }
+    }
+
+    private fun setupTextViewSale() {
+        binding.apply {
+            tvSale.setOnClickListener {
+                val context = it.context
+                transaction = Transaction.SALE
+                tvSale.typeface = Typeface.DEFAULT_BOLD
+                tvSale.background = AppCompatResources.getDrawable(context, R.drawable.rectangle_green_stroke)
+                tvBuy.typeface = null
+                tvBuy.background = AppCompatResources.getDrawable(context, R.drawable.rectangle_gray_stroke)
+                updateNewPosition(transaction)
+            }
         }
     }
 
