@@ -106,12 +106,11 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
     private fun setupTextViewBuy() {
         binding.apply {
             tvBuy.setOnClickListener {
-                val context = it.context
                 transaction = Transaction.BUY
                 tvBuy.typeface = Typeface.DEFAULT_BOLD
-                tvBuy.background = AppCompatResources.getDrawable(context, R.drawable.rectangle_green_stroke)
+                tvBuy.background = AppCompatResources.getDrawable(it.context, R.drawable.rectangle_green_stroke)
                 tvSale.typeface = null
-                tvSale.background = AppCompatResources.getDrawable(context, R.drawable.rectangle_gray_stroke)
+                tvSale.background = AppCompatResources.getDrawable(it.context, R.drawable.rectangle_gray_stroke)
                 updateNewPosition(transaction)
             }
         }
@@ -120,12 +119,11 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
     private fun setupTextViewSale() {
         binding.apply {
             tvSale.setOnClickListener {
-                val context = it.context
                 transaction = Transaction.SALE
                 tvSale.typeface = Typeface.DEFAULT_BOLD
-                tvSale.background = AppCompatResources.getDrawable(context, R.drawable.rectangle_green_stroke)
+                tvSale.background = AppCompatResources.getDrawable(it.context, R.drawable.rectangle_green_stroke)
                 tvBuy.typeface = null
-                tvBuy.background = AppCompatResources.getDrawable(context, R.drawable.rectangle_gray_stroke)
+                tvBuy.background = AppCompatResources.getDrawable(it.context, R.drawable.rectangle_gray_stroke)
                 updateNewPosition(transaction)
             }
         }
