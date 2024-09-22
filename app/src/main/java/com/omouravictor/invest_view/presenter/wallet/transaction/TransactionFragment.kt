@@ -167,12 +167,6 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
 
         val isBuy = transaction == Transaction.BUY
         val updatedAmount = if (isBuy) assetUiModel.amount + amount else assetUiModel.amount - amount
-
-        if (updatedAmount < 1) {
-            showUpdatedPositionLayout(0, 0.0, 0.0, 0.0)
-            return
-        }
-
         val updatedTotalPrice = assetUiModel.price * updatedAmount
         val updatedTotalInvested = if (isBuy) {
             assetUiModel.totalInvested + (valuePerUnit * amount)
@@ -180,7 +174,13 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
             assetUiModel.totalInvested - (valuePerUnit * amount)
         }
         val updatedYield = (updatedTotalPrice - updatedTotalInvested).getRoundedDouble()
-        val updatedYieldPercent = updatedYield / updatedTotalInvested
+        var updatedYieldPercent = updatedYield / updatedTotalInvested
+
+        if (updatedAmount < 1) {
+            updatedYieldPercent = updatedYield / assetUiModel.totalInvested
+            showUpdatedPositionLayout(0, 0.0, updatedYield, updatedYieldPercent)
+            return
+        }
 
         showUpdatedPositionLayout(updatedAmount, updatedTotalPrice, updatedYield, updatedYieldPercent)
     }
