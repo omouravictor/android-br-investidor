@@ -151,9 +151,9 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
 
             tableLayout.visibility = View.VISIBLE
             tvInfoMessage.visibility = View.INVISIBLE
-
-            binding.incBtnSave.root.isEnabled = true
         }
+
+        binding.incBtnSave.root.isEnabled = true
     }
 
     private fun updateNewPosition() {
@@ -169,7 +169,7 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
         val updatedAmount = if (isBuy) assetUiModel.amount + amount else assetUiModel.amount - amount
 
         if (updatedAmount < 1) {
-            showInitialUpdatedPositionLayout()
+            showUpdatedPositionLayout(0, 0.0, 0.0, 0.0)
             return
         }
 
