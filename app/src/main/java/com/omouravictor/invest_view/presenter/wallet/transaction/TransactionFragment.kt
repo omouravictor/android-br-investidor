@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.omouravictor.invest_view.R
@@ -24,6 +25,7 @@ import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbolAnd
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalPrice
 import com.omouravictor.invest_view.util.ConstantUtil
 import com.omouravictor.invest_view.util.LocaleUtil
+import com.omouravictor.invest_view.util.clearPileAndNavigateToStart
 import com.omouravictor.invest_view.util.getGenericErrorMessage
 import com.omouravictor.invest_view.util.getLongValue
 import com.omouravictor.invest_view.util.getMonetaryValueDouble
@@ -41,6 +43,7 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
 
     private lateinit var binding: FragmentTransactionBinding
     private lateinit var assetUiModel: AssetUiModel
+    private lateinit var navController: NavController
     private val args by navArgs<TransactionFragmentArgs>()
     private val walletViewModel: WalletViewModel by activityViewModels()
     private var transaction = Transaction.BUY
@@ -48,10 +51,12 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         assetUiModel = args.assetUiModel
+        navController = findNavController()
         binding = FragmentTransactionBinding.bind(view)
         requireActivity().setupToolbarCenterText(getString(R.string.newTransaction))
         setupViews()
         observeSaveAssetUiState()
+        observeDeleteAssetUiState()
     }
 
     override fun onDestroyView() {
@@ -208,7 +213,7 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
         }
     }
 
-    private fun handleSaveAssetLoading(isLoading: Boolean) {
+    private fun handleLoading(isLoading: Boolean) {
         if (isLoading) {
             binding.mainLayout.visibility = View.INVISIBLE
             binding.incProgressBar.root.visibility = View.VISIBLE
@@ -219,17 +224,13 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
     }
 
     private fun handleSaveAssetSuccess(asset: AssetUiModel) {
-        val navController = findNavController()
-        val previousBackStackEntry = navController.previousBackStackEntry
-        previousBackStackEntry?.savedStateHandle?.set(
-            ConstantUtil.SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL,
-            asset
-        )
+        navController.previousBackStackEntry!!
+            .savedStateHandle[ConstantUtil.SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL] = asset
         navController.popBackStack()
     }
 
-    private fun handleSaveAssetError(e: Exception) {
-        handleSaveAssetLoading(false)
+    private fun handleError(e: Exception) {
+        handleLoading(false)
         with(requireActivity()) { showErrorSnackBar(getGenericErrorMessage(e)) }
     }
 
@@ -238,9 +239,24 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 walletViewModel.saveAssetUiState.collectLatest {
                     when (it) {
-                        is UiState.Loading -> handleSaveAssetLoading(true)
+                        is UiState.Loading -> handleLoading(true)
                         is UiState.Success -> handleSaveAssetSuccess(it.data)
-                        is UiState.Error -> handleSaveAssetError(it.e)
+                        is UiState.Error -> handleError(it.e)
+                        else -> Unit
+                    }
+                }
+            }
+        }
+    }
+
+    private fun observeDeleteAssetUiState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                walletViewModel.deleteAssetUiState.collectLatest {
+                    when (it) {
+                        is UiState.Loading -> handleLoading(true)
+                        is UiState.Success -> navController.clearPileAndNavigateToStart()
+                        is UiState.Error -> handleError(it.e)
                         else -> Unit
                     }
                 }

@@ -91,8 +91,9 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
     }
 
     private fun setupAdapterAndRecyclerView() {
+        val navController = findNavController()
         articleAdapter.updateOnClickItem { articleUiModel ->
-            findNavController().navigate(NewsFragmentDirections.navToArticleFragment(articleUiModel))
+            navController.navigate(NewsFragmentDirections.navToArticleFragment(articleUiModel))
         }
 
         binding.recyclerView.setupRecyclerViewWithLinearLayout(articleAdapter)
