@@ -62,7 +62,7 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
     private fun setupViews() {
         setupIncCurrentPositionAndIncNewPosition()
         setupAmountAndValuePerUnit()
-        setupButtons()
+        setupSaveButton()
         setupTextViewBuy()
         setupTextViewSale()
         showInitialUpdatedPositionLayout()
@@ -184,18 +184,26 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
         }
     }
 
-    private fun setupButtons() {
+    private fun setupSaveButton() {
         binding.incBtnSave.root.apply {
             text = getString(R.string.save)
             setOnClickListener {
                 val isBuy = transaction == Transaction.BUY
                 val newAmount = binding.ietAmount.getLongValue()
                 val newTotalInvested = binding.ietValuePerUnit.getMonetaryValueDouble() * newAmount
-                assetUiModel.apply {
-                    amount = if (isBuy) newAmount + amount else amount - newAmount
-                    totalInvested = if (isBuy) newTotalInvested + totalInvested else totalInvested - newTotalInvested
+
+                assetUiModel.amount = if (isBuy) assetUiModel.amount + newAmount else assetUiModel.amount - newAmount
+
+                if (assetUiModel.amount < 1) {
+                    walletViewModel.deleteAsset(assetUiModel)
+                } else {
+                    assetUiModel.totalInvested = if (isBuy) {
+                        assetUiModel.totalInvested + newTotalInvested
+                    } else {
+                        assetUiModel.totalInvested - newTotalInvested
+                    }
+                    walletViewModel.saveAsset(assetUiModel)
                 }
-                walletViewModel.saveAsset(assetUiModel)
             }
         }
     }
