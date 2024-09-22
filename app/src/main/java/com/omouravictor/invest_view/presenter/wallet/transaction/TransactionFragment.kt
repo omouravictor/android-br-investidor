@@ -137,55 +137,45 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
     }
 
     @SuppressLint("SetTextI18n")
+    private fun showUpdatedPositionLayout(
+        updatedAmount: Long,
+        updatedTotalPrice: Double,
+        updatedYield: Double,
+        updatedYieldPercent: Double
+    ) {
+        val currency = assetUiModel.currency
+        binding.incNewPosition.apply {
+            tvSymbolAmount.text = "${assetUiModel.getFormattedSymbol()} (${LocaleUtil.getFormattedLong(updatedAmount)})"
+            tvTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, updatedTotalPrice)
+            tvYield.setupVariation(currency, updatedYield, updatedYieldPercent)
+
+            tableLayout.visibility = View.VISIBLE
+            tvInfoMessage.visibility = View.INVISIBLE
+
+            binding.incBtnSave.root.isEnabled = true
+        }
+    }
+
     private fun updateNewPosition() {
-        if (transaction == Transaction.BUY) {
-            binding.incNewPosition.apply {
-                val buyAmount = binding.ietAmount.getLongValue()
-                val valuePerUnit = binding.ietValuePerUnit.getMonetaryValueDouble()
-                if (buyAmount != 0L && valuePerUnit != 0.0) {
-                    val currency = assetUiModel.currency
-                    val updatedAmount = assetUiModel.amount + buyAmount
-                    val updatedTotalPrice = assetUiModel.price * updatedAmount
-                    val updatedTotalInvested = assetUiModel.totalInvested + (valuePerUnit * buyAmount)
-                    val updatedYield = (updatedTotalPrice - updatedTotalInvested).getRoundedDouble()
-                    val updatedYieldPercent = updatedYield / updatedTotalInvested
+        val amount = binding.ietAmount.getLongValue()
+        val valuePerUnit = binding.ietValuePerUnit.getMonetaryValueDouble()
 
-                    tvSymbolAmount.text =
-                        "${assetUiModel.getFormattedSymbol()} (${LocaleUtil.getFormattedLong(updatedAmount)})"
-                    tvTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, updatedTotalPrice)
-                    tvYield.setupVariation(currency, updatedYield, updatedYieldPercent)
-
-                    tableLayout.visibility = View.VISIBLE
-                    tvInfoMessage.visibility = View.INVISIBLE
-                    binding.incBtnSave.root.isEnabled = true
-
-                } else
-                    showInitialUpdatedPositionLayout()
+        if (amount != 0L && valuePerUnit != 0.0) {
+            val isBuy = transaction == Transaction.BUY
+            val updatedAmount = if (isBuy) assetUiModel.amount + amount else assetUiModel.amount - amount
+            val updatedTotalPrice = assetUiModel.price * updatedAmount
+            val updatedTotalInvested = if (isBuy) {
+                assetUiModel.totalInvested + (valuePerUnit * amount)
+            } else {
+                assetUiModel.totalInvested - (valuePerUnit * amount)
             }
+            val updatedYield = (updatedTotalPrice - updatedTotalInvested).getRoundedDouble()
+            val updatedYieldPercent = updatedYield / updatedTotalInvested
+
+            showUpdatedPositionLayout(updatedAmount, updatedTotalPrice, updatedYield, updatedYieldPercent)
+
         } else {
-            binding.incNewPosition.apply {
-                val saleAmount = binding.ietAmount.getLongValue()
-                val valuePerUnit = binding.ietValuePerUnit.getMonetaryValueDouble()
-                if (saleAmount != 0L && valuePerUnit != 0.0) {
-                    val currency = assetUiModel.currency
-                    val updatedAmount = assetUiModel.amount - saleAmount
-                    val updatedTotalPrice = assetUiModel.price * updatedAmount
-                    val updatedTotalInvested = assetUiModel.totalInvested - (valuePerUnit * saleAmount)
-                    val updatedYield = (updatedTotalPrice - updatedTotalInvested).getRoundedDouble()
-                    val updatedYieldPercent = updatedYield / updatedTotalInvested
-
-                    tvSymbolAmount.text =
-                        "${assetUiModel.getFormattedSymbol()} (${LocaleUtil.getFormattedLong(updatedAmount)})"
-                    tvTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, updatedTotalPrice)
-                    tvYield.setupVariation(currency, updatedYield, updatedYieldPercent)
-
-                    tableLayout.visibility = View.VISIBLE
-                    tvInfoMessage.visibility = View.INVISIBLE
-                    binding.incBtnSave.root.isEnabled = true
-
-                } else
-                    showInitialUpdatedPositionLayout()
-            }
+            showInitialUpdatedPositionLayout()
         }
     }
 
