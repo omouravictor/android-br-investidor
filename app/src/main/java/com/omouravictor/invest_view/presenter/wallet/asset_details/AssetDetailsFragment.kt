@@ -13,6 +13,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.omouravictor.invest_view.R
@@ -42,6 +43,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
 
     private lateinit var binding: FragmentAssetDetailsBinding
     private lateinit var assetUiModel: AssetUiModel
+    private lateinit var navController: NavController
     private val args by navArgs<AssetDetailsFragmentArgs>()
     private val assetSearchViewModel: AssetSearchViewModel by activityViewModels()
     private val walletViewModel: WalletViewModel by activityViewModels()
@@ -49,6 +51,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         assetUiModel = args.assetUiModel
+        navController = findNavController()
         assetSearchViewModel.loadQuoteFor(assetUiModel.symbol)
     }
 
@@ -69,9 +72,10 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
     }
 
     private fun updateAssetUiModel() {
-        assetUiModel = findNavController().currentBackStackEntry?.savedStateHandle?.get<AssetUiModel>(
-            ConstantUtil.SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL
-        ) ?: assetUiModel
+        assetUiModel = navController
+            .currentBackStackEntry!!
+            .savedStateHandle[ConstantUtil.SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL]
+            ?: assetUiModel
     }
 
     private fun showAlertDialogForDelete() {
@@ -97,7 +101,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return when (menuItem.itemId) {
                     R.id.editMenuItem -> {
-                        findNavController().navigate(AssetDetailsFragmentDirections.navToSaveAssetFragment(assetUiModel))
+                        navController.navigate(AssetDetailsFragmentDirections.navToSaveAssetFragment(assetUiModel))
                         true
                     }
 
@@ -134,7 +138,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         binding.incBtnNewTransaction.root.apply {
             text = getString(R.string.newTransaction)
             setOnClickListener {
-                findNavController().navigate(AssetDetailsFragmentDirections.navToTransactionFragment(assetUiModel))
+                navController.navigate(AssetDetailsFragmentDirections.navToTransactionFragment(assetUiModel))
             }
         }
     }
@@ -204,7 +208,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
                 walletViewModel.deleteAssetUiState.collectLatest {
                     when (it) {
                         is UiState.Loading -> handleDeleteAssetLoading(true)
-                        is UiState.Success -> findNavController().clearPileAndNavigateToStart()
+                        is UiState.Success -> navController.clearPileAndNavigateToStart()
                         is UiState.Error -> handleDeleteAssetError(it.e)
                         else -> Unit
                     }

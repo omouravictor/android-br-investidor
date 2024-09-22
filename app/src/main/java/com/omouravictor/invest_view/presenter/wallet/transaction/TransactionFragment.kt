@@ -224,7 +224,8 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
     }
 
     private fun handleSaveAssetSuccess(asset: AssetUiModel) {
-        navController.previousBackStackEntry!!
+        navController
+            .previousBackStackEntry!!
             .savedStateHandle[ConstantUtil.SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL] = asset
         navController.popBackStack()
     }
