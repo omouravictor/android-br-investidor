@@ -78,10 +78,11 @@ class WalletFragment : Fragment() {
     }
 
     private fun setupButtons() {
+        val navController = findNavController()
         binding.incEmptyWalletLayout.incBtnAddAssets.root.apply {
             text = getString(R.string.addAssets)
             setOnClickListener {
-                findNavController().navigate(WalletFragmentDirections.navToAssetSearchFragment())
+                navController.navigate(WalletFragmentDirections.navToAssetSearchFragment())
             }
         }
 

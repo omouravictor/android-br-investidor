@@ -14,10 +14,10 @@ import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetsBinding
-import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.WalletFragmentDirections
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetFilterHelper
+import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.util.AssetUtil
 import com.omouravictor.invest_view.util.setupPieChart
 import com.omouravictor.invest_view.util.setupRecyclerViewWithLinearLayout
@@ -34,10 +34,11 @@ class AssetCurrenciesFragment : Fragment(R.layout.fragment_assets), OnChartValue
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val navController = findNavController()
         originalAssetList = walletViewModel.assetList.value
         assetCurrenciesAdapter.setList(originalAssetList)
         assetCurrenciesAdapter.updateOnClickItem {
-            findNavController().navigate(WalletFragmentDirections.navToAssetDetailFragment(it))
+            navController.navigate(WalletFragmentDirections.navToAssetDetailFragment(it))
         }
     }
 
