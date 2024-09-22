@@ -22,7 +22,6 @@ import com.omouravictor.invest_view.presenter.wallet.model.Transaction
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbolAndAmount
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalPrice
-import com.omouravictor.invest_view.presenter.wallet.model.getTotalPrice
 import com.omouravictor.invest_view.util.ConstantUtil
 import com.omouravictor.invest_view.util.LocaleUtil
 import com.omouravictor.invest_view.util.getGenericErrorMessage
@@ -141,13 +140,13 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
     private fun updateNewPosition() {
         if (transaction == Transaction.BUY) {
             binding.incNewPosition.apply {
-                val additionAmount = binding.ietAmount.getLongValue()
+                val buyAmount = binding.ietAmount.getLongValue()
                 val valuePerUnit = binding.ietValuePerUnit.getMonetaryValueDouble()
-                if (additionAmount != 0L && valuePerUnit != 0.0) {
+                if (buyAmount != 0L && valuePerUnit != 0.0) {
                     val currency = assetUiModel.currency
-                    val updatedAmount = additionAmount + assetUiModel.amount
-                    val updatedTotalPrice = (assetUiModel.price * additionAmount) + assetUiModel.getTotalPrice()
-                    val updatedTotalInvested = (valuePerUnit * additionAmount) + assetUiModel.totalInvested
+                    val updatedAmount = assetUiModel.amount + buyAmount
+                    val updatedTotalPrice = assetUiModel.price * updatedAmount
+                    val updatedTotalInvested = assetUiModel.totalInvested + (valuePerUnit * buyAmount)
                     val updatedYield = (updatedTotalPrice - updatedTotalInvested).getRoundedDouble()
                     val updatedYieldPercent = updatedYield / updatedTotalInvested
 
@@ -164,7 +163,29 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
                     showInitialUpdatedPositionLayout()
             }
         } else {
-            showInitialUpdatedPositionLayout()
+            binding.incNewPosition.apply {
+                val saleAmount = binding.ietAmount.getLongValue()
+                val valuePerUnit = binding.ietValuePerUnit.getMonetaryValueDouble()
+                if (saleAmount != 0L && valuePerUnit != 0.0) {
+                    val currency = assetUiModel.currency
+                    val updatedAmount = assetUiModel.amount - saleAmount
+                    val updatedTotalPrice = assetUiModel.price * updatedAmount
+                    val updatedTotalInvested = assetUiModel.totalInvested - (valuePerUnit * saleAmount)
+                    val updatedYield = (updatedTotalPrice - updatedTotalInvested).getRoundedDouble()
+                    val updatedYieldPercent = updatedYield / updatedTotalInvested
+
+                    tvSymbolAmount.text =
+                        "${assetUiModel.getFormattedSymbol()} (${LocaleUtil.getFormattedLong(updatedAmount)})"
+                    tvTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, updatedTotalPrice)
+                    tvYield.setupVariation(currency, updatedYield, updatedYieldPercent)
+
+                    tableLayout.visibility = View.VISIBLE
+                    tvInfoMessage.visibility = View.INVISIBLE
+                    binding.incBtnSave.root.isEnabled = true
+
+                } else
+                    showInitialUpdatedPositionLayout()
+            }
         }
     }
 
