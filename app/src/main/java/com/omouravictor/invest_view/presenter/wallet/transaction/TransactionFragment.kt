@@ -160,23 +160,29 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
         val amount = binding.ietAmount.getLongValue()
         val valuePerUnit = binding.ietValuePerUnit.getMonetaryValueDouble()
 
-        if (amount != 0L && valuePerUnit != 0.0) {
-            val isBuy = transaction == Transaction.BUY
-            val updatedAmount = if (isBuy) assetUiModel.amount + amount else assetUiModel.amount - amount
-            val updatedTotalPrice = assetUiModel.price * updatedAmount
-            val updatedTotalInvested = if (isBuy) {
-                assetUiModel.totalInvested + (valuePerUnit * amount)
-            } else {
-                assetUiModel.totalInvested - (valuePerUnit * amount)
-            }
-            val updatedYield = (updatedTotalPrice - updatedTotalInvested).getRoundedDouble()
-            val updatedYieldPercent = updatedYield / updatedTotalInvested
-
-            showUpdatedPositionLayout(updatedAmount, updatedTotalPrice, updatedYield, updatedYieldPercent)
-
-        } else {
+        if (amount == 0L || valuePerUnit == 0.0) {
             showInitialUpdatedPositionLayout()
+            return
         }
+
+        val isBuy = transaction == Transaction.BUY
+        val updatedAmount = if (isBuy) assetUiModel.amount + amount else assetUiModel.amount - amount
+
+        if (updatedAmount < 1) {
+            showInitialUpdatedPositionLayout()
+            return
+        }
+
+        val updatedTotalPrice = assetUiModel.price * updatedAmount
+        val updatedTotalInvested = if (isBuy) {
+            assetUiModel.totalInvested + (valuePerUnit * amount)
+        } else {
+            assetUiModel.totalInvested - (valuePerUnit * amount)
+        }
+        val updatedYield = (updatedTotalPrice - updatedTotalInvested).getRoundedDouble()
+        val updatedYieldPercent = updatedYield / updatedTotalInvested
+
+        showUpdatedPositionLayout(updatedAmount, updatedTotalPrice, updatedYield, updatedYieldPercent)
     }
 
     private fun setupButtons() {
