@@ -179,10 +179,9 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
         if (updatedAmount < 1) {
             updatedYieldPercent = updatedYield / assetUiModel.totalInvested
             showUpdatedPositionLayout(0, 0.0, updatedYield, updatedYieldPercent)
-            return
+        } else {
+            showUpdatedPositionLayout(updatedAmount, updatedTotalPrice, updatedYield, updatedYieldPercent)
         }
-
-        showUpdatedPositionLayout(updatedAmount, updatedTotalPrice, updatedYield, updatedYieldPercent)
     }
 
     private fun setupButtons() {
