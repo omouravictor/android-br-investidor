@@ -183,10 +183,13 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
         binding.incBtnSave.root.apply {
             text = getString(R.string.save)
             setOnClickListener {
-                val additionAmount = binding.ietAmount.getLongValue()
-                val additionTotalInvested = binding.ietValuePerUnit.getMonetaryValueDouble() * additionAmount
-                assetUiModel.amount += additionAmount
-                assetUiModel.totalInvested += additionTotalInvested
+                val isBuy = transaction == Transaction.BUY
+                val newAmount = binding.ietAmount.getLongValue()
+                val newTotalInvested = binding.ietValuePerUnit.getMonetaryValueDouble() * newAmount
+                assetUiModel.apply {
+                    amount = if (isBuy) newAmount + amount else amount - newAmount
+                    totalInvested = if (isBuy) newTotalInvested + totalInvested else totalInvested - newTotalInvested
+                }
                 walletViewModel.saveAsset(assetUiModel)
             }
         }
