@@ -174,14 +174,18 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
 
     private fun handleSaveAssetSuccess(asset: AssetUiModel) {
         val navController = findNavController()
-        val previousBackStackEntry = navController.previousBackStackEntry
-        val previousDestinationId = previousBackStackEntry!!.destination.id
-        if (previousDestinationId == R.id.fragmentAssetSearch) {
-            navController.clearPileAndNavigateToStart()
-        } else if (previousDestinationId == R.id.fragmentAssetDetail) {
-            previousBackStackEntry
-                .savedStateHandle[ConstantUtil.SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL] = asset
-            navController.popBackStack()
+        val previousBackStackEntry = navController.previousBackStackEntry!!
+
+        when (previousBackStackEntry.destination.id) {
+            R.id.fragmentAssetSearch -> {
+                navController.clearPileAndNavigateToStart()
+            }
+
+            R.id.fragmentAssetDetail -> {
+                previousBackStackEntry
+                    .savedStateHandle[ConstantUtil.SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL] = asset
+                navController.popBackStack()
+            }
         }
     }
 
