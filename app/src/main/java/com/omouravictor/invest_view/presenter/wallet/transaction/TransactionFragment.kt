@@ -2,6 +2,7 @@ package com.omouravictor.invest_view.presenter.wallet.transaction
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Context
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.View
@@ -190,13 +191,17 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
         }
     }
 
-    private fun showAlertDialogForSale() {
+    private fun showAlertDialogForSale(context: Context) {
+        val icon = AppCompatResources.getDrawable(context, R.drawable.ic_info)?.apply {
+            setTint(context.getColor(assetUiModel.type.colorResId))
+        }
+
         AlertDialog.Builder(context).apply {
-            setTitle(getString(R.string.saleAsset))
-            setMessage(getString(R.string.saleAssetAlertMessage, assetUiModel.getFormattedSymbol()))
+            setTitle(assetUiModel.getFormattedSymbol())
+            setMessage(getString(R.string.saleAssetAlertMessage))
             setPositiveButton(getString(R.string.yes)) { _, _ -> walletViewModel.deleteAsset(assetUiModel) }
             setNegativeButton(getString(R.string.not)) { dialog, _ -> dialog.dismiss() }
-            setIcon(R.drawable.ic_info)
+            setIcon(icon)
         }.show()
     }
 
@@ -210,7 +215,7 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
                 val updatedAmount = if (isBuy) assetUiModel.amount + amount else assetUiModel.amount - amount
 
                 if (updatedAmount < 1) {
-                    showAlertDialogForSale()
+                    showAlertDialogForSale(context)
                 } else {
                     assetUiModel.amount = updatedAmount
                     assetUiModel.totalInvested = if (isBuy) {

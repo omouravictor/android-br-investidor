@@ -80,7 +80,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
 
     private fun showAlertDialogForDelete() {
         AlertDialog.Builder(context).apply {
-            setTitle(getString(R.string.deleteAsset))
+            setTitle(assetUiModel.getFormattedSymbol())
             setMessage(getString(R.string.deleteAssetAlertMessage))
             setPositiveButton(getString(R.string.yes)) { _, _ -> walletViewModel.deleteAsset(assetUiModel) }
             setNegativeButton(getString(R.string.not)) { dialog, _ -> dialog.dismiss() }
