@@ -205,18 +205,18 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
             text = getString(R.string.save)
             setOnClickListener {
                 val isBuy = transaction == Transaction.BUY
-                val newAmount = binding.ietAmount.getLongValue()
-                val newTotalInvested = binding.ietValuePerUnit.getMonetaryValueDouble() * newAmount
+                val amount = binding.ietAmount.getLongValue()
+                val totalInvested = binding.ietValuePerUnit.getMonetaryValueDouble() * amount
+                val updatedAmount = if (isBuy) assetUiModel.amount + amount else assetUiModel.amount - amount
 
-                assetUiModel.amount = if (isBuy) assetUiModel.amount + newAmount else assetUiModel.amount - newAmount
-
-                if (assetUiModel.amount < 1) {
+                if (updatedAmount < 1) {
                     showAlertDialogForSale()
                 } else {
+                    assetUiModel.amount = updatedAmount
                     assetUiModel.totalInvested = if (isBuy) {
-                        assetUiModel.totalInvested + newTotalInvested
+                        assetUiModel.totalInvested + totalInvested
                     } else {
-                        assetUiModel.totalInvested - newTotalInvested
+                        assetUiModel.totalInvested - totalInvested
                     }
                     walletViewModel.saveAsset(assetUiModel)
                 }

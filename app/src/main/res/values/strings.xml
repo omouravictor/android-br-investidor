@@ -99,7 +99,7 @@
     <string name="yes">Sim</string>
     <string name="not">Não</string>
     <string name="deleteAsset">Excluir ativo</string>
-    <string name="saleAsset">Vender ativo</string>
+    <string name="saleAsset">Venda de ativo</string>
     <string name="updatedPosition">Posição atualizada</string>
     <string name="news">Notícias</string>
     <string name="defaultNewsSearch">bolsa de valores AND ações</string>
