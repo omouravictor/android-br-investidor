@@ -1,6 +1,7 @@
 package com.omouravictor.invest_view.presenter.wallet.transaction
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.View
@@ -189,6 +190,16 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
         }
     }
 
+    private fun showAlertDialogForSale() {
+        AlertDialog.Builder(context).apply {
+            setTitle(getString(R.string.saleAsset))
+            setMessage(getString(R.string.saleAssetAlertMessage, assetUiModel.getFormattedSymbol()))
+            setPositiveButton(getString(R.string.yes)) { _, _ -> walletViewModel.deleteAsset(assetUiModel) }
+            setNegativeButton(getString(R.string.not)) { dialog, _ -> dialog.dismiss() }
+            setIcon(R.drawable.ic_info)
+        }.show()
+    }
+
     private fun setupSaveButton() {
         binding.incBtnSave.root.apply {
             text = getString(R.string.save)
@@ -200,7 +211,7 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
                 assetUiModel.amount = if (isBuy) assetUiModel.amount + newAmount else assetUiModel.amount - newAmount
 
                 if (assetUiModel.amount < 1) {
-                    walletViewModel.deleteAsset(assetUiModel)
+                    showAlertDialogForSale()
                 } else {
                     assetUiModel.totalInvested = if (isBuy) {
                         assetUiModel.totalInvested + newTotalInvested
