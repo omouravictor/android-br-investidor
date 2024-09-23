@@ -46,7 +46,6 @@ class AssetSearchFragment : Fragment(R.layout.fragment_asset_search) {
     override fun onDestroyView() {
         super.onDestroyView()
         requireActivity().hideKeyboard(searchView)
-        assetSearchViewModel.resetGetQuoteUiState()
         assetSearchViewModel.resetGetAssetUiState()
     }
 

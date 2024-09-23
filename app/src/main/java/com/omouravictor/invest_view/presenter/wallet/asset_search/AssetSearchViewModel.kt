@@ -83,8 +83,4 @@ class AssetSearchViewModel @Inject constructor(
         _getAssetUiState.value = UiState.Initial
     }
 
-    fun resetGetQuoteUiState() {
-        _getQuoteUiState.value = UiState.Initial
-    }
-
 }
