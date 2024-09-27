@@ -2,7 +2,7 @@ package com.omouravictor.invest_view.data.remote.model.assets_by_search
 
 import com.google.gson.annotations.SerializedName
 
-data class AssetsBySearchItemResponse(
+data class AssetsBySearch(
     @SerializedName("1. symbol") val symbol: String = "",
     @SerializedName("2. name") val name: String = "",
     @SerializedName("3. type") val type: String = "",

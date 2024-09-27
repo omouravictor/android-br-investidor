@@ -4,7 +4,7 @@ import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.util.AssetUtil
 
 data class AssetsBySearchResponse(
-    val bestMatches: List<AssetsBySearchItemResponse>
+    val bestMatches: List<AssetsBySearch>
 )
 
 fun AssetsBySearchResponse.toAssetsUiModel(): List<AssetUiModel> {

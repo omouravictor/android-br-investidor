@@ -10,7 +10,7 @@ interface CurrencyExchangeRatesApi {
     suspend fun getCurrencyExchange(
         @Query("from") fromCurrency: String,
         @Query("to") toCurrency: String,
-        @Query("amount") amount: Int
+        @Query("amount") amount: Int = 1
     ): CurrencyExchangeRatesResponse
 
 }

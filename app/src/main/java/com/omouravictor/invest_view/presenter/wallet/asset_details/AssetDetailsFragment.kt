@@ -18,7 +18,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.omouravictor.invest_view.R
-import com.omouravictor.invest_view.data.remote.model.asset_quote.AssetGlobalQuoteItemResponse
+import com.omouravictor.invest_view.data.remote.model.asset_quote.GlobalQuote
 import com.omouravictor.invest_view.data.remote.model.currency_exchange_rate.CurrencyExchangeRatesResponse
 import com.omouravictor.invest_view.databinding.FragmentAssetDetailsBinding
 import com.omouravictor.invest_view.presenter.model.UiState
@@ -177,10 +177,10 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         }
     }
 
-    private fun handleQuoteSuccess(quote: AssetGlobalQuoteItemResponse) {
+    private fun handleQuoteSuccess(globalQuote: GlobalQuote) {
         handleQuoteLoading(false)
-        val change = quote.change
-        val changePercent = quote.changePercent.removeSuffix("%").toDoubleOrNull()
+        val change = globalQuote.change
+        val changePercent = globalQuote.changePercent.removeSuffix("%").toDoubleOrNull()
         binding.tvChange.setupVariation(
             assetUiModel.currency, change, changePercent?.div(100)
         )

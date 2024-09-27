@@ -2,7 +2,7 @@ package com.omouravictor.invest_view.presenter.wallet.asset_search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.omouravictor.invest_view.data.remote.model.asset_quote.AssetGlobalQuoteItemResponse
+import com.omouravictor.invest_view.data.remote.model.asset_quote.GlobalQuote
 import com.omouravictor.invest_view.data.remote.model.assets_by_search.toAssetsUiModel
 import com.omouravictor.invest_view.data.remote.model.currency_exchange_rate.CurrencyExchangeRatesResponse
 import com.omouravictor.invest_view.data.remote.repository.AssetsApiRepository
@@ -27,7 +27,7 @@ class AssetSearchViewModel @Inject constructor(
     private val _getAssetUiState = MutableStateFlow<UiState<AssetUiModel>>(UiState.Initial)
     val getAssetUiState = _getAssetUiState.asStateFlow()
 
-    private val _getQuoteUiState = MutableStateFlow<UiState<AssetGlobalQuoteItemResponse>>(UiState.Initial)
+    private val _getQuoteUiState = MutableStateFlow<UiState<GlobalQuote>>(UiState.Initial)
     val getQuoteUiState = _getQuoteUiState.asStateFlow()
 
     private val _getCurrencyExchangeRateUiState =
