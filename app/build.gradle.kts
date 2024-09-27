@@ -26,10 +26,36 @@ android {
         val apiPropertiesFile = rootProject.file("api.properties")
         val apiProperties = Properties().apply { load(apiPropertiesFile.inputStream()) }
 
-        buildConfigField("String", "ALPHA_VANTAGE_API_BASE_URL", apiProperties.getProperty("ALPHA_VANTAGE_API_BASE_URL"))
-        buildConfigField("String", "ALPHA_VANTAGE_API_KEY", apiProperties.getProperty("ALPHA_VANTAGE_API_KEY"))
-        buildConfigField("String", "NEWS_API_BASE_URL", apiProperties.getProperty("NEWS_API_BASE_URL"))
-        buildConfigField("String", "NEWS_API_KEY", apiProperties.getProperty("NEWS_API_KEY"))
+        buildConfigField(
+            "String",
+            "ALPHA_VANTAGE_API_BASE_URL",
+            apiProperties.getProperty("ALPHA_VANTAGE_API_BASE_URL")
+        )
+        buildConfigField(
+            "String",
+            "ALPHA_VANTAGE_API_KEY",
+            apiProperties.getProperty("ALPHA_VANTAGE_API_KEY")
+        )
+        buildConfigField(
+            "String",
+            "CURRENCY_EXCHANGE_RATES_API_BASE_URL",
+            apiProperties.getProperty("CURRENCY_EXCHANGE_RATES_API_BASE_URL")
+        )
+        buildConfigField(
+            "String",
+            "CURRENCY_EXCHANGE_RATES_API_API_KEY",
+            apiProperties.getProperty("CURRENCY_EXCHANGE_RATES_API_API_KEY")
+        )
+        buildConfigField(
+            "String",
+            "NEWS_API_BASE_URL",
+            apiProperties.getProperty("NEWS_API_BASE_URL")
+        )
+        buildConfigField(
+            "String",
+            "NEWS_API_KEY",
+            apiProperties.getProperty("NEWS_API_KEY")
+        )
     }
 
     buildTypes {

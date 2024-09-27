@@ -2,6 +2,7 @@ package com.omouravictor.invest_view.di.module
 
 import com.omouravictor.invest_view.BuildConfig
 import com.omouravictor.invest_view.data.remote.api.AlphaVantageApi
+import com.omouravictor.invest_view.data.remote.api.CurrencyExchangeRatesApi
 import com.omouravictor.invest_view.data.remote.api.NewsApi
 import dagger.Module
 import dagger.Provides
@@ -46,6 +47,23 @@ object NetworkModule {
         val retrofit = createRetrofit(BuildConfig.ALPHA_VANTAGE_API_BASE_URL, okHttpClient)
 
         return retrofit.create(AlphaVantageApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCurrencyExchangeRatesApi(httpLoggingInterceptor: HttpLoggingInterceptor): CurrencyExchangeRatesApi {
+        val interceptor = Interceptor { chain ->
+            val request = chain.request()
+                .newBuilder()
+                .addHeader("X-RapidAPI-Key", BuildConfig.CURRENCY_EXCHANGE_RATES_API_API_KEY)
+                .build()
+            chain.proceed(request)
+        }
+
+        val okHttpClient = createOkHttpClient(interceptor, httpLoggingInterceptor)
+        val retrofit = createRetrofit(BuildConfig.CURRENCY_EXCHANGE_RATES_API_BASE_URL, okHttpClient)
+
+        return retrofit.create(CurrencyExchangeRatesApi::class.java)
     }
 
     @Provides

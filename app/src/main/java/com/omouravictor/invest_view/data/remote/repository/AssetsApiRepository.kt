@@ -7,5 +7,9 @@ import com.omouravictor.invest_view.data.remote.model.currency_exchange_rate.Cur
 interface AssetsApiRepository {
     suspend fun getAssetsBySearch(keywords: String): Result<AssetsBySearchResponse>
     suspend fun getAssetGlobalQuote(symbol: String): Result<AssetGlobalQuoteResponse>
-    suspend fun getCurrencyExchangeRate(fromCurrency: String, toCurrency: String): Result<CurrencyExchangeRateResponse>
+    suspend fun getCurrencyExchangeRate(
+        fromCurrency: String,
+        toCurrency: String,
+        amount: Int = 1
+    ): Result<CurrencyExchangeRateResponse>
 }
