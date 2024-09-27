@@ -6,6 +6,8 @@ import com.omouravictor.invest_view.data.remote.api.CurrencyExchangeRatesApi
 import com.omouravictor.invest_view.data.remote.api.NewsApi
 import com.omouravictor.invest_view.data.remote.repository.AssetsApiRepository
 import com.omouravictor.invest_view.data.remote.repository.AssetsApiRepositoryImpl
+import com.omouravictor.invest_view.data.remote.repository.CurrencyExchangeRatesApiRepository
+import com.omouravictor.invest_view.data.remote.repository.CurrencyExchangeRatesApiRepositoryImpl
 import com.omouravictor.invest_view.data.remote.repository.FirebaseRepository
 import com.omouravictor.invest_view.data.remote.repository.FirebaseRepositoryImpl
 import com.omouravictor.invest_view.data.remote.repository.NewsApiRepository
@@ -25,9 +27,16 @@ object RepositoriesModule {
     @Provides
     fun provideAssetsApiRepository(
         dispatchers: DispatcherProvider,
-        alphaVantageApi: AlphaVantageApi,
+        alphaVantageApi: AlphaVantageApi
+    ): AssetsApiRepository = AssetsApiRepositoryImpl(dispatchers, alphaVantageApi)
+
+    @Singleton
+    @Provides
+    fun provideCurrencyExchangeRatesApiRepository(
+        dispatchers: DispatcherProvider,
         currencyExchangeRatesApi: CurrencyExchangeRatesApi
-    ): AssetsApiRepository = AssetsApiRepositoryImpl(dispatchers, alphaVantageApi, currencyExchangeRatesApi)
+    ): CurrencyExchangeRatesApiRepository =
+        CurrencyExchangeRatesApiRepositoryImpl(dispatchers, currencyExchangeRatesApi)
 
     @Singleton
     @Provides

@@ -1,6 +1,6 @@
 package com.omouravictor.invest_view.data.remote.api
 
-import com.omouravictor.invest_view.data.remote.model.currency_exchange_rate.CurrencyExchangeRateResponse
+import com.omouravictor.invest_view.data.remote.model.currency_exchange_rate.CurrencyExchangeRatesResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -11,6 +11,6 @@ interface CurrencyExchangeRatesApi {
         @Query("from") fromCurrency: String,
         @Query("to") toCurrency: String,
         @Query("amount") amount: Int
-    ): CurrencyExchangeRateResponse
+    ): CurrencyExchangeRatesResponse
 
 }

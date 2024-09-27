@@ -19,7 +19,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.data.remote.model.asset_quote.AssetGlobalQuoteItemResponse
-import com.omouravictor.invest_view.data.remote.model.currency_exchange_rate.CurrencyExchangeRateResponse
+import com.omouravictor.invest_view.data.remote.model.currency_exchange_rate.CurrencyExchangeRatesResponse
 import com.omouravictor.invest_view.databinding.FragmentAssetDetailsBinding
 import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
@@ -251,7 +251,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         }
     }
 
-    private fun handleCurrencyExchangeRateSuccess(currencyExchangeRate: CurrencyExchangeRateResponse) {
+    private fun handleCurrencyExchangeRateSuccess(currencyExchangeRate: CurrencyExchangeRatesResponse) {
         handleCurrencyExchangeRateLoading(false)
         Toast.makeText(requireContext(), "$currencyExchangeRate", Toast.LENGTH_LONG).show()
     }

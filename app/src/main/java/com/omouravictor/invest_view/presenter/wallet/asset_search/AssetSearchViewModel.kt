@@ -4,8 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.omouravictor.invest_view.data.remote.model.asset_quote.AssetGlobalQuoteItemResponse
 import com.omouravictor.invest_view.data.remote.model.assets_by_search.toAssetsUiModel
-import com.omouravictor.invest_view.data.remote.model.currency_exchange_rate.CurrencyExchangeRateResponse
+import com.omouravictor.invest_view.data.remote.model.currency_exchange_rate.CurrencyExchangeRatesResponse
 import com.omouravictor.invest_view.data.remote.repository.AssetsApiRepository
+import com.omouravictor.invest_view.data.remote.repository.CurrencyExchangeRatesApiRepository
 import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AssetSearchViewModel @Inject constructor(
-    private val assetsApiRepository: AssetsApiRepository
+    private val assetsApiRepository: AssetsApiRepository,
+    private val currencyExchangeRatesApiRepository: CurrencyExchangeRatesApiRepository
 ) : ViewModel() {
 
     private val _getAssetListUiState = MutableStateFlow<UiState<List<AssetUiModel>>>(UiState.Initial)
@@ -29,7 +31,7 @@ class AssetSearchViewModel @Inject constructor(
     val getQuoteUiState = _getQuoteUiState.asStateFlow()
 
     private val _getCurrencyExchangeRateUiState =
-        MutableStateFlow<UiState<CurrencyExchangeRateResponse>>(UiState.Initial)
+        MutableStateFlow<UiState<CurrencyExchangeRatesResponse>>(UiState.Initial)
     val getCurrencyExchangeRateUiState = _getCurrencyExchangeRateUiState.asStateFlow()
 
     fun loadAssetsBySearch(keywords: String) {
@@ -89,7 +91,7 @@ class AssetSearchViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-                val result = assetsApiRepository.getCurrencyExchangeRate(fromCurrency, toCurrency)
+                val result = currencyExchangeRatesApiRepository.getCurrencyExchangeRates(fromCurrency, toCurrency)
                 if (result.isSuccess) {
                     _getCurrencyExchangeRateUiState.value = UiState.Success(result.getOrThrow())
                 } else
