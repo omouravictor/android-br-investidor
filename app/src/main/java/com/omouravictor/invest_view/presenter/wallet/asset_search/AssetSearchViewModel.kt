@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.omouravictor.invest_view.data.remote.model.asset_quote.AssetGlobalQuoteItemResponse
 import com.omouravictor.invest_view.data.remote.model.assets_by_search.toAssetsUiModel
+import com.omouravictor.invest_view.data.remote.model.currency_exchange_rate.CurrencyExchangeRateItemResponse
 import com.omouravictor.invest_view.data.remote.repository.AssetsApiRepository
 import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
@@ -26,6 +27,10 @@ class AssetSearchViewModel @Inject constructor(
 
     private val _getQuoteUiState = MutableStateFlow<UiState<AssetGlobalQuoteItemResponse>>(UiState.Initial)
     val getQuoteUiState = _getQuoteUiState.asStateFlow()
+
+    private val _getCurrencyExchangeRateUiState =
+        MutableStateFlow<UiState<CurrencyExchangeRateItemResponse>>(UiState.Initial)
+    val getCurrencyExchangeRateUiState = _getCurrencyExchangeRateUiState.asStateFlow()
 
     fun loadAssetsBySearch(keywords: String) {
         _getAssetListUiState.value = UiState.Loading
@@ -75,6 +80,23 @@ class AssetSearchViewModel @Inject constructor(
                     _getQuoteUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
             } catch (e: Exception) {
                 _getQuoteUiState.value = UiState.Error(e)
+            }
+        }
+    }
+
+    fun loadCurrencyExchangeRate(fromCurrency: String, toCurrency: String) {
+        _getCurrencyExchangeRateUiState.value = UiState.Loading
+
+        viewModelScope.launch {
+            try {
+                val result = assetsApiRepository.getCurrencyExchangeRate(fromCurrency, toCurrency)
+                if (result.isSuccess) {
+                    val currencyExchangeRate = result.getOrThrow().currencyExchangeRate
+                    _getCurrencyExchangeRateUiState.value = UiState.Success(currencyExchangeRate)
+                } else
+                    _getCurrencyExchangeRateUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
+            } catch (e: Exception) {
+                _getCurrencyExchangeRateUiState.value = UiState.Error(e)
             }
         }
     }

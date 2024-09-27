@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources.getColorStateList
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -18,6 +19,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.data.remote.model.asset_quote.AssetGlobalQuoteItemResponse
+import com.omouravictor.invest_view.data.remote.model.currency_exchange_rate.CurrencyExchangeRateItemResponse
 import com.omouravictor.invest_view.databinding.FragmentAssetDetailsBinding
 import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
@@ -48,12 +50,16 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
     private val args by navArgs<AssetDetailsFragmentArgs>()
     private val assetSearchViewModel: AssetSearchViewModel by activityViewModels()
     private val walletViewModel: WalletViewModel by activityViewModels()
+    private val localCurrency = LocaleUtil.appCurrency
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         assetUiModel = args.assetUiModel
         navController = findNavController()
         assetSearchViewModel.loadQuoteFor(assetUiModel.symbol)
+        if (localCurrency.toString() != assetUiModel.currency) {
+            assetSearchViewModel.loadCurrencyExchangeRate(assetUiModel.currency, localCurrency.toString())
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -65,6 +71,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         setupButtons()
         observeGetQuoteUiState()
         observeDeleteAssetUiState()
+        observeGetCurrencyExchangeRateUiState()
     }
 
     override fun onDestroyView() {
@@ -120,14 +127,13 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
     private fun setupViews() {
         binding.apply {
             val context = root.context
-            val appCurrency = LocaleUtil.appCurrency.toString()
             val assetCurrency = assetUiModel.currency
 
-            if (appCurrency == assetCurrency) {
+            if (localCurrency.toString() == assetCurrency) {
                 trCurrency.visibility = View.GONE
             } else {
                 trCurrency.visibility = View.VISIBLE
-                tvCurrencyTittle.text = getString(R.string.showInLocalCurrency, appCurrency)
+                tvCurrencyTittle.text = getString(R.string.showInLocalCurrency, localCurrency)
             }
 
             tvAssetType.text = getString(assetUiModel.type.nameResId)
@@ -221,6 +227,46 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
                         is UiState.Loading -> handleDeleteAssetLoading(true)
                         is UiState.Success -> navController.clearPileAndNavigateToStart()
                         is UiState.Error -> handleDeleteAssetError(it.e)
+                        else -> Unit
+                    }
+                }
+            }
+        }
+    }
+
+    private fun handleCurrencyExchangeRateLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.incCurrencyShimmer.root.startShimmer()
+            binding.incCurrencyShimmer.root.visibility = View.VISIBLE
+            binding.switchCurrency.visibility = View.INVISIBLE
+            binding.ivCurrencyReload.visibility = View.INVISIBLE
+        } else {
+            binding.incCurrencyShimmer.root.stopShimmer()
+            binding.incCurrencyShimmer.root.visibility = View.INVISIBLE
+            binding.switchCurrency.visibility = View.VISIBLE
+            binding.ivCurrencyReload.visibility = View.INVISIBLE
+        }
+    }
+
+    private fun handleCurrencyExchangeRateSuccess(currencyExchangeRate: CurrencyExchangeRateItemResponse) {
+        handleCurrencyExchangeRateLoading(false)
+        Toast.makeText(requireContext(), "$currencyExchangeRate", Toast.LENGTH_LONG).show()
+    }
+
+    private fun handleCurrencyExchangeRateError() {
+        handleCurrencyExchangeRateLoading(false)
+        binding.switchCurrency.visibility = View.INVISIBLE
+        binding.ivCurrencyReload.visibility = View.VISIBLE
+    }
+
+    private fun observeGetCurrencyExchangeRateUiState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                assetSearchViewModel.getCurrencyExchangeRateUiState.collectLatest {
+                    when (it) {
+                        is UiState.Loading -> handleCurrencyExchangeRateLoading(true)
+                        is UiState.Success -> handleCurrencyExchangeRateSuccess(it.data)
+                        is UiState.Error -> handleCurrencyExchangeRateError()
                         else -> Unit
                     }
                 }

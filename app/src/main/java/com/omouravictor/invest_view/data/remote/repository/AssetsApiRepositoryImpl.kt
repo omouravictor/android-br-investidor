@@ -4,6 +4,7 @@ import android.util.Log
 import com.omouravictor.invest_view.data.remote.api.AlphaVantageApi
 import com.omouravictor.invest_view.data.remote.model.asset_quote.AssetGlobalQuoteResponse
 import com.omouravictor.invest_view.data.remote.model.assets_by_search.AssetsBySearchResponse
+import com.omouravictor.invest_view.data.remote.model.currency_exchange_rate.CurrencyExchangeRateResponse
 import com.omouravictor.invest_view.di.model.DispatcherProvider
 import kotlinx.coroutines.withContext
 
@@ -31,6 +32,21 @@ class AssetsApiRepositoryImpl(
                 Result.success(response)
             } catch (e: Exception) {
                 Log.e("GetAssetGlobalQuote", "Symbol: $symbol", e)
+                Result.failure(e)
+            }
+        }
+    }
+
+    override suspend fun getCurrencyExchangeRate(
+        fromCurrency: String,
+        toCurrency: String
+    ): Result<CurrencyExchangeRateResponse> {
+        return withContext(dispatchers.io) {
+            try {
+                val response = alphaVantageApi.getCurrencyExchange(fromCurrency, toCurrency)
+                Result.success(response)
+            } catch (e: Exception) {
+                Log.e("GetCurrencyExchangeRate", "From: $fromCurrency, To: $toCurrency", e)
                 Result.failure(e)
             }
         }
