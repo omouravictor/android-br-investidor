@@ -119,7 +119,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvName">
 
-                <TableRow>
+                <TableRow android:id="@+id/trCurrency">
+
                     <TextView
                         android:id="@+id/tvCurrencyTittle"
                         android:layout_width="wrap_content"

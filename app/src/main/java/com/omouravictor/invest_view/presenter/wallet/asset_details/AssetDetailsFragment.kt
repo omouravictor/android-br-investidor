@@ -120,12 +120,15 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
     private fun setupViews() {
         binding.apply {
             val context = root.context
-            tvCurrencyTittle.text = getString(R.string.showInLocalCurrency, LocaleUtil.appCurrency)
+            val appCurrency = LocaleUtil.appCurrency.toString()
+            val assetCurrency = assetUiModel.currency
+            trCurrency.visibility = if (appCurrency == assetCurrency) View.GONE else View.VISIBLE
+            tvCurrencyTittle.text = getString(R.string.showInLocalCurrency, appCurrency)
             tvAssetType.text = getString(assetUiModel.type.nameResId)
             tvAssetType.backgroundTintList = getColorStateList(context, assetUiModel.type.colorResId)
-            tvAssetCurrency.text = assetUiModel.currency
+            tvAssetCurrency.text = assetCurrency
             tvAssetCurrency.backgroundTintList =
-                getColorStateList(context, AssetUtil.getCurrencyResColor(assetUiModel.currency))
+                getColorStateList(context, AssetUtil.getCurrencyResColor(assetCurrency))
             tvName.text = assetUiModel.name
             tvPrice.text = assetUiModel.getFormattedAssetPrice()
             tvAmount.text = assetUiModel.getFormattedAmount()
