@@ -19,11 +19,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.data.remote.model.asset_quote.GlobalQuote
-import com.omouravictor.invest_view.data.remote.model.currency_exchange_rate.CurrencyExchangeRatesResponse
+import com.omouravictor.invest_view.data.remote.model.currency_exchange_rate.ConversionResultResponse
 import com.omouravictor.invest_view.databinding.FragmentAssetDetailsBinding
 import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
-import com.omouravictor.invest_view.presenter.wallet.asset_search.AssetSearchViewModel
+import com.omouravictor.invest_view.presenter.wallet.asset.AssetViewModel
+import com.omouravictor.invest_view.presenter.wallet.currency_exchange_rates.CurrencyExchangeRatesViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAmount
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAssetPrice
@@ -48,7 +49,8 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
     private lateinit var assetUiModel: AssetUiModel
     private lateinit var navController: NavController
     private val args by navArgs<AssetDetailsFragmentArgs>()
-    private val assetSearchViewModel: AssetSearchViewModel by activityViewModels()
+    private val assetViewModel: AssetViewModel by activityViewModels()
+    private val currencyExchangeRatesViewModel: CurrencyExchangeRatesViewModel by activityViewModels()
     private val walletViewModel: WalletViewModel by activityViewModels()
     private val localCurrency = LocaleUtil.appCurrency
 
@@ -56,9 +58,9 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         super.onCreate(savedInstanceState)
         assetUiModel = args.assetUiModel
         navController = findNavController()
-        assetSearchViewModel.loadQuoteFor(assetUiModel.symbol)
+        assetViewModel.loadQuoteFor(assetUiModel.symbol)
         if (localCurrency.toString() != assetUiModel.currency) {
-            assetSearchViewModel.loadCurrencyExchangeRate(assetUiModel.currency, localCurrency.toString())
+            currencyExchangeRatesViewModel.convert(assetUiModel.currency, localCurrency.toString())
         }
     }
 
@@ -71,7 +73,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         setupButtons()
         observeGetQuoteUiState()
         observeDeleteAssetUiState()
-        observeGetCurrencyExchangeRateUiState()
+        observeGetConversionResultUiState()
     }
 
     override fun onDestroyView() {
@@ -147,9 +149,9 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
             tvTotalInvested.text = assetUiModel.getFormattedTotalInvested()
             tvTotalPrice.text = assetUiModel.getFormattedTotalPrice()
             tvYield.setupYieldForAsset(assetUiModel)
-            ivChangeReload.setOnClickListener { assetSearchViewModel.loadQuoteFor(assetUiModel.symbol) }
+            ivChangeReload.setOnClickListener { assetViewModel.loadQuoteFor(assetUiModel.symbol) }
             ivCurrencyReload.setOnClickListener {
-                assetSearchViewModel.loadCurrencyExchangeRate(assetCurrency, localCurrency.toString())
+                currencyExchangeRatesViewModel.convert(assetCurrency, localCurrency.toString())
             }
         }
     }
@@ -195,7 +197,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
     private fun observeGetQuoteUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                assetSearchViewModel.getQuoteUiState.collectLatest {
+                assetViewModel.getQuoteUiState.collectLatest {
                     when (it) {
                         is UiState.Loading -> handleQuoteLoading(true)
                         is UiState.Success -> handleQuoteSuccess(it.data)
@@ -237,7 +239,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         }
     }
 
-    private fun handleCurrencyExchangeRateLoading(isLoading: Boolean) {
+    private fun handleConversionResultLoading(isLoading: Boolean) {
         if (isLoading) {
             binding.incCurrencyShimmer.root.startShimmer()
             binding.incCurrencyShimmer.root.visibility = View.VISIBLE
@@ -251,25 +253,25 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         }
     }
 
-    private fun handleCurrencyExchangeRateSuccess(currencyExchangeRate: CurrencyExchangeRatesResponse) {
-        handleCurrencyExchangeRateLoading(false)
-        Toast.makeText(requireContext(), "$currencyExchangeRate", Toast.LENGTH_LONG).show()
+    private fun handleConversionResultSuccess(currencyExchangeRates: ConversionResultResponse) {
+        handleConversionResultLoading(false)
+        Toast.makeText(requireContext(), "$currencyExchangeRates", Toast.LENGTH_LONG).show()
     }
 
-    private fun handleCurrencyExchangeRateError() {
-        handleCurrencyExchangeRateLoading(false)
+    private fun handleConversionResultError() {
+        handleConversionResultLoading(false)
         binding.switchCurrency.visibility = View.INVISIBLE
         binding.ivCurrencyReload.visibility = View.VISIBLE
     }
 
-    private fun observeGetCurrencyExchangeRateUiState() {
+    private fun observeGetConversionResultUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                assetSearchViewModel.getCurrencyExchangeRateUiState.collectLatest {
+                currencyExchangeRatesViewModel.getConversionResultUiState.collectLatest {
                     when (it) {
-                        is UiState.Loading -> handleCurrencyExchangeRateLoading(true)
-                        is UiState.Success -> handleCurrencyExchangeRateSuccess(it.data)
-                        is UiState.Error -> handleCurrencyExchangeRateError()
+                        is UiState.Loading -> handleConversionResultLoading(true)
+                        is UiState.Success -> handleConversionResultSuccess(it.data)
+                        is UiState.Error -> handleConversionResultError()
                         else -> Unit
                     }
                 }

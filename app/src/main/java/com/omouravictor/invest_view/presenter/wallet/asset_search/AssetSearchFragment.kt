@@ -18,6 +18,7 @@ import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetSearchBinding
 import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
+import com.omouravictor.invest_view.presenter.wallet.asset.AssetViewModel
 import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.util.getGenericErrorMessage
 import com.omouravictor.invest_view.util.hideKeyboard
@@ -31,7 +32,7 @@ class AssetSearchFragment : Fragment(R.layout.fragment_asset_search) {
     private lateinit var binding: FragmentAssetSearchBinding
     private lateinit var searchView: SearchView
     private val walletViewModel: WalletViewModel by activityViewModels()
-    private val assetSearchViewModel: AssetSearchViewModel by activityViewModels()
+    private val assetViewModel: AssetViewModel by activityViewModels()
     private val assetBySearchAdapter = AssetBySearchAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,14 +40,14 @@ class AssetSearchFragment : Fragment(R.layout.fragment_asset_search) {
         binding = FragmentAssetSearchBinding.bind(view)
         addMenuProvider()
         setupAdapterAndRecyclerView()
-        observeGetAssetListUiState()
-        observeGetAssetUiState()
+        observeGetAssetsBySearchListUiState()
+        observeGetUpdatedAssetUiState()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         requireActivity().hideKeyboard(searchView)
-        assetSearchViewModel.resetGetAssetUiState()
+        assetViewModel.resetGetUpdatedAssetUiState()
     }
 
     private fun addMenuProvider() {
@@ -67,7 +68,7 @@ class AssetSearchFragment : Fragment(R.layout.fragment_asset_search) {
             setOnClickListener {
                 val query = searchView.query.toString()
                 if (query.isNotEmpty()) {
-                    assetSearchViewModel.loadAssetsBySearch(query)
+                    assetViewModel.loadAssetsBySearch(query)
                 } else {
                     activity.showErrorSnackBar(message = getString(R.string.enterAssetSymbolForTryAgain))
                 }
@@ -78,7 +79,7 @@ class AssetSearchFragment : Fragment(R.layout.fragment_asset_search) {
     private fun setupSearchView(searchView: SearchView) {
         val queryTextListener = object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                query?.let { assetSearchViewModel.loadAssetsBySearch(it) }
+                query?.let { assetViewModel.loadAssetsBySearch(it) }
                 return true
             }
 
@@ -98,7 +99,7 @@ class AssetSearchFragment : Fragment(R.layout.fragment_asset_search) {
         assetBySearchAdapter.updateOnClickItem { assetUiModel ->
             val existingAsset = walletViewModel.assetList.value.find { it.symbol == assetUiModel.symbol }
             if (existingAsset == null) {
-                assetSearchViewModel.loadQuoteFor(assetUiModel)
+                assetViewModel.loadQuoteFor(assetUiModel)
             } else {
                 requireActivity().showErrorSnackBar(getString(R.string.assetAlreadyExists))
             }
@@ -107,14 +108,14 @@ class AssetSearchFragment : Fragment(R.layout.fragment_asset_search) {
         binding.recyclerView.setupRecyclerViewWithLinearLayout(assetBySearchAdapter)
     }
 
-    private fun handleAssetListLoading() {
+    private fun handleAssetsBySearchListLoading() {
         binding.shimmerLayout.isVisible = true
         binding.shimmerLayout.startShimmer()
         binding.recyclerView.isVisible = false
         binding.incLayoutError.root.isVisible = false
     }
 
-    private fun handleAssetListSuccess(results: List<AssetUiModel>) {
+    private fun handleAssetsBySearchListSuccess(results: List<AssetUiModel>) {
         binding.shimmerLayout.isVisible = false
         binding.shimmerLayout.stopShimmer()
 
@@ -131,7 +132,7 @@ class AssetSearchFragment : Fragment(R.layout.fragment_asset_search) {
         assetBySearchAdapter.setList(results)
     }
 
-    private fun handleAssetListError(e: Exception) {
+    private fun handleAssetsBySearchListError(e: Exception) {
         binding.shimmerLayout.isVisible = false
         binding.shimmerLayout.stopShimmer()
         binding.recyclerView.isVisible = false
@@ -139,14 +140,14 @@ class AssetSearchFragment : Fragment(R.layout.fragment_asset_search) {
         binding.incLayoutError.tvInfoMessage.text = requireContext().getGenericErrorMessage(e)
     }
 
-    private fun observeGetAssetListUiState() {
+    private fun observeGetAssetsBySearchListUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                assetSearchViewModel.getAssetListUiState.collectLatest {
+                assetViewModel.getAssetsBySearchListUiState.collectLatest {
                     when (it) {
-                        is UiState.Loading -> handleAssetListLoading()
-                        is UiState.Success -> handleAssetListSuccess(it.data)
-                        is UiState.Error -> handleAssetListError(it.e)
+                        is UiState.Loading -> handleAssetsBySearchListLoading()
+                        is UiState.Success -> handleAssetsBySearchListSuccess(it.data)
+                        is UiState.Error -> handleAssetsBySearchListError(it.e)
                         else -> Unit
                     }
                 }
@@ -154,30 +155,30 @@ class AssetSearchFragment : Fragment(R.layout.fragment_asset_search) {
         }
     }
 
-    private fun handleAssetLoading() {
+    private fun handleUpdatedAssetLoading() {
         binding.recyclerView.isVisible = false
         binding.incProgressBar.root.isVisible = true
     }
 
-    private fun handleAssetSuccess(assetUiModel: AssetUiModel) {
+    private fun handleUpdatedAssetSuccess(assetUiModel: AssetUiModel) {
         findNavController().navigate(AssetSearchFragmentDirections.navToSaveAssetFragment(assetUiModel))
     }
 
-    private fun handleAssetError(e: Exception) {
+    private fun handleUpdatedAssetError(e: Exception) {
         binding.recyclerView.isVisible = false
         binding.incProgressBar.root.isVisible = false
         binding.incLayoutError.root.isVisible = true
         binding.incLayoutError.tvInfoMessage.text = e.message.toString()
     }
 
-    private fun observeGetAssetUiState() {
+    private fun observeGetUpdatedAssetUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                assetSearchViewModel.getAssetUiState.collectLatest {
+                assetViewModel.getUpdatedAssetUiState.collectLatest {
                     when (it) {
-                        is UiState.Loading -> handleAssetLoading()
-                        is UiState.Success -> handleAssetSuccess(it.data)
-                        is UiState.Error -> handleAssetError(it.e)
+                        is UiState.Loading -> handleUpdatedAssetLoading()
+                        is UiState.Success -> handleUpdatedAssetSuccess(it.data)
+                        is UiState.Error -> handleUpdatedAssetError(it.e)
                         else -> Unit
                     }
                 }
