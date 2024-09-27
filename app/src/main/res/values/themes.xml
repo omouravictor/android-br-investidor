@@ -46,9 +46,9 @@
     </style>
 
     <style name="AppSwitchStyle" parent="Theme.AppCompat.Light">
-        <item name="colorControlActivated">@color/black</item>
+        <item name="colorControlActivated">@color/green</item>
         <item name="android:colorForeground">@color/black</item>
-        <item name="colorSwitchThumbNormal">#F1F1F1</item>
+        <item name="colorSwitchThumbNormal">#EDEDED</item>
     </style>
 
 </resources>
