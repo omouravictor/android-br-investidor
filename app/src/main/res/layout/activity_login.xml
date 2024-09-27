@@ -20,11 +20,11 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/black"
-            android:theme="@style/Toolbar"
+            android:theme="@style/AppToolbarStyle"
             app:contentInsetStartWithNavigation="0dp"
             app:popupTheme="@style/Theme.InvestView.PopupOverlay"
             app:title="@string/appName"
-            app:titleTextAppearance="@style/ToolbarTitleTextStyle" />
+            app:titleTextAppearance="@style/AppToolbarTitleTextStyle" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

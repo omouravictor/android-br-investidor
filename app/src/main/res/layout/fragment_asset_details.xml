@@ -130,7 +130,8 @@
                     <androidx.appcompat.widget.SwitchCompat
                         android:id="@+id/switchCurrency"
                         android:layout_width="0dp"
-                        android:layout_height="0dp" />
+                        android:layout_height="0dp"
+                        android:theme="@style/AppSwitchStyle" />
                 </TableRow>
 
                 <View

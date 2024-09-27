@@ -10,7 +10,7 @@
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/appWindowBackColor</item>
         <item name="android:textColor">@color/appTextColor</item>
-        <item name="actionMenuTextAppearance">@style/MyActionBarMenuStyle</item>
+        <item name="actionMenuTextAppearance">@style/AppActionBarMenuStyle</item>
         <item name="android:navigationBarColor">@color/black</item>
     </style>
 
@@ -18,31 +18,37 @@
 
     <style name="Theme.InvestView.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="MyTabTextAppearance" parent="TextAppearance.Design.Tab">
+    <style name="AppTabTextAppearanceStyle" parent="TextAppearance.Design.Tab">
         <item name="textAllCaps">false</item>
     </style>
 
-    <style name="MyActionBarMenuStyle" parent="android:TextAppearance.Material.Widget.ActionBar.Menu">
+    <style name="AppActionBarMenuStyle" parent="android:TextAppearance.Material.Widget.ActionBar.Menu">
         <item name="android:textAllCaps">false</item>
     </style>
 
-    <style name="Toolbar">
+    <style name="AppToolbarStyle">
         <item name="colorControlNormal">@color/green</item>
         <item name="android:editTextColor">@color/white</item>
         <item name="colorControlActivated">@color/green</item>
     </style>
 
-    <style name="ToolbarTitleTextStyle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+    <style name="AppToolbarTitleTextStyle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">@dimen/textSize4</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="Theme.App.OverlayBottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/Theme.App.BottomSheetModalTransparent</item>
+    <style name="AppOverlayBottomSheetDialogStyle" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppBottomSheetModalStyle</item>
     </style>
 
-    <style name="Theme.App.BottomSheetModalTransparent" parent="Widget.MaterialComponents.BottomSheet.Modal">
+    <style name="AppBottomSheetModalStyle" parent="Widget.MaterialComponents.BottomSheet.Modal">
         <item name="backgroundTint">@android:color/transparent</item>
+    </style>
+
+    <style name="AppSwitchStyle" parent="Theme.AppCompat.Light">
+        <item name="colorControlActivated">@color/black</item>
+        <item name="android:colorForeground">@color/black</item>
+        <item name="colorSwitchThumbNormal">#F1F1F1</item>
     </style>
 
 </resources>
