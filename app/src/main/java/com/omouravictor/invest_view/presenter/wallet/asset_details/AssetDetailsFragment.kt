@@ -148,6 +148,9 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
             tvTotalPrice.text = assetUiModel.getFormattedTotalPrice()
             tvYield.setupYieldForAsset(assetUiModel)
             ivChangeReload.setOnClickListener { assetSearchViewModel.loadQuoteFor(assetUiModel.symbol) }
+            ivCurrencyReload.setOnClickListener {
+                assetSearchViewModel.loadCurrencyExchangeRate(assetCurrency, localCurrency.toString())
+            }
         }
     }
 

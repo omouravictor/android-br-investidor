@@ -8,17 +8,17 @@ import retrofit2.http.Query
 
 interface AlphaVantageApi {
 
-    @GET("query?function=SYMBOL_SEARCH&datatype=json")
+    @GET("query?function=SYMBOL_SEARCH")
     suspend fun getAssetsBySearch(
         @Query("keywords") keywords: String
     ): AssetsBySearchResponse
 
-    @GET("query?function=GLOBAL_QUOTE&datatype=json")
+    @GET("query?function=GLOBAL_QUOTE")
     suspend fun getAssetGlobalQuote(
         @Query("symbol") symbol: String
     ): AssetGlobalQuoteResponse
 
-    @GET("query?function=CURRENCY_EXCHANGE_RATE&datatype=json")
+    @GET("query?function=CURRENCY_EXCHANGE_RATE")
     suspend fun getCurrencyExchange(
         @Query("from_currency") fromCurrency: String,
         @Query("to_currency") toCurrency: String
