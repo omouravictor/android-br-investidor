@@ -30,6 +30,7 @@ import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalInve
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalPrice
 import com.omouravictor.invest_view.util.AssetUtil
 import com.omouravictor.invest_view.util.ConstantUtil
+import com.omouravictor.invest_view.util.LocaleUtil
 import com.omouravictor.invest_view.util.clearPileAndNavigateToStart
 import com.omouravictor.invest_view.util.getGenericErrorMessage
 import com.omouravictor.invest_view.util.setupToolbarTitle
@@ -119,6 +120,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
     private fun setupViews() {
         binding.apply {
             val context = root.context
+            tvCurrencyTittle.text = getString(R.string.showInLocalCurrency, LocaleUtil.appCurrency)
             tvAssetType.text = getString(assetUiModel.type.nameResId)
             tvAssetType.backgroundTintList = getColorStateList(context, assetUiModel.type.colorResId)
             tvAssetCurrency.text = assetUiModel.currency

@@ -9,6 +9,7 @@ import java.util.TimeZone
 object LocaleUtil {
 
     val appLocale = Locale("pt", "BR")
+    val appCurrency: Currency = Currency.getInstance(appLocale)
     private val appTimeZone = TimeZone.getTimeZone("America/Sao_Paulo")
     private val appDateTimeFormat = SimpleDateFormat("dd/MM/yyyy HH:mm", appLocale)
     private val isoDateTimeFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", appLocale)
