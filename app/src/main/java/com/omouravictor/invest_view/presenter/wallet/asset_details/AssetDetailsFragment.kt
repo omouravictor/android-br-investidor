@@ -122,8 +122,14 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
             val context = root.context
             val appCurrency = LocaleUtil.appCurrency.toString()
             val assetCurrency = assetUiModel.currency
-            trCurrency.visibility = if (appCurrency == assetCurrency) View.GONE else View.VISIBLE
-            tvCurrencyTittle.text = getString(R.string.showInLocalCurrency, appCurrency)
+
+            if (appCurrency == assetCurrency) {
+                trCurrency.visibility = View.GONE
+            } else {
+                trCurrency.visibility = View.VISIBLE
+                tvCurrencyTittle.text = getString(R.string.showInLocalCurrency, appCurrency)
+            }
+
             tvAssetType.text = getString(assetUiModel.type.nameResId)
             tvAssetType.backgroundTintList = getColorStateList(context, assetUiModel.type.colorResId)
             tvAssetCurrency.text = assetCurrency
