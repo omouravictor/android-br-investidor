@@ -61,14 +61,6 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         checkCurrencyForConversion()
     }
 
-    private fun checkCurrencyForConversion() {
-        val appCurrency = LocaleUtil.appCurrency.toString()
-        val assetCurrency = assetUiModel.currency
-        if (appCurrency != assetCurrency) {
-            currencyExchangeRatesViewModel.convert(assetCurrency, appCurrency)
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentAssetDetailsBinding.bind(view)
@@ -84,6 +76,14 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
     override fun onDestroyView() {
         super.onDestroyView()
         walletViewModel.resetDeleteAssetUiState()
+    }
+
+    private fun checkCurrencyForConversion() {
+        val appCurrency = LocaleUtil.appCurrency.toString()
+        val assetCurrency = assetUiModel.currency
+        if (appCurrency != assetCurrency) {
+            currencyExchangeRatesViewModel.convert(assetCurrency, appCurrency)
+        }
     }
 
     private fun updateAssetUiModel() {
