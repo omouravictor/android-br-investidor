@@ -171,10 +171,8 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
                 if (isChecked && rate != null) {
                     tvTotalPrice.text =
                         LocaleUtil.getFormattedCurrencyValue(appCurrency, assetUiModel.getTotalPrice() * rate)
-
                     tvTotalInvested.text =
                         LocaleUtil.getFormattedCurrencyValue(appCurrency, assetUiModel.totalInvested * rate)
-
                     assetUiModel.getYield()
                         ?.let { tvYield.setupVariation(appCurrency, it * rate, it / assetUiModel.totalInvested) }
 
