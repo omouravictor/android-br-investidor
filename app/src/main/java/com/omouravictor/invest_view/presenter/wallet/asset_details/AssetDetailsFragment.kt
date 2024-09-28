@@ -166,29 +166,27 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
                 tvCurrencyConversionTittle.text = getString(R.string.convertToLocalCurrency, appCurrency)
             }
 
-            ivSwitchReload.setOnClickListener { currencyExchangeRatesViewModel.convert(assetCurrency, appCurrency) }
             switchCurrencyConversion.setOnCheckedChangeListener { _, isChecked ->
-                val rate = conversionResult.info?.rate ?: 1.0
+                val rate = conversionResult.info?.rate
+                if (isChecked && rate != null) {
+                    tvTotalPrice.text =
+                        LocaleUtil.getFormattedCurrencyValue(appCurrency, assetUiModel.getTotalPrice() * rate)
 
-                if (isChecked) {
-                    tvTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(
-                        appCurrency, assetUiModel.getTotalPrice() * rate
-                    )
-                    tvTotalInvested.text = LocaleUtil.getFormattedCurrencyValue(
-                        appCurrency, assetUiModel.totalInvested * rate
-                    )
-                    tvYield.setupVariation(
-                        appCurrency,
-                        (assetUiModel.getYield() ?: 0.0) * rate,
-                        assetUiModel.getYield()?.div(assetUiModel.totalInvested)
-                    )
+                    tvTotalInvested.text =
+                        LocaleUtil.getFormattedCurrencyValue(appCurrency, assetUiModel.totalInvested * rate)
+
+                    assetUiModel.getYield()
+                        ?.let { tvYield.setupVariation(appCurrency, it * rate, it / assetUiModel.totalInvested) }
 
                 } else {
+                    switchCurrencyConversion.isChecked = false
                     tvTotalPrice.text = assetUiModel.getFormattedTotalPrice()
                     tvTotalInvested.text = assetUiModel.getFormattedTotalInvested()
                     tvYield.setupYieldForAsset(assetUiModel)
                 }
             }
+
+            ivSwitchReload.setOnClickListener { currencyExchangeRatesViewModel.convert(assetCurrency, appCurrency) }
         }
     }
 
@@ -290,8 +288,12 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
     }
 
     private fun handleConversionResultSuccess(currencyExchangeRates: ConversionResultResponse) {
-        handleConversionResultLoading(false)
-        conversionResult = currencyExchangeRates
+        if (currencyExchangeRates.success == true) {
+            handleConversionResultLoading(false)
+            conversionResult = currencyExchangeRates
+        } else {
+            handleConversionResultError()
+        }
     }
 
     private fun handleConversionResultError() {
