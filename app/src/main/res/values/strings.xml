@@ -108,5 +108,13 @@
     <string name="sale">Venda</string>
     <string name="buy">Compra</string>
     <string name="convertToLocalCurrency">Converter para moeda local (%1$s)</string>
+    <string name="symbol">Símbolo</string>
+    <string name="assetType">Tipo de ativo</string>
+    <string name="type">Tipo</string>
+    <string name="company">Empresa</string>
+    <string name="currencyBuy">Moeda de compra</string>
+    <string name="currentPrice">Preço atual</string>
+    <string name="lastChange">Última variação</string>
+    <string name="currencyRate">Cotação %1$s</string>
 
 </resources>

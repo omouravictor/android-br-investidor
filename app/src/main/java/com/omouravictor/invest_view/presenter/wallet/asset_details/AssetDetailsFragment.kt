@@ -162,6 +162,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
             binding.rowCurrencyConversion.visibility = View.GONE
         } else {
             binding.rowCurrencyConversion.visibility = View.VISIBLE
+            binding.tvCurrencyRateTittle.text = getString(R.string.currencyRate, assetCurrency)
             binding.tvCurrencyConversionTittle.text = getString(R.string.convertToLocalCurrency, appCurrency)
         }
 
@@ -292,6 +293,10 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
     private fun handleConversionResultSuccess(currencyExchangeRates: ConversionResultResponse) {
         if (currencyExchangeRates.success == true) {
             handleConversionResultLoading(false)
+            binding.tvCurrencyRate.text = LocaleUtil.getFormattedCurrencyValue(
+                LocaleUtil.appCurrency.toString(),
+                currencyExchangeRates.info!!.rate
+            )
             conversionResult = currencyExchangeRates
         } else {
             handleConversionResultError()
