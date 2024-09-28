@@ -109,10 +109,12 @@ class AssetSearchFragment : Fragment(R.layout.fragment_asset_search) {
     }
 
     private fun handleAssetsBySearchListLoading() {
-        binding.shimmerLayout.isVisible = true
-        binding.shimmerLayout.startShimmer()
-        binding.recyclerView.isVisible = false
-        binding.incLayoutError.root.isVisible = false
+        binding.apply {
+            shimmerLayout.isVisible = true
+            shimmerLayout.startShimmer()
+            recyclerView.isVisible = false
+            incLayoutError.root.isVisible = false
+        }
     }
 
     private fun handleAssetsBySearchListSuccess(results: List<AssetUiModel>) {
@@ -126,18 +128,19 @@ class AssetSearchFragment : Fragment(R.layout.fragment_asset_search) {
         if (isResultsEmpty) {
             binding.incLayoutError.root.isVisible = true
             binding.incLayoutError.tvInfoMessage.text = getString(R.string.noResultsFound)
-            return
         }
 
         assetBySearchAdapter.setList(results)
     }
 
     private fun handleAssetsBySearchListError(e: Exception) {
-        binding.shimmerLayout.isVisible = false
-        binding.shimmerLayout.stopShimmer()
-        binding.recyclerView.isVisible = false
-        binding.incLayoutError.root.isVisible = true
-        binding.incLayoutError.tvInfoMessage.text = requireContext().getGenericErrorMessage(e)
+        binding.apply {
+            shimmerLayout.isVisible = false
+            shimmerLayout.stopShimmer()
+            recyclerView.isVisible = false
+            incLayoutError.root.isVisible = true
+            incLayoutError.tvInfoMessage.text = requireContext().getGenericErrorMessage(e)
+        }
     }
 
     private fun observeGetAssetsBySearchListUiState() {
@@ -156,8 +159,10 @@ class AssetSearchFragment : Fragment(R.layout.fragment_asset_search) {
     }
 
     private fun handleUpdatedAssetLoading() {
-        binding.recyclerView.isVisible = false
-        binding.incProgressBar.root.isVisible = true
+        binding.apply {
+            recyclerView.isVisible = false
+            incProgressBar.root.isVisible = true
+        }
     }
 
     private fun handleUpdatedAssetSuccess(assetUiModel: AssetUiModel) {
@@ -165,10 +170,12 @@ class AssetSearchFragment : Fragment(R.layout.fragment_asset_search) {
     }
 
     private fun handleUpdatedAssetError(e: Exception) {
-        binding.recyclerView.isVisible = false
-        binding.incProgressBar.root.isVisible = false
-        binding.incLayoutError.root.isVisible = true
-        binding.incLayoutError.tvInfoMessage.text = e.message.toString()
+        binding.apply {
+            recyclerView.isVisible = false
+            incProgressBar.root.isVisible = false
+            incLayoutError.root.isVisible = true
+            incLayoutError.tvInfoMessage.text = requireContext().getGenericErrorMessage(e)
+        }
     }
 
     private fun observeGetUpdatedAssetUiState() {

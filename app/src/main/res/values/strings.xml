@@ -47,6 +47,7 @@
     <string name="checkInternetConnection">Cheque sua conexão com a internet.</string>
     <string name="somethingWentWrong">Algo deu errado, espere um pouco e tente novamente.</string>
     <string name="tooManyRequests">Conta temporariamente bloqueada. Tente novamente mais tarde.</string>
+    <string name="rateLimitPerMinuteExceeded">Limite de requisições excedido, espere um pouco e tente novamente.</string>
     <string name="registerError">Erro na tentativa de Cadastro</string>
     <string name="weakPassword">Senha fraca, utilize no mínimo 6 caracteres.</string>
     <string name="loginError">Erro ao fazer Login</string>
