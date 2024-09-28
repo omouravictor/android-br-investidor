@@ -151,10 +151,10 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
             ivChangeReload.setOnClickListener { assetViewModel.getQuote(assetUiModel.symbol) }
         }
 
-        setupTable()
+        setupCurrencyConversionViews()
     }
 
-    private fun setupTable() {
+    private fun setupCurrencyConversionViews() {
         val appCurrency = LocaleUtil.appCurrency.toString()
         val assetCurrency = assetUiModel.currency
 
