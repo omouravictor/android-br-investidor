@@ -64,7 +64,7 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
             setOnClickListener {
                 val query = searchView.query.toString()
                 if (query.isNotEmpty()) {
-                    newsViewModel.loadNewsBySearch(query)
+                    newsViewModel.getNewsList(query)
                 } else {
                     activity.showErrorSnackBar(message = getString(R.string.enterSubjectForTryAgain))
                 }
@@ -75,7 +75,7 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
     private fun setupSearchView(searchView: SearchView) {
         val queryTextListener = object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                query?.let { newsViewModel.loadNewsBySearch(it) }
+                query?.let { newsViewModel.getNewsList(it) }
                 return true
             }
 

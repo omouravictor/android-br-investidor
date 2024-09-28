@@ -6,8 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.data.remote.model.news.toNewsUiModel
 import com.omouravictor.invest_view.data.remote.repository.NewsApiRepository
-import com.omouravictor.invest_view.presenter.news.model.ArticleUiModel
 import com.omouravictor.invest_view.presenter.model.UiState
+import com.omouravictor.invest_view.presenter.news.model.ArticleUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,10 +25,10 @@ class NewsViewModel @Inject constructor(
     val getNewsListUiState = _getNewsListUiState.asStateFlow()
 
     init {
-        loadNewsBySearch(context.getString(R.string.defaultNewsSearch))
+        getNewsList(context.getString(R.string.defaultNewsSearch))
     }
 
-    fun loadNewsBySearch(keywords: String) {
+    fun getNewsList(keywords: String) {
         _getNewsListUiState.value = UiState.Loading
 
         viewModelScope.launch {

@@ -58,7 +58,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         super.onCreate(savedInstanceState)
         assetUiModel = args.assetUiModel
         navController = findNavController()
-        assetViewModel.loadQuoteFor(assetUiModel.symbol)
+        assetViewModel.getQuote(assetUiModel.symbol)
         if (localCurrency.toString() != assetUiModel.currency) {
             currencyExchangeRatesViewModel.convert(assetUiModel.currency, localCurrency.toString())
         }
@@ -149,7 +149,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
             tvTotalInvested.text = assetUiModel.getFormattedTotalInvested()
             tvTotalPrice.text = assetUiModel.getFormattedTotalPrice()
             tvYield.setupYieldForAsset(assetUiModel)
-            ivChangeReload.setOnClickListener { assetViewModel.loadQuoteFor(assetUiModel.symbol) }
+            ivChangeReload.setOnClickListener { assetViewModel.getQuote(assetUiModel.symbol) }
             ivCurrencyReload.setOnClickListener {
                 currencyExchangeRatesViewModel.convert(assetCurrency, localCurrency.toString())
             }

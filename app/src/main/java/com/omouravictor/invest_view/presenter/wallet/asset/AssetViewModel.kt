@@ -27,7 +27,7 @@ class AssetViewModel @Inject constructor(
     private val _getQuoteUiState = MutableStateFlow<UiState<GlobalQuote>>(UiState.Initial)
     val getQuoteUiState = _getQuoteUiState.asStateFlow()
 
-    fun loadAssetsBySearch(keywords: String) {
+    fun getAssetsBySearch(keywords: String) {
         _getAssetsBySearchListUiState.value = UiState.Loading
 
         viewModelScope.launch {
@@ -43,7 +43,7 @@ class AssetViewModel @Inject constructor(
         }
     }
 
-    fun loadQuoteFor(assetUiModel: AssetUiModel) {
+    fun getUpdatedAsset(assetUiModel: AssetUiModel) {
         _getUpdatedAssetUiState.value = UiState.Loading
 
         viewModelScope.launch {
@@ -61,7 +61,7 @@ class AssetViewModel @Inject constructor(
         }
     }
 
-    fun loadQuoteFor(symbol: String) {
+    fun getQuote(symbol: String) {
         _getQuoteUiState.value = UiState.Loading
 
         viewModelScope.launch {

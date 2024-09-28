@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.omouravictor.invest_view.data.remote.repository.FirebaseRepository
-import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import com.omouravictor.invest_view.presenter.model.UiState
+import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -24,8 +24,8 @@ class WalletViewModel @Inject constructor(
     private val _deleteAssetUiState = MutableStateFlow<UiState<AssetUiModel>>(UiState.Initial)
     val deleteAssetUiState = _deleteAssetUiState.asStateFlow()
 
-    private val _getAssetListUiState = MutableStateFlow<UiState<List<AssetUiModel>>>(UiState.Initial)
-    val getAssetListUiState = _getAssetListUiState.asStateFlow()
+    private val _getUserAssetListUiState = MutableStateFlow<UiState<List<AssetUiModel>>>(UiState.Initial)
+    val getUserAssetListUiState = _getUserAssetListUiState.asStateFlow()
 
     private val _assetList = MutableStateFlow<List<AssetUiModel>>(emptyList())
     val assetList = _assetList.asStateFlow()
@@ -33,11 +33,11 @@ class WalletViewModel @Inject constructor(
     private val userId: String = auth.currentUser?.uid ?: ""
 
     init {
-        loadAssetList()
+        getUserAssetList()
     }
 
-    fun loadAssetList() {
-        _getAssetListUiState.value = UiState.Loading
+    fun getUserAssetList() {
+        _getUserAssetListUiState.value = UiState.Loading
 
         viewModelScope.launch {
             try {
@@ -45,11 +45,11 @@ class WalletViewModel @Inject constructor(
                 if (result.isSuccess) {
                     val assetsListResult = result.getOrThrow()
                     _assetList.value = assetsListResult
-                    _getAssetListUiState.value = UiState.Success(assetsListResult)
+                    _getUserAssetListUiState.value = UiState.Success(assetsListResult)
                 } else
-                    _getAssetListUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
+                    _getUserAssetListUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
             } catch (e: Exception) {
-                _getAssetListUiState.value = UiState.Error(e)
+                _getUserAssetListUiState.value = UiState.Error(e)
             }
         }
     }
@@ -64,7 +64,7 @@ class WalletViewModel @Inject constructor(
                     val updatedList = getUpdatedList(asset)
                     _saveAssetUiState.value = UiState.Success(asset)
                     _assetList.value = updatedList
-                    _getAssetListUiState.value = UiState.Success(updatedList)
+                    _getUserAssetListUiState.value = UiState.Success(updatedList)
                 } else
                     _saveAssetUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
             } catch (e: Exception) {
@@ -82,7 +82,7 @@ class WalletViewModel @Inject constructor(
                 if (result.isSuccess) {
                     _deleteAssetUiState.value = UiState.Success(asset)
                     _assetList.value -= asset
-                    _getAssetListUiState.value = UiState.Success(_assetList.value)
+                    _getUserAssetListUiState.value = UiState.Success(_assetList.value)
                 } else
                     _deleteAssetUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
             } catch (e: Exception) {

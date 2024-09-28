@@ -54,7 +54,7 @@ class WalletFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupTabLayoutWithViewPager2()
         setupButtons()
-        observeGetAssetListUiState()
+        observeGetUserAssetListUiState()
     }
 
     private fun setupTabLayoutWithViewPager2() {
@@ -89,15 +89,15 @@ class WalletFragment : Fragment() {
         binding.incWalletErrorLayout.incBtnTryAgain.root.apply {
             text = getString(R.string.tryAgain)
             setOnClickListener {
-                walletViewModel.loadAssetList()
+                walletViewModel.getUserAssetList()
             }
         }
     }
 
-    private fun observeGetAssetListUiState() {
+    private fun observeGetUserAssetListUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                walletViewModel.getAssetListUiState.collectLatest {
+                walletViewModel.getUserAssetListUiState.collectLatest {
                     when (it) {
                         is UiState.Success -> {
                             if (it.data.isNotEmpty())

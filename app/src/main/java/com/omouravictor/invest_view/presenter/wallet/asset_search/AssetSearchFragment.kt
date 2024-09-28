@@ -68,7 +68,7 @@ class AssetSearchFragment : Fragment(R.layout.fragment_asset_search) {
             setOnClickListener {
                 val query = searchView.query.toString()
                 if (query.isNotEmpty()) {
-                    assetViewModel.loadAssetsBySearch(query)
+                    assetViewModel.getAssetsBySearch(query)
                 } else {
                     activity.showErrorSnackBar(message = getString(R.string.enterAssetSymbolForTryAgain))
                 }
@@ -79,7 +79,7 @@ class AssetSearchFragment : Fragment(R.layout.fragment_asset_search) {
     private fun setupSearchView(searchView: SearchView) {
         val queryTextListener = object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                query?.let { assetViewModel.loadAssetsBySearch(it) }
+                query?.let { assetViewModel.getAssetsBySearch(it) }
                 return true
             }
 
@@ -99,7 +99,7 @@ class AssetSearchFragment : Fragment(R.layout.fragment_asset_search) {
         assetBySearchAdapter.updateOnClickItem { assetUiModel ->
             val existingAsset = walletViewModel.assetList.value.find { it.symbol == assetUiModel.symbol }
             if (existingAsset == null) {
-                assetViewModel.loadQuoteFor(assetUiModel)
+                assetViewModel.getUpdatedAsset(assetUiModel)
             } else {
                 requireActivity().showErrorSnackBar(getString(R.string.assetAlreadyExists))
             }
