@@ -133,9 +133,9 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
 
     private fun setupViews() {
         val appCurrency = LocaleUtil.appCurrency.toString()
+        val context = requireContext()
 
         binding.apply {
-            val context = root.context
             val assetCurrency = assetUiModel.currency
 
             if (appCurrency == assetCurrency) {
