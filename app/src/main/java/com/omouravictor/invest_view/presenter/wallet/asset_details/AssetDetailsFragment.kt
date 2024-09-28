@@ -6,7 +6,6 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources.getColorStateList
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -31,6 +30,8 @@ import com.omouravictor.invest_view.presenter.wallet.model.getFormattedAssetPric
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalInvested
 import com.omouravictor.invest_view.presenter.wallet.model.getFormattedTotalPrice
+import com.omouravictor.invest_view.presenter.wallet.model.getTotalPrice
+import com.omouravictor.invest_view.presenter.wallet.model.getYield
 import com.omouravictor.invest_view.util.AssetUtil
 import com.omouravictor.invest_view.util.ConstantUtil
 import com.omouravictor.invest_view.util.LocaleUtil
@@ -48,6 +49,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
     private lateinit var binding: FragmentAssetDetailsBinding
     private lateinit var assetUiModel: AssetUiModel
     private lateinit var navController: NavController
+    private var conversionResult = ConversionResultResponse()
     private val args by navArgs<AssetDetailsFragmentArgs>()
     private val assetViewModel: AssetViewModel by activityViewModels()
     private val currencyExchangeRatesViewModel: CurrencyExchangeRatesViewModel by activityViewModels()
@@ -132,32 +134,61 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
     }
 
     private fun setupViews() {
-        val appCurrency = LocaleUtil.appCurrency.toString()
         val context = requireContext()
 
         binding.apply {
-            val assetCurrency = assetUiModel.currency
-
-            if (appCurrency == assetCurrency) {
-                trCurrency.visibility = View.GONE
-            } else {
-                trCurrency.visibility = View.VISIBLE
-                tvCurrencyTittle.text = getString(R.string.showInLocalCurrency, appCurrency)
-            }
-
             tvAssetType.text = getString(assetUiModel.type.nameResId)
             tvAssetType.backgroundTintList = getColorStateList(context, assetUiModel.type.colorResId)
-            tvAssetCurrency.text = assetCurrency
+            tvAssetCurrency.text = assetUiModel.currency
             tvAssetCurrency.backgroundTintList =
-                getColorStateList(context, AssetUtil.getCurrencyResColor(assetCurrency))
+                getColorStateList(context, AssetUtil.getCurrencyResColor(assetUiModel.currency))
             tvName.text = assetUiModel.name
             tvPrice.text = assetUiModel.getFormattedAssetPrice()
             tvAmount.text = assetUiModel.getFormattedAmount()
-            tvTotalInvested.text = assetUiModel.getFormattedTotalInvested()
             tvTotalPrice.text = assetUiModel.getFormattedTotalPrice()
+            tvTotalInvested.text = assetUiModel.getFormattedTotalInvested()
             tvYield.setupYieldForAsset(assetUiModel)
             ivChangeReload.setOnClickListener { assetViewModel.getQuote(assetUiModel.symbol) }
-            ivCurrencyReload.setOnClickListener { currencyExchangeRatesViewModel.convert(assetCurrency, appCurrency) }
+        }
+
+        setupTable()
+    }
+
+    private fun setupTable() {
+        val appCurrency = LocaleUtil.appCurrency.toString()
+        val assetCurrency = assetUiModel.currency
+
+        binding.apply {
+            if (appCurrency == assetCurrency) {
+                rowCurrencyConversion.visibility = View.GONE
+            } else {
+                rowCurrencyConversion.visibility = View.VISIBLE
+                tvCurrencyConversionTittle.text = getString(R.string.convertToLocalCurrency, appCurrency)
+            }
+
+            ivSwitchReload.setOnClickListener { currencyExchangeRatesViewModel.convert(assetCurrency, appCurrency) }
+            switchCurrencyConversion.setOnCheckedChangeListener { _, isChecked ->
+                val rate = conversionResult.info?.rate ?: 1.0
+
+                if (isChecked) {
+                    tvTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(
+                        appCurrency, assetUiModel.getTotalPrice() * rate
+                    )
+                    tvTotalInvested.text = LocaleUtil.getFormattedCurrencyValue(
+                        appCurrency, assetUiModel.totalInvested * rate
+                    )
+                    tvYield.setupVariation(
+                        appCurrency,
+                        (assetUiModel.getYield() ?: 0.0) * rate,
+                        assetUiModel.getYield()?.div(assetUiModel.totalInvested)
+                    )
+
+                } else {
+                    tvTotalPrice.text = assetUiModel.getFormattedTotalPrice()
+                    tvTotalInvested.text = assetUiModel.getFormattedTotalInvested()
+                    tvYield.setupYieldForAsset(assetUiModel)
+                }
+            }
         }
     }
 
@@ -246,27 +277,27 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
 
     private fun handleConversionResultLoading(isLoading: Boolean) {
         if (isLoading) {
-            binding.incCurrencyShimmer.root.startShimmer()
-            binding.incCurrencyShimmer.root.visibility = View.VISIBLE
-            binding.switchCurrency.visibility = View.INVISIBLE
-            binding.ivCurrencyReload.visibility = View.INVISIBLE
+            binding.incSwitchShimmer.root.startShimmer()
+            binding.incSwitchShimmer.root.visibility = View.VISIBLE
+            binding.switchCurrencyConversion.visibility = View.INVISIBLE
+            binding.ivSwitchReload.visibility = View.INVISIBLE
         } else {
-            binding.incCurrencyShimmer.root.stopShimmer()
-            binding.incCurrencyShimmer.root.visibility = View.INVISIBLE
-            binding.switchCurrency.visibility = View.VISIBLE
-            binding.ivCurrencyReload.visibility = View.INVISIBLE
+            binding.incSwitchShimmer.root.stopShimmer()
+            binding.incSwitchShimmer.root.visibility = View.INVISIBLE
+            binding.switchCurrencyConversion.visibility = View.VISIBLE
+            binding.ivSwitchReload.visibility = View.INVISIBLE
         }
     }
 
     private fun handleConversionResultSuccess(currencyExchangeRates: ConversionResultResponse) {
         handleConversionResultLoading(false)
-        Toast.makeText(requireContext(), "$currencyExchangeRates", Toast.LENGTH_LONG).show()
+        conversionResult = currencyExchangeRates
     }
 
     private fun handleConversionResultError() {
         handleConversionResultLoading(false)
-        binding.switchCurrency.visibility = View.INVISIBLE
-        binding.ivCurrencyReload.visibility = View.VISIBLE
+        binding.switchCurrencyConversion.visibility = View.INVISIBLE
+        binding.ivSwitchReload.visibility = View.VISIBLE
     }
 
     private fun observeGetConversionResultUiState() {
