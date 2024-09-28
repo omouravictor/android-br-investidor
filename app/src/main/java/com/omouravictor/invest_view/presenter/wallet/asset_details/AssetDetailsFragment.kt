@@ -52,15 +52,20 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
     private val assetViewModel: AssetViewModel by activityViewModels()
     private val currencyExchangeRatesViewModel: CurrencyExchangeRatesViewModel by activityViewModels()
     private val walletViewModel: WalletViewModel by activityViewModels()
-    private val localCurrency = LocaleUtil.appCurrency
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         assetUiModel = args.assetUiModel
         navController = findNavController()
         assetViewModel.getQuote(assetUiModel.symbol)
-        if (localCurrency.toString() != assetUiModel.currency) {
-            currencyExchangeRatesViewModel.convert(assetUiModel.currency, localCurrency.toString())
+        checkCurrencyForConversion()
+    }
+
+    private fun checkCurrencyForConversion() {
+        val appCurrency = LocaleUtil.appCurrency.toString()
+        val assetCurrency = assetUiModel.currency
+        if (appCurrency != assetCurrency) {
+            currencyExchangeRatesViewModel.convert(assetCurrency, appCurrency)
         }
     }
 
@@ -127,15 +132,17 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
     }
 
     private fun setupViews() {
+        val appCurrency = LocaleUtil.appCurrency.toString()
+
         binding.apply {
             val context = root.context
             val assetCurrency = assetUiModel.currency
 
-            if (localCurrency.toString() == assetCurrency) {
+            if (appCurrency == assetCurrency) {
                 trCurrency.visibility = View.GONE
             } else {
                 trCurrency.visibility = View.VISIBLE
-                tvCurrencyTittle.text = getString(R.string.showInLocalCurrency, localCurrency)
+                tvCurrencyTittle.text = getString(R.string.showInLocalCurrency, appCurrency)
             }
 
             tvAssetType.text = getString(assetUiModel.type.nameResId)
@@ -150,9 +157,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
             tvTotalPrice.text = assetUiModel.getFormattedTotalPrice()
             tvYield.setupYieldForAsset(assetUiModel)
             ivChangeReload.setOnClickListener { assetViewModel.getQuote(assetUiModel.symbol) }
-            ivCurrencyReload.setOnClickListener {
-                currencyExchangeRatesViewModel.convert(assetCurrency, localCurrency.toString())
-            }
+            ivCurrencyReload.setOnClickListener { currencyExchangeRatesViewModel.convert(assetCurrency, appCurrency) }
         }
     }
 
