@@ -112,34 +112,38 @@
             <TableLayout
                 android:id="@+id/tableLayout"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:stretchColumns="1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvName">
 
-                <TableRow android:id="@+id/trCurrency">
-
-                    <TextView
-                        android:id="@+id/tvCurrencyTittle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        tools:text="Exibir na moeda local (BRL)" />
+                <TableRow android:id="@+id/rowCurrencyConversion">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/tvCurrencyConversionTittle"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            app:layout_constraintEnd_toStartOf="@+id/switchCurrencyConversion"
+                            app:layout_constraintStart_toStartOf="parent"
+                            tools:text="Converter para moeda local (BRL)" />
 
                         <androidx.appcompat.widget.SwitchCompat
-                            android:id="@+id/switchCurrency"
-                            android:layout_width="match_parent"
+                            android:id="@+id/switchCurrencyConversion"
+                            android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:theme="@style/AppSwitchStyle" />
+                            android:theme="@style/AppSwitchStyle"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/tvCurrencyConversionTittle" />
 
                         <include
-                            android:id="@+id/incCurrencyShimmer"
+                            android:id="@+id/incSwitchShimmer"
                             layout="@layout/shimmer_item"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
@@ -147,17 +151,15 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHeight_percent=".5"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintWidth_percent=".2" />
+                            app:layout_constraintWidth_percent=".1" />
 
                         <ImageView
-                            android:id="@+id/ivCurrencyReload"
+                            android:id="@+id/ivSwitchReload"
                             android:layout_width="wrap_content"
-                            android:layout_height="0dp"
+                            android:layout_height="match_parent"
                             android:src="@drawable/ic_reload"
                             android:visibility="gone"
-                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
                             tools:visibility="visible" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -173,16 +175,20 @@
 
                     <TextView
                         android:id="@+id/tvAmountTittle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.4"
                         android:text="@string/amount"
                         android:textColor="@color/tableTittleTextColor" />
 
                     <TextView
                         android:id="@+id/tvAmount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:gravity="end|center_vertical"
+                        android:maxLines="2"
                         tools:text="1" />
                 </TableRow>
 
@@ -196,16 +202,20 @@
 
                     <TextView
                         android:id="@+id/tvTittleCurrentPosition"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.4"
                         android:text="@string/currentPosition"
                         android:textColor="@color/tableTittleTextColor" />
 
                     <TextView
                         android:id="@+id/tvTotalPrice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:gravity="end|center_vertical"
+                        android:maxLines="2"
                         tools:text="R$ 38,26" />
                 </TableRow>
 
@@ -219,16 +229,20 @@
 
                     <TextView
                         android:id="@+id/tvTittleTotalInvested"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.4"
                         android:text="@string/totalInvested"
                         android:textColor="@color/tableTittleTextColor" />
 
                     <TextView
                         android:id="@+id/tvTotalInvested"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:gravity="end|center_vertical"
+                        android:maxLines="2"
                         tools:text="R$ 100,00" />
                 </TableRow>
 
@@ -242,18 +256,20 @@
 
                     <TextView
                         android:id="@+id/tvTittleYield"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.4"
                         android:text="@string/yield"
                         android:textColor="@color/tableTittleTextColor" />
 
                     <TextView
                         android:id="@+id/tvYield"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:ellipsize="end"
-                        android:gravity="end"
-                        android:maxLines="1"
+                        android:gravity="end|center_vertical"
+                        android:maxLines="2"
                         tools:text="+R$ 100,00 (+15,45%)"
                         tools:textColor="@color/green" />
                 </TableRow>

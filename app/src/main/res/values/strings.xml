@@ -107,6 +107,6 @@
     <string name="defaultNewsSearch">bolsa de valores AND ações</string>
     <string name="sale">Venda</string>
     <string name="buy">Compra</string>
-    <string name="showInLocalCurrency">Exibir na moeda local (%1$s)</string>
+    <string name="convertToLocalCurrency">Converter para moeda local (%1$s)</string>
 
 </resources>
