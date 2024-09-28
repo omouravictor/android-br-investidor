@@ -107,9 +107,10 @@ class WalletFragment : Fragment() {
                         }
 
                         is UiState.Error -> {
-                            binding.viewFlipper.displayedChild = VIEW_FLIPPER_CHILD_WALLET_ERROR_LAYOUT
-                            binding.incWalletErrorLayout.tvInfoMessage.text =
-                                binding.root.context.getGenericErrorMessage(it.e)
+                            binding.apply {
+                                viewFlipper.displayedChild = VIEW_FLIPPER_CHILD_WALLET_ERROR_LAYOUT
+                                incWalletErrorLayout.tvInfoMessage.text = root.context.getGenericErrorMessage(it.e)
+                            }
                         }
 
                         else -> binding.viewFlipper.displayedChild = VIEW_FLIPPER_CHILD_PROGRESS_BAR
