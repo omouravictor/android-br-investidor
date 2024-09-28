@@ -158,34 +158,38 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         val appCurrency = LocaleUtil.appCurrency.toString()
         val assetCurrency = assetUiModel.currency
 
-        binding.apply {
-            if (appCurrency == assetCurrency) {
-                rowCurrencyConversion.visibility = View.GONE
-            } else {
-                rowCurrencyConversion.visibility = View.VISIBLE
-                tvCurrencyConversionTittle.text = getString(R.string.convertToLocalCurrency, appCurrency)
-            }
-
-            switchCurrencyConversion.setOnCheckedChangeListener { _, isChecked ->
-                val rate = conversionResult.info?.rate
-                if (isChecked && rate != null) {
-                    tvTotalPrice.text =
-                        LocaleUtil.getFormattedCurrencyValue(appCurrency, assetUiModel.getTotalPrice() * rate)
-                    tvTotalInvested.text =
-                        LocaleUtil.getFormattedCurrencyValue(appCurrency, assetUiModel.totalInvested * rate)
-                    assetUiModel.getYield()
-                        ?.let { tvYield.setupVariation(appCurrency, it * rate, it / assetUiModel.totalInvested) }
-
-                } else {
-                    switchCurrencyConversion.isChecked = false
-                    tvTotalPrice.text = assetUiModel.getFormattedTotalPrice()
-                    tvTotalInvested.text = assetUiModel.getFormattedTotalInvested()
-                    tvYield.setupYieldForAsset(assetUiModel)
-                }
-            }
-
-            ivSwitchReload.setOnClickListener { currencyExchangeRatesViewModel.convert(assetCurrency, appCurrency) }
+        if (appCurrency == assetCurrency) {
+            binding.rowCurrencyConversion.visibility = View.GONE
+        } else {
+            binding.rowCurrencyConversion.visibility = View.VISIBLE
+            binding.tvCurrencyConversionTittle.text = getString(R.string.convertToLocalCurrency, appCurrency)
         }
+
+        binding.switchCurrencyConversion.setOnCheckedChangeListener { button, isChecked ->
+            val rate = conversionResult.info?.rate
+            if (isChecked && rate != null) {
+                convertCurrencyViews(appCurrency, rate)
+            } else {
+                button.isChecked = false
+                resetCurrencyViews()
+            }
+        }
+
+        binding.ivSwitchReload.setOnClickListener { currencyExchangeRatesViewModel.convert(assetCurrency, appCurrency) }
+    }
+
+    private fun convertCurrencyViews(currency: String, rate: Double) {
+        binding.tvTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, assetUiModel.getTotalPrice() * rate)
+        binding.tvTotalInvested.text = LocaleUtil.getFormattedCurrencyValue(currency, assetUiModel.totalInvested * rate)
+        assetUiModel.getYield()?.let { yield ->
+            binding.tvYield.setupVariation(currency, yield * rate, yield / assetUiModel.totalInvested)
+        }
+    }
+
+    private fun resetCurrencyViews() {
+        binding.tvTotalPrice.text = assetUiModel.getFormattedTotalPrice()
+        binding.tvTotalInvested.text = assetUiModel.getFormattedTotalInvested()
+        binding.tvYield.setupYieldForAsset(assetUiModel)
     }
 
     private fun setupButtons() {
