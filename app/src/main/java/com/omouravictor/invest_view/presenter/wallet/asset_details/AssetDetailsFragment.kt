@@ -188,17 +188,23 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
     }
 
     private fun convertCurrencyViews(currency: String, rate: Double) {
-        binding.tvTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, assetUiModel.getTotalPrice() * rate)
-        binding.tvTotalInvested.text = LocaleUtil.getFormattedCurrencyValue(currency, assetUiModel.totalInvested * rate)
-        assetUiModel.getYield()?.let { yield ->
-            binding.tvYield.setupVariation(currency, yield * rate, yield / assetUiModel.totalInvested)
+        binding.apply {
+            tvPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, assetUiModel.price * rate)
+            tvTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, assetUiModel.getTotalPrice() * rate)
+            tvTotalInvested.text = LocaleUtil.getFormattedCurrencyValue(currency, assetUiModel.totalInvested * rate)
+            assetUiModel.getYield()?.let { yield ->
+                tvYield.setupVariation(currency, yield * rate, yield / assetUiModel.totalInvested)
+            }
         }
     }
 
     private fun resetCurrencyViews() {
-        binding.tvTotalPrice.text = assetUiModel.getFormattedTotalPrice()
-        binding.tvTotalInvested.text = assetUiModel.getFormattedTotalInvested()
-        binding.tvYield.setupYieldForAsset(assetUiModel)
+        binding.apply {
+            tvPrice.text = assetUiModel.getFormattedAssetPrice()
+            tvTotalPrice.text = assetUiModel.getFormattedTotalPrice()
+            tvTotalInvested.text = assetUiModel.getFormattedTotalInvested()
+            tvYield.setupYieldForAsset(assetUiModel)
+        }
     }
 
     private fun setupButtons() {
