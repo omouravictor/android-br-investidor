@@ -9,20 +9,20 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp">
+        android:padding="16dp">
 
         <TextView
             android:id="@+id/tvTitleExchange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/exchange"
             android:textSize="@dimen/textSize4"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Câmbio" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvAssetCurrencyA"
+            android:id="@+id/tvCurrencyExchange"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:background="@drawable/rectangle"
@@ -42,8 +42,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:stretchColumns="1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvTitleExchange">
 
             <TableRow>
@@ -68,7 +66,13 @@
                     tools:text="R$ 5,43" />
             </TableRow>
 
-            <TableRow android:layout_marginTop="8dp">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="10dp"
+                android:background="@color/lineColor" />
+
+            <TableRow>
 
                 <TextView
                     android:id="@+id/tvTitleCurrencyConversion"

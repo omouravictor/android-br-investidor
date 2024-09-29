@@ -1,0 +1,211 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/defaultRadius"
+    app:cardElevation="@dimen/defaultElevation">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/assetSectionTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Asset"
+            android:textSize="@dimen/textSize4"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvAssetType"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:background="@drawable/rectangle"
+            android:gravity="center"
+            android:paddingHorizontal="8dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/assetSectionTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/assetSectionTitle"
+            tools:backgroundTint="@color/stock"
+            tools:text="Stock" />
+
+        <TableLayout
+            android:id="@+id/walletSectionTableLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:stretchColumns="1"
+            app:layout_constraintTop_toBottomOf="@+id/assetSectionTitle">
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/tvTitleSymbol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/symbol"
+                    android:textColor="@color/tableTittleTextColor" />
+
+                <TextView
+                    android:id="@+id/tvSymbol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="end|center_vertical"
+                    android:minWidth="104dp"
+                    android:textStyle="bold"
+                    tools:text="AAPL" />
+            </TableRow>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="10dp"
+                android:background="@color/lineColor" />
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/tvTittleCompanyName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/company"
+                    android:textColor="@color/tableTittleTextColor" />
+
+                <TextView
+                    android:id="@+id/tvCompanyName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="end|center_vertical"
+                    android:minWidth="104dp"
+                    android:textStyle="bold"
+                    tools:text="Apple Inc" />
+            </TableRow>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="10dp"
+                android:background="@color/lineColor" />
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/tvTittleCurrencyBuy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/currencyBuy"
+                    android:textColor="@color/tableTittleTextColor" />
+
+                <TextView
+                    android:id="@+id/tvCurrencyBuy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="end|center_vertical"
+                    android:minWidth="104dp"
+                    android:textStyle="bold"
+                    tools:text="USD" />
+            </TableRow>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="10dp"
+                android:background="@color/lineColor" />
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/tvTittleCurrentPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/currentPrice"
+                    android:textColor="@color/tableTittleTextColor" />
+
+                <TextView
+                    android:id="@+id/tvCurrentPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="end|center_vertical"
+                    android:minWidth="104dp"
+                    android:textStyle="bold"
+                    tools:text="US$250,00" />
+            </TableRow>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="10dp"
+                android:background="@color/lineColor" />
+
+            <TableRow>
+
+                <TextView
+                    android:id="@+id/tvTittleLastChange"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/lastChange"
+                    android:textColor="@color/tableTittleTextColor" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/tvLastChange"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="end|center_vertical"
+                        android:minWidth="104dp"
+                        android:textStyle="bold"
+                        tools:text="+R$ 100,00 (+15,45%)"
+                        tools:textColor="@color/green" />
+
+                    <include
+                        android:id="@+id/incLastChangeShimmer"
+                        layout="@layout/shimmer_item"
+                        android:layout_width="40dp"
+                        android:layout_height="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/ivLastChangeReload"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_reload"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        tools:visibility="visible" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </TableRow>
+
+        </TableLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

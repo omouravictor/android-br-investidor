@@ -134,27 +134,32 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
     }
 
     private fun setupViews() {
-        val context = requireContext()
-
         binding.apply {
-            tvAssetType.text = getString(assetUiModel.type.nameResId)
-            tvAssetType.backgroundTintList = getColorStateList(context, assetUiModel.type.colorResId)
-            tvAssetCurrency.text = assetUiModel.currency
-            tvAssetCurrency.backgroundTintList =
-                getColorStateList(context, AssetUtil.getCurrencyResColor(assetUiModel.currency))
-            tvName.text = assetUiModel.name
-            tvPrice.text = assetUiModel.getFormattedAssetPrice()
             tvAmount.text = assetUiModel.getFormattedAmount()
             tvTotalPrice.text = assetUiModel.getFormattedTotalPrice()
             tvTotalInvested.text = assetUiModel.getFormattedTotalInvested()
             tvYield.setupYieldForAsset(assetUiModel)
-            ivChangeReload.setOnClickListener { assetViewModel.getQuote(assetUiModel.symbol) }
         }
 
-        setupCurrencyConversionViews()
+        setupCardAssetDetails()
+        setupCardConversionRate()
     }
 
-    private fun setupCurrencyConversionViews() {
+    private fun setupCardAssetDetails() {
+        val context = requireContext()
+
+        binding.incCardAssetDetails.apply {
+            tvAssetType.text = getString(assetUiModel.type.nameResId)
+            tvAssetType.backgroundTintList = getColorStateList(context, assetUiModel.type.colorResId)
+            tvSymbol.text = assetUiModel.getFormattedSymbol()
+            tvCompanyName.text = assetUiModel.name
+            tvCurrencyBuy.text = assetUiModel.currency
+            tvCurrentPrice.text = assetUiModel.getFormattedAssetPrice()
+            ivLastChangeReload.setOnClickListener { assetViewModel.getQuote(assetUiModel.symbol) }
+        }
+    }
+
+    private fun setupCardConversionRate() {
         val context = requireContext()
         val appCurrency = LocaleUtil.appCurrency.toString()
         val assetCurrency = assetUiModel.currency
@@ -164,9 +169,8 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         } else {
             binding.incCardConversionRate.apply {
                 root.visibility = View.VISIBLE
-                tvTitleExchange.text = getString(R.string.exchange)
-                tvAssetCurrencyA.text = assetCurrency
-                tvAssetCurrencyA.backgroundTintList =
+                tvCurrencyExchange.text = assetCurrency
+                tvCurrencyExchange.backgroundTintList =
                     getColorStateList(context, AssetUtil.getCurrencyResColor(assetCurrency))
                 tvTitleCurrencyConversion.text = getString(R.string.convertValuesToLocalCurrency, appCurrency)
             }
@@ -189,7 +193,8 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
 
     private fun convertCurrencyViews(currency: String, rate: Double) {
         binding.apply {
-            tvPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, assetUiModel.price * rate)
+            incCardAssetDetails.tvCurrentPrice.text =
+                LocaleUtil.getFormattedCurrencyValue(currency, assetUiModel.price * rate)
             tvTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, assetUiModel.getTotalPrice() * rate)
             tvTotalInvested.text = LocaleUtil.getFormattedCurrencyValue(currency, assetUiModel.totalInvested * rate)
             assetUiModel.getYield()?.let { yield ->
@@ -200,7 +205,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
 
     private fun resetCurrencyViews() {
         binding.apply {
-            tvPrice.text = assetUiModel.getFormattedAssetPrice()
+            incCardAssetDetails.tvCurrentPrice.text = assetUiModel.getFormattedAssetPrice()
             tvTotalPrice.text = assetUiModel.getFormattedTotalPrice()
             tvTotalInvested.text = assetUiModel.getFormattedTotalInvested()
             tvYield.setupYieldForAsset(assetUiModel)
@@ -217,16 +222,18 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
     }
 
     private fun handleQuoteLoading(isLoading: Boolean) {
-        if (isLoading) {
-            binding.incChangeShimmer.root.startShimmer()
-            binding.incChangeShimmer.root.visibility = View.VISIBLE
-            binding.tvChange.visibility = View.INVISIBLE
-            binding.ivChangeReload.visibility = View.INVISIBLE
-        } else {
-            binding.incChangeShimmer.root.stopShimmer()
-            binding.incChangeShimmer.root.visibility = View.INVISIBLE
-            binding.tvChange.visibility = View.VISIBLE
-            binding.ivChangeReload.visibility = View.INVISIBLE
+        binding.incCardAssetDetails.apply {
+            if (isLoading) {
+                incLastChangeShimmer.root.startShimmer()
+                incLastChangeShimmer.root.visibility = View.VISIBLE
+                tvLastChange.visibility = View.INVISIBLE
+                ivLastChangeReload.visibility = View.INVISIBLE
+            } else {
+                incLastChangeShimmer.root.stopShimmer()
+                incLastChangeShimmer.root.visibility = View.INVISIBLE
+                tvLastChange.visibility = View.VISIBLE
+                ivLastChangeReload.visibility = View.INVISIBLE
+            }
         }
     }
 
@@ -234,15 +241,16 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         handleQuoteLoading(false)
         val change = globalQuote.change
         val changePercent = globalQuote.changePercent.removeSuffix("%").toDoubleOrNull()
-        binding.tvChange.setupVariation(
-            assetUiModel.currency, change, changePercent?.div(100)
-        )
+        binding.incCardAssetDetails.tvLastChange
+            .setupVariation(assetUiModel.currency, change, changePercent?.div(100))
     }
 
     private fun handleQuoteError() {
         handleQuoteLoading(false)
-        binding.tvChange.visibility = View.INVISIBLE
-        binding.ivChangeReload.visibility = View.VISIBLE
+        binding.incCardAssetDetails.apply {
+            tvLastChange.visibility = View.INVISIBLE
+            ivLastChangeReload.visibility = View.VISIBLE
+        }
     }
 
     private fun observeGetQuoteUiState() {
