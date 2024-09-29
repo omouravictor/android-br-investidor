@@ -2,7 +2,8 @@ package com.omouravictor.invest_view.presenter.wallet.asset
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.omouravictor.invest_view.data.remote.model.asset_quote.GlobalQuote
+import com.omouravictor.invest_view.data.remote.model.asset_quote.GlobalQuoteUiModel
+import com.omouravictor.invest_view.data.remote.model.asset_quote.toGlobalQuoteUiModel
 import com.omouravictor.invest_view.data.remote.model.assets_by_search.toAssetsUiModel
 import com.omouravictor.invest_view.data.remote.repository.AssetsApiRepository
 import com.omouravictor.invest_view.presenter.model.UiState
@@ -24,7 +25,7 @@ class AssetViewModel @Inject constructor(
     private val _getUpdatedAssetUiState = MutableStateFlow<UiState<AssetUiModel>>(UiState.Initial)
     val getUpdatedAssetUiState = _getUpdatedAssetUiState.asStateFlow()
 
-    private val _getQuoteUiState = MutableStateFlow<UiState<GlobalQuote>>(UiState.Initial)
+    private val _getQuoteUiState = MutableStateFlow<UiState<GlobalQuoteUiModel>>(UiState.Initial)
     val getQuoteUiState = _getQuoteUiState.asStateFlow()
 
     fun getAssetsBySearch(keywords: String) {
@@ -68,7 +69,7 @@ class AssetViewModel @Inject constructor(
             try {
                 val result = assetsApiRepository.getAssetGlobalQuote(symbol)
                 if (result.isSuccess)
-                    _getQuoteUiState.value = UiState.Success(result.getOrThrow().globalQuote)
+                    _getQuoteUiState.value = UiState.Success(result.getOrThrow().toGlobalQuoteUiModel())
                 else
                     _getQuoteUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
             } catch (e: Exception) {

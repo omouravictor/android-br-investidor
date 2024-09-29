@@ -69,5 +69,3 @@ fun TextView.setupYieldForAsset(assetUiModel: AssetUiModel) {
         )
     )
 }
-
-fun TextView.getDoubleValue(): Double = text.toString().getDoubleValue()

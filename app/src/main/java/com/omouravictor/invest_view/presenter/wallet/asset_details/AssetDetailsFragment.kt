@@ -17,7 +17,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.omouravictor.invest_view.R
-import com.omouravictor.invest_view.data.remote.model.asset_quote.GlobalQuote
+import com.omouravictor.invest_view.data.remote.model.asset_quote.GlobalQuoteUiModel
 import com.omouravictor.invest_view.data.remote.model.currency_exchange_rate.ConversionResultResponse
 import com.omouravictor.invest_view.databinding.FragmentAssetDetailsBinding
 import com.omouravictor.invest_view.presenter.model.UiState
@@ -36,8 +36,8 @@ import com.omouravictor.invest_view.util.AssetUtil
 import com.omouravictor.invest_view.util.ConstantUtil
 import com.omouravictor.invest_view.util.LocaleUtil
 import com.omouravictor.invest_view.util.clearPileAndNavigateToStart
-import com.omouravictor.invest_view.util.getDoubleValue
 import com.omouravictor.invest_view.util.getGenericErrorMessage
+import com.omouravictor.invest_view.util.getMonetaryValueInDouble
 import com.omouravictor.invest_view.util.setupToolbarTitle
 import com.omouravictor.invest_view.util.setupVariation
 import com.omouravictor.invest_view.util.setupYieldForAsset
@@ -54,6 +54,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
     private val assetViewModel: AssetViewModel by activityViewModels()
     private val currencyExchangeRatesViewModel: CurrencyExchangeRatesViewModel by activityViewModels()
     private val walletViewModel: WalletViewModel by activityViewModels()
+    private var globalQuote: GlobalQuoteUiModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -177,7 +178,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         }
 
         binding.incCardConversionRate.switchCurrencyConversion.setOnCheckedChangeListener { button, isChecked ->
-            val rate = binding.incCardConversionRate.tvCurrencyRate.getDoubleValue()
+            val rate = binding.incCardConversionRate.tvCurrencyRate.text.toString().getMonetaryValueInDouble()
             if (isChecked) {
                 convertCurrencyViews(appCurrency, rate)
             } else {
@@ -195,6 +196,13 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         binding.apply {
             incCardAssetDetails.tvCurrentPrice.text =
                 LocaleUtil.getFormattedCurrencyValue(currency, assetUiModel.price * rate)
+
+            globalQuote?.let { globalQuote ->
+                val changePercent = globalQuote.changePercent
+                incCardAssetDetails.tvLastChange
+                    .setupVariation(currency, globalQuote.change * rate, changePercent / 100)
+            }
+
             tvTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, assetUiModel.getTotalPrice() * rate)
             tvTotalInvested.text = LocaleUtil.getFormattedCurrencyValue(currency, assetUiModel.totalInvested * rate)
             assetUiModel.getYield()?.let { yield ->
@@ -206,6 +214,11 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
     private fun resetCurrencyViews() {
         binding.apply {
             incCardAssetDetails.tvCurrentPrice.text = assetUiModel.getFormattedAssetPrice()
+
+            val change = globalQuote?.change ?: 0.0
+            val changePercent = globalQuote?.changePercent ?: 0.0
+            binding.incCardAssetDetails.tvLastChange.setupVariation(assetUiModel.currency, change, changePercent / 100)
+
             tvTotalPrice.text = assetUiModel.getFormattedTotalPrice()
             tvTotalInvested.text = assetUiModel.getFormattedTotalInvested()
             tvYield.setupYieldForAsset(assetUiModel)
@@ -237,12 +250,12 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         }
     }
 
-    private fun handleQuoteSuccess(globalQuote: GlobalQuote) {
+    private fun handleQuoteSuccess(globalQuote: GlobalQuoteUiModel) {
         handleQuoteLoading(false)
         val change = globalQuote.change
-        val changePercent = globalQuote.changePercent.removeSuffix("%").toDoubleOrNull()
-        binding.incCardAssetDetails.tvLastChange
-            .setupVariation(assetUiModel.currency, change, changePercent?.div(100))
+        val changePercent = globalQuote.changePercent
+        binding.incCardAssetDetails.tvLastChange.setupVariation(assetUiModel.currency, change, changePercent / 100)
+        this.globalQuote = globalQuote
     }
 
     private fun handleQuoteError() {

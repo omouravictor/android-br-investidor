@@ -63,5 +63,3 @@ fun EditText.getLongValue(): Long {
     val text = this.text.toString()
     return if (text.isNotEmpty()) text.getOnlyNumbers().toLong() else 0
 }
-
-fun EditText.getDoubleValue(): Double = text.toString().getDoubleValue()
