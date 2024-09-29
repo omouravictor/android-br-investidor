@@ -9,7 +9,7 @@
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="@dimen/defaultMargin"
         app:layout_constraintBottom_toTopOf="@+id/incBtnNewTransaction"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -28,144 +28,23 @@
                     layout="@layout/card_conversion_rate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="16dp" />
+                    android:layout_margin="@dimen/defaultMargin" />
 
                 <include
                     android:id="@+id/incCardAssetDetails"
                     layout="@layout/card_asset_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginBottom="16dp" />
+                    android:layout_marginHorizontal="@dimen/defaultMargin"
+                    android:layout_marginBottom="@dimen/defaultMargin" />
 
-                <TextView
-                    android:id="@+id/tvWalletSectionTitle"
+                <include
+                    android:id="@+id/incCardWalletDetails"
+                    layout="@layout/card_wallet_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:paddingHorizontal="@dimen/defaultPadding"
-                    android:text="@string/wallet"
-                    android:textSize="@dimen/textSize4"
-                    android:textStyle="bold" />
-
-                <TableLayout
-                    android:id="@+id/walletSectionTableLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:paddingHorizontal="@dimen/defaultPadding"
-                    android:stretchColumns="1">
-
-                    <TableRow>
-
-                        <TextView
-                            android:id="@+id/tvAmountTittle"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.4"
-                            android:text="@string/amount"
-                            android:textColor="@color/tableTittleTextColor" />
-
-                        <TextView
-                            android:id="@+id/tvAmount"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:ellipsize="end"
-                            android:gravity="end|center_vertical"
-                            android:maxLines="2"
-                            tools:text="1" />
-                    </TableRow>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginVertical="10dp"
-                        android:background="@color/lineColor" />
-
-                    <TableRow>
-
-                        <TextView
-                            android:id="@+id/tvTittleCurrentPosition"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.4"
-                            android:text="@string/currentPosition"
-                            android:textColor="@color/tableTittleTextColor" />
-
-                        <TextView
-                            android:id="@+id/tvTotalPrice"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:ellipsize="end"
-                            android:gravity="end|center_vertical"
-                            android:maxLines="2"
-                            tools:text="R$ 38,26" />
-                    </TableRow>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginVertical="10dp"
-                        android:background="@color/lineColor" />
-
-                    <TableRow>
-
-                        <TextView
-                            android:id="@+id/tvTittleTotalInvested"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.4"
-                            android:text="@string/totalInvested"
-                            android:textColor="@color/tableTittleTextColor" />
-
-                        <TextView
-                            android:id="@+id/tvTotalInvested"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:ellipsize="end"
-                            android:gravity="end|center_vertical"
-                            android:maxLines="2"
-                            tools:text="R$ 100,00" />
-                    </TableRow>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginVertical="10dp"
-                        android:background="@color/lineColor" />
-
-                    <TableRow>
-
-                        <TextView
-                            android:id="@+id/tvTittleYield"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.4"
-                            android:text="@string/yield"
-                            android:textColor="@color/tableTittleTextColor" />
-
-                        <TextView
-                            android:id="@+id/tvYield"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:ellipsize="end"
-                            android:gravity="end|center_vertical"
-                            android:maxLines="2"
-                            tools:text="+R$ 100,00 (+15,45%)"
-                            tools:textColor="@color/green" />
-                    </TableRow>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@color/lineColor" />
-
-                </TableLayout>
+                    android:layout_marginHorizontal="@dimen/defaultMargin"
+                    android:layout_marginBottom="@dimen/defaultMargin" />
 
             </LinearLayout>
 
@@ -190,9 +69,9 @@
         layout="@layout/button_default"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginBottom="16dp"
-        android:elevation="5dp"
+        android:layout_marginHorizontal="@dimen/defaultMargin"
+        android:layout_marginBottom="@dimen/defaultMargin"
+        android:elevation="@dimen/defaultElevation"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

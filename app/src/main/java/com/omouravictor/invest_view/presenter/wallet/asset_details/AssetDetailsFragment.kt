@@ -135,9 +135,9 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
     }
 
     private fun setupViews() {
-        binding.apply {
+        binding.incCardWalletDetails.apply {
             tvAmount.text = assetUiModel.getFormattedAmount()
-            tvTotalPrice.text = assetUiModel.getFormattedTotalPrice()
+            tvCurrentPosition.text = assetUiModel.getFormattedTotalPrice()
             tvTotalInvested.text = assetUiModel.getFormattedTotalInvested()
             tvYield.setupYieldForAsset(assetUiModel)
         }
@@ -200,12 +200,15 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
                     .setupVariation(currency, globalQuote.change * rate, globalQuote.changePercent / 100)
             }
 
-            tvTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, assetUiModel.getTotalPrice() * rate)
+            incCardWalletDetails.tvCurrentPosition.text =
+                LocaleUtil.getFormattedCurrencyValue(currency, assetUiModel.getTotalPrice() * rate)
 
-            tvTotalInvested.text = LocaleUtil.getFormattedCurrencyValue(currency, assetUiModel.totalInvested * rate)
+            incCardWalletDetails.tvTotalInvested.text =
+                LocaleUtil.getFormattedCurrencyValue(currency, assetUiModel.totalInvested * rate)
 
             assetUiModel.getYield()?.let { yield ->
-                tvYield.setupVariation(currency, yield * rate, yield / assetUiModel.totalInvested)
+                incCardWalletDetails.tvYield
+                    .setupVariation(currency, yield * rate, yield / assetUiModel.totalInvested)
             }
         }
     }
@@ -214,14 +217,14 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         binding.apply {
             incCardAssetDetails.tvCurrentPrice.text = assetUiModel.getFormattedAssetPrice()
 
-            binding.incCardAssetDetails.tvLastChange
+            incCardAssetDetails.tvLastChange
                 .setupVariation(assetUiModel.currency, globalQuote!!.change, globalQuote!!.changePercent / 100)
 
-            tvTotalPrice.text = assetUiModel.getFormattedTotalPrice()
+            incCardWalletDetails.tvCurrentPosition.text = assetUiModel.getFormattedTotalPrice()
 
-            tvTotalInvested.text = assetUiModel.getFormattedTotalInvested()
+            incCardWalletDetails.tvTotalInvested.text = assetUiModel.getFormattedTotalInvested()
 
-            tvYield.setupYieldForAsset(assetUiModel)
+            incCardWalletDetails.tvYield.setupYieldForAsset(assetUiModel)
         }
     }
 
