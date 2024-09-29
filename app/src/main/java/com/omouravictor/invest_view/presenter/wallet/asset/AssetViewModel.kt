@@ -2,11 +2,11 @@ package com.omouravictor.invest_view.presenter.wallet.asset
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.omouravictor.invest_view.presenter.wallet.model.GlobalQuoteUiModel
 import com.omouravictor.invest_view.data.remote.model.asset_quote.toGlobalQuoteUiModel
 import com.omouravictor.invest_view.data.remote.model.assets_by_search.toAssetsUiModel
 import com.omouravictor.invest_view.data.remote.repository.AssetsApiRepository
 import com.omouravictor.invest_view.presenter.model.UiState
+import com.omouravictor.invest_view.presenter.wallet.model.GlobalQuoteUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -50,8 +50,8 @@ class AssetViewModel @Inject constructor(
             try {
                 val result = assetsApiRepository.getAssetGlobalQuote(assetUiModel.symbol)
                 if (result.isSuccess) {
-                    val assetQuote = result.getOrThrow().globalQuote
-                    assetUiModel.price = assetQuote.price
+                    val globalQuote = result.getOrThrow().toGlobalQuoteUiModel()
+                    assetUiModel.price = globalQuote.price
                     _getUpdatedAssetUiState.value = UiState.Success(assetUiModel)
                 } else
                     _getUpdatedAssetUiState.value = UiState.Error(result.exceptionOrNull() as Exception)

@@ -5,20 +5,20 @@ import com.omouravictor.invest_view.presenter.wallet.model.GlobalQuoteUiModel
 import com.omouravictor.invest_view.util.getDoubleValue
 
 data class AssetGlobalQuoteResponse(
-    @SerializedName("Global Quote") val globalQuote: GlobalQuote
+    @SerializedName("Global Quote") val globalQuoteResponse: GlobalQuoteResponse
 )
 
 fun AssetGlobalQuoteResponse.toGlobalQuoteUiModel(): GlobalQuoteUiModel {
     return GlobalQuoteUiModel(
-        symbol = globalQuote.symbol,
-        open = globalQuote.open,
-        high = globalQuote.high,
-        low = globalQuote.low,
-        price = globalQuote.price,
-        volume = globalQuote.volume,
-        latestTradingDay = globalQuote.latestTradingDay,
-        previousClose = globalQuote.previousClose,
-        change = globalQuote.change,
-        changePercent = globalQuote.changePercent.getDoubleValue()
+        symbol = globalQuoteResponse.symbol,
+        open = globalQuoteResponse.open,
+        high = globalQuoteResponse.high,
+        low = globalQuoteResponse.low,
+        price = globalQuoteResponse.price,
+        volume = globalQuoteResponse.volume,
+        latestTradingDay = globalQuoteResponse.latestTradingDay,
+        previousClose = globalQuoteResponse.previousClose,
+        change = globalQuoteResponse.change,
+        changePercent = globalQuoteResponse.changePercent.getDoubleValue()
     )
 }

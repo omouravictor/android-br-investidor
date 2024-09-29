@@ -2,7 +2,7 @@ package com.omouravictor.invest_view.data.remote.model.asset_quote
 
 import com.google.gson.annotations.SerializedName
 
-data class GlobalQuote(
+data class GlobalQuoteResponse(
     @SerializedName("01. symbol") val symbol: String = "",
     @SerializedName("02. open") val open: Double = 0.0,
     @SerializedName("03. high") val high: Double = 0.0,
