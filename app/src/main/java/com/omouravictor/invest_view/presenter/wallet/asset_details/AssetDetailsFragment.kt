@@ -36,8 +36,8 @@ import com.omouravictor.invest_view.util.AssetUtil
 import com.omouravictor.invest_view.util.ConstantUtil
 import com.omouravictor.invest_view.util.LocaleUtil
 import com.omouravictor.invest_view.util.clearPileAndNavigateToStart
+import com.omouravictor.invest_view.util.getDoubleValue
 import com.omouravictor.invest_view.util.getGenericErrorMessage
-import com.omouravictor.invest_view.util.getMonetaryValueInDouble
 import com.omouravictor.invest_view.util.setupToolbarTitle
 import com.omouravictor.invest_view.util.setupVariation
 import com.omouravictor.invest_view.util.setupYieldForAsset
@@ -177,7 +177,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         }
 
         binding.incCardConversionRate.switchCurrencyConversion.setOnCheckedChangeListener { button, isChecked ->
-            val rate = binding.incCardConversionRate.tvCurrencyRate.getMonetaryValueInDouble()
+            val rate = binding.incCardConversionRate.tvCurrencyRate.getDoubleValue()
             if (isChecked) {
                 convertCurrencyViews(appCurrency, rate)
             } else {

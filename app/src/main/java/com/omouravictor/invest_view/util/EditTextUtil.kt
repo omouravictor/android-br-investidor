@@ -64,4 +64,4 @@ fun EditText.getLongValue(): Long {
     return if (text.isNotEmpty()) text.getOnlyNumbers().toLong() else 0
 }
 
-fun EditText.getMonetaryValueInDouble(): Double = text.toString().getMonetaryValueInDouble()
+fun EditText.getDoubleValue(): Double = text.toString().getDoubleValue()
