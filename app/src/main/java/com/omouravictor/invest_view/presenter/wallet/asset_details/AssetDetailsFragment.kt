@@ -299,15 +299,13 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
     }
 
     private fun handleConversionResultLoading(isLoading: Boolean) {
-        if (isLoading) {
-            binding.incCardConversionRate.apply {
+        binding.incCardConversionRate.apply {
+            if (isLoading) {
                 incSwitchShimmer.root.startShimmer()
                 incSwitchShimmer.root.visibility = View.VISIBLE
                 switchCurrencyConversion.visibility = View.INVISIBLE
                 ivSwitchReload.visibility = View.INVISIBLE
-            }
-        } else {
-            binding.incCardConversionRate.apply {
+            } else {
                 incSwitchShimmer.root.stopShimmer()
                 incSwitchShimmer.root.visibility = View.INVISIBLE
                 switchCurrencyConversion.visibility = View.VISIBLE
