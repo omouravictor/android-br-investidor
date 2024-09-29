@@ -7,8 +7,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.omouravictor.invest_view.databinding.ItemAssetBySearchBinding
 import com.omouravictor.invest_view.presenter.base.BaseRecyclerViewAdapter
-import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
-import com.omouravictor.invest_view.presenter.wallet.model.getFormattedSymbol
+import com.omouravictor.invest_view.presenter.wallet.asset.AssetUiModel
+import com.omouravictor.invest_view.presenter.wallet.asset.getFormattedSymbol
 
 class AssetBySearchAdapter :
     BaseRecyclerViewAdapter<AssetUiModel, AssetBySearchAdapter.AssetBySearchViewHolder>() {

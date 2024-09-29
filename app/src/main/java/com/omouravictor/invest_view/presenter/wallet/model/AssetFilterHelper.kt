@@ -7,6 +7,8 @@ import android.widget.Spinner
 import com.github.mikephil.charting.charts.PieChart
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.presenter.base.BaseRecyclerViewAdapter
+import com.omouravictor.invest_view.presenter.wallet.asset.AssetUiModel
+import com.omouravictor.invest_view.presenter.wallet.asset.getYield
 import com.omouravictor.invest_view.util.updateCenterText
 
 class AssetFilterHelper(

@@ -1,6 +1,6 @@
 package com.omouravictor.invest_view.data.remote.repository
 
-import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
+import com.omouravictor.invest_view.presenter.wallet.asset.AssetUiModel
 
 interface FirebaseRepository {
     suspend fun getAssetList(userId: String): Result<List<AssetUiModel>>

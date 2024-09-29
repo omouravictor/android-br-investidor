@@ -3,7 +3,7 @@ package com.omouravictor.invest_view.data.remote.repository
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.omouravictor.invest_view.di.model.DispatcherProvider
-import com.omouravictor.invest_view.presenter.wallet.model.AssetUiModel
+import com.omouravictor.invest_view.presenter.wallet.asset.AssetUiModel
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 

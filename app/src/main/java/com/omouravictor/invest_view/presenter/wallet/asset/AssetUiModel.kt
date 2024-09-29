@@ -1,6 +1,7 @@
-package com.omouravictor.invest_view.presenter.wallet.model
+package com.omouravictor.invest_view.presenter.wallet.asset
 
 import android.os.Parcelable
+import com.omouravictor.invest_view.presenter.wallet.asset_types.AssetType
 import com.omouravictor.invest_view.util.AssetUtil
 import com.omouravictor.invest_view.util.LocaleUtil
 import com.omouravictor.invest_view.util.getRoundedDouble

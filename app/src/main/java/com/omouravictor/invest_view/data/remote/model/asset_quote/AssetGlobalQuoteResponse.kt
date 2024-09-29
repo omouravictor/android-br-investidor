@@ -1,6 +1,7 @@
 package com.omouravictor.invest_view.data.remote.model.asset_quote
 
 import com.google.gson.annotations.SerializedName
+import com.omouravictor.invest_view.presenter.wallet.model.GlobalQuoteUiModel
 import com.omouravictor.invest_view.util.getDoubleValue
 
 data class AssetGlobalQuoteResponse(

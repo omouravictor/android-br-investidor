@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.presenter.wallet.model
+package com.omouravictor.invest_view.presenter.wallet.asset_types
 
 import com.omouravictor.invest_view.R
 

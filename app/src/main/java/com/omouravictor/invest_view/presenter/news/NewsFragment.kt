@@ -18,7 +18,7 @@ import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentNewsBinding
 import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.presenter.news.article.ArticleAdapter
-import com.omouravictor.invest_view.presenter.news.model.ArticleUiModel
+import com.omouravictor.invest_view.presenter.news.article.ArticleUiModel
 import com.omouravictor.invest_view.util.getGenericErrorMessage
 import com.omouravictor.invest_view.util.hideKeyboard
 import com.omouravictor.invest_view.util.setupRecyclerViewWithLinearLayout

@@ -1,7 +1,7 @@
 package com.omouravictor.invest_view.util
 
 import com.omouravictor.invest_view.R
-import com.omouravictor.invest_view.presenter.wallet.model.AssetType
+import com.omouravictor.invest_view.presenter.wallet.asset_types.AssetType
 
 object AssetUtil {
 

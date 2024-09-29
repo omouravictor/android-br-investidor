@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.data.remote.model.asset_quote
+package com.omouravictor.invest_view.presenter.wallet.model
 
 data class GlobalQuoteUiModel(
     val symbol: String,
