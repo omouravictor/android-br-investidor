@@ -7,116 +7,42 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/defaultPadding">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:id="@+id/mainLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/rowCurrencyConversion"
+            <include
+                android:id="@+id/incCardConversionRate"
+                layout="@layout/card_conversion_rate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/tvCurrencyRateTittle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="2"
-                    app:layout_constraintEnd_toStartOf="@+id/tvCurrencyRate"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Cotação USD" />
-
-                <TextView
-                    android:id="@+id/tvCurrencyRate"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:gravity="end"
-                    android:maxLines="1"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/tvCurrencyRateTittle"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="R$ 5,43" />
-
-                <TextView
-                    android:id="@+id/tvCurrencyConversionTittle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center_vertical"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/tvCurrencyRateTittle"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvCurrencyRateTittle"
-                    tools:text="Exibir em moeda local (BRL)" />
-
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/switchCurrencyConversion"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:theme="@style/AppSwitchStyle"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/tvCurrencyConversionTittle"
-                    app:layout_constraintTop_toTopOf="@+id/tvCurrencyConversionTittle" />
-
-                <include
-                    android:id="@+id/incSwitchShimmer"
-                    layout="@layout/shimmer_item"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/tvCurrencyConversionTittle"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHeight_percent=".3"
-                    app:layout_constraintTop_toTopOf="@+id/tvCurrencyConversionTittle"
-                    app:layout_constraintWidth_percent=".1" />
-
-                <ImageView
-                    android:id="@+id/ivSwitchReload"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_reload"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="@+id/tvCurrencyConversionTittle"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tvCurrencyConversionTittle"
-                    tools:visibility="visible" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_margin="16dp" />
 
             <TextView
-                android:id="@+id/tvAssetSectionTitle"
-                android:layout_width="0dp"
+                android:id="@+id/assetSectionTitle"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Ativo"
+                android:paddingHorizontal="@dimen/defaultPadding"
+                android:text="@string/Asset"
                 android:textSize="@dimen/textSize4"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rowCurrencyConversion" />
+                android:textStyle="bold" />
 
             <TableLayout
                 android:id="@+id/assetSectionTableLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:stretchColumns="1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvAssetSectionTitle">
+                android:paddingHorizontal="@dimen/defaultPadding"
+                android:stretchColumns="1">
 
                 <TableRow>
 
                     <TextView
-                        android:id="@+id/tvSymbolTittle"
+                        android:id="@+id/tvTitleExchange"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="0.4"
@@ -324,25 +250,21 @@
 
             <TextView
                 android:id="@+id/tvWalletSectionTitle"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:paddingHorizontal="@dimen/defaultPadding"
                 android:text="@string/wallet"
                 android:textSize="@dimen/textSize4"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/assetSectionTableLayout" />
+                android:textStyle="bold" />
 
             <TableLayout
                 android:id="@+id/walletSectionTableLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:stretchColumns="1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvWalletSectionTitle">
+                android:paddingHorizontal="@dimen/defaultPadding"
+                android:stretchColumns="1">
 
                 <TableRow>
 
@@ -455,17 +377,20 @@
 
             </TableLayout>
 
-            <include
-                android:id="@+id/incBtnNewTransaction"
-                layout="@layout/button_default"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/walletSectionTableLayout" />
+        </LinearLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <include
+            android:id="@+id/incBtnNewTransaction"
+            layout="@layout/button_default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mainLayout" />
 
         <include
             android:id="@+id/incProgressBar"

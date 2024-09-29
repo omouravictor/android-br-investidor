@@ -155,18 +155,24 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
     }
 
     private fun setupCurrencyConversionViews() {
+        val context = requireContext()
         val appCurrency = LocaleUtil.appCurrency.toString()
         val assetCurrency = assetUiModel.currency
 
         if (appCurrency == assetCurrency) {
-            binding.rowCurrencyConversion.visibility = View.GONE
+            binding.incCardConversionRate.root.visibility = View.GONE
         } else {
-            binding.rowCurrencyConversion.visibility = View.VISIBLE
-            binding.tvCurrencyRateTittle.text = getString(R.string.currencyRate, assetCurrency)
-            binding.tvCurrencyConversionTittle.text = getString(R.string.convertToLocalCurrency, appCurrency)
+            binding.incCardConversionRate.apply {
+                root.visibility = View.VISIBLE
+                tvTitleExchange.text = getString(R.string.exchange)
+                tvAssetCurrencyA.text = assetCurrency
+                tvAssetCurrencyA.backgroundTintList =
+                    getColorStateList(context, AssetUtil.getCurrencyResColor(assetCurrency))
+                tvTitleCurrencyConversion.text = getString(R.string.convertValuesToLocalCurrency, appCurrency)
+            }
         }
 
-        binding.switchCurrencyConversion.setOnCheckedChangeListener { button, isChecked ->
+        binding.incCardConversionRate.switchCurrencyConversion.setOnCheckedChangeListener { button, isChecked ->
             val rate = conversionResult.info?.rate
             if (isChecked && rate != null) {
                 convertCurrencyViews(appCurrency, rate)
@@ -176,7 +182,9 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
             }
         }
 
-        binding.ivSwitchReload.setOnClickListener { currencyExchangeRatesViewModel.convert(assetCurrency, appCurrency) }
+        binding.incCardConversionRate.ivSwitchReload.setOnClickListener {
+            currencyExchangeRatesViewModel.convert(assetCurrency, appCurrency)
+        }
     }
 
     private fun convertCurrencyViews(currency: String, rate: Double) {
@@ -278,22 +286,26 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
 
     private fun handleConversionResultLoading(isLoading: Boolean) {
         if (isLoading) {
-            binding.incSwitchShimmer.root.startShimmer()
-            binding.incSwitchShimmer.root.visibility = View.VISIBLE
-            binding.switchCurrencyConversion.visibility = View.INVISIBLE
-            binding.ivSwitchReload.visibility = View.INVISIBLE
+            binding.incCardConversionRate.apply {
+                incSwitchShimmer.root.startShimmer()
+                incSwitchShimmer.root.visibility = View.VISIBLE
+                switchCurrencyConversion.visibility = View.INVISIBLE
+                ivSwitchReload.visibility = View.INVISIBLE
+            }
         } else {
-            binding.incSwitchShimmer.root.stopShimmer()
-            binding.incSwitchShimmer.root.visibility = View.INVISIBLE
-            binding.switchCurrencyConversion.visibility = View.VISIBLE
-            binding.ivSwitchReload.visibility = View.INVISIBLE
+            binding.incCardConversionRate.apply {
+                incSwitchShimmer.root.stopShimmer()
+                incSwitchShimmer.root.visibility = View.INVISIBLE
+                switchCurrencyConversion.visibility = View.VISIBLE
+                ivSwitchReload.visibility = View.INVISIBLE
+            }
         }
     }
 
     private fun handleConversionResultSuccess(currencyExchangeRates: ConversionResultResponse) {
         if (currencyExchangeRates.success == true) {
             handleConversionResultLoading(false)
-            binding.tvCurrencyRate.text = LocaleUtil.getFormattedCurrencyValue(
+            binding.incCardConversionRate.tvCurrencyRate.text = LocaleUtil.getFormattedCurrencyValue(
                 LocaleUtil.appCurrency.toString(),
                 currencyExchangeRates.info!!.rate
             )
@@ -305,8 +317,10 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
 
     private fun handleConversionResultError() {
         handleConversionResultLoading(false)
-        binding.switchCurrencyConversion.visibility = View.INVISIBLE
-        binding.ivSwitchReload.visibility = View.VISIBLE
+        binding.incCardConversionRate.apply {
+            switchCurrencyConversion.visibility = View.INVISIBLE
+            ivSwitchReload.visibility = View.VISIBLE
+        }
     }
 
     private fun observeGetConversionResultUiState() {
