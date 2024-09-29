@@ -11,13 +11,7 @@ data class AssetGlobalQuoteResponse(
 fun AssetGlobalQuoteResponse.toGlobalQuoteUiModel(): GlobalQuoteUiModel {
     return GlobalQuoteUiModel(
         symbol = globalQuoteResponse.symbol,
-        open = globalQuoteResponse.open,
-        high = globalQuoteResponse.high,
-        low = globalQuoteResponse.low,
         price = globalQuoteResponse.price,
-        volume = globalQuoteResponse.volume,
-        latestTradingDay = globalQuoteResponse.latestTradingDay,
-        previousClose = globalQuoteResponse.previousClose,
         change = globalQuoteResponse.change,
         changePercent = globalQuoteResponse.changePercent.getDoubleValue()
     )
