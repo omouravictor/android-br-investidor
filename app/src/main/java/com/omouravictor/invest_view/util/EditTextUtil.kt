@@ -64,7 +64,4 @@ fun EditText.getLongValue(): Long {
     return if (text.isNotEmpty()) text.getOnlyNumbers().toLong() else 0
 }
 
-fun EditText.getMonetaryValueDouble(): Double {
-    val text = this.text.toString()
-    return if (text.isNotEmpty()) text.getOnlyNumbers().toDouble() / 100 else 0.0
-}
+fun EditText.getMonetaryValueInDouble(): Double = text.toString().getMonetaryValueInDouble()

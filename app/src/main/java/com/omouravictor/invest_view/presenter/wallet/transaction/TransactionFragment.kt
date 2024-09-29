@@ -30,7 +30,7 @@ import com.omouravictor.invest_view.util.LocaleUtil
 import com.omouravictor.invest_view.util.clearPileAndNavigateToStart
 import com.omouravictor.invest_view.util.getGenericErrorMessage
 import com.omouravictor.invest_view.util.getLongValue
-import com.omouravictor.invest_view.util.getMonetaryValueDouble
+import com.omouravictor.invest_view.util.getMonetaryValueInDouble
 import com.omouravictor.invest_view.util.getRoundedDouble
 import com.omouravictor.invest_view.util.setEditTextCurrencyFormatMask
 import com.omouravictor.invest_view.util.setEditTextLongNumberFormatMask
@@ -165,7 +165,7 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
 
     private fun updateNewPosition() {
         val amount = binding.ietAmount.getLongValue()
-        val valuePerUnit = binding.ietValuePerUnit.getMonetaryValueDouble()
+        val valuePerUnit = binding.ietValuePerUnit.getMonetaryValueInDouble()
 
         if (amount == 0L || valuePerUnit == 0.0) {
             showInitialUpdatedPositionLayout()
@@ -211,7 +211,7 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
             setOnClickListener {
                 val isBuy = transaction == Transaction.BUY
                 val amount = binding.ietAmount.getLongValue()
-                val totalInvested = binding.ietValuePerUnit.getMonetaryValueDouble() * amount
+                val totalInvested = binding.ietValuePerUnit.getMonetaryValueInDouble() * amount
                 val updatedAmount = if (isBuy) assetUiModel.amount + amount else assetUiModel.amount - amount
 
                 if (updatedAmount < 1) {

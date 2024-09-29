@@ -31,7 +31,7 @@ import com.omouravictor.invest_view.util.LocaleUtil
 import com.omouravictor.invest_view.util.clearPileAndNavigateToStart
 import com.omouravictor.invest_view.util.getGenericErrorMessage
 import com.omouravictor.invest_view.util.getLongValue
-import com.omouravictor.invest_view.util.getMonetaryValueDouble
+import com.omouravictor.invest_view.util.getMonetaryValueInDouble
 import com.omouravictor.invest_view.util.getRoundedDouble
 import com.omouravictor.invest_view.util.setEditTextCurrencyFormatMask
 import com.omouravictor.invest_view.util.setEditTextLongNumberFormatMask
@@ -131,7 +131,7 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
             if (amount != 0L) {
                 val currency = assetUiModel.currency
                 val totalPrice = amount * assetUiModel.price
-                val totalInvested = binding.ietTotalInvested.getMonetaryValueDouble()
+                val totalInvested = binding.ietTotalInvested.getMonetaryValueInDouble()
                 val yield = (totalPrice - totalInvested).getRoundedDouble()
                 val yieldPercent = yield / totalInvested
 
@@ -156,7 +156,7 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
             text = getString(R.string.save)
             setOnClickListener {
                 assetUiModel.amount = binding.ietAmount.getLongValue()
-                assetUiModel.totalInvested = binding.ietTotalInvested.getMonetaryValueDouble()
+                assetUiModel.totalInvested = binding.ietTotalInvested.getMonetaryValueInDouble()
                 walletViewModel.saveAsset(assetUiModel)
             }
         }

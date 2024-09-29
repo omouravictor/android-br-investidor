@@ -37,6 +37,7 @@ import com.omouravictor.invest_view.util.ConstantUtil
 import com.omouravictor.invest_view.util.LocaleUtil
 import com.omouravictor.invest_view.util.clearPileAndNavigateToStart
 import com.omouravictor.invest_view.util.getGenericErrorMessage
+import com.omouravictor.invest_view.util.getMonetaryValueInDouble
 import com.omouravictor.invest_view.util.setupToolbarTitle
 import com.omouravictor.invest_view.util.setupVariation
 import com.omouravictor.invest_view.util.setupYieldForAsset
@@ -49,7 +50,6 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
     private lateinit var binding: FragmentAssetDetailsBinding
     private lateinit var assetUiModel: AssetUiModel
     private lateinit var navController: NavController
-    private var conversionResult = ConversionResultResponse()
     private val args by navArgs<AssetDetailsFragmentArgs>()
     private val assetViewModel: AssetViewModel by activityViewModels()
     private val currencyExchangeRatesViewModel: CurrencyExchangeRatesViewModel by activityViewModels()
@@ -177,8 +177,8 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         }
 
         binding.incCardConversionRate.switchCurrencyConversion.setOnCheckedChangeListener { button, isChecked ->
-            val rate = conversionResult.info?.rate
-            if (isChecked && rate != null) {
+            val rate = binding.incCardConversionRate.tvCurrencyRate.getMonetaryValueInDouble()
+            if (isChecked) {
                 convertCurrencyViews(appCurrency, rate)
             } else {
                 button.isChecked = false
@@ -321,7 +321,6 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
                 LocaleUtil.appCurrency.toString(),
                 currencyExchangeRates.info!!.rate
             )
-            conversionResult = currencyExchangeRates
         } else {
             handleConversionResultError()
         }
