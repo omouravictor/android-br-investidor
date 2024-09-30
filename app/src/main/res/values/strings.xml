@@ -120,5 +120,6 @@
     <string name="exchange">Câmbio</string>
     <string name="currentRate">Cotação atual</string>
     <string name="name">Nome</string>
+    <string name="inWallet">Na carteira</string>
 
 </resources>

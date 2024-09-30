@@ -16,7 +16,7 @@
             android:id="@+id/tvWalletSectionTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/wallet"
+            android:text="@string/inWallet"
             android:textSize="@dimen/textSize4"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
