@@ -52,12 +52,12 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        assetUiModel = args.assetUiModel
         navController = findNavController()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        assetUiModel = args.assetUiModel
         binding = FragmentSaveAssetBinding.bind(view)
         setupToolbar()
         setupViews()
