@@ -24,7 +24,8 @@
                 layout="@layout/card_conversion_rate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/defaultMargin" />
+                android:layout_marginHorizontal="@dimen/defaultMargin"
+                android:layout_marginTop="@dimen/defaultMargin" />
 
             <include
                 android:id="@+id/incCardAssetDetails"
@@ -32,15 +33,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/defaultMargin"
-                android:layout_marginBottom="@dimen/defaultMargin" />
+                android:layout_marginTop="@dimen/defaultMargin" />
 
             <include
                 android:id="@+id/incCardWalletDetails"
                 layout="@layout/card_wallet_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/defaultMargin"
-                android:layout_marginBottom="@dimen/defaultMargin" />
+                android:layout_margin="@dimen/defaultMargin"
+                android:layout_marginHorizontal="@dimen/defaultMargin" />
 
         </LinearLayout>
 
