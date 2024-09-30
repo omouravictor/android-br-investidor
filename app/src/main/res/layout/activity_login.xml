@@ -86,11 +86,13 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/defaultMargin" />
 
-        <include
-            android:id="@+id/incBtnRegister"
-            layout="@layout/button_default"
+        <TextView
+            android:id="@+id/tvRegister"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="@color/gray"
+            tools:text="@string/registerMessage" />
 
     </LinearLayout>
 

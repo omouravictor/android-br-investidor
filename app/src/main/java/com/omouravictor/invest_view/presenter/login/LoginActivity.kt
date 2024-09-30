@@ -1,7 +1,11 @@
 package com.omouravictor.invest_view.presenter.login
 
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -37,8 +41,13 @@ class LoginActivity : AppCompatActivity() {
             setOnClickListener { login() }
         }
 
-        binding.incBtnRegister.root.apply {
-            text = getString(R.string.register)
+        binding.tvRegister.apply {
+            text = SpannableString(getString(R.string.registerMessage)).apply {
+                val startIndex = indexOf("?") + 1
+                setSpan(StyleSpan(Typeface.BOLD), startIndex, length, 0)
+                setSpan(ForegroundColorSpan(getColor(R.color.defaultButtonBackgroundColor)), startIndex, length, 0)
+            }
+
             setOnClickListener {
                 startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
                 finish()

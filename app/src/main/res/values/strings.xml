@@ -118,5 +118,6 @@
     <string name="exchange">Câmbio</string>
     <string name="currentRate">Cotação atual</string>
     <string name="name">Nome</string>
+    <string name="registerMessage">Não tem uma conta? Cadastre-se</string>
 
 </resources>
