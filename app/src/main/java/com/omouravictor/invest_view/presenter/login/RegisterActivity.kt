@@ -1,18 +1,17 @@
 package com.omouravictor.invest_view.presenter.login
 
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.google.firebase.FirebaseTooManyRequestsException
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.FirebaseAuthUserCollisionException
-import com.google.firebase.auth.FirebaseAuthWeakPasswordException
-import com.google.firebase.auth.FirebaseUser
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.ActivityRegisterBinding
 import com.omouravictor.invest_view.presenter.MainActivity
@@ -31,17 +30,41 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setupViews()
+        observeUserUiState()
+    }
 
+    override fun onStop() {
+        super.onStop()
+        loginViewModel.resetUserUiState()
+    }
+
+    private fun register() {
+        val email = binding.etEmail.text.toString().trim()
+        val password = binding.etPassword.text.toString()
+
+        if (email.isNotEmpty() && password.isNotEmpty())
+            loginViewModel.register(email, password)
+        else
+            showErrorSnackBar(getString(R.string.fillAllFields))
+    }
+
+    private fun setupViews() {
         binding.incBtnRegister.root.apply {
             text = getString(R.string.register)
             setOnClickListener { register() }
         }
 
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                loginViewModel.userUiState.collectLatest {
-                    handleUserUiState(it)
-                }
+        binding.tvLogin.apply {
+            text = SpannableString(getString(R.string.doLoginMessage)).apply {
+                val startIndex = indexOf("?") + 1
+                setSpan(StyleSpan(Typeface.BOLD), startIndex, length, 0)
+                setSpan(ForegroundColorSpan(getColor(R.color.defaultButtonBackgroundColor)), startIndex, length, 0)
+            }
+
+            setOnClickListener {
+                startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
+                finish()
             }
         }
     }
@@ -56,35 +79,22 @@ class RegisterActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun handleUserUiState(userUiState: UiState<FirebaseUser?>) {
-        when (userUiState) {
-            is UiState.Initial -> loginLayoutIsVisible(true)
-            is UiState.Loading -> loginLayoutIsVisible(false)
-            is UiState.Success -> startMainActivity()
-            is UiState.Error -> {
-                loginLayoutIsVisible(true)
-
-                val message = when (val exception = userUiState.e) {
-                    is FirebaseAuthWeakPasswordException -> getString(R.string.weakPassword)
-                    is FirebaseAuthInvalidCredentialsException -> getString(R.string.invalidCredentials)
-                    is FirebaseAuthUserCollisionException -> getString(R.string.userAlreadyExists)
-                    is FirebaseTooManyRequestsException -> getString(R.string.tooManyRequests)
-                    else -> "${getString(R.string.loginError)}: ${getGenericErrorMessage(exception)}."
+    private fun observeUserUiState() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                loginViewModel.userUiState.collectLatest {
+                    when (it) {
+                        is UiState.Initial -> loginLayoutIsVisible(true)
+                        is UiState.Loading -> loginLayoutIsVisible(false)
+                        is UiState.Success -> startMainActivity()
+                        is UiState.Error -> {
+                            loginLayoutIsVisible(true)
+                            showErrorSnackBar(getGenericErrorMessage(it.e))
+                        }
+                    }
                 }
-
-                showErrorSnackBar(message)
             }
         }
-    }
-
-    private fun register() {
-        val email = binding.etEmail.text.toString().trim()
-        val password = binding.etPassword.text.toString()
-
-        if (email.isNotEmpty() && password.isNotEmpty())
-            loginViewModel.register(email, password)
-        else
-            showErrorSnackBar(getString(R.string.fillAllFields))
     }
 
 }
