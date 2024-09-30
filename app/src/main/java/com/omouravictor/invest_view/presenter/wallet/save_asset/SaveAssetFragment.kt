@@ -16,6 +16,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -45,8 +46,14 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
 
     private lateinit var binding: FragmentSaveAssetBinding
     private lateinit var assetUiModel: AssetUiModel
+    private lateinit var navController: NavController
     private val args by navArgs<SaveAssetFragmentArgs>()
     private val walletViewModel: WalletViewModel by activityViewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        navController = findNavController()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -96,7 +103,7 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
 
     private fun setupAmountAndTotalInvested() {
         val previousIsAssetSearch =
-            findNavController().previousBackStackEntry!!.destination.id == R.id.fragmentAssetSearch
+            navController.previousBackStackEntry!!.destination.id == R.id.fragmentAssetSearch
 
         binding.ietAmount.apply {
             doAfterTextChanged { setupCurrentPosition() }
@@ -176,7 +183,6 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
     }
 
     private fun handleSaveAssetSuccess(asset: AssetUiModel) {
-        val navController = findNavController()
         val previousBackStackEntry = navController.previousBackStackEntry!!
 
         when (previousBackStackEntry.destination.id) {
