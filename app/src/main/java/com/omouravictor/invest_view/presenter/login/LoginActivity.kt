@@ -12,11 +12,6 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.google.firebase.FirebaseTooManyRequestsException
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.FirebaseAuthUserCollisionException
-import com.google.firebase.auth.FirebaseAuthWeakPasswordException
-import com.google.firebase.auth.FirebaseUser
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.ActivityLoginBinding
 import com.omouravictor.invest_view.presenter.MainActivity
@@ -35,7 +30,21 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setupViews()
+        observeUserUiState()
+    }
 
+    private fun login() {
+        val email = binding.etEmail.text.toString().trim()
+        val password = binding.etPassword.text.toString()
+
+        if (email.isNotEmpty() && password.isNotEmpty())
+            loginViewModel.login(email, password)
+        else
+            showErrorSnackBar(getString(R.string.fillAllFields))
+    }
+
+    private fun setupViews() {
         binding.incBtnLogin.root.apply {
             text = getString(R.string.login)
             setOnClickListener { login() }
@@ -53,14 +62,6 @@ class LoginActivity : AppCompatActivity() {
                 finish()
             }
         }
-
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                loginViewModel.userUiState.collectLatest {
-                    handleUserUiState(it)
-                }
-            }
-        }
     }
 
     private fun loginLayoutIsVisible(isVisible: Boolean) {
@@ -73,35 +74,22 @@ class LoginActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun handleUserUiState(userUiState: UiState<FirebaseUser?>) {
-        when (userUiState) {
-            is UiState.Initial -> loginLayoutIsVisible(true)
-            is UiState.Loading -> loginLayoutIsVisible(false)
-            is UiState.Success -> startMainActivity()
-            is UiState.Error -> {
-                loginLayoutIsVisible(true)
-
-                val message = when (val exception = userUiState.e) {
-                    is FirebaseAuthWeakPasswordException -> getString(R.string.weakPassword)
-                    is FirebaseAuthInvalidCredentialsException -> getString(R.string.invalidCredentials)
-                    is FirebaseAuthUserCollisionException -> getString(R.string.userAlreadyExists)
-                    is FirebaseTooManyRequestsException -> getString(R.string.tooManyRequests)
-                    else -> "${getString(R.string.loginError)}: ${getGenericErrorMessage(exception)}."
+    private fun observeUserUiState() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                loginViewModel.userUiState.collectLatest {
+                    when (it) {
+                        is UiState.Initial -> loginLayoutIsVisible(true)
+                        is UiState.Loading -> loginLayoutIsVisible(false)
+                        is UiState.Success -> startMainActivity()
+                        is UiState.Error -> {
+                            loginLayoutIsVisible(true)
+                            showErrorSnackBar(getGenericErrorMessage(it.e))
+                        }
+                    }
                 }
-
-                showErrorSnackBar(message)
             }
         }
-    }
-
-    private fun login() {
-        val email = binding.etEmail.text.toString().trim()
-        val password = binding.etPassword.text.toString()
-
-        if (email.isNotEmpty() && password.isNotEmpty())
-            loginViewModel.login(email, password)
-        else
-            showErrorSnackBar(getString(R.string.fillAllFields))
     }
 
 }
