@@ -12,10 +12,9 @@ import kotlinx.coroutines.tasks.await
 
 class LoginViewModel : ViewModel() {
 
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val _userUiState = MutableStateFlow<UiState<FirebaseUser?>>(UiState.Initial)
     val userUiState = _userUiState.asStateFlow()
-
-    private val auth: FirebaseAuth by lazy { FirebaseAuth.getInstance() }
 
     init {
         val currentUser = auth.currentUser

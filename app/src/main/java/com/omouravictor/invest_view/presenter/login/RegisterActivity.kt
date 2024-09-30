@@ -14,7 +14,7 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.auth.FirebaseUser
 import com.omouravictor.invest_view.R
-import com.omouravictor.invest_view.databinding.ActivityLoginBinding
+import com.omouravictor.invest_view.databinding.ActivityRegisterBinding
 import com.omouravictor.invest_view.presenter.MainActivity
 import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.util.getGenericErrorMessage
@@ -22,27 +22,19 @@ import com.omouravictor.invest_view.util.showErrorSnackBar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class LoginActivity : AppCompatActivity() {
+class RegisterActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityLoginBinding
+    private lateinit var binding: ActivityRegisterBinding
     private val loginViewModel: LoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        binding.incBtnLogin.root.apply {
-            text = getString(R.string.login)
-            setOnClickListener { login() }
-        }
 
         binding.incBtnRegister.root.apply {
             text = getString(R.string.register)
-            setOnClickListener {
-                startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
-                finish()
-            }
+            setOnClickListener { register() }
         }
 
         lifecycleScope.launch {
@@ -55,7 +47,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun loginLayoutIsVisible(isVisible: Boolean) {
-        binding.loginLayout.isVisible = isVisible
+        binding.registerLayout.isVisible = isVisible
         binding.incProgressBar.root.isVisible = !isVisible
     }
 
@@ -85,12 +77,12 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun login() {
+    private fun register() {
         val email = binding.etEmail.text.toString().trim()
         val password = binding.etPassword.text.toString()
 
         if (email.isNotEmpty() && password.isNotEmpty())
-            loginViewModel.login(email, password)
+            loginViewModel.register(email, password)
         else
             showErrorSnackBar(getString(R.string.fillAllFields))
     }

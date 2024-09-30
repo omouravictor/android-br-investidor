@@ -29,8 +29,12 @@
         </activity>
 
         <activity
+            android:name=".presenter.login.RegisterActivity"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
             android:name=".presenter.MainActivity"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize" />
 
     </application>
 

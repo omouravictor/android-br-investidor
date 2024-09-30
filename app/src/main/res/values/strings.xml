@@ -117,5 +117,6 @@
     <string name="lastChange">Última variação</string>
     <string name="exchange">Câmbio</string>
     <string name="currentRate">Cotação atual</string>
+    <string name="name">Nome</string>
 
 </resources>
