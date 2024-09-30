@@ -17,7 +17,6 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.omouravictor.invest_view.R
-import com.omouravictor.invest_view.data.remote.model.currency_exchange_rate.ConversionResultResponse
 import com.omouravictor.invest_view.databinding.FragmentAssetDetailsBinding
 import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
@@ -31,13 +30,13 @@ import com.omouravictor.invest_view.presenter.wallet.asset.getFormattedTotalPric
 import com.omouravictor.invest_view.presenter.wallet.asset.getTotalPrice
 import com.omouravictor.invest_view.presenter.wallet.asset.getYield
 import com.omouravictor.invest_view.presenter.wallet.currency_exchange_rates.CurrencyExchangeRatesViewModel
+import com.omouravictor.invest_view.presenter.wallet.model.ConversionResultUiModel
 import com.omouravictor.invest_view.presenter.wallet.model.GlobalQuoteUiModel
 import com.omouravictor.invest_view.util.AssetUtil
 import com.omouravictor.invest_view.util.ConstantUtil
 import com.omouravictor.invest_view.util.LocaleUtil
 import com.omouravictor.invest_view.util.clearPileAndNavigateToStart
 import com.omouravictor.invest_view.util.getGenericErrorMessage
-import com.omouravictor.invest_view.util.getMonetaryValueInDouble
 import com.omouravictor.invest_view.util.setupToolbarTitle
 import com.omouravictor.invest_view.util.setupVariation
 import com.omouravictor.invest_view.util.setupYieldForAsset
@@ -55,6 +54,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
     private val currencyExchangeRatesViewModel: CurrencyExchangeRatesViewModel by activityViewModels()
     private val walletViewModel: WalletViewModel by activityViewModels()
     private var globalQuote: GlobalQuoteUiModel? = null
+    private var conversionResult: ConversionResultUiModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -178,7 +178,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
 
             switchCurrencyConversion.setOnCheckedChangeListener { button, isChecked ->
                 if (isChecked) {
-                    val rate = tvCurrencyRate.text.toString().getMonetaryValueInDouble()
+                    val rate = conversionResult!!.info!!.rate
                     convertCurrencyViews(appCurrency, rate)
                 } else {
                     button.isChecked = false
@@ -332,13 +332,14 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         }
     }
 
-    private fun handleConversionResultSuccess(currencyExchangeRates: ConversionResultResponse) {
-        if (currencyExchangeRates.success == true) {
+    private fun handleConversionResultSuccess(conversionResult: ConversionResultUiModel) {
+        if (conversionResult.success == true) {
             handleConversionResultLoading(false)
             binding.incCardConversionRate.tvCurrencyRate.text = LocaleUtil.getFormattedCurrencyValue(
                 LocaleUtil.appCurrency.toString(),
-                currencyExchangeRates.info!!.rate
+                conversionResult.info!!.rate
             )
+            this.conversionResult = conversionResult
         } else {
             handleConversionResultError()
         }
