@@ -53,7 +53,7 @@ class LoginViewModel : ViewModel() {
                 val user = authResult.user
 
                 if (user != null) {
-                    firestore.collection("users").document(user.uid).set("name" to name).await()
+                    firestore.collection("users").document(user.uid).set(mapOf("name" to name)).await()
                     _userUiState.value = UiState.Success(user)
                 } else {
                     _userUiState.value = UiState.Error(Exception("User is null"))
