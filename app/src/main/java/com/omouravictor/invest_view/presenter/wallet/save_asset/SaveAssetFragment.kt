@@ -85,7 +85,7 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
         binding.apply {
             val context = root.context
             etSymbol.setText(assetUiModel.getFormattedSymbol())
-            etLocation.setText(assetUiModel.region)
+            etCurrentPrice.setText(LocaleUtil.getFormattedCurrencyValue(assetUiModel.currency, assetUiModel.price))
             incItemListAsset.color.setBackgroundColor(context.getColor(assetUiModel.type.colorResId))
             incItemListAsset.tvName.text = assetUiModel.name
             incItemListAsset.tvInfoMessage.hint = getString(R.string.fillTheFieldsToView)
