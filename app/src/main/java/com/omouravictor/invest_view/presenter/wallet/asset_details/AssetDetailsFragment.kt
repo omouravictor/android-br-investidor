@@ -135,15 +135,18 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
     }
 
     private fun setupViews() {
+        setupCardWalletDetails()
+        setupCardAssetDetails()
+        setupCardConversionRate()
+    }
+
+    private fun setupCardWalletDetails() {
         binding.incCardWalletDetails.apply {
             tvAmount.text = assetUiModel.getFormattedAmount()
             tvCurrentPosition.text = assetUiModel.getFormattedTotalPrice()
             tvTotalInvested.text = assetUiModel.getFormattedTotalInvested()
             tvYield.setupYieldForAsset(assetUiModel)
         }
-
-        setupCardAssetDetails()
-        setupCardConversionRate()
     }
 
     private fun setupCardAssetDetails() {
