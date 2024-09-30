@@ -40,11 +40,12 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun register() {
+        val name = binding.etName.text.toString().trim()
         val email = binding.etEmail.text.toString().trim()
         val password = binding.etPassword.text.toString()
 
-        if (email.isNotEmpty() && password.isNotEmpty())
-            loginViewModel.register(email, password)
+        if (name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty())
+            loginViewModel.register(name, email, password)
         else
             showErrorSnackBar(getString(R.string.fillAllFields))
     }
