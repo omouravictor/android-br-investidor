@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:backgroundTint="@color/itemListBackColor"
     app:cardCornerRadius="@dimen/defaultRadius"
     app:cardElevation="@dimen/defaultElevation">
 
@@ -38,7 +39,7 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:text="@string/amount"
-                    android:textColor="@color/tableTittleTextColor" />
+                    android:textColor="@color/grayTextColor" />
 
                 <TextView
                     android:id="@+id/tvAmount"
@@ -66,7 +67,7 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:text="@string/currentPosition"
-                    android:textColor="@color/tableTittleTextColor" />
+                    android:textColor="@color/grayTextColor" />
 
                 <TextView
                     android:id="@+id/tvCurrentPosition"
@@ -94,7 +95,7 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:text="@string/totalInvested"
-                    android:textColor="@color/tableTittleTextColor" />
+                    android:textColor="@color/grayTextColor" />
 
                 <TextView
                     android:id="@+id/tvTotalInvested"
@@ -122,7 +123,7 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:text="@string/yield"
-                    android:textColor="@color/tableTittleTextColor" />
+                    android:textColor="@color/grayTextColor" />
 
                 <TextView
                     android:id="@+id/tvYield"

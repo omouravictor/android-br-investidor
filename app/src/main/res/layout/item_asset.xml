@@ -72,7 +72,7 @@
                     android:gravity="bottom"
                     android:maxLines="1"
                     android:text="@string/totalInvested"
-                    android:textColor="@color/grayDayNightColor"
+                    android:textColor="@color/grayTextColor"
                     android:textSize="@dimen/textSize1"
                     tools:text="Vale S.A." />
 

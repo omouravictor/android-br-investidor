@@ -115,7 +115,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:textColor="@color/grayText"
+            android:textColor="@color/grayTextColor"
             tools:text="@string/doLoginMessage" />
 
     </LinearLayout>

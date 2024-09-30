@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:backgroundTint="@color/itemListBackColor"
     app:cardCornerRadius="@dimen/defaultRadius"
     app:cardElevation="@dimen/defaultElevation">
 
@@ -53,7 +54,7 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:text="@string/symbol"
-                    android:textColor="@color/tableTittleTextColor" />
+                    android:textColor="@color/grayTextColor" />
 
                 <TextView
                     android:id="@+id/tvSymbol"
@@ -81,7 +82,7 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:text="@string/company"
-                    android:textColor="@color/tableTittleTextColor" />
+                    android:textColor="@color/grayTextColor" />
 
                 <TextView
                     android:id="@+id/tvCompanyName"
@@ -109,7 +110,7 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:text="@string/currencyBuy"
-                    android:textColor="@color/tableTittleTextColor" />
+                    android:textColor="@color/grayTextColor" />
 
                 <TextView
                     android:id="@+id/tvCurrencyBuy"
@@ -137,7 +138,7 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:text="@string/currentPrice"
-                    android:textColor="@color/tableTittleTextColor" />
+                    android:textColor="@color/grayTextColor" />
 
                 <TextView
                     android:id="@+id/tvCurrentPrice"
@@ -165,7 +166,7 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:text="@string/lastChange"
-                    android:textColor="@color/tableTittleTextColor" />
+                    android:textColor="@color/grayTextColor" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
