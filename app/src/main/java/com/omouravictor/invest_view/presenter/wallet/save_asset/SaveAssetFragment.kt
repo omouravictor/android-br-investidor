@@ -23,9 +23,9 @@ import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentSaveAssetBinding
 import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
-import com.omouravictor.invest_view.presenter.wallet.asset_types.AssetType
 import com.omouravictor.invest_view.presenter.wallet.asset.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.asset.getFormattedSymbol
+import com.omouravictor.invest_view.presenter.wallet.asset_types.AssetType
 import com.omouravictor.invest_view.util.ConstantUtil
 import com.omouravictor.invest_view.util.LocaleUtil
 import com.omouravictor.invest_view.util.clearPileAndNavigateToStart
@@ -95,10 +95,13 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
     }
 
     private fun setupAmountAndTotalInvested() {
+        val previousIsAssetSearch =
+            findNavController().previousBackStackEntry!!.destination.id == R.id.fragmentAssetSearch
+
         binding.ietAmount.apply {
             doAfterTextChanged { setupCurrentPosition() }
             setEditTextLongNumberFormatMask()
-            val amount = assetUiModel.amount
+            val amount = if (previousIsAssetSearch) 0L else assetUiModel.amount
             setText(if (amount != 0L) LocaleUtil.getFormattedLong(amount) else "1")
         }
 
@@ -107,7 +110,7 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
             doAfterTextChanged { setupCurrentPosition() }
             setEditTextCurrencyFormatMask(currency)
             hint = LocaleUtil.getFormattedCurrencyValue(currency, 0.0)
-            val totalInvested = assetUiModel.totalInvested
+            val totalInvested = if (previousIsAssetSearch) 0.0 else assetUiModel.totalInvested
             setText(if (totalInvested != 0.0) LocaleUtil.getFormattedCurrencyValue(currency, totalInvested) else "")
         }
     }
