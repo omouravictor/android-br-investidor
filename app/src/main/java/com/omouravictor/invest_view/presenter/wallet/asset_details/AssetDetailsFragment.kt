@@ -287,9 +287,11 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
     private fun handleDeleteAssetLoading(isLoading: Boolean) {
         if (isLoading) {
             binding.mainLayout.visibility = View.INVISIBLE
+            binding.incBtnNewTransaction.root.visibility = View.INVISIBLE
             binding.incProgressBar.root.visibility = View.VISIBLE
         } else {
             binding.mainLayout.visibility = View.VISIBLE
+            binding.incBtnNewTransaction.root.visibility = View.VISIBLE
             binding.incProgressBar.root.visibility = View.GONE
         }
     }

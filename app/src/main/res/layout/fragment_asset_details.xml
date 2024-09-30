@@ -13,56 +13,50 @@
         app:layout_constraintBottom_toTopOf="@+id/incBtnNewTransaction"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
+            android:id="@+id/mainLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:id="@+id/mainLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <include
-                    android:id="@+id/incCardConversionRate"
-                    layout="@layout/card_conversion_rate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/defaultMargin" />
-
-                <include
-                    android:id="@+id/incCardAssetDetails"
-                    layout="@layout/card_asset_details"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/defaultMargin"
-                    android:layout_marginBottom="@dimen/defaultMargin" />
-
-                <include
-                    android:id="@+id/incCardWalletDetails"
-                    layout="@layout/card_wallet_details"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/defaultMargin"
-                    android:layout_marginBottom="@dimen/defaultMargin" />
-
-            </LinearLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <include
-                android:id="@+id/incProgressBar"
-                layout="@layout/progress_bar"
-                android:layout_width="wrap_content"
+                android:id="@+id/incCardConversionRate"
+                layout="@layout/card_conversion_rate"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:visibility="visible" />
+                android:layout_margin="@dimen/defaultMargin" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <include
+                android:id="@+id/incCardAssetDetails"
+                layout="@layout/card_asset_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/defaultMargin"
+                android:layout_marginBottom="@dimen/defaultMargin" />
+
+            <include
+                android:id="@+id/incCardWalletDetails"
+                layout="@layout/card_wallet_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/defaultMargin"
+                android:layout_marginBottom="@dimen/defaultMargin" />
+
+        </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <include
+        android:id="@+id/incProgressBar"
+        layout="@layout/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 
     <include
         android:id="@+id/incBtnNewTransaction"
