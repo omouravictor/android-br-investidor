@@ -34,6 +34,11 @@ class LoginActivity : AppCompatActivity() {
         observeUserUiState()
     }
 
+    override fun onStop() {
+        super.onStop()
+        loginViewModel.resetUserUiState()
+    }
+
     private fun login() {
         val email = binding.etEmail.text.toString().trim()
         val password = binding.etPassword.text.toString()

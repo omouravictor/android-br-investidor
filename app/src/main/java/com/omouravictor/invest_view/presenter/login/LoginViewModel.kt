@@ -47,4 +47,8 @@ class LoginViewModel : ViewModel() {
             }
         }
     }
+
+    fun resetUserUiState() {
+        _userUiState.value = UiState.Initial
+    }
 }
