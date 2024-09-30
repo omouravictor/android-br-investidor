@@ -88,14 +88,14 @@
             layout="@layout/button_default"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/defaultMargin" />
+            android:layout_marginBottom="24dp" />
 
         <TextView
             android:id="@+id/tvRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:textColor="@color/gray"
+            android:textColor="@color/grayText"
             tools:text="@string/registerMessage" />
 
     </LinearLayout>
