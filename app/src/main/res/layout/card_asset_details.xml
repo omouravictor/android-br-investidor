@@ -61,7 +61,6 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="end|center_vertical"
-                    android:minWidth="104dp"
                     android:textStyle="bold"
                     tools:text="AAPL" />
             </TableRow>
@@ -89,7 +88,6 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="end|center_vertical"
-                    android:minWidth="104dp"
                     android:textStyle="bold"
                     tools:text="Apple Inc" />
             </TableRow>
@@ -117,7 +115,6 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="end|center_vertical"
-                    android:minWidth="104dp"
                     android:textStyle="bold"
                     tools:text="USD" />
             </TableRow>
@@ -145,7 +142,6 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="end|center_vertical"
-                    android:minWidth="104dp"
                     android:textStyle="bold"
                     tools:text="US$250,00" />
             </TableRow>
@@ -177,7 +173,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="end|center_vertical"
-                        android:minWidth="104dp"
                         android:textStyle="bold"
                         tools:text="+R$ 100,00 (+15,45%)"
                         tools:textColor="@color/green" />
