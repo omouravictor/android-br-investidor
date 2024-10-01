@@ -6,7 +6,7 @@
     <color name="appWindowBackColor">@color/white</color>
     <color name="appBottomSheetBackColor">@color/white</color>
     <color name="itemListPressedTrueColor">#1A000000</color>
-    <color name="itemListBackColor">@color/white</color>
+    <color name="itemBackColor">@color/white</color>
     <color name="redButtonPressedTrueColor">#A60000</color>
     <color name="greenButtonPressedTrueColor">#00953E</color>
     <color name="defaultPressedTrueColor">#B2000000</color>
