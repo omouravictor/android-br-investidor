@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp">
+        android:padding="@dimen/defaultMargin">
 
         <TextView
             android:id="@+id/assetSectionTitle"
@@ -41,8 +41,7 @@
             android:id="@+id/walletSectionTableLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:stretchColumns="1"
+            android:layout_marginTop="@dimen/defaultMargin"
             app:layout_constraintTop_toBottomOf="@+id/assetSectionTitle">
 
             <TableRow>
@@ -170,13 +169,13 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
 
                     <TextView
                         android:id="@+id/tvLastChange"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
                         android:gravity="end|center_vertical"
                         android:minWidth="104dp"
                         android:textStyle="bold"
@@ -187,7 +186,7 @@
                         android:id="@+id/incLastChangeShimmer"
                         layout="@layout/shimmer_item"
                         android:layout_width="40dp"
-                        android:layout_height="16dp"
+                        android:layout_height="@dimen/defaultMargin"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
