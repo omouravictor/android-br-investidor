@@ -13,9 +13,9 @@ data class ConversionResultResponse(
 fun ConversionResultResponse.toConversionResultUiModel(): ConversionResultUiModel {
     return ConversionResultUiModel(
         date = date,
-        info = info,
+        info = info?.toInfoUiModel() ?: InfoUiModel(0.0, 0),
         query = query,
-        result = result,
+        result = result ?: 0.0,
         success = success
     )
 }

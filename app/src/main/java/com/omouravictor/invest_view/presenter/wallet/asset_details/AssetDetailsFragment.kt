@@ -181,7 +181,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
 
             switchCurrencyConversion.setOnCheckedChangeListener { button, isChecked ->
                 if (isChecked) {
-                    val rate = conversionResult!!.info!!.rate
+                    val rate = conversionResult!!.info.rate
                     convertCurrencyViews(appCurrency, rate)
                 } else {
                     button.isChecked = false
@@ -340,7 +340,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
             handleConversionResultLoading(false)
             binding.incCardConversionRate.tvCurrencyRate.text = LocaleUtil.getFormattedCurrencyValue(
                 LocaleUtil.appCurrency.toString(),
-                conversionResult.info!!.rate
+                conversionResult.info.rate
             )
             this.conversionResult = conversionResult
         } else {
