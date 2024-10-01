@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp">
+        android:padding="@dimen/defaultSpace">
 
         <TextView
             android:id="@+id/tvTitleExchange"
@@ -41,15 +41,14 @@
             android:id="@+id/exchangeTableLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:stretchColumns="1"
+            android:layout_marginTop="@dimen/defaultSpace"
             app:layout_constraintTop_toBottomOf="@+id/tvTitleExchange">
 
             <TableRow>
 
                 <TextView
                     android:id="@+id/tvTitleCurrentRate"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
@@ -58,11 +57,10 @@
 
                 <TextView
                     android:id="@+id/tvCurrencyRate"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="end|center_vertical"
-                    android:minWidth="104dp"
                     android:textStyle="bold"
                     tools:text="R$ 5,43" />
             </TableRow>
@@ -77,7 +75,7 @@
 
                 <TextView
                     android:id="@+id/tvTitleCurrencyConversion"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
@@ -85,8 +83,9 @@
                     tools:text="Converter valores para BRL" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
 
                     <androidx.appcompat.widget.SwitchCompat
                         android:id="@+id/switchCurrencyConversion"
@@ -98,7 +97,7 @@
                         android:id="@+id/incSwitchShimmer"
                         layout="@layout/shimmer_item"
                         android:layout_width="40dp"
-                        android:layout_height="16dp"
+                        android:layout_height="@dimen/defaultSpace"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
