@@ -20,6 +20,7 @@
     <color name="newsDescriptionColor">@color/black</color>
     <color name="tableTittleTextColor">#686868</color>
     <color name="navBackColor">@color/black</color>
+    <color name="navTextColor">#B5B5B5</color>
     <color name="mtrl_textinput_default_box_stroke_color" tools:ignore="PrivateResource">@color/gray</color>
 
     <!-- default colors -->
