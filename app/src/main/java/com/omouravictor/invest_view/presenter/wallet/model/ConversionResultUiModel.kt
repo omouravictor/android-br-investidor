@@ -4,9 +4,9 @@ import com.omouravictor.invest_view.data.remote.model.currency_exchange_rate.Inf
 import com.omouravictor.invest_view.data.remote.model.currency_exchange_rate.QueryResponse
 
 data class ConversionResultUiModel(
-    val date: String? = null,
-    val info: InfoResponse? = null,
-    val query: QueryResponse? = null,
-    val result: Double? = null,
-    val success: Boolean? = null
+    val date: String?,
+    val info: InfoResponse?,
+    val query: QueryResponse?,
+    val result: Double?,
+    val success: Boolean?
 )

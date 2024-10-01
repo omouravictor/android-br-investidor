@@ -10,11 +10,11 @@ data class AssetsBySearchResponse(
 fun AssetsBySearchResponse.toAssetsUiModel(): List<AssetUiModel> {
     return bestMatches.map {
         AssetUiModel(
-            symbol = it.symbol,
-            name = it.name,
-            type = AssetUtil.getAssetType(it.symbol, it.type),
-            region = it.region,
-            currency = it.currency
+            symbol = it.symbol ?: "",
+            name = it.name ?: "",
+            type = AssetUtil.getAssetType(it.symbol ?: "", it.type ?: ""),
+            region = it.region ?: "",
+            currency = it.currency ?: ""
         )
     }
 }
