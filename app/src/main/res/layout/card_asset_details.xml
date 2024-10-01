@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/defaultMargin">
+        android:padding="@dimen/defaultSpace">
 
         <TextView
             android:id="@+id/assetSectionTitle"
@@ -41,7 +41,7 @@
             android:id="@+id/walletSectionTableLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/defaultMargin"
+            android:layout_marginTop="@dimen/defaultSpace"
             app:layout_constraintTop_toBottomOf="@+id/assetSectionTitle">
 
             <TableRow>
@@ -181,7 +181,7 @@
                         android:id="@+id/incLastChangeShimmer"
                         layout="@layout/shimmer_item"
                         android:layout_width="40dp"
-                        android:layout_height="@dimen/defaultMargin"
+                        android:layout_height="@dimen/defaultSpace"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />

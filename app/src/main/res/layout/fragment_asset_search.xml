@@ -19,7 +19,7 @@
             layout="@layout/shimmer_item_asset_by_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/defaultMargin" />
+            android:layout_margin="@dimen/defaultSpace" />
 
     </com.facebook.shimmer.ShimmerFrameLayout>
 
@@ -28,8 +28,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:paddingHorizontal="@dimen/defaultPadding"
-        android:paddingTop="@dimen/defaultPadding"
+        android:paddingHorizontal="@dimen/defaultSpace"
+        android:paddingTop="@dimen/defaultSpace"
         android:visibility="gone"
         tools:listitem="@layout/item_asset_by_search"
         tools:visibility="visible" />

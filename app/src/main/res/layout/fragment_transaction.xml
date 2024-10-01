@@ -13,7 +13,7 @@
             android:id="@+id/mainLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/defaultPadding">
+            android:padding="@dimen/defaultSpace">
 
             <TextView
                 android:id="@+id/tvBuy"
@@ -83,7 +83,7 @@
                 android:id="@+id/tvTittleUnitValuePerUnit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/defaultMargin"
+                android:layout_marginTop="@dimen/defaultSpace"
                 android:text="@string/valuePerUnit_form"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayoutAmount" />
@@ -121,7 +121,7 @@
                 android:id="@+id/tvTittleCurrentPosition"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/defaultMargin"
+                android:layout_marginTop="@dimen/defaultSpace"
                 android:text="@string/currentPosition"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -141,7 +141,7 @@
                 android:id="@+id/tvTittleUpdatedPosition"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/defaultMargin"
+                android:layout_marginTop="@dimen/defaultSpace"
                 android:text="@string/updatedPosition"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

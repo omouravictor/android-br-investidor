@@ -3,8 +3,7 @@
     <dimen name="defaultButtonRadius">50dp</dimen>
     <dimen name="defaultBottomSheetDialogRadius">30dp</dimen>
     <dimen name="defaultRadius">5dp</dimen>
-    <dimen name="defaultMargin">16dp</dimen>
-    <dimen name="defaultPadding">16dp</dimen>
+    <dimen name="defaultSpace">16dp</dimen>
     <dimen name="textSize0">11sp</dimen>
     <dimen name="textSize1">12sp</dimen>
     <dimen name="textSize2">14sp</dimen>

@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingHorizontal="@dimen/defaultPadding">
+    android:paddingHorizontal="@dimen/defaultSpace">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginVertical="@dimen/defaultMargin"
+        android:layout_marginVertical="@dimen/defaultSpace"
         android:layout_weight="1"
         android:src="@drawable/ic_graphic" />
 

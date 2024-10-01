@@ -9,7 +9,7 @@
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/defaultMargin"
+        android:layout_marginBottom="@dimen/defaultSpace"
         app:layout_constraintBottom_toTopOf="@+id/incBtnNewTransaction"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -24,24 +24,24 @@
                 layout="@layout/card_conversion_rate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/defaultMargin"
-                android:layout_marginTop="@dimen/defaultMargin" />
+                android:layout_marginHorizontal="@dimen/defaultSpace"
+                android:layout_marginTop="@dimen/defaultSpace" />
 
             <include
                 android:id="@+id/incCardAssetDetails"
                 layout="@layout/card_asset_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/defaultMargin"
-                android:layout_marginTop="@dimen/defaultMargin" />
+                android:layout_marginHorizontal="@dimen/defaultSpace"
+                android:layout_marginTop="@dimen/defaultSpace" />
 
             <include
                 android:id="@+id/incCardWalletDetails"
                 layout="@layout/card_wallet_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/defaultMargin"
-                android:layout_marginHorizontal="@dimen/defaultMargin" />
+                android:layout_margin="@dimen/defaultSpace"
+                android:layout_marginHorizontal="@dimen/defaultSpace" />
 
         </LinearLayout>
 
@@ -64,8 +64,8 @@
         layout="@layout/button_default"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/defaultMargin"
-        android:layout_marginBottom="@dimen/defaultMargin"
+        android:layout_marginHorizontal="@dimen/defaultSpace"
+        android:layout_marginBottom="@dimen/defaultSpace"
         android:elevation="@dimen/defaultElevation"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
