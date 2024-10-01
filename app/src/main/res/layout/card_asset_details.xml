@@ -48,7 +48,7 @@
 
                 <TextView
                     android:id="@+id/tvTitleSymbol"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
@@ -57,7 +57,7 @@
 
                 <TextView
                     android:id="@+id/tvSymbol"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="end|center_vertical"
@@ -76,7 +76,7 @@
 
                 <TextView
                     android:id="@+id/tvTittleCompanyName"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
@@ -85,7 +85,7 @@
 
                 <TextView
                     android:id="@+id/tvCompanyName"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="end|center_vertical"
@@ -104,7 +104,7 @@
 
                 <TextView
                     android:id="@+id/tvTittleCurrencyBuy"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
@@ -113,7 +113,7 @@
 
                 <TextView
                     android:id="@+id/tvCurrencyBuy"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="end|center_vertical"
@@ -132,7 +132,7 @@
 
                 <TextView
                     android:id="@+id/tvTittleCurrentPrice"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
@@ -141,7 +141,7 @@
 
                 <TextView
                     android:id="@+id/tvCurrentPrice"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="end|center_vertical"
@@ -160,7 +160,7 @@
 
                 <TextView
                     android:id="@+id/tvTittleLastChange"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
@@ -168,7 +168,7 @@
                     android:textColor="@color/grayTextColor" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1">
 
@@ -197,7 +197,9 @@
                         android:layout_height="match_parent"
                         android:src="@drawable/ic_reload"
                         android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
                         tools:visibility="visible" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
