@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp">
+        android:padding="@dimen/defaultSpace">
 
         <TextView
             android:id="@+id/tvWalletSectionTitle"
@@ -26,15 +26,14 @@
             android:id="@+id/walletSectionTableLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:stretchColumns="1"
+            android:layout_marginTop="@dimen/defaultSpace"
             app:layout_constraintTop_toBottomOf="@+id/tvWalletSectionTitle">
 
             <TableRow>
 
                 <TextView
                     android:id="@+id/tvTitleAmount"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
@@ -43,11 +42,10 @@
 
                 <TextView
                     android:id="@+id/tvAmount"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="end|center_vertical"
-                    android:minWidth="104dp"
                     android:textStyle="bold"
                     tools:text="AAPL" />
             </TableRow>
@@ -62,7 +60,7 @@
 
                 <TextView
                     android:id="@+id/tvTittleCurrentPosition"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
@@ -71,11 +69,10 @@
 
                 <TextView
                     android:id="@+id/tvCurrentPosition"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="end|center_vertical"
-                    android:minWidth="104dp"
                     android:textStyle="bold"
                     tools:text="US$ 250,00" />
             </TableRow>
@@ -90,7 +87,7 @@
 
                 <TextView
                     android:id="@+id/tvTittleTotalInvested"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
@@ -99,11 +96,10 @@
 
                 <TextView
                     android:id="@+id/tvTotalInvested"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="end|center_vertical"
-                    android:minWidth="104dp"
                     android:textStyle="bold"
                     tools:text="US$ 100,00" />
             </TableRow>
@@ -118,7 +114,7 @@
 
                 <TextView
                     android:id="@+id/tvTittleYield"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
@@ -127,11 +123,10 @@
 
                 <TextView
                     android:id="@+id/tvYield"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="end|center_vertical"
-                    android:minWidth="104dp"
                     android:textStyle="bold"
                     tools:text="US$150,00"
                     tools:textColor="@color/green" />
