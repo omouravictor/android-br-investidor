@@ -3,26 +3,31 @@ package com.omouravictor.invest_view.presenter.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
-import com.google.firebase.firestore.firestore
+import com.omouravictor.invest_view.data.remote.repository.FirebaseRepository
 import com.omouravictor.invest_view.presenter.model.UiState
+import com.omouravictor.invest_view.presenter.wallet.model.UserUiModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
 
-class LoginViewModel : ViewModel() {
+class LoginViewModel @Inject constructor(
+    auth: FirebaseAuth,
+    private val firebaseRepository: FirebaseRepository
+) : ViewModel() {
 
     private val auth = Firebase.auth
-    private val firestore = Firebase.firestore
-    private val _userUiState = MutableStateFlow<UiState<FirebaseUser?>>(UiState.Initial)
+    private val _userUiState = MutableStateFlow<UiState<UserUiModel>>(UiState.Initial)
     val userUiState = _userUiState.asStateFlow()
 
     init {
-        val currentUser = auth.currentUser
-        if (currentUser != null)
-            _userUiState.value = UiState.Success(currentUser)
+        viewModelScope.launch {
+            getUser(auth.currentUser)
+        }
     }
 
     fun login(email: String, password: String) {
@@ -31,13 +36,9 @@ class LoginViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val authResult = auth.signInWithEmailAndPassword(email, password).await()
-                val user = authResult.user
 
-                if (user != null) {
-                    _userUiState.value = UiState.Success(user)
-                } else {
-                    _userUiState.value = UiState.Error(Exception("User is null"))
-                }
+                getUser(authResult.user)
+
             } catch (e: Exception) {
                 _userUiState.value = UiState.Error(e)
             }
@@ -53,8 +54,13 @@ class LoginViewModel : ViewModel() {
                 val user = authResult.user
 
                 if (user != null) {
-                    firestore.collection("users").document(user.uid).set(mapOf("name" to name)).await()
-                    _userUiState.value = UiState.Success(user)
+                    val savedUser = firebaseRepository.saveUser(UserUiModel(user.uid, name))
+
+                    if (savedUser.isSuccess)
+                        _userUiState.value = UiState.Success(savedUser.getOrThrow())
+                    else
+                        _userUiState.value = UiState.Error(savedUser.exceptionOrNull() as Exception)
+
                 } else {
                     _userUiState.value = UiState.Error(Exception("User is null"))
                 }
@@ -66,5 +72,23 @@ class LoginViewModel : ViewModel() {
 
     fun resetUserUiState() {
         _userUiState.value = UiState.Initial
+    }
+
+    private suspend fun getUser(user: FirebaseUser?) {
+        if (user != null) {
+            try {
+                val result = firebaseRepository.getUser(user.uid)
+
+                if (result.isSuccess)
+                    _userUiState.value = UiState.Success(result.getOrThrow())
+                else
+                    _userUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
+
+            } catch (e: Exception) {
+                _userUiState.value = UiState.Error(e)
+            }
+        } else {
+            _userUiState.value = UiState.Error(Exception("User is null"))
+        }
     }
 }
