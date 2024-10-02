@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
         val userUiModel = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getParcelableExtra(USER_UI_MODEL_INTENT_EXTRA, UserUiModel::class.java)
         } else {
+            @Suppress("DEPRECATION")
             intent.getParcelableExtra(USER_UI_MODEL_INTENT_EXTRA)
         }!!
 
