@@ -2,9 +2,7 @@ package com.omouravictor.invest_view.presenter.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.omouravictor.invest_view.data.remote.repository.FirebaseRepository
 import com.omouravictor.invest_view.presenter.model.UiState
@@ -18,11 +16,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    auth: FirebaseAuth,
+    private val auth: FirebaseAuth,
     private val firebaseRepository: FirebaseRepository
 ) : ViewModel() {
 
-    private val auth = Firebase.auth
     private val _userUiState = MutableStateFlow<UiState<UserUiModel>>(UiState.Initial)
     val userUiState = _userUiState.asStateFlow()
 
