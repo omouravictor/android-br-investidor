@@ -16,7 +16,9 @@ import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.ActivityLoginBinding
 import com.omouravictor.invest_view.presenter.MainActivity
 import com.omouravictor.invest_view.presenter.model.UiState
+import com.omouravictor.invest_view.presenter.register.RegisterActivity
 import com.omouravictor.invest_view.presenter.user.UserUiModel
+import com.omouravictor.invest_view.presenter.user.UserViewModel
 import com.omouravictor.invest_view.util.ConstantUtil.USER_UI_MODEL_INTENT_EXTRA
 import com.omouravictor.invest_view.util.getErrorMessage
 import com.omouravictor.invest_view.util.showErrorSnackBar
@@ -28,7 +30,7 @@ import kotlinx.coroutines.launch
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
-    private val loginViewModel: LoginViewModel by viewModels()
+    private val userViewModel: UserViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        loginViewModel.resetUserUiState()
+        userViewModel.resetUserUiState()
     }
 
     private fun login() {
@@ -48,7 +50,7 @@ class LoginActivity : AppCompatActivity() {
         val password = binding.etPassword.text.toString()
 
         if (email.isNotEmpty() && password.isNotEmpty())
-            loginViewModel.login(email, password)
+            userViewModel.login(email, password)
         else
             showErrorSnackBar(getString(R.string.fillAllFields))
     }
@@ -89,7 +91,7 @@ class LoginActivity : AppCompatActivity() {
     private fun observeUserUiState() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                loginViewModel.userUiState.collectLatest {
+                userViewModel.userUiState.collectLatest {
                     when (it) {
                         is UiState.Initial -> loginLayoutIsVisible(true)
                         is UiState.Loading -> loginLayoutIsVisible(false)

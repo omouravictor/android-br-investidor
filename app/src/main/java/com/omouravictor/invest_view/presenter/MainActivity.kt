@@ -1,51 +1,48 @@
 package com.omouravictor.invest_view.presenter
 
-import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat.Type.ime
 import androidx.core.view.WindowInsetsCompat.toWindowInsetsCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.ActivityMainBinding
-import com.omouravictor.invest_view.presenter.user.UserUiModel
+import com.omouravictor.invest_view.presenter.model.UiState
+import com.omouravictor.invest_view.presenter.user.UserViewModel
 import com.omouravictor.invest_view.presenter.wallet.WalletFragmentDirections
-import com.omouravictor.invest_view.util.ConstantUtil.USER_UI_MODEL_INTENT_EXTRA
 import com.omouravictor.invest_view.util.clearPileAndNavigateTo
 import com.omouravictor.invest_view.util.setupToolbarSubtitle
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+    private val userViewModel: UserViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
-
-        val userUiModel = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra(USER_UI_MODEL_INTENT_EXTRA, UserUiModel::class.java)
-        } else {
-            @Suppress("DEPRECATION")
-            intent.getParcelableExtra(USER_UI_MODEL_INTENT_EXTRA)
-        }!!
-
-        setupToolbarSubtitle("Olá, ${userUiModel.name.substringBefore(" ")}")
-
         setupMainNavigation()
         setupBottomNavigationView()
         addOnApplyWindowInsetsListener()
+        observeUserUiState()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -132,4 +129,30 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupOptionsMenuForWallet() = setupOptionsMenu(walletGroupVisible = true)
 
+    private fun observeUserUiState() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                userViewModel.userUiState.collectLatest {
+                    when (it) {
+                        is UiState.Initial -> {
+                            // Do nothing
+                        }
+
+                        is UiState.Loading -> {
+                            // Do nothing
+                        }
+
+                        is UiState.Success -> {
+                            val userUiModel = it.data
+                            setupToolbarSubtitle("Olá, ${userUiModel.name.substringBefore(" ")}")
+                        }
+
+                        is UiState.Error -> {
+                            // Do nothing
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

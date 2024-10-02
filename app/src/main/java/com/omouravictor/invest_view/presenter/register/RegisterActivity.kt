@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.presenter.login
+package com.omouravictor.invest_view.presenter.register
 
 import android.content.Intent
 import android.graphics.Typeface
@@ -15,7 +15,9 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.ActivityRegisterBinding
 import com.omouravictor.invest_view.presenter.MainActivity
+import com.omouravictor.invest_view.presenter.login.LoginActivity
 import com.omouravictor.invest_view.presenter.model.UiState
+import com.omouravictor.invest_view.presenter.user.UserViewModel
 import com.omouravictor.invest_view.util.getErrorMessage
 import com.omouravictor.invest_view.util.showErrorSnackBar
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,7 +28,7 @@ import kotlinx.coroutines.launch
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
-    private val loginViewModel: LoginViewModel by viewModels()
+    private val userViewModel: UserViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +40,7 @@ class RegisterActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        loginViewModel.resetUserUiState()
+        userViewModel.resetUserUiState()
     }
 
     private fun register() {
@@ -47,7 +49,7 @@ class RegisterActivity : AppCompatActivity() {
         val password = binding.etPassword.text.toString()
 
         if (name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty())
-            loginViewModel.register(name, email, password)
+            userViewModel.register(name, email, password)
         else
             showErrorSnackBar(getString(R.string.fillAllFields))
     }
@@ -72,7 +74,7 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun loginLayoutIsVisible(isVisible: Boolean) {
+    private fun registerLayoutIsVisible(isVisible: Boolean) {
         binding.registerLayout.isVisible = isVisible
         binding.incProgressBar.root.isVisible = !isVisible
     }
@@ -85,13 +87,13 @@ class RegisterActivity : AppCompatActivity() {
     private fun observeUserUiState() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                loginViewModel.userUiState.collectLatest {
+                userViewModel.userUiState.collectLatest {
                     when (it) {
-                        is UiState.Initial -> loginLayoutIsVisible(true)
-                        is UiState.Loading -> loginLayoutIsVisible(false)
+                        is UiState.Initial -> registerLayoutIsVisible(true)
+                        is UiState.Loading -> registerLayoutIsVisible(false)
                         is UiState.Success -> startMainActivity()
                         is UiState.Error -> {
-                            loginLayoutIsVisible(true)
+                            registerLayoutIsVisible(true)
                             showErrorSnackBar(getErrorMessage(it.e))
                         }
                     }
