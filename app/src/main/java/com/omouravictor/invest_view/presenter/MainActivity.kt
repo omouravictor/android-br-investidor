@@ -1,5 +1,6 @@
 package com.omouravictor.invest_view.presenter
 
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -15,7 +16,10 @@ import androidx.navigation.ui.setupWithNavController
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.ActivityMainBinding
 import com.omouravictor.invest_view.presenter.wallet.WalletFragmentDirections
+import com.omouravictor.invest_view.presenter.wallet.model.UserUiModel
+import com.omouravictor.invest_view.util.ConstantUtil.USER_UI_MODEL_INTENT_EXTRA
 import com.omouravictor.invest_view.util.clearPileAndNavigateTo
+import com.omouravictor.invest_view.util.setupToolbarSubtitle
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,6 +33,15 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
+
+        val userUiModel = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getParcelableExtra(USER_UI_MODEL_INTENT_EXTRA, UserUiModel::class.java)
+        } else {
+            intent.getParcelableExtra(USER_UI_MODEL_INTENT_EXTRA)
+        }!!
+
+        setupToolbarSubtitle("Olá, ${userUiModel.name.substringBefore(" ")}")
+
         setupMainNavigation()
         setupBottomNavigationView()
         addOnApplyWindowInsetsListener()

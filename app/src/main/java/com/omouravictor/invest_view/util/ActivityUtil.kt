@@ -13,6 +13,10 @@ fun Activity.setupToolbarTitle(tittle: String) {
     findViewById<Toolbar>(R.id.toolbar).title = tittle
 }
 
+fun Activity.setupToolbarSubtitle(subtitle: String) {
+    findViewById<Toolbar>(R.id.toolbar).subtitle = subtitle
+}
+
 fun Activity.setupToolbarCenterText(centerText: String) {
     findViewById<Toolbar>(R.id.toolbar).apply {
         title = ""
