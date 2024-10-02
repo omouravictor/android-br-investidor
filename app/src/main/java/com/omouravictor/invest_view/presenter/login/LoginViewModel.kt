@@ -58,20 +58,17 @@ class LoginViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-                val authResult = auth.createUserWithEmailAndPassword(email, password).await()
-                val user = authResult.user
+                val loggedUser = auth
+                    .createUserWithEmailAndPassword(email, password)
+                    .await()
+                    .user!!
 
-                if (user != null) {
-                    val savedUser = firebaseRepository.saveUser(UserUiModel(user.uid, name))
+                val savedUser = firebaseRepository
+                    .saveUser(UserUiModel(loggedUser.uid, name))
+                    .getOrThrow()
 
-                    if (savedUser.isSuccess)
-                        _userUiState.value = UiState.Success(savedUser.getOrThrow())
-                    else
-                        _userUiState.value = UiState.Error(savedUser.exceptionOrNull() as Exception)
+                _userUiState.value = UiState.Success(savedUser)
 
-                } else {
-                    _userUiState.value = UiState.Error(Exception("User is null"))
-                }
             } catch (e: Exception) {
                 _userUiState.value = UiState.Error(e)
             }
