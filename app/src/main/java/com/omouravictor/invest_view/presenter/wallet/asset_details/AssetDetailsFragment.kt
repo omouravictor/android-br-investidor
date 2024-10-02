@@ -36,7 +36,7 @@ import com.omouravictor.invest_view.util.AssetUtil
 import com.omouravictor.invest_view.util.ConstantUtil
 import com.omouravictor.invest_view.util.LocaleUtil
 import com.omouravictor.invest_view.util.clearPileAndNavigateToStart
-import com.omouravictor.invest_view.util.getGenericErrorMessage
+import com.omouravictor.invest_view.util.getErrorMessage
 import com.omouravictor.invest_view.util.setupToolbarTitle
 import com.omouravictor.invest_view.util.setupVariation
 import com.omouravictor.invest_view.util.setupYieldForAsset
@@ -301,7 +301,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
 
     private fun handleDeleteAssetError(e: Exception) {
         handleDeleteAssetLoading(false)
-        with(requireActivity()) { showErrorSnackBar(getGenericErrorMessage(e)) }
+        with(requireActivity()) { showErrorSnackBar(getErrorMessage(e)) }
     }
 
     private fun observeDeleteAssetUiState() {

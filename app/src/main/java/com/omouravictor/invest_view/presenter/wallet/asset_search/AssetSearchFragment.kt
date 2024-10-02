@@ -20,7 +20,7 @@ import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.asset.AssetViewModel
 import com.omouravictor.invest_view.presenter.wallet.asset.AssetUiModel
-import com.omouravictor.invest_view.util.getGenericErrorMessage
+import com.omouravictor.invest_view.util.getErrorMessage
 import com.omouravictor.invest_view.util.hideKeyboard
 import com.omouravictor.invest_view.util.setupRecyclerViewWithLinearLayout
 import com.omouravictor.invest_view.util.showErrorSnackBar
@@ -139,7 +139,7 @@ class AssetSearchFragment : Fragment(R.layout.fragment_asset_search) {
             shimmerLayout.stopShimmer()
             recyclerView.isVisible = false
             incLayoutError.root.isVisible = true
-            incLayoutError.tvInfoMessage.text = requireContext().getGenericErrorMessage(e)
+            incLayoutError.tvInfoMessage.text = requireContext().getErrorMessage(e)
         }
     }
 
@@ -174,7 +174,7 @@ class AssetSearchFragment : Fragment(R.layout.fragment_asset_search) {
             recyclerView.isVisible = false
             incProgressBar.root.isVisible = false
             incLayoutError.root.isVisible = true
-            incLayoutError.tvInfoMessage.text = requireContext().getGenericErrorMessage(e)
+            incLayoutError.tvInfoMessage.text = requireContext().getErrorMessage(e)
         }
     }
 

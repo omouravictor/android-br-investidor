@@ -12,7 +12,7 @@ import retrofit2.HttpException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
-fun Context.getGenericErrorMessage(e: Exception?): String {
+fun Context.getErrorMessage(e: Exception?): String {
     return when (e) {
         is FirebaseAuthWeakPasswordException -> getString(R.string.weakPassword)
         is FirebaseAuthInvalidCredentialsException -> getString(R.string.invalidCredentials)

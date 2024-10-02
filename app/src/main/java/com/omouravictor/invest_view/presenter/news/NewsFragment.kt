@@ -19,7 +19,7 @@ import com.omouravictor.invest_view.databinding.FragmentNewsBinding
 import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.presenter.news.article.ArticleAdapter
 import com.omouravictor.invest_view.presenter.news.article.ArticleUiModel
-import com.omouravictor.invest_view.util.getGenericErrorMessage
+import com.omouravictor.invest_view.util.getErrorMessage
 import com.omouravictor.invest_view.util.hideKeyboard
 import com.omouravictor.invest_view.util.setupRecyclerViewWithLinearLayout
 import com.omouravictor.invest_view.util.showErrorSnackBar
@@ -143,7 +143,7 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
         binding.shimmerLayout.stopShimmer()
         binding.recyclerView.isVisible = false
         binding.incLayoutError.root.isVisible = true
-        binding.incLayoutError.tvInfoMessage.text = requireContext().getGenericErrorMessage(e)
+        binding.incLayoutError.tvInfoMessage.text = requireContext().getErrorMessage(e)
     }
 
 }

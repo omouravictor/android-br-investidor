@@ -30,7 +30,7 @@ import com.omouravictor.invest_view.presenter.wallet.asset_types.AssetType
 import com.omouravictor.invest_view.util.ConstantUtil
 import com.omouravictor.invest_view.util.LocaleUtil
 import com.omouravictor.invest_view.util.clearPileAndNavigateToStart
-import com.omouravictor.invest_view.util.getGenericErrorMessage
+import com.omouravictor.invest_view.util.getErrorMessage
 import com.omouravictor.invest_view.util.getLongValue
 import com.omouravictor.invest_view.util.getMonetaryValueInDouble
 import com.omouravictor.invest_view.util.getRoundedDouble
@@ -200,7 +200,7 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
 
     private fun handleSaveAssetError(e: Exception) {
         handleSaveAssetLoading(false)
-        with(requireActivity()) { showErrorSnackBar(getGenericErrorMessage(e)) }
+        with(requireActivity()) { showErrorSnackBar(getErrorMessage(e)) }
     }
 
     private fun observeSaveAssetUiState() {

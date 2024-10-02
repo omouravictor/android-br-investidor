@@ -27,7 +27,7 @@ import com.omouravictor.invest_view.presenter.wallet.asset.getFormattedTotalPric
 import com.omouravictor.invest_view.util.ConstantUtil
 import com.omouravictor.invest_view.util.LocaleUtil
 import com.omouravictor.invest_view.util.clearPileAndNavigateToStart
-import com.omouravictor.invest_view.util.getGenericErrorMessage
+import com.omouravictor.invest_view.util.getErrorMessage
 import com.omouravictor.invest_view.util.getLongValue
 import com.omouravictor.invest_view.util.getMonetaryValueInDouble
 import com.omouravictor.invest_view.util.getRoundedDouble
@@ -247,7 +247,7 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
 
     private fun handleError(e: Exception) {
         handleLoading(false)
-        with(requireActivity()) { showErrorSnackBar(getGenericErrorMessage(e)) }
+        with(requireActivity()) { showErrorSnackBar(getErrorMessage(e)) }
     }
 
     private fun observeSaveAssetUiState() {

@@ -16,7 +16,7 @@ import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.ActivityRegisterBinding
 import com.omouravictor.invest_view.presenter.MainActivity
 import com.omouravictor.invest_view.presenter.model.UiState
-import com.omouravictor.invest_view.util.getGenericErrorMessage
+import com.omouravictor.invest_view.util.getErrorMessage
 import com.omouravictor.invest_view.util.showErrorSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -92,7 +92,7 @@ class RegisterActivity : AppCompatActivity() {
                         is UiState.Success -> startMainActivity()
                         is UiState.Error -> {
                             loginLayoutIsVisible(true)
-                            showErrorSnackBar(getGenericErrorMessage(it.e))
+                            showErrorSnackBar(getErrorMessage(it.e))
                         }
                     }
                 }
