@@ -18,7 +18,7 @@ class FirebaseRepositoryImpl(
         private const val COLLECTION_ASSETS = "assets"
     }
 
-    override suspend fun getUser(userId: String): Result<UserUiModel> {
+    override suspend fun getUser(userId: String): Result<UserUiModel?> {
         return withContext(dispatchers.io) {
             try {
                 val userUiModel = firestore
@@ -28,10 +28,7 @@ class FirebaseRepositoryImpl(
                     .await()
                     .toObject(UserUiModel::class.java)
 
-                if (userUiModel != null)
-                    Result.success(userUiModel)
-                else
-                    Result.failure(Exception("User not found"))
+                Result.success(userUiModel)
 
             } catch (e: Exception) {
                 Log.e("GetUser", "UserId: $userId", e)
@@ -61,9 +58,12 @@ class FirebaseRepositoryImpl(
     override suspend fun getAssetList(userId: String): Result<List<AssetUiModel>> {
         return withContext(dispatchers.io) {
             try {
-                val assetsList = firestore.collection(COLLECTION_USERS)
+                val assetsList = firestore
+                    .collection(COLLECTION_USERS)
                     .document(userId)
-                    .collection(COLLECTION_ASSETS).get().await()
+                    .collection(COLLECTION_ASSETS)
+                    .get()
+                    .await()
                     .toObjects(AssetUiModel::class.java)
 
                 Result.success(assetsList)
@@ -82,7 +82,8 @@ class FirebaseRepositoryImpl(
                     .document(userId)
                     .collection(COLLECTION_ASSETS)
                     .document(assetUiModel.symbol)
-                    .set(assetUiModel).await()
+                    .set(assetUiModel)
+                    .await()
 
                 Result.success(assetUiModel)
 
@@ -100,7 +101,8 @@ class FirebaseRepositoryImpl(
                     .document(userId)
                     .collection(COLLECTION_ASSETS)
                     .document(assetUiModel.symbol)
-                    .delete().await()
+                    .delete()
+                    .await()
 
                 Result.success(assetUiModel)
 

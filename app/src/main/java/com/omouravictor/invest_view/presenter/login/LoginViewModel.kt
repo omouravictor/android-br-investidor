@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
 import com.omouravictor.invest_view.data.remote.repository.FirebaseRepository
 import com.omouravictor.invest_view.presenter.model.UiState
@@ -27,8 +26,11 @@ class LoginViewModel @Inject constructor(
     val userUiState = _userUiState.asStateFlow()
 
     init {
-        viewModelScope.launch {
-            getUser(auth.currentUser)
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            viewModelScope.launch {
+                getUser(currentUser.uid)
+            }
         }
     }
 
@@ -38,8 +40,13 @@ class LoginViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val authResult = auth.signInWithEmailAndPassword(email, password).await()
+                val user = authResult.user
 
-                getUser(authResult.user)
+                if (user != null) {
+                    getUser(user.uid)
+                } else {
+                    _userUiState.value = UiState.Error(Exception("User is null"))
+                }
 
             } catch (e: Exception) {
                 _userUiState.value = UiState.Error(e)
@@ -76,17 +83,17 @@ class LoginViewModel @Inject constructor(
         _userUiState.value = UiState.Initial
     }
 
-    private suspend fun getUser(user: FirebaseUser?) {
-        if (user != null) {
-            try {
-                val result = firebaseRepository.getUser("user.uid")
-                _userUiState.value = UiState.Success(result.getOrThrow())
+    private suspend fun getUser(userId: String) {
+        try {
+            val result = firebaseRepository.getUser(userId).getOrNull()
 
-            } catch (e: Exception) {
-                _userUiState.value = UiState.Error(e)
-            }
-        } else {
-            _userUiState.value = UiState.Error(Exception("User is null"))
+            if (result != null)
+                _userUiState.value = UiState.Success(result)
+            else
+                _userUiState.value = UiState.Error(Exception("User is null"))
+
+        } catch (e: Exception) {
+            _userUiState.value = UiState.Error(e)
         }
     }
 }
