@@ -72,11 +72,15 @@ class LoginViewModel @Inject constructor(
     }
 
     private fun checkLoggedUser() {
+        _userUiState.value = UiState.Loading
+
         val loggedUser = auth.currentUser
         if (loggedUser != null) {
             viewModelScope.launch {
                 loadUserFromDatabase(loggedUser.uid)
             }
+        } else {
+            _userUiState.value = UiState.Initial
         }
     }
 
