@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.omouravictor.invest_view.databinding.FragmentProfileBinding
-import com.omouravictor.invest_view.presenter.login.LoginActivity
+import com.omouravictor.invest_view.presenter.init.LoginActivity
 
 class ProfileFragment : Fragment() {
 

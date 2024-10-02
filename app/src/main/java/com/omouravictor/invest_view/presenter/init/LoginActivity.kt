@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.presenter.register
+package com.omouravictor.invest_view.presenter.init
 
 import android.content.Intent
 import android.graphics.Typeface
@@ -13,11 +13,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.omouravictor.invest_view.R
-import com.omouravictor.invest_view.databinding.ActivityRegisterBinding
+import com.omouravictor.invest_view.databinding.ActivityLoginBinding
 import com.omouravictor.invest_view.presenter.MainActivity
-import com.omouravictor.invest_view.presenter.login.LoginActivity
 import com.omouravictor.invest_view.presenter.model.UiState
-import com.omouravictor.invest_view.presenter.user.UserViewModel
+import com.omouravictor.invest_view.util.ConstantUtil.USER_ID_INTENT_EXTRA
 import com.omouravictor.invest_view.util.getErrorMessage
 import com.omouravictor.invest_view.util.showErrorSnackBar
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,14 +24,14 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class RegisterActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityRegisterBinding
-    private val userViewModel: UserViewModel by viewModels()
+    private lateinit var binding: ActivityLoginBinding
+    private val loginViewModel: LoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityRegisterBinding.inflate(layoutInflater)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupViews()
         observeUserUiState()
@@ -40,60 +39,62 @@ class RegisterActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        userViewModel.resetUserUiState()
+        loginViewModel.resetUserUiState()
     }
 
-    private fun register() {
-        val name = binding.etName.text.toString().trim()
+    private fun login() {
         val email = binding.etEmail.text.toString().trim()
         val password = binding.etPassword.text.toString()
 
-        if (name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty())
-            userViewModel.register(name, email, password)
+        if (email.isNotEmpty() && password.isNotEmpty())
+            loginViewModel.login(email, password)
         else
             showErrorSnackBar(getString(R.string.fillAllFields))
     }
 
     private fun setupViews() {
-        binding.incBtnRegister.root.apply {
-            text = getString(R.string.register)
-            setOnClickListener { register() }
+        binding.incBtnLogin.root.apply {
+            text = getString(R.string.login)
+            setOnClickListener { login() }
         }
 
-        binding.tvLogin.apply {
-            text = SpannableString(getString(R.string.doLoginMessage)).apply {
+        binding.tvRegister.apply {
+            text = SpannableString(getString(R.string.registerMessage)).apply {
                 val startIndex = indexOf("?") + 1
                 setSpan(StyleSpan(Typeface.BOLD), startIndex, length, 0)
                 setSpan(ForegroundColorSpan(getColor(R.color.defaultButtonBackgroundColor)), startIndex, length, 0)
             }
 
             setOnClickListener {
-                startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
+                startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
                 finish()
             }
         }
     }
 
-    private fun registerLayoutIsVisible(isVisible: Boolean) {
-        binding.registerLayout.isVisible = isVisible
+    private fun loginLayoutIsVisible(isVisible: Boolean) {
+        binding.loginLayout.isVisible = isVisible
         binding.incProgressBar.root.isVisible = !isVisible
     }
 
-    private fun startMainActivity() {
-        startActivity(Intent(this, MainActivity::class.java))
+    private fun startMainActivity(userId: String) {
+        val intent = Intent(this, MainActivity::class.java)
+            .putExtra(USER_ID_INTENT_EXTRA, userId)
+
+        startActivity(intent)
         finish()
     }
 
     private fun observeUserUiState() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                userViewModel.userUiState.collectLatest {
+                loginViewModel.userUiState.collectLatest {
                     when (it) {
-                        is UiState.Initial -> registerLayoutIsVisible(true)
-                        is UiState.Loading -> registerLayoutIsVisible(false)
-                        is UiState.Success -> startMainActivity()
+                        is UiState.Initial -> loginLayoutIsVisible(true)
+                        is UiState.Loading -> loginLayoutIsVisible(false)
+                        is UiState.Success -> startMainActivity(it.data)
                         is UiState.Error -> {
-                            registerLayoutIsVisible(true)
+                            loginLayoutIsVisible(true)
                             showErrorSnackBar(getErrorMessage(it.e))
                         }
                     }

@@ -10,7 +10,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,77 +27,33 @@ class UserViewModel @Inject constructor(
         checkLoggedUser()
     }
 
-    fun login(email: String, password: String) {
-        _userUiState.value = UiState.Loading
-
-        viewModelScope.launch {
-            try {
-                val loggedUser = auth
-                    .signInWithEmailAndPassword(email, password)
-                    .await()
-                    .user!!
-
-                loadUserFromDatabase(loggedUser.uid)
-
-            } catch (e: Exception) {
-                _userUiState.value = UiState.Error(e)
-            }
-        }
-    }
-
-    fun register(name: String, email: String, password: String) {
-        _userUiState.value = UiState.Loading
-
-        viewModelScope.launch {
-            try {
-                val loggedUser = auth
-                    .createUserWithEmailAndPassword(email, password)
-                    .await()
-                    .user!!
-
-                val savedUser = firebaseRepository
-                    .saveUser(UserUiModel(loggedUser.uid, name))
-                    .getOrThrow()
-
-                _userUiState.value = UiState.Success(savedUser)
-
-            } catch (e: Exception) {
-                _userUiState.value = UiState.Error(e)
-            }
-        }
-    }
-
-    fun resetUserUiState() {
-        _userUiState.value = UiState.Initial
-    }
-
     private fun checkLoggedUser() {
         _userUiState.value = UiState.Loading
 
-        val loggedUser = auth.currentUser
-        if (loggedUser != null) {
-            viewModelScope.launch {
-                loadUserFromDatabase(loggedUser.uid)
+        viewModelScope.launch {
+            try {
+                val loggedUser = auth.currentUser
+                if (loggedUser != null) {
+                    loadUserFromDatabase(loggedUser.uid)
+                } else {
+                    _userUiState.value = UiState.Initial
+                }
+            } catch (e: Exception) {
+                _userUiState.value = UiState.Error(e)
             }
-        } else {
-            _userUiState.value = UiState.Initial
         }
     }
 
     private suspend fun loadUserFromDatabase(userId: String) {
-        try {
-            val result = firebaseRepository.getUser(userId).getOrNull()
+        val result = firebaseRepository.getUser(userId).getOrNull()
 
-            if (result != null) {
-                _user.value = result
-                _userUiState.value = UiState.Success(result)
-            } else {
-                _userUiState.value = UiState.Error(
-                    FirebaseFirestoreException("user not found in firestore", FirebaseFirestoreException.Code.NOT_FOUND)
-                )
-            }
-        } catch (e: Exception) {
-            _userUiState.value = UiState.Error(e)
+        if (result != null) {
+            _user.value = result
+            _userUiState.value = UiState.Success(result)
+        } else {
+            _userUiState.value = UiState.Error(
+                FirebaseFirestoreException("user not found in firestore", FirebaseFirestoreException.Code.NOT_FOUND)
+            )
         }
     }
 }

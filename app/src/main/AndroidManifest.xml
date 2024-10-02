@@ -18,7 +18,7 @@
         android:theme="@style/Theme.InvestView"
         tools:targetApi="31">
         <activity
-            android:name=".presenter.login.LoginActivity"
+            android:name=".presenter.init.LoginActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
@@ -29,7 +29,7 @@
         </activity>
 
         <activity
-            android:name=".presenter.register.RegisterActivity"
+            android:name=".presenter.init.RegisterActivity"
             android:windowSoftInputMode="adjustPan" />
 
         <activity
