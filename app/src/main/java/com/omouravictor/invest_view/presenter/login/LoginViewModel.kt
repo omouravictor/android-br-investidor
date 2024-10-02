@@ -40,12 +40,12 @@ class LoginViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-                val user = auth
+                val loggedUser = auth
                     .signInWithEmailAndPassword(email, password)
                     .await()
                     .user!!
 
-                loadUser(user.uid)
+                loadUser(loggedUser.uid)
 
             } catch (e: Exception) {
                 _userUiState.value = UiState.Error(e)
