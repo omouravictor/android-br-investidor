@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+import com.google.firebase.firestore.FirebaseFirestoreException
 import com.omouravictor.invest_view.data.remote.repository.FirebaseRepository
 import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.presenter.wallet.model.UserUiModel
@@ -91,7 +92,9 @@ class LoginViewModel @Inject constructor(
             if (result != null)
                 _userUiState.value = UiState.Success(result)
             else
-                _userUiState.value = UiState.Error(Exception("User is null"))
+                _userUiState.value = UiState.Error(
+                    FirebaseFirestoreException("user not found", FirebaseFirestoreException.Code.NOT_FOUND)
+                )
 
         } catch (e: Exception) {
             _userUiState.value = UiState.Error(e)

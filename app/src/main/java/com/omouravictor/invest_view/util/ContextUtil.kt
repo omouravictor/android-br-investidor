@@ -6,6 +6,7 @@ import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
+import com.google.firebase.firestore.FirebaseFirestoreException
 import com.omouravictor.invest_view.R
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
@@ -17,6 +18,13 @@ fun Context.getGenericErrorMessage(e: Exception?): String {
         is FirebaseAuthInvalidCredentialsException -> getString(R.string.invalidCredentials)
         is FirebaseAuthUserCollisionException -> getString(R.string.userAlreadyExists)
         is FirebaseTooManyRequestsException -> getString(R.string.tooManyRequests)
+        is FirebaseFirestoreException -> {
+            when (e.code) {
+                FirebaseFirestoreException.Code.NOT_FOUND -> getString(R.string.userNotFound)
+                else -> getString(R.string.somethingWentWrong)
+            }
+        }
+
         is UnknownHostException -> getString(R.string.noInternetConnection)
         is FirebaseNetworkException -> getString(R.string.noInternetConnection)
         is SocketTimeoutException -> getString(R.string.checkInternetConnection)
