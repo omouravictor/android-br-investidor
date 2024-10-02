@@ -81,13 +81,17 @@ class LoginViewModel @Inject constructor(
     }
 
     private suspend fun loadUserFromDatabase(userId: String) {
-        val result = firebaseRepository.getUser(userId).getOrNull()
+        try {
+            val result = firebaseRepository.getUser(userId).getOrNull()
 
-        if (result != null)
-            _userUiState.value = UiState.Success(result)
-        else
-            _userUiState.value = UiState.Error(
-                FirebaseFirestoreException("user not found in firestore", FirebaseFirestoreException.Code.NOT_FOUND)
-            )
+            if (result != null)
+                _userUiState.value = UiState.Success(result)
+            else
+                _userUiState.value = UiState.Error(
+                    FirebaseFirestoreException("user not found in firestore", FirebaseFirestoreException.Code.NOT_FOUND)
+                )
+        } catch (e: Exception) {
+            _userUiState.value = UiState.Error(e)
+        }
     }
 }
