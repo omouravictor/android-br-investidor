@@ -23,9 +23,9 @@ class LoginViewModel @Inject constructor(
     val userUiState = _userUiState.asStateFlow()
 
     init {
-        val currentUser = auth.currentUser
-        if (currentUser != null)
-            _userUiState.value = UiState.Success(currentUser.uid)
+        val loggedUser = auth.currentUser
+        if (loggedUser != null)
+            _userUiState.value = UiState.Success(loggedUser.uid)
     }
 
     fun login(email: String, password: String) {
