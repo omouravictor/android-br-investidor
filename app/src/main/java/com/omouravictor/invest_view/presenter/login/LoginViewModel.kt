@@ -9,12 +9,14 @@ import com.google.firebase.auth.auth
 import com.omouravictor.invest_view.data.remote.repository.FirebaseRepository
 import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.presenter.wallet.model.UserUiModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
+@HiltViewModel
 class LoginViewModel @Inject constructor(
     auth: FirebaseAuth,
     private val firebaseRepository: FirebaseRepository
@@ -77,12 +79,8 @@ class LoginViewModel @Inject constructor(
     private suspend fun getUser(user: FirebaseUser?) {
         if (user != null) {
             try {
-                val result = firebaseRepository.getUser(user.uid)
-
-                if (result.isSuccess)
-                    _userUiState.value = UiState.Success(result.getOrThrow())
-                else
-                    _userUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
+                val result = firebaseRepository.getUser("user.uid")
+                _userUiState.value = UiState.Success(result.getOrThrow())
 
             } catch (e: Exception) {
                 _userUiState.value = UiState.Error(e)
