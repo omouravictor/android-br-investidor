@@ -1,4 +1,4 @@
-package com.omouravictor.invest_view.presenter.login
+package com.omouravictor.invest_view.presenter.user
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -6,7 +6,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.omouravictor.invest_view.data.remote.repository.FirebaseRepository
 import com.omouravictor.invest_view.presenter.model.UiState
-import com.omouravictor.invest_view.presenter.user.UserUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,7 +14,7 @@ import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(
+class UserViewModel @Inject constructor(
     private val auth: FirebaseAuth,
     private val firebaseRepository: FirebaseRepository
 ) : ViewModel() {

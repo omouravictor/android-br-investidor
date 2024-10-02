@@ -1,7 +1,7 @@
 package com.omouravictor.invest_view.data.remote.repository
 
+import com.omouravictor.invest_view.presenter.user.UserUiModel
 import com.omouravictor.invest_view.presenter.wallet.asset.AssetUiModel
-import com.omouravictor.invest_view.presenter.wallet.model.UserUiModel
 
 interface FirebaseRepository {
     suspend fun getUser(userId: String): Result<UserUiModel?>
