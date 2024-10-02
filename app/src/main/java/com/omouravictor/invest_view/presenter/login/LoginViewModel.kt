@@ -27,10 +27,10 @@ class LoginViewModel @Inject constructor(
     val userUiState = _userUiState.asStateFlow()
 
     init {
-        val currentUser = auth.currentUser
-        if (currentUser != null) {
+        val loggedUser = auth.currentUser
+        if (loggedUser != null) {
             viewModelScope.launch {
-                loadUser(currentUser.uid)
+                loadUserFromDatabase(loggedUser.uid)
             }
         }
     }
@@ -45,7 +45,7 @@ class LoginViewModel @Inject constructor(
                     .await()
                     .user!!
 
-                loadUser(loggedUser.uid)
+                loadUserFromDatabase(loggedUser.uid)
 
             } catch (e: Exception) {
                 _userUiState.value = UiState.Error(e)
@@ -79,7 +79,7 @@ class LoginViewModel @Inject constructor(
         _userUiState.value = UiState.Initial
     }
 
-    private suspend fun loadUser(userId: String) {
+    private suspend fun loadUserFromDatabase(userId: String) {
         val result = firebaseRepository.getUser(userId).getOrNull()
 
         if (result != null)
