@@ -55,6 +55,7 @@
                 android:drawableStart="@drawable/ic_email"
                 android:drawablePadding="8dp"
                 android:hint="@string/email"
+                android:imeOptions="actionNext"
                 android:inputType="textEmailAddress"
                 android:paddingVertical="@dimen/defaultSpace"
                 tools:text="omouravictor@gmail.com" />
@@ -76,7 +77,7 @@
                 android:drawableStart="@drawable/ic_lock"
                 android:drawablePadding="8dp"
                 android:hint="@string/password"
-                android:imeOptions="actionGo"
+                android:imeOptions="actionDone"
                 android:inputType="textPassword"
                 android:paddingVertical="@dimen/defaultSpace"
                 tools:text="123456" />

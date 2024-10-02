@@ -43,12 +43,9 @@ class LoginViewModel @Inject constructor(
                 val user = auth
                     .signInWithEmailAndPassword(email, password)
                     .await()
-                    .user
+                    .user!!
 
-                if (user != null)
-                    loadUser(user.uid)
-                else
-                    _userUiState.value = UiState.Error(Exception("User is null"))
+                loadUser(user.uid)
 
             } catch (e: Exception) {
                 _userUiState.value = UiState.Error(e)
@@ -86,18 +83,13 @@ class LoginViewModel @Inject constructor(
     }
 
     private suspend fun loadUser(userId: String) {
-        try {
-            val result = firebaseRepository.getUser(userId).getOrNull()
+        val result = firebaseRepository.getUser(userId).getOrNull()
 
-            if (result != null)
-                _userUiState.value = UiState.Success(result)
-            else
-                _userUiState.value = UiState.Error(
-                    FirebaseFirestoreException("user not found", FirebaseFirestoreException.Code.NOT_FOUND)
-                )
-
-        } catch (e: Exception) {
-            _userUiState.value = UiState.Error(e)
-        }
+        if (result != null)
+            _userUiState.value = UiState.Success(result)
+        else
+            _userUiState.value = UiState.Error(
+                FirebaseFirestoreException("user not found in firestore", FirebaseFirestoreException.Code.NOT_FOUND)
+            )
     }
 }

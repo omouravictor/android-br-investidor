@@ -56,7 +56,7 @@
     <string name="invalidCredentials">Credenciais inválidas, verifique o e-mail e senha.</string>
     <string name="userAlreadyExists">E-mail já utilizado por outro usuário.</string>
     <string name="errorLoadingAssetVariation">Não foi possível obter a variação do ativo, espere um pouco e tente novamente.</string>
-    <string name="userNotFound">Usuário não encontrado.</string>
+    <string name="userNotFound">Usuário não encontrado na base de dados.</string>
 
     <string name="appName">Invest View</string>
     <string name="add">Add</string>
