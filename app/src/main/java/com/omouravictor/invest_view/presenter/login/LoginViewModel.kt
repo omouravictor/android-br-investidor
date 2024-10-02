@@ -24,12 +24,7 @@ class LoginViewModel @Inject constructor(
     val userUiState = _userUiState.asStateFlow()
 
     init {
-        val loggedUser = auth.currentUser
-        if (loggedUser != null) {
-            viewModelScope.launch {
-                loadUserFromDatabase(loggedUser.uid)
-            }
-        }
+        checkLoggedUser()
     }
 
     fun login(email: String, password: String) {
@@ -74,6 +69,15 @@ class LoginViewModel @Inject constructor(
 
     fun resetUserUiState() {
         _userUiState.value = UiState.Initial
+    }
+
+    private fun checkLoggedUser() {
+        val loggedUser = auth.currentUser
+        if (loggedUser != null) {
+            viewModelScope.launch {
+                loadUserFromDatabase(loggedUser.uid)
+            }
+        }
     }
 
     private suspend fun loadUserFromDatabase(userId: String) {
