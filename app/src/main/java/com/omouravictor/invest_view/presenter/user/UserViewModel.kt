@@ -21,6 +21,8 @@ class UserViewModel @Inject constructor(
 
     private val _userUiState = MutableStateFlow<UiState<UserUiModel>>(UiState.Initial)
     val userUiState = _userUiState.asStateFlow()
+    private val _user = MutableStateFlow(UserUiModel())
+    val user = _user.asStateFlow()
 
     init {
         checkLoggedUser()
@@ -87,12 +89,14 @@ class UserViewModel @Inject constructor(
         try {
             val result = firebaseRepository.getUser(userId).getOrNull()
 
-            if (result != null)
+            if (result != null) {
+                _user.value = result
                 _userUiState.value = UiState.Success(result)
-            else
+            } else {
                 _userUiState.value = UiState.Error(
                     FirebaseFirestoreException("user not found in firestore", FirebaseFirestoreException.Code.NOT_FOUND)
                 )
+            }
         } catch (e: Exception) {
             _userUiState.value = UiState.Error(e)
         }

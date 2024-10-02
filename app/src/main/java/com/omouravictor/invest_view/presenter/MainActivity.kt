@@ -19,7 +19,9 @@ import androidx.navigation.ui.setupWithNavController
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.ActivityMainBinding
 import com.omouravictor.invest_view.presenter.model.UiState
+import com.omouravictor.invest_view.presenter.user.UserUiModel
 import com.omouravictor.invest_view.presenter.user.UserViewModel
+import com.omouravictor.invest_view.presenter.user.getFormattedName
 import com.omouravictor.invest_view.presenter.wallet.WalletFragmentDirections
 import com.omouravictor.invest_view.util.clearPileAndNavigateTo
 import com.omouravictor.invest_view.util.setupToolbarSubtitle
@@ -83,16 +85,19 @@ class MainActivity : AppCompatActivity() {
                 R.id.fragmentWallet -> {
                     binding.tvToolbarCenterText.isVisible = false
                     setupOptionsMenuForWallet()
+                    setupToolbarSubtitle(userViewModel.user.value)
                 }
 
                 R.id.fragmentSaveAsset, R.id.fragmentTransaction -> {
                     binding.tvToolbarCenterText.isVisible = true
                     setupOptionsMenu()
+                    setupToolbarSubtitle(null)
                 }
 
                 else -> {
                     binding.tvToolbarCenterText.isVisible = false
                     setupOptionsMenu()
+                    setupToolbarSubtitle(null)
                 }
             }
         }
@@ -143,8 +148,7 @@ class MainActivity : AppCompatActivity() {
                         }
 
                         is UiState.Success -> {
-                            val userUiModel = it.data
-                            setupToolbarSubtitle("Olá, ${userUiModel.name.substringBefore(" ")}")
+                            setupToolbarSubtitle(it.data)
                         }
 
                         is UiState.Error -> {
@@ -154,5 +158,12 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun setupToolbarSubtitle(user: UserUiModel?) {
+        if (user != null)
+            setupToolbarSubtitle("Olá, ${user.getFormattedName()}")
+        else
+            setupToolbarSubtitle("")
     }
 }

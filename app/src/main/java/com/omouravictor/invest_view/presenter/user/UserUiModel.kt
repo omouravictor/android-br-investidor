@@ -8,3 +8,5 @@ data class UserUiModel(
     val uid: String = "",
     val name: String = ""
 ) : Parcelable
+
+fun UserUiModel.getFormattedName() = name.substringBefore(" ")
