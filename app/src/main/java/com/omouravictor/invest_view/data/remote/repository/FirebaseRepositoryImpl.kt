@@ -78,7 +78,8 @@ class FirebaseRepositoryImpl(
     override suspend fun saveAsset(userId: String, assetUiModel: AssetUiModel): Result<AssetUiModel> {
         return withContext(dispatchers.io) {
             try {
-                firestore.collection(COLLECTION_USERS)
+                firestore
+                    .collection(COLLECTION_USERS)
                     .document(userId)
                     .collection(COLLECTION_ASSETS)
                     .document(assetUiModel.symbol)
@@ -97,7 +98,8 @@ class FirebaseRepositoryImpl(
     override suspend fun deleteAsset(userId: String, assetUiModel: AssetUiModel): Result<AssetUiModel> {
         return withContext(dispatchers.io) {
             try {
-                firestore.collection(COLLECTION_USERS)
+                firestore
+                    .collection(COLLECTION_USERS)
                     .document(userId)
                     .collection(COLLECTION_ASSETS)
                     .document(assetUiModel.symbol)
