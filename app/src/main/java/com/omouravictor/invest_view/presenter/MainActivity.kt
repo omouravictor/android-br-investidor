@@ -23,6 +23,7 @@ import com.omouravictor.invest_view.presenter.user.UserUiModel
 import com.omouravictor.invest_view.presenter.user.UserViewModel
 import com.omouravictor.invest_view.presenter.user.getFormattedName
 import com.omouravictor.invest_view.presenter.wallet.WalletFragmentDirections
+import com.omouravictor.invest_view.util.ConstantUtil.USER_ID_INTENT_EXTRA
 import com.omouravictor.invest_view.util.clearPileAndNavigateTo
 import com.omouravictor.invest_view.util.setupToolbarSubtitle
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,6 +39,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val userId = intent.getStringExtra(USER_ID_INTENT_EXTRA)!!
+        userViewModel.getUser(userId)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
@@ -139,20 +142,20 @@ class MainActivity : AppCompatActivity() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 userViewModel.userUiState.collectLatest {
                     when (it) {
-                        is UiState.Initial -> {
-                            // Do nothing
-                        }
-
-                        is UiState.Loading -> {
-                            // Do nothing
+                        is UiState.Initial, UiState.Loading -> {
+                            binding.mainLayout.isVisible = false
+                            binding.incProgressBar.root.isVisible = true
                         }
 
                         is UiState.Success -> {
+                            binding.mainLayout.isVisible = true
+                            binding.incProgressBar.root.isVisible = false
                             setupToolbarSubtitle(it.data)
                         }
 
                         is UiState.Error -> {
-                            // Do nothing
+                            binding.mainLayout.isVisible = false
+                            binding.incProgressBar.root.isVisible = false
                         }
                     }
                 }
