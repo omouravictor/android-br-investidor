@@ -23,6 +23,7 @@ import com.omouravictor.invest_view.presenter.user.UserUiModel
 import com.omouravictor.invest_view.presenter.user.UserViewModel
 import com.omouravictor.invest_view.presenter.user.getFormattedName
 import com.omouravictor.invest_view.presenter.wallet.WalletFragmentDirections
+import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.util.ConstantUtil.USER_ID_INTENT_EXTRA
 import com.omouravictor.invest_view.util.clearPileAndNavigateTo
 import com.omouravictor.invest_view.util.setupToolbarSubtitle
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
     private val userViewModel: UserViewModel by viewModels()
+    private val walletViewModel: WalletViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -142,20 +144,23 @@ class MainActivity : AppCompatActivity() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 userViewModel.userUiState.collectLatest {
                     when (it) {
-                        is UiState.Initial, UiState.Loading -> {
-                            binding.mainLayout.isVisible = false
-                            binding.incProgressBar.root.isVisible = true
-                        }
-
                         is UiState.Success -> {
                             binding.mainLayout.isVisible = true
                             binding.incProgressBar.root.isVisible = false
-                            setupToolbarSubtitle(it.data)
+                            val user = it.data
+                            setupToolbarSubtitle(user)
+                            walletViewModel.getUserAssetList(user.uid)
                         }
 
                         is UiState.Error -> {
+                            // todo: implementar lógica caso falhar ter botão para tentar denovo
                             binding.mainLayout.isVisible = false
                             binding.incProgressBar.root.isVisible = false
+                        }
+
+                        else -> {
+                            binding.mainLayout.isVisible = false
+                            binding.incProgressBar.root.isVisible = true
                         }
                     }
                 }

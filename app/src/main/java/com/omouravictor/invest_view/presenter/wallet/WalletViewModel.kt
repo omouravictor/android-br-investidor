@@ -30,13 +30,9 @@ class WalletViewModel @Inject constructor(
     private val _assetList = MutableStateFlow<List<AssetUiModel>>(emptyList())
     val assetList = _assetList.asStateFlow()
 
-    private val userId: String = auth.currentUser?.uid ?: ""
+    private val userId = auth.currentUser?.uid ?: "" // TODO: remover depois de substituir em todos os lugares
 
-    init {
-        getUserAssetList()
-    }
-
-    fun getUserAssetList() {
+    fun getUserAssetList(userId: String) {
         _getUserAssetListUiState.value = UiState.Loading
 
         viewModelScope.launch {

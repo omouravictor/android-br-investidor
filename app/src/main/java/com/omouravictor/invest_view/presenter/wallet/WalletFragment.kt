@@ -1,9 +1,7 @@
 package com.omouravictor.invest_view.presenter.wallet
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
@@ -16,16 +14,18 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentWalletBinding
 import com.omouravictor.invest_view.presenter.model.UiState
+import com.omouravictor.invest_view.presenter.user.UserViewModel
 import com.omouravictor.invest_view.presenter.wallet.asset_currencies.AssetCurrenciesFragment
 import com.omouravictor.invest_view.presenter.wallet.asset_types.AssetTypesFragment
 import com.omouravictor.invest_view.util.getErrorMessage
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class WalletFragment : Fragment() {
+class WalletFragment : Fragment(R.layout.fragment_wallet) {
 
     private lateinit var binding: FragmentWalletBinding
     private val walletViewModel: WalletViewModel by activityViewModels()
+    private val userViewModel: UserViewModel by activityViewModels()
 
     companion object {
         private const val VIEW_FLIPPER_CHILD_FILLED_WALLET_LAYOUT = 0
@@ -43,15 +43,9 @@ class WalletFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentWalletBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding = FragmentWalletBinding.bind(view)
         setupTabLayoutWithViewPager2()
         setupButtons()
         observeGetUserAssetListUiState()
@@ -89,7 +83,7 @@ class WalletFragment : Fragment() {
         binding.incWalletErrorLayout.incBtnTryAgain.root.apply {
             text = getString(R.string.tryAgain)
             setOnClickListener {
-                walletViewModel.getUserAssetList()
+                walletViewModel.getUserAssetList(userViewModel.user.value.uid)
             }
         }
     }
