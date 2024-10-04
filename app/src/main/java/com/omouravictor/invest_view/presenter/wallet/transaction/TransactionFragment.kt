@@ -19,6 +19,7 @@ import androidx.navigation.fragment.navArgs
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentTransactionBinding
 import com.omouravictor.invest_view.presenter.model.UiState
+import com.omouravictor.invest_view.presenter.user.UserViewModel
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.asset.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.asset.getFormattedSymbol
@@ -47,6 +48,7 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
     private lateinit var navController: NavController
     private val args by navArgs<TransactionFragmentArgs>()
     private val walletViewModel: WalletViewModel by activityViewModels()
+    private val userViewModel: UserViewModel by activityViewModels()
     private var transaction = Transaction.BUY
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -198,7 +200,12 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
         AlertDialog.Builder(context).apply {
             setTitle(assetUiModel.getFormattedSymbol())
             setMessage(getString(R.string.saleAssetAlertMessage))
-            setPositiveButton(getString(R.string.yes)) { _, _ -> walletViewModel.deleteAsset(assetUiModel) }
+            setPositiveButton(getString(R.string.yes)) { _, _ ->
+                walletViewModel.deleteAsset(
+                    assetUiModel,
+                    userViewModel.user.value.uid
+                )
+            }
             setNegativeButton(getString(R.string.not)) { dialog, _ -> dialog.dismiss() }
             setIcon(icon)
         }.show()
@@ -222,7 +229,7 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
                     } else {
                         assetUiModel.totalInvested - totalInvested
                     }
-                    walletViewModel.saveAsset(assetUiModel)
+                    walletViewModel.saveAsset(assetUiModel, userViewModel.user.value.uid)
                 }
             }
         }

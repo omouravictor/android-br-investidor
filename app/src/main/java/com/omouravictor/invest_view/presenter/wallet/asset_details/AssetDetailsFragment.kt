@@ -19,6 +19,7 @@ import androidx.navigation.fragment.navArgs
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentAssetDetailsBinding
 import com.omouravictor.invest_view.presenter.model.UiState
+import com.omouravictor.invest_view.presenter.user.UserViewModel
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.asset.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.asset.AssetViewModel
@@ -51,6 +52,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
     private lateinit var navController: NavController
     private val args by navArgs<AssetDetailsFragmentArgs>()
     private val assetViewModel: AssetViewModel by activityViewModels()
+    private val userViewModel: UserViewModel by activityViewModels()
     private val currencyExchangeRatesViewModel: CurrencyExchangeRatesViewModel by activityViewModels()
     private val walletViewModel: WalletViewModel by activityViewModels()
     private var globalQuote: GlobalQuoteUiModel? = null
@@ -100,7 +102,12 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         AlertDialog.Builder(context).apply {
             setTitle(assetUiModel.getFormattedSymbol())
             setMessage(getString(R.string.deleteAssetAlertMessage))
-            setPositiveButton(getString(R.string.yes)) { _, _ -> walletViewModel.deleteAsset(assetUiModel) }
+            setPositiveButton(getString(R.string.yes)) { _, _ ->
+                walletViewModel.deleteAsset(
+                    assetUiModel,
+                    userViewModel.user.value.uid
+                )
+            }
             setNegativeButton(getString(R.string.not)) { dialog, _ -> dialog.dismiss() }
             setIcon(R.drawable.ic_delete)
         }.show()

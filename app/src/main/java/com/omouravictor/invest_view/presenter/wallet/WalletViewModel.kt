@@ -2,7 +2,6 @@ package com.omouravictor.invest_view.presenter.wallet
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.auth.FirebaseAuth
 import com.omouravictor.invest_view.data.remote.repository.FirebaseRepository
 import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.presenter.wallet.asset.AssetUiModel
@@ -14,7 +13,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WalletViewModel @Inject constructor(
-    auth: FirebaseAuth,
     private val firebaseRepository: FirebaseRepository
 ) : ViewModel() {
 
@@ -30,8 +28,6 @@ class WalletViewModel @Inject constructor(
     private val _assetList = MutableStateFlow<List<AssetUiModel>>(emptyList())
     val assetList = _assetList.asStateFlow()
 
-    private val userId = auth.currentUser?.uid ?: "" // TODO: remover depois de substituir em todos os lugares
-
     fun getUserAssetList(userId: String) {
         _getUserAssetListUiState.value = UiState.Loading
 
@@ -46,7 +42,7 @@ class WalletViewModel @Inject constructor(
         }
     }
 
-    fun saveAsset(asset: AssetUiModel) {
+    fun saveAsset(asset: AssetUiModel, userId: String) {
         _saveAssetUiState.value = UiState.Loading
 
         viewModelScope.launch {
@@ -62,7 +58,7 @@ class WalletViewModel @Inject constructor(
         }
     }
 
-    fun deleteAsset(asset: AssetUiModel) {
+    fun deleteAsset(asset: AssetUiModel, userId: String) {
         _deleteAssetUiState.value = UiState.Loading
 
         viewModelScope.launch {

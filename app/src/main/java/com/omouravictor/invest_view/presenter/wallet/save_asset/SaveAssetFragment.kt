@@ -23,6 +23,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentSaveAssetBinding
 import com.omouravictor.invest_view.presenter.model.UiState
+import com.omouravictor.invest_view.presenter.user.UserViewModel
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.presenter.wallet.asset.AssetUiModel
 import com.omouravictor.invest_view.presenter.wallet.asset.getFormattedSymbol
@@ -49,6 +50,7 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
     private lateinit var navController: NavController
     private val args by navArgs<SaveAssetFragmentArgs>()
     private val walletViewModel: WalletViewModel by activityViewModels()
+    private val userViewModel: UserViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -167,7 +169,7 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
             setOnClickListener {
                 assetUiModel.amount = binding.ietAmount.getLongValue()
                 assetUiModel.totalInvested = binding.ietTotalInvested.text.toString().getMonetaryValueInDouble()
-                walletViewModel.saveAsset(assetUiModel)
+                walletViewModel.saveAsset(assetUiModel, userViewModel.user.value.uid)
             }
         }
     }
