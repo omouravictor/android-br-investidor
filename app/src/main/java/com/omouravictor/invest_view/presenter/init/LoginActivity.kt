@@ -86,13 +86,13 @@ class LoginActivity : AppCompatActivity() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 loginViewModel.userUiState.collectLatest {
                     when (it) {
+                        is UiState.Initial -> loginLayoutIsVisible(true)
+                        is UiState.Loading -> loginLayoutIsVisible(false)
                         is UiState.Success -> startMainActivity()
                         is UiState.Error -> {
                             loginLayoutIsVisible(true)
                             showErrorSnackBar(getErrorMessage(it.e))
                         }
-
-                        else -> loginLayoutIsVisible(false)
                     }
                 }
             }
