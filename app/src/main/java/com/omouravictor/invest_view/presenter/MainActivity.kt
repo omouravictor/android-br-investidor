@@ -78,13 +78,7 @@ class MainActivity : AppCompatActivity() {
         setupToolbarSubtitle(userViewModel.user.value)
     }
 
-    private fun setupToolbarForSaveAsset() {
-        binding.tvToolbarCenterText.isVisible = true
-        setupOptionsMenu()
-        setupToolbarSubtitle(null)
-    }
-
-    private fun setupToolbarForTransaction() {
+    private fun setupToolbarWithCenterText() {
         binding.tvToolbarCenterText.isVisible = true
         setupOptionsMenu()
         setupToolbarSubtitle(null)
@@ -111,8 +105,7 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.fragmentWallet -> setupToolbarForWallet()
-                R.id.fragmentSaveAsset -> setupToolbarForSaveAsset()
-                R.id.fragmentTransaction -> setupToolbarForTransaction()
+                R.id.fragmentSaveAsset, R.id.fragmentTransaction -> setupToolbarWithCenterText()
                 else -> setupToolbar()
             }
         }
