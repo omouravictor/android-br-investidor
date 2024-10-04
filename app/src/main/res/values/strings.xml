@@ -55,6 +55,7 @@
     <string name="loginError">Erro ao fazer Login</string>
     <string name="invalidCredentials">Credenciais inválidas, verifique o e-mail e senha.</string>
     <string name="userAlreadyExists">E-mail já utilizado por outro usuário.</string>
+    <string name="userNotSignedIn">Usuário não autenticado.</string>
     <string name="errorLoadingAssetVariation">Não foi possível obter a variação do ativo, espere um pouco e tente novamente.</string>
     <string name="userNotFound">Usuário não encontrado na base de dados.</string>
 

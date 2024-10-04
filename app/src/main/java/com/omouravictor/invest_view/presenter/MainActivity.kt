@@ -24,7 +24,6 @@ import com.omouravictor.invest_view.presenter.user.UserViewModel
 import com.omouravictor.invest_view.presenter.user.getFormattedName
 import com.omouravictor.invest_view.presenter.wallet.WalletFragmentDirections
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
-import com.omouravictor.invest_view.util.ConstantUtil.USER_ID_INTENT_EXTRA
 import com.omouravictor.invest_view.util.clearPileAndNavigateTo
 import com.omouravictor.invest_view.util.setupToolbarSubtitle
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,14 +40,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val userId = intent.getStringExtra(USER_ID_INTENT_EXTRA)!!
-        userViewModel.getUser(userId)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
         setupMainNavigation()
         setupBottomNavigationView()
         addOnApplyWindowInsetsListener()
+        setupViews()
         observeUserUiState()
     }
 
@@ -139,29 +137,43 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupOptionsMenuForWallet() = setupOptionsMenu(walletGroupVisible = true)
 
+    private fun setupViews() {
+        binding.incLayoutError.incBtnTryAgain.root.apply {
+            text = getString(R.string.tryAgain)
+            setOnClickListener {
+                userViewModel.getUser()
+            }
+        }
+    }
+
+    private fun handleUserSuccess(user: UserUiModel) {
+        binding.mainLayout.isVisible = true
+        binding.incLayoutError.root.isVisible = false
+        binding.incProgressBar.root.isVisible = false
+        setupToolbarSubtitle(user)
+        walletViewModel.getUserAssetList(user.uid)
+    }
+
+    private fun handleUserError() {
+        binding.mainLayout.isVisible = false
+        binding.incLayoutError.root.isVisible = true
+        binding.incProgressBar.root.isVisible = false
+    }
+
+    private fun handleUserLoading() {
+        binding.mainLayout.isVisible = false
+        binding.incLayoutError.root.isVisible = false
+        binding.incProgressBar.root.isVisible = true
+    }
+
     private fun observeUserUiState() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 userViewModel.userUiState.collectLatest {
                     when (it) {
-                        is UiState.Success -> {
-                            binding.mainLayout.isVisible = true
-                            binding.incProgressBar.root.isVisible = false
-                            val user = it.data
-                            setupToolbarSubtitle(user)
-                            walletViewModel.getUserAssetList(user.uid)
-                        }
-
-                        is UiState.Error -> {
-                            // todo: implementar lógica caso falhar ter botão para tentar denovo
-                            binding.mainLayout.isVisible = false
-                            binding.incProgressBar.root.isVisible = false
-                        }
-
-                        else -> {
-                            binding.mainLayout.isVisible = false
-                            binding.incProgressBar.root.isVisible = true
-                        }
+                        is UiState.Success -> handleUserSuccess(it.data)
+                        is UiState.Error -> handleUserError()
+                        else -> handleUserLoading()
                     }
                 }
             }

@@ -2,7 +2,9 @@ package com.omouravictor.invest_view.presenter.user
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestoreException
+import com.google.firebase.internal.api.FirebaseNoSignedInUserException
 import com.omouravictor.invest_view.data.remote.repository.FirebaseRepository
 import com.omouravictor.invest_view.presenter.model.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,6 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UserViewModel @Inject constructor(
+    private val auth: FirebaseAuth,
     private val firebaseRepository: FirebaseRepository
 ) : ViewModel() {
 
@@ -21,11 +24,17 @@ class UserViewModel @Inject constructor(
     private val _user = MutableStateFlow(UserUiModel())
     val user = _user.asStateFlow()
 
-    fun getUser(userId: String) {
+    init {
+        getUser()
+    }
+
+    fun getUser() {
         _userUiState.value = UiState.Loading
 
         viewModelScope.launch {
             try {
+                val userId =
+                    auth.currentUser?.uid ?: throw FirebaseNoSignedInUserException("user not signed in")
                 val result = firebaseRepository.getUser(userId).getOrNull()
 
                 if (result != null) {

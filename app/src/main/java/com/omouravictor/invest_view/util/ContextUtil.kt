@@ -7,6 +7,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.firestore.FirebaseFirestoreException
+import com.google.firebase.internal.api.FirebaseNoSignedInUserException
 import com.omouravictor.invest_view.R
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
@@ -24,6 +25,7 @@ fun Context.getErrorMessage(e: Exception?): String {
                 else -> getString(R.string.somethingWentWrong)
             }
         }
+        is FirebaseNoSignedInUserException -> getString(R.string.userNotSignedIn)
 
         is UnknownHostException -> getString(R.string.noInternetConnection)
         is FirebaseNetworkException -> getString(R.string.noInternetConnection)
