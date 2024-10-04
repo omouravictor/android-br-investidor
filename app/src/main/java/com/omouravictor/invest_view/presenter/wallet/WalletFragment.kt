@@ -116,7 +116,7 @@ class WalletFragment : Fragment(R.layout.fragment_wallet) {
         binding.incWalletErrorLayout.incBtnTryAgain.root.apply {
             text = getString(R.string.tryAgain)
             setOnClickListener {
-                walletViewModel.getUserAssetList(userViewModel.user.uid)
+                walletViewModel.getUserAssetList(userViewModel.user.value.uid)
             }
         }
     }

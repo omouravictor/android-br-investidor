@@ -207,7 +207,7 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
             setPositiveButton(getString(R.string.yes)) { _, _ ->
                 walletViewModel.deleteAsset(
                     assetUiModel,
-                    userViewModel.user.uid
+                    userViewModel.user.value.uid
                 )
             }
             setNegativeButton(getString(R.string.not)) { dialog, _ -> dialog.dismiss() }
@@ -233,7 +233,7 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
                     } else {
                         assetUiModel.totalInvested - totalInvested
                     }
-                    walletViewModel.saveAsset(assetUiModel, userViewModel.user.uid)
+                    walletViewModel.saveAsset(assetUiModel, userViewModel.user.value.uid)
                 }
             }
         }

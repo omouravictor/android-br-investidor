@@ -47,13 +47,14 @@ class MainActivity : AppCompatActivity() {
             intent.getParcelableExtra(USER_UI_MODEL_INTENT_EXTRA)
         }!!
 
-        userViewModel.user = userUiModel
+        userViewModel.updateUser(userUiModel)
+        setupToolbarSubtitle(userUiModel)
         walletViewModel.getUserAssetList(userUiModel.uid)
     }
 
     private fun setupToolbarForWallet() {
         binding.tvToolbarCenterText.isVisible = false
-        setupToolbarSubtitle(userViewModel.user)
+        setupToolbarSubtitle(userViewModel.user.value)
     }
 
     private fun setupToolbarWithCenterText() {
