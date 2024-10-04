@@ -51,14 +51,11 @@ class WalletViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-                val result = firebaseRepository.saveAsset(userId, asset)
-                if (result.isSuccess) {
-                    val updatedList = getUpdatedList(asset)
-                    _saveAssetUiState.value = UiState.Success(asset)
-                    _assetList.value = updatedList
-                    _getUserAssetListUiState.value = UiState.Success(updatedList)
-                } else
-                    _saveAssetUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
+                val result = firebaseRepository.saveAsset(userId, asset).getOrThrow()
+                val updatedList = getUpdatedList(result)
+                _saveAssetUiState.value = UiState.Success(result)
+                _assetList.value = updatedList
+                _getUserAssetListUiState.value = UiState.Success(updatedList)
             } catch (e: Exception) {
                 _saveAssetUiState.value = UiState.Error(e)
             }
