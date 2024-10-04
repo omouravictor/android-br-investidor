@@ -105,6 +105,7 @@ class WalletFragment : Fragment(R.layout.fragment_wallet) {
                                 viewFlipper.displayedChild = VIEW_FLIPPER_CHILD_WALLET_ERROR_LAYOUT
                                 incWalletErrorLayout.tvInfoMessage.text = root.context.getErrorMessage(it.e)
                             }
+                            // todo: se der erro não é pra permitir que o usuário adicione ativos
                         }
 
                         else -> binding.viewFlipper.displayedChild = VIEW_FLIPPER_CHILD_PROGRESS_BAR
