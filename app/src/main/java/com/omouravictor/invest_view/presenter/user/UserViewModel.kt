@@ -38,7 +38,7 @@ class UserViewModel @Inject constructor(
 
                 val result = firebaseRepository
                     .getUser(userId)
-                    .getOrNull()
+                    .getOrThrow()
 
                 if (result != null) {
                     _user.value = result

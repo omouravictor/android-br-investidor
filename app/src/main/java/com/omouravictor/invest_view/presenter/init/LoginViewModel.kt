@@ -87,7 +87,7 @@ class LoginViewModel @Inject constructor(
     private suspend fun checkUserIsSavedOrSave(user: FirebaseUser) {
         val savedUser = firebaseRepository
             .getUser(user.uid)
-            .getOrNull()
+            .getOrThrow()
 
         if (savedUser != null)
             _userUiState.value = UiState.Success(Unit)
