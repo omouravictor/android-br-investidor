@@ -33,8 +33,8 @@ class UserViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-                val userId =
-                    auth.currentUser?.uid ?: throw FirebaseNoSignedInUserException("user not signed in")
+                val userId = auth.currentUser?.uid
+                    ?: throw FirebaseNoSignedInUserException("user not signed in")
                 val result = firebaseRepository.getUser(userId).getOrNull()
 
                 if (result != null) {
