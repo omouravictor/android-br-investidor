@@ -19,13 +19,13 @@ class LoginViewModel @Inject constructor(
     private val firebaseRepository: FirebaseRepository
 ) : ViewModel() {
 
-    private val _userUiState = MutableStateFlow<UiState<String>>(UiState.Initial)
+    private val _userUiState = MutableStateFlow<UiState<Unit>>(UiState.Initial)
     val userUiState = _userUiState.asStateFlow()
 
     init {
         val loggedUser = auth.currentUser
         if (loggedUser != null)
-            _userUiState.value = UiState.Success(loggedUser.uid)
+            _userUiState.value = UiState.Success(Unit)
     }
 
     fun login(email: String, password: String) {
@@ -38,7 +38,7 @@ class LoginViewModel @Inject constructor(
                     .await()
                     .user!!
 
-                _userUiState.value = UiState.Success(loggedUser.uid)
+                _userUiState.value = UiState.Success(Unit)
 
             } catch (e: Exception) {
                 _userUiState.value = UiState.Error(e)
@@ -56,11 +56,11 @@ class LoginViewModel @Inject constructor(
                     .await()
                     .user!!
 
-                val savedUser = firebaseRepository
+                firebaseRepository
                     .saveUser(UserUiModel(loggedUser.uid, name))
                     .getOrThrow()
 
-                _userUiState.value = UiState.Success(savedUser.uid)
+                _userUiState.value = UiState.Success(Unit)
 
             } catch (e: Exception) {
                 _userUiState.value = UiState.Error(e)
