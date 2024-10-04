@@ -1,85 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/mainLayout"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.InvestView.AppBarOverlay"
+        app:elevation="@dimen/defaultElevation">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appBarLayout"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/Theme.InvestView.AppBarOverlay"
-            app:elevation="@dimen/defaultElevation">
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/black"
+            android:theme="@style/AppToolbarStyle"
+            app:contentInsetStartWithNavigation="0dp"
+            app:popupTheme="@style/Theme.InvestView.PopupOverlay"
+            app:titleTextAppearance="@style/AppToolbarTitleTextStyle"
+            tools:title="Carteira">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/black"
-                android:theme="@style/AppToolbarStyle"
-                app:contentInsetStartWithNavigation="0dp"
-                app:popupTheme="@style/Theme.InvestView.PopupOverlay"
-                app:titleTextAppearance="@style/AppToolbarTitleTextStyle"
-                tools:title="Carteira">
+            <TextView
+                android:id="@+id/tvToolbarCenterText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/textSize4"
+                android:textStyle="bold"
+                tools:text="Carteira" />
 
-                <TextView
-                    android:id="@+id/tvToolbarCenterText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/textSize4"
-                    android:textStyle="bold"
-                    tools:text="Carteira" />
+        </androidx.appcompat.widget.Toolbar>
 
-            </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
 
-        </com.google.android.material.appbar.AppBarLayout>
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/navHostFragmentMain"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/main_nav"
+        tools:layout="@layout/fragment_wallet" />
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/navHostFragmentMain"
-            android:name="androidx.navigation.fragment.NavHostFragment"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            app:defaultNavHost="true"
-            app:navGraph="@navigation/main_nav"
-            tools:layout="@layout/fragment_wallet" />
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottomNav"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/navBackColor"
-            app:itemIconTint="@color/green"
-            app:itemRippleColor="@null"
-            app:itemTextColor="@drawable/selector_bottom_nav_text_color"
-            app:menu="@menu/nav_menu_main" />
-
-    </LinearLayout>
-
-    <include
-        android:id="@+id/incLayoutError"
-        layout="@layout/layout_error_try_again"
-        android:visibility="gone"
-        tools:visibility="visible" />
-
-    <include
-        android:id="@+id/incProgressBar"
-        layout="@layout/progress_bar"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@color/navBackColor"
+        app:itemIconTint="@color/green"
+        app:itemRippleColor="@null"
+        app:itemTextColor="@drawable/selector_bottom_nav_text_color"
+        app:menu="@menu/nav_menu_main" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

@@ -16,6 +16,8 @@ import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.ActivityLoginBinding
 import com.omouravictor.invest_view.presenter.MainActivity
 import com.omouravictor.invest_view.presenter.model.UiState
+import com.omouravictor.invest_view.presenter.user.UserUiModel
+import com.omouravictor.invest_view.util.ConstantUtil.USER_UI_MODEL_INTENT_EXTRA
 import com.omouravictor.invest_view.util.getErrorMessage
 import com.omouravictor.invest_view.util.showErrorSnackBar
 import dagger.hilt.android.AndroidEntryPoint
@@ -76,8 +78,11 @@ class LoginActivity : AppCompatActivity() {
         binding.incProgressBar.root.isVisible = !isVisible
     }
 
-    private fun startMainActivity() {
-        startActivity(Intent(this, MainActivity::class.java))
+    private fun handleUserSuccess(userUiModel: UserUiModel) {
+        val intent = Intent(this, MainActivity::class.java)
+            .putExtra(USER_UI_MODEL_INTENT_EXTRA, userUiModel)
+
+        startActivity(intent)
         finish()
     }
 
@@ -88,7 +93,7 @@ class LoginActivity : AppCompatActivity() {
                     when (it) {
                         is UiState.Initial -> loginLayoutIsVisible(true)
                         is UiState.Loading -> loginLayoutIsVisible(false)
-                        is UiState.Success -> startMainActivity()
+                        is UiState.Success -> handleUserSuccess(it.data)
                         is UiState.Error -> {
                             loginLayoutIsVisible(true)
                             showErrorSnackBar(getErrorMessage(it.e))

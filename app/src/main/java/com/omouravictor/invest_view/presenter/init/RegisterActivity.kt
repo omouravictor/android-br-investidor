@@ -16,6 +16,8 @@ import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.ActivityRegisterBinding
 import com.omouravictor.invest_view.presenter.MainActivity
 import com.omouravictor.invest_view.presenter.model.UiState
+import com.omouravictor.invest_view.presenter.user.UserUiModel
+import com.omouravictor.invest_view.util.ConstantUtil
 import com.omouravictor.invest_view.util.getErrorMessage
 import com.omouravictor.invest_view.util.showErrorSnackBar
 import dagger.hilt.android.AndroidEntryPoint
@@ -77,8 +79,11 @@ class RegisterActivity : AppCompatActivity() {
         binding.incProgressBar.root.isVisible = !isVisible
     }
 
-    private fun startMainActivity() {
-        startActivity(Intent(this, MainActivity::class.java))
+    private fun handleUserSuccess(userUiModel: UserUiModel) {
+        val intent = Intent(this, MainActivity::class.java)
+            .putExtra(ConstantUtil.USER_UI_MODEL_INTENT_EXTRA, userUiModel)
+
+        startActivity(intent)
         finish()
     }
 
@@ -89,7 +94,7 @@ class RegisterActivity : AppCompatActivity() {
                     when (it) {
                         is UiState.Initial -> registerLayoutIsVisible(true)
                         is UiState.Loading -> registerLayoutIsVisible(false)
-                        is UiState.Success -> startMainActivity()
+                        is UiState.Success -> handleUserSuccess(it.data)
                         is UiState.Error -> {
                             registerLayoutIsVisible(true)
                             showErrorSnackBar(getErrorMessage(it.e))

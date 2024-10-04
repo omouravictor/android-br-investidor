@@ -169,7 +169,7 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
             setOnClickListener {
                 assetUiModel.amount = binding.ietAmount.getLongValue()
                 assetUiModel.totalInvested = binding.ietTotalInvested.text.toString().getMonetaryValueInDouble()
-                walletViewModel.saveAsset(assetUiModel, userViewModel.user.value.uid)
+                walletViewModel.saveAsset(assetUiModel, userViewModel.user.uid)
             }
         }
     }

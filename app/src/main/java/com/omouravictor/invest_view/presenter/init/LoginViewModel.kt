@@ -20,7 +20,7 @@ class LoginViewModel @Inject constructor(
     private val firebaseRepository: FirebaseRepository
 ) : ViewModel() {
 
-    private val _userUiState = MutableStateFlow<UiState<Unit>>(UiState.Initial)
+    private val _userUiState = MutableStateFlow<UiState<UserUiModel>>(UiState.Initial)
     val userUiState = _userUiState.asStateFlow()
 
     init {
@@ -30,7 +30,8 @@ class LoginViewModel @Inject constructor(
         if (loggedUser != null) {
             viewModelScope.launch {
                 try {
-                    checkUserIsSavedOrSave(loggedUser)
+                    val user = getSavedUser(loggedUser)
+                    _userUiState.value = UiState.Success(user)
                 } catch (e: Exception) {
                     _userUiState.value = UiState.Error(e)
                 }
@@ -50,9 +51,9 @@ class LoginViewModel @Inject constructor(
                     .await()
                     .user!!
 
-                checkUserIsSavedOrSave(loggedUser)
+                val user = getSavedUser(loggedUser)
 
-                _userUiState.value = UiState.Success(Unit)
+                _userUiState.value = UiState.Success(user)
 
             } catch (e: Exception) {
                 _userUiState.value = UiState.Error(e)
@@ -70,9 +71,9 @@ class LoginViewModel @Inject constructor(
                     .await()
                     .user!!
 
-                saveUser(UserUiModel(loggedUser.uid, name))
+                val savedUser = saveUser(UserUiModel(loggedUser.uid, name))
 
-                _userUiState.value = UiState.Success(Unit)
+                _userUiState.value = UiState.Success(savedUser)
 
             } catch (e: Exception) {
                 _userUiState.value = UiState.Error(e)
@@ -84,19 +85,14 @@ class LoginViewModel @Inject constructor(
         _userUiState.value = UiState.Initial
     }
 
-    private suspend fun checkUserIsSavedOrSave(user: FirebaseUser) {
-        val savedUser = firebaseRepository
+    private suspend fun getSavedUser(user: FirebaseUser): UserUiModel {
+        return firebaseRepository
             .getUser(user.uid)
-            .getOrThrow()
-
-        if (savedUser != null)
-            _userUiState.value = UiState.Success(Unit)
-        else
-            saveUser(UserUiModel(uid = user.uid))
+            .getOrThrow() ?: saveUser(UserUiModel(uid = user.uid))
     }
 
-    private suspend fun saveUser(user: UserUiModel) {
-        firebaseRepository
+    private suspend fun saveUser(user: UserUiModel): UserUiModel {
+        return firebaseRepository
             .saveUser(user)
             .getOrThrow()
     }

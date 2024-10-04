@@ -105,7 +105,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
             setPositiveButton(getString(R.string.yes)) { _, _ ->
                 walletViewModel.deleteAsset(
                     assetUiModel,
-                    userViewModel.user.value.uid
+                    userViewModel.user.uid
                 )
             }
             setNegativeButton(getString(R.string.not)) { dialog, _ -> dialog.dismiss() }
