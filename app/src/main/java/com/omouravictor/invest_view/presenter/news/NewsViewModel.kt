@@ -33,14 +33,11 @@ class NewsViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-                val result = newsApiRepository.getNewsBySearch(keywords)
-                if (result.isSuccess) {
-                    val newsBySearchList = result.getOrThrow()
-                        .toNewsUiModel()
-                        .filter { it.urlToImage != null && it.title != null }
-                    _getNewsListUiState.value = UiState.Success(newsBySearchList)
-                } else
-                    _getNewsListUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
+                val newsBySearchList = newsApiRepository.getNewsBySearch(keywords).getOrThrow()
+                    .toNewsUiModel()
+                    .filter { it.urlToImage != null && it.title != null }
+
+                _getNewsListUiState.value = UiState.Success(newsBySearchList)
             } catch (e: Exception) {
                 _getNewsListUiState.value = UiState.Error(e)
             }
