@@ -24,8 +24,23 @@ class LoginViewModel @Inject constructor(
 
     init {
         val loggedUser = auth.currentUser
-        if (loggedUser != null)
-            _userUiState.value = UiState.Success(Unit)
+        if (loggedUser != null) {
+            viewModelScope.launch {
+                try {
+                    val savedUser = firebaseRepository
+                        .getUser(loggedUser.uid)
+                        .getOrNull()
+
+                    if (savedUser != null)
+                        _userUiState.value = UiState.Success(Unit)
+                    else
+                        saveUser(UserUiModel(uid = loggedUser.uid))
+
+                } catch (e: Exception) {
+                    _userUiState.value = UiState.Error(e)
+                }
+            }
+        }
     }
 
     fun login(email: String, password: String) {
@@ -56,9 +71,7 @@ class LoginViewModel @Inject constructor(
                     .await()
                     .user!!
 
-                firebaseRepository
-                    .saveUser(UserUiModel(loggedUser.uid, name))
-                    .getOrThrow()
+                saveUser(UserUiModel(loggedUser.uid, name))
 
                 _userUiState.value = UiState.Success(Unit)
 
@@ -70,6 +83,12 @@ class LoginViewModel @Inject constructor(
 
     fun resetUserUiState() {
         _userUiState.value = UiState.Initial
+    }
+
+    private suspend fun saveUser(user: UserUiModel) {
+        firebaseRepository
+            .saveUser(user)
+            .getOrThrow()
     }
 
 }
