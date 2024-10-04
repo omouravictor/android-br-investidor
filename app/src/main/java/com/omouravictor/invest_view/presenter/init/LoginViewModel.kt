@@ -38,8 +38,6 @@ class LoginViewModel @Inject constructor(
                     .await()
                     .user!!
 
-                // TODO: checar se o usuário existe no firestore e salvar se não existir
-
                 _userUiState.value = UiState.Success(loggedUser.uid)
 
             } catch (e: Exception) {
