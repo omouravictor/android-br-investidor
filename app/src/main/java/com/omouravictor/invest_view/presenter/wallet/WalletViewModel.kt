@@ -37,13 +37,9 @@ class WalletViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-                val result = firebaseRepository.getAssetList(userId)
-                if (result.isSuccess) {
-                    val assetsListResult = result.getOrThrow()
-                    _assetList.value = assetsListResult
-                    _getUserAssetListUiState.value = UiState.Success(assetsListResult)
-                } else
-                    _getUserAssetListUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
+                val result = firebaseRepository.getAssetList(userId).getOrThrow()
+                _assetList.value = result
+                _getUserAssetListUiState.value = UiState.Success(result)
             } catch (e: Exception) {
                 _getUserAssetListUiState.value = UiState.Error(e)
             }
