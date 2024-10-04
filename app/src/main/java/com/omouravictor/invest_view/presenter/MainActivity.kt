@@ -18,7 +18,7 @@ import com.omouravictor.invest_view.presenter.user.UserUiModel
 import com.omouravictor.invest_view.presenter.user.UserViewModel
 import com.omouravictor.invest_view.presenter.user.getFormattedName
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
-import com.omouravictor.invest_view.util.ConstantUtil.USER_UI_MODEL_INTENT_EXTRA
+import com.omouravictor.invest_view.util.ConstantUtil
 import com.omouravictor.invest_view.util.clearPileAndNavigateTo
 import com.omouravictor.invest_view.util.setupToolbarSubtitle
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,20 +36,22 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
+        getUser()
         setupMainNavigation()
         setupBottomNavigationView()
         addOnApplyWindowInsetsListener()
+        walletViewModel.getUserAssetList(userViewModel.user.value.uid)
+    }
 
-        val userUiModel: UserUiModel = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra(USER_UI_MODEL_INTENT_EXTRA, UserUiModel::class.java)
+    private fun getUser() {
+        val user: UserUiModel = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getParcelableExtra(ConstantUtil.USER_UI_MODEL_INTENT_EXTRA, UserUiModel::class.java)
         } else {
             @Suppress("DEPRECATION")
-            intent.getParcelableExtra(USER_UI_MODEL_INTENT_EXTRA)
+            intent.getParcelableExtra(ConstantUtil.USER_UI_MODEL_INTENT_EXTRA)
         }!!
 
-        userViewModel.updateUser(userUiModel)
-        setupToolbarSubtitle(userUiModel)
-        walletViewModel.getUserAssetList(userUiModel.uid)
+        userViewModel.updateUser(user)
     }
 
     private fun setupToolbarForWallet() {
