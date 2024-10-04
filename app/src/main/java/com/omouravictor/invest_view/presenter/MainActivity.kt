@@ -25,6 +25,7 @@ import com.omouravictor.invest_view.presenter.user.getFormattedName
 import com.omouravictor.invest_view.presenter.wallet.WalletFragmentDirections
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.util.clearPileAndNavigateTo
+import com.omouravictor.invest_view.util.getErrorMessage
 import com.omouravictor.invest_view.util.setupToolbarSubtitle
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -158,7 +159,7 @@ class MainActivity : AppCompatActivity() {
         binding.mainLayout.isVisible = false
         binding.incProgressBar.root.isVisible = false
         binding.incLayoutError.root.isVisible = true
-        binding.incLayoutError.tvInfoMessage.text = e.message
+        binding.incLayoutError.tvInfoMessage.text = getErrorMessage(e)
     }
 
     private fun handleUserLoading() {
