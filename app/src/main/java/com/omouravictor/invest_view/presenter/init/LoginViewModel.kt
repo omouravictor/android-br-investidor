@@ -24,6 +24,8 @@ class LoginViewModel @Inject constructor(
     val userUiState = _userUiState.asStateFlow()
 
     init {
+        _userUiState.value = UiState.Loading
+
         val loggedUser = auth.currentUser
         if (loggedUser != null) {
             viewModelScope.launch {
