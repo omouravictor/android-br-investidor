@@ -12,4 +12,5 @@ class UserViewModel : ViewModel() {
     fun updateUser(user: UserUiModel) {
         _user.value = user
     }
+
 }
