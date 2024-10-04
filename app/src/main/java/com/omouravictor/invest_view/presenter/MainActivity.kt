@@ -154,10 +154,11 @@ class MainActivity : AppCompatActivity() {
         walletViewModel.getUserAssetList(user.uid)
     }
 
-    private fun handleUserError() {
+    private fun handleUserError(e: Exception) {
         binding.mainLayout.isVisible = false
-        binding.incLayoutError.root.isVisible = true
         binding.incProgressBar.root.isVisible = false
+        binding.incLayoutError.root.isVisible = true
+        binding.incLayoutError.tvInfoMessage.text = e.message
     }
 
     private fun handleUserLoading() {
@@ -172,7 +173,7 @@ class MainActivity : AppCompatActivity() {
                 userViewModel.userUiState.collectLatest {
                     when (it) {
                         is UiState.Success -> handleUserSuccess(it.data)
-                        is UiState.Error -> handleUserError()
+                        is UiState.Error -> handleUserError(it.e)
                         else -> handleUserLoading()
                     }
                 }
