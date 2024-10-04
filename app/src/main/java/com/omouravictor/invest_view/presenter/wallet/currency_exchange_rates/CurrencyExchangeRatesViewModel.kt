@@ -26,11 +26,8 @@ class CurrencyExchangeRatesViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-                val result = currencyExchangeRatesApiRepository.convert(fromCurrency, toCurrency)
-                if (result.isSuccess)
-                    _getConversionResultUiState.value = UiState.Success(result.getOrThrow().toConversionResultUiModel())
-                else
-                    _getConversionResultUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
+                val result = currencyExchangeRatesApiRepository.convert(fromCurrency, toCurrency).getOrThrow()
+                _getConversionResultUiState.value = UiState.Success(result.toConversionResultUiModel())
             } catch (e: Exception) {
                 _getConversionResultUiState.value = UiState.Error(e)
             }
