@@ -34,6 +34,8 @@ class LoginViewModel @Inject constructor(
                 } catch (e: Exception) {
                     _userUiState.value = UiState.Error(e)
                 }
+            } else {
+                _userUiState.value = UiState.Initial
             }
         }
     }
