@@ -43,8 +43,7 @@ class UserViewModel @Inject constructor(
                 } else {
                     _userUiState.value = UiState.Error(
                         FirebaseFirestoreException(
-                            "user not found in firestore",
-                            FirebaseFirestoreException.Code.NOT_FOUND
+                            "user not found in firestore", FirebaseFirestoreException.Code.NOT_FOUND
                         )
                     )
                 }
