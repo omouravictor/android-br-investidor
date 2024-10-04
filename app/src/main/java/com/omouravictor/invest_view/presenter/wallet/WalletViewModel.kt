@@ -67,13 +67,10 @@ class WalletViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-                val result = firebaseRepository.deleteAsset(userId, asset)
-                if (result.isSuccess) {
-                    _deleteAssetUiState.value = UiState.Success(asset)
-                    _assetList.value -= asset
-                    _getUserAssetListUiState.value = UiState.Success(_assetList.value)
-                } else
-                    _deleteAssetUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
+                val result = firebaseRepository.deleteAsset(userId, asset).getOrThrow()
+                _deleteAssetUiState.value = UiState.Success(result)
+                _assetList.value -= result
+                _getUserAssetListUiState.value = UiState.Success(_assetList.value)
             } catch (e: Exception) {
                 _deleteAssetUiState.value = UiState.Error(e)
             }
