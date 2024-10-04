@@ -26,9 +26,9 @@ class LoginViewModel @Inject constructor(
     init {
         _userUiState.value = UiState.Loading
 
-        val loggedUser = auth.currentUser
-        if (loggedUser != null) {
-            viewModelScope.launch {
+        viewModelScope.launch {
+            val loggedUser = auth.currentUser
+            if (loggedUser != null) {
                 try {
                     checkUserIsSavedOrSave(loggedUser)
                 } catch (e: Exception) {
