@@ -72,6 +72,30 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    private fun setupToolbarForWallet() {
+        binding.tvToolbarCenterText.isVisible = false
+        setupOptionsMenuForWallet()
+        setupToolbarSubtitle(userViewModel.user.value)
+    }
+
+    private fun setupToolbarForSaveAsset() {
+        binding.tvToolbarCenterText.isVisible = true
+        setupOptionsMenu()
+        setupToolbarSubtitle(null)
+    }
+
+    private fun setupToolbarForTransaction() {
+        binding.tvToolbarCenterText.isVisible = true
+        setupOptionsMenu()
+        setupToolbarSubtitle(null)
+    }
+
+    private fun setupToolbar() {
+        binding.tvToolbarCenterText.isVisible = false
+        setupOptionsMenu()
+        setupToolbarSubtitle(null)
+    }
+
     private fun setupMainNavigation() {
         val appBarConfiguration = AppBarConfiguration(
             setOf(
@@ -86,23 +110,10 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.fragmentWallet -> {
-                    binding.tvToolbarCenterText.isVisible = false
-                    setupOptionsMenuForWallet()
-                    setupToolbarSubtitle(userViewModel.user.value)
-                }
-
-                R.id.fragmentSaveAsset, R.id.fragmentTransaction -> {
-                    binding.tvToolbarCenterText.isVisible = true
-                    setupOptionsMenu()
-                    setupToolbarSubtitle(null)
-                }
-
-                else -> {
-                    binding.tvToolbarCenterText.isVisible = false
-                    setupOptionsMenu()
-                    setupToolbarSubtitle(null)
-                }
+                R.id.fragmentWallet -> setupToolbarForWallet()
+                R.id.fragmentSaveAsset -> setupToolbarForSaveAsset()
+                R.id.fragmentTransaction -> setupToolbarForTransaction()
+                else -> setupToolbar()
             }
         }
 
