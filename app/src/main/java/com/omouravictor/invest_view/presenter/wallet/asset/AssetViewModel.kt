@@ -32,11 +32,8 @@ class AssetViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-                val result = assetsApiRepository.getAssetsBySearch(keywords)
-                if (result.isSuccess)
-                    _getAssetsBySearchListUiState.value = UiState.Success(result.getOrThrow().toAssetsUiModel())
-                else
-                    _getAssetsBySearchListUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
+                val result = assetsApiRepository.getAssetsBySearch(keywords).getOrThrow()
+                _getAssetsBySearchListUiState.value = UiState.Success(result.toAssetsUiModel())
             } catch (e: Exception) {
                 _getAssetsBySearchListUiState.value = UiState.Error(e)
             }
@@ -48,13 +45,10 @@ class AssetViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-                val result = assetsApiRepository.getAssetGlobalQuote(assetUiModel.symbol)
-                if (result.isSuccess) {
-                    val globalQuote = result.getOrThrow().toGlobalQuoteUiModel()
-                    assetUiModel.price = globalQuote.price
-                    _getUpdatedAssetUiState.value = UiState.Success(assetUiModel)
-                } else
-                    _getUpdatedAssetUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
+                val result = assetsApiRepository.getAssetGlobalQuote(assetUiModel.symbol).getOrThrow()
+                val globalQuote = result.toGlobalQuoteUiModel()
+                assetUiModel.price = globalQuote.price
+                _getUpdatedAssetUiState.value = UiState.Success(assetUiModel)
             } catch (e: Exception) {
                 _getUpdatedAssetUiState.value = UiState.Error(e)
             }
@@ -66,11 +60,8 @@ class AssetViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-                val result = assetsApiRepository.getAssetGlobalQuote(symbol)
-                if (result.isSuccess)
-                    _getQuoteUiState.value = UiState.Success(result.getOrThrow().toGlobalQuoteUiModel())
-                else
-                    _getQuoteUiState.value = UiState.Error(result.exceptionOrNull() as Exception)
+                val result = assetsApiRepository.getAssetGlobalQuote(symbol).getOrThrow()
+                _getQuoteUiState.value = UiState.Success(result.toGlobalQuoteUiModel())
             } catch (e: Exception) {
                 _getQuoteUiState.value = UiState.Error(e)
             }
