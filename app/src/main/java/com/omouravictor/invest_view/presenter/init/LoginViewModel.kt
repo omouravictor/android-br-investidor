@@ -3,6 +3,7 @@ package com.omouravictor.invest_view.presenter.init
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.omouravictor.invest_view.data.remote.repository.FirebaseRepository
 import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.presenter.user.UserUiModel
@@ -27,15 +28,7 @@ class LoginViewModel @Inject constructor(
         if (loggedUser != null) {
             viewModelScope.launch {
                 try {
-                    val savedUser = firebaseRepository
-                        .getUser(loggedUser.uid)
-                        .getOrNull()
-
-                    if (savedUser != null)
-                        _userUiState.value = UiState.Success(Unit)
-                    else
-                        saveUser(UserUiModel(uid = loggedUser.uid))
-
+                    checkUserIsSavedOrSave(loggedUser)
                 } catch (e: Exception) {
                     _userUiState.value = UiState.Error(e)
                 }
@@ -52,6 +45,8 @@ class LoginViewModel @Inject constructor(
                     .signInWithEmailAndPassword(email, password)
                     .await()
                     .user!!
+
+                checkUserIsSavedOrSave(loggedUser)
 
                 _userUiState.value = UiState.Success(Unit)
 
@@ -83,6 +78,17 @@ class LoginViewModel @Inject constructor(
 
     fun resetUserUiState() {
         _userUiState.value = UiState.Initial
+    }
+
+    private suspend fun checkUserIsSavedOrSave(user: FirebaseUser) {
+        val savedUser = firebaseRepository
+            .getUser(user.uid)
+            .getOrNull()
+
+        if (savedUser != null)
+            _userUiState.value = UiState.Success(Unit)
+        else
+            saveUser(UserUiModel(uid = user.uid))
     }
 
     private suspend fun saveUser(user: UserUiModel) {
