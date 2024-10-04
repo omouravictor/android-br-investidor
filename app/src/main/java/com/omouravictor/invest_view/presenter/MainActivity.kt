@@ -1,8 +1,6 @@
 package com.omouravictor.invest_view.presenter
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat.Type.ime
@@ -22,7 +20,6 @@ import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.presenter.user.UserUiModel
 import com.omouravictor.invest_view.presenter.user.UserViewModel
 import com.omouravictor.invest_view.presenter.user.getFormattedName
-import com.omouravictor.invest_view.presenter.wallet.WalletFragmentDirections
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.util.clearPileAndNavigateTo
 import com.omouravictor.invest_view.util.getErrorMessage
@@ -51,42 +48,18 @@ class MainActivity : AppCompatActivity() {
         observeUserUiState()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.options_menu_main, menu)
-        return true
-    }
-
-    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
-        when (navController.currentDestination?.id) {
-            R.id.fragmentWallet -> setupOptionsMenuForWallet()
-            else -> setupOptionsMenu()
-        }
-        return super.onPrepareOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.addAssetMenuItem -> navController.navigate(WalletFragmentDirections.navToAssetSearchFragment())
-        }
-
-        return super.onOptionsItemSelected(item)
-    }
-
     private fun setupToolbarForWallet() {
         binding.tvToolbarCenterText.isVisible = false
-        setupOptionsMenuForWallet()
         setupToolbarSubtitle(userViewModel.user.value)
     }
 
     private fun setupToolbarWithCenterText() {
         binding.tvToolbarCenterText.isVisible = true
-        setupOptionsMenu()
         setupToolbarSubtitle(null)
     }
 
     private fun setupToolbar() {
         binding.tvToolbarCenterText.isVisible = false
-        setupOptionsMenu()
         setupToolbarSubtitle(null)
     }
 
@@ -132,15 +105,6 @@ class MainActivity : AppCompatActivity() {
             view.onApplyWindowInsets(insets)
         }
     }
-
-    private fun setupOptionsMenu(
-        walletGroupVisible: Boolean = false
-    ) {
-        val menu = binding.toolbar.menu
-        menu.setGroupVisible(R.id.walletGroup, walletGroupVisible)
-    }
-
-    private fun setupOptionsMenuForWallet() = setupOptionsMenu(walletGroupVisible = true)
 
     private fun setupViews() {
         binding.incLayoutError.incBtnTryAgain.root.apply {

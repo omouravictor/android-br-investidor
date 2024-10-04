@@ -51,10 +51,14 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
     private val userViewModel: UserViewModel by activityViewModels()
     private var transaction = Transaction.BUY
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         assetUiModel = args.assetUiModel
         navController = findNavController()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding = FragmentTransactionBinding.bind(view)
         requireActivity().setupToolbarCenterText(getString(R.string.newTransaction))
         setupViews()

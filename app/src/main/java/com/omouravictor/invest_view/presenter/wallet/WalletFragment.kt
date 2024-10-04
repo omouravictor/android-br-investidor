@@ -1,13 +1,18 @@
 package com.omouravictor.invest_view.presenter.wallet
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
@@ -24,6 +29,7 @@ import kotlinx.coroutines.launch
 class WalletFragment : Fragment(R.layout.fragment_wallet) {
 
     private lateinit var binding: FragmentWalletBinding
+    private lateinit var navController: NavController
     private val walletViewModel: WalletViewModel by activityViewModels()
     private val userViewModel: UserViewModel by activityViewModels()
 
@@ -43,12 +49,39 @@ class WalletFragment : Fragment(R.layout.fragment_wallet) {
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        navController = findNavController()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentWalletBinding.bind(view)
+        setupToolbar()
         setupTabLayoutWithViewPager2()
         setupButtons()
         observeGetUserAssetListUiState()
+    }
+
+    private fun setupToolbar() {
+        val activity = requireActivity()
+
+        activity.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.options_menu_wallet, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    R.id.addAssetMenuItem -> {
+                        navController.navigate(WalletFragmentDirections.navToAssetSearchFragment())
+                        true
+                    }
+
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner)
     }
 
     private fun setupTabLayoutWithViewPager2() {
