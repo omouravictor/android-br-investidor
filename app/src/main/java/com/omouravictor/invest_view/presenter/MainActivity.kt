@@ -46,7 +46,6 @@ class MainActivity : AppCompatActivity() {
         setupMainNavigation()
         setupBottomNavigationView()
         addOnApplyWindowInsetsListener()
-        walletViewModel.getUserAssetList(userViewModel.user.value.uid)
     }
 
     private fun getUser() {
@@ -58,6 +57,7 @@ class MainActivity : AppCompatActivity() {
         }!!
 
         userViewModel.updateUser(user)
+        walletViewModel.getUserAssetList(user.uid)
     }
 
     private fun observeUser() {
