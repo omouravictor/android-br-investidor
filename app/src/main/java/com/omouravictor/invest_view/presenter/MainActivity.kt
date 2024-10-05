@@ -8,6 +8,9 @@ import androidx.core.view.WindowInsetsCompat.Type.ime
 import androidx.core.view.WindowInsetsCompat.toWindowInsetsCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -22,6 +25,8 @@ import com.omouravictor.invest_view.util.ConstantUtil
 import com.omouravictor.invest_view.util.clearPileAndNavigateTo
 import com.omouravictor.invest_view.util.setupToolbarSubtitle
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -37,6 +42,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
         getUser()
+        observeUser()
         setupMainNavigation()
         setupBottomNavigationView()
         addOnApplyWindowInsetsListener()
@@ -52,6 +58,16 @@ class MainActivity : AppCompatActivity() {
         }!!
 
         userViewModel.updateUser(user)
+    }
+
+    private fun observeUser() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                userViewModel.user.collectLatest {
+                    setupToolbarSubtitle(it)
+                }
+            }
+        }
     }
 
     private fun setupToolbarForWallet() {
