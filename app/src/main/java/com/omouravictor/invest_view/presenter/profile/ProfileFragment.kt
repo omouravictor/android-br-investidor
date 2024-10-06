@@ -3,6 +3,7 @@ package com.omouravictor.invest_view.presenter.profile
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.omouravictor.invest_view.R
@@ -25,16 +26,31 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         activity.setupToolbarTitle("Olá, ${userViewModel.user.value.getFormattedName()}")
 
-        binding.apply {
-            incChangePersonalData.tvOption.text = getString(R.string.changePersonalData)
-            incDeleteAccount.tvOption.text = getString(R.string.deleteAccount)
-            incChangePassword.tvOption.text = getString(R.string.changePassword)
-
-            layoutLogout.setOnClickListener {
-                userViewModel.logout()
-                startActivity(Intent(activity, LoginActivity::class.java))
-                activity.finish()
+        binding.incChangePersonalData.apply {
+            tvOption.text = getString(R.string.changePersonalData)
+            root.setOnClickListener {
+                Toast.makeText(activity, "Em breve...", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        binding.incDeleteAccount.apply {
+            tvOption.text = getString(R.string.deleteAccount)
+            root.setOnClickListener {
+                Toast.makeText(activity, "Em breve...", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.incChangePassword.apply {
+            tvOption.text = getString(R.string.changePassword)
+            root.setOnClickListener {
+                Toast.makeText(activity, "Em breve...", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.layoutLogout.setOnClickListener {
+            userViewModel.logout()
+            startActivity(Intent(activity, LoginActivity::class.java))
+            activity.finish()
         }
     }
 
