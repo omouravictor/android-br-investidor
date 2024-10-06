@@ -8,22 +8,23 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="@dimen/defaultSpace"
         app:layout_constraintBottom_toTopOf="@+id/incBtnSave"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/saveLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingVertical="@dimen/defaultSpace">
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/tvTittleAsset"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/defaultSpace"
+                android:layout_marginTop="@dimen/defaultSpace"
                 android:text="@string/Asset"
+                app:layout_constraintEnd_toEndOf="@+id/etSymbol"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,9 +46,10 @@
 
             <TextView
                 android:id="@+id/tvTittleCurrentPrice"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/currentPrice"
+                app:layout_constraintEnd_toEndOf="@+id/etCurrentPrice"
                 app:layout_constraintStart_toStartOf="@+id/etCurrentPrice"
                 app:layout_constraintTop_toTopOf="@+id/tvTittleAsset" />
 
@@ -71,11 +73,12 @@
 
             <TextView
                 android:id="@+id/tvTittleQuantity"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/defaultSpace"
+                android:layout_marginHorizontal="@dimen/defaultSpace"
                 android:layout_marginTop="@dimen/defaultSpace"
                 android:text="@string/amount_form"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/etSymbol" />
 
@@ -84,6 +87,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/defaultSpace"
                 android:layout_marginTop="4dp"
                 app:boxCornerRadiusBottomEnd="@dimen/defaultRadius"
                 app:boxCornerRadiusBottomStart="@dimen/defaultRadius"
@@ -100,7 +104,6 @@
                     android:id="@+id/ietAmount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/defaultSpace"
                     android:hint="@string/intNumber_0"
                     android:inputType="number"
                     android:maxLength="15"
@@ -111,11 +114,12 @@
 
             <TextView
                 android:id="@+id/tvTittleTotalInvested"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/defaultSpace"
+                android:layout_marginHorizontal="@dimen/defaultSpace"
                 android:layout_marginTop="@dimen/defaultSpace"
                 android:text="@string/totalInvested"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayoutAmount" />
 
@@ -124,6 +128,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/defaultSpace"
                 android:layout_marginTop="4dp"
                 app:boxCornerRadiusBottomEnd="@dimen/defaultRadius"
                 app:boxCornerRadiusBottomStart="@dimen/defaultRadius"
@@ -140,7 +145,6 @@
                     android:id="@+id/ietTotalInvested"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/defaultSpace"
                     android:imeOptions="actionDone"
                     android:inputType="number"
                     android:textAlignment="center"
@@ -151,7 +155,7 @@
 
             <TextView
                 android:id="@+id/tvTotalInvestedDescription"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/defaultSpace"
                 android:layout_marginTop="8dp"
@@ -163,7 +167,7 @@
 
             <TextView
                 android:id="@+id/tvTittleCurrentPosition"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/defaultSpace"
                 android:layout_marginTop="@dimen/defaultSpace"
@@ -179,7 +183,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/defaultSpace"
                 android:layout_marginTop="6dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="@dimen/defaultSpace"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
