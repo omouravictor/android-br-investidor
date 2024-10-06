@@ -24,14 +24,22 @@ fun Activity.setupToolbarCenterText(centerText: String) {
     }
 }
 
-fun Activity.showErrorSnackBar(message: String, duration: Int = Snackbar.LENGTH_LONG, hasCloseAction: Boolean = false) {
+fun Activity.showErrorSnackBar(
+    message: String,
+    duration: Int = Snackbar.LENGTH_LONG,
+    hasCloseAction: Boolean = false,
+    anchorResView: Int? = null
+) {
     val view = this.findViewById<View>(android.R.id.content)
     val context = view.context
     val snackbar = Snackbar.make(view, message, duration)
-    val isBottomNavVisible = view.findViewById<View>(R.id.bottomNav)?.isVisible ?: false
 
-    if (isBottomNavVisible)
-        snackbar.setAnchorView(R.id.bottomNav)
+    if (anchorResView != null) {
+        snackbar.setAnchorView(anchorResView)
+    } else {
+        if (view.findViewById<View>(R.id.bottomNav)?.isVisible == true)
+            snackbar.setAnchorView(R.id.bottomNav)
+    }
 
     if (hasCloseAction) {
         snackbar.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_action).apply {
