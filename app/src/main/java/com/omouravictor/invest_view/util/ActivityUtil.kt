@@ -27,7 +27,6 @@ fun Activity.showErrorSnackBar(
     anchorResView: Int? = null
 ) {
     val view = this.findViewById<View>(android.R.id.content)
-    val context = view.context
     val snackbar = Snackbar.make(view, message, duration)
 
     if (hasCloseAction) {
@@ -40,19 +39,18 @@ fun Activity.showErrorSnackBar(
     }
 
     setSnackbarAnchorView(snackbar, view, anchorResView)
-    snackbar.setBackgroundTint(ContextCompat.getColor(context, R.color.red))
-    snackbar.setTextColor(ContextCompat.getColor(context, R.color.white))
+    snackbar.setBackgroundTint(ContextCompat.getColor(this, R.color.red))
+    snackbar.setTextColor(ContextCompat.getColor(this, R.color.white))
     snackbar.show()
 }
 
 fun Activity.showSuccessSnackBar(message: String, anchorResView: Int? = null) {
     val view = this.findViewById<View>(android.R.id.content)
-    val context = view.context
     val snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT)
 
     setSnackbarAnchorView(snackbar, view, anchorResView)
-    snackbar.setBackgroundTint(ContextCompat.getColor(context, R.color.green))
-    snackbar.setTextColor(ContextCompat.getColor(context, R.color.white))
+    snackbar.setBackgroundTint(ContextCompat.getColor(this, R.color.green))
+    snackbar.setTextColor(ContextCompat.getColor(this, R.color.white))
     snackbar.show()
 }
 
