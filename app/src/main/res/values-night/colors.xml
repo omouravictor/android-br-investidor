@@ -5,7 +5,7 @@
     <color name="appTextColor">@color/white</color>
     <color name="appWindowBackColor">@color/black</color>
     <color name="appBottomSheetBackColor">@color/itemBackColor</color>
-    <color name="itemListPressedTrueColor">#19FFFFFF</color>
+    <color name="itemListPressedTrueColor">#333333</color>
     <color name="itemBackColor">#1D1D1D</color>
     <color name="defaultButtonPressedTrueColor">#B200C853</color>
     <color name="shimmerBackColor">#B1B1B1</color>
