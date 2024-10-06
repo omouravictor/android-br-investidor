@@ -7,7 +7,7 @@
         android:id="@+id/tvOption"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginVertical="10dp"
+        android:layout_marginVertical="14dp"
         android:text="@string/option"
         app:layout_constraintBottom_toTopOf="@+id/view"
         app:layout_constraintEnd_toStartOf="@+id/ivForward"
