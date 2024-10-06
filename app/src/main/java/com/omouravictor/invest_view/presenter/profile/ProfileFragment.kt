@@ -28,11 +28,11 @@ class ProfileFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
 
         binding.apply {
-            incChancePersonalData.tvOption.text = getString(R.string.changePersonalData)
+            incChangePersonalData.tvOption.text = getString(R.string.changePersonalData)
             incDeleteAccount.tvOption.text = getString(R.string.deleteAccount)
+            incChangePassword.tvOption.text = getString(R.string.changePassword)
 
-            incBtnLogout.root.text = getString(R.string.logout)
-            incBtnLogout.root.setOnClickListener {
+            tvLogout.setOnClickListener {
                 auth.signOut()
                 val activity = requireActivity()
                 startActivity(Intent(activity, LoginActivity::class.java))

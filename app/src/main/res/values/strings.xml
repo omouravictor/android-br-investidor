@@ -125,8 +125,10 @@
     <string name="inWallet">Na carteira</string>
     <string name="changePersonalData">Alterar dados pessoais</string>
     <string name="accountConfigs">Configurações da conta</string>
-    <string name="securityConfigs">Configurações de segurança</string>
+    <string name="security">Segurança</string>
     <string name="logout">Sair</string>
-    <string name="deleteAccount">Deletar conta</string>
+    <string name="deleteAccount">Excluir conta</string>
+    <string name="option">Opção</string>
+    <string name="changePassword">Alterar senha</string>
 
 </resources>

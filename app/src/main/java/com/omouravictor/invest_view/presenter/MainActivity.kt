@@ -8,9 +8,6 @@ import androidx.core.view.WindowInsetsCompat.Type.ime
 import androidx.core.view.WindowInsetsCompat.toWindowInsetsCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -19,14 +16,10 @@ import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.ActivityMainBinding
 import com.omouravictor.invest_view.presenter.user.UserUiModel
 import com.omouravictor.invest_view.presenter.user.UserViewModel
-import com.omouravictor.invest_view.presenter.user.getFormattedName
 import com.omouravictor.invest_view.presenter.wallet.WalletViewModel
 import com.omouravictor.invest_view.util.ConstantUtil
 import com.omouravictor.invest_view.util.clearPileAndNavigateTo
-import com.omouravictor.invest_view.util.setupToolbarSubtitle
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -42,7 +35,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
         getUser()
-        observeUser()
         setupMainNavigation()
         setupBottomNavigationView()
         addOnApplyWindowInsetsListener()
@@ -60,29 +52,12 @@ class MainActivity : AppCompatActivity() {
         walletViewModel.getUserAssetList(user.uid)
     }
 
-    private fun observeUser() {
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                userViewModel.user.collectLatest {
-                    setupToolbarSubtitle(it)
-                }
-            }
-        }
-    }
-
-    private fun setupToolbarForWallet() {
-        binding.tvToolbarCenterText.isVisible = false
-        setupToolbarSubtitle(userViewModel.user.value)
-    }
-
     private fun setupToolbarWithCenterText() {
         binding.tvToolbarCenterText.isVisible = true
-        setupToolbarSubtitle(null)
     }
 
     private fun setupToolbar() {
         binding.tvToolbarCenterText.isVisible = false
-        setupToolbarSubtitle(null)
     }
 
     private fun setupMainNavigation() {
@@ -99,7 +74,6 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.fragmentWallet -> setupToolbarForWallet()
                 R.id.fragmentSaveAsset, R.id.fragmentTransaction -> setupToolbarWithCenterText()
                 else -> setupToolbar()
             }
@@ -128,10 +102,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupToolbarSubtitle(user: UserUiModel?) {
-        if (user != null)
-            setupToolbarSubtitle("Olá, ${user.getFormattedName()}")
-        else
-            setupToolbarSubtitle("")
-    }
 }
