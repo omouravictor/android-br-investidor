@@ -77,7 +77,7 @@ class ChangePersonalDataFragment : Fragment(R.layout.fragment_change_personal_da
 
     private fun handleUserSuccess() {
         handleUserLoading(false)
-        activity.showSuccessSnackBar("Usuário atualizado com sucesso!")
+        activity.showSuccessSnackBar(getString(R.string.userUpdatedSuccessfully))
     }
 
     private fun handleUserError(e: Exception) {

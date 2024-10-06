@@ -33,6 +33,7 @@
     <string name="deleteAssetAlertMessage">Tem certeza de que deseja excluir este ativo da sua carteira?</string>
     <string name="logoutAlertMessage">Tem certeza de que deseja sair da conta?</string>
     <string name="saleAssetAlertMessage">Tem certeza de que deseja vender todos os ativos?</string>
+    <string name="userUpdatedSuccessfully">Usuário atualizado com sucesso!</string>
 
     <!-- String arrays -->
     <string-array name="assetSortTypesArray">
