@@ -5,10 +5,16 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentChangePersonalDataBinding
+import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.presenter.user.UserViewModel
 import com.omouravictor.invest_view.util.setupToolbarCenterText
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class ChangePersonalDataFragment : Fragment(R.layout.fragment_change_personal_data) {
 
@@ -26,6 +32,7 @@ class ChangePersonalDataFragment : Fragment(R.layout.fragment_change_personal_da
         binding = FragmentChangePersonalDataBinding.bind(view)
         setupToolbar()
         setupViews()
+        observeUserUiState()
     }
 
     private fun setupToolbar() {
@@ -35,7 +42,34 @@ class ChangePersonalDataFragment : Fragment(R.layout.fragment_change_personal_da
     private fun setupViews() {
         binding.apply {
             etName.setText(userViewModel.user.value.name)
+        }
+
+        binding.apply {
             incBtnSave.root.text = getString(R.string.save)
+            incBtnSave.root.setOnClickListener {
+                val updatedUser = userViewModel.user.value.copy(name = etName.text.toString())
+                userViewModel.updateUser(updatedUser)
+            }
+        }
+    }
+
+    private fun observeUserUiState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                userViewModel.userUiState.collectLatest {
+                    when (it) {
+                        is UiState.Success -> {
+                            activity.onBackPressed()
+                        }
+
+                        is UiState.Error -> {
+
+                        }
+
+                        else -> {}
+                    }
+                }
+            }
         }
     }
 

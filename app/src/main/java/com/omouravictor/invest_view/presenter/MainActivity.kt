@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
             intent.getParcelableExtra(ConstantUtil.USER_UI_MODEL_INTENT_EXTRA)
         }!!
 
-        userViewModel.updateUser(user)
+        userViewModel.setUser(user)
         walletViewModel.getUserAssetList(user.uid)
     }
 
