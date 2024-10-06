@@ -22,7 +22,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/tvOption"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tvOption"
-        app:tint="@color/green" />
+        app:tint="@color/defaultButtonBackgroundColor" />
 
     <View
         android:id="@+id/view"

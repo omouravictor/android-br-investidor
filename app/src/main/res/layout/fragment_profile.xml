@@ -14,6 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/accountConfigs"
+            android:textColor="@color/grayTextColor"
             app:layout_constraintTop_toTopOf="parent" />
 
         <include
@@ -39,6 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="26dp"
             android:text="@string/security"
+            android:textColor="@color/grayTextColor"
             app:layout_constraintTop_toBottomOf="@+id/incDeleteAccount" />
 
         <include
@@ -49,17 +51,34 @@
             android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@+id/tvSecurityConfigs" />
 
-        <TextView
-            android:id="@+id/tvLogout"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/layoutLogout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="@string/logout"
-            android:textColor="@color/defaultButtonBackgroundColor"
-            android:textSize="@dimen/textSize4"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/incChangePassword" />
+            android:background="@drawable/selector_item_list"
+            android:gravity="center_vertical"
+            android:paddingVertical="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/incChangePassword">
+
+            <TextView
+                android:id="@+id/tvLogout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/logout"
+                android:textColor="@color/defaultButtonBackgroundColor"
+                android:textSize="@dimen/textSize4"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/ivForward"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"
+                android:src="@drawable/ic_arrow_forward"
+                app:tint="@color/defaultButtonBackgroundColor" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

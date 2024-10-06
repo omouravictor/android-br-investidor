@@ -2,39 +2,36 @@ package com.omouravictor.invest_view.presenter.profile
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.google.firebase.auth.FirebaseAuth
+import androidx.fragment.app.activityViewModels
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentProfileBinding
 import com.omouravictor.invest_view.presenter.init.LoginActivity
+import com.omouravictor.invest_view.presenter.user.UserViewModel
+import com.omouravictor.invest_view.presenter.user.getFormattedName
+import com.omouravictor.invest_view.util.setupToolbarTitle
 
-class ProfileFragment : Fragment() {
+class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private lateinit var binding: FragmentProfileBinding
-    private lateinit var auth: FirebaseAuth
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentProfileBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    private val userViewModel: UserViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        auth = FirebaseAuth.getInstance()
+        binding = FragmentProfileBinding.bind(view)
+
+        val activity = requireActivity()
+
+        activity.setupToolbarTitle("Olá, ${userViewModel.user.value.getFormattedName()}")
 
         binding.apply {
             incChangePersonalData.tvOption.text = getString(R.string.changePersonalData)
             incDeleteAccount.tvOption.text = getString(R.string.deleteAccount)
             incChangePassword.tvOption.text = getString(R.string.changePassword)
 
-            tvLogout.setOnClickListener {
-                auth.signOut()
-                val activity = requireActivity()
+            layoutLogout.setOnClickListener {
+                userViewModel.logout()
                 startActivity(Intent(activity, LoginActivity::class.java))
                 activity.finish()
             }
