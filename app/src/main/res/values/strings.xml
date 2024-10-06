@@ -123,5 +123,10 @@
     <string name="currentRate">Cotação atual</string>
     <string name="name">Nome</string>
     <string name="inWallet">Na carteira</string>
+    <string name="changePersonalData">Alterar dados pessoais</string>
+    <string name="accountConfigs">Configurações da conta</string>
+    <string name="securityConfigs">Configurações de segurança</string>
+    <string name="logout">Sair</string>
+    <string name="deleteAccount">Deletar conta</string>
 
 </resources>

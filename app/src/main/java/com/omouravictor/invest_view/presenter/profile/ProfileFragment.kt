@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
+import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentProfileBinding
 import com.omouravictor.invest_view.presenter.init.LoginActivity
 
@@ -25,11 +26,18 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         auth = FirebaseAuth.getInstance()
-        binding.btnLogout.setOnClickListener {
-            auth.signOut()
-            val activity = requireActivity()
-            startActivity(Intent(activity, LoginActivity::class.java))
-            activity.finish()
+
+        binding.apply {
+            incChancePersonalData.tvOption.text = getString(R.string.changePersonalData)
+            incDeleteAccount.tvOption.text = getString(R.string.deleteAccount)
+
+            incBtnLogout.root.text = getString(R.string.logout)
+            incBtnLogout.root.setOnClickListener {
+                auth.signOut()
+                val activity = requireActivity()
+                startActivity(Intent(activity, LoginActivity::class.java))
+                activity.finish()
+            }
         }
     }
 
