@@ -74,7 +74,10 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.fragmentSaveAsset, R.id.fragmentTransaction -> setupToolbarWithCenterText()
+                R.id.fragmentSaveAsset,
+                R.id.fragmentTransaction,
+                R.id.changePersonalDataFragment -> setupToolbarWithCenterText()
+
                 else -> setupToolbar()
             }
         }

@@ -9,6 +9,16 @@
         android:id="@+id/fragmentProfile"
         android:name="com.omouravictor.invest_view.presenter.profile.ProfileFragment"
         android:label="@string/profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/navToChangePersonalDataFragment"
+            app:destination="@id/changePersonalDataFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/changePersonalDataFragment"
+        android:name="com.omouravictor.invest_view.presenter.profile.change_personal_data.ChangePersonalDataFragment"
+        android:label="@string/changePersonalData"
+        tools:layout="@layout/fragment_change_personal_data" />
 
 </navigation>

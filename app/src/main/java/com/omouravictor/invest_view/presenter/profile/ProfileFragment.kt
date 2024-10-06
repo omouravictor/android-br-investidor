@@ -8,6 +8,8 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import com.omouravictor.invest_view.R
 import com.omouravictor.invest_view.databinding.FragmentProfileBinding
 import com.omouravictor.invest_view.presenter.init.LoginActivity
@@ -19,11 +21,13 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private lateinit var binding: FragmentProfileBinding
     private lateinit var activity: Activity
+    private lateinit var navController: NavController
     private val userViewModel: UserViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activity = requireActivity()
+        navController = findNavController()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,9 +57,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private fun setupViews() {
         binding.incChangePersonalData.apply {
             tvOption.text = getString(R.string.changePersonalData)
-            root.setOnClickListener {
-                Toast.makeText(activity, "Em breve...", Toast.LENGTH_SHORT).show()
-            }
+            root.setOnClickListener { navController.navigate(R.id.navToChangePersonalDataFragment) }
         }
 
         binding.incDeleteAccount.apply {
