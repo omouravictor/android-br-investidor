@@ -9,6 +9,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -30,8 +31,14 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
 
     private lateinit var binding: FragmentNewsBinding
     private lateinit var searchView: SearchView
+    private lateinit var activity: FragmentActivity
     private val newsViewModel: NewsViewModel by activityViewModels()
     private val articleAdapter = ArticleAdapter()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity = requireActivity()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -43,12 +50,10 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        requireActivity().hideKeyboard(searchView)
+        activity.hideKeyboard(searchView)
     }
 
     private fun addMenuProvider() {
-        val activity = requireActivity()
-
         activity.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.options_menu_search, menu)
@@ -115,10 +120,12 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
     }
 
     private fun handleNewsListLoading() {
-        binding.shimmerLayout.isVisible = true
-        binding.shimmerLayout.startShimmer()
-        binding.recyclerView.isVisible = false
-        binding.incLayoutError.root.isVisible = false
+        binding.apply {
+            shimmerLayout.isVisible = true
+            shimmerLayout.startShimmer()
+            recyclerView.isVisible = false
+            incLayoutError.root.isVisible = false
+        }
     }
 
     private fun handleNewsListSuccess(results: List<ArticleUiModel>) {
@@ -139,11 +146,13 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
     }
 
     private fun handleNewsListError(e: Exception) {
-        binding.shimmerLayout.isVisible = false
-        binding.shimmerLayout.stopShimmer()
-        binding.recyclerView.isVisible = false
-        binding.incLayoutError.root.isVisible = true
-        binding.incLayoutError.tvInfoMessage.text = requireContext().getErrorMessage(e)
+        binding.apply {
+            shimmerLayout.isVisible = false
+            shimmerLayout.stopShimmer()
+            recyclerView.isVisible = false
+            incLayoutError.root.isVisible = true
+            incLayoutError.tvInfoMessage.text = requireContext().getErrorMessage(e)
+        }
     }
 
 }

@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -29,6 +30,7 @@ import kotlinx.coroutines.launch
 class WalletFragment : Fragment(R.layout.fragment_wallet) {
 
     private lateinit var binding: FragmentWalletBinding
+    private lateinit var activity: FragmentActivity
     private lateinit var navController: NavController
     private val walletViewModel: WalletViewModel by activityViewModels()
     private val userViewModel: UserViewModel by activityViewModels()
@@ -51,6 +53,7 @@ class WalletFragment : Fragment(R.layout.fragment_wallet) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        activity = requireActivity()
         navController = findNavController()
     }
 
@@ -64,8 +67,6 @@ class WalletFragment : Fragment(R.layout.fragment_wallet) {
     }
 
     private fun setupToolbar() {
-        val activity = requireActivity()
-
         activity.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.options_menu_wallet, menu)

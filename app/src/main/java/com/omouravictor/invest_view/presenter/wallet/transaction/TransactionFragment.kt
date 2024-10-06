@@ -9,6 +9,7 @@ import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -44,6 +45,7 @@ import kotlinx.coroutines.launch
 class TransactionFragment : Fragment(R.layout.fragment_transaction) {
 
     private lateinit var binding: FragmentTransactionBinding
+    private lateinit var activity: FragmentActivity
     private lateinit var assetUiModel: AssetUiModel
     private lateinit var navController: NavController
     private val args by navArgs<TransactionFragmentArgs>()
@@ -53,6 +55,7 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        activity = requireActivity()
         assetUiModel = args.assetUiModel
         navController = findNavController()
     }
@@ -60,7 +63,7 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentTransactionBinding.bind(view)
-        requireActivity().setupToolbarCenterText(getString(R.string.newTransaction))
+        activity.setupToolbarCenterText(getString(R.string.newTransaction))
         setupViews()
         observeSaveAssetUiState()
         observeDeleteAssetUiState()
@@ -240,12 +243,14 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
     }
 
     private fun handleLoading(isLoading: Boolean) {
-        if (isLoading) {
-            binding.mainLayout.visibility = View.INVISIBLE
-            binding.incProgressBar.root.visibility = View.VISIBLE
-        } else {
-            binding.mainLayout.visibility = View.VISIBLE
-            binding.incProgressBar.root.visibility = View.GONE
+        binding.apply {
+            if (isLoading) {
+                mainLayout.visibility = View.INVISIBLE
+                incProgressBar.root.visibility = View.VISIBLE
+            } else {
+                mainLayout.visibility = View.VISIBLE
+                incProgressBar.root.visibility = View.GONE
+            }
         }
     }
 
@@ -258,7 +263,7 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
 
     private fun handleError(e: Exception) {
         handleLoading(false)
-        with(requireActivity()) { showErrorSnackBar(getErrorMessage(e)) }
+        activity.showErrorSnackBar(activity.getErrorMessage(e))
     }
 
     private fun observeSaveAssetUiState() {

@@ -25,6 +25,7 @@ fun Context.getErrorMessage(e: Exception?): String {
                 else -> getString(R.string.somethingWentWrong)
             }
         }
+
         is FirebaseNoSignedInUserException -> getString(R.string.userNotSignedIn)
 
         is UnknownHostException -> getString(R.string.noInternetConnection)

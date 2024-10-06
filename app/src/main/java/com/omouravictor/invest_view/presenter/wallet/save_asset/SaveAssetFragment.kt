@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -47,6 +48,7 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
 
     private lateinit var binding: FragmentSaveAssetBinding
     private lateinit var assetUiModel: AssetUiModel
+    private lateinit var activity: FragmentActivity
     private lateinit var navController: NavController
     private val args by navArgs<SaveAssetFragmentArgs>()
     private val walletViewModel: WalletViewModel by activityViewModels()
@@ -54,6 +56,7 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        activity = requireActivity()
         assetUiModel = args.assetUiModel
         navController = findNavController()
     }
@@ -72,7 +75,6 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
     }
 
     private fun setupToolbar() {
-        val activity = requireActivity()
         val assetType = assetUiModel.type
 
         activity.setupToolbarCenterText(getString(assetType.nameResId))
@@ -175,12 +177,14 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
     }
 
     private fun handleSaveAssetLoading(isLoading: Boolean) {
-        if (isLoading) {
-            binding.saveLayout.visibility = View.INVISIBLE
-            binding.incProgressBar.root.visibility = View.VISIBLE
-        } else {
-            binding.saveLayout.visibility = View.VISIBLE
-            binding.incProgressBar.root.visibility = View.GONE
+        binding.apply {
+            if (isLoading) {
+                saveLayout.visibility = View.INVISIBLE
+                incProgressBar.root.visibility = View.VISIBLE
+            } else {
+                saveLayout.visibility = View.VISIBLE
+                incProgressBar.root.visibility = View.GONE
+            }
         }
     }
 
@@ -202,7 +206,7 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
 
     private fun handleSaveAssetError(e: Exception) {
         handleSaveAssetLoading(false)
-        with(requireActivity()) { showErrorSnackBar(getErrorMessage(e)) }
+        activity.showErrorSnackBar(activity.getErrorMessage(e))
     }
 
     private fun observeSaveAssetUiState() {

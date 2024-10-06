@@ -9,6 +9,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -30,10 +31,16 @@ import kotlinx.coroutines.launch
 class AssetSearchFragment : Fragment(R.layout.fragment_asset_search) {
 
     private lateinit var binding: FragmentAssetSearchBinding
+    private lateinit var activity: FragmentActivity
     private lateinit var searchView: SearchView
     private val walletViewModel: WalletViewModel by activityViewModels()
     private val assetViewModel: AssetViewModel by activityViewModels()
     private val assetBySearchAdapter = AssetBySearchAdapter()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity = requireActivity()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,13 +53,11 @@ class AssetSearchFragment : Fragment(R.layout.fragment_asset_search) {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        requireActivity().hideKeyboard(searchView)
+        activity.hideKeyboard(searchView)
         assetViewModel.resetGetUpdatedAssetUiState()
     }
 
     private fun addMenuProvider() {
-        val activity = requireActivity()
-
         activity.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.options_menu_search, menu)
@@ -101,7 +106,7 @@ class AssetSearchFragment : Fragment(R.layout.fragment_asset_search) {
             if (existingAsset == null) {
                 assetViewModel.getUpdatedAsset(assetUiModel)
             } else {
-                requireActivity().showErrorSnackBar(getString(R.string.assetAlreadyExists))
+                activity.showErrorSnackBar(getString(R.string.assetAlreadyExists))
             }
         }
 

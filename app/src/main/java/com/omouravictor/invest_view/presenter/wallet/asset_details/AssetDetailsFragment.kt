@@ -9,6 +9,7 @@ import android.view.View
 import androidx.appcompat.content.res.AppCompatResources.getColorStateList
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -48,6 +49,7 @@ import kotlinx.coroutines.launch
 class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
 
     private lateinit var binding: FragmentAssetDetailsBinding
+    private lateinit var activity: FragmentActivity
     private lateinit var assetUiModel: AssetUiModel
     private lateinit var navController: NavController
     private val args by navArgs<AssetDetailsFragmentArgs>()
@@ -60,6 +62,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        activity = requireActivity()
         assetUiModel = args.assetUiModel
         navController = findNavController()
         assetViewModel.getQuote(assetUiModel.symbol)
@@ -114,8 +117,6 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
     }
 
     private fun setupToolbar() {
-        val activity = requireActivity()
-
         activity.setupToolbarTitle(assetUiModel.getFormattedSymbol())
 
         activity.addMenuProvider(object : MenuProvider {
@@ -308,7 +309,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
 
     private fun handleDeleteAssetError(e: Exception) {
         handleDeleteAssetLoading(false)
-        with(requireActivity()) { showErrorSnackBar(getErrorMessage(e)) }
+        activity.showErrorSnackBar(activity.getErrorMessage(e))
     }
 
     private fun observeDeleteAssetUiState() {
