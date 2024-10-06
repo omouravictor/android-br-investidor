@@ -48,4 +48,8 @@ class UserViewModel @Inject constructor(
         auth.signOut()
     }
 
+    fun resetUserUiState() {
+        _userUiState.value = UiState.Initial
+    }
+
 }
