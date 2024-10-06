@@ -47,14 +47,17 @@ fun Activity.showErrorSnackBar(message: String, duration: Int = Snackbar.LENGTH_
     snackbar.show()
 }
 
-fun Activity.showSuccessSnackBar(message: String) {
+fun Activity.showSuccessSnackBar(message: String, anchorResView: Int? = null) {
     val view = this.findViewById<View>(android.R.id.content)
     val context = view.context
     val snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT)
-    val isBottomNavVisible = view.findViewById<View>(R.id.bottomNav)?.isVisible ?: false
 
-    if (isBottomNavVisible)
-        snackbar.setAnchorView(R.id.bottomNav)
+    if (anchorResView != null) {
+        snackbar.setAnchorView(anchorResView)
+    } else {
+        if (view.findViewById<View>(R.id.bottomNav)?.isVisible == true)
+            snackbar.setAnchorView(R.id.bottomNav)
+    }
 
     snackbar.setBackgroundTint(ContextCompat.getColor(context, R.color.green))
     snackbar.setTextColor(ContextCompat.getColor(context, R.color.white))

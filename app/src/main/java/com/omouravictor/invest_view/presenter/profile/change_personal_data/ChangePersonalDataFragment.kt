@@ -77,7 +77,7 @@ class ChangePersonalDataFragment : Fragment(R.layout.fragment_change_personal_da
 
     private fun handleUserSuccess() {
         handleUserLoading(false)
-        activity.showSuccessSnackBar(getString(R.string.userUpdatedSuccessfully))
+        activity.showSuccessSnackBar(getString(R.string.userUpdatedSuccessfully), binding.incBtnSave.root.id)
     }
 
     private fun handleUserError(e: Exception) {
