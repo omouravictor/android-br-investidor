@@ -12,7 +12,7 @@
     <color name="defaultPressedTrueColor">#B2000000</color>
     <color name="defaultButtonPressedTrueColor">@color/defaultPressedTrueColor</color>
     <color name="shimmerBackColor">#656565</color>
-    <color name="grayTextColor">#616161</color>
+    <color name="grayTextColor">#686868</color>
     <color name="grayStrokeColor">@color/gray</color>
     <color name="defaultButtonBackgroundColor">@color/black</color>
     <color name="defaultButtonTextColor">@color/green</color>
