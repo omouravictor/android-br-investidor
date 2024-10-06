@@ -1,6 +1,7 @@
 package com.omouravictor.invest_view.presenter.profile
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -36,6 +37,19 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         activity.setupToolbarTitle(getString(R.string.helloUser, userViewModel.user.value.getFormattedName()))
     }
 
+    private fun showAlertDialogForLogout() {
+        AlertDialog.Builder(context).apply {
+            setTitle(getString(R.string.logoutAlertTitle))
+            setMessage(getString(R.string.logoutAlertMessage))
+            setPositiveButton(getString(R.string.yes)) { _, _ ->
+                userViewModel.logout()
+                startActivity(Intent(activity, LoginActivity::class.java))
+                activity.finish()
+            }
+            setNegativeButton(getString(R.string.not)) { dialog, _ -> dialog.dismiss() }
+        }.show()
+    }
+
     private fun setupViews() {
         binding.incChangePersonalData.apply {
             tvOption.text = getString(R.string.changePersonalData)
@@ -59,9 +73,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         }
 
         binding.layoutLogout.setOnClickListener {
-            userViewModel.logout()
-            startActivity(Intent(activity, LoginActivity::class.java))
-            activity.finish()
+            showAlertDialogForLogout()
         }
     }
 

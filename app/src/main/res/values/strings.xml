@@ -30,8 +30,9 @@
     <string name="fillAllFields">Preencha todos os campos.</string>
     <string name="registerMessage">Não tem uma conta? Cadastre-se</string>
     <string name="doLoginMessage">Já tem uma conta? Faça login</string>
-    <string name="deleteAssetAlertMessage">Tem certeza que deseja excluir este ativo da sua carteira?</string>
-    <string name="saleAssetAlertMessage">Tem certeza que deseja vender todos os ativos?</string>
+    <string name="deleteAssetAlertMessage">Tem certeza de que deseja excluir este ativo da sua carteira?</string>
+    <string name="logoutAlertMessage">Tem certeza de que deseja sair da conta?</string>
+    <string name="saleAssetAlertMessage">Tem certeza de que deseja vender todos os ativos?</string>
 
     <!-- String arrays -->
     <string-array name="assetSortTypesArray">
@@ -131,5 +132,6 @@
     <string name="option">Opção</string>
     <string name="changePassword">Alterar senha</string>
     <string name="helloUser">Olá, %1$s</string>
+    <string name="logoutAlertTitle">Sair da conta</string>
 
 </resources>
