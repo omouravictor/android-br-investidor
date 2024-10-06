@@ -1,5 +1,6 @@
 package com.omouravictor.invest_view.presenter.profile
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -16,16 +17,26 @@ import com.omouravictor.invest_view.util.setupToolbarTitle
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private lateinit var binding: FragmentProfileBinding
+    private lateinit var activity: Activity
     private val userViewModel: UserViewModel by activityViewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity = requireActivity()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentProfileBinding.bind(view)
+        setupToolbar()
+        setupViews()
+    }
 
-        val activity = requireActivity()
+    private fun setupToolbar() {
+        activity.setupToolbarTitle(getString(R.string.helloUser, userViewModel.user.value.getFormattedName()))
+    }
 
-        activity.setupToolbarTitle("Olá, ${userViewModel.user.value.getFormattedName()}")
-
+    private fun setupViews() {
         binding.incChangePersonalData.apply {
             tvOption.text = getString(R.string.changePersonalData)
             root.setOnClickListener {

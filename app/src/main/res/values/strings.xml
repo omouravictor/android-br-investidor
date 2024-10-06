@@ -130,5 +130,6 @@
     <string name="deleteAccount">Excluir conta</string>
     <string name="option">Opção</string>
     <string name="changePassword">Alterar senha</string>
+    <string name="helloUser">Olá, %1$s</string>
 
 </resources>
