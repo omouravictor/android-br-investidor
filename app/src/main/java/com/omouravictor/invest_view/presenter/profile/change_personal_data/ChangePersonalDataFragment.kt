@@ -33,7 +33,10 @@ class ChangePersonalDataFragment : Fragment(R.layout.fragment_change_personal_da
     }
 
     private fun setupViews() {
-        binding.etName.setText(userViewModel.user.value.name)
+        binding.apply {
+            etName.setText(userViewModel.user.value.name)
+            incBtnSave.root.text = getString(R.string.save)
+        }
     }
 
 }
