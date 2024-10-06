@@ -33,7 +33,7 @@
                     android:drawableStart="@drawable/ic_person"
                     android:drawablePadding="8dp"
                     android:hint="@string/name"
-                    android:imeOptions="actionNext"
+                    android:imeOptions="actionDone"
                     android:inputType="textCapWords"
                     android:paddingVertical="@dimen/defaultSpace"
                     tools:text="Victor" />
