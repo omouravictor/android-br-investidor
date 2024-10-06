@@ -55,7 +55,7 @@ class ChangePersonalDataFragment : Fragment(R.layout.fragment_change_personal_da
         binding.apply {
             incBtnSave.root.text = getString(R.string.save)
             incBtnSave.root.setOnClickListener {
-                val updatedUser = userViewModel.user.value.copy(name = etName.text.toString())
+                val updatedUser = userViewModel.user.value.copy(name = etName.text.toString().trim())
                 userViewModel.updateUser(updatedUser)
             }
         }
