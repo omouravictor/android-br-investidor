@@ -13,10 +13,6 @@ fun Activity.setupToolbarTitle(tittle: String?) {
     findViewById<Toolbar>(R.id.toolbar).title = tittle
 }
 
-fun Activity.setupToolbarSubtitle(subtitle: String?) {
-    findViewById<Toolbar>(R.id.toolbar).subtitle = subtitle
-}
-
 fun Activity.setupToolbarCenterText(centerText: String) {
     findViewById<Toolbar>(R.id.toolbar).apply {
         title = null
@@ -34,13 +30,6 @@ fun Activity.showErrorSnackBar(
     val context = view.context
     val snackbar = Snackbar.make(view, message, duration)
 
-    if (anchorResView != null) {
-        snackbar.setAnchorView(anchorResView)
-    } else {
-        if (view.findViewById<View>(R.id.bottomNav)?.isVisible == true)
-            snackbar.setAnchorView(R.id.bottomNav)
-    }
-
     if (hasCloseAction) {
         snackbar.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_action).apply {
             isAllCaps = false
@@ -50,6 +39,7 @@ fun Activity.showErrorSnackBar(
         snackbar.setAction(this.getString(R.string.understood)) { snackbar.dismiss() }
     }
 
+    setSnackbarAnchorView(snackbar, view, anchorResView)
     snackbar.setBackgroundTint(ContextCompat.getColor(context, R.color.red))
     snackbar.setTextColor(ContextCompat.getColor(context, R.color.white))
     snackbar.show()
@@ -60,14 +50,17 @@ fun Activity.showSuccessSnackBar(message: String, anchorResView: Int? = null) {
     val context = view.context
     val snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT)
 
+    setSnackbarAnchorView(snackbar, view, anchorResView)
+    snackbar.setBackgroundTint(ContextCompat.getColor(context, R.color.green))
+    snackbar.setTextColor(ContextCompat.getColor(context, R.color.white))
+    snackbar.show()
+}
+
+private fun setSnackbarAnchorView(snackbar: Snackbar, view: View, anchorResView: Int? = null) {
     if (anchorResView != null) {
         snackbar.setAnchorView(anchorResView)
     } else {
         if (view.findViewById<View>(R.id.bottomNav)?.isVisible == true)
             snackbar.setAnchorView(R.id.bottomNav)
     }
-
-    snackbar.setBackgroundTint(ContextCompat.getColor(context, R.color.green))
-    snackbar.setTextColor(ContextCompat.getColor(context, R.color.white))
-    snackbar.show()
 }
