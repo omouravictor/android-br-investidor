@@ -2,6 +2,8 @@ package com.omouravictor.invest_view.presenter.wallet
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.omouravictor.invest_view.data.remote.model.asset_quote.toGlobalQuoteUiModel
+import com.omouravictor.invest_view.data.remote.repository.AssetsApiRepository
 import com.omouravictor.invest_view.data.remote.repository.FirebaseRepository
 import com.omouravictor.invest_view.presenter.model.UiState
 import com.omouravictor.invest_view.presenter.wallet.asset.AssetUiModel
@@ -13,6 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WalletViewModel @Inject constructor(
+    private val assetsApiRepository: AssetsApiRepository,
     private val firebaseRepository: FirebaseRepository
 ) : ViewModel() {
 
@@ -33,9 +36,14 @@ class WalletViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-                val result = firebaseRepository.getAssetList(userId).getOrThrow()
-                _assetList.value = result
-                _getUserAssetListUiState.value = UiState.Success(result)
+                val assetList = firebaseRepository
+                    .getAssetList(userId)
+                    .getOrThrow()
+
+                updatePrices(userId, assetList)
+                _assetList.value = assetList
+                _getUserAssetListUiState.value = UiState.Success(assetList)
+
             } catch (e: Exception) {
                 _getUserAssetListUiState.value = UiState.Error(e)
             }
@@ -79,6 +87,23 @@ class WalletViewModel @Inject constructor(
 
     fun resetDeleteAssetUiState() {
         _deleteAssetUiState.value = UiState.Initial
+    }
+
+    private suspend fun updatePrices(userId: String, assetList: List<AssetUiModel>) {
+        for (asset in assetList) {
+            try {
+                val globalQuote = assetsApiRepository
+                    .getAssetGlobalQuote(asset.symbol)
+                    .getOrThrow()
+                    .toGlobalQuoteUiModel()
+
+                asset.price = globalQuote.price
+                firebaseRepository.saveAsset(userId, asset).getOrThrow()
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 
     private fun getUpdatedList(asset: AssetUiModel): List<AssetUiModel> {
