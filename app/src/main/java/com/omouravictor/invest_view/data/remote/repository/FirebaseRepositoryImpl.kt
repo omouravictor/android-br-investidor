@@ -75,6 +75,32 @@ class FirebaseRepositoryImpl(
         }
     }
 
+    override suspend fun saveAssetList(userId: String, assetList: List<AssetUiModel>): Result<List<AssetUiModel>> {
+        return withContext(dispatchers.io) {
+            try {
+                val batch = firestore.batch()
+
+                for (asset in assetList) {
+                    val assetDocRef = firestore
+                        .collection(COLLECTION_USERS)
+                        .document(userId)
+                        .collection(COLLECTION_ASSETS)
+                        .document(asset.symbol)
+
+                    batch[assetDocRef] = asset
+                }
+
+                batch.commit().await()
+
+                Result.success(assetList)
+
+            } catch (e: Exception) {
+                Log.e("SaveAssetList", "UserId: $userId", e)
+                Result.failure(e)
+            }
+        }
+    }
+
     override suspend fun saveAsset(userId: String, assetUiModel: AssetUiModel): Result<AssetUiModel> {
         return withContext(dispatchers.io) {
             try {
