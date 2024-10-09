@@ -5,7 +5,6 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
@@ -41,6 +40,19 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         activity.setupToolbarTitle(getString(R.string.helloUser, userViewModel.user.value.getFormattedName()))
     }
 
+    private fun showAlertDialogForDeleteAccount() {
+        AlertDialog.Builder(context).apply {
+            setTitle(getString(R.string.deleteAccount))
+            setMessage(getString(R.string.deleteAccountAlertMessage))
+            setPositiveButton(getString(R.string.yes)) { _, _ ->
+                userViewModel.logout()
+                startActivity(Intent(activity, LoginActivity::class.java))
+                activity.finish()
+            }
+            setNegativeButton(getString(R.string.not)) { dialog, _ -> dialog.dismiss() }
+        }.show()
+    }
+
     private fun showAlertDialogForLogout() {
         AlertDialog.Builder(context).apply {
             setTitle(getString(R.string.logoutAlertTitle))
@@ -62,16 +74,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         binding.incDeleteAccount.apply {
             tvOption.text = getString(R.string.deleteAccount)
-            root.setOnClickListener {
-                Toast.makeText(activity, "Em breve...", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        binding.incChangePassword.apply {
-            tvOption.text = getString(R.string.changePassword)
-            root.setOnClickListener {
-                Toast.makeText(activity, "Em breve...", Toast.LENGTH_SHORT).show()
-            }
+            root.setOnClickListener { showAlertDialogForDeleteAccount() }
         }
 
         binding.layoutLogout.setOnClickListener {
