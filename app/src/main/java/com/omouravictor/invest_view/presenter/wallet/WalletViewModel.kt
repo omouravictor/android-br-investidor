@@ -1,5 +1,6 @@
 package com.omouravictor.invest_view.presenter.wallet
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.omouravictor.invest_view.data.remote.model.asset_quote.toGlobalQuoteUiModel
@@ -101,7 +102,7 @@ class WalletViewModel @Inject constructor(
                 firebaseRepository.saveAsset(userId, asset)
 
             } catch (e: Exception) {
-                e.printStackTrace()
+                Log.e("UpdatePrices", "UserId: $userId | Asset: ${asset.symbol}", e)
             }
         }
     }
