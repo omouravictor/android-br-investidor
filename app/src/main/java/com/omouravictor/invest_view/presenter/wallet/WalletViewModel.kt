@@ -98,7 +98,7 @@ class WalletViewModel @Inject constructor(
                     .toGlobalQuoteUiModel()
 
                 asset.price = globalQuote.price
-                firebaseRepository.saveAsset(userId, asset).getOrThrow()
+                firebaseRepository.saveAsset(userId, asset)
 
             } catch (e: Exception) {
                 e.printStackTrace()

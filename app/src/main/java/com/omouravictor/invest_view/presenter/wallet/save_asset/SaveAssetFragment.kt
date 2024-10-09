@@ -36,6 +36,7 @@ import com.omouravictor.invest_view.util.getErrorMessage
 import com.omouravictor.invest_view.util.getLongValue
 import com.omouravictor.invest_view.util.getMonetaryValueInDouble
 import com.omouravictor.invest_view.util.getRoundedDouble
+import com.omouravictor.invest_view.util.hideKeyboard
 import com.omouravictor.invest_view.util.setEditTextCurrencyFormatMask
 import com.omouravictor.invest_view.util.setEditTextLongNumberFormatMask
 import com.omouravictor.invest_view.util.setupToolbarCenterText
@@ -71,6 +72,7 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        activity.hideKeyboard(binding.root)
         walletViewModel.resetSaveAssetUiState()
     }
 
