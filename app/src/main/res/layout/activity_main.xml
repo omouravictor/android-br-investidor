@@ -23,6 +23,7 @@
             app:contentInsetStartWithNavigation="0dp"
             app:popupTheme="@style/Theme.WiseInvest.PopupOverlay"
             app:titleTextAppearance="@style/Theme.WiseInvest.ToolbarTitleText"
+            app:titleTextColor="@color/white"
             tools:title="Carteira">
 
             <TextView
