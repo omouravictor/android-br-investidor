@@ -18,6 +18,12 @@
 
     <style name="Theme.InvestView.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="AppSplashScreenStyle" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/appWindowBackColor</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_app_icon</item>
+        <item name="postSplashScreenTheme">@style/Theme.InvestView</item>
+    </style>
+
     <style name="AppTabTextAppearanceStyle" parent="TextAppearance.Design.Tab">
         <item name="textAllCaps">false</item>
     </style>

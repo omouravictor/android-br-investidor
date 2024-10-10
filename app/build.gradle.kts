@@ -139,6 +139,9 @@ dependencies {
 
     val glideVersion = "4.16.0"
     implementation("com.github.bumptech.glide:glide:$glideVersion")
+
+    val splashScreenVersion = "1.0.1"
+    implementation("androidx.core:core-splashscreen:$splashScreenVersion")
 }
 
 kapt {
