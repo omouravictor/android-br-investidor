@@ -20,7 +20,7 @@
 
     <style name="Theme.WiseInvest.SplashScreen" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/appWindowBackColor</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_app_icon</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash_screen</item>
         <item name="postSplashScreenTheme">@style/Theme.WiseInvest</item>
     </style>
 
