@@ -18,7 +18,7 @@
 
     <style name="Theme.WiseInvest.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="Theme.WiseInvest.SplashScreen" parent="Theme.SplashScreen">
+    <style name="Theme.WiseInvest.LoginActivity" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/appWindowBackColor</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash_screen</item>
         <item name="postSplashScreenTheme">@style/Theme.WiseInvest</item>
@@ -41,6 +41,7 @@
     <style name="Theme.WiseInvest.ToolbarTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">@dimen/textSize4</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="Theme.WiseInvest.OverlayBottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
