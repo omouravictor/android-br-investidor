@@ -55,6 +55,11 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun setupViews() {
+        binding.tvTittle.text = SpannableString(getString(R.string.appNameTitle)).apply {
+            val startIndex = indexOf(" ") + 1
+            setSpan(ForegroundColorSpan(getColor(R.color.green)), startIndex, length, 0)
+        }
+
         binding.incBtnRegister.root.apply {
             text = getString(R.string.register)
             setOnClickListener { register() }
