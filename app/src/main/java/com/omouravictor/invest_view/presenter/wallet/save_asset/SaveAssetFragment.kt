@@ -130,7 +130,7 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
 
     private fun showInfoBottomSheetDialog(assetType: AssetType) {
         val context = requireContext()
-        with(BottomSheetDialog(context, R.style.AppOverlayBottomSheetDialogStyle)) {
+        with(BottomSheetDialog(context, R.style.Theme_WiseInvest_OverlayBottomSheetDialog)) {
             setContentView(R.layout.bottom_sheet_dialog_info)
             findViewById<ImageView>(R.id.ivTitle)!!.imageTintList =
                 ContextCompat.getColorStateList(context, assetType.colorResId)
