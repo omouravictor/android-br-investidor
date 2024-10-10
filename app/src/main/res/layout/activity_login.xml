@@ -17,6 +17,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:id="@+id/tvTittle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:textAlignment="center"
+            android:textSize="@dimen/textSize5"
+            android:textStyle="bold"
+            tools:text="Wise Invest" />
+
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.Design.TextInputLayout"
             android:layout_width="match_parent"
