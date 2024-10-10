@@ -62,7 +62,7 @@
     <string name="errorLoadingAssetVariation">Não foi possível obter a variação do ativo, espere um pouco e tente novamente.</string>
     <string name="userNotFound">Usuário não encontrado na base de dados.</string>
 
-    <string name="appName">Invest View</string>
+    <string name="appName">WiseInvest</string>
     <string name="add">Add</string>
     <string name="settings">Configurações</string>
     <string name="wallet">Carteira</string>
