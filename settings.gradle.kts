@@ -14,5 +14,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "invest-view"
+rootProject.name = "wise-invest"
 include(":app")

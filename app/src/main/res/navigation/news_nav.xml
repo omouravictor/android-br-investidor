@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/fragmentNews"
-        android:name="com.omouravictor.invest_view.presenter.news.NewsFragment"
+        android:name="com.omouravictor.wise_invest.presenter.news.NewsFragment"
         android:label="@string/news"
         tools:layout="@layout/fragment_news">
         <action
@@ -17,12 +17,12 @@
 
     <fragment
         android:id="@+id/fragmentArticle"
-        android:name="com.omouravictor.invest_view.presenter.news.article.ArticleFragment"
+        android:name="com.omouravictor.wise_invest.presenter.news.article.ArticleFragment"
         android:label="ArticleFragment"
         tools:layout="@layout/fragment_article">
         <argument
             android:name="articleUiModel"
-            app:argType="com.omouravictor.invest_view.presenter.news.article.ArticleUiModel" />
+            app:argType="com.omouravictor.wise_invest.presenter.news.article.ArticleUiModel" />
     </fragment>
 
 </navigation>

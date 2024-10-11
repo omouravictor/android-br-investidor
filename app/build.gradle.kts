@@ -11,11 +11,11 @@ plugins {
 }
 
 android {
-    namespace = "com.omouravictor.invest_view"
+    namespace = "com.omouravictor.wise_invest"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.omouravictor.invest_view"
+        applicationId = "com.omouravictor.wise_invest"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

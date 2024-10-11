@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "927086290979",
-    "project_id": "invest-view-91db0",
-    "storage_bucket": "invest-view-91db0.appspot.com"
+    "project_number": "847600747022",
+    "project_id": "wise-invest-b522c",
+    "storage_bucket": "wise-invest-b522c.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:927086290979:android:22a9c0b9f80504686c6996",
+        "mobilesdk_app_id": "1:847600747022:android:fde687b956d3c1e0edb25f",
         "android_client_info": {
-          "package_name": "com.omouravictor.invest_view"
+          "package_name": "com.omouravictor.wise_invest"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDouVad2yBuNsF4U9E-EnGqBz4w1KxRNq4"
+          "current_key": "AIzaSyDLH98a-HZ1jPk3r4r115HfmrWtcPJ1GL8"
         }
       ],
       "services": {

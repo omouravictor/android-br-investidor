@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/fragmentWallet"
-        android:name="com.omouravictor.invest_view.presenter.wallet.WalletFragment"
+        android:name="com.omouravictor.wise_invest.presenter.wallet.WalletFragment"
         android:label="@string/wallet"
         tools:layout="@layout/fragment_wallet">
         <action
@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/fragmentAssetSearch"
-        android:name="com.omouravictor.invest_view.presenter.wallet.asset_search.AssetSearchFragment"
+        android:name="com.omouravictor.wise_invest.presenter.wallet.asset_search.AssetSearchFragment"
         android:label="@string/assetsSearch"
         tools:layout="@layout/fragment_asset_search">
         <action
@@ -30,20 +30,20 @@
 
     <fragment
         android:id="@+id/fragmentSaveAsset"
-        android:name="com.omouravictor.invest_view.presenter.wallet.save_asset.SaveAssetFragment"
+        android:name="com.omouravictor.wise_invest.presenter.wallet.save_asset.SaveAssetFragment"
         tools:layout="@layout/fragment_save_asset">
         <argument
             android:name="assetUiModel"
-            app:argType="com.omouravictor.invest_view.presenter.wallet.asset.AssetUiModel" />
+            app:argType="com.omouravictor.wise_invest.presenter.wallet.asset.AssetUiModel" />
     </fragment>
 
     <fragment
         android:id="@+id/fragmentAssetDetail"
-        android:name="com.omouravictor.invest_view.presenter.wallet.asset_details.AssetDetailsFragment"
+        android:name="com.omouravictor.wise_invest.presenter.wallet.asset_details.AssetDetailsFragment"
         tools:layout="@layout/fragment_asset_details">
         <argument
             android:name="assetUiModel"
-            app:argType="com.omouravictor.invest_view.presenter.wallet.asset.AssetUiModel" />
+            app:argType="com.omouravictor.wise_invest.presenter.wallet.asset.AssetUiModel" />
         <action
             android:id="@+id/navToSaveAssetFragment"
             app:destination="@id/fragmentSaveAsset" />
@@ -54,11 +54,11 @@
 
     <fragment
         android:id="@+id/fragmentTransaction"
-        android:name="com.omouravictor.invest_view.presenter.wallet.transaction.TransactionFragment"
+        android:name="com.omouravictor.wise_invest.presenter.wallet.transaction.TransactionFragment"
         tools:layout="@layout/fragment_transaction">
         <argument
             android:name="assetUiModel"
-            app:argType="com.omouravictor.invest_view.presenter.wallet.asset.AssetUiModel" />
+            app:argType="com.omouravictor.wise_invest.presenter.wallet.asset.AssetUiModel" />
     </fragment>
 
 </navigation>

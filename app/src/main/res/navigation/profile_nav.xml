@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/fragmentProfile"
-        android:name="com.omouravictor.invest_view.presenter.profile.ProfileFragment"
+        android:name="com.omouravictor.wise_invest.presenter.profile.ProfileFragment"
         android:label="@string/profile"
         tools:layout="@layout/fragment_profile">
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/changePersonalDataFragment"
-        android:name="com.omouravictor.invest_view.presenter.profile.change_personal_data.ChangePersonalDataFragment"
+        android:name="com.omouravictor.wise_invest.presenter.profile.change_personal_data.ChangePersonalDataFragment"
         android:label="@string/changePersonalData"
         tools:layout="@layout/fragment_change_personal_data" />
 
