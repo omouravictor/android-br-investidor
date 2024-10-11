@@ -12,6 +12,7 @@
         <item name="android:textColor">@color/appTextColor</item>
         <item name="actionMenuTextAppearance">@style/Theme.WiseInvest.ActionBarMenu</item>
         <item name="android:navigationBarColor">@color/black</item>
+        <item name="searchViewStyle">@style/Theme.WiseInvest.SearchView</item>
     </style>
 
     <style name="Theme.WiseInvest.LoginActivity" parent="Theme.SplashScreen">
@@ -31,6 +32,7 @@
     <style name="Theme.WiseInvest.Toolbar">
         <item name="colorControlNormal">@color/green</item>
         <item name="android:editTextColor">@color/white</item>
+        <item name="android:textColorHint">@color/gray</item>
         <item name="colorControlActivated">@color/green</item>
     </style>
 
@@ -51,6 +53,10 @@
         <item name="colorControlActivated">@color/black</item>
         <item name="android:colorForeground">@color/black</item>
         <item name="colorSwitchThumbNormal">#EDEDED</item>
+    </style>
+
+    <style name="Theme.WiseInvest.SearchView" parent="Widget.AppCompat.SearchView">
+        <item name="searchHintIcon">@null</item>
     </style>
 
 </resources>
