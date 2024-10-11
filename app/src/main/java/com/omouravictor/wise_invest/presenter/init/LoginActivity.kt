@@ -10,9 +10,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.isVisible
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.omouravictor.wise_invest.R
 import com.omouravictor.wise_invest.databinding.ActivityLoginBinding
 import com.omouravictor.wise_invest.presenter.MainActivity
@@ -34,6 +32,11 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
+        checkUserLoggedIn()
+    }
+
+    override fun onStart() {
+        super.onStart()
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupViews()
@@ -43,6 +46,13 @@ class LoginActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         loginViewModel.resetUserUiState()
+    }
+
+    private fun checkUserLoggedIn() {
+        if (loginViewModel.userLoggedIn()) {
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        }
     }
 
     private fun login() {
@@ -95,16 +105,14 @@ class LoginActivity : AppCompatActivity() {
 
     private fun observeUserUiState() {
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                loginViewModel.userUiState.collectLatest {
-                    when (it) {
-                        is UiState.Initial -> loginLayoutIsVisible(true)
-                        is UiState.Loading -> loginLayoutIsVisible(false)
-                        is UiState.Success -> handleUserSuccess(it.data)
-                        is UiState.Error -> {
-                            loginLayoutIsVisible(true)
-                            showErrorSnackBar(getErrorMessage(it.e))
-                        }
+            loginViewModel.userUiState.collectLatest {
+                when (it) {
+                    is UiState.Initial -> loginLayoutIsVisible(true)
+                    is UiState.Loading -> loginLayoutIsVisible(false)
+                    is UiState.Success -> handleUserSuccess(it.data)
+                    is UiState.Error -> {
+                        loginLayoutIsVisible(true)
+                        showErrorSnackBar(getErrorMessage(it.e))
                     }
                 }
             }

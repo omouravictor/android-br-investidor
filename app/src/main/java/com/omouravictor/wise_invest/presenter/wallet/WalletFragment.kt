@@ -63,6 +63,7 @@ class WalletFragment : Fragment(R.layout.fragment_wallet) {
         setupToolbar()
         setupTabLayoutWithViewPager2()
         setupButtons()
+        observeUserUiState()
         observeGetUserAssetListUiState()
     }
 
@@ -118,6 +119,27 @@ class WalletFragment : Fragment(R.layout.fragment_wallet) {
             text = getString(R.string.tryAgain)
             setOnClickListener {
                 walletViewModel.getUserAssetList(userViewModel.user.value.uid)
+            }
+        }
+    }
+
+    private fun observeUserUiState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                userViewModel.userUiState.collectLatest {
+                    when (it) {
+                        is UiState.Success -> walletViewModel.getUserAssetList(it.data.uid)
+
+                        is UiState.Error -> {
+                            binding.apply {
+                                viewFlipper.displayedChild = VIEW_FLIPPER_CHILD_WALLET_ERROR_LAYOUT
+                                incWalletErrorLayout.tvInfoMessage.text = root.context.getErrorMessage(it.e)
+                            }
+                        }
+
+                        else -> binding.viewFlipper.displayedChild = VIEW_FLIPPER_CHILD_PROGRESS_BAR
+                    }
+                }
             }
         }
     }
