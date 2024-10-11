@@ -99,6 +99,7 @@ class WalletViewModel @Inject constructor(
                     .globalQuoteResponse
 
                 asset.price = globalQuote.price.getRoundedDouble()
+                firebaseRepository.saveAsset(userId, asset)
 
             } catch (e: Exception) {
                 Log.e("UpdatePrices", "UserId: $userId | Asset: ${asset.symbol}", e)
