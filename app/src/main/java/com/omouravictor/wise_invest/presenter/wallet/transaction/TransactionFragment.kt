@@ -246,9 +246,11 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
         binding.apply {
             if (isLoading) {
                 mainLayout.visibility = View.INVISIBLE
+                incBtnSave.root.visibility = View.INVISIBLE
                 incProgressBar.root.visibility = View.VISIBLE
             } else {
                 mainLayout.visibility = View.VISIBLE
+                incBtnSave.root.visibility = View.VISIBLE
                 incProgressBar.root.visibility = View.GONE
             }
         }
