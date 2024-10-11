@@ -14,10 +14,6 @@
         <item name="android:navigationBarColor">@color/black</item>
     </style>
 
-    <style name="Theme.WiseInvest.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="Theme.WiseInvest.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
     <style name="Theme.WiseInvest.LoginActivity" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/appWindowBackColor</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash_screen</item>
