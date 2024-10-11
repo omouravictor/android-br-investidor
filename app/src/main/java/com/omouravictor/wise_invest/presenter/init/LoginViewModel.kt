@@ -23,7 +23,23 @@ class LoginViewModel @Inject constructor(
     private val _userUiState = MutableStateFlow<UiState<UserUiModel>>(UiState.Initial)
     val userUiState = _userUiState.asStateFlow()
 
-    fun userLoggedIn(): Boolean = auth.currentUser != null
+    init {
+        _userUiState.value = UiState.Loading
+
+        val loggedUser = auth.currentUser
+        if (loggedUser != null) {
+            viewModelScope.launch {
+                try {
+                    val user = getSavedUser(loggedUser)
+                    _userUiState.value = UiState.Success(user)
+                } catch (e: Exception) {
+                    _userUiState.value = UiState.Error(e)
+                }
+            }
+        } else {
+            _userUiState.value = UiState.Initial
+        }
+    }
 
     fun login(email: String, password: String) {
         _userUiState.value = UiState.Loading

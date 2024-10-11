@@ -1,6 +1,8 @@
 package com.omouravictor.wise_invest.presenter
 
+import android.os.Build
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsCompat.Type.ime
 import androidx.core.view.WindowInsetsCompat.toWindowInsetsCompat
@@ -12,6 +14,10 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.omouravictor.wise_invest.R
 import com.omouravictor.wise_invest.databinding.ActivityMainBinding
+import com.omouravictor.wise_invest.presenter.user.UserUiModel
+import com.omouravictor.wise_invest.presenter.user.UserViewModel
+import com.omouravictor.wise_invest.presenter.wallet.WalletViewModel
+import com.omouravictor.wise_invest.util.ConstantUtil
 import com.omouravictor.wise_invest.util.clearPileAndNavigateTo
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,15 +26,30 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+    private val userViewModel: UserViewModel by viewModels()
+    private val walletViewModel: WalletViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
+        getUser()
         setupMainNavigation()
         setupBottomNavigationView()
         addOnApplyWindowInsetsListener()
+    }
+
+    private fun getUser() {
+        val user: UserUiModel = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getParcelableExtra(ConstantUtil.USER_UI_MODEL_INTENT_EXTRA, UserUiModel::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            intent.getParcelableExtra(ConstantUtil.USER_UI_MODEL_INTENT_EXTRA)
+        }!!
+
+        userViewModel.setUser(user)
+        walletViewModel.getUserAssetList(user.uid)
     }
 
     private fun setupToolbarWithCenterText() {
