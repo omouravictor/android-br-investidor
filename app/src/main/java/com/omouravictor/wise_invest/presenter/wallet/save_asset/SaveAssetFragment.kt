@@ -182,9 +182,11 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
         binding.apply {
             if (isLoading) {
                 saveLayout.visibility = View.INVISIBLE
+                incBtnSave.root.visibility = View.INVISIBLE
                 incProgressBar.root.visibility = View.VISIBLE
             } else {
                 saveLayout.visibility = View.VISIBLE
+                incBtnSave.root.visibility = View.VISIBLE
                 incProgressBar.root.visibility = View.GONE
             }
         }
