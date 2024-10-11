@@ -30,8 +30,7 @@ class LoginViewModel @Inject constructor(
         if (loggedUser != null) {
             viewModelScope.launch {
                 try {
-                    val user = getSavedUser(loggedUser)
-                    _userUiState.value = UiState.Success(user)
+                    _userUiState.value = UiState.Success(getSavedUser(loggedUser))
                 } catch (e: Exception) {
                     _userUiState.value = UiState.Error(e)
                 }
