@@ -3,11 +3,11 @@ package com.omouravictor.wise_invest.presenter.wallet
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.omouravictor.wise_invest.data.remote.model.asset_quote.toGlobalQuoteUiModel
 import com.omouravictor.wise_invest.data.remote.repository.AssetsApiRepository
 import com.omouravictor.wise_invest.data.remote.repository.FirebaseRepository
 import com.omouravictor.wise_invest.presenter.model.UiState
 import com.omouravictor.wise_invest.presenter.wallet.asset.AssetUiModel
+import com.omouravictor.wise_invest.util.getRoundedDouble
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -96,10 +96,9 @@ class WalletViewModel @Inject constructor(
                 val globalQuote = assetsApiRepository
                     .getAssetGlobalQuote(asset.symbol)
                     .getOrThrow()
-                    .toGlobalQuoteUiModel()
+                    .globalQuoteResponse
 
-                asset.price = globalQuote.price
-                firebaseRepository.saveAsset(userId, asset)
+                asset.price = globalQuote.price.getRoundedDouble()
 
             } catch (e: Exception) {
                 Log.e("UpdatePrices", "UserId: $userId | Asset: ${asset.symbol}", e)
