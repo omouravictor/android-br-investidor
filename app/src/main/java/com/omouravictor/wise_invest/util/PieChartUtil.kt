@@ -3,6 +3,7 @@ package com.omouravictor.wise_invest.util
 import android.graphics.Color
 import android.graphics.Typeface
 import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import androidx.core.content.ContextCompat
 import com.github.mikephil.charting.animation.Easing
@@ -38,16 +39,16 @@ fun PieChart.setupPieChart(
     setEntryLabelTextSize(textSize12)
     setEntryLabelTypeface(boldTypeface)
     setCenterTextColor(appTextColor)
-    setCenterTextSize(16f)
+    setCenterTextSize(20f)
     animateY(1400, Easing.EaseInOutQuad)
 }
 
 fun PieChart.updateCenterText(
     assetSize: Int
 ) {
-    val assetText = this.context.getString(if (assetSize == 1) R.string.asset else R.string.assets)
-    val spannableString = SpannableString("$assetSize\n$assetText").apply {
-        setSpan(StyleSpan(Typeface.ITALIC), 0, length, 0)
+    val spannableString = SpannableString(assetSize.toString()).apply {
+        setSpan(ForegroundColorSpan(context.getColor(R.color.defaultButtonBackgroundColor)), 0, length, 0)
+        setSpan(StyleSpan(Typeface.BOLD), 0, length, 0)
     }
 
     centerText = spannableString
