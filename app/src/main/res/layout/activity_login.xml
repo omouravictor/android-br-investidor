@@ -54,7 +54,7 @@
             style="@style/Widget.Design.TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="8dp"
             app:hintEnabled="false"
             app:passwordToggleEnabled="true">
 
@@ -71,6 +71,15 @@
                 tools:text="123456" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tvForgotPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:text="@string/forgotPassword"
+            android:textAlignment="textEnd"
+            android:textColor="@color/grayTextColor" />
 
         <include
             android:id="@+id/incBtnLogin"

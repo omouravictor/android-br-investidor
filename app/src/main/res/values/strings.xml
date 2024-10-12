@@ -136,5 +136,6 @@
     <string name="changePassword">Alterar senha</string>
     <string name="helloUser">Olá, %1$s</string>
     <string name="logoutAlertTitle">Sair da conta</string>
+    <string name="forgotPassword">Esqueceu a senha?</string>
 
 </resources>
