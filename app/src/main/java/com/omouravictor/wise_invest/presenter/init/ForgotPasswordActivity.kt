@@ -49,16 +49,16 @@ class ForgotPasswordActivity : AppCompatActivity() {
         mAuth.sendPasswordResetEmail(email)
             .addOnSuccessListener {
                 Toast.makeText(
-                    this@ForgotPasswordActivity,
+                    this,
                     "Reset Password link has been sent to your registered Email",
                     Toast.LENGTH_SHORT
                 ).show()
-                val intent = Intent(this@ForgotPasswordActivity, LoginActivity::class.java)
+                val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
                 finish()
             }
             .addOnFailureListener { e ->
-                Toast.makeText(this@ForgotPasswordActivity, "Error :- " + e.message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Error :- " + e.message, Toast.LENGTH_SHORT).show()
                 binding.incProgressBar.root.visibility = View.INVISIBLE
                 binding.incBtnReset.root.visibility = View.VISIBLE
             }
