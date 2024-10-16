@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="40dp"
             android:textAlignment="center"
-            android:textSize="@dimen/textSize5"
+            android:textSize="@dimen/textSize6"
             android:textStyle="bold"
             tools:text="Wise Invest" />
 
