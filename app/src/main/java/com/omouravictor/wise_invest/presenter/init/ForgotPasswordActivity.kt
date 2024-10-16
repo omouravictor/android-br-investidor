@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.tasks.OnFailureListener
 import com.google.firebase.auth.FirebaseAuth
 import com.omouravictor.wise_invest.R
 import com.omouravictor.wise_invest.databinding.ActivityForgotPasswordBinding
@@ -24,23 +23,29 @@ class ForgotPasswordActivity : AppCompatActivity() {
     }
 
     private fun setupViews() {
-        binding.btnReset.setOnClickListener {
-            val email = binding.edtForgotPasswordEmail.text.toString().trim()
-            if (email.isNotEmpty())
-                resetPassword(email)
-            else
-                showErrorSnackBar(getString(R.string.fillAllFields))
+        binding.incBtnReset.root.apply {
+            text = getString(R.string.sendLink)
+            setOnClickListener {
+                val email = binding.edtForgotPasswordEmail.text.toString().trim()
+                if (email.isNotEmpty())
+                    resetPassword(email)
+                else
+                    showErrorSnackBar(getString(R.string.fillAllFields))
+            }
         }
 
-        binding.btnForgotPasswordBack.setOnClickListener {
-            startActivity(Intent(this, LoginActivity::class.java))
-            finish()
+        binding.incBtnBack.root.apply {
+            text = getString(R.string.back)
+            setOnClickListener {
+                startActivity(Intent(this@ForgotPasswordActivity, LoginActivity::class.java))
+                finish()
+            }
         }
     }
 
     private fun resetPassword(email: String) {
-        binding.forgetPasswordProgressbar.visibility = View.VISIBLE
-        binding.btnReset.visibility = View.INVISIBLE
+        binding.incProgressBar.root.visibility = View.VISIBLE
+        binding.incBtnReset.root.visibility = View.INVISIBLE
         mAuth.sendPasswordResetEmail(email)
             .addOnSuccessListener {
                 Toast.makeText(
@@ -52,12 +57,11 @@ class ForgotPasswordActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
-
-            .addOnFailureListener(OnFailureListener { e ->
+            .addOnFailureListener { e ->
                 Toast.makeText(this@ForgotPasswordActivity, "Error :- " + e.message, Toast.LENGTH_SHORT).show()
-                binding.forgetPasswordProgressbar.visibility = View.INVISIBLE
-                binding.btnReset.visibility = View.VISIBLE
-            })
+                binding.incProgressBar.root.visibility = View.INVISIBLE
+                binding.incBtnReset.root.visibility = View.VISIBLE
+            }
     }
 
 }

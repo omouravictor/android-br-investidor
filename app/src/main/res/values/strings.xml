@@ -35,6 +35,7 @@
     <string name="deleteAccountAlertMessage">Tem certeza de que deseja excluir a conta?</string>
     <string name="saleAssetAlertMessage">Tem certeza de que deseja vender todos os ativos?</string>
     <string name="userUpdatedSuccessfully">Usuário atualizado com sucesso!</string>
+    <string name="recoveryPasswordMessage">Insira o endereço de e-mail associado a sua conta. Enviaremos um link de recuperação para você poder criar uma nova senha!</string>
 
     <!-- String arrays -->
     <string-array name="assetSortTypesArray">
@@ -137,5 +138,7 @@
     <string name="helloUser">Olá, %1$s</string>
     <string name="logoutAlertTitle">Sair da conta</string>
     <string name="forgotPassword">Esqueceu a senha?</string>
+    <string name="sendLink">Enviar link</string>
+    <string name="back">Voltar</string>
 
 </resources>
