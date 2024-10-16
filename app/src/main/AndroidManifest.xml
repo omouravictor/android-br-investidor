@@ -30,6 +30,10 @@
         </activity>
 
         <activity
+            android:name=".presenter.init.ForgotPasswordActivity"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
             android:name=".presenter.init.RegisterActivity"
             android:windowSoftInputMode="adjustPan" />
 

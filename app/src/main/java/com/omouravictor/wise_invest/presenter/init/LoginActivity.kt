@@ -61,6 +61,11 @@ class LoginActivity : AppCompatActivity() {
             setSpan(ForegroundColorSpan(getColor(R.color.green)), startIndex, length, 0)
         }
 
+        binding.tvForgotPassword.setOnClickListener {
+            startActivity(Intent(this, ForgotPasswordActivity::class.java))
+            finish()
+        }
+
         binding.incBtnLogin.root.apply {
             text = getString(R.string.login)
             setOnClickListener { login() }
