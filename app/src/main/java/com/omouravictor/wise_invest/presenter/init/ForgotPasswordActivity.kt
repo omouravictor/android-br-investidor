@@ -13,7 +13,7 @@ import com.omouravictor.wise_invest.util.showErrorSnackBar
 class ForgotPasswordActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityForgotPasswordBinding
-    private val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
+    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,19 +46,14 @@ class ForgotPasswordActivity : AppCompatActivity() {
     private fun resetPassword(email: String) {
         binding.incProgressBar.root.visibility = View.VISIBLE
         binding.incBtnReset.root.visibility = View.INVISIBLE
-        mAuth.sendPasswordResetEmail(email)
+        auth.sendPasswordResetEmail(email)
             .addOnSuccessListener {
-                Toast.makeText(
-                    this,
-                    "Reset Password link has been sent to your registered Email",
-                    Toast.LENGTH_SHORT
-                ).show()
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
+                Toast.makeText(this, getString(R.string.recoveryLinkHasBeenSentMessage), Toast.LENGTH_LONG).show()
+                startActivity(Intent(this, LoginActivity::class.java))
                 finish()
             }
-            .addOnFailureListener { e ->
-                Toast.makeText(this, "Error :- " + e.message, Toast.LENGTH_SHORT).show()
+            .addOnFailureListener {
+                showErrorSnackBar(getString(R.string.errorOnSendRecoveryLink))
                 binding.incProgressBar.root.visibility = View.INVISIBLE
                 binding.incBtnReset.root.visibility = View.VISIBLE
             }

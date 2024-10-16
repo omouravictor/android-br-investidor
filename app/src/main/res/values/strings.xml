@@ -36,6 +36,7 @@
     <string name="saleAssetAlertMessage">Tem certeza de que deseja vender todos os ativos?</string>
     <string name="userUpdatedSuccessfully">Usuário atualizado com sucesso!</string>
     <string name="recoveryPasswordMessage">Insira o endereço de e-mail associado a sua conta. Enviaremos um link de recuperação para você poder criar uma nova senha!</string>
+    <string name="recoveryLinkHasBeenSentMessage">O link de recuperação de senha foi enviado para o email.</string>
 
     <!-- String arrays -->
     <string-array name="assetSortTypesArray">
@@ -62,6 +63,7 @@
     <string name="userNotSignedIn">Usuário não autenticado.</string>
     <string name="errorLoadingAssetVariation">Não foi possível obter a variação do ativo, espere um pouco e tente novamente.</string>
     <string name="userNotFound">Usuário não encontrado na base de dados.</string>
+    <string name="errorOnSendRecoveryLink">Erro ao enviar o link de recuperação para o email.</string>
 
     <string name="appName">WiseInvest</string>
     <string name="appNameTitle">Wise Invest</string>
