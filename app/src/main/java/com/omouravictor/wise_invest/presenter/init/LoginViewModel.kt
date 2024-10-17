@@ -60,26 +60,6 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun register(name: String, email: String, password: String) {
-        _userUiState.value = UiState.Loading
-
-        viewModelScope.launch {
-            try {
-                val loggedUser = auth
-                    .createUserWithEmailAndPassword(email, password)
-                    .await()
-                    .user!!
-
-                val savedUser = saveUser(UserUiModel(loggedUser.uid, name))
-
-                _userUiState.value = UiState.Success(savedUser)
-
-            } catch (e: Exception) {
-                _userUiState.value = UiState.Error(e)
-            }
-        }
-    }
-
     fun resetUserUiState() {
         _userUiState.value = UiState.Initial
     }
