@@ -21,7 +21,7 @@
             android:name=".presenter.init.LoginActivity"
             android:exported="true"
             android:theme="@style/Theme.WiseInvest.LoginActivity"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustResize|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,15 +31,15 @@
 
         <activity
             android:name=".presenter.init.ForgotPasswordActivity"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustResize|stateHidden" />
 
         <activity
             android:name=".presenter.init.RegisterActivity"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustResize|stateHidden" />
 
         <activity
             android:name=".presenter.MainActivity"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize|stateHidden" />
 
     </application>
 
