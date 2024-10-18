@@ -39,6 +39,7 @@ class LoginActivity : AppCompatActivity() {
         loginLayoutIsLoading(true)
         val loggedUser = auth.currentUser
         if (loggedUser != null) loadUser(loggedUser.uid)
+        else loginLayoutIsLoading(false)
     }
 
     private fun setupViews() {
