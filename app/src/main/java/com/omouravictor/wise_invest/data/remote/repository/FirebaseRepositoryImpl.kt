@@ -5,6 +5,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.omouravictor.wise_invest.di.model.DispatcherProvider
 import com.omouravictor.wise_invest.presenter.user.UserUiModel
 import com.omouravictor.wise_invest.presenter.wallet.asset.AssetUiModel
+import com.omouravictor.wise_invest.util.FirebaseConstants
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
@@ -13,16 +14,11 @@ class FirebaseRepositoryImpl(
     private val firestore: FirebaseFirestore
 ) : FirebaseRepository {
 
-    companion object {
-        private const val COLLECTION_USERS = "users"
-        private const val COLLECTION_ASSETS = "assets"
-    }
-
     override suspend fun getUser(userId: String): Result<UserUiModel?> {
         return withContext(dispatchers.io) {
             try {
                 val userUiModel = firestore
-                    .collection(COLLECTION_USERS)
+                    .collection(FirebaseConstants.COLLECTION_USERS)
                     .document(userId)
                     .get()
                     .await()
@@ -41,7 +37,7 @@ class FirebaseRepositoryImpl(
         return withContext(dispatchers.io) {
             try {
                 firestore
-                    .collection(COLLECTION_USERS)
+                    .collection(FirebaseConstants.COLLECTION_USERS)
                     .document(userUiModel.uid)
                     .set(userUiModel)
                     .await()
@@ -59,9 +55,9 @@ class FirebaseRepositoryImpl(
         return withContext(dispatchers.io) {
             try {
                 val assetsList = firestore
-                    .collection(COLLECTION_USERS)
+                    .collection(FirebaseConstants.COLLECTION_USERS)
                     .document(userId)
-                    .collection(COLLECTION_ASSETS)
+                    .collection(FirebaseConstants.COLLECTION_ASSETS)
                     .get()
                     .await()
                     .toObjects(AssetUiModel::class.java)
@@ -82,9 +78,9 @@ class FirebaseRepositoryImpl(
 
                 for (asset in assetList) {
                     val assetDocRef = firestore
-                        .collection(COLLECTION_USERS)
+                        .collection(FirebaseConstants.COLLECTION_USERS)
                         .document(userId)
-                        .collection(COLLECTION_ASSETS)
+                        .collection(FirebaseConstants.COLLECTION_ASSETS)
                         .document(asset.symbol)
 
                     batch[assetDocRef] = asset
@@ -105,9 +101,9 @@ class FirebaseRepositoryImpl(
         return withContext(dispatchers.io) {
             try {
                 firestore
-                    .collection(COLLECTION_USERS)
+                    .collection(FirebaseConstants.COLLECTION_USERS)
                     .document(userId)
-                    .collection(COLLECTION_ASSETS)
+                    .collection(FirebaseConstants.COLLECTION_ASSETS)
                     .document(assetUiModel.symbol)
                     .set(assetUiModel)
                     .await()
@@ -125,9 +121,9 @@ class FirebaseRepositoryImpl(
         return withContext(dispatchers.io) {
             try {
                 firestore
-                    .collection(COLLECTION_USERS)
+                    .collection(FirebaseConstants.COLLECTION_USERS)
                     .document(userId)
-                    .collection(COLLECTION_ASSETS)
+                    .collection(FirebaseConstants.COLLECTION_ASSETS)
                     .document(assetUiModel.symbol)
                     .delete()
                     .await()

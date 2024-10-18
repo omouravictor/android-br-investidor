@@ -15,6 +15,7 @@ import com.omouravictor.wise_invest.databinding.ActivityRegisterBinding
 import com.omouravictor.wise_invest.presenter.MainActivity
 import com.omouravictor.wise_invest.presenter.user.UserUiModel
 import com.omouravictor.wise_invest.util.ConstantUtil.USER_UI_MODEL_INTENT_EXTRA
+import com.omouravictor.wise_invest.util.FirebaseConstants
 import com.omouravictor.wise_invest.util.getErrorMessage
 import com.omouravictor.wise_invest.util.showErrorSnackBar
 
@@ -93,7 +94,7 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun saveUser(user: UserUiModel) {
         firestore
-            .collection("users")
+            .collection(FirebaseConstants.COLLECTION_USERS)
             .document(user.uid)
             .set(user)
             .addOnSuccessListener { goToMainActivity(user) }
