@@ -18,26 +18,26 @@ import com.omouravictor.wise_invest.presenter.user.UserUiModel
 import com.omouravictor.wise_invest.util.ConstantUtil.USER_UI_MODEL_INTENT_EXTRA
 import com.omouravictor.wise_invest.util.getErrorMessage
 import com.omouravictor.wise_invest.util.showErrorSnackBar
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
-@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
-
-    @Inject
-    lateinit var auth: FirebaseAuth
-
-    @Inject
-    lateinit var firestore: FirebaseFirestore
+    private val auth = FirebaseAuth.getInstance()
+    private val firestore = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        checkLoggedInUser()
         setupViews()
+    }
+
+    private fun checkLoggedInUser() {
+        loginLayoutIsLoading(true)
+        val loggedUser = auth.currentUser
+        if (loggedUser != null) loadUser(loggedUser.uid)
     }
 
     private fun setupViews() {
