@@ -44,13 +44,13 @@ class DeleteAccountFragment : Fragment(R.layout.fragment_delete_account) {
 
     private fun setupViews() {
         binding.apply {
-            etName.setText(userViewModel.user.value.name)
+            etEmail.setText("omouravictor@gmail.com")
         }
 
         binding.apply {
             incBtnSave.root.text = getString(R.string.delete)
             incBtnSave.root.setOnClickListener {
-                val updatedUser = userViewModel.user.value.copy(name = etName.text.toString().trim())
+                val updatedUser = userViewModel.user.value.copy(name = etEmail.text.toString().trim())
                 userViewModel.updateUser(updatedUser)
             }
         }

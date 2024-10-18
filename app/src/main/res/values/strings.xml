@@ -142,5 +142,6 @@
     <string name="forgotPassword">Esqueceu a senha?</string>
     <string name="sendLink">Enviar link</string>
     <string name="back">Voltar</string>
+    <string name="confirmYourPassword">confirme sua senha</string>
 
 </resources>
