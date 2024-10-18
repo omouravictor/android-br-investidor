@@ -90,6 +90,14 @@ class RegisterActivity : AppCompatActivity() {
         showErrorSnackBar(getErrorMessage(exception))
     }
 
+    private fun goToMainActivity(userUiModel: UserUiModel) {
+        startActivity(
+            Intent(this, MainActivity::class.java)
+                .putExtra(USER_UI_MODEL_INTENT_EXTRA, userUiModel)
+        )
+        finish()
+    }
+
     private fun saveUser(user: UserUiModel) {
         firestore
             .collection("users")
@@ -97,14 +105,6 @@ class RegisterActivity : AppCompatActivity() {
             .set(user)
             .addOnSuccessListener { goToMainActivity(user) }
             .addOnFailureListener { handleFailure(it) }
-    }
-
-    private fun goToMainActivity(userUiModel: UserUiModel) {
-        startActivity(
-            Intent(this, MainActivity::class.java)
-                .putExtra(USER_UI_MODEL_INTENT_EXTRA, userUiModel)
-        )
-        finish()
     }
 
 }
