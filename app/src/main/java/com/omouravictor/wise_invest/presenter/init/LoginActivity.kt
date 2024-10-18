@@ -15,7 +15,7 @@ import com.omouravictor.wise_invest.R
 import com.omouravictor.wise_invest.databinding.ActivityLoginBinding
 import com.omouravictor.wise_invest.presenter.MainActivity
 import com.omouravictor.wise_invest.presenter.user.UserUiModel
-import com.omouravictor.wise_invest.util.ConstantUtil
+import com.omouravictor.wise_invest.util.ConstantUtil.USER_UI_MODEL_INTENT_EXTRA
 import com.omouravictor.wise_invest.util.getErrorMessage
 import com.omouravictor.wise_invest.util.showErrorSnackBar
 import dagger.hilt.android.AndroidEntryPoint
@@ -112,7 +112,7 @@ class LoginActivity : AppCompatActivity() {
     private fun goToMainActivity(userUiModel: UserUiModel) {
         startActivity(
             Intent(this, MainActivity::class.java)
-                .putExtra(ConstantUtil.USER_UI_MODEL_INTENT_EXTRA, userUiModel)
+                .putExtra(USER_UI_MODEL_INTENT_EXTRA, userUiModel)
         )
         finish()
     }
