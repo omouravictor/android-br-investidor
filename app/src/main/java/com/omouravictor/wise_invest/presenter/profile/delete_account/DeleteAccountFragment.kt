@@ -1,6 +1,7 @@
 package com.omouravictor.wise_invest.presenter.profile.delete_account
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -10,12 +11,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.omouravictor.wise_invest.R
 import com.omouravictor.wise_invest.databinding.FragmentDeleteAccountBinding
+import com.omouravictor.wise_invest.presenter.init.LoginActivity
 import com.omouravictor.wise_invest.presenter.model.UiState
 import com.omouravictor.wise_invest.presenter.user.UserViewModel
 import com.omouravictor.wise_invest.util.getErrorMessage
 import com.omouravictor.wise_invest.util.setupToolbarCenterText
 import com.omouravictor.wise_invest.util.showErrorSnackBar
-import com.omouravictor.wise_invest.util.showSuccessSnackBar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -33,25 +34,27 @@ class DeleteAccountFragment : Fragment(R.layout.fragment_delete_account) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentDeleteAccountBinding.bind(view)
-        setupToolbar()
         setupViews()
         observeUserUiState()
     }
 
-    private fun setupToolbar() {
-        activity.setupToolbarCenterText(getString(R.string.deleteAccount))
-    }
-
     private fun setupViews() {
-        binding.apply {
-            etEmail.setText("omouravictor@gmail.com")
-        }
+        activity.setupToolbarCenterText(getString(R.string.deleteAccount))
+
+        binding.etEmail.setText(userViewModel.user.value.email)
 
         binding.apply {
-            incBtnSave.root.text = getString(R.string.delete)
-            incBtnSave.root.setOnClickListener {
-                val updatedUser = userViewModel.user.value.copy(name = etEmail.text.toString().trim())
-                userViewModel.updateUser(updatedUser)
+            incBtnDelete.root.text = getString(R.string.delete)
+            incBtnDelete.root.setOnClickListener {
+                val password = etPassword.text.toString()
+                if (password.isNotEmpty()) {
+                    userViewModel.deleteUser(password)
+                } else {
+                    activity.showErrorSnackBar(
+                        getString(R.string.confirmYourPasswordToDeleteAccount),
+                        anchorResView = incBtnDelete.root.id
+                    )
+                }
             }
         }
     }
@@ -60,19 +63,19 @@ class DeleteAccountFragment : Fragment(R.layout.fragment_delete_account) {
         binding.apply {
             if (isLoading) {
                 mainLayout.visibility = View.INVISIBLE
-                incBtnSave.root.visibility = View.INVISIBLE
+                incBtnDelete.root.visibility = View.INVISIBLE
                 incProgressBar.root.visibility = View.VISIBLE
             } else {
                 mainLayout.visibility = View.VISIBLE
-                incBtnSave.root.visibility = View.VISIBLE
+                incBtnDelete.root.visibility = View.VISIBLE
                 incProgressBar.root.visibility = View.GONE
             }
         }
     }
 
     private fun handleUserSuccess() {
-        handleUserLoading(false)
-        activity.showSuccessSnackBar(getString(R.string.userUpdatedSuccessfully), binding.incBtnSave.root.id)
+        startActivity(Intent(activity, LoginActivity::class.java))
+        activity.finish()
     }
 
     private fun handleUserError(e: Exception) {

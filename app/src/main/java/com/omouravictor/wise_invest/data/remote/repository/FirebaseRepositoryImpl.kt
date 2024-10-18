@@ -51,6 +51,24 @@ class FirebaseRepositoryImpl(
         }
     }
 
+    override suspend fun deleteUser(userUiModel: UserUiModel): Result<UserUiModel> {
+        return withContext(dispatchers.io) {
+            try {
+                firestore
+                    .collection(FirebaseConstants.COLLECTION_USERS)
+                    .document(userUiModel.uid)
+                    .delete()
+                    .await()
+
+                Result.success(userUiModel)
+
+            } catch (e: Exception) {
+                Log.e("DeleteUser", "UserId: ${userUiModel.uid}", e)
+                Result.failure(e)
+            }
+        }
+    }
+
     override suspend fun getAssetList(userId: String): Result<List<AssetUiModel>> {
         return withContext(dispatchers.io) {
             try {

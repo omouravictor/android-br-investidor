@@ -69,7 +69,7 @@
         tools:visibility="visible" />
 
     <include
-        android:id="@+id/incBtnSave"
+        android:id="@+id/incBtnDelete"
         layout="@layout/button_red"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
