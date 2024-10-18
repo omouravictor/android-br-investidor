@@ -66,7 +66,7 @@ class RegisterActivity : AppCompatActivity() {
             registerLayoutIsLoading(true)
 
             auth.createUserWithEmailAndPassword(email, password)
-                .addOnSuccessListener { saveUser(UserUiModel(it.user!!.uid, name)) }
+                .addOnSuccessListener { saveUser(UserUiModel(it.user!!.uid, email, name)) }
                 .addOnFailureListener { handleFailure(it) }
 
         } else {

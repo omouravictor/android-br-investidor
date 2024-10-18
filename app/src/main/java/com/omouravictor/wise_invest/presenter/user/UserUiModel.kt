@@ -6,6 +6,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class UserUiModel(
     val uid: String = "",
+    val email: String = "",
     val name: String = ""
 ) : Parcelable
 
