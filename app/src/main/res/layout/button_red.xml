@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/selector_red_button"
     android:textAllCaps="false"
-    android:textColor="@color/appWindowBackColor"
+    android:textColor="@color/white"
     android:textSize="@dimen/textSize3"
     android:textStyle="bold"
     tools:text="Texto" />

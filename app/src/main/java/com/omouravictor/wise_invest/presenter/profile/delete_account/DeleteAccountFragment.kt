@@ -1,8 +1,6 @@
-package com.omouravictor.wise_invest.presenter.profile
+package com.omouravictor.wise_invest.presenter.profile.delete_account
 
 import android.app.Activity
-import android.app.AlertDialog
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -10,71 +8,51 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
 import com.omouravictor.wise_invest.R
-import com.omouravictor.wise_invest.databinding.FragmentProfileBinding
-import com.omouravictor.wise_invest.presenter.init.LoginActivity
+import com.omouravictor.wise_invest.databinding.FragmentDeleteAccountBinding
 import com.omouravictor.wise_invest.presenter.model.UiState
 import com.omouravictor.wise_invest.presenter.user.UserViewModel
-import com.omouravictor.wise_invest.presenter.user.getFormattedName
 import com.omouravictor.wise_invest.util.getErrorMessage
-import com.omouravictor.wise_invest.util.setupToolbarTitle
+import com.omouravictor.wise_invest.util.setupToolbarCenterText
 import com.omouravictor.wise_invest.util.showErrorSnackBar
+import com.omouravictor.wise_invest.util.showSuccessSnackBar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class ProfileFragment : Fragment(R.layout.fragment_profile) {
+class DeleteAccountFragment : Fragment(R.layout.fragment_delete_account) {
 
-    private lateinit var binding: FragmentProfileBinding
+    private lateinit var binding: FragmentDeleteAccountBinding
     private lateinit var activity: Activity
-    private lateinit var navController: NavController
     private val userViewModel: UserViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activity = requireActivity()
-        navController = findNavController()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentProfileBinding.bind(view)
+        binding = FragmentDeleteAccountBinding.bind(view)
         setupToolbar()
         setupViews()
         observeUserUiState()
     }
 
     private fun setupToolbar() {
-        activity.setupToolbarTitle(getString(R.string.helloUser, userViewModel.user.value.getFormattedName()))
-    }
-
-    private fun showAlertDialogForLogout() {
-        AlertDialog.Builder(context).apply {
-            setTitle(getString(R.string.logoutAlertTitle))
-            setMessage(getString(R.string.logoutAlertMessage))
-            setPositiveButton(getString(R.string.yes)) { _, _ ->
-                userViewModel.logout()
-                startActivity(Intent(activity, LoginActivity::class.java))
-                activity.finish()
-            }
-            setNegativeButton(getString(R.string.not)) { dialog, _ -> dialog.dismiss() }
-        }.show()
+        activity.setupToolbarCenterText(getString(R.string.deleteAccount))
     }
 
     private fun setupViews() {
-        binding.incChangePersonalData.apply {
-            tvOption.text = getString(R.string.changePersonalData)
-            root.setOnClickListener { navController.navigate(R.id.navToChangePersonalDataFragment) }
+        binding.apply {
+            etName.setText(userViewModel.user.value.name)
         }
 
-        binding.incDeleteAccount.apply {
-            tvOption.text = getString(R.string.deleteAccount)
-            root.setOnClickListener { navController.navigate(R.id.navToDeleteAccountFragment) }
-        }
-
-        binding.layoutLogout.setOnClickListener {
-            showAlertDialogForLogout()
+        binding.apply {
+            incBtnSave.root.text = getString(R.string.delete)
+            incBtnSave.root.setOnClickListener {
+                val updatedUser = userViewModel.user.value.copy(name = etName.text.toString().trim())
+                userViewModel.updateUser(updatedUser)
+            }
         }
     }
 
@@ -82,9 +60,11 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         binding.apply {
             if (isLoading) {
                 mainLayout.visibility = View.INVISIBLE
+                incBtnSave.root.visibility = View.INVISIBLE
                 incProgressBar.root.visibility = View.VISIBLE
             } else {
                 mainLayout.visibility = View.VISIBLE
+                incBtnSave.root.visibility = View.VISIBLE
                 incProgressBar.root.visibility = View.GONE
             }
         }
@@ -92,6 +72,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private fun handleUserSuccess() {
         handleUserLoading(false)
+        activity.showSuccessSnackBar(getString(R.string.userUpdatedSuccessfully), binding.incBtnSave.root.id)
     }
 
     private fun handleUserError(e: Exception) {

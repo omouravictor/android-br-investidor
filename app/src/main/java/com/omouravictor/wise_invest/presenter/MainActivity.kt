@@ -76,7 +76,8 @@ class MainActivity : AppCompatActivity() {
             when (destination.id) {
                 R.id.fragmentSaveAsset,
                 R.id.fragmentTransaction,
-                R.id.changePersonalDataFragment -> setupToolbarWithCenterText()
+                R.id.changePersonalDataFragment,
+                R.id.deleteAccountFragment -> setupToolbarWithCenterText()
 
                 else -> setupToolbar()
             }
