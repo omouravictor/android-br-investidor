@@ -29,7 +29,7 @@ import com.omouravictor.wise_invest.presenter.wallet.WalletViewModel
 import com.omouravictor.wise_invest.presenter.wallet.asset.AssetUiModel
 import com.omouravictor.wise_invest.presenter.wallet.asset.getFormattedSymbol
 import com.omouravictor.wise_invest.presenter.wallet.asset_types.AssetType
-import com.omouravictor.wise_invest.util.ConstantUtil
+import com.omouravictor.wise_invest.util.AppConstants.SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL
 import com.omouravictor.wise_invest.util.LocaleUtil
 import com.omouravictor.wise_invest.util.clearPileAndNavigateToStart
 import com.omouravictor.wise_invest.util.getErrorMessage
@@ -202,7 +202,7 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
 
             R.id.fragmentAssetDetail -> {
                 previousBackStackEntry
-                    .savedStateHandle[ConstantUtil.SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL] = asset
+                    .savedStateHandle[SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL] = asset
                 navController.popBackStack()
             }
         }

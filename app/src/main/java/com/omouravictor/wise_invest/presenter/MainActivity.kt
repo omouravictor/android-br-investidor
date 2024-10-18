@@ -17,7 +17,7 @@ import com.omouravictor.wise_invest.databinding.ActivityMainBinding
 import com.omouravictor.wise_invest.presenter.user.UserUiModel
 import com.omouravictor.wise_invest.presenter.user.UserViewModel
 import com.omouravictor.wise_invest.presenter.wallet.WalletViewModel
-import com.omouravictor.wise_invest.util.ConstantUtil
+import com.omouravictor.wise_invest.util.AppConstants.USER_UI_MODEL_INTENT_EXTRA
 import com.omouravictor.wise_invest.util.clearPileAndNavigateTo
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -42,10 +42,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun getUser() {
         val user: UserUiModel = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra(ConstantUtil.USER_UI_MODEL_INTENT_EXTRA, UserUiModel::class.java)
+            intent.getParcelableExtra(USER_UI_MODEL_INTENT_EXTRA, UserUiModel::class.java)
         } else {
             @Suppress("DEPRECATION")
-            intent.getParcelableExtra(ConstantUtil.USER_UI_MODEL_INTENT_EXTRA)
+            intent.getParcelableExtra(USER_UI_MODEL_INTENT_EXTRA)
         }!!
 
         userViewModel.setUser(user)

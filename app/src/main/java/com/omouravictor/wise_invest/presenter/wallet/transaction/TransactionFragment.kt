@@ -26,7 +26,7 @@ import com.omouravictor.wise_invest.presenter.wallet.asset.AssetUiModel
 import com.omouravictor.wise_invest.presenter.wallet.asset.getFormattedSymbol
 import com.omouravictor.wise_invest.presenter.wallet.asset.getFormattedSymbolAndAmount
 import com.omouravictor.wise_invest.presenter.wallet.asset.getFormattedTotalPrice
-import com.omouravictor.wise_invest.util.ConstantUtil
+import com.omouravictor.wise_invest.util.AppConstants.SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL
 import com.omouravictor.wise_invest.util.LocaleUtil
 import com.omouravictor.wise_invest.util.clearPileAndNavigateToStart
 import com.omouravictor.wise_invest.util.getErrorMessage
@@ -259,7 +259,7 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
     private fun handleSaveAssetSuccess(asset: AssetUiModel) {
         navController
             .previousBackStackEntry!!
-            .savedStateHandle[ConstantUtil.SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL] = asset
+            .savedStateHandle[SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL] = asset
         navController.popBackStack()
     }
 

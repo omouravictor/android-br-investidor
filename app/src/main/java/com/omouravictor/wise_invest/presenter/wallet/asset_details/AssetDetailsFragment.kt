@@ -34,8 +34,8 @@ import com.omouravictor.wise_invest.presenter.wallet.asset.getYield
 import com.omouravictor.wise_invest.presenter.wallet.currency_exchange_rates.CurrencyExchangeRatesViewModel
 import com.omouravictor.wise_invest.presenter.wallet.model.ConversionResultUiModel
 import com.omouravictor.wise_invest.presenter.wallet.model.GlobalQuoteUiModel
+import com.omouravictor.wise_invest.util.AppConstants.SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL
 import com.omouravictor.wise_invest.util.AssetUtil
-import com.omouravictor.wise_invest.util.ConstantUtil
 import com.omouravictor.wise_invest.util.LocaleUtil
 import com.omouravictor.wise_invest.util.clearPileAndNavigateToStart
 import com.omouravictor.wise_invest.util.getErrorMessage
@@ -97,7 +97,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
     private fun updateAssetUiModel() {
         assetUiModel = navController
             .currentBackStackEntry!!
-            .savedStateHandle[ConstantUtil.SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL]
+            .savedStateHandle[SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL]
             ?: assetUiModel
     }
 
