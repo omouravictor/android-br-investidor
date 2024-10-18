@@ -17,19 +17,12 @@ import com.omouravictor.wise_invest.presenter.user.UserUiModel
 import com.omouravictor.wise_invest.util.ConstantUtil.USER_UI_MODEL_INTENT_EXTRA
 import com.omouravictor.wise_invest.util.getErrorMessage
 import com.omouravictor.wise_invest.util.showErrorSnackBar
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
-@AndroidEntryPoint
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
-
-    @Inject
-    lateinit var auth: FirebaseAuth
-
-    @Inject
-    lateinit var firestore: FirebaseFirestore
+    private val auth = FirebaseAuth.getInstance()
+    private val firestore = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
