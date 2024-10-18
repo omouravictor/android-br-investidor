@@ -6,30 +6,31 @@ import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.isVisible
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.omouravictor.wise_invest.R
 import com.omouravictor.wise_invest.databinding.ActivityLoginBinding
 import com.omouravictor.wise_invest.presenter.MainActivity
-import com.omouravictor.wise_invest.presenter.model.UiState
 import com.omouravictor.wise_invest.presenter.user.UserUiModel
 import com.omouravictor.wise_invest.util.ConstantUtil
 import com.omouravictor.wise_invest.util.getErrorMessage
 import com.omouravictor.wise_invest.util.showErrorSnackBar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
-    private val loginViewModel: LoginViewModel by viewModels()
+
+    @Inject
+    lateinit var auth: FirebaseAuth
+
+    @Inject
+    lateinit var firestore: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,22 +38,6 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupViews()
-        observeUserUiState()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        loginViewModel.resetUserUiState()
-    }
-
-    private fun login() {
-        val email = binding.etEmail.text.toString().trim()
-        val password = binding.etPassword.text.toString()
-
-        if (email.isNotEmpty() && password.isNotEmpty())
-            loginViewModel.login(email, password)
-        else
-            showErrorSnackBar(getString(R.string.fillAllFields))
     }
 
     private fun setupViews() {
@@ -85,35 +70,60 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun loginLayoutIsVisible(isVisible: Boolean) {
-        binding.loginLayout.isVisible = isVisible
-        binding.incProgressBar.root.isVisible = !isVisible
+    private fun login() {
+        val email = binding.etEmail.text.toString().trim()
+        val password = binding.etPassword.text.toString()
+
+        if (email.isNotEmpty() && password.isNotEmpty()) {
+            loginLayoutIsLoading(true)
+
+            auth.signInWithEmailAndPassword(email, password)
+                .addOnSuccessListener { loadUser(it.user!!.uid) }
+                .addOnFailureListener { handleFailure(it) }
+
+        } else {
+            showErrorSnackBar(getString(R.string.fillAllFields))
+        }
     }
 
-    private fun handleUserSuccess(userUiModel: UserUiModel) {
-        val intent = Intent(this, MainActivity::class.java)
-            .putExtra(ConstantUtil.USER_UI_MODEL_INTENT_EXTRA, userUiModel)
+    private fun loginLayoutIsLoading(isLoading: Boolean) {
+        binding.loginLayout.isVisible = !isLoading
+        binding.incProgressBar.root.isVisible = isLoading
+    }
 
-        startActivity(intent)
+    private fun handleFailure(exception: Exception) {
+        loginLayoutIsLoading(false)
+        showErrorSnackBar(getErrorMessage(exception))
+    }
+
+    private fun loadUser(userId: String) {
+        firestore
+            .collection("users")
+            .document(userId)
+            .get()
+            .addOnSuccessListener {
+                val user = it.toObject(UserUiModel::class.java)
+                if (user != null) goToMainActivity(user)
+                else saveUser(UserUiModel(uid = userId))
+            }
+            .addOnFailureListener { handleFailure(it) }
+    }
+
+    private fun goToMainActivity(userUiModel: UserUiModel) {
+        startActivity(
+            Intent(this, MainActivity::class.java)
+                .putExtra(ConstantUtil.USER_UI_MODEL_INTENT_EXTRA, userUiModel)
+        )
         finish()
     }
 
-    private fun observeUserUiState() {
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                loginViewModel.userUiState.collectLatest {
-                    when (it) {
-                        is UiState.Initial -> loginLayoutIsVisible(true)
-                        is UiState.Loading -> loginLayoutIsVisible(false)
-                        is UiState.Success -> handleUserSuccess(it.data)
-                        is UiState.Error -> {
-                            loginLayoutIsVisible(true)
-                            showErrorSnackBar(getErrorMessage(it.e))
-                        }
-                    }
-                }
-            }
-        }
+    private fun saveUser(user: UserUiModel) {
+        firestore
+            .collection("users")
+            .document(user.uid)
+            .set(user)
+            .addOnSuccessListener { goToMainActivity(user) }
+            .addOnFailureListener { handleFailure(it) }
     }
 
 }
