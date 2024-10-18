@@ -85,6 +85,11 @@ class RegisterActivity : AppCompatActivity() {
         binding.incProgressBar.root.isVisible = isLoading
     }
 
+    private fun handleFailure(exception: Exception) {
+        registerLayoutIsLoading(false)
+        showErrorSnackBar(getErrorMessage(exception))
+    }
+
     private fun saveUser(user: UserUiModel) {
         firestore
             .collection("users")
@@ -92,11 +97,6 @@ class RegisterActivity : AppCompatActivity() {
             .set(user)
             .addOnSuccessListener { goToMainActivity(user) }
             .addOnFailureListener { handleFailure(it) }
-    }
-
-    private fun handleFailure(exception: Exception) {
-        registerLayoutIsLoading(false)
-        showErrorSnackBar(getErrorMessage(exception))
     }
 
     private fun goToMainActivity(userUiModel: UserUiModel) {
