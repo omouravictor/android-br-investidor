@@ -10,6 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 @HiltViewModel
@@ -50,20 +51,14 @@ class UserViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-                val loggedUser = auth.currentUser!!
+                val deletedUser = firebaseRepository.deleteUser(user.value).getOrThrow()
 
-                loggedUser.reauthenticate(EmailAuthProvider.getCredential(user.value.email, password))
-                    .addOnCompleteListener {
-                        loggedUser.delete()
-                            .addOnCompleteListener {
-                                viewModelScope.launch {
-                                    firebaseRepository.deleteUser(user.value)
-                                    _userUiState.value = UiState.Success(user.value)
-                                }
-                            }
-                            .addOnFailureListener { _userUiState.value = UiState.Error(it) }
-                    }
-                    .addOnFailureListener { _userUiState.value = UiState.Error(it) }
+                auth.currentUser?.let {
+                    it.reauthenticate(EmailAuthProvider.getCredential(deletedUser.email, password)).await()
+                    it.delete().await()
+                }
+
+                _userUiState.value = UiState.Success(deletedUser)
 
             } catch (e: Exception) {
                 _userUiState.value = UiState.Error(e)
