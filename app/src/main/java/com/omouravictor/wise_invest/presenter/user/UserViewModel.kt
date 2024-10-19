@@ -49,12 +49,14 @@ class UserViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-                val deletedUser = firebaseRepository.deleteUser(user.value).getOrThrow()
+                val loggedUser = auth.currentUser ?: throw Exception("User not logged in")
 
-                auth.currentUser?.let {
-                    it.reauthenticate(EmailAuthProvider.getCredential(deletedUser.email, password)).await()
-                    it.delete().await()
-                }
+                loggedUser.reauthenticate(
+                    EmailAuthProvider.getCredential(user.value.email, password)
+                ).await()
+
+                val deletedUser = firebaseRepository.deleteUser(user.value).getOrThrow()
+                loggedUser.delete().await()
 
                 _userUiState.value = UiState.Success(deletedUser)
 

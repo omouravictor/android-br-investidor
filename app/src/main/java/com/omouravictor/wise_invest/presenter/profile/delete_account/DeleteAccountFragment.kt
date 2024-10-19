@@ -1,6 +1,7 @@
 package com.omouravictor.wise_invest.presenter.profile.delete_account
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -45,18 +46,27 @@ class DeleteAccountFragment : Fragment(R.layout.fragment_delete_account) {
 
         binding.apply {
             incBtnDelete.root.text = getString(R.string.delete)
-            incBtnDelete.root.setOnClickListener {
-                val password = etPassword.text.toString()
+            incBtnDelete.root.setOnClickListener { showAlertDialogForDeleteAccount() }
+        }
+    }
+
+    private fun showAlertDialogForDeleteAccount() {
+        AlertDialog.Builder(context).apply {
+            setTitle(getString(R.string.deleteAccount))
+            setMessage(getString(R.string.deleteAccountAlertMessage))
+            setPositiveButton(getString(R.string.yes)) { _, _ ->
+                val password = binding.etPassword.text.toString()
                 if (password.isNotEmpty()) {
                     userViewModel.deleteUser(password)
                 } else {
                     activity.showErrorSnackBar(
                         getString(R.string.confirmYourPasswordToDeleteAccount),
-                        anchorResView = incBtnDelete.root.id
+                        anchorResView = binding.incBtnDelete.root.id
                     )
                 }
             }
-        }
+            setNegativeButton(getString(R.string.not)) { dialog, _ -> dialog.dismiss() }
+        }.show()
     }
 
     private fun handleUserLoading(isLoading: Boolean) {
@@ -80,7 +90,7 @@ class DeleteAccountFragment : Fragment(R.layout.fragment_delete_account) {
 
     private fun handleUserError(e: Exception) {
         handleUserLoading(false)
-        activity.showErrorSnackBar(activity.getErrorMessage(e))
+        activity.showErrorSnackBar(activity.getErrorMessage(e), anchorResView = binding.incBtnDelete.root.id)
     }
 
     private fun observeUserUiState() {
