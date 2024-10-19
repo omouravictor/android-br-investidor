@@ -44,9 +44,23 @@ fun Activity.showErrorSnackBar(
     snackbar.show()
 }
 
-fun Activity.showSuccessSnackBar(message: String, anchorResView: Int? = null) {
+fun Activity.showSuccessSnackBar(
+    message: String,
+    duration: Int = Snackbar.LENGTH_LONG,
+    hasCloseAction: Boolean = false,
+    anchorResView: Int? = null
+) {
     val view = this.findViewById<View>(android.R.id.content)
-    val snackbar = Snackbar.make(view, message, Snackbar.LENGTH_SHORT)
+    val snackbar = Snackbar.make(view, message, duration)
+
+    if (hasCloseAction) {
+        snackbar.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_action).apply {
+            isAllCaps = false
+            setTextColor(ContextCompat.getColor(context, R.color.white))
+        }
+        snackbar.duration = Snackbar.LENGTH_INDEFINITE
+        snackbar.setAction(this.getString(R.string.understood)) { snackbar.dismiss() }
+    }
 
     setSnackbarAnchorView(snackbar, view, anchorResView)
     snackbar.setBackgroundTint(ContextCompat.getColor(this, R.color.green))

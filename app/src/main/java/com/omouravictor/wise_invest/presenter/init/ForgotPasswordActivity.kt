@@ -3,12 +3,12 @@ package com.omouravictor.wise_invest.presenter.init
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.omouravictor.wise_invest.R
 import com.omouravictor.wise_invest.databinding.ActivityForgotPasswordBinding
 import com.omouravictor.wise_invest.util.showErrorSnackBar
+import com.omouravictor.wise_invest.util.showSuccessSnackBar
 
 class ForgotPasswordActivity : AppCompatActivity() {
 
@@ -43,19 +43,21 @@ class ForgotPasswordActivity : AppCompatActivity() {
         }
     }
 
+    private fun layoutIsLoading(isLoading: Boolean) {
+        binding.incProgressBar.root.visibility = if (isLoading) View.VISIBLE else View.INVISIBLE
+        binding.incBtnReset.root.visibility = if (isLoading) View.INVISIBLE else View.VISIBLE
+    }
+
     private fun resetPassword(email: String) {
-        binding.incProgressBar.root.visibility = View.VISIBLE
-        binding.incBtnReset.root.visibility = View.INVISIBLE
+        layoutIsLoading(true)
         auth.sendPasswordResetEmail(email)
             .addOnSuccessListener {
-                Toast.makeText(this, getString(R.string.recoveryLinkHasBeenSentMessage), Toast.LENGTH_LONG).show()
-                startActivity(Intent(this, LoginActivity::class.java))
-                finish()
+                layoutIsLoading(false)
+                showSuccessSnackBar(getString(R.string.recoveryLinkHasBeenSentMessage), hasCloseAction = true)
             }
             .addOnFailureListener {
+                layoutIsLoading(false)
                 showErrorSnackBar(getString(R.string.errorOnSendRecoveryLink))
-                binding.incProgressBar.root.visibility = View.INVISIBLE
-                binding.incBtnReset.root.visibility = View.VISIBLE
             }
     }
 
