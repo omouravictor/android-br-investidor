@@ -33,9 +33,7 @@ class UserViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-                val updatedUser = firebaseRepository
-                    .saveUser(user)
-                    .getOrThrow()
+                val updatedUser = firebaseRepository.saveUser(user).getOrThrow()
 
                 _user.value = updatedUser
                 _userUiState.value = UiState.Success(updatedUser)

@@ -49,6 +49,7 @@ class AssetViewModel @Inject constructor(
                 val globalQuote = result.toGlobalQuoteUiModel()
                 assetUiModel.price = globalQuote.price
                 _getUpdatedAssetUiState.value = UiState.Success(assetUiModel)
+
             } catch (e: Exception) {
                 _getUpdatedAssetUiState.value = UiState.Error(e)
             }

@@ -37,10 +37,7 @@ class WalletViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-                val assetList = firebaseRepository
-                    .getAssetList(userId)
-                    .getOrThrow()
-
+                val assetList = firebaseRepository.getAssetList(userId).getOrThrow()
                 updatePrices(userId, assetList)
                 _assetList.value = assetList
                 _getUserAssetListUiState.value = UiState.Success(assetList)
@@ -61,6 +58,7 @@ class WalletViewModel @Inject constructor(
                 _saveAssetUiState.value = UiState.Success(result)
                 _assetList.value = updatedList
                 _getUserAssetListUiState.value = UiState.Success(updatedList)
+
             } catch (e: Exception) {
                 _saveAssetUiState.value = UiState.Error(e)
             }
@@ -76,6 +74,7 @@ class WalletViewModel @Inject constructor(
                 _deleteAssetUiState.value = UiState.Success(result)
                 _assetList.value -= result
                 _getUserAssetListUiState.value = UiState.Success(_assetList.value)
+
             } catch (e: Exception) {
                 _deleteAssetUiState.value = UiState.Error(e)
             }
