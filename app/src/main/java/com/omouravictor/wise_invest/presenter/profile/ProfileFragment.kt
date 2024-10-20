@@ -7,22 +7,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.omouravictor.wise_invest.R
 import com.omouravictor.wise_invest.databinding.FragmentProfileBinding
 import com.omouravictor.wise_invest.presenter.init.LoginActivity
-import com.omouravictor.wise_invest.presenter.model.UiState
 import com.omouravictor.wise_invest.presenter.user.UserViewModel
 import com.omouravictor.wise_invest.presenter.user.getFormattedName
-import com.omouravictor.wise_invest.util.getErrorMessage
 import com.omouravictor.wise_invest.util.setupToolbarTitle
-import com.omouravictor.wise_invest.util.showErrorSnackBar
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
@@ -40,13 +32,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentProfileBinding.bind(view)
-        setupToolbar()
         setupViews()
-        observeUserUiState()
-    }
-
-    private fun setupToolbar() {
-        activity.setupToolbarTitle(getString(R.string.helloUser, userViewModel.user.value.getFormattedName()))
     }
 
     private fun showAlertDialogForLogout() {
@@ -63,6 +49,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     }
 
     private fun setupViews() {
+        activity.setupToolbarTitle(getString(R.string.helloUser, userViewModel.user.value.getFormattedName()))
+
         binding.incChangePersonalData.apply {
             tvOption.text = getString(R.string.changePersonalData)
             root.setOnClickListener { navController.navigate(R.id.navToChangePersonalDataFragment) }
@@ -75,42 +63,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         binding.layoutLogout.setOnClickListener {
             showAlertDialogForLogout()
-        }
-    }
-
-    private fun handleUserLoading(isLoading: Boolean) {
-        binding.apply {
-            if (isLoading) {
-                mainLayout.visibility = View.INVISIBLE
-                incProgressBar.root.visibility = View.VISIBLE
-            } else {
-                mainLayout.visibility = View.VISIBLE
-                incProgressBar.root.visibility = View.GONE
-            }
-        }
-    }
-
-    private fun handleUserSuccess() {
-        handleUserLoading(false)
-    }
-
-    private fun handleUserError(e: Exception) {
-        handleUserLoading(false)
-        activity.showErrorSnackBar(activity.getErrorMessage(e))
-    }
-
-    private fun observeUserUiState() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                userViewModel.userUiState.collectLatest {
-                    when (it) {
-                        is UiState.Loading -> handleUserLoading(true)
-                        is UiState.Success -> handleUserSuccess()
-                        is UiState.Error -> handleUserError(it.e)
-                        else -> Unit
-                    }
-                }
-            }
         }
     }
 

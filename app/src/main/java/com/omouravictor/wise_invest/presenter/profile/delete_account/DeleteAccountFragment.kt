@@ -39,6 +39,11 @@ class DeleteAccountFragment : Fragment(R.layout.fragment_delete_account) {
         observeUserUiState()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        userViewModel.resetUserUiState()
+    }
+
     private fun setupViews() {
         activity.setupToolbarCenterText(getString(R.string.deleteAccount))
 

@@ -13,6 +13,7 @@ import com.omouravictor.wise_invest.databinding.FragmentChangePersonalDataBindin
 import com.omouravictor.wise_invest.presenter.model.UiState
 import com.omouravictor.wise_invest.presenter.user.UserViewModel
 import com.omouravictor.wise_invest.util.getErrorMessage
+import com.omouravictor.wise_invest.util.hideKeyboard
 import com.omouravictor.wise_invest.util.setupToolbarCenterText
 import com.omouravictor.wise_invest.util.showErrorSnackBar
 import com.omouravictor.wise_invest.util.showSuccessSnackBar
@@ -33,7 +34,6 @@ class ChangePersonalDataFragment : Fragment(R.layout.fragment_change_personal_da
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentChangePersonalDataBinding.bind(view)
-        setupToolbar()
         setupViews()
         observeUserUiState()
     }
@@ -43,11 +43,9 @@ class ChangePersonalDataFragment : Fragment(R.layout.fragment_change_personal_da
         userViewModel.resetUserUiState()
     }
 
-    private fun setupToolbar() {
-        activity.setupToolbarCenterText(getString(R.string.changePersonalData))
-    }
-
     private fun setupViews() {
+        activity.setupToolbarCenterText(getString(R.string.changePersonalData))
+
         binding.apply {
             etName.setText(userViewModel.user.value.name)
         }
@@ -55,6 +53,7 @@ class ChangePersonalDataFragment : Fragment(R.layout.fragment_change_personal_da
         binding.apply {
             incBtnSave.root.text = getString(R.string.save)
             incBtnSave.root.setOnClickListener {
+                activity.hideKeyboard(root)
                 val updatedUser = userViewModel.user.value.copy(name = etName.text.toString().trim())
                 userViewModel.updateUser(updatedUser)
             }
