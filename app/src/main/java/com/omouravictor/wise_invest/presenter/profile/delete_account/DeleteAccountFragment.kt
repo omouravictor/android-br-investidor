@@ -46,25 +46,25 @@ class DeleteAccountFragment : Fragment(R.layout.fragment_delete_account) {
 
         binding.apply {
             incBtnDelete.root.text = getString(R.string.delete)
-            incBtnDelete.root.setOnClickListener { showAlertDialogForDeleteAccount() }
-        }
-    }
-
-    private fun showAlertDialogForDeleteAccount() {
-        AlertDialog.Builder(context).apply {
-            setTitle(getString(R.string.deleteAccount))
-            setMessage(getString(R.string.deleteAccountAlertMessage))
-            setPositiveButton(getString(R.string.yes)) { _, _ ->
-                val password = binding.etPassword.text.toString()
+            incBtnDelete.root.setOnClickListener {
+                val password = etPassword.text.toString()
                 if (password.isNotEmpty()) {
-                    userViewModel.deleteUser(password)
+                    showAlertDialogForDeleteAccount(password)
                 } else {
                     activity.showErrorSnackBar(
                         getString(R.string.confirmYourPasswordToDeleteAccount),
-                        anchorResView = binding.incBtnDelete.root.id
+                        anchorResView = incBtnDelete.root.id
                     )
                 }
             }
+        }
+    }
+
+    private fun showAlertDialogForDeleteAccount(password: String) {
+        AlertDialog.Builder(context).apply {
+            setTitle(getString(R.string.deleteAccount))
+            setMessage(getString(R.string.deleteAccountAlertMessage))
+            setPositiveButton(getString(R.string.yes)) { _, _ -> userViewModel.deleteUser(password) }
             setNegativeButton(getString(R.string.not)) { dialog, _ -> dialog.dismiss() }
         }.show()
     }
