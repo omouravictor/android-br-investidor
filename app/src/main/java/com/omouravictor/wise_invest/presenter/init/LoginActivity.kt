@@ -18,6 +18,7 @@ import com.omouravictor.wise_invest.presenter.user.UserUiModel
 import com.omouravictor.wise_invest.util.AppConstants.USER_UI_MODEL_INTENT_EXTRA
 import com.omouravictor.wise_invest.util.FirebaseConstants
 import com.omouravictor.wise_invest.util.getErrorMessage
+import com.omouravictor.wise_invest.util.hideKeyboard
 import com.omouravictor.wise_invest.util.showErrorSnackBar
 
 class LoginActivity : AppCompatActivity() {
@@ -55,7 +56,10 @@ class LoginActivity : AppCompatActivity() {
 
         binding.incBtnLogin.root.apply {
             text = getString(R.string.login)
-            setOnClickListener { login() }
+            setOnClickListener {
+                login()
+                hideKeyboard(this)
+            }
         }
 
         binding.tvRegister.apply {
