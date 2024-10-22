@@ -16,6 +16,8 @@
     </style>
 
     <style name="Theme.WiseInvest.LoginActivity" parent="Theme.SplashScreen">
+        <item name="android:statusBarColor">@color/black</item>
+        <item name="android:navigationBarColor">@color/black</item>
         <item name="windowSplashScreenBackground">@color/appWindowBackColor</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash_screen</item>
         <item name="postSplashScreenTheme">@style/Theme.WiseInvest</item>
