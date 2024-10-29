@@ -34,6 +34,7 @@ object AssetUtil {
             "CAD" -> R.color.cad
             "INR" -> R.color.inr
             "CNY" -> R.color.cny
+            "GBX" -> R.color.gbx
             else -> R.color.other
         }
     }
