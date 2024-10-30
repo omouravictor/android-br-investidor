@@ -7,4 +7,4 @@
     android:gravity="center_vertical"
     android:textColor="@color/grayTextColor"
     app:drawableRightCompat="@drawable/ic_arrow_down"
-    tools:text="Ordenar por maior rendimento" />
+    tools:text="Ordenar por maior valorização" />

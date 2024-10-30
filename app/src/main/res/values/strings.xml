@@ -19,8 +19,8 @@
     <string name="intNumber_1">1</string>
 
     <!-- Messages -->
-    <string name="totalInvestedDescription">O total investido é utilizado para o cálculo do rendimento do ativo. O seu preenchimento é opcional.</string>
-    <string name="unitValuePerUnitDescription">O valor por unidade é utilizado para o cálculo do rendimento do ativo.</string>
+    <string name="totalInvestedDescription">O total investido é utilizado para o cálculo da variação do ativo. O seu preenchimento é opcional.</string>
+    <string name="unitValuePerUnitDescription">O valor por unidade é utilizado para o cálculo da variação do ativo.</string>
     <string name="fillTheFieldsToView">Preencha os campos para visualizar</string>
     <string name="noResultsFound">Nenhum resultado encontrado</string>
     <string name="enterAssetSymbolForTryAgain">Pesquise um ativo para tentar novamente.</string>
@@ -41,9 +41,9 @@
 
     <!-- String arrays -->
     <string-array name="assetSortTypesArray">
-        <item>Ordenar por maior rendimento</item>
+        <item>Ordenar por maior valorização</item>
         <item>Ordenar por maior quantidade</item>
-        <item>Ordenar por menor rendimento</item>
+        <item>Ordenar por menor valorização</item>
         <item>Ordenar por menor quantidade</item>
         <item>Ordenar por símbolo</item>
     </string-array>
@@ -96,14 +96,13 @@
     <string name="location">Localidade</string>
     <string name="information">Informação</string>
     <string name="walletValue">Valor da carteira</string>
-    <string name="totalVariation">Variação total</string>
     <string name="countries">Países</string>
     <string name="other">Outro</string>
     <string name="email">E-mail</string>
     <string name="password">Senha</string>
     <string name="login">Login</string>
     <string name="register">Cadastrar</string>
-    <string name="yield">Rendimento</string>
+    <string name="appreciation">Valorização</string>
     <string name="edit">Editar</string>
     <string name="delete">Excluir</string>
     <string name="newAddition">Novo aporte</string>

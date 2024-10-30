@@ -118,7 +118,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="@string/yield"
+                    android:text="@string/appreciation"
                     android:textColor="@color/grayTextColor" />
 
                 <TextView
@@ -128,7 +128,7 @@
                     android:layout_weight="1"
                     android:gravity="end|center_vertical"
                     android:textStyle="bold"
-                    tools:text="US$150,00"
+                    tools:text="+US$150,00"
                     tools:textColor="@color/green" />
             </TableRow>
 
