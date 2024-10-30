@@ -30,7 +30,7 @@ fun PieChart.setupPieChart(
     data = pieData
     description.isEnabled = false
     legend.isEnabled = false
-    isRotationEnabled = false
+    isRotationEnabled = true
     isDrawHoleEnabled = true
     setUsePercentValues(true)
     setHoleColor(Color.TRANSPARENT)
