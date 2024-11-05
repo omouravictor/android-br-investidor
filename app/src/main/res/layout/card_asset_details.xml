@@ -47,7 +47,6 @@
             <TableRow>
 
                 <TextView
-                    android:id="@+id/tvTitleSymbol"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -74,12 +73,11 @@
             <TableRow>
 
                 <TextView
-                    android:id="@+id/tvTittleCompanyName"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="@string/company"
+                    android:text="@string/name"
                     android:textColor="@color/grayTextColor" />
 
                 <TextView
@@ -101,7 +99,6 @@
             <TableRow>
 
                 <TextView
-                    android:id="@+id/tvTittleCurrencyBuy"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -128,7 +125,6 @@
             <TableRow>
 
                 <TextView
-                    android:id="@+id/tvTittleCurrentPrice"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -155,7 +151,6 @@
             <TableRow>
 
                 <TextView
-                    android:id="@+id/tvTittleLastChange"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
