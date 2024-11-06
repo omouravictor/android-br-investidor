@@ -161,11 +161,12 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         val context = requireContext()
 
         binding.incCardAssetDetails.apply {
+            val assetCurrency = assetUiModel.currency
             tvAssetType.text = getString(assetUiModel.type.nameResId)
             tvAssetType.backgroundTintList = getColorStateList(context, assetUiModel.type.colorResId)
             tvSymbol.text = assetUiModel.getFormattedSymbol()
-            tvCompanyName.text = assetUiModel.name
-            tvCurrencyBuy.text = assetUiModel.currency
+            tvName.text = assetUiModel.name
+            tvCurrencyBuy.text = AssetUtil.getCurrencyResName(assetCurrency)?.let { "$assetCurrency - ${getString(it)}" } ?: assetCurrency
             tvCurrentPrice.text = assetUiModel.getFormattedAssetPrice()
             ivLastChangeReload.setOnClickListener { assetViewModel.getQuote(assetUiModel.symbol) }
         }
@@ -181,10 +182,15 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
                 root.visibility = View.GONE
             } else {
                 root.visibility = View.VISIBLE
-                tvCurrencyExchange.text = assetCurrency
+                tvCurrencyExchange.text =
+                    AssetUtil.getCurrencyResName(assetCurrency)?.let { "$assetCurrency - ${getString(it)}" } ?: assetCurrency
                 tvCurrencyExchange.backgroundTintList =
                     getColorStateList(context, AssetUtil.getCurrencyResColor(assetCurrency))
-                tvTitleCurrencyConversion.text = getString(R.string.convertValuesToLocalCurrency, appCurrency)
+                tvTitleCurrencyConversion.text = getString(
+                    R.string.convertValuesToLocalCurrency,
+                    appCurrency,
+                    AssetUtil.getCurrencyResName(appCurrency)?.let { "(${getString(it)})" } ?: ""
+                )
             }
 
             switchCurrencyConversion.setOnCheckedChangeListener { button, isChecked ->

@@ -6,6 +6,15 @@
     <string name="etf">ETF</string>
     <string name="stock">Stock</string>
 
+    <!-- Currency names -->
+    <string name="usd">Dólar Americano</string>
+    <string name="brl">Real Brasileiro</string>
+    <string name="eur">Euro</string>
+    <string name="cad">Dólar Canadense</string>
+    <string name="inr">Rúpia Indiana</string>
+    <string name="cny">Yuan Chinês</string>
+    <string name="gbx">Libra Esterlina</string>
+
     <!-- Asset type description -->
     <string name="brazilianStockDescription">Uma ação no mercado financeiro brasileiro representa uma parcela de propriedade em uma empresa de capital aberto, negociada na bolsa de valores brasileira, a B3. Ao se tornarem acionistas, os investidores têm direito a receber dividendos e podem lucrar com a valorização das ações ao longo do tempo.</string>
     <string name="bdrDescription">BDR, ou Brazilian Depositary Receipt, é um mecanismo utilizado no mercado brasileiro que possibilita aos investidores locais adquirirem ações de empresas estrangeiras listadas em outros países, por meio da B3. Em resumo, é uma maneira de investir em empresas estrangeiras sem a necessidade de comprar diretamente as ações no mercado internacional ou lidar com questões de câmbio e regulação estrangeira.</string>
@@ -117,7 +126,7 @@
     <string name="defaultNewsSearch">bolsa de valores AND ações</string>
     <string name="sale">Venda</string>
     <string name="buy">Compra</string>
-    <string name="convertValuesToLocalCurrency">Converter valores para %1$s</string>
+    <string name="convertValuesToLocalCurrency">Converter valores para %1$s %2$s</string>
     <string name="symbol">Símbolo</string>
     <string name="assetType">Tipo de ativo</string>
     <string name="type">Tipo</string>

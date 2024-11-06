@@ -39,6 +39,19 @@ object AssetUtil {
         }
     }
 
+    fun getCurrencyResName(currency: String): Int? {
+        return when (currency) {
+            "USD" -> R.string.usd
+            "BRL" -> R.string.brl
+            "EUR" -> R.string.eur
+            "CAD" -> R.string.cad
+            "INR" -> R.string.inr
+            "CNY" -> R.string.cny
+            "GBX" -> R.string.gbx
+            else -> null
+        }
+    }
+
     fun getFormattedSymbol(symbol: String) = symbol.substringBefore(".")
 
 }
