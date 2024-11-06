@@ -42,6 +42,7 @@ import com.omouravictor.wise_invest.util.setEditTextLongNumberFormatMask
 import com.omouravictor.wise_invest.util.setupToolbarCenterText
 import com.omouravictor.wise_invest.util.setupVariation
 import com.omouravictor.wise_invest.util.showErrorSnackBar
+import com.omouravictor.wise_invest.util.showSuccessSnackBar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -196,14 +197,16 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
         val previousBackStackEntry = navController.previousBackStackEntry!!
 
         when (previousBackStackEntry.destination.id) {
-            R.id.fragmentAssetSearch -> {
-                navController.clearPileAndNavigateToStart()
-            }
+            R.id.fragmentAssetSearch -> navController.clearPileAndNavigateToStart()
 
             R.id.fragmentAssetDetail -> {
-                previousBackStackEntry
-                    .savedStateHandle[SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL] = asset
-                navController.popBackStack()
+                previousBackStackEntry.savedStateHandle[SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL] = asset
+                handleSaveAssetLoading(false)
+
+                activity.showSuccessSnackBar(
+                    getString(R.string.assetUpdatedSuccessfully),
+                    anchorResView = binding.incBtnSave.root.id
+                )
             }
         }
     }
