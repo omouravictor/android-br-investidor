@@ -31,7 +31,6 @@
             android:background="@drawable/rectangle"
             android:gravity="center"
             android:padding="8dp"
-            android:paddingHorizontal="8dp"
             android:textColor="@color/white"
             android:textStyle="bold"
             app:layout_constrainedWidth="true"

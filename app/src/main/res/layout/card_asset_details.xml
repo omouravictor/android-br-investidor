@@ -19,21 +19,25 @@
             android:text="@string/Asset"
             android:textSize="@dimen/textSize4"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/tvAssetType"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/tvAssetType" />
 
         <TextView
             android:id="@+id/tvAssetType"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
+            android:layout_marginStart="24dp"
             android:background="@drawable/rectangle"
             android:gravity="center"
-            android:paddingHorizontal="8dp"
+            android:padding="8dp"
             android:textColor="@color/white"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/assetSectionTitle"
+            app:layout_constrainedWidth="true"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/assetSectionTitle"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/assetSectionTitle"
+            app:layout_constraintTop_toTopOf="parent"
             tools:backgroundTint="@color/stock"
             tools:text="Stock" />
 
@@ -42,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/defaultSpace"
-            app:layout_constraintTop_toBottomOf="@+id/assetSectionTitle">
+            app:layout_constraintTop_toBottomOf="@+id/tvAssetType">
 
             <TableRow>
 
