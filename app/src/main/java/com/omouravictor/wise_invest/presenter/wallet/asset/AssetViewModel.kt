@@ -27,6 +27,9 @@ class AssetViewModel @Inject constructor(
     private val _getQuoteUiState = MutableStateFlow<UiState<GlobalQuoteUiModel>>(UiState.Initial)
     val getQuoteUiState = _getQuoteUiState.asStateFlow()
 
+    private val _quote = MutableStateFlow<GlobalQuoteUiModel?>(null)
+    val quote = _quote.asStateFlow()
+
     fun getAssetsBySearch(keywords: String) {
         _getAssetsBySearchListUiState.value = UiState.Loading
 
@@ -61,9 +64,15 @@ class AssetViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-                val result = assetsApiRepository.getAssetGlobalQuote(symbol).getOrThrow()
-                _getQuoteUiState.value = UiState.Success(result.toGlobalQuoteUiModel())
+                val result = assetsApiRepository.getAssetGlobalQuote(symbol)
+                    .getOrThrow()
+                    .toGlobalQuoteUiModel()
+
+                _quote.value = result
+                _getQuoteUiState.value = UiState.Success(result)
+
             } catch (e: Exception) {
+                _quote.value = null
                 _getQuoteUiState.value = UiState.Error(e)
             }
         }

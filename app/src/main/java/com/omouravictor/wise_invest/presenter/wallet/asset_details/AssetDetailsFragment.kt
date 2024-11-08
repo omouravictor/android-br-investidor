@@ -57,8 +57,6 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
     private val userViewModel: UserViewModel by activityViewModels()
     private val currencyExchangeRatesViewModel: CurrencyExchangeRatesViewModel by activityViewModels()
     private val walletViewModel: WalletViewModel by activityViewModels()
-    private var globalQuote: GlobalQuoteUiModel? = null
-    private var conversionResult: ConversionResultUiModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -166,7 +164,8 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
             tvAssetType.backgroundTintList = getColorStateList(context, assetUiModel.type.colorResId)
             tvSymbol.text = assetUiModel.getFormattedSymbol()
             tvName.text = assetUiModel.name
-            tvCurrencyBuy.text = AssetUtil.getCurrencyResName(assetCurrency)?.let { "$assetCurrency - ${getString(it)}" } ?: assetCurrency
+            tvCurrencyBuy.text = AssetUtil.getCurrencyResName(assetCurrency)
+                ?.let { "$assetCurrency - ${getString(it)}" } ?: assetCurrency
             tvCurrentPrice.text = assetUiModel.getFormattedAssetPrice()
             ivLastChangeReload.setOnClickListener { assetViewModel.getQuote(assetUiModel.symbol) }
         }
@@ -182,8 +181,8 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
                 root.visibility = View.GONE
             } else {
                 root.visibility = View.VISIBLE
-                tvCurrencyExchange.text =
-                    AssetUtil.getCurrencyResName(assetCurrency)?.let { "$assetCurrency - ${getString(it)}" } ?: assetCurrency
+                tvCurrencyExchange.text = AssetUtil.getCurrencyResName(assetCurrency)
+                    ?.let { "$assetCurrency - ${getString(it)}" } ?: assetCurrency
                 tvCurrencyExchange.backgroundTintList =
                     getColorStateList(context, AssetUtil.getCurrencyResColor(assetCurrency))
                 tvTitleCurrencyConversion.text = getString(
@@ -195,7 +194,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
 
             switchCurrencyConversion.setOnCheckedChangeListener { button, isChecked ->
                 if (isChecked) {
-                    val rate = conversionResult!!.info.rate
+                    val rate = currencyExchangeRatesViewModel.conversionResult.value!!.info.rate
                     convertCurrencyViews(appCurrency, rate)
                 } else {
                     button.isChecked = false
@@ -212,7 +211,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
             incCardAssetDetails.tvCurrentPrice.text =
                 LocaleUtil.getFormattedCurrencyValue(currency, assetUiModel.price * rate)
 
-            globalQuote?.let { globalQuote ->
+            assetViewModel.quote.value?.let { globalQuote ->
                 incCardAssetDetails.tvLastChange
                     .setupVariation(currency, globalQuote.change * rate, globalQuote.changePercent / 100)
             }
@@ -234,8 +233,10 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         binding.apply {
             incCardAssetDetails.tvCurrentPrice.text = assetUiModel.getFormattedAssetPrice()
 
-            incCardAssetDetails.tvLastChange
-                .setupVariation(assetUiModel.currency, globalQuote!!.change, globalQuote!!.changePercent / 100)
+            assetViewModel.quote.value?.let {
+                incCardAssetDetails.tvLastChange
+                    .setupVariation(assetUiModel.currency, it.change, it.changePercent / 100)
+            }
 
             incCardWalletDetails.tvCurrentPosition.text = assetUiModel.getFormattedTotalPrice()
 
@@ -272,10 +273,21 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
 
     private fun handleQuoteSuccess(globalQuote: GlobalQuoteUiModel) {
         handleQuoteLoading(false)
-        val change = globalQuote.change
-        val changePercent = globalQuote.changePercent
-        binding.incCardAssetDetails.tvLastChange.setupVariation(assetUiModel.currency, change, changePercent / 100)
-        this.globalQuote = globalQuote
+
+        if (binding.incCardConversionRate.switchCurrencyConversion.isChecked) {
+            val rate = currencyExchangeRatesViewModel.conversionResult.value!!.info.rate
+            binding.incCardAssetDetails.tvLastChange.setupVariation(
+                LocaleUtil.appCurrency.toString(),
+                globalQuote.change * rate,
+                globalQuote.changePercent / 100
+            )
+        } else {
+            binding.incCardAssetDetails.tvLastChange.setupVariation(
+                assetUiModel.currency,
+                globalQuote.change,
+                globalQuote.changePercent / 100
+            )
+        }
     }
 
     private fun handleQuoteError() {
@@ -356,7 +368,6 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
                 LocaleUtil.appCurrency.toString(),
                 conversionResult.info.rate
             )
-            this.conversionResult = conversionResult
         } else {
             handleConversionResultError()
         }

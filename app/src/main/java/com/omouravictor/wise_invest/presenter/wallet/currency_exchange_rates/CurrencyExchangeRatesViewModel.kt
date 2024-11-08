@@ -21,14 +21,23 @@ class CurrencyExchangeRatesViewModel @Inject constructor(
         MutableStateFlow<UiState<ConversionResultUiModel>>(UiState.Initial)
     val getConversionResultUiState = _getConversionResultUiState.asStateFlow()
 
+    private val _conversionResult = MutableStateFlow<ConversionResultUiModel?>(null)
+    val conversionResult = _conversionResult.asStateFlow()
+
     fun convert(fromCurrency: String, toCurrency: String) {
         _getConversionResultUiState.value = UiState.Loading
 
         viewModelScope.launch {
             try {
-                val result = currencyExchangeRatesApiRepository.convert(fromCurrency, toCurrency).getOrThrow()
-                _getConversionResultUiState.value = UiState.Success(result.toConversionResultUiModel())
+                val result = currencyExchangeRatesApiRepository.convert(fromCurrency, toCurrency)
+                    .getOrThrow()
+                    .toConversionResultUiModel()
+
+                _conversionResult.value = result
+                _getConversionResultUiState.value = UiState.Success(result)
+
             } catch (e: Exception) {
+                _conversionResult.value = null
                 _getConversionResultUiState.value = UiState.Error(e)
             }
         }
