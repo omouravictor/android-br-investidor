@@ -47,14 +47,14 @@ class ChangePersonalDataFragment : Fragment(R.layout.fragment_change_personal_da
         activity.setupToolbarCenterText(getString(R.string.changePersonalData))
 
         binding.apply {
-            etName.setText(userViewModel.user.value.name)
+            etChangeName.setText(userViewModel.user.value.name)
         }
 
         binding.apply {
             incBtnSave.root.text = getString(R.string.save)
             incBtnSave.root.setOnClickListener {
                 activity.hideKeyboard(root)
-                val updatedUser = userViewModel.user.value.copy(name = etName.text.toString().trim())
+                val updatedUser = userViewModel.user.value.copy(name = etChangeName.text.toString().trim())
                 userViewModel.updateUser(updatedUser)
             }
         }
