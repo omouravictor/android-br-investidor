@@ -77,8 +77,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun login() {
-        val email = binding.etEmail.text.toString().trim()
-        val password = binding.etPassword.text.toString()
+        val email = binding.etLoginEmail.text.toString().trim()
+        val password = binding.etLoginPassword.text.toString()
 
         if (email.isNotEmpty() && password.isNotEmpty()) {
             loginLayoutIsLoading(true)

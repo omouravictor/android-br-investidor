@@ -47,12 +47,12 @@ class DeleteAccountFragment : Fragment(R.layout.fragment_delete_account) {
     private fun setupViews() {
         activity.setupToolbarCenterText(getString(R.string.deleteAccount))
 
-        binding.etEmail.setText(userViewModel.user.value.email)
+        binding.etConfirmEmail.setText(userViewModel.user.value.email)
 
         binding.apply {
             incBtnDelete.root.text = getString(R.string.delete)
             incBtnDelete.root.setOnClickListener {
-                val password = etPassword.text.toString()
+                val password = etConfirmPassword.text.toString()
                 if (password.isNotEmpty()) {
                     showAlertDialogForDeleteAccount(password)
                 } else {

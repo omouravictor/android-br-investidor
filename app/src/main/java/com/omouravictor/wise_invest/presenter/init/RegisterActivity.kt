@@ -59,8 +59,8 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun register() {
         val name = binding.etName.text.toString().trim()
-        val email = binding.etEmail.text.toString().trim()
-        val password = binding.etPassword.text.toString()
+        val email = binding.etRegisterEmail.text.toString().trim()
+        val password = binding.etRegisterPassword.text.toString()
 
         if (name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
             registerLayoutIsLoading(true)
