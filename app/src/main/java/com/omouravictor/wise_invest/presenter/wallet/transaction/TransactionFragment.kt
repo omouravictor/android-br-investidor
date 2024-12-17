@@ -103,13 +103,13 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
     }
 
     private fun setupAmountAndValuePerUnit() {
-        binding.ietAmount.apply {
+        binding.ietTransactionAmount.apply {
             doAfterTextChanged { updateNewPosition() }
             setEditTextLongNumberFormatMask()
             hint = LocaleUtil.getFormattedLong(0)
         }
 
-        binding.ietValuePerUnit.apply {
+        binding.ietTransactionValuePerUnit.apply {
             val currency = assetUiModel.currency
             doAfterTextChanged { updateNewPosition() }
             setEditTextCurrencyFormatMask(currency)
@@ -172,8 +172,8 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
     }
 
     private fun updateNewPosition() {
-        val amount = binding.ietAmount.getLongValue()
-        val valuePerUnit = binding.ietValuePerUnit.text.toString().getMonetaryValueInDouble()
+        val amount = binding.ietTransactionAmount.getLongValue()
+        val valuePerUnit = binding.ietTransactionValuePerUnit.text.toString().getMonetaryValueInDouble()
 
         if (amount == 0L || valuePerUnit == 0.0) {
             showInitialUpdatedPositionLayout()
@@ -223,8 +223,8 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
             text = getString(R.string.save)
             setOnClickListener {
                 val isBuy = transaction == Transaction.BUY
-                val amount = binding.ietAmount.getLongValue()
-                val totalInvested = binding.ietValuePerUnit.text.toString().getMonetaryValueInDouble() * amount
+                val amount = binding.ietTransactionAmount.getLongValue()
+                val totalInvested = binding.ietTransactionValuePerUnit.text.toString().getMonetaryValueInDouble() * amount
                 val updatedAmount = if (isBuy) assetUiModel.amount + amount else assetUiModel.amount - amount
 
                 if (updatedAmount < 1) {
