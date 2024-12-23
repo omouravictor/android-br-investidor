@@ -89,7 +89,7 @@ class AssetSearchFragment : Fragment(R.layout.fragment_asset_search) {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                binding.recyclerView.scrollToPosition(0)
+                binding.recyclerViewAssetSearch.scrollToPosition(0)
                 return true
             }
         }
@@ -110,14 +110,14 @@ class AssetSearchFragment : Fragment(R.layout.fragment_asset_search) {
             }
         }
 
-        binding.recyclerView.setupRecyclerViewWithLinearLayout(assetBySearchAdapter)
+        binding.recyclerViewAssetSearch.setupRecyclerViewWithLinearLayout(assetBySearchAdapter)
     }
 
     private fun handleAssetsBySearchListLoading() {
         binding.apply {
             shimmerLayout.isVisible = true
             shimmerLayout.startShimmer()
-            recyclerView.isVisible = false
+            recyclerViewAssetSearch.isVisible = false
             incLayoutError.root.isVisible = false
         }
     }
@@ -128,7 +128,7 @@ class AssetSearchFragment : Fragment(R.layout.fragment_asset_search) {
 
         val isResultsEmpty = results.isEmpty()
 
-        binding.recyclerView.isVisible = !isResultsEmpty
+        binding.recyclerViewAssetSearch.isVisible = !isResultsEmpty
 
         if (isResultsEmpty) {
             binding.incLayoutError.root.isVisible = true
@@ -142,7 +142,7 @@ class AssetSearchFragment : Fragment(R.layout.fragment_asset_search) {
         binding.apply {
             shimmerLayout.isVisible = false
             shimmerLayout.stopShimmer()
-            recyclerView.isVisible = false
+            recyclerViewAssetSearch.isVisible = false
             incLayoutError.root.isVisible = true
             incLayoutError.tvInfoMessage.text = requireContext().getErrorMessage(e)
         }
@@ -165,7 +165,7 @@ class AssetSearchFragment : Fragment(R.layout.fragment_asset_search) {
 
     private fun handleUpdatedAssetLoading() {
         binding.apply {
-            recyclerView.isVisible = false
+            recyclerViewAssetSearch.isVisible = false
             incProgressBar.root.isVisible = true
         }
     }
@@ -176,7 +176,7 @@ class AssetSearchFragment : Fragment(R.layout.fragment_asset_search) {
 
     private fun handleUpdatedAssetError(e: Exception) {
         binding.apply {
-            recyclerView.isVisible = false
+            recyclerViewAssetSearch.isVisible = false
             incProgressBar.root.isVisible = false
             incLayoutError.root.isVisible = true
             incLayoutError.tvInfoMessage.text = requireContext().getErrorMessage(e)
