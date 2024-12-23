@@ -107,6 +107,7 @@ dependencies {
     testImplementation("junit:junit:$junitVersion")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation("androidx.test.espresso:espresso-contrib:3.5.0")
 
     val hiltVersion = "2.48"
     implementation("com.google.dagger:hilt-android:$hiltVersion")
