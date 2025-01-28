@@ -1,8 +1,6 @@
 package com.omouravictor.wise_invest.presenter.profile.change_password
 
 import android.app.Activity
-import android.app.AlertDialog
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -10,14 +8,15 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.omouravictor.wise_invest.R
 import com.omouravictor.wise_invest.databinding.FragmentChangePasswordBinding
-import com.omouravictor.wise_invest.presenter.init.LoginActivity
 import com.omouravictor.wise_invest.presenter.model.UiState
 import com.omouravictor.wise_invest.presenter.user.UserViewModel
 import com.omouravictor.wise_invest.util.getErrorMessage
 import com.omouravictor.wise_invest.util.setupToolbarCenterText
 import com.omouravictor.wise_invest.util.showErrorSnackBar
+import com.omouravictor.wise_invest.util.showSuccessSnackBar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -50,52 +49,45 @@ class ChangePasswordFragment : Fragment(R.layout.fragment_change_password) {
         binding.etConfirmEmail.setText(userViewModel.user.value.email)
 
         binding.apply {
-            incBtnDelete.root.text = getString(R.string.changePassword)
-            incBtnDelete.root.setOnClickListener {
-                val password = etConfirmPassword.text.toString()
-                if (password.isNotEmpty()) {
-                    showAlertDialogForDeleteAccount(password)
+            incBtnChange.root.text = getString(R.string.change)
+            incBtnChange.root.setOnClickListener {
+                val currentPassword = etCurrentPassword.text.toString()
+                val newPassword = etNewPassword.text.toString()
+                if (currentPassword.isNotEmpty() && newPassword.isNotEmpty()) {
+                    userViewModel.changePassword(currentPassword, newPassword)
                 } else {
                     activity.showErrorSnackBar(
-                        getString(R.string.confirmYourPasswordToDeleteAccount),
-                        anchorResView = incBtnDelete.root.id
+                        getString(R.string.fillAllFields),
+                        anchorResView = incBtnChange.root.id
                     )
                 }
             }
         }
     }
 
-    private fun showAlertDialogForDeleteAccount(password: String) {
-        AlertDialog.Builder(context).apply {
-            setTitle(getString(R.string.deleteAccount))
-            setMessage(getString(R.string.deleteAccountAlertMessage))
-            setPositiveButton(getString(R.string.yes)) { _, _ -> userViewModel.deleteUser(password) }
-            setNegativeButton(getString(R.string.not)) { dialog, _ -> dialog.dismiss() }
-        }.show()
-    }
-
     private fun handleUserLoading(isLoading: Boolean) {
         binding.apply {
             if (isLoading) {
                 mainLayout.visibility = View.INVISIBLE
-                incBtnDelete.root.visibility = View.INVISIBLE
+                incBtnChange.root.visibility = View.INVISIBLE
                 incProgressBar.root.visibility = View.VISIBLE
             } else {
                 mainLayout.visibility = View.VISIBLE
-                incBtnDelete.root.visibility = View.VISIBLE
+                incBtnChange.root.visibility = View.VISIBLE
                 incProgressBar.root.visibility = View.GONE
             }
         }
     }
 
     private fun handleUserSuccess() {
-        startActivity(Intent(activity, LoginActivity::class.java))
-        activity.finish()
+        handleUserLoading(false)
+        activity.showSuccessSnackBar(getString(R.string.passwordUpdatedSuccessfully))
+        findNavController().popBackStack()
     }
 
     private fun handleUserError(e: Exception) {
         handleUserLoading(false)
-        activity.showErrorSnackBar(activity.getErrorMessage(e), anchorResView = binding.incBtnDelete.root.id)
+        activity.showErrorSnackBar(activity.getErrorMessage(e), anchorResView = binding.incBtnChange.root.id)
     }
 
     private fun observeUserUiState() {

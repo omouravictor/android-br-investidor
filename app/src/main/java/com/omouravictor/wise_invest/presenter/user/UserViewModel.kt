@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.omouravictor.wise_invest.data.remote.repository.FirebaseRepository
 import com.omouravictor.wise_invest.presenter.model.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -34,9 +35,24 @@ class UserViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val updatedUser = firebaseRepository.saveUser(user).getOrThrow()
-
                 _user.value = updatedUser
                 _userUiState.value = UiState.Success(updatedUser)
+
+            } catch (e: Exception) {
+                _userUiState.value = UiState.Error(e)
+            }
+        }
+    }
+
+    fun changePassword(currentPassword: String, newPassword: String) {
+        _userUiState.value = UiState.Loading
+
+        viewModelScope.launch {
+            try {
+                val loggedUser = getLoggedUser()
+                reauthenticateUser(loggedUser, currentPassword)
+                loggedUser.updatePassword(newPassword).await()
+                _userUiState.value = UiState.Success(user.value)
 
             } catch (e: Exception) {
                 _userUiState.value = UiState.Error(e)
@@ -49,11 +65,8 @@ class UserViewModel @Inject constructor(
 
         viewModelScope.launch {
             try {
-                val loggedUser = auth.currentUser ?: throw Exception("User not logged in")
-
-                loggedUser.reauthenticate(
-                    EmailAuthProvider.getCredential(user.value.email, password)
-                ).await()
+                val loggedUser = getLoggedUser()
+                reauthenticateUser(loggedUser, password)
 
                 val deletedUser = firebaseRepository.deleteUser(user.value).getOrThrow()
                 loggedUser.delete().await()
@@ -72,6 +85,14 @@ class UserViewModel @Inject constructor(
 
     fun resetUserUiState() {
         _userUiState.value = UiState.Initial
+    }
+
+    private fun getLoggedUser() = auth.currentUser ?: throw Exception("User not logged in")
+
+    private suspend fun reauthenticateUser(loggedUser: FirebaseUser, password: String) {
+        loggedUser
+            .reauthenticate(EmailAuthProvider.getCredential(user.value.email, password))
+            .await()
     }
 
 }

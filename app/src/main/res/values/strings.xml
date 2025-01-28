@@ -48,6 +48,7 @@
     <string name="recoveryPasswordMessage">Insira o endereço de e-mail associado a sua conta e enviaremos um link de recuperação para você criar uma nova senha!</string>
     <string name="recoveryLinkHasBeenSentMessage">O link de recuperação de senha foi enviado para o email.</string>
     <string name="confirmYourPasswordToDeleteAccount">Confirme sua senha para excluir a conta.</string>
+    <string name="passwordUpdatedSuccessfully">Senha alterada com sucesso!</string>
 
     <!-- String arrays -->
     <string-array name="assetSortTypesArray">
@@ -152,5 +153,8 @@
     <string name="sendLink">Enviar link</string>
     <string name="back">Voltar</string>
     <string name="confirmYourPassword">confirme sua senha</string>
+    <string name="currentPassword">Senha atual</string>
+    <string name="newPassword">Nova senha</string>
+    <string name="change">Alterar</string>
 
 </resources>
