@@ -77,6 +77,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.fragmentSaveAsset,
                 R.id.fragmentTransaction,
                 R.id.changePersonalDataFragment,
+                R.id.changePasswordFragment,
                 R.id.deleteAccountFragment -> setupToolbarWithCenterText()
 
                 else -> setupToolbar()

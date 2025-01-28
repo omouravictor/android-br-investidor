@@ -56,6 +56,11 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             root.setOnClickListener { navController.navigate(R.id.navToChangePersonalDataFragment) }
         }
 
+        binding.incChangePassword.apply {
+            tvOption.text = getString(R.string.changePassword)
+            root.setOnClickListener { navController.navigate(R.id.navToChangePasswordFragment) }
+        }
+
         binding.incDeleteAccount.apply {
             tvOption.text = getString(R.string.deleteAccount)
             root.setOnClickListener { navController.navigate(R.id.navToDeleteAccountFragment) }

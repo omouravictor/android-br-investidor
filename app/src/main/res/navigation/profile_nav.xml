@@ -14,6 +14,9 @@
             android:id="@+id/navToChangePersonalDataFragment"
             app:destination="@id/changePersonalDataFragment" />
         <action
+            android:id="@+id/navToChangePasswordFragment"
+            app:destination="@id/changePasswordFragment" />
+        <action
             android:id="@+id/navToDeleteAccountFragment"
             app:destination="@id/deleteAccountFragment" />
     </fragment>
@@ -23,6 +26,12 @@
         android:name="com.omouravictor.wise_invest.presenter.profile.change_personal_data.ChangePersonalDataFragment"
         android:label="@string/changePersonalData"
         tools:layout="@layout/fragment_change_personal_data" />
+
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.omouravictor.wise_invest.presenter.profile.change_password.ChangePasswordFragment"
+        android:label="@string/changePassword"
+        tools:layout="@layout/fragment_change_password" />
 
     <fragment
         android:id="@+id/deleteAccountFragment"
