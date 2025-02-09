@@ -2,8 +2,8 @@ package com.omouravictor.wise_invest.presenter.wallet.currency_exchange_rates
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.omouravictor.wise_invest.data.remote.model.currency_exchange_rate.toConversionResultUiModel
-import com.omouravictor.wise_invest.data.remote.repository.CurrencyExchangeRatesApiRepository
+import com.omouravictor.wise_invest.data.remote.apis.currency_exchange_rates_api.model.toConversionResultUiModel
+import com.omouravictor.wise_invest.data.remote.apis.currency_exchange_rates_api.repository.CurrencyExchangeRatesApiRepository
 import com.omouravictor.wise_invest.presenter.model.UiState
 import com.omouravictor.wise_invest.presenter.wallet.model.ConversionResultUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel

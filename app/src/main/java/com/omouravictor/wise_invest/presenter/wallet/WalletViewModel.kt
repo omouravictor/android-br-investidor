@@ -3,8 +3,8 @@ package com.omouravictor.wise_invest.presenter.wallet
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.omouravictor.wise_invest.data.remote.repository.AssetsApiRepository
-import com.omouravictor.wise_invest.data.remote.repository.FirebaseRepository
+import com.omouravictor.wise_invest.data.remote.apis.alpha_vantage_api.repository.AssetsApiRepository
+import com.omouravictor.wise_invest.data.remote.firebase.FirebaseRepository
 import com.omouravictor.wise_invest.presenter.model.UiState
 import com.omouravictor.wise_invest.presenter.wallet.asset.AssetUiModel
 import com.omouravictor.wise_invest.util.getRoundedDouble

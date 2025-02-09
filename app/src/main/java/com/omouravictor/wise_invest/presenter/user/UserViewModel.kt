@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.omouravictor.wise_invest.data.remote.repository.FirebaseRepository
+import com.omouravictor.wise_invest.data.remote.firebase.FirebaseRepository
 import com.omouravictor.wise_invest.presenter.model.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

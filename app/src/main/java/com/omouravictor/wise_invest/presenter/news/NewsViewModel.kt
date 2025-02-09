@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.omouravictor.wise_invest.R
-import com.omouravictor.wise_invest.data.remote.model.news.toNewsUiModel
-import com.omouravictor.wise_invest.data.remote.repository.NewsApiRepository
+import com.omouravictor.wise_invest.data.remote.apis.news_api.model.news.toNewsUiModel
+import com.omouravictor.wise_invest.data.remote.apis.news_api.repository.NewsApiRepository
 import com.omouravictor.wise_invest.presenter.model.UiState
 import com.omouravictor.wise_invest.presenter.news.article.ArticleUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel

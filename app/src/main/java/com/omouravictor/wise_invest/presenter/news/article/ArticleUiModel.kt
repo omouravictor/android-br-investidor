@@ -1,7 +1,7 @@
 package com.omouravictor.wise_invest.presenter.news.article
 
 import android.os.Parcelable
-import com.omouravictor.wise_invest.data.remote.model.news.SourceResponse
+import com.omouravictor.wise_invest.data.remote.apis.news_api.model.news.SourceResponse
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
