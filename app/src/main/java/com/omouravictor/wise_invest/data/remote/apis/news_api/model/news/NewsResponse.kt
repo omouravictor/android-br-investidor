@@ -15,7 +15,7 @@ fun NewsResponse.toNewsUiModel(): List<ArticleUiModel> {
             content = it.content,
             description = it.description,
             publishedAt = it.publishedAt,
-            source = it.source,
+            source = it.source.toSourceUiModel(),
             title = it.title,
             url = it.url,
             urlToImage = it.urlToImage

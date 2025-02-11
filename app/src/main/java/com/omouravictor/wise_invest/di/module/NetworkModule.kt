@@ -2,7 +2,7 @@ package com.omouravictor.wise_invest.di.module
 
 import com.omouravictor.wise_invest.BuildConfig
 import com.omouravictor.wise_invest.data.remote.apis.alpha_vantage_api.AlphaVantageApi
-import com.omouravictor.wise_invest.data.remote.apis.currency_exchange_rates_api.CurrencyExchangeRatesApi
+import com.omouravictor.wise_invest.data.remote.apis.free_currency_api.CurrencyExchangeRatesApi
 import com.omouravictor.wise_invest.data.remote.apis.news_api.NewsApi
 import dagger.Module
 import dagger.Provides
@@ -53,11 +53,17 @@ object NetworkModule {
     @Singleton
     fun provideCurrencyExchangeRatesApi(httpLoggingInterceptor: HttpLoggingInterceptor): CurrencyExchangeRatesApi {
         val interceptor = Interceptor { chain ->
-            val request = chain.request()
-                .newBuilder()
-                .addHeader("X-RapidAPI-Key", BuildConfig.CURRENCY_EXCHANGE_RATES_API_API_KEY)
+            val originalRequest = chain.request()
+
+            val newUrl = originalRequest.url.newBuilder()
+                .addQueryParameter("apikey", BuildConfig.CURRENCY_EXCHANGE_RATES_API_API_KEY)
                 .build()
-            chain.proceed(request)
+
+            val newRequest = originalRequest.newBuilder()
+                .url(newUrl)
+                .build()
+
+            chain.proceed(newRequest)
         }
 
         val okHttpClient = createOkHttpClient(interceptor, httpLoggingInterceptor)

@@ -2,10 +2,10 @@ package com.omouravictor.wise_invest.presenter.wallet.currency_exchange_rates
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.omouravictor.wise_invest.data.remote.apis.currency_exchange_rates_api.model.toConversionResultUiModel
-import com.omouravictor.wise_invest.data.remote.apis.currency_exchange_rates_api.repository.CurrencyExchangeRatesApiRepository
+import com.omouravictor.wise_invest.data.remote.apis.free_currency_api.model.toCurrencyExchangeRateUiModel
+import com.omouravictor.wise_invest.data.remote.apis.free_currency_api.repository.CurrencyExchangeRatesApiRepository
 import com.omouravictor.wise_invest.presenter.model.UiState
-import com.omouravictor.wise_invest.presenter.wallet.model.ConversionResultUiModel
+import com.omouravictor.wise_invest.presenter.wallet.model.CurrencyExchangeRateUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -17,28 +17,28 @@ class CurrencyExchangeRatesViewModel @Inject constructor(
     private val currencyExchangeRatesApiRepository: CurrencyExchangeRatesApiRepository
 ) : ViewModel() {
 
-    private val _getConversionResultUiState =
-        MutableStateFlow<UiState<ConversionResultUiModel>>(UiState.Initial)
-    val getConversionResultUiState = _getConversionResultUiState.asStateFlow()
+    private val _getExchangeRateUiState =
+        MutableStateFlow<UiState<CurrencyExchangeRateUiModel>>(UiState.Initial)
+    val getExchangeRateUiState = _getExchangeRateUiState.asStateFlow()
 
-    private val _conversionResult = MutableStateFlow<ConversionResultUiModel?>(null)
-    val conversionResult = _conversionResult.asStateFlow()
+    private val _exchangeRate = MutableStateFlow<CurrencyExchangeRateUiModel?>(null)
+    val exchangeRate = _exchangeRate.asStateFlow()
 
-    fun convert(fromCurrency: String, toCurrency: String) {
-        _getConversionResultUiState.value = UiState.Loading
+    fun getExchangeRate(baseCurrency: String, currencies: String) {
+        _getExchangeRateUiState.value = UiState.Loading
 
         viewModelScope.launch {
             try {
-                val result = currencyExchangeRatesApiRepository.convert(fromCurrency, toCurrency)
+                val result = currencyExchangeRatesApiRepository.getLatestRate(baseCurrency, currencies)
                     .getOrThrow()
-                    .toConversionResultUiModel()
+                    .toCurrencyExchangeRateUiModel()
 
-                _conversionResult.value = result
-                _getConversionResultUiState.value = UiState.Success(result)
+                _exchangeRate.value = result
+                _getExchangeRateUiState.value = UiState.Success(result)
 
             } catch (e: Exception) {
-                _conversionResult.value = null
-                _getConversionResultUiState.value = UiState.Error(e)
+                _exchangeRate.value = null
+                _getExchangeRateUiState.value = UiState.Error(e)
             }
         }
     }

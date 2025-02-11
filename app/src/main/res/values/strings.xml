@@ -75,6 +75,8 @@
     <string name="userNotSignedIn">Usuário não autenticado.</string>
     <string name="userNotFound">Usuário não encontrado na base de dados.</string>
     <string name="errorOnSendRecoveryLink">Erro ao enviar o link de recuperação para o email.</string>
+    <string name="errorGettingExchangeRate">Erro ao obter a cotação de Câmbio.</string>
+    <string name="errorGettingAssetQuote">Erro ao obter as cotações do Ativo.</string>
 
     <string name="appName">WiseInvest</string>
     <string name="appNameTitle">Wise Invest</string>

@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources.getColorStateList
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -32,8 +33,9 @@ import com.omouravictor.wise_invest.presenter.wallet.asset.getFormattedTotalPric
 import com.omouravictor.wise_invest.presenter.wallet.asset.getTotalPrice
 import com.omouravictor.wise_invest.presenter.wallet.asset.getYield
 import com.omouravictor.wise_invest.presenter.wallet.currency_exchange_rates.CurrencyExchangeRatesViewModel
-import com.omouravictor.wise_invest.presenter.wallet.model.ConversionResultUiModel
+import com.omouravictor.wise_invest.presenter.wallet.model.CurrencyExchangeRateUiModel
 import com.omouravictor.wise_invest.presenter.wallet.model.GlobalQuoteUiModel
+import com.omouravictor.wise_invest.presenter.wallet.model.getRateForAppCurrency
 import com.omouravictor.wise_invest.util.AppConstants.SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL
 import com.omouravictor.wise_invest.util.AssetUtil
 import com.omouravictor.wise_invest.util.LocaleUtil
@@ -76,7 +78,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         setupButtons()
         observeGetQuoteUiState()
         observeDeleteAssetUiState()
-        observeGetConversionResultUiState()
+        observeGetExchangeRateUiState()
     }
 
     override fun onDestroyView() {
@@ -88,7 +90,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         val appCurrency = LocaleUtil.appCurrency.toString()
         val assetCurrency = assetUiModel.currency
         if (appCurrency != assetCurrency) {
-            currencyExchangeRatesViewModel.convert(assetCurrency, appCurrency)
+            currencyExchangeRatesViewModel.getExchangeRate(assetCurrency, appCurrency)
         }
     }
 
@@ -194,7 +196,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
 
             switchCurrencyConversion.setOnCheckedChangeListener { button, isChecked ->
                 if (isChecked) {
-                    val rate = currencyExchangeRatesViewModel.conversionResult.value!!.info.rate
+                    val rate = currencyExchangeRatesViewModel.exchangeRate.value?.getRateForAppCurrency() ?: 0.0
                     convertCurrencyViews(appCurrency, rate)
                 } else {
                     button.isChecked = false
@@ -202,7 +204,9 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
                 }
             }
 
-            ivSwitchReload.setOnClickListener { currencyExchangeRatesViewModel.convert(assetCurrency, appCurrency) }
+            ivSwitchReload.setOnClickListener {
+                currencyExchangeRatesViewModel.getExchangeRate(assetCurrency, appCurrency)
+            }
         }
     }
 
@@ -275,7 +279,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         handleQuoteLoading(false)
 
         if (binding.incCardConversionRate.switchCurrencyConversion.isChecked) {
-            val rate = currencyExchangeRatesViewModel.conversionResult.value!!.info.rate
+            val rate = currencyExchangeRatesViewModel.exchangeRate.value?.getRateForAppCurrency() ?: 0.0
             binding.incCardAssetDetails.tvLastChange.setupVariation(
                 LocaleUtil.appCurrency.toString(),
                 globalQuote.change * rate,
@@ -296,6 +300,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
             tvLastChange.visibility = View.INVISIBLE
             ivLastChangeReload.visibility = View.VISIBLE
         }
+        Toast.makeText(context, getString(R.string.errorGettingAssetQuote), Toast.LENGTH_SHORT).show()
     }
 
     private fun observeGetQuoteUiState() {
@@ -345,7 +350,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         }
     }
 
-    private fun handleConversionResultLoading(isLoading: Boolean) {
+    private fun handleExchangeRateLoading(isLoading: Boolean) {
         binding.incCardConversionRate.apply {
             if (isLoading) {
                 incSwitchShimmer.root.startShimmer()
@@ -361,34 +366,33 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         }
     }
 
-    private fun handleConversionResultSuccess(conversionResult: ConversionResultUiModel) {
-        if (conversionResult.success == true) {
-            handleConversionResultLoading(false)
+    private fun handleExchangeRateSuccess(currencyExchangeRate: CurrencyExchangeRateUiModel) {
+        currencyExchangeRate.getRateForAppCurrency()?.let { rate ->
+            handleExchangeRateLoading(false)
             binding.incCardConversionRate.tvCurrencyRate.text = LocaleUtil.getFormattedCurrencyValue(
                 LocaleUtil.appCurrency.toString(),
-                conversionResult.info.rate
+                rate
             )
-        } else {
-            handleConversionResultError()
-        }
+        } ?: handleExchangeRateError()
     }
 
-    private fun handleConversionResultError() {
-        handleConversionResultLoading(false)
+    private fun handleExchangeRateError() {
+        handleExchangeRateLoading(false)
         binding.incCardConversionRate.apply {
             switchCurrencyConversion.visibility = View.INVISIBLE
             ivSwitchReload.visibility = View.VISIBLE
         }
+        Toast.makeText(context, getString(R.string.errorGettingExchangeRate), Toast.LENGTH_SHORT).show()
     }
 
-    private fun observeGetConversionResultUiState() {
+    private fun observeGetExchangeRateUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                currencyExchangeRatesViewModel.getConversionResultUiState.collectLatest {
+                currencyExchangeRatesViewModel.getExchangeRateUiState.collectLatest {
                     when (it) {
-                        is UiState.Loading -> handleConversionResultLoading(true)
-                        is UiState.Success -> handleConversionResultSuccess(it.data)
-                        is UiState.Error -> handleConversionResultError()
+                        is UiState.Loading -> handleExchangeRateLoading(true)
+                        is UiState.Success -> handleExchangeRateSuccess(it.data)
+                        is UiState.Error -> handleExchangeRateError()
                         else -> Unit
                     }
                 }

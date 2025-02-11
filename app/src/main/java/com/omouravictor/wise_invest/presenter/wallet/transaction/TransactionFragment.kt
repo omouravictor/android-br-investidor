@@ -224,7 +224,8 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
             setOnClickListener {
                 val isBuy = transaction == Transaction.BUY
                 val amount = binding.ietTransactionAmount.getLongValue()
-                val totalInvested = binding.ietTransactionValuePerUnit.text.toString().getMonetaryValueInDouble() * amount
+                val totalInvested =
+                    binding.ietTransactionValuePerUnit.text.toString().getMonetaryValueInDouble() * amount
                 val updatedAmount = if (isBuy) assetUiModel.amount + amount else assetUiModel.amount - amount
 
                 if (updatedAmount < 1) {

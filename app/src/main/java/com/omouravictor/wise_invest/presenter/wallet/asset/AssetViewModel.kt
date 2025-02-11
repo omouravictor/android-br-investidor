@@ -2,8 +2,8 @@ package com.omouravictor.wise_invest.presenter.wallet.asset
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.omouravictor.wise_invest.data.remote.apis.alpha_vantage_api.model.asset_quote.toGlobalQuoteUiModel
-import com.omouravictor.wise_invest.data.remote.apis.alpha_vantage_api.model.assets_by_search.toAssetsUiModel
+import com.omouravictor.wise_invest.data.remote.apis.alpha_vantage_api.model.toAssetsUiModel
+import com.omouravictor.wise_invest.data.remote.apis.alpha_vantage_api.model.toGlobalQuoteUiModel
 import com.omouravictor.wise_invest.data.remote.apis.alpha_vantage_api.repository.AssetsApiRepository
 import com.omouravictor.wise_invest.presenter.model.UiState
 import com.omouravictor.wise_invest.presenter.wallet.model.GlobalQuoteUiModel

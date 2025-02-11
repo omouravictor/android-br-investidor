@@ -2,8 +2,8 @@ package com.omouravictor.wise_invest.data.remote.apis.alpha_vantage_api.reposito
 
 import android.util.Log
 import com.omouravictor.wise_invest.data.remote.apis.alpha_vantage_api.AlphaVantageApi
-import com.omouravictor.wise_invest.data.remote.apis.alpha_vantage_api.model.asset_quote.AssetGlobalQuoteResponse
-import com.omouravictor.wise_invest.data.remote.apis.alpha_vantage_api.model.assets_by_search.AssetsBySearchResponse
+import com.omouravictor.wise_invest.data.remote.apis.alpha_vantage_api.model.AssetGlobalQuoteResponse
+import com.omouravictor.wise_invest.data.remote.apis.alpha_vantage_api.model.AssetsBySearchResponse
 import com.omouravictor.wise_invest.di.model.DispatcherProvider
 import kotlinx.coroutines.withContext
 

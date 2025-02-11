@@ -1,7 +1,7 @@
 package com.omouravictor.wise_invest.data.remote.apis.alpha_vantage_api
 
-import com.omouravictor.wise_invest.data.remote.apis.alpha_vantage_api.model.asset_quote.AssetGlobalQuoteResponse
-import com.omouravictor.wise_invest.data.remote.apis.alpha_vantage_api.model.assets_by_search.AssetsBySearchResponse
+import com.omouravictor.wise_invest.data.remote.apis.alpha_vantage_api.model.AssetGlobalQuoteResponse
+import com.omouravictor.wise_invest.data.remote.apis.alpha_vantage_api.model.AssetsBySearchResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
