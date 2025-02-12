@@ -84,8 +84,10 @@ class AssetSearchFragment : Fragment(R.layout.fragment_asset_search) {
     private fun setupSearchView(searchView: SearchView) {
         val queryTextListener = object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
+                // Avoid duplicate requests when user clicks search button for the first time
+                if (assetViewModel.getAssetsBySearchListUiState.value is UiState.Loading) return false
                 query?.let { assetViewModel.getAssetsBySearch(it) }
-                return true
+                return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {

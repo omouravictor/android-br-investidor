@@ -80,8 +80,10 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
     private fun setupSearchView(searchView: SearchView) {
         val queryTextListener = object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
+                // Avoid duplicate requests when user clicks search button for the first time
+                if (newsViewModel.getNewsListUiState.value is UiState.Loading) return false
                 query?.let { newsViewModel.getNewsList(it) }
-                return true
+                return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
