@@ -28,13 +28,13 @@ android {
 
         buildConfigField(
             "String",
-            "ALPHA_VANTAGE_API_BASE_URL",
-            apiProperties.getProperty("ALPHA_VANTAGE_API_BASE_URL")
+            "STOCKS_API_BASE_URL",
+            apiProperties.getProperty("STOCKS_API_BASE_URL")
         )
         buildConfigField(
             "String",
-            "ALPHA_VANTAGE_API_KEY",
-            apiProperties.getProperty("ALPHA_VANTAGE_API_KEY")
+            "STOCKS_API_KEY",
+            apiProperties.getProperty("STOCKS_API_KEY")
         )
         buildConfigField(
             "String",
@@ -43,8 +43,8 @@ android {
         )
         buildConfigField(
             "String",
-            "CURRENCY_EXCHANGE_RATES_API_API_KEY",
-            apiProperties.getProperty("CURRENCY_EXCHANGE_RATES_API_API_KEY")
+            "CURRENCY_EXCHANGE_RATES_API_KEY",
+            apiProperties.getProperty("CURRENCY_EXCHANGE_RATES_API_KEY")
         )
         buildConfigField(
             "String",
@@ -143,6 +143,9 @@ dependencies {
 
     val splashScreenVersion = "1.0.1"
     implementation("androidx.core:core-splashscreen:$splashScreenVersion")
+
+    val guavaVersion = "33.4.0-android"
+    implementation("com.google.guava:guava:$guavaVersion")
 }
 
 kapt {
