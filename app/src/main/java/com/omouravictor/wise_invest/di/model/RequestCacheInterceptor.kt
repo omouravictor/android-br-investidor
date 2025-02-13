@@ -7,12 +7,12 @@ import okhttp3.Response
 import java.util.concurrent.TimeUnit
 
 class RequestCacheInterceptor(
-    expireAfterWrite: Long = 1,
+    duration: Long = 1,
     timeUnit: TimeUnit = TimeUnit.MINUTES
 ) : Interceptor {
 
     private val requestCache = CacheBuilder.newBuilder()
-        .expireAfterWrite(expireAfterWrite, timeUnit)
+        .expireAfterWrite(duration, timeUnit)
         .build<String, Boolean>()
 
     override fun intercept(chain: Interceptor.Chain): Response {
