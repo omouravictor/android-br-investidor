@@ -1,6 +1,5 @@
 package com.omouravictor.wise_invest.presenter.wallet
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.omouravictor.wise_invest.data.remote.apis.alpha_vantage_api.repository.AssetsApiRepository
@@ -38,7 +37,15 @@ class WalletViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val assetList = firebaseRepository.getAssetList(userId).getOrThrow()
-                updatePrices(userId, assetList)
+
+                for (asset in assetList) {
+                    val globalQuote = assetsApiRepository
+                        .getAssetGlobalQuote(asset.symbol)
+                        .getOrNull()?.globalQuoteResponse ?: break
+
+                    asset.price = globalQuote.price.getRoundedDouble()
+                }
+
                 _assetList.value = assetList
                 _getUserAssetListUiState.value = UiState.Success(assetList)
 
@@ -100,22 +107,6 @@ class WalletViewModel @Inject constructor(
 
     fun resetDeleteAssetUiState() {
         _deleteAssetUiState.value = UiState.Initial
-    }
-
-    private suspend fun updatePrices(userId: String, assetList: List<AssetUiModel>) {
-        for (asset in assetList) {
-            try {
-                val globalQuote = assetsApiRepository
-                    .getAssetGlobalQuote(asset.symbol)
-                    .getOrThrow()
-                    .globalQuoteResponse
-
-                asset.price = globalQuote.price.getRoundedDouble()
-
-            } catch (e: Exception) {
-                Log.e("UpdatePrices", "UserId: $userId | Asset: ${asset.symbol}", e)
-            }
-        }
     }
 
 }

@@ -278,6 +278,10 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
     private fun handleQuoteSuccess(globalQuote: GlobalQuoteUiModel) {
         handleQuoteLoading(false)
 
+        assetUiModel.price = globalQuote.price
+        setupCardWalletDetails()
+        walletViewModel.updateAsset(assetUiModel, userViewModel.user.value.uid)
+
         if (binding.incCardConversionRate.switchCurrencyConversion.isChecked) {
             val rate = currencyExchangeRatesViewModel.exchangeRate.value?.getRateForAppCurrency() ?: 0.0
             binding.incCardAssetDetails.tvLastChange.setupVariation(
@@ -300,7 +304,6 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
             tvLastChange.visibility = View.INVISIBLE
             ivLastChangeReload.visibility = View.VISIBLE
         }
-        Toast.makeText(context, getString(R.string.errorGettingAssetQuote), Toast.LENGTH_SHORT).show()
     }
 
     private fun observeGetQuoteUiState() {
