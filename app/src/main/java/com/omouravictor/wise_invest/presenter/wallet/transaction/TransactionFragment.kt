@@ -237,7 +237,7 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
                     } else {
                         assetUiModel.totalInvested - totalInvested
                     }
-                    walletViewModel.saveAsset(assetUiModel, userViewModel.user.value.uid)
+                    walletViewModel.updateAsset(assetUiModel, userViewModel.user.value.uid)
                 }
             }
         }

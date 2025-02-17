@@ -54,11 +54,24 @@ class WalletViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val result = firebaseRepository.saveAsset(userId, asset).getOrThrow()
-                val updatedList = getUpdatedList(result)
+                val updatedList = _assetList.value + result
                 _saveAssetUiState.value = UiState.Success(result)
                 _assetList.value = updatedList
                 _getUserAssetListUiState.value = UiState.Success(updatedList)
 
+            } catch (e: Exception) {
+                _saveAssetUiState.value = UiState.Error(e)
+            }
+        }
+    }
+
+    fun updateAsset(asset: AssetUiModel, userId: String) {
+        _saveAssetUiState.value = UiState.Loading
+
+        viewModelScope.launch {
+            try {
+                val result = firebaseRepository.saveAsset(userId, asset).getOrThrow()
+                _saveAssetUiState.value = UiState.Success(result)
             } catch (e: Exception) {
                 _saveAssetUiState.value = UiState.Error(e)
             }
@@ -102,16 +115,6 @@ class WalletViewModel @Inject constructor(
             } catch (e: Exception) {
                 Log.e("UpdatePrices", "UserId: $userId | Asset: ${asset.symbol}", e)
             }
-        }
-    }
-
-    private fun getUpdatedList(asset: AssetUiModel): List<AssetUiModel> {
-        return _assetList.value.toMutableList().apply {
-            val index = indexOfFirst { it.symbol == asset.symbol }
-            if (index > -1)
-                set(index, asset)
-            else
-                add(asset)
         }
     }
 
