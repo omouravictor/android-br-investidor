@@ -78,8 +78,8 @@
     <string name="errorGettingExchangeRate">Erro ao obter a cotação de Câmbio.</string>
     <string name="errorGettingAssetQuote">Erro ao obter as cotações do Ativo.</string>
 
-    <string name="appName">WiseInvest</string>
-    <string name="appNameTitle">Wise Invest</string>
+    <string name="appName">BrInvestidor</string>
+    <string name="appNameTitle">BR Investidor</string>
     <string name="add">Add</string>
     <string name="settings">Configurações</string>
     <string name="wallet">Carteira</string>

@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Theme.WiseInvest" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.BrInvestidor" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/appPrimaryColor</item>
         <!-- Secondary brand color. -->
@@ -10,28 +10,28 @@
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/appWindowBackColor</item>
         <item name="android:textColor">@color/appTextColor</item>
-        <item name="actionMenuTextAppearance">@style/Theme.WiseInvest.ActionBarMenu</item>
+        <item name="actionMenuTextAppearance">@style/Theme.BrInvestidor.ActionBarMenu</item>
         <item name="android:navigationBarColor">@color/black</item>
-        <item name="searchViewStyle">@style/Theme.WiseInvest.SearchView</item>
+        <item name="searchViewStyle">@style/Theme.BrInvestidor.SearchView</item>
     </style>
 
-    <style name="Theme.WiseInvest.LoginActivity" parent="Theme.SplashScreen">
+    <style name="Theme.BrInvestidor.LoginActivity" parent="Theme.SplashScreen">
         <item name="android:statusBarColor">@color/black</item>
         <item name="android:navigationBarColor">@color/black</item>
         <item name="windowSplashScreenBackground">@color/appWindowBackColor</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash_screen</item>
-        <item name="postSplashScreenTheme">@style/Theme.WiseInvest</item>
+        <item name="postSplashScreenTheme">@style/Theme.BrInvestidor</item>
     </style>
 
-    <style name="Theme.WiseInvest.TabTextAppearance" parent="TextAppearance.Design.Tab">
+    <style name="Theme.BrInvestidor.TabTextAppearance" parent="TextAppearance.Design.Tab">
         <item name="textAllCaps">false</item>
     </style>
 
-    <style name="Theme.WiseInvest.ActionBarMenu" parent="android:TextAppearance.Material.Widget.ActionBar.Menu">
+    <style name="Theme.BrInvestidor.ActionBarMenu" parent="android:TextAppearance.Material.Widget.ActionBar.Menu">
         <item name="android:textAllCaps">false</item>
     </style>
 
-    <style name="Theme.WiseInvest.Toolbar">
+    <style name="Theme.BrInvestidor.Toolbar">
         <item name="colorControlNormal">@color/green</item>
         <item name="colorAccent">@color/green</item>
         <item name="android:editTextColor">@color/white</item>
@@ -39,26 +39,26 @@
         <item name="colorControlActivated">@color/green</item>
     </style>
 
-    <style name="Theme.WiseInvest.ToolbarTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+    <style name="Theme.BrInvestidor.ToolbarTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">@dimen/textSize4</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="Theme.WiseInvest.OverlayBottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/Theme.WiseInvest.BottomSheetModal</item>
+    <style name="Theme.BrInvestidor.OverlayBottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/Theme.BrInvestidor.BottomSheetModal</item>
     </style>
 
-    <style name="Theme.WiseInvest.BottomSheetModal" parent="Widget.MaterialComponents.BottomSheet.Modal">
+    <style name="Theme.BrInvestidor.BottomSheetModal" parent="Widget.MaterialComponents.BottomSheet.Modal">
         <item name="backgroundTint">@android:color/transparent</item>
     </style>
 
-    <style name="Theme.WiseInvest.Switch" parent="Theme.AppCompat.Light">
+    <style name="Theme.BrInvestidor.Switch" parent="Theme.AppCompat.Light">
         <item name="colorControlActivated">@color/black</item>
         <item name="android:colorForeground">@color/black</item>
         <item name="colorSwitchThumbNormal">#EDEDED</item>
     </style>
 
-    <style name="Theme.WiseInvest.SearchView" parent="Widget.AppCompat.SearchView">
+    <style name="Theme.BrInvestidor.SearchView" parent="Widget.AppCompat.SearchView">
         <item name="searchHintIcon">@null</item>
     </style>
 
