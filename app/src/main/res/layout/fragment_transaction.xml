@@ -129,6 +129,32 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
+                android:id="@+id/tvTitleCurrentPrice"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/defaultSpace"
+                android:layout_marginTop="@dimen/defaultSpace"
+                android:text="@string/currentPrice"
+                android:textColor="@color/grayTextColor"
+                app:layout_constraintEnd_toStartOf="@+id/tvUnitPrice"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutValuePerUnit" />
+
+            <TextView
+                android:id="@+id/tvUnitPrice"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="@dimen/defaultSpace"
+                android:textAlignment="textEnd"
+                android:textColor="@color/grayTextColor"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/tvTitleCurrentPrice"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvTitleCurrentPrice"
+                app:layout_constraintTop_toTopOf="@+id/tvTitleCurrentPrice"
+                tools:text="R$ 50,40" />
+
+            <TextView
                 android:id="@+id/tvTittleCurrentPosition"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -137,7 +163,7 @@
                 android:text="@string/currentPosition"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutValuePerUnit" />
+                app:layout_constraintTop_toBottomOf="@+id/tvTitleCurrentPrice" />
 
             <include
                 android:id="@+id/incCurrentPosition"

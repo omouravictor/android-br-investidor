@@ -89,6 +89,7 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
             val color = context.getColor(assetUiModel.type.colorResId)
             val formattedSymbolAndAmount = assetUiModel.getFormattedSymbolAndAmount()
 
+            tvUnitPrice.text = LocaleUtil.getFormattedCurrencyValue(assetUiModel.currency, assetUiModel.price)
             incCurrentPosition.color.setBackgroundColor(color)
             incCurrentPosition.tvSymbolAmount.text = formattedSymbolAndAmount
             incCurrentPosition.tvName.text = assetUiModel.name
