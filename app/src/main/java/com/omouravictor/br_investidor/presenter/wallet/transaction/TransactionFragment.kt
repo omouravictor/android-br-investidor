@@ -39,6 +39,7 @@ import com.omouravictor.br_investidor.util.setupToolbarCenterText
 import com.omouravictor.br_investidor.util.setupVariation
 import com.omouravictor.br_investidor.util.setupYieldForAsset
 import com.omouravictor.br_investidor.util.showErrorSnackBar
+import com.omouravictor.br_investidor.util.showSuccessSnackBar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -262,6 +263,12 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
         navController
             .previousBackStackEntry!!
             .savedStateHandle[SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL] = asset
+
+        activity.showSuccessSnackBar(
+            getString(R.string.assetUpdatedSuccessfully),
+            anchorResView = binding.incBtnSave.root.id
+        )
+
         navController.popBackStack()
     }
 
