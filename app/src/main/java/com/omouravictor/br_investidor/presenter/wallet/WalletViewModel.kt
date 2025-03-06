@@ -1,5 +1,6 @@
 package com.omouravictor.br_investidor.presenter.wallet
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.omouravictor.br_investidor.data.remote.apis.alpha_vantage_api.repository.AssetsApiRepository
@@ -25,7 +26,8 @@ class WalletViewModel @Inject constructor(
     private val _deleteAssetUiState = MutableStateFlow<UiState<AssetUiModel>>(UiState.Initial)
     val deleteAssetUiState = _deleteAssetUiState.asStateFlow()
 
-    private val _getUserAssetListUiState = MutableStateFlow<UiState<List<AssetUiModel>>>(UiState.Initial)
+    private val _getUserAssetListUiState =
+        MutableStateFlow<UiState<List<AssetUiModel>>>(UiState.Initial)
     val getUserAssetListUiState = _getUserAssetListUiState.asStateFlow()
 
     private val _assetList = MutableStateFlow<List<AssetUiModel>>(emptyList())
@@ -73,14 +75,11 @@ class WalletViewModel @Inject constructor(
     }
 
     fun updateAsset(asset: AssetUiModel, userId: String) {
-        _saveAssetUiState.value = UiState.Loading
-
         viewModelScope.launch {
             try {
-                val result = firebaseRepository.saveAsset(userId, asset).getOrThrow()
-                _saveAssetUiState.value = UiState.Success(result)
+                firebaseRepository.saveAsset(userId, asset).getOrThrow()
             } catch (e: Exception) {
-                _saveAssetUiState.value = UiState.Error(e)
+                Log.e("UpdateAsset", "UserId: $userId | Asset: ${asset.symbol}", e)
             }
         }
     }
