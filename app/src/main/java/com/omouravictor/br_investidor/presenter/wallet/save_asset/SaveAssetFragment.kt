@@ -207,6 +207,8 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
                     getString(R.string.assetUpdatedSuccessfully),
                     anchorResView = binding.incBtnSave.root.id
                 )
+
+                navController.popBackStack()
             }
         }
     }
