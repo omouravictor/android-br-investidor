@@ -17,6 +17,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.snackbar.Snackbar
 import com.omouravictor.br_investidor.R
 import com.omouravictor.br_investidor.databinding.FragmentTransactionBinding
 import com.omouravictor.br_investidor.presenter.model.UiState
@@ -265,7 +266,8 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
             .savedStateHandle[SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL] = asset
 
         activity.showSuccessSnackBar(
-            getString(R.string.assetUpdatedSuccessfully),
+            message = getString(R.string.assetUpdatedSuccessfully),
+            duration = Snackbar.LENGTH_SHORT,
             anchorResView = binding.incBtnSave.root.id
         )
 

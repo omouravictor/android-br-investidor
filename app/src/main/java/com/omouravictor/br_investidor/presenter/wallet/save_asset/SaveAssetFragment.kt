@@ -21,6 +21,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.snackbar.Snackbar
 import com.omouravictor.br_investidor.R
 import com.omouravictor.br_investidor.databinding.FragmentSaveAssetBinding
 import com.omouravictor.br_investidor.presenter.model.UiState
@@ -204,7 +205,8 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
                 handleSaveAssetLoading(false)
 
                 activity.showSuccessSnackBar(
-                    getString(R.string.assetUpdatedSuccessfully),
+                    message = getString(R.string.assetUpdatedSuccessfully),
+                    duration = Snackbar.LENGTH_SHORT,
                     anchorResView = binding.incBtnSave.root.id
                 )
 
