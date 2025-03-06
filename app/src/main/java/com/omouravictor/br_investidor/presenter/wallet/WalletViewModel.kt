@@ -23,6 +23,9 @@ class WalletViewModel @Inject constructor(
     private val _saveAssetUiState = MutableStateFlow<UiState<AssetUiModel>>(UiState.Initial)
     val saveAssetUiState = _saveAssetUiState.asStateFlow()
 
+    private val _updateAssetUiState = MutableStateFlow<UiState<AssetUiModel>>(UiState.Initial)
+    val updateAssetUiState = _updateAssetUiState.asStateFlow()
+
     private val _deleteAssetUiState = MutableStateFlow<UiState<AssetUiModel>>(UiState.Initial)
     val deleteAssetUiState = _deleteAssetUiState.asStateFlow()
 
@@ -75,6 +78,19 @@ class WalletViewModel @Inject constructor(
     }
 
     fun updateAsset(asset: AssetUiModel, userId: String) {
+        _updateAssetUiState.value = UiState.Loading
+
+        viewModelScope.launch {
+            try {
+                val result = firebaseRepository.saveAsset(userId, asset).getOrThrow()
+                _updateAssetUiState.value = UiState.Success(result)
+            } catch (e: Exception) {
+                _updateAssetUiState.value = UiState.Error(e)
+            }
+        }
+    }
+
+    fun updateAssetInDataBase(asset: AssetUiModel, userId: String) {
         viewModelScope.launch {
             try {
                 firebaseRepository.saveAsset(userId, asset).getOrThrow()

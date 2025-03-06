@@ -280,7 +280,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
 
         assetUiModel.price = globalQuote.price
         setupCardWalletDetails()
-        walletViewModel.updateAsset(assetUiModel, userViewModel.user.value.uid)
+        walletViewModel.updateAssetInDataBase(assetUiModel, userViewModel.user.value.uid)
 
         if (binding.incCardConversionRate.switchCurrencyConversion.isChecked) {
             val rate = currencyExchangeRatesViewModel.exchangeRate.value?.getRateForAppCurrency() ?: 0.0

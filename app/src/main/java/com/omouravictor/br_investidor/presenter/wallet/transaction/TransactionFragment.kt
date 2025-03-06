@@ -65,7 +65,7 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
         binding = FragmentTransactionBinding.bind(view)
         activity.setupToolbarCenterText(getString(R.string.newTransaction))
         setupViews()
-        observeSaveAssetUiState()
+        observeUpdateAssetUiState()
         observeDeleteAssetUiState()
     }
 
@@ -270,10 +270,10 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
         activity.showErrorSnackBar(activity.getErrorMessage(e))
     }
 
-    private fun observeSaveAssetUiState() {
+    private fun observeUpdateAssetUiState() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                walletViewModel.saveAssetUiState.collectLatest {
+                walletViewModel.updateAssetUiState.collectLatest {
                     when (it) {
                         is UiState.Loading -> handleLoading(true)
                         is UiState.Success -> handleSaveAssetSuccess(it.data)
