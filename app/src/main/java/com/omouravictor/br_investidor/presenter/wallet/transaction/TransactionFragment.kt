@@ -266,7 +266,7 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
             .savedStateHandle[SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL] = asset
 
         activity.showSuccessSnackBar(
-            message = getString(R.string.assetUpdatedSuccessfully),
+            message = getString(R.string.transactionSuccessfully),
             duration = Snackbar.LENGTH_SHORT,
             anchorResView = binding.incBtnSave.root.id
         )
