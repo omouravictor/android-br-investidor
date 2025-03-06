@@ -71,7 +71,7 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        walletViewModel.resetSaveAssetUiState()
+        walletViewModel.resetUpdateAssetUiState()
     }
 
     private fun setupViews() {
