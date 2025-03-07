@@ -128,30 +128,45 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <View
+                android:id="@+id/vLine"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="@dimen/defaultSpace"
+                android:background="@color/grayStrokeColor"
+                app:layout_constraintBottom_toBottomOf="@+id/tvUnitPrice"
+                app:layout_constraintEnd_toStartOf="@+id/tvUnitPrice"
+                app:layout_constraintStart_toEndOf="@+id/tvTitleCurrentPrice"
+                app:layout_constraintTop_toTopOf="@+id/tvUnitPrice" />
+
             <TextView
                 android:id="@+id/tvTitleCurrentPrice"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/defaultSpace"
-                android:layout_marginTop="@dimen/defaultSpace"
+                android:layout_marginStart="@dimen/defaultSpace"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:text="@string/currentPrice"
                 android:textColor="@color/grayTextColor"
-                app:layout_constraintEnd_toStartOf="@+id/tvUnitPrice"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/tvUnitPrice"
+                app:layout_constraintEnd_toStartOf="@+id/vLine"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutValuePerUnit" />
+                app:layout_constraintTop_toTopOf="@+id/tvUnitPrice"
+                tools:text="Preço atual" />
 
             <TextView
                 android:id="@+id/tvUnitPrice"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="@dimen/defaultSpace"
                 android:textAlignment="textEnd"
                 android:textColor="@color/grayTextColor"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/tvTitleCurrentPrice"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tvTitleCurrentPrice"
-                app:layout_constraintTop_toTopOf="@+id/tvTitleCurrentPrice"
+                app:layout_constraintStart_toEndOf="@+id/vLine"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutValuePerUnit"
                 tools:text="R$ 50,40" />
 
             <TextView
@@ -159,11 +174,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/defaultSpace"
-                android:layout_marginTop="@dimen/defaultSpace"
+                android:layout_marginTop="24dp"
                 android:text="@string/currentPosition"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvTitleCurrentPrice" />
+                app:layout_constraintTop_toBottomOf="@+id/tvUnitPrice" />
 
             <include
                 android:id="@+id/incCurrentPosition"
