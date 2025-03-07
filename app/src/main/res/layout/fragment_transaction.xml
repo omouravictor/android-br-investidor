@@ -132,7 +132,7 @@
                 android:id="@+id/vLine"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
-                android:layout_marginHorizontal="@dimen/defaultSpace"
+                android:layout_marginHorizontal="24dp"
                 android:background="@color/grayStrokeColor"
                 app:layout_constraintBottom_toBottomOf="@+id/tvUnitPrice"
                 app:layout_constraintEnd_toStartOf="@+id/tvUnitPrice"
@@ -141,7 +141,7 @@
 
             <TextView
                 android:id="@+id/tvTitleCurrentPrice"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/defaultSpace"
                 android:ellipsize="end"
@@ -149,6 +149,7 @@
                 android:text="@string/currentPrice"
                 android:textColor="@color/grayTextColor"
                 android:textStyle="bold"
+                android:maxWidth="100dp"
                 app:layout_constraintBottom_toBottomOf="@+id/tvUnitPrice"
                 app:layout_constraintEnd_toStartOf="@+id/vLine"
                 app:layout_constraintStart_toStartOf="parent"
@@ -157,13 +158,14 @@
 
             <TextView
                 android:id="@+id/tvUnitPrice"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="@dimen/defaultSpace"
                 android:textAlignment="textEnd"
                 android:textColor="@color/grayTextColor"
                 android:textStyle="bold"
+                android:maxWidth="100dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/vLine"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayoutValuePerUnit"
