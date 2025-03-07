@@ -90,6 +90,8 @@ class WalletViewModel @Inject constructor(
         }
     }
 
+    /* This function is used to update the asset price in the database in case the
+     limit of API requests is reached in the function getUserAssetList. */
     fun updateAssetInDataBase(asset: AssetUiModel, userId: String) {
         viewModelScope.launch {
             try {

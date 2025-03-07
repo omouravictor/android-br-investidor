@@ -17,6 +17,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -53,6 +54,7 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
     private lateinit var assetUiModel: AssetUiModel
     private lateinit var activity: FragmentActivity
     private lateinit var navController: NavController
+    private lateinit var previousBackStackEntry: NavBackStackEntry
     private val args by navArgs<SaveAssetFragmentArgs>()
     private val walletViewModel: WalletViewModel by activityViewModels()
     private val userViewModel: UserViewModel by activityViewModels()
@@ -62,6 +64,7 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
         activity = requireActivity()
         assetUiModel = args.assetUiModel
         navController = findNavController()
+        previousBackStackEntry = navController.previousBackStackEntry!!
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -70,12 +73,14 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
         setupToolbar()
         setupViews()
         observeSaveAssetUiState()
+        observeUpdateAssetUiState()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         activity.hideKeyboard(binding.root)
         walletViewModel.resetSaveAssetUiState()
+        walletViewModel.resetUpdateAssetUiState()
     }
 
     private fun setupToolbar() {
@@ -110,8 +115,7 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
     }
 
     private fun setupAmountAndTotalInvested() {
-        val previousIsAssetSearch =
-            navController.previousBackStackEntry!!.destination.id == R.id.fragmentAssetSearch
+        val previousIsAssetSearch = previousBackStackEntry.destination.id == R.id.fragmentAssetSearch
 
         binding.ietAmount.apply {
             doAfterTextChanged { setupCurrentPosition() }
@@ -175,7 +179,14 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
             setOnClickListener {
                 assetUiModel.amount = binding.ietAmount.getLongValue()
                 assetUiModel.totalInvested = binding.ietTotalInvested.text.toString().getMonetaryValueInDouble()
-                walletViewModel.saveAsset(assetUiModel, userViewModel.user.value.uid)
+
+                when (previousBackStackEntry.destination.id) {
+                    R.id.fragmentAssetSearch ->
+                        walletViewModel.saveAsset(assetUiModel, userViewModel.user.value.uid)
+
+                    R.id.fragmentAssetDetail ->
+                        walletViewModel.updateAsset(assetUiModel, userViewModel.user.value.uid)
+                }
             }
         }
     }
@@ -195,8 +206,6 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
     }
 
     private fun handleSaveAssetSuccess(asset: AssetUiModel) {
-        val previousBackStackEntry = navController.previousBackStackEntry!!
-
         when (previousBackStackEntry.destination.id) {
             R.id.fragmentAssetSearch -> navController.clearPileAndNavigateToStart()
 
@@ -224,6 +233,21 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 walletViewModel.saveAssetUiState.collectLatest {
+                    when (it) {
+                        is UiState.Loading -> handleSaveAssetLoading(true)
+                        is UiState.Success -> handleSaveAssetSuccess(it.data)
+                        is UiState.Error -> handleSaveAssetError(it.e)
+                        else -> Unit
+                    }
+                }
+            }
+        }
+    }
+
+    private fun observeUpdateAssetUiState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                walletViewModel.updateAssetUiState.collectLatest {
                     when (it) {
                         is UiState.Loading -> handleSaveAssetLoading(true)
                         is UiState.Success -> handleSaveAssetSuccess(it.data)
