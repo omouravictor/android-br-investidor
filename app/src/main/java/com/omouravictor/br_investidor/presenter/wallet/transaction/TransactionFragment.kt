@@ -5,8 +5,14 @@ import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Typeface
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContextCompat
+import androidx.core.view.MenuProvider
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -17,8 +23,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import com.omouravictor.br_investidor.R
+import com.omouravictor.br_investidor.R.*
 import com.omouravictor.br_investidor.databinding.FragmentTransactionBinding
 import com.omouravictor.br_investidor.presenter.model.UiState
 import com.omouravictor.br_investidor.presenter.user.UserViewModel
@@ -26,6 +34,7 @@ import com.omouravictor.br_investidor.presenter.wallet.WalletViewModel
 import com.omouravictor.br_investidor.presenter.wallet.asset.AssetUiModel
 import com.omouravictor.br_investidor.presenter.wallet.asset.getFormattedSymbol
 import com.omouravictor.br_investidor.presenter.wallet.asset.getFormattedSymbolAndAmount
+import com.omouravictor.br_investidor.presenter.wallet.asset.getFormattedTotalInvested
 import com.omouravictor.br_investidor.presenter.wallet.asset.getFormattedTotalPrice
 import com.omouravictor.br_investidor.util.AppConstants.SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL
 import com.omouravictor.br_investidor.util.LocaleUtil
@@ -44,7 +53,7 @@ import com.omouravictor.br_investidor.util.showSuccessSnackBar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class TransactionFragment : Fragment(R.layout.fragment_transaction) {
+class TransactionFragment : Fragment(layout.fragment_transaction) {
 
     private lateinit var binding: FragmentTransactionBinding
     private lateinit var activity: FragmentActivity
@@ -65,7 +74,7 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentTransactionBinding.bind(view)
-        activity.setupToolbarCenterText(getString(R.string.newTransaction))
+        setupToolbar()
         setupViews()
         observeUpdateAssetUiState()
         observeDeleteAssetUiState()
@@ -74,6 +83,39 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
     override fun onDestroyView() {
         super.onDestroyView()
         walletViewModel.resetUpdateAssetUiState()
+    }
+
+    private fun setupToolbar() {
+        activity.setupToolbarCenterText(getString(string.newTransaction))
+
+        activity.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.options_menu_info, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                showInfoBottomSheetDialog()
+                return true
+            }
+        }, viewLifecycleOwner)
+    }
+
+    private fun showInfoBottomSheetDialog() {
+        val context = requireContext()
+        with(BottomSheetDialog(context, style.Theme_BrInvestidor_OverlayBottomSheetDialog)) {
+            setContentView(layout.bottom_sheet_dialog_asset_info)
+            findViewById<View>(R.id.vColorAssetInfo)!!.backgroundTintList =
+                ContextCompat.getColorStateList(context, assetUiModel.type.colorResId)
+            findViewById<TextView>(R.id.tvTitleAssetInfo)!!.text =
+                assetUiModel.getFormattedSymbolAndAmount()
+            findViewById<TextView>(R.id.tvCurrentPriceAssetInfo)!!.text =
+                LocaleUtil.getFormattedCurrencyValue(assetUiModel.currency, assetUiModel.price)
+            findViewById<TextView>(R.id.tvCurrentPositionAssetInfo)!!.text =
+                assetUiModel.getFormattedTotalPrice()
+            findViewById<TextView>(R.id.tvTotalInvestedAssetInfo)!!.text =
+                assetUiModel.getFormattedTotalInvested()
+            show()
+        }
     }
 
     private fun setupViews() {
@@ -91,7 +133,6 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
             val color = context.getColor(assetUiModel.type.colorResId)
             val formattedSymbolAndAmount = assetUiModel.getFormattedSymbolAndAmount()
 
-            tvUnitPrice.text = LocaleUtil.getFormattedCurrencyValue(assetUiModel.currency, assetUiModel.price)
             incCurrentPosition.color.setBackgroundColor(color)
             incCurrentPosition.tvSymbolAmount.text = formattedSymbolAndAmount
             incCurrentPosition.tvName.text = assetUiModel.name
@@ -101,7 +142,7 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
             incNewPosition.color.setBackgroundColor(color)
             incNewPosition.tvSymbolAmount.text = formattedSymbolAndAmount
             incNewPosition.tvName.text = assetUiModel.name
-            incNewPosition.tvInfoMessage.hint = getString(R.string.fillTheFieldsToView)
+            incNewPosition.tvInfoMessage.hint = getString(string.fillTheFieldsToView)
         }
     }
 
@@ -125,9 +166,11 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
             tvBuy.setOnClickListener {
                 transaction = Transaction.BUY
                 tvBuy.typeface = Typeface.DEFAULT_BOLD
-                tvBuy.background = AppCompatResources.getDrawable(it.context, R.drawable.rectangle_green_stroke)
+                tvBuy.background =
+                    AppCompatResources.getDrawable(it.context, drawable.rectangle_green_stroke)
                 tvSale.typeface = null
-                tvSale.background = AppCompatResources.getDrawable(it.context, R.drawable.rectangle_gray_stroke)
+                tvSale.background =
+                    AppCompatResources.getDrawable(it.context, drawable.rectangle_gray_stroke)
                 updateNewPosition()
             }
         }
@@ -138,9 +181,11 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
             tvSale.setOnClickListener {
                 transaction = Transaction.SALE
                 tvSale.typeface = Typeface.DEFAULT_BOLD
-                tvSale.background = AppCompatResources.getDrawable(it.context, R.drawable.rectangle_green_stroke)
+                tvSale.background =
+                    AppCompatResources.getDrawable(it.context, drawable.rectangle_green_stroke)
                 tvBuy.typeface = null
-                tvBuy.background = AppCompatResources.getDrawable(it.context, R.drawable.rectangle_gray_stroke)
+                tvBuy.background =
+                    AppCompatResources.getDrawable(it.context, drawable.rectangle_gray_stroke)
                 updateNewPosition()
             }
         }
@@ -163,7 +208,8 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
     ) {
         val currency = assetUiModel.currency
         binding.incNewPosition.apply {
-            tvSymbolAmount.text = "${assetUiModel.getFormattedSymbol()} (${LocaleUtil.getFormattedLong(updatedAmount)})"
+            tvSymbolAmount.text =
+                "${assetUiModel.getFormattedSymbol()} (${LocaleUtil.getFormattedLong(updatedAmount)})"
             tvTotalPrice.text = LocaleUtil.getFormattedCurrencyValue(currency, updatedTotalPrice)
             tvYield.setupVariation(currency, updatedYield, updatedYieldPercent)
 
@@ -176,7 +222,8 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
 
     private fun updateNewPosition() {
         val amount = binding.ietTransactionAmount.getLongValue()
-        val valuePerUnit = binding.ietTransactionValuePerUnit.text.toString().getMonetaryValueInDouble()
+        val valuePerUnit =
+            binding.ietTransactionValuePerUnit.text.toString().getMonetaryValueInDouble()
 
         if (amount == 0L || valuePerUnit == 0.0) {
             showInitialUpdatedPositionLayout()
@@ -184,7 +231,8 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
         }
 
         val isBuy = transaction == Transaction.BUY
-        val updatedAmount = if (isBuy) assetUiModel.amount + amount else assetUiModel.amount - amount
+        val updatedAmount =
+            if (isBuy) assetUiModel.amount + amount else assetUiModel.amount - amount
         val updatedTotalPrice = assetUiModel.price * updatedAmount
         val updatedTotalInvested = if (isBuy) {
             assetUiModel.totalInvested + (valuePerUnit * amount)
@@ -198,38 +246,45 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
             updatedYieldPercent = updatedYield / assetUiModel.totalInvested
             showUpdatedPositionLayout(0, 0.0, updatedYield, updatedYieldPercent)
         } else {
-            showUpdatedPositionLayout(updatedAmount, updatedTotalPrice, updatedYield, updatedYieldPercent)
+            showUpdatedPositionLayout(
+                updatedAmount,
+                updatedTotalPrice,
+                updatedYield,
+                updatedYieldPercent
+            )
         }
     }
 
     private fun showAlertDialogForSale(context: Context) {
-        val icon = AppCompatResources.getDrawable(context, R.drawable.ic_info)?.apply {
+        val icon = AppCompatResources.getDrawable(context, drawable.ic_info)?.apply {
             setTint(context.getColor(assetUiModel.type.colorResId))
         }
 
         AlertDialog.Builder(context).apply {
             setTitle(assetUiModel.getFormattedSymbol())
-            setMessage(getString(R.string.saleAssetAlertMessage))
-            setPositiveButton(getString(R.string.yes)) { _, _ ->
+            setMessage(getString(string.saleAssetAlertMessage))
+            setPositiveButton(getString(string.yes)) { _, _ ->
                 walletViewModel.deleteAsset(
                     assetUiModel,
                     userViewModel.user.value.uid
                 )
             }
-            setNegativeButton(getString(R.string.not)) { dialog, _ -> dialog.dismiss() }
+            setNegativeButton(getString(string.not)) { dialog, _ -> dialog.dismiss() }
             setIcon(icon)
         }.show()
     }
 
     private fun setupSaveButton() {
         binding.incBtnSave.root.apply {
-            text = getString(R.string.save)
+            text = getString(string.save)
             setOnClickListener {
                 val isBuy = transaction == Transaction.BUY
                 val amount = binding.ietTransactionAmount.getLongValue()
                 val totalInvested =
-                    binding.ietTransactionValuePerUnit.text.toString().getMonetaryValueInDouble() * amount
-                val updatedAmount = if (isBuy) assetUiModel.amount + amount else assetUiModel.amount - amount
+                    binding.ietTransactionValuePerUnit.text.toString()
+                        .getMonetaryValueInDouble() * amount
+                val updatedAmount =
+                    if (isBuy) assetUiModel.amount + amount else assetUiModel.amount - amount
 
                 if (updatedAmount < 1) {
                     showAlertDialogForSale(context)
@@ -266,7 +321,7 @@ class TransactionFragment : Fragment(R.layout.fragment_transaction) {
             .savedStateHandle[SAVED_STATE_HANDLE_KEY_OF_UPDATED_ASSET_UI_MODEL] = asset
 
         activity.showSuccessSnackBar(
-            message = getString(R.string.transactionSuccessfully),
+            message = getString(string.transactionSuccessfully),
             duration = Snackbar.LENGTH_SHORT,
             anchorResView = binding.incBtnSave.root.id
         )

@@ -91,7 +91,6 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
         activity.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.options_menu_info, menu)
-                menu.findItem(R.id.infoMenuItem).icon?.setTint(ContextCompat.getColor(activity, assetType.colorResId))
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
@@ -138,8 +137,8 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
         val context = requireContext()
         with(BottomSheetDialog(context, R.style.Theme_BrInvestidor_OverlayBottomSheetDialog)) {
             setContentView(R.layout.bottom_sheet_dialog_info)
-            findViewById<ImageView>(R.id.ivTitle)!!.imageTintList =
-                ContextCompat.getColorStateList(context, assetType.colorResId)
+            findViewById<View>(R.id.vAssetColor)!!.backgroundTintList =
+                ContextCompat.getColorStateList(context, assetUiModel.type.colorResId)
             findViewById<TextView>(R.id.tvTitle)!!.text = getString(assetType.nameResId)
             findViewById<TextView>(R.id.tvInfo)!!.text = getString(assetType.descriptionResId)
             show()

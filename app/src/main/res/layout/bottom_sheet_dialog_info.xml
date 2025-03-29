@@ -13,12 +13,12 @@
         android:layout_height="wrap_content"
         android:gravity="center">
 
-        <ImageView
-            android:id="@+id/ivTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <View
+            android:id="@+id/vAssetColor"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
             android:layout_marginEnd="8dp"
-            android:src="@drawable/ic_info" />
+            android:background="@drawable/circle" />
 
         <TextView
             android:id="@+id/tvTitle"
