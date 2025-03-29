@@ -56,12 +56,17 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
     private fun addMenuProvider() {
         activity.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                menuInflater.inflate(R.menu.options_menu_search, menu)
-                searchView = menu.findItem(R.id.searchAsset).actionView as SearchView
+                menuInflater.inflate(R.menu.options_menu_news_search, menu)
+                searchView = menu.findItem(R.id.searchNews).actionView as SearchView
                 setupSearchView(searchView)
             }
 
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean = false
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                when (menuItem.itemId) {
+                    R.id.resetSearchNews -> newsViewModel.getNewsList(getString(R.string.defaultNewsSearch))
+                }
+                return true
+            }
         }, viewLifecycleOwner)
 
         binding.incLayoutError.incBtnTryAgain.root.apply {

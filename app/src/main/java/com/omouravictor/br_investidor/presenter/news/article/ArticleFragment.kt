@@ -1,5 +1,6 @@
 package com.omouravictor.br_investidor.presenter.news.article
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.webkit.WebView
@@ -37,6 +38,7 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
         val ivForward = binding.ivForward
 
         webView.apply {
+            settings.javaScriptEnabled = true
             webViewClient = object : WebViewClient() {
                 override fun onPageFinished(view: WebView?, url: String?) {
                     progressBar.isVisible = false

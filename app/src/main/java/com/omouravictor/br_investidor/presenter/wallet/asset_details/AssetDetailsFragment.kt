@@ -125,19 +125,16 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                return when (menuItem.itemId) {
+                when (menuItem.itemId) {
                     R.id.editMenuItem -> {
                         navController.navigate(AssetDetailsFragmentDirections.navToSaveAssetFragment(assetUiModel))
-                        true
                     }
 
                     R.id.deleteMenuItem -> {
                         showAlertDialogForDelete()
-                        true
                     }
-
-                    else -> false
                 }
+                return true
             }
         }, viewLifecycleOwner)
     }

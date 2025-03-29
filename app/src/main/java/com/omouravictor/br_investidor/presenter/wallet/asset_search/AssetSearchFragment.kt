@@ -65,7 +65,7 @@ class AssetSearchFragment : Fragment(R.layout.fragment_asset_search) {
                 setupSearchView(searchView)
             }
 
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean = false
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean = true
         }, viewLifecycleOwner)
 
         binding.incLayoutError.incBtnTryAgain.root.apply {

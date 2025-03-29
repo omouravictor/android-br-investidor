@@ -73,14 +73,12 @@ class WalletFragment : Fragment(R.layout.fragment_wallet) {
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                return when (menuItem.itemId) {
+                when (menuItem.itemId) {
                     R.id.addAssetMenuItem -> {
                         navController.navigate(WalletFragmentDirections.navToAssetSearchFragment())
-                        true
                     }
-
-                    else -> false
                 }
+                return true
             }
         }, viewLifecycleOwner)
     }

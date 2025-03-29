@@ -85,6 +85,7 @@
     <string name="settings">Configurações</string>
     <string name="wallet">Carteira</string>
     <string name="assetsSearch">Pesquisa de ativos</string>
+    <string name="newsSearch">Pesquisa de notícias</string>
     <string name="searchYourAsset">Pesquise seu ativo…</string>
     <string name="searchASubject">Pesquise um assunto…</string>
     <string name="profile">Perfil</string>
@@ -159,5 +160,6 @@
     <string name="currentPassword">Senha atual</string>
     <string name="newPassword">Nova senha</string>
     <string name="change">Alterar</string>
+    <string name="resetNewsSearch">Reiniciar pesquisa de notícias</string>
 
 </resources>
