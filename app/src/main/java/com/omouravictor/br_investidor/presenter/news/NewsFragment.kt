@@ -58,7 +58,7 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.options_menu_news_search, menu)
                 searchView = menu.findItem(R.id.searchNews).actionView as SearchView
-                setupSearchView(searchView)
+                setupSearchView(searchView, menu)
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
@@ -82,13 +82,13 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
         }
     }
 
-    private fun setupSearchView(searchView: SearchView) {
+    private fun setupSearchView(searchView: SearchView, menu: Menu) {
         val queryTextListener = object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 // Avoid duplicate requests when user clicks search button for the first time
                 if (newsViewModel.getNewsListUiState.value is UiState.Loading) return false
                 query?.let { newsViewModel.getNewsList(it) }
-                return false
+                return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
@@ -97,9 +97,22 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
             }
         }
 
-        searchView.maxWidth = Int.MAX_VALUE
-        searchView.queryHint = getString(R.string.searchASubject)
-        searchView.setOnQueryTextListener(queryTextListener)
+        val resetSearchMenuItem = menu.findItem(R.id.resetSearchNews)
+
+        searchView.apply {
+            setOnCloseListener {
+                resetSearchMenuItem.isVisible = true
+                false
+            }
+
+            setOnSearchClickListener {
+                resetSearchMenuItem.isVisible = false
+            }
+
+            maxWidth = Int.MAX_VALUE
+            queryHint = getString(R.string.searchASubject)
+            setOnQueryTextListener(queryTextListener)
+        }
     }
 
     private fun setupAdapterAndRecyclerView() {
