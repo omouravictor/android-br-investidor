@@ -20,6 +20,14 @@ fun Activity.setupToolbarCenterText(centerText: String) {
     }
 }
 
+fun Activity.hideToolbar() {
+    findViewById<Toolbar>(R.id.toolbar).visibility = View.GONE
+}
+
+fun Activity.showToolbar() {
+    findViewById<Toolbar>(R.id.toolbar).visibility = View.VISIBLE
+}
+
 fun Activity.showErrorSnackBar(
     message: String,
     duration: Int = Snackbar.LENGTH_LONG,

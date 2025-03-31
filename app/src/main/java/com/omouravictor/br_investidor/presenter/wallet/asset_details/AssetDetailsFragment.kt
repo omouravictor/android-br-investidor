@@ -41,10 +41,12 @@ import com.omouravictor.br_investidor.util.AssetUtil
 import com.omouravictor.br_investidor.util.LocaleUtil
 import com.omouravictor.br_investidor.util.clearPileAndNavigateToStart
 import com.omouravictor.br_investidor.util.getErrorMessage
+import com.omouravictor.br_investidor.util.hideToolbar
 import com.omouravictor.br_investidor.util.setupToolbarTitle
 import com.omouravictor.br_investidor.util.setupVariation
 import com.omouravictor.br_investidor.util.setupYieldForAsset
 import com.omouravictor.br_investidor.util.showErrorSnackBar
+import com.omouravictor.br_investidor.util.showToolbar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -328,10 +330,12 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
 
     private fun handleDeleteAssetLoading(isLoading: Boolean) {
         if (isLoading) {
+            activity.hideToolbar()
             binding.mainLayout.visibility = View.INVISIBLE
             binding.incBtnNewTransaction.root.visibility = View.INVISIBLE
             binding.incProgressBar.root.visibility = View.VISIBLE
         } else {
+            activity.showToolbar()
             binding.mainLayout.visibility = View.VISIBLE
             binding.incBtnNewTransaction.root.visibility = View.VISIBLE
             binding.incProgressBar.root.visibility = View.GONE

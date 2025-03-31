@@ -19,6 +19,7 @@ import com.omouravictor.br_investidor.presenter.user.UserViewModel
 import com.omouravictor.br_investidor.presenter.wallet.WalletViewModel
 import com.omouravictor.br_investidor.util.AppConstants.USER_UI_MODEL_INTENT_EXTRA
 import com.omouravictor.br_investidor.util.clearPileAndNavigateTo
+import com.omouravictor.br_investidor.util.showToolbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -73,6 +74,7 @@ class MainActivity : AppCompatActivity() {
             (supportFragmentManager.findFragmentById(R.id.navHostFragmentMain) as NavHostFragment).navController
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
+            this.showToolbar()
             when (destination.id) {
                 R.id.fragmentSaveAsset,
                 R.id.fragmentTransaction,

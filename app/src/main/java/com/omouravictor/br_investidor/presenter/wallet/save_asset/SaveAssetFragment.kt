@@ -39,12 +39,14 @@ import com.omouravictor.br_investidor.util.getLongValue
 import com.omouravictor.br_investidor.util.getMonetaryValueInDouble
 import com.omouravictor.br_investidor.util.getRoundedDouble
 import com.omouravictor.br_investidor.util.hideKeyboard
+import com.omouravictor.br_investidor.util.hideToolbar
 import com.omouravictor.br_investidor.util.setEditTextCurrencyFormatMask
 import com.omouravictor.br_investidor.util.setEditTextLongNumberFormatMask
 import com.omouravictor.br_investidor.util.setupToolbarCenterText
 import com.omouravictor.br_investidor.util.setupVariation
 import com.omouravictor.br_investidor.util.showErrorSnackBar
 import com.omouravictor.br_investidor.util.showSuccessSnackBar
+import com.omouravictor.br_investidor.util.showToolbar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -193,10 +195,12 @@ class SaveAssetFragment : Fragment(R.layout.fragment_save_asset) {
     private fun handleSaveAssetLoading(isLoading: Boolean) {
         binding.apply {
             if (isLoading) {
+                activity.hideToolbar()
                 saveLayout.visibility = View.INVISIBLE
                 incBtnSave.root.visibility = View.INVISIBLE
                 incProgressBar.root.visibility = View.VISIBLE
             } else {
+                activity.showToolbar()
                 saveLayout.visibility = View.VISIBLE
                 incBtnSave.root.visibility = View.VISIBLE
                 incProgressBar.root.visibility = View.GONE
