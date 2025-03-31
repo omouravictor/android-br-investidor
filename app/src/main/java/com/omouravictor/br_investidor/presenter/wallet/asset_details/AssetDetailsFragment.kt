@@ -81,6 +81,12 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         observeGetExchangeRateUiState()
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (binding.incCardConversionRate.switchCurrencyConversion.isChecked)
+            convertCurrencyViews()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         walletViewModel.resetDeleteAssetUiState()
@@ -193,8 +199,7 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
 
             switchCurrencyConversion.setOnCheckedChangeListener { button, isChecked ->
                 if (isChecked) {
-                    val rate = currencyExchangeRatesViewModel.exchangeRate.value?.getRateForAppCurrency() ?: 0.0
-                    convertCurrencyViews(appCurrency, rate)
+                    convertCurrencyViews(appCurrency)
                 } else {
                     button.isChecked = false
                     resetCurrencyViews()
@@ -207,7 +212,10 @@ class AssetDetailsFragment : Fragment(R.layout.fragment_asset_details) {
         }
     }
 
-    private fun convertCurrencyViews(currency: String, rate: Double) {
+    private fun convertCurrencyViews(
+        currency: String = LocaleUtil.appCurrency.toString(),
+        rate: Double = currencyExchangeRatesViewModel.exchangeRate.value?.getRateForAppCurrency() ?: 0.0
+    ) {
         binding.apply {
             incCardAssetDetails.tvCurrentPrice.text =
                 LocaleUtil.getFormattedCurrencyValue(currency, assetUiModel.price * rate)
