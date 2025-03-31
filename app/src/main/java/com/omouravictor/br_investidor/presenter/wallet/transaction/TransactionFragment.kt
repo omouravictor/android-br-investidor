@@ -64,6 +64,10 @@ class TransactionFragment : Fragment(layout.fragment_transaction) {
     private val userViewModel: UserViewModel by activityViewModels()
     private var transaction = Transaction.BUY
 
+    companion object {
+        private const val TRANSACTION_BUNDLE_KEY = "transaction"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activity = requireActivity()
@@ -78,6 +82,20 @@ class TransactionFragment : Fragment(layout.fragment_transaction) {
         setupViews()
         observeUpdateAssetUiState()
         observeDeleteAssetUiState()
+
+        savedInstanceState?.let {
+            transaction =
+                Transaction.valueOf(it.getString(TRANSACTION_BUNDLE_KEY, Transaction.BUY.name))
+            when (transaction) {
+                Transaction.BUY -> binding.tvBuy.performClick()
+                Transaction.SALE -> binding.tvSale.performClick()
+            }
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(TRANSACTION_BUNDLE_KEY, transaction.name)
     }
 
     override fun onDestroyView() {
