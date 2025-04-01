@@ -11,4 +11,5 @@ interface FirebaseRepository {
     suspend fun saveAssetList(userId: String, assetList: List<AssetUiModel>): Result<List<AssetUiModel>>
     suspend fun saveAsset(userId: String, assetUiModel: AssetUiModel): Result<AssetUiModel>
     suspend fun deleteAsset(userId: String, assetUiModel: AssetUiModel): Result<AssetUiModel>
+    suspend fun deleteAllUserAssets(userId: String, assetList: List<AssetUiModel>) : Result<Unit>
 }

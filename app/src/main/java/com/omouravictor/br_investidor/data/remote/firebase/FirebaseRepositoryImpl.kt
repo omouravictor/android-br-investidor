@@ -89,7 +89,10 @@ class FirebaseRepositoryImpl(
         }
     }
 
-    override suspend fun saveAssetList(userId: String, assetList: List<AssetUiModel>): Result<List<AssetUiModel>> {
+    override suspend fun saveAssetList(
+        userId: String,
+        assetList: List<AssetUiModel>
+    ): Result<List<AssetUiModel>> {
         return withContext(dispatchers.io) {
             try {
                 val batch = firestore.batch()
@@ -105,7 +108,6 @@ class FirebaseRepositoryImpl(
                 }
 
                 batch.commit().await()
-
                 Result.success(assetList)
 
             } catch (e: Exception) {
@@ -115,7 +117,10 @@ class FirebaseRepositoryImpl(
         }
     }
 
-    override suspend fun saveAsset(userId: String, assetUiModel: AssetUiModel): Result<AssetUiModel> {
+    override suspend fun saveAsset(
+        userId: String,
+        assetUiModel: AssetUiModel
+    ): Result<AssetUiModel> {
         return withContext(dispatchers.io) {
             try {
                 firestore
@@ -135,7 +140,10 @@ class FirebaseRepositoryImpl(
         }
     }
 
-    override suspend fun deleteAsset(userId: String, assetUiModel: AssetUiModel): Result<AssetUiModel> {
+    override suspend fun deleteAsset(
+        userId: String,
+        assetUiModel: AssetUiModel
+    ): Result<AssetUiModel> {
         return withContext(dispatchers.io) {
             try {
                 firestore
@@ -150,6 +158,35 @@ class FirebaseRepositoryImpl(
 
             } catch (e: Exception) {
                 Log.e("DeleteAsset", "UserId: $userId | Asset: ${assetUiModel.symbol}", e)
+                Result.failure(e)
+            }
+        }
+    }
+
+    override suspend fun deleteAllUserAssets(
+        userId: String,
+        assetList: List<AssetUiModel>
+    ): Result<Unit> {
+        return withContext(dispatchers.io) {
+            try {
+                if (assetList.isEmpty()) return@withContext Result.success(Unit)
+
+                val userAssetsRef = firestore
+                    .collection(FirebaseConstants.COLLECTION_USERS)
+                    .document(userId)
+                    .collection(FirebaseConstants.COLLECTION_ASSETS)
+
+                val batch = firestore.batch()
+
+                for (asset in assetList) {
+                    batch.delete(userAssetsRef.document(asset.symbol))
+                }
+
+                batch.commit().await()
+                Result.success(Unit)
+
+            } catch (e: Exception) {
+                Log.e("DeleteAllUserAssets", "Error deleting assets for UserId: $userId", e)
                 Result.failure(e)
             }
         }

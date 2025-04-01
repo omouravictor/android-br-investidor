@@ -6,4 +6,9 @@
         android:icon="@drawable/ic_add"
         android:title="@string/add"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/deleteAllAssetsMenuItem"
+        android:icon="@drawable/ic_delete"
+        android:title="@string/deleteAllAssets"
+        app:showAsAction="never" />
 </menu>

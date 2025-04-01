@@ -23,6 +23,7 @@ import com.omouravictor.br_investidor.presenter.wallet.asset.AssetUiModel
 import com.omouravictor.br_investidor.presenter.wallet.asset.AssetViewModel
 import com.omouravictor.br_investidor.util.getErrorMessage
 import com.omouravictor.br_investidor.util.hideKeyboard
+import com.omouravictor.br_investidor.util.hideToolbar
 import com.omouravictor.br_investidor.util.setupRecyclerViewWithLinearLayout
 import com.omouravictor.br_investidor.util.showErrorSnackBar
 import kotlinx.coroutines.flow.collectLatest
@@ -166,6 +167,7 @@ class AssetSearchFragment : Fragment(R.layout.fragment_asset_search) {
     }
 
     private fun handleUpdatedAssetLoading() {
+        activity.hideToolbar()
         binding.apply {
             recyclerViewAssetSearch.isVisible = false
             incProgressBar.root.isVisible = true

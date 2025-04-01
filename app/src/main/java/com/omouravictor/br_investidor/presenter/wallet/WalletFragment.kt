@@ -24,6 +24,7 @@ import com.omouravictor.br_investidor.presenter.user.UserViewModel
 import com.omouravictor.br_investidor.presenter.wallet.asset_currencies.AssetCurrenciesFragment
 import com.omouravictor.br_investidor.presenter.wallet.asset_types.AssetTypesFragment
 import com.omouravictor.br_investidor.util.getErrorMessage
+import com.omouravictor.br_investidor.util.hideToolbar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -74,9 +75,11 @@ class WalletFragment : Fragment(R.layout.fragment_wallet) {
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 when (menuItem.itemId) {
-                    R.id.addAssetMenuItem -> {
+                    R.id.addAssetMenuItem ->
                         navController.navigate(WalletFragmentDirections.navToAssetSearchFragment())
-                    }
+
+                    R.id.deleteAllAssetsMenuItem ->
+                        walletViewModel.deleteAllUserAssets(userViewModel.user.value.uid)
                 }
                 return true
             }

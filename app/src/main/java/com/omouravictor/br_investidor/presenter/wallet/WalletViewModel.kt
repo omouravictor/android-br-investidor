@@ -118,6 +118,21 @@ class WalletViewModel @Inject constructor(
         }
     }
 
+    fun deleteAllUserAssets(userId: String) {
+        _getUserAssetListUiState.value = UiState.Loading
+
+        viewModelScope.launch {
+            try {
+                firebaseRepository.deleteAllUserAssets(userId, assetList.value).getOrThrow()
+                _assetList.value = emptyList()
+                _getUserAssetListUiState.value = UiState.Success(_assetList.value)
+
+            } catch (e: Exception) {
+                _getUserAssetListUiState.value = UiState.Error(e)
+            }
+        }
+    }
+
     fun resetSaveAssetUiState() {
         _saveAssetUiState.value = UiState.Initial
     }
