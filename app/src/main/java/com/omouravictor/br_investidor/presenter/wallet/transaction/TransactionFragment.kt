@@ -134,6 +134,7 @@ class TransactionFragment : Fragment(layout.fragment_transaction) {
                 assetUiModel.getFormattedTotalPrice()
             findViewById<TextView>(R.id.tvTotalInvestedAssetInfo)!!.text =
                 assetUiModel.getFormattedTotalInvested()
+            findViewById<TextView>(R.id.tvYieldAssetInfo)!!.setupYieldForAsset(assetUiModel)
             show()
         }
     }
