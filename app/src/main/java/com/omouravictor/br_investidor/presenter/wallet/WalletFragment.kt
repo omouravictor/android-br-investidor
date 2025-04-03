@@ -1,5 +1,6 @@
 package com.omouravictor.br_investidor.presenter.wallet
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -21,10 +22,10 @@ import com.omouravictor.br_investidor.R
 import com.omouravictor.br_investidor.databinding.FragmentWalletBinding
 import com.omouravictor.br_investidor.presenter.model.UiState
 import com.omouravictor.br_investidor.presenter.user.UserViewModel
+import com.omouravictor.br_investidor.presenter.wallet.asset.getFormattedSymbol
 import com.omouravictor.br_investidor.presenter.wallet.asset_currencies.AssetCurrenciesFragment
 import com.omouravictor.br_investidor.presenter.wallet.asset_types.AssetTypesFragment
 import com.omouravictor.br_investidor.util.getErrorMessage
-import com.omouravictor.br_investidor.util.hideToolbar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -78,12 +79,23 @@ class WalletFragment : Fragment(R.layout.fragment_wallet) {
                     R.id.addAssetMenuItem ->
                         navController.navigate(WalletFragmentDirections.navToAssetSearchFragment())
 
-                    R.id.deleteAllAssetsMenuItem ->
-                        walletViewModel.deleteAllUserAssets(userViewModel.user.value.uid)
+                    R.id.deleteAllAssetsMenuItem -> showAlertDialogForDelete()
                 }
                 return true
             }
         }, viewLifecycleOwner)
+    }
+
+    private fun showAlertDialogForDelete() {
+        AlertDialog.Builder(context).apply {
+            setTitle(getString(R.string.deleteAllAssets))
+            setMessage(getString(R.string.deleteAllAssetAlertMessage))
+            setPositiveButton(getString(R.string.yes)) { _, _ ->
+                walletViewModel.deleteAllUserAssets(userViewModel.user.value.uid)
+            }
+            setNegativeButton(getString(R.string.not)) { dialog, _ -> dialog.dismiss() }
+            setIcon(R.drawable.ic_delete)
+        }.show()
     }
 
     private fun setupTabLayoutWithViewPager2() {
@@ -130,15 +142,18 @@ class WalletFragment : Fragment(R.layout.fragment_wallet) {
                     when (it) {
                         is UiState.Success -> {
                             if (it.data.isNotEmpty())
-                                binding.viewFlipper.displayedChild = VIEW_FLIPPER_CHILD_FILLED_WALLET_LAYOUT
+                                binding.viewFlipper.displayedChild =
+                                    VIEW_FLIPPER_CHILD_FILLED_WALLET_LAYOUT
                             else
-                                binding.viewFlipper.displayedChild = VIEW_FLIPPER_CHILD_EMPTY_WALLET_LAYOUT
+                                binding.viewFlipper.displayedChild =
+                                    VIEW_FLIPPER_CHILD_EMPTY_WALLET_LAYOUT
                         }
 
                         is UiState.Error -> {
                             binding.apply {
                                 viewFlipper.displayedChild = VIEW_FLIPPER_CHILD_WALLET_ERROR_LAYOUT
-                                incWalletErrorLayout.tvInfoMessage.text = root.context.getErrorMessage(it.e)
+                                incWalletErrorLayout.tvInfoMessage.text =
+                                    root.context.getErrorMessage(it.e)
                             }
                         }
 

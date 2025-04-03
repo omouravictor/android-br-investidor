@@ -39,7 +39,8 @@
     <string name="fillAllFields">Preencha todos os campos.</string>
     <string name="registerMessage">Não tem uma conta? Cadastre-se</string>
     <string name="doLoginMessage">Já tem uma conta? Faça login</string>
-    <string name="deleteAssetAlertMessage">Tem certeza de que deseja excluir este ativo da sua carteira?</string>
+    <string name="deleteAssetAlertMessage">Tem certeza de que deseja excluir este ativo da carteira?</string>
+    <string name="deleteAllAssetAlertMessage">Tem certeza de que deseja excluir todos os ativo da carteira?</string>
     <string name="logoutAlertMessage">Tem certeza de que deseja sair desta conta?</string>
     <string name="deleteAccountAlertMessage">Tem certeza de que deseja excluir esta conta?</string>
     <string name="saleAssetAlertMessage">Tem certeza de que deseja vender todos os ativos?</string>
