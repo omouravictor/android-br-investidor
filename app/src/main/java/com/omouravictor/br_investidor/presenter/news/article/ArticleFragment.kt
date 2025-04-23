@@ -3,6 +3,7 @@ package com.omouravictor.br_investidor.presenter.news.article
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.core.view.isVisible
@@ -39,6 +40,9 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
 
         webView.apply {
             settings.javaScriptEnabled = true
+            settings.domStorageEnabled = true
+            settings.databaseEnabled = true
+
             webViewClient = object : WebViewClient() {
                 override fun onPageFinished(view: WebView?, url: String?) {
                     progressBar.isVisible = false
