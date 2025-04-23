@@ -15,12 +15,15 @@
 
     <TextView
         android:id="@+id/articleSource"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:ellipsize="end"
+        android:maxLines="1"
         android:textColor="@color/appTextColor"
         android:textSize="@dimen/textSize2"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/articleImage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/articleImage"
         tools:text="Dinheirama.com" />
@@ -57,12 +60,17 @@
 
     <TextView
         android:id="@+id/articleDateTime"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textAlignment="textEnd"
         android:textColor="@color/appTextColor"
         android:textSize="@dimen/textSize0"
         app:layout_constraintBottom_toBottomOf="@+id/articleSource"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/articleSource"
         app:layout_constraintTop_toTopOf="@+id/articleSource"
         tools:text="09/08/2024 20:09" />
 
