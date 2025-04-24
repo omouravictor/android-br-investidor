@@ -39,7 +39,6 @@ class ArticleFragment : Fragment(R.layout.fragment_article) {
         val ivForward = binding.ivForward
 
         webView.apply {
-            settings.javaScriptEnabled = true
             settings.domStorageEnabled = true
             settings.databaseEnabled = true
 
