@@ -50,7 +50,7 @@ This project is part of my personal portfolio, so, I'll be happy if you could pr
 - Go to https://freecurrencyapi.com, create an account and generate a free API key for Free Currency API.
 - Go to https://newsapi.org, create an account and generate a free API key for News API.
 - Access project root folder (android-br-investidor) and create a file with name "api.properties".
-- Add the line below on "api.properties" file including your API keys.
+- Add the lines below on "api.properties" file including your API keys.
 
 ```
 STOCKS_API_BASE_URL="https://alpha-vantage.p.rapidapi.com/"
