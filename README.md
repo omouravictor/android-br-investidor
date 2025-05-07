@@ -28,6 +28,17 @@
 - [Guava](https://github.com/google/guava)
 - [MPAndroidChart](https://github.com/PhilJay/MPAndroidChart)
 
+## About this project
+
+In this application you can:
+
+- Use all essential features for free — no initial cost required.
+- Manage your investments in a simple and efficient way.
+- Register your assets and transactions anytime, anywhere.
+- Access everything in one place: portfolio, news, and currency converter.
+- Stay updated with real-time financial data and the latest market news.
+- Navigate easily with a modern and intuitive interface.
+
 ## Why?
 
 This project is part of my personal portfolio, so, I'll be happy if you could provide me any
