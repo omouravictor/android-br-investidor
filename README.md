@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/omouravictor/assets/blob/main/assets/br-investidor/icon.png" width=15%>
+  <img src="https://github.com/user-attachments/assets/7dc93db5-83e8-4766-8176-e57b4fe7238d"/>
 </p>
 
 <h1 align="center">BR Investidor</h1>
